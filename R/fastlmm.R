@@ -62,20 +62,37 @@ fastlmm = function( Y, X, U, s, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U)){
 		s = abs(s[seq_len(rank), drop=FALSE])
 	}
 
-	if( ncol(Y) == 1){
-		res = .fastlmm_c( 	Y = Y, 
-							X = X, 
-							U = dcmp$vectors, 
-							s = sqrt(dcmp$values), 
-							delta = delta)
-		class(res) = "fastlmm"
-	}else{
-
-		res = .fastlmm_batch_c( Y = Y, 
+	if( nrow(Y) == 1){
+		if( is(dcmp$vectors, "sparseMatrix") ){
+			res = .fastlmm_spmat( Y = Y, 
 								X = X, 
 								U = dcmp$vectors, 
 								s = sqrt(dcmp$values), 
 								delta = delta)
+		}else{
+			res = .fastlmm_mat( Y = Y, 
+								X = X, 
+								U = dcmp$vectors, 
+								s = sqrt(dcmp$values), 
+								delta = delta)
+		}
+		class(res) = "fastlmm"
+	}else{
+
+		if( is(dcmp$vectors, "sparseMatrix") ){
+			res = .fastlmm_batch_spmat( Y = Y, 
+									X = X, 
+									U = dcmp$vectors, 
+									s = sqrt(dcmp$values), 
+									delta = delta)
+		}else{
+			res = .fastlmm_batch_mat( Y = Y, 
+									X = X, 
+									U = dcmp$vectors, 
+									s = sqrt(dcmp$values), 
+									delta = delta)
+
+		}
 		class(res) = "fastlmmList"
 	}
 

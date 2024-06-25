@@ -42,28 +42,31 @@ class FASTLMM_result {
     }
 };
 
-
+template <typename T> 
 class FASTLMM {       
   public:  
 
     // constructor, minimal
+    // template <typename T> 
     FASTLMM(const arma::vec &Y_, 
             const arma::mat &X_, 
-            const arma::mat &U_, 
+            const T &U_, 
             const arma::vec &s_);
 
     // constructor, precompute Yu, Xu
+    // template <typename T> 
     FASTLMM(const arma::vec &Y_, 
             const arma::mat &X_, 
-            const arma::mat &U_, 
+            const T &U_, 
             const arma::vec &s_,
             const arma::vec &Yu_, 
             const arma::mat &Xu_);
 
     // constructor, precompute Yu, Xu, cp_X_low, cp_X_low_Y_low
+    // template <typename T> 
     FASTLMM(const arma::vec &Y_, 
             const arma::mat &X_,
-            const arma::mat &U_, 
+            const T &U_, 
             const arma::vec &s_,
             const arma::vec &Yu_, 
             const arma::mat &Xu_,
@@ -71,8 +74,9 @@ class FASTLMM {
             const arma::mat &cp_X_low_Y_low_);
 
     // constructor with out response
+    // template <typename T> 
     FASTLMM(const arma::mat &X_, 
-            const arma::mat &U_, 
+            const T &U_, 
             const arma::vec &s_);
 
     // extract results
@@ -145,7 +149,8 @@ class FASTLMM {
 
   private:
     arma::vec Y, Yu;
-    arma::mat X, Xu, U;
+    arma::mat X, Xu;
+    T U;
     arma::vec s;
     arma::mat cp_X_low, cp_X_low_Y_low;
     arma::vec inv_s_delta;
@@ -160,9 +165,10 @@ class FASTLMM {
 
 
 // constructor, minimal
-FASTLMM::FASTLMM(const arma::vec &Y_, 
+template <typename T> 
+FASTLMM<T>::FASTLMM(const arma::vec &Y_, 
         const arma::mat &X_, 
-        const arma::mat &U_, 
+        const T &U_, 
         const arma::vec &s_){
 
   this->Y = Y_;
@@ -174,14 +180,14 @@ FASTLMM::FASTLMM(const arma::vec &Y_,
   this->cp_X_low = X.t() * X - Xu.t() * Xu;
   this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
   this->inv_s_delta_Xu = arma::mat( Xu.n_rows, Xu.n_cols);
-
   // use weights here
 } 
 
 // constructor, precompute Yu, Xu
-FASTLMM::FASTLMM(const arma::vec &Y_, 
+template <typename T> 
+FASTLMM<T>::FASTLMM(const arma::vec &Y_, 
         const arma::mat &X_, 
-        const arma::mat &U_, 
+        const T &U_, 
         const arma::vec &s_,
         const arma::vec &Yu_, 
         const arma::mat &Xu_){
@@ -199,10 +205,11 @@ FASTLMM::FASTLMM(const arma::vec &Y_,
   // use weights here
 } 
 
-    // constructor, precompute Yu, Xu, cp_X_low, cp_X_low_Y_low
-FASTLMM::FASTLMM(const arma::vec &Y_, 
+// constructor, precompute Yu, Xu, cp_X_low, cp_X_low_Y_low
+template <typename T> 
+FASTLMM<T>::FASTLMM(const arma::vec &Y_, 
             const arma::mat &X_,
-            const arma::mat &U_, 
+            const T &U_, 
             const arma::vec &s_,
             const arma::vec &Yu_, 
             const arma::mat &Xu_,
@@ -221,9 +228,9 @@ FASTLMM::FASTLMM(const arma::vec &Y_,
   // use weights here?
 } 
 
-
-FASTLMM::FASTLMM( const arma::mat &X_, 
-                  const arma::mat &U_, 
+template <typename T> 
+FASTLMM<T>::FASTLMM( const arma::mat &X_, 
+                  const T &U_, 
                   const arma::vec &s_){
   this->X = X_;
   this->U = U_;
@@ -233,12 +240,14 @@ FASTLMM::FASTLMM( const arma::mat &X_,
   this->inv_s_delta_Xu = arma::mat( Xu.n_rows, Xu.n_cols);
 }
 
-void FASTLMM::update_response(const arma::vec &Y_){
+template <typename T> 
+void FASTLMM<T>::update_response(const arma::vec &Y_){
 
   update_response(Y, U.t() * Y_);
 } 
 
-void FASTLMM::update_response(const arma::vec &Y_, 
+template <typename T> 
+void FASTLMM<T>::update_response(const arma::vec &Y_, 
                               const arma::vec &Yu_){
   this->Y = Y_;
   this->Yu = Yu_;  
@@ -246,7 +255,8 @@ void FASTLMM::update_response(const arma::vec &Y_,
 }
 
 
-double FASTLMM::ll(const double &delta ) { 
+template <typename T> 
+double FASTLMM<T>::ll(const double &delta ) { 
 
   double n = X.n_rows;
   double rank = Xu.n_rows;
@@ -291,9 +301,20 @@ double FASTLMM::ll(const double &delta ) {
 
 
 // function to be minimized
-double ll_alone( double delta_log, void *arg){
+double ll_alone_mat( double delta_log, void *arg){
 
-  FASTLMM *fit = (FASTLMM *) arg;
+  FASTLMM<arma::mat> *fit = (FASTLMM<arma::mat> *) arg;
+
+  // search is done in log space 
+  //  to give faster convergence
+  fit->eval_delta( exp(delta_log) );
+
+  return -1.0*fit->get_logLik();
+}
+// sparse version
+double ll_alone_spmat( double delta_log, void *arg){
+
+  FASTLMM<arma::sp_mat> *fit = (FASTLMM<arma::sp_mat> *) arg;
 
   // search is done in log space 
   //  to give faster convergence
@@ -302,7 +323,17 @@ double ll_alone( double delta_log, void *arg){
   return -1.0*fit->get_logLik();
 }
 
-void FASTLMM::estimate_delta(){
+// general case, returns false
+template <class T>
+bool isSpMatrix(const T &t) { return false;  } 
+
+ // but for arma::sp_mat returns true
+template <>
+bool isSpMatrix( const arma::sp_mat &t) { return true; } 
+
+
+template <typename T>
+void FASTLMM<T>::estimate_delta(){
 
   double a = -20, b = 20;
   iter = 0;
@@ -311,9 +342,15 @@ void FASTLMM::estimate_delta(){
   int status;
 
   // initialize function
-  gsl_function F;
-  F.function = & ll_alone;
+  gsl_function F;  
   F.params = this;
+
+  // Since F.function can't take templated function
+  if( isSpMatrix( U ) ){
+    F.function = & ll_alone_spmat;
+  }else{
+    F.function = & ll_alone_mat;
+  }
 
   // initialize minimizer
   gsl_min_fminimizer *s;
@@ -346,8 +383,9 @@ void FASTLMM::estimate_delta(){
 
 
 
+template <typename T>
 std::vector<FASTLMM_result> 
-  FASTLMM::fit_batch_response( const arma::mat &Y_all_,
+  FASTLMM<T>::fit_batch_response( const arma::mat &Y_all_,
                                const double &delta){
 
   // responses are stored as _rows_

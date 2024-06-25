@@ -12,9 +12,9 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// fastlmm_c
-List fastlmm_c(const arma::vec& Y, const arma::mat& X, const arma::mat& U, const arma::vec& s, const double& delta);
-RcppExport SEXP _fastglmm_fastlmm_c(SEXP YSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP deltaSEXP) {
+// fastlmm_mat
+List fastlmm_mat(const arma::vec& Y, const arma::mat& X, const arma::mat& U, const arma::vec& s, const double& delta);
+RcppExport SEXP _fastglmm_fastlmm_mat(SEXP YSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP deltaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -23,13 +23,28 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::mat& >::type U(USEXP);
     Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
     Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastlmm_c(Y, X, U, s, delta));
+    rcpp_result_gen = Rcpp::wrap(fastlmm_mat(Y, X, U, s, delta));
     return rcpp_result_gen;
 END_RCPP
 }
-// fastlmm_batch_c
-List fastlmm_batch_c(const arma::mat& Y_all, const arma::mat& X, const arma::mat& U, const arma::vec& s, const double& delta);
-RcppExport SEXP _fastglmm_fastlmm_batch_c(SEXP Y_allSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP deltaSEXP) {
+// fastlmm_spmat
+List fastlmm_spmat(const arma::vec& Y, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const double& delta);
+RcppExport SEXP _fastglmm_fastlmm_spmat(SEXP YSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP deltaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat& >::type U(USEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
+    Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
+    rcpp_result_gen = Rcpp::wrap(fastlmm_spmat(Y, X, U, s, delta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// fastlmm_batch_mat
+List fastlmm_batch_mat(const arma::mat& Y_all, const arma::mat& X, const arma::mat& U, const arma::vec& s, const double& delta);
+RcppExport SEXP _fastglmm_fastlmm_batch_mat(SEXP Y_allSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP deltaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -38,14 +53,31 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::mat& >::type U(USEXP);
     Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
     Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastlmm_batch_c(Y_all, X, U, s, delta));
+    rcpp_result_gen = Rcpp::wrap(fastlmm_batch_mat(Y_all, X, U, s, delta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// fastlmm_batch_spmat
+List fastlmm_batch_spmat(const arma::mat& Y_all, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const double& delta);
+RcppExport SEXP _fastglmm_fastlmm_batch_spmat(SEXP Y_allSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP deltaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type Y_all(Y_allSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat& >::type U(USEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
+    Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
+    rcpp_result_gen = Rcpp::wrap(fastlmm_batch_spmat(Y_all, X, U, s, delta));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_fastglmm_fastlmm_c", (DL_FUNC) &_fastglmm_fastlmm_c, 5},
-    {"_fastglmm_fastlmm_batch_c", (DL_FUNC) &_fastglmm_fastlmm_batch_c, 5},
+    {"_fastglmm_fastlmm_mat", (DL_FUNC) &_fastglmm_fastlmm_mat, 5},
+    {"_fastglmm_fastlmm_spmat", (DL_FUNC) &_fastglmm_fastlmm_spmat, 5},
+    {"_fastglmm_fastlmm_batch_mat", (DL_FUNC) &_fastglmm_fastlmm_batch_mat, 5},
+    {"_fastglmm_fastlmm_batch_spmat", (DL_FUNC) &_fastglmm_fastlmm_batch_spmat, 5},
     {NULL, NULL, 0}
 };
 
