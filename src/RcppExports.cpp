@@ -27,9 +27,25 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// fastlmm_batch_c
+List fastlmm_batch_c(const arma::mat& Y_all, const arma::mat& X, const arma::mat& U, const arma::vec& s, const double& delta);
+RcppExport SEXP _fastglmm_fastlmm_batch_c(SEXP Y_allSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP deltaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type Y_all(Y_allSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type U(USEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
+    Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
+    rcpp_result_gen = Rcpp::wrap(fastlmm_batch_c(Y_all, X, U, s, delta));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_fastglmm_fastlmm_c", (DL_FUNC) &_fastglmm_fastlmm_c, 5},
+    {"_fastglmm_fastlmm_batch_c", (DL_FUNC) &_fastglmm_fastlmm_batch_c, 5},
     {NULL, NULL, 0}
 };
 

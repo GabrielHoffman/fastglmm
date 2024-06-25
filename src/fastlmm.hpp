@@ -1,6 +1,10 @@
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 
+// only depends on armadillo and gsl
+// Can be imported by plain C++ without Rcpp*
+//  by only modifying header above
+
 #ifndef FASTLMM_H_
 #define FASTLMM_H_
 
@@ -9,107 +13,106 @@
 #include <gsl/gsl_min.h>
 #include <gsl/gsl_errno.h>
 
-using namespace Rcpp; 
-using namespace arma;
+
+class FASTLMM_result {       
+  public:  
+    double logLik, sig_g, sig_e, delta;
+    int iter;
+    arma::vec beta, beta_se;
+    arma::mat vcov;
+
+    FASTLMM_result(){}
+
+    FASTLMM_result( const double &logLik_,
+                    const arma::vec &beta_,
+                    const arma::mat &vcov_,
+                    const arma::vec &beta_se_,
+                    const double &delta_,
+                    const double &sig_g_,
+                    const double &sig_e_,
+                    const int &iter_ ){
+      logLik = logLik_;
+      beta   = beta_;
+      vcov   = vcov_;
+      beta_se= beta_se_;
+      delta  = delta_;
+      sig_g  = sig_g_;
+      sig_e  = sig_e_;
+      iter   = iter_;
+    }
+};
+
 
 class FASTLMM {       
   public:  
+
     // constructor, minimal
     FASTLMM(const arma::vec &Y_, 
             const arma::mat &X_, 
             const arma::mat &U_, 
-            const arma::vec &s_){
-
-      Y = Y_;
-      X = X_;
-      U = U_;
-      s = s_;
-
-      // use weights here
-      Yu = U.t() * Y;
-      Xu = U.t() * X;
-
-      // cp_X_low = crossprod(X) - crossprod(Xu)
-      cp_X_low = X.t() * X - Xu.t() * Xu; 
-
-      // cp_X_low_Y_low = crossprod(X, Y) - crossprod(Xu, Yu)
-      cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
-
-      inv_s_delta_Xu = arma::mat( Xu.n_rows, Xu.n_cols);
-    } 
+            const arma::vec &s_);
 
     // constructor, precompute Yu, Xu
     FASTLMM(const arma::vec &Y_, 
             const arma::mat &X_, 
-            const arma::vec &Yu_, 
-            const arma::mat &Xu_,
             const arma::mat &U_, 
-            const arma::vec &s_){
-
-      Y = Y_;
-      X = X_;
-      U = U_;
-      s = s_;
-      Yu = Yu_;
-      Xu = Xu_;
-
-      // use weights here
-
-      // cp_X_low = crossprod(X) - crossprod(Xu)
-      cp_X_low = X.t() * X - Xu.t() * Xu; 
-
-      // cp_X_low_Y_low = crossprod(X, Y) - crossprod(Xu, Yu)
-      cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
-
-      inv_s_delta_Xu = arma::mat( Xu.n_rows, Xu.n_cols);
-    } 
+            const arma::vec &s_,
+            const arma::vec &Yu_, 
+            const arma::mat &Xu_);
 
     // constructor, precompute Yu, Xu, cp_X_low, cp_X_low_Y_low
     FASTLMM(const arma::vec &Y_, 
-            const arma::mat &X_, 
-            const arma::vec &Yu_, 
-            const arma::mat &Xu_,
+            const arma::mat &X_,
             const arma::mat &U_, 
             const arma::vec &s_,
+            const arma::vec &Yu_, 
+            const arma::mat &Xu_,
             const arma::mat &cp_X_low_, 
-            const arma::mat &cp_X_low_Y_low_){
+            const arma::mat &cp_X_low_Y_low_);
 
-      Y = Y_;
-      X = X_;
-      U = U_;
-      s = s_;
-      Yu = Yu_;
-      Xu = Xu_;
+    // constructor with out response
+    FASTLMM(const arma::mat &X_, 
+            const arma::mat &U_, 
+            const arma::vec &s_);
 
-      // use weights here
+    // extract results
+    FASTLMM_result get_result(){
 
-      cp_X_low = cp_X_low_;
-      cp_X_low_Y_low = cp_X_low_Y_low_;
+      arma::mat V = get_vcov();
 
-      inv_s_delta_Xu = arma::mat( Xu.n_rows, Xu.n_cols);
-    } 
+      return FASTLMM_result(  get_logLik(),
+                              get_beta(),
+                              V,
+                              sqrt(diagvec(V)),
+                              get_delta(),
+                              get_sigg(),
+                              get_sige(),
+                              get_iter());
+    }
 
     // Accessors
-    double get_logLik(){ return logLik; }
-    arma::vec get_beta(){ return beta; }
-    double get_sigg(){ return sig_g;}
-    double get_sige(){ return delta_hat * sig_g;}
-    double get_iter(){ return iter;}
-    double get_delta(){ return delta_hat;}
-    arma::mat get_vcov(){
-      return inv(QXX) * sig_g;
+    const double get_logLik(){ return this->logLik; }
+    const arma::vec get_beta(){ return this->beta; }
+    const double get_sigg(){ return sig_g;}
+    const double get_sige(){ 
+      return this->delta_hat * this->sig_g;
     }
-    arma::mat get_beta_se(){
+    const double get_iter(){ return this->iter;}
+    const double get_delta(){ return this->delta_hat;}
+    const arma::mat get_vcov(){
+      return inv(this->QXX) * this->sig_g;
+    }
+    const arma::mat get_beta_se(){
       return sqrt(diagvec(get_vcov()));
     }
 
     // how to combine X and K?
     // to create diagonals of hat matrix?
-    double get_edf(); // defined before
-    double get_rdf(); // based on Hastie, et al
-    arma::vec hatvalues(); // diag of hat matrix
-    arma::vec residuals();
-    arma::vec predict();
+    const double get_edf(); // defined before
+    const double get_rdf(); // based on Hastie, et al
+    const arma::vec hatvalues(); // diag of hat matrix
+    const arma::vec residuals();
+    const arma::vec predict();
     // df = sum(s[seq_len(rank)]/(s[seq_len(rank)]+delta))
 
     // compute log likelihood
@@ -117,10 +120,18 @@ class FASTLMM {
 
     void estimate_delta();
 
+    void update_response(const arma::vec &Y_);
+    void update_response(const arma::vec &Y_, 
+                         const arma::vec &Yu_);
+
+    std::vector<FASTLMM_result> 
+        fit_batch_response(const arma::mat &Y_all_, 
+                           const double &delta);
+
     // evaluate logLik, beta, etc at delta value
     void eval_delta( const double &delta){
-      logLik = ll( delta );
-      delta_hat = delta;
+      this->logLik = ll( delta );
+      this->delta_hat = delta;
     }
 
     // Score test
@@ -133,7 +144,7 @@ class FASTLMM {
     void update_X( const arma::vec &X_);
 
   private:
-    arma::mat Y, Yu;
+    arma::vec Y, Yu;
     arma::mat X, Xu, U;
     arma::vec s;
     arma::mat cp_X_low, cp_X_low_Y_low;
@@ -145,6 +156,95 @@ class FASTLMM {
 
     double logLik, sig_g, delta_hat, iter = 0;
 };
+
+
+
+// constructor, minimal
+FASTLMM::FASTLMM(const arma::vec &Y_, 
+        const arma::mat &X_, 
+        const arma::mat &U_, 
+        const arma::vec &s_){
+
+  this->Y = Y_;
+  this->X = X_;
+  this->U = U_;
+  this->s = s_;
+  this->Yu = U_.t() * Y_;
+  this->Xu =  U_.t() * X_;
+  this->cp_X_low = X.t() * X - Xu.t() * Xu;
+  this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
+  this->inv_s_delta_Xu = arma::mat( Xu.n_rows, Xu.n_cols);
+
+  // use weights here
+} 
+
+// constructor, precompute Yu, Xu
+FASTLMM::FASTLMM(const arma::vec &Y_, 
+        const arma::mat &X_, 
+        const arma::mat &U_, 
+        const arma::vec &s_,
+        const arma::vec &Yu_, 
+        const arma::mat &Xu_){
+
+  this->Y = Y_;
+  this->X = X_;
+  this->U = U_;
+  this->s = s_;
+  this->Yu = Yu_;
+  this->Xu = Xu_;
+  this->cp_X_low = X.t() * X - Xu.t() * Xu;
+  this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
+  this->inv_s_delta_Xu = arma::mat( Xu.n_rows, Xu.n_cols);
+
+  // use weights here
+} 
+
+    // constructor, precompute Yu, Xu, cp_X_low, cp_X_low_Y_low
+FASTLMM::FASTLMM(const arma::vec &Y_, 
+            const arma::mat &X_,
+            const arma::mat &U_, 
+            const arma::vec &s_,
+            const arma::vec &Yu_, 
+            const arma::mat &Xu_,
+            const arma::mat &cp_X_low_, 
+            const arma::mat &cp_X_low_Y_low_){
+
+  this->Y = Y_;
+  this->X = X_;
+  this->U = U_;
+  this->s = s_;
+  this->Yu = Yu_;
+  this->Xu = Xu_;
+  this->cp_X_low = cp_X_low_;
+  this->cp_X_low_Y_low = cp_X_low_Y_low_;
+  this->inv_s_delta_Xu = arma::mat( Xu.n_rows, Xu.n_cols);
+  // use weights here?
+} 
+
+
+FASTLMM::FASTLMM( const arma::mat &X_, 
+                  const arma::mat &U_, 
+                  const arma::vec &s_){
+  this->X = X_;
+  this->U = U_;
+  this->s = s_;
+  this->Xu = U_.t() * X_;
+  this->cp_X_low = X.t() * X - Xu.t() * Xu;
+  this->inv_s_delta_Xu = arma::mat( Xu.n_rows, Xu.n_cols);
+}
+
+void FASTLMM::update_response(const arma::vec &Y_){
+
+  update_response(Y, U.t() * Y_);
+} 
+
+void FASTLMM::update_response(const arma::vec &Y_, 
+                              const arma::vec &Yu_){
+  this->Y = Y_;
+  this->Yu = Yu_;  
+  this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu;
+}
+
 
 double FASTLMM::ll(const double &delta ) { 
 
@@ -176,9 +276,6 @@ double FASTLMM::ll(const double &delta ) {
 
   // r <- Y - X %*% beta
   r = Y - X * beta;
-
-  // inv_s_delta_ru   <- inv_s_delta * ru
-  // vec inv_s_delta_ru = inv_s_delta % ru;
 
   // Qrr <- crossprod(ru, inv_s_delta_ru) + (crossprod(r)[1] - crossprod(ru)[1])/ delta
   // sig_g <<- Qrr[1] / n
@@ -226,6 +323,7 @@ void FASTLMM::estimate_delta(){
   // Rcout << "-4: " << ll_alone(-4, this) << std::endl;
   // Rcout << "b: " << ll_alone(b, this) << std::endl;
 
+  // if this fails, itertively half initial value
   status = gsl_min_fminimizer_set(s, &F, -4, a, b);
 
   do{
@@ -244,5 +342,53 @@ void FASTLMM::estimate_delta(){
 
   gsl_min_fminimizer_free(s);
 }
+
+
+
+
+std::vector<FASTLMM_result> 
+  FASTLMM::fit_batch_response( const arma::mat &Y_all_,
+                               const double &delta){
+
+  // responses are stored as _rows_
+  arma::mat Yu_all = Y_all_ * U;
+
+  int n_responses = Y_all_.n_rows;
+
+  // store results
+  std::vector<FASTLMM_result> result(n_responses, FASTLMM_result()); 
+  int OMP_CHUNK_SIZE = n_responses / omp_get_num_threads();
+
+  // Rcout << "omp_get_num_threads: " << omp_get_num_threads() << std::endl;
+  // Rcout << "OMP_CHUNK_SIZE: " << OMP_CHUNK_SIZE << std::endl;
+
+  // disable nested parallelism
+  omp_set_nested(0);
+  #pragma omp parallel
+  {
+    // initialize
+    FASTLMM fit = FASTLMM(X, U, s);
+
+    // iterate thru responses i.e. rows
+    #pragma omp for schedule(static, OMP_CHUNK_SIZE)
+    for( int i = 0; i < n_responses; i++){
+      fit.update_response(Y_all_.row(i).t(), Yu_all.row(i).t());
+
+      if( delta > 0 ){
+        fit.eval_delta( delta ); 
+      }else{
+        fit.estimate_delta();
+      }
+
+      #pragma omp critical
+      result.at(i) = fit.get_result();
+    }
+  }
+
+  return result;
+}
+
+
+// List fastlmm_batchX_c()
 
 #endif

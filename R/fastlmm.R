@@ -24,6 +24,64 @@
 #' @importFrom Rcpp evalCpp
 NULL
 
+#' Fit linear mixed model using SVD of covariance 
+#'
+#' Fit linear mixed model using SVD of covariance to scale to large sample sizes.
+#'
+#' @param Y response vector, or matrix with responses as _columns_
+#' @param X matrix of covariates
+#' @param U principal components of covariance matrix
+#' @param s eigen values from of covariance matrix
+#' @param delta ratio of variance components estimated using
+#' @param rank number of of principal components used 
+#' 
+#' @details Fit a linear mixed model with a single variance component.
+#'
+#' @return summary statistics for model fit, and hypothesis testing using X_test_lst, if available
+#' 
+#' @importFrom stats optimize
+#' @export
+fastlmm = function( Y, X, U, s, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U)){
+
+	# add data checks here 
+	if( !is.matrix(Y) ){
+		Y = as.matrix(Y)
+	}
+
+	# internals assume responses are _rows_
+	Y = t(Y)
+
+	if( ncol(Y) != nrow(X) ){
+		stop("dimension of Y and X do not match")
+	}
+
+	rank = min( rank, ncol(U) )
+
+	if( rank < ncol(U)){
+		U = U[,seq_len(rank), drop=FALSE]
+		s = abs(s[seq_len(rank), drop=FALSE])
+	}
+
+	if( ncol(Y) == 1){
+		res = .fastlmm_c( 	Y = Y, 
+							X = X, 
+							U = dcmp$vectors, 
+							s = sqrt(dcmp$values), 
+							delta = delta)
+		class(res) = "fastlmm"
+	}else{
+
+		res = .fastlmm_batch_c( Y = Y, 
+								X = X, 
+								U = dcmp$vectors, 
+								s = sqrt(dcmp$values), 
+								delta = delta)
+		class(res) = "fastlmmList"
+	}
+
+	res
+}
+
 ll_R = function( delta, Y, X, Yu, Xu, U, s ){			
 
 	n = nrow(X)
