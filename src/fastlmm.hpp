@@ -51,7 +51,8 @@ class FASTLMM {
     FASTLMM(const arma::vec &Y_, 
             const arma::mat &X_, 
             const T &U_, 
-            const arma::vec &s_);
+            const arma::vec &s_,
+            const arma::vec &weights);
 
     // constructor, precompute Yu, Xu
     // template <typename T> 
@@ -59,6 +60,7 @@ class FASTLMM {
             const arma::mat &X_, 
             const T &U_, 
             const arma::vec &s_,
+            const arma::vec &weights,
             const arma::vec &Yu_, 
             const arma::mat &Xu_);
 
@@ -68,12 +70,13 @@ class FASTLMM {
             const arma::mat &X_,
             const T &U_, 
             const arma::vec &s_,
+            const arma::vec &weights,
             const arma::vec &Yu_, 
             const arma::mat &Xu_,
             const arma::mat &cp_X_low_, 
             const arma::mat &cp_X_low_Y_low_);
 
-    // constructor with out response
+    // constructor without response
     // template <typename T> 
     FASTLMM(const arma::mat &X_, 
             const T &U_, 
@@ -122,7 +125,7 @@ class FASTLMM {
     // compute log likelihood
     double ll(const double &delta);
 
-    void estimate_delta();
+    void estimate_delta( const double &tol);
 
     void update_response(const arma::vec &Y_);
     void update_response(const arma::vec &Y_, 
@@ -130,7 +133,9 @@ class FASTLMM {
 
     std::vector<FASTLMM_result> 
         fit_batch_response(const arma::mat &Y_all_, 
-                           const double &delta);
+                           const arma::mat &weights_,
+                           const double &delta,
+                           const double &tol);
 
     // evaluate logLik, beta, etc at delta value
     void eval_delta( const double &delta){
@@ -151,7 +156,7 @@ class FASTLMM {
     arma::vec Y, Yu;
     arma::mat X, Xu;
     T U;
-    arma::vec s;
+    arma::vec s, weights;
     arma::mat cp_X_low, cp_X_low_Y_low;
     arma::vec inv_s_delta;
     arma::mat inv_s_delta_Xu;
@@ -169,7 +174,8 @@ template <typename T>
 FASTLMM<T>::FASTLMM(const arma::vec &Y_, 
         const arma::mat &X_, 
         const T &U_, 
-        const arma::vec &s_){
+        const arma::vec &s_,
+        const arma::vec &weights){
 
   this->Y = Y_;
   this->X = X_;
@@ -189,6 +195,7 @@ FASTLMM<T>::FASTLMM(const arma::vec &Y_,
         const arma::mat &X_, 
         const T &U_, 
         const arma::vec &s_,
+        const arma::vec &weights,
         const arma::vec &Yu_, 
         const arma::mat &Xu_){
 
@@ -211,6 +218,7 @@ FASTLMM<T>::FASTLMM(const arma::vec &Y_,
             const arma::mat &X_,
             const T &U_, 
             const arma::vec &s_,
+            const arma::vec &weights,
             const arma::vec &Yu_, 
             const arma::mat &Xu_,
             const arma::mat &cp_X_low_, 
@@ -333,7 +341,7 @@ bool isSpMatrix( const arma::sp_mat &t) { return true; }
 
 
 template <typename T>
-void FASTLMM<T>::estimate_delta(){
+void FASTLMM<T>::estimate_delta( const double &tol ){
 
   double a = -20, b = 20;
   iter = 0;
@@ -373,7 +381,7 @@ void FASTLMM<T>::estimate_delta(){
     a = gsl_min_fminimizer_x_lower(s);
     b = gsl_min_fminimizer_x_upper(s);
 
-    status = gsl_min_test_interval (a, b, 0.0001, 0.0);
+    status = gsl_min_test_interval (a, b, tol, 0.0);
   }
   while (status == GSL_CONTINUE && iter < max_iter);
 
@@ -386,7 +394,9 @@ void FASTLMM<T>::estimate_delta(){
 template <typename T>
 std::vector<FASTLMM_result> 
   FASTLMM<T>::fit_batch_response( const arma::mat &Y_all_,
-                               const double &delta){
+                               const arma::mat &weights_,
+                               const double &delta,
+                               const double &tol){
 
   // responses are stored as _rows_
   arma::mat Yu_all = Y_all_ * U;
@@ -415,7 +425,7 @@ std::vector<FASTLMM_result>
       if( delta > 0 ){
         fit.eval_delta( delta ); 
       }else{
-        fit.estimate_delta();
+        fit.estimate_delta( tol );
       }
 
       #pragma omp critical

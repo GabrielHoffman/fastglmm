@@ -34,6 +34,8 @@ NULL
 #' @param s eigen values from of covariance matrix
 #' @param delta ratio of variance components estimated using
 #' @param rank number of of principal components used 
+#' @param weights weight of each sample 
+#' @param tol tolerance for estimating delta by Brent's method
 #' 
 #' @details Fit a linear mixed model with a single variance component.
 #'
@@ -41,7 +43,7 @@ NULL
 #' 
 #' @importFrom stats optimize
 #' @export
-fastlmm = function( Y, X, U, s, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U)){
+fastlmm = function( Y, X, U, s, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U), weights = NULL, tol = .Machine$double.eps^0.25){
 
 	# add data checks here 
 	if( !is.matrix(Y) ){
@@ -62,19 +64,27 @@ fastlmm = function( Y, X, U, s, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U)){
 		s = abs(s[seq_len(rank), drop=FALSE])
 	}
 
+	# temp values 
+	weights = Y
+	weights[] = 1
+
 	if( nrow(Y) == 1){
 		if( is(dcmp$vectors, "sparseMatrix") ){
 			res = .fastlmm_spmat( Y = Y, 
 								X = X, 
 								U = dcmp$vectors, 
-								s = sqrt(dcmp$values), 
-								delta = delta)
+								s = sqrt(dcmp$values),
+								weights = weights, 
+								delta = delta, 
+								tol = tol)
 		}else{
 			res = .fastlmm_mat( Y = Y, 
 								X = X, 
 								U = dcmp$vectors, 
-								s = sqrt(dcmp$values), 
-								delta = delta)
+								s = sqrt(dcmp$values),
+								weights = weights, 
+								delta = delta, 
+								tol = tol)
 		}
 		class(res) = "fastlmm"
 	}else{
@@ -83,14 +93,18 @@ fastlmm = function( Y, X, U, s, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U)){
 			res = .fastlmm_batch_spmat( Y = Y, 
 									X = X, 
 									U = dcmp$vectors, 
-									s = sqrt(dcmp$values), 
-									delta = delta)
+									s = sqrt(dcmp$values),
+									weights = weights, 
+									delta = delta, 
+									tol = tol)
 		}else{
 			res = .fastlmm_batch_mat( Y = Y, 
 									X = X, 
 									U = dcmp$vectors, 
 									s = sqrt(dcmp$values), 
-									delta = delta)
+									weights = weights,
+									delta = delta, 
+									tol = tol)
 
 		}
 		class(res) = "fastlmmList"

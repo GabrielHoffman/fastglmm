@@ -4,7 +4,17 @@
 \alias{fastlmm}
 \title{Fit linear mixed model using SVD of covariance}
 \usage{
-fastlmm(Y, X, U, s, delta = NULL, sig_a_fixed = FALSE, rank = ncol(U))
+fastlmm(
+  Y,
+  X,
+  U,
+  s,
+  delta = NULL,
+  sig_a_fixed = FALSE,
+  rank = ncol(U),
+  weights = NULL,
+  tol = .Machine$double.eps^0.25
+)
 }
 \arguments{
 \item{Y}{response vector, or matrix with responses as _columns_}
@@ -18,6 +28,10 @@ fastlmm(Y, X, U, s, delta = NULL, sig_a_fixed = FALSE, rank = ncol(U))
 \item{delta}{ratio of variance components estimated using}
 
 \item{rank}{number of of principal components used}
+
+\item{weights}{weight of each sample}
+
+\item{tol}{tolerance for estimating delta by Brent's method}
 }
 \value{
 summary statistics for model fit, and hypothesis testing using X_test_lst, if available
