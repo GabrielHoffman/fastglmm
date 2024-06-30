@@ -2,5 +2,8 @@ pandoc: '3.2'
 pkgdown: 2.0.9
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-06-26T17:41Z
+last_built: 2024-06-28T00:29Z
+urls:
+  reference: http://GabrielHoffman.github.io/fastglmm/reference
+  article: http://GabrielHoffman.github.io/fastglmm/articles
 

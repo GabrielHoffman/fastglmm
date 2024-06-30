@@ -1,0 +1,17 @@
+
+url: http://GabrielHoffman.github.io/fastglmm
+
+authors:
+  "Gabriel Hoffman":
+    href: http://gabrielhoffman.github.io
+
+template:
+  bootstrap: 5
+  bootswatch: flatly
+
+search:
+  exclude: ['news/index.html']
+
+  
+
+
