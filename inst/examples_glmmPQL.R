@@ -1,4 +1,9 @@
 
+library(RhpcBLASctl)
+omp_set_num_threads(4)
+library(RhpcBLASctl)
+omp_set_num_threads(15)
+blas_set_num_threads(1)
 
 Z = Rfast::matrnorm(4000, 3000)
 system.time(dcmp2 <- svd(Z))
@@ -47,7 +52,7 @@ coef(summary(fit4))
 
 
 
-n_reps = 1
+n_reps = 2
 system.time(replicate(n_reps, 
 	glmer(y ~ x + (1|Indiv), data = info, family="poisson")))
 
@@ -80,7 +85,7 @@ coef(summary(fit))
 
 # lrgpr
 ######
-library(lrgpr)
+# library(lrgpr)
 library(Matrix)
 
 # Compute SVD directly from info$Indiv, using count order
@@ -94,8 +99,8 @@ dcmp = eigen(ZtZ, symmetric=TRUE)
 # dcmp2 = svd(Z)
 
 dcmp$vectors = tcrossprod(Z, solve(dcmp$vectors)) %*% diag(1/sqrt(dcmp$values))
-# dcmp$vectors = Matrix(dcmp$vectors, sparse = TRUE)
-dcmp$vectors = as.matrix(dcmp$vectors)
+dcmp$vectors = Matrix(dcmp$vectors, sparse = TRUE)
+# dcmp$vectors = as.matrix(dcmp$vectors)
 
 U[1:2,]
 dcmp2$u[1:2,]
@@ -113,14 +118,15 @@ fit$beta
 
 
 X = model.matrix(~x, info)
-fit = fastlmm_R( info$y, X, U = dcmp$vectors, s = sqrt(dcmp$values))
+info$y = as.numeric(info$y)
+fit1 = fastlmm_R( info$y, X, U = dcmp$vectors, s = sqrt(dcmp$values))
 
-fastglmm:::fastlmm_c(info$y, X, U = dcmp$vectors, s = sqrt(dcmp$values))
+fit2 = fastglmm::fastlmm(info$y, X, U = dcmp$vectors, s = sqrt(dcmp$values))
 
 
 # give same answer
-fit1 <- lmer(y ~ x + (1|Indiv), data = info, REML=FALSE)
-coef(summary(fit1))
+fit3 <- lmer(y ~ x + (1|Indiv), data = info, REML=FALSE)
+coef(summary(fit3))
 
 
 
@@ -134,9 +140,17 @@ system.time(replicate(100,
 system.time(replicate(500, 
 	fastlmm( info$y, X, U = dcmp$vectors, s = sqrt(dcmp$values))))
 
-
 system.time(replicate(500, 
 	fastlmm(info$y, X, U = dcmp$vectors, s = sqrt(dcmp$values), delta = 0.008580024)))
+
+# eQTL analysis
+
+system.time({
+fit <- fastlmm( info$y, X, U = dcmp$vectors, s = sqrt(dcmp$values))
+replicate(5000, 
+	fastlmm(info$y, X, U = dcmp$vectors, s = sqrt(dcmp$values), delta = 0.008580024))
+})
+
 
 
 system.time(replicate(100, 

@@ -52,7 +52,7 @@ class FASTLMM {
             const arma::mat &X_, 
             const T &U_, 
             const arma::vec &s_,
-            const arma::vec &weights);
+            const arma::vec &weights_);
 
     // constructor, precompute Yu, Xu
     // template <typename T> 
@@ -60,7 +60,7 @@ class FASTLMM {
             const arma::mat &X_, 
             const T &U_, 
             const arma::vec &s_,
-            const arma::vec &weights,
+            const arma::vec &weights_,
             const arma::vec &Yu_, 
             const arma::mat &Xu_);
 
@@ -70,7 +70,7 @@ class FASTLMM {
             const arma::mat &X_,
             const T &U_, 
             const arma::vec &s_,
-            const arma::vec &weights,
+            const arma::vec &weights_,
             const arma::vec &Yu_, 
             const arma::mat &Xu_,
             const arma::mat &cp_X_low_, 
@@ -81,6 +81,32 @@ class FASTLMM {
     FASTLMM(const arma::mat &X_, 
             const T &U_, 
             const arma::vec &s_);
+
+    // copy constructor
+    // FASTLMM(FASTLMM &obj) {
+    //     Y = obj.Y;
+    //     Yu = obj.Yu;
+    //     X = obj.X; 
+    //     Xu = obj.Xu;
+    //     U = obj.U;
+    //     s = obj.s;
+    //     s.brief_print("Copy constructor");
+    //     weights = obj.weights;
+    //     cp_X_low = obj.cp_X_low;
+    //     cp_X_low_Y_low = obj.cp_X_low_Y_low;
+    //     inv_s_delta = obj.inv_s_delta;
+    //     inv_s_delta_Xu = obj.inv_s_delta_Xu;
+    //     QXX = obj.QXX;
+    //     QXY = obj.QXY;
+    //     beta = obj.beta;
+    //     r = obj.r;
+    //     ru = obj.ru;
+
+    //     logLik = obj.logLik;
+    //     sig_g = obj.sig_g;
+    //     delta_hat = obj.delta_hat;
+    //     iter = obj.iter;
+    // }
 
     // extract results
     FASTLMM_result get_result(){
@@ -175,12 +201,13 @@ FASTLMM<T>::FASTLMM(const arma::vec &Y_,
         const arma::mat &X_, 
         const T &U_, 
         const arma::vec &s_,
-        const arma::vec &weights){
+        const arma::vec &weights_){
 
   this->Y = Y_;
   this->X = X_;
   this->U = U_;
   this->s = s_;
+  this->weights = weights_;
   this->Yu = U_.t() * Y_;
   this->Xu =  U_.t() * X_;
   this->cp_X_low = X.t() * X - Xu.t() * Xu;
@@ -195,7 +222,7 @@ FASTLMM<T>::FASTLMM(const arma::vec &Y_,
         const arma::mat &X_, 
         const T &U_, 
         const arma::vec &s_,
-        const arma::vec &weights,
+        const arma::vec &weights_,
         const arma::vec &Yu_, 
         const arma::mat &Xu_){
 
@@ -203,6 +230,7 @@ FASTLMM<T>::FASTLMM(const arma::vec &Y_,
   this->X = X_;
   this->U = U_;
   this->s = s_;
+  this->weights = weights_;
   this->Yu = Yu_;
   this->Xu = Xu_;
   this->cp_X_low = X.t() * X - Xu.t() * Xu;
@@ -218,7 +246,7 @@ FASTLMM<T>::FASTLMM(const arma::vec &Y_,
             const arma::mat &X_,
             const T &U_, 
             const arma::vec &s_,
-            const arma::vec &weights,
+            const arma::vec &weights_,
             const arma::vec &Yu_, 
             const arma::mat &Xu_,
             const arma::mat &cp_X_low_, 
@@ -228,6 +256,7 @@ FASTLMM<T>::FASTLMM(const arma::vec &Y_,
   this->X = X_;
   this->U = U_;
   this->s = s_;
+  this->weights = weights_;
   this->Yu = Yu_;
   this->Xu = Xu_;
   this->cp_X_low = cp_X_low_;
@@ -266,6 +295,7 @@ void FASTLMM<T>::update_response(const arma::vec &Y_,
 template <typename T> 
 double FASTLMM<T>::ll(const double &delta ) { 
 
+  // Rcpp::Rcout << "start delta" << std::endl;
   double n = X.n_rows;
   double rank = Xu.n_rows;
 
@@ -279,14 +309,20 @@ double FASTLMM<T>::ll(const double &delta ) {
     inv_s_delta_Xu.col(i) = inv_s_delta % Xu.col(i);
   }
 
+  // Rcpp::Rcout << "inv_s_delta_Xu after" << std::endl;
+
   // QXX = crossprod(Xu, inv_s_delta_Xu) + cp_X_low / delta
   QXX = Xu.t() * inv_s_delta_Xu + cp_X_low / delta;
 
+  // Rcpp::Rcout << "QXX" << std::endl;
   // QXY = crossprod(Xu, inv_s_delta_Yu) + cp_X_low_Y_low / delta
   QXY = Xu.t() * (inv_s_delta % Yu) + cp_X_low_Y_low / delta;
 
+  // Rcpp::Rcout << "QXY" << std::endl;
   // beta <<- solve( QXX, QXY)
   beta = arma::solve(QXX, QXY, arma::solve_opts::likely_sympd);
+
+  // Rcpp::Rcout << "end delta" << std::endl;
 
   // # Eval sig_g
   // ru <- Yu - Xu %*% beta
@@ -317,7 +353,9 @@ double ll_alone_mat( double delta_log, void *arg){
   //  to give faster convergence
   fit->eval_delta( exp(delta_log) );
 
-  return -1.0*fit->get_logLik();
+  double value = -1.0*fit->get_logLik();
+
+  return value ;
 }
 // sparse version
 double ll_alone_spmat( double delta_log, void *arg){
@@ -343,7 +381,7 @@ bool isSpMatrix( const arma::sp_mat &t) { return true; }
 template <typename T>
 void FASTLMM<T>::estimate_delta( const double &tol ){
 
-  double a = -20, b = 20;
+  double left = -10, right = 10;
   iter = 0;
   
   double max_iter = 100;
@@ -360,32 +398,43 @@ void FASTLMM<T>::estimate_delta( const double &tol ){
     F.function = & ll_alone_mat;
   }
 
-  // initialize minimizer
-  gsl_min_fminimizer *s;
-  s = gsl_min_fminimizer_alloc( gsl_min_fminimizer_brent );
+  double init = -4;
 
-  // Rcout << "a: " << ll_alone(a, this) << std::endl;
-  // Rcout << "-4: " << ll_alone(-4, this) << std::endl;
-  // Rcout << "b: " << ll_alone(b, this) << std::endl;
+  // evaluate and initial values
+  double value_left = (*F.function)(left, this);
+  double value_mid = (*F.function)(init, this);
+  double value_right = (*F.function)(right, this);
+  
+  // if value_mid is not less than left and right
+  if( value_mid > value_left | value_mid > value_right){
+    // use delta at boundary
+    if( value_left > value_right){
+      delta_hat = exp(right);
+    }else{
+      delta_hat = exp(left);
+    }
 
-  // if this fails, itertively half initial value
-  status = gsl_min_fminimizer_set(s, &F, -4, a, b);
+  }else{
+    // initialize minimizer
+    gsl_min_fminimizer *minObj;
+    minObj = gsl_min_fminimizer_alloc( gsl_min_fminimizer_brent );
+    status = gsl_min_fminimizer_set_with_values(minObj, &F, init, value_mid, left, value_left, right, value_right);
 
-  do{
-    iter++;
-    // Rcout << a << ' ' << b << std::endl;
-    status = gsl_min_fminimizer_iterate(s);
+    do{
+      iter++;
+      status = gsl_min_fminimizer_iterate(minObj);
 
-    delta_hat = gsl_min_fminimizer_x_minimum(s);
-    delta_hat = exp(delta_hat);
-    a = gsl_min_fminimizer_x_lower(s);
-    b = gsl_min_fminimizer_x_upper(s);
+      delta_hat = gsl_min_fminimizer_x_minimum(minObj);
+      delta_hat = exp(delta_hat);
+      left = gsl_min_fminimizer_x_lower(minObj);
+      right = gsl_min_fminimizer_x_upper(minObj);
 
-    status = gsl_min_test_interval (a, b, tol, 0.0);
+      status = gsl_min_test_interval (left, right, tol, 0.0);
+    }
+    while (status == GSL_CONTINUE && iter < max_iter);
+
+    gsl_min_fminimizer_free(minObj);
   }
-  while (status == GSL_CONTINUE && iter < max_iter);
-
-  gsl_min_fminimizer_free(s);
 }
 
 
@@ -406,9 +455,6 @@ std::vector<FASTLMM_result>
   // store results
   std::vector<FASTLMM_result> result(n_responses, FASTLMM_result()); 
   int OMP_CHUNK_SIZE = n_responses / omp_get_num_threads();
-
-  // Rcout << "omp_get_num_threads: " << omp_get_num_threads() << std::endl;
-  // Rcout << "OMP_CHUNK_SIZE: " << OMP_CHUNK_SIZE << std::endl;
 
   // disable nested parallelism
   omp_set_nested(0);

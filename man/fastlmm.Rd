@@ -23,7 +23,7 @@ fastlmm(
 
 \item{U}{principal components of covariance matrix}
 
-\item{s}{eigen values from of covariance matrix}
+\item{s}{sqrt eigen values from of covariance matrix}
 
 \item{delta}{ratio of variance components estimated using}
 
