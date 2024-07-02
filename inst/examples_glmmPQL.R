@@ -175,3 +175,28 @@ profvis({
 	})
 
 
+
+object <- glmer(y ~ x + (1|Indiv), data = info, family="poisson")
+
+resp <- model.response(model.frame(object))
+mu <- na.omit(fitted(object))
+system.time(
+res1 <- MASS::theta.ml(resp, mu, weights = object@resp$weights, limit=20,
+				eps = .Machine$double.eps^0.5)
+)
+
+
+# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastglmm")
+system.time(
+res2 <- fastglmm:::theta_ml(resp, mu, n = length(mu),
+				weights = object@resp$weights,
+				limit = 20,
+				eps = .Machine$double.eps^0.5)
+)
+
+
+res1
+res2
+
+
+

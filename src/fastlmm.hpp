@@ -107,7 +107,7 @@ class FASTLMM {
     const double get_iter(){ return this->iter;}
     const double get_delta(){ return this->delta_hat;}
     const arma::mat get_vcov(){
-      return inv(this->QXX) * this->sig_g;
+      return inv_sympd(this->QXX) * this->sig_g;
     }
     const arma::mat get_beta_se(){
       return sqrt(diagvec(get_vcov()));

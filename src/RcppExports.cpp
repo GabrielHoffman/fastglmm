@@ -80,12 +80,29 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// theta_ml
+List theta_ml(const NumericVector& y, const NumericVector& mu, const int& n, const NumericVector& weights, const int& limit, const double& eps);
+RcppExport SEXP _fastglmm_theta_ml(SEXP ySEXP, SEXP muSEXP, SEXP nSEXP, SEXP weightsSEXP, SEXP limitSEXP, SEXP epsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericVector& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< const int& >::type n(nSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< const int& >::type limit(limitSEXP);
+    Rcpp::traits::input_parameter< const double& >::type eps(epsSEXP);
+    rcpp_result_gen = Rcpp::wrap(theta_ml(y, mu, n, weights, limit, eps));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_fastglmm_fastlmm_mat", (DL_FUNC) &_fastglmm_fastlmm_mat, 7},
     {"_fastglmm_fastlmm_spmat", (DL_FUNC) &_fastglmm_fastlmm_spmat, 7},
     {"_fastglmm_fastlmm_batch_mat", (DL_FUNC) &_fastglmm_fastlmm_batch_mat, 7},
     {"_fastglmm_fastlmm_batch_spmat", (DL_FUNC) &_fastglmm_fastlmm_batch_spmat, 7},
+    {"_fastglmm_theta_ml", (DL_FUNC) &_fastglmm_theta_ml, 6},
     {NULL, NULL, 0}
 };
 

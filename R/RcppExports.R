@@ -17,3 +17,7 @@
     .Call('_fastglmm_fastlmm_batch_spmat', PACKAGE = 'fastglmm', Y_all, X, U, s, weights, delta, tol)
 }
 
+theta_ml <- function(y, mu, n, weights, limit, eps) {
+    .Call('_fastglmm_theta_ml', PACKAGE = 'fastglmm', y, mu, n, weights, limit, eps)
+}
+

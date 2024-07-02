@@ -68,6 +68,10 @@ fastlmm = function( Y, X, U, s, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U), w
 	weights = Y
 	weights[] = 1
 
+	# if delta is NULL, estimate its value
+	# but setting to -1 for C++ calll
+	delta = ifelse( is.null(delta), -1, delta)
+	
 	if( nrow(Y) == 1){
 		if( is(dcmp$vectors, "sparseMatrix") ){
 			res = .fastlmm_spmat( Y = Y, 

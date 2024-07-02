@@ -3,6 +3,7 @@
 
 #include <omp.h>
 #include "fastlmm.hpp"
+#include "nb_theta.hpp"
 
 using namespace Rcpp; 
 using namespace arma;
@@ -50,6 +51,7 @@ List fastlmm_mat( const arma::vec &Y,
                   const arma::vec &weights,
                   const double &delta,
                   const double & tol){
+
   // initialize
   FASTLMM<arma::mat> fit = 
       FASTLMM<arma::mat>(Y, X, U, s, weights);
@@ -108,12 +110,12 @@ List fastlmm_batch_mat( const arma::mat &Y_all,
 
 // [[Rcpp::export(".fastlmm_batch_spmat")]]
 List fastlmm_batch_spmat( const arma::mat &Y_all, 
-                  const arma::mat &X,  
-                  const arma::sp_mat &U, 
-                  const arma::vec &s,
-                  const arma::vec &weights,
-                  const double &delta,
-                  const double & tol){
+                          const arma::mat &X,  
+                          const arma::sp_mat &U, 
+                          const arma::vec &s,
+                          const arma::vec &weights,
+                          const double &delta,
+                          const double & tol){
   // initialize
   FASTLMM<arma::sp_mat> fit = 
       FASTLMM<arma::sp_mat>(X, U, s);
@@ -126,4 +128,6 @@ List fastlmm_batch_spmat( const arma::mat &Y_all,
 
 
 
-  // List a = toList(result);
+
+
+
