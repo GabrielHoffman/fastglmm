@@ -1,17 +1,14 @@
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 
-// only depends on armadillo and gsl
+// only depends on armadillo 
 // Can be imported by plain C++ without Rcpp*
 //  by only modifying header above
 
 #ifndef FASTLMM_H_
 #define FASTLMM_H_
 
-#include <RcppGSL.h>
-
-#include <gsl/gsl_min.h>
-#include <gsl/gsl_errno.h>
+#include "local_min.hpp"
 
 
 class FASTLMM_result {       
@@ -82,32 +79,6 @@ class FASTLMM {
             const T &U_, 
             const arma::vec &s_);
 
-    // copy constructor
-    // FASTLMM(FASTLMM &obj) {
-    //     Y = obj.Y;
-    //     Yu = obj.Yu;
-    //     X = obj.X; 
-    //     Xu = obj.Xu;
-    //     U = obj.U;
-    //     s = obj.s;
-    //     s.brief_print("Copy constructor");
-    //     weights = obj.weights;
-    //     cp_X_low = obj.cp_X_low;
-    //     cp_X_low_Y_low = obj.cp_X_low_Y_low;
-    //     inv_s_delta = obj.inv_s_delta;
-    //     inv_s_delta_Xu = obj.inv_s_delta_Xu;
-    //     QXX = obj.QXX;
-    //     QXY = obj.QXY;
-    //     beta = obj.beta;
-    //     r = obj.r;
-    //     ru = obj.ru;
-
-    //     logLik = obj.logLik;
-    //     sig_g = obj.sig_g;
-    //     delta_hat = obj.delta_hat;
-    //     iter = obj.iter;
-    // }
-
     // extract results
     FASTLMM_result get_result(){
 
@@ -130,7 +101,7 @@ class FASTLMM {
     const double get_sige(){ 
       return this->delta_hat * this->sig_g;
     }
-    const double get_iter(){ return this->iter;}
+    const int get_iter(){ return this->iter;}
     const double get_delta(){ return this->delta_hat;}
     const arma::mat get_vcov(){
       return inv_sympd(this->QXX) * this->sig_g;
@@ -190,7 +161,8 @@ class FASTLMM {
     arma::mat beta;
     arma::vec r, ru;
 
-    double logLik, sig_g, delta_hat, iter = 0;
+    double logLik, sig_g, delta_hat;
+    int iter = 0;
 };
 
 
@@ -295,7 +267,6 @@ void FASTLMM<T>::update_response(const arma::vec &Y_,
 template <typename T> 
 double FASTLMM<T>::ll(const double &delta ) { 
 
-  // Rcpp::Rcout << "start delta" << std::endl;
   double n = X.n_rows;
   double rank = Xu.n_rows;
 
@@ -307,22 +278,16 @@ double FASTLMM<T>::ll(const double &delta ) {
   // inv_s_delta_Xu( Xu.n_rows, Xu.n_cols);
   for(int i=0; i<Xu.n_cols; i++){
     inv_s_delta_Xu.col(i) = inv_s_delta % Xu.col(i);
-  }
-
-  // Rcpp::Rcout << "inv_s_delta_Xu after" << std::endl;
+  };
 
   // QXX = crossprod(Xu, inv_s_delta_Xu) + cp_X_low / delta
   QXX = Xu.t() * inv_s_delta_Xu + cp_X_low / delta;
 
-  // Rcpp::Rcout << "QXX" << std::endl;
   // QXY = crossprod(Xu, inv_s_delta_Yu) + cp_X_low_Y_low / delta
   QXY = Xu.t() * (inv_s_delta % Yu) + cp_X_low_Y_low / delta;
 
-  // Rcpp::Rcout << "QXY" << std::endl;
   // beta <<- solve( QXX, QXY)
   beta = arma::solve(QXX, QXY, arma::solve_opts::likely_sympd);
-
-  // Rcpp::Rcout << "end delta" << std::endl;
 
   // # Eval sig_g
   // ru <- Yu - Xu %*% beta
@@ -384,11 +349,8 @@ void FASTLMM<T>::estimate_delta( const double &tol ){
   double left = -10, right = 10;
   iter = 0;
   
-  double max_iter = 100;
-  int status;
-
   // initialize function
-  gsl_function F;  
+  funcStruct F;  
   F.params = this;
 
   // Since F.function can't take templated function
@@ -398,43 +360,11 @@ void FASTLMM<T>::estimate_delta( const double &tol ){
     F.function = & ll_alone_mat;
   }
 
-  double init = -4;
-
-  // evaluate and initial values
-  double value_left = (*F.function)(left, this);
-  double value_mid = (*F.function)(init, this);
-  double value_right = (*F.function)(right, this);
-  
-  // if value_mid is not less than left and right
-  if( value_mid > value_left | value_mid > value_right){
-    // use delta at boundary
-    if( value_left > value_right){
-      delta_hat = exp(right);
-    }else{
-      delta_hat = exp(left);
-    }
-
-  }else{
-    // initialize minimizer
-    gsl_min_fminimizer *minObj;
-    minObj = gsl_min_fminimizer_alloc( gsl_min_fminimizer_brent );
-    status = gsl_min_fminimizer_set_with_values(minObj, &F, init, value_mid, left, value_left, right, value_right);
-
-    do{
-      iter++;
-      status = gsl_min_fminimizer_iterate(minObj);
-
-      delta_hat = gsl_min_fminimizer_x_minimum(minObj);
-      delta_hat = exp(delta_hat);
-      left = gsl_min_fminimizer_x_lower(minObj);
-      right = gsl_min_fminimizer_x_upper(minObj);
-
-      status = gsl_min_test_interval (left, right, tol, 0.0);
-    }
-    while (status == GSL_CONTINUE && iter < max_iter);
-
-    gsl_min_fminimizer_free(minObj);
-  }
+  // get maximize log-likelihood
+  // need to mutliply but -1 since it actually minimizes
+  double res;
+  logLik = -1*local_min(left, right, tol, &F, res, iter);
+  delta_hat = exp(res);
 }
 
 

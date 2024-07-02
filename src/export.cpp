@@ -52,7 +52,6 @@ List fastlmm_mat( const arma::vec &Y,
                   const double &delta,
                   const double & tol){
 
-  Rcpp::Rcout << "fastlmm_mat..." << std::endl;
   // initialize
   FASTLMM<arma::mat> fit = 
       FASTLMM<arma::mat>(Y, X, U, s, weights);
@@ -76,7 +75,6 @@ List fastlmm_spmat( const arma::vec &Y,
                     const double &delta,
                     const double & tol){
 
-  Rcpp::Rcout << "fastlmm_spmat..." << std::endl;
   // initialize  
   FASTLMM<arma::sp_mat> fit = 
       FASTLMM<arma::sp_mat>(Y, X, U, s, weights);
@@ -100,7 +98,6 @@ List fastlmm_batch_mat( const arma::mat &Y_all,
                         const double &delta,
                         const double & tol){
 
-  Rcpp::Rcout << "fastlmm_batch_mat..." << std::endl;
   // initialize
   FASTLMM<arma::mat> fit = 
       FASTLMM<arma::mat>(X, U, s);
@@ -121,7 +118,6 @@ List fastlmm_batch_spmat( const arma::mat &Y_all,
                           const double &delta,
                           const double & tol){
 
-  Rcpp::Rcout<< "fastlmm_batch_spmat..." << std::endl;
   // initialize
   FASTLMM<arma::sp_mat> fit = 
       FASTLMM<arma::sp_mat>(X, U, s);

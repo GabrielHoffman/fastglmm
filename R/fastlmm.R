@@ -31,7 +31,7 @@ NULL
 #' @param Y response vector, or matrix with responses as _columns_
 #' @param X matrix of covariates
 #' @param U principal components of covariance matrix
-#' @param s sqrt eigen values from of covariance matrix
+#' @param s eigen values from of covariance matrix
 #' @param delta ratio of variance components estimated using
 #' @param rank number of of principal components used 
 #' @param weights weight of each sample 
@@ -69,7 +69,7 @@ fastlmm = function( Y, X, U, s, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U), w
 	weights[] = 1
 
 	# if delta is NULL, estimate its value
-	# but setting to -1 for C++ calll
+	# but setting to -1 for C++ call
 	delta = ifelse( is.null(delta), -1, delta)
 	
 	if( nrow(Y) == 1){
@@ -182,7 +182,7 @@ fastlmm_R = function( Y, X, U, s, Xu = NULL, Yu = NULL, delta=NULL, sig_a_fixed 
 		Yu = crossprod(U, Y)
 	}
 
-	log_interval = c(10, -10)
+	log_interval = exp(c(10, -10))
 
 	n = nrow(Y)
 
@@ -198,7 +198,7 @@ fastlmm_R = function( Y, X, U, s, Xu = NULL, Yu = NULL, delta=NULL, sig_a_fixed 
 	i <- 0
 	ll = function( delta ){			
 		i <<- i + 1
-		delta = exp(delta)
+		# delta = exp(delta_log)
 
 		# Eval Beta
 		inv_s_delta 	<- 1/(s+delta)
@@ -227,12 +227,13 @@ fastlmm_R = function( Y, X, U, s, Xu = NULL, Yu = NULL, delta=NULL, sig_a_fixed 
 	if( is.null(delta) ){
 		result = optimize( ll, log_interval, maximum=TRUE)
 
-		delta = exp(result$maximum)
+		delta = result$maximum
+		# delta = exp(result$maximum)
 		log_L = result$objective
 	}else{
 
 		# Need to evaluate ll(), so that obj values are evaluated
-		log_L = ll(delta)
+		log_L = ll( delta_log = log(delta))
 	}
 
 	beta = as.matrix(beta)
