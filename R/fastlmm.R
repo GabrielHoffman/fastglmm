@@ -41,9 +41,8 @@ NULL
 #'
 #' @return summary statistics for model fit, and hypothesis testing using X_test_lst, if available
 #' 
-#' @importFrom stats optimize
 #' @export
-fastlmm = function( Y, X, U, s, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U), weights = NULL, tol = .Machine$double.eps^0.25){
+fastlmm = function( Y, X, U, s, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U), weights = matrix(1, nrow(Y), ncol(Y)), tol = .Machine$double.eps^0.25){
 
 	# add data checks here 
 	if( !is.matrix(Y) ){
@@ -63,10 +62,6 @@ fastlmm = function( Y, X, U, s, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U), w
 		U = U[,seq_len(rank), drop=FALSE]
 		s = abs(s[seq_len(rank), drop=FALSE])
 	}
-
-	# temp values 
-	weights = Y
-	weights[] = 1
 
 	# if delta is NULL, estimate its value
 	# but setting to -1 for C++ call
@@ -119,6 +114,8 @@ fastlmm = function( Y, X, U, s, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U), w
 
 ll_R = function( delta, Y, X, Yu, Xu, U, s ){			
 
+	info = QXX = sig_g = NA
+
 	n = nrow(X)
 	rank = nrow(Xu)
 
@@ -163,7 +160,7 @@ ll_R = function( delta, Y, X, Yu, Xu, U, s ){
 #' 
 #' @importFrom stats optimize
 #' @export
-fastlmm_R = function( Y, X, U, s, Xu = NULL, Yu = NULL, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U)){
+fastlmm_R = function( Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NULL, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U)){
 
 	rank = min( rank, ncol(U) )
 
@@ -182,7 +179,7 @@ fastlmm_R = function( Y, X, U, s, Xu = NULL, Yu = NULL, delta=NULL, sig_a_fixed 
 		Yu = crossprod(U, Y)
 	}
 
-	log_interval = exp(c(10, -10))
+	log_interval = c(10, -10) 
 
 	n = nrow(Y)
 
@@ -196,9 +193,9 @@ fastlmm_R = function( Y, X, U, s, Xu = NULL, Yu = NULL, delta=NULL, sig_a_fixed 
 	beta = sig_g = QXX = 1
 
 	i <- 0
-	ll = function( delta ){			
+	ll = function( delta_log ){			
 		i <<- i + 1
-		# delta = exp(delta_log)
+		delta = exp(delta_log)
 
 		# Eval Beta
 		inv_s_delta 	<- 1/(s+delta)
@@ -212,6 +209,8 @@ fastlmm_R = function( Y, X, U, s, Xu = NULL, Yu = NULL, delta=NULL, sig_a_fixed 
 		# Eval sig_g
 		ru 				<- Yu - Xu %*% beta
 		r 				<- Y - X %*% beta
+		# r <- r * sqrt(weights)
+
 		inv_s_delta_ru 	<- inv_s_delta * ru
 
 		if( sig_a_fixed ){
@@ -221,22 +220,20 @@ fastlmm_R = function( Y, X, U, s, Xu = NULL, Yu = NULL, delta=NULL, sig_a_fixed 
 			sig_g <<- Qrr[1] / n
 		}
 
-		-n/2 * log(2*pi*sig_g) - 1/2 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2
+		-n/2 * log(2*pi*sig_g) - 1/2 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2 + 1/2 * sum(log(weights))
 	} 
 
 	if( is.null(delta) ){
 		result = optimize( ll, log_interval, maximum=TRUE)
 
-		delta = result$maximum
-		# delta = exp(result$maximum)
-		log_L = result$objective
-	}else{
-
-		# Need to evaluate ll(), so that obj values are evaluated
-		log_L = ll( delta_log = log(delta))
+		# delta = result$maximum
+		delta = exp(result$maximum)
 	}
 
-	beta = as.matrix(beta)
+	# Need to evaluate ll(), so that obj values are evaluated
+	log_L = ll( delta_log = log(delta))
+
+	beta = array(beta, dimnames=list(rownames(beta)))
 	sig_e = delta * sig_g
 
 	###################################
@@ -253,7 +250,7 @@ fastlmm_R = function( Y, X, U, s, Xu = NULL, Yu = NULL, delta=NULL, sig_a_fixed 
 	res = list( logLik 	= log_L, 
 				beta 	= beta,
 				beta_se = beta_se, 
-				V 		= S,
+				vcov 	= S,
 				delta 	= delta, 
 				sig_g 	= sig_g, 
 				sig_e 	= sig_e, 

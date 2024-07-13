@@ -9,6 +9,7 @@ fastlmm_R(
   X,
   U,
   s,
+  weights = rep(1, nrow(X)),
   Xu = NULL,
   Yu = NULL,
   delta = NULL,

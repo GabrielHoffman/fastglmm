@@ -34,16 +34,41 @@
 #' dcmp$vectors = tcrossprod(Z, A) %*% D
 #' 
 #' dcmp
-#' @importFrom Matrix fac2sparse Diagonal t
+#' @importFrom Matrix fac2sparse Diagonal t colSums
 #' @export 
-indicator_decomp = function( Factor ){
+indicator_decomp = function( Factor, weights = rep(1, length(Factor)) ){
+
+	stopifnot( is.factor(Factor) )
+
 	Factor = droplevels( Factor )
-	tab = table(Factor)
-	tab = tab[order(tab, decreasing=TRUE)]
-	lvls = names(tab[order(tab, decreasing=TRUE)])
-	ID = factor(Factor, lvls)
-	Z.mod = t(fac2sparse(ID, to='l'))
-	vectors = Z.mod %*% Diagonal(length(tab), 1/sqrt(as.numeric(tab)))
-	list(vectors = vectors, values = as.numeric(tab))
+	Z.mod = t(fac2sparse(Factor))
+
+	# weight the rows of the indicator matrix
+	#!!!!!!!!but it is fed the sqrt(wegihts)!!!!
+	# weights = nrow(Z.mod) * weights / sum(weights)
+	# Z.mod = Diagonal(nrow(Z.mod), weights)%*%Z.mod
+	Z.mod = weights * Z.mod
+
+	# compute col sum of squares
+	cs = colSums(Z.mod^2)
+
+	# sort by cs value
+	idx = order(cs, decreasing=TRUE)
+	cs = cs[idx]
+	Z.mod = Z.mod[,idx]
+
+	vectors = Z.mod %*% Diagonal(ncol(Z.mod), 1/sqrt(cs))
+
+	list(vectors = vectors, values = as.numeric(cs))
 }
+
+
+
+
+
+
+
+
+
+
 

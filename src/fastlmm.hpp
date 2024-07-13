@@ -181,7 +181,7 @@ FASTLMM<T>::FASTLMM(const arma::vec &Y_,
   this->s = s_;
   this->weights = weights_;
   this->Yu = U_.t() * Y_;
-  this->Xu =  U_.t() * X_;
+  this->Xu = U_.t() * X_;
   this->cp_X_low = X.t() * X - Xu.t() * Xu;
   this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
   this->inv_s_delta_Xu = arma::mat( Xu.n_rows, Xu.n_cols);
@@ -302,7 +302,7 @@ double FASTLMM<T>::ll(const double &delta ) {
   sig_g = QRR / n;
 
   // use 2.0 to ensure double precision
-  double logLik = -n/2.0 * log(2.0*M_PI*sig_g) - 1.0/2.0 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2.0;
+  double logLik = -n/2.0 * log(2.0*M_PI*sig_g) - 1.0/2.0 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2.0 + sum(log(weights))/2.0;
 
   return logLik;
 }
@@ -318,10 +318,9 @@ double ll_alone_mat( double delta_log, void *arg){
   //  to give faster convergence
   fit->eval_delta( exp(delta_log) );
 
-  double value = -1.0*fit->get_logLik();
-
-  return value ;
+  return -1.0*fit->get_logLik();
 }
+
 // sparse version
 double ll_alone_spmat( double delta_log, void *arg){
 
@@ -362,6 +361,7 @@ void FASTLMM<T>::estimate_delta( const double &tol ){
 
   // get maximize log-likelihood
   // need to mutliply but -1 since it actually minimizes
+  // evaluated at minimum value 
   double res;
   logLik = -1*local_min(left, right, tol, &F, res, iter);
   delta_hat = exp(res);
@@ -412,7 +412,5 @@ std::vector<FASTLMM_result>
   return result;
 }
 
-
-// List fastlmm_batchX_c()
 
 #endif

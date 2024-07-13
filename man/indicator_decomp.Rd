@@ -4,7 +4,7 @@
 \alias{indicator_decomp}
 \title{Spetral decomposition of factor indicator matrix}
 \usage{
-indicator_decomp(Factor)
+indicator_decomp(Factor, weights = rep(1, length(Factor)))
 }
 \arguments{
 \item{Factor}{object of type \code{factor}}
