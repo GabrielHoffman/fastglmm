@@ -48,12 +48,12 @@ test_indicator_decomp = function(){
 	Z = t(fac2sparse(info$Indiv))
 	weights = seq(nrow(Z))
 	weights = nrow(Z) * (weights / sum(weights))
-	ZtZ = crossprod(weights * Z)
+	ZtZ = crossprod(sqrt(weights) * Z)
 	dcmp = eigen(ZtZ, symmetric=TRUE)
 	dcmp$vectors = Matrix(zapsmall(dcmp$vectors), sparse = TRUE)
 	A = solve(dcmp$vectors)
 	D = Diagonal(length(dcmp$values), 1/sqrt(dcmp$values))
-	dcmp$vectors = tcrossprod(weights *Z, A) %*% D
+	dcmp$vectors = tcrossprod(sqrt(weights) *Z, A) %*% D
 
 	dcmp2 = indicator_decomp( info$Indiv, weights)
 
@@ -183,7 +183,7 @@ test_logLik = function(){
 
 
 
-	dcmp = indicator_decomp( factor(info$x), sqrt(w) )
+	dcmp = indicator_decomp( factor(info$x), w )
 	U = dcmp$vectors
 	s = dcmp$values 
 	yw = info$y * sqrt(w)
@@ -249,6 +249,7 @@ test_fastlmm = function(){
 	info$y = eta + rnorm(length(eta))
 
 	dcmp = indicator_decomp( info$Indiv )
+	indicObj = preprocess_indicator( info$Indiv )
 	X = model.matrix( ~ x, info)
 
 	isSame = function(fit1, fit2){
@@ -267,7 +268,7 @@ test_fastlmm = function(){
 	s = dcmp$values
 	Y = as.numeric(info$y)
 	fit1 = fastlmm_R( Y, X, U = U, s = s)
-	fit2 = fastlmm(Y, X, U = U, s = s)
+	fit2 = fastlmm(Y, X, indObj=indicObj)
 	isSame(fit1, fit2)
 
 	# 1 response, Sparse dcmp$vectors
@@ -315,6 +316,8 @@ test_fastlmm = function(){
 	checkTrue(unique(unlist(res)))
 
 
+
+
 	# Compare to lme4
 	#################
 
@@ -350,7 +353,7 @@ test_fastlmm = function(){
 	weights = nrow(info) * (weights / sum(weights))
 	# weights[] = 2
 	fit = lmer(y ~ x + (1|Indiv), info, REML=FALSE, weights=weights)
-	dcmp = indicator_decomp( info$Indiv, sqrt(weights) )
+	dcmp = indicator_decomp( info$Indiv, weights)
 	U = dcmp$vectors
 	s = dcmp$values 
 	yw = info$y * sqrt(weights)
@@ -420,12 +423,223 @@ test_fastlmm = function(){
 	# r = (info$y  -  X%*%beta)* sqrt(weights)
 	# sqrt(crossprod(r)[1] / length(r))
 
+	# Apply weights internally
+	###########################
+	weights = seq(1, nrow(info))
+	weights = nrow(info) * (weights / sum(weights))
+	# weights[] = 2
+	fit = lmer(y ~ x + (1|Indiv), info, REML=FALSE, weights=weights)
 
+	indicatorObj = preprocess_indicator( info$Indiv )
+
+	dcmp = indicator_decomp( indicatorObj, weights)
+	U = dcmp$vectors
+	s = dcmp$values 
+	yw = info$y * sqrt(weights)
+	Xw = X * sqrt(weights)
+	fit2 = fastlmm_R(yw, Xw, U = U, s = s, weights=weights)
+
+	fit3 = fastlmm(info$y, X, indObj = indicatorObj, weights=weights)
+
+	a = intersect(names(fit2), names(fit3))
+	a = a[a!="iter"]
+	a = lapply(a, function(x){
+		# message(x)
+		checkEqualsNumeric(fit2[[x]], fit3[[x]], tol=1e-3)
+	})
+
+
+	tol = 1e-3
+	res = coef(summary(fit))
+	checkEqualsNumeric(logLik(fit)[1], fit2$logLik, tol=tol)
+	checkEqualsNumeric(sigma(fit)^2/mean(weights), fit2$sig_e, tol=tol)
+	checkEqualsNumeric(res[,1], fit2$beta, tol=tol)
+	checkEqualsNumeric(res[,2], fit2$beta_se, tol=tol)
+	checkEqualsNumeric(VarCorr(fit)[[1]][1], fit2$sig_g, tol=tol)
 
 
 }	
 
 
+# Profile log-likelihood
+#######################
+
+test_profile = function(){
+
+	library(MASS)
+	library(fastglmm)
+	library(Matrix)
+	library(RUnit)
+	set.seed(1)
+
+	n = 10000
+	ndonors = 300
+
+	# n = 3000
+	# info = data.frame(x = rnorm(n))
+	# info$Indiv = factor(seq(n))
+
+	info = data.frame(x = rnorm(n))
+	info$Indiv = factor(sample(seq(ndonors), n, replace=TRUE))
+	info$Indiv = droplevels(info$Indiv)
+	beta = 1
+	eta = 4 + info$x * beta + model.matrix(~ 0 + Indiv, info) %*% rnorm(nlevels(info$Indiv), 0, sqrt(3)) 
+	# info$y = rnegbin(n, mu=exp(eta), theta = 10)
+	info$y = eta + rnorm(length(eta))
+
+	dcmp = indicator_decomp( info$Indiv )
+	indicObj = preprocess_indicator( info$Indiv )
+	X = model.matrix( ~ x, info)
+
+	isSame = function(fit1, fit2){
+		ids = intersect(names(fit1), names(fit2))
+		ids = ids[-which(ids == 'iter')]
+		a = lapply(ids, function(id){
+			# cat(id, "...\n")
+			checkEqualsNumeric( fit1[[id]], fit2[[id]], tol =  .Machine$double.eps^0.2)
+		})
+	}
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastglmm")
+
+	# formulas
+	# sa = 3
+	# se = 2
+	# hsq = sa / (sa+se)
+	# delta = sa / se
+
+	# hsq 
+	# 1/(1 + 1/delta)
+
+	# delta 
+	# 1 / (1/hsq - 1)
+
+
+	# 1 response, matrix dcmp$vectors
+	U = as.matrix(dcmp$vectors)
+	s = dcmp$values
+	Y = as.numeric(info$y)
+	fit1 = fastlmm_R( Y, X, U = U, s = s)
+	fit2 = fastlmm(Y, X, indObj=indicObj)
+	isSame(fit1, fit2)
+
+	fit1$logLik
+
+	# create profile log-likelihood surface from delta surface
+	# get standard error from hessian of hsq surface at 
+
+	heritability = function(fit, Y, X, U = U, s = s, method=c("information", "permutation"), nperms=100){
+
+		method = match.arg(method)
+
+		# estimate of hsq
+		hsq_hat = 1 - 1/(1 + 1/fit$delta)
+		# with(fit, sig_g / (sig_g + sig_e))
+
+		if( method == "information" ){
+			Yu = crossprod(U,Y)
+			Xu = crossprod(U,X)
+			f = function(hsq){
+				delta = 1 / (1/hsq - 1)
+				-1*fastglmm:::ll_R(delta, Y, X, Yu, Xu, U, s)
+			}
+
+			# Fisher information at delta_hat
+			infor = numDeriv::hessian(f, hsq_hat)
+
+			# variance of estimate
+			se_hsq = sqrt(1 / infor)
+
+			p.value = pnorm(0, hsq_hat, sd=se_hsq, lower.tail=TRUE)
+
+			res = data.frame(hsq = hsq_hat, se_hsq, p.value)
+
+		}else if( method == "permutation"){
+
+			Y_mat = lapply(seq(100), function(i){
+				sample(Y, length(Y), replace=TRUE)
+			})
+			Y_mat = do.call(cbind, Y_mat)
+
+			# Run as batch
+			fitList = fastlmm(Y_mat, X, indObj=indicObj)
+
+			h_sq_null = sapply(fitList, function(fit){
+				1 - 1/(1 + 1/fit$delta)
+			})
+
+			# Approximate null distribution with beta
+			mu = mean(h_sq_null)
+			se = sd(h_sq_null)
+			alpha = mu*(mu * (1-mu)/se^2 - 1)
+			beta = (1-mu)*(mu * (1-mu)/se^2 - 1)
+
+			# method of moments for beta distribiton
+			p.value = pbeta(hsq_hat, alpha, beta, lower.tail=FALSE)
+
+			res = data.frame(hsq = hsq_hat, p.value)
+		}
+
+		res
+	}
+
+	heritability(fit1, Y, X, U, s)
+	heritability(fit1, Y, X, U, s, method = "perm")
+
+	# hsq under null
+	# h_sq_null = sapply( seq(100), function(i){
+
+	# 	y = sample(Y, length(Y), replace=TRUE)
+	# 	# fit = fastlmm_R( y, X, U = U, s = s)
+	# 	fit = fastlmm(y, X, indObj=indicObj)
+	# 	# estimate of hsq
+	# 	# 1 - 1/(1 + 1/fit$delta)
+	# 	with(fit, sig_g / (sig_g + sig_e))
+	# })
+
+	
+
+	# MLE of beta distribiton
+	res = MASS::fitdistr(h_sq_null, densfun = "beta",  start = list(shape1 = alpha, shape2 = beta))
+	pbeta(hsq_hat, res$estimate[1], res$estimate[2], lower.tail=FALSE)
+
+
+
+
+
+
+
+	alpha = hsq_hat*(hsq_hat * (1-hsq_hat)/se_hsq^2 - 1)
+	beta = (1-hsq_hat)*(hsq_hat * (1-hsq_hat)/se_hsq^2 - 1)
+
+	plot(x, dbeta(x, alpha, beta, log=TRUE))
+	plot(x, dbeta(x, alpha, beta, log=FALSE))
+	
+	pbeta(hsq_hat, alpha, beta)
+
+
+
+
+	# p-value by numerical integration
+	f = function(hsq){
+		delta = 1 / (1/hsq - 1)
+		sapply(delta, function(x){
+		fastglmm:::ll_R(x, Y, X, Yu, Xu, U, s)
+		})
+	}
+
+	x = seq(1e-6, 1 - 1e-4, length.out=300)
+	y = f(x)
+	plot(x,y)
+
+
+
+	integrate(f, 1e-4, hsq_hat)
+
+
+
+
+}
 
 
 

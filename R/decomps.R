@@ -1,11 +1,11 @@
 
 
 
-#' Spetral decomposition of factor indicator matrix
+#' Spectral decomposition of factor indicator matrix
 #' 
 #' Given a factor, construct the spectral decompostion of the corresponding indicator matrix.  Uses linear time algorithm and sparse matrix algebra.  Resulting vector space is also sparse.
 #' 
-#' @param Factor object of type \code{factor}
+#' @param x object of type \code{factor} or \code{sparseMatrix} 
 #' 
 #' @details This approach is dramatically faster than the naive algorithm that is quadratic time in the number of levels.
 #' 
@@ -34,20 +34,20 @@
 #' dcmp$vectors = tcrossprod(Z, A) %*% D
 #' 
 #' dcmp
-#' @importFrom Matrix fac2sparse Diagonal t colSums
+#' @importFrom Matrix Diagonal t colSums
 #' @export 
-indicator_decomp = function( Factor, weights = rep(1, length(Factor)) ){
+indicator_decomp = function( x, weights = NULL){
 
-	stopifnot( is.factor(Factor) )
-
-	Factor = droplevels( Factor )
-	Z.mod = t(fac2sparse(Factor))
+	if( is.factor(x) ){
+		Z.mod = preprocess_indicator( x )
+	}else if( is(x, "sparseMatrix") ){
+		Z.mod = x
+	}
 
 	# weight the rows of the indicator matrix
-	#!!!!!!!!but it is fed the sqrt(wegihts)!!!!
-	# weights = nrow(Z.mod) * weights / sum(weights)
-	# Z.mod = Diagonal(nrow(Z.mod), weights)%*%Z.mod
-	Z.mod = weights * Z.mod
+	if( ! is.null(weights) ){
+		Z.mod = sqrt(weights) * Z.mod
+	}
 
 	# compute col sum of squares
 	cs = colSums(Z.mod^2)
@@ -62,6 +62,21 @@ indicator_decomp = function( Factor, weights = rep(1, length(Factor)) ){
 	list(vectors = vectors, values = as.numeric(cs))
 }
 
+
+#' init
+#' 
+#' init
+#'
+#' @importFrom Matrix fac2sparse
+#' @export 
+preprocess_indicator = function( Factor ){
+	stopifnot( is.factor(Factor) )
+
+	Factor = droplevels( Factor )
+	Z.mod = t(fac2sparse(Factor))
+
+	Z.mod
+}
 
 
 

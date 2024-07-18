@@ -42,12 +42,23 @@ NULL
 #' @return summary statistics for model fit, and hypothesis testing using X_test_lst, if available
 #' 
 #' @export
-fastlmm = function( Y, X, U, s, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U), weights = matrix(1, nrow(Y), ncol(Y)), tol = .Machine$double.eps^0.25){
+fastlmm = function( Y, X, indObj, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U), weights = NULL, tol = .Machine$double.eps^0.25){
 
 	# add data checks here 
 	if( !is.matrix(Y) ){
 		Y = as.matrix(Y)
 	}
+
+	# apply weights
+	dcmp = indicator_decomp( indObj, weights)
+	U = dcmp$vectors
+	s = dcmp$values 
+
+	if( !is.null(weights) ){
+		Y = Y * sqrt(weights)
+		X = X * sqrt(weights)
+	}
+	weights = matrix(1, nrow(Y), ncol(Y))
 
 	# internals assume responses are _rows_
 	Y = t(Y)
@@ -104,7 +115,6 @@ fastlmm = function( Y, X, U, s, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U), w
 									weights = weights,
 									delta = delta, 
 									tol = tol)
-
 		}
 		class(res) = "fastlmmList"
 	}
@@ -120,16 +130,16 @@ ll_R = function( delta, Y, X, Yu, Xu, U, s ){
 	rank = nrow(Xu)
 
 	cp_X_low = crossprod(X) - crossprod(Xu)
-	cp_X_low_Y_low = crossprod(X, info$y) - crossprod(Xu, Yu)
+	cp_X_low_Y_low = crossprod(X, Y) - crossprod(Xu, Yu)
 
 	# Eval Beta
 	inv_s_delta 	<- 1/(s+delta)
 	inv_s_delta_Yu 	<- inv_s_delta * Yu
 	inv_s_delta_Xu 	<- inv_s_delta * Xu
 
-	QXX <<- crossprod(Xu, inv_s_delta_Xu) + cp_X_low / delta
+	QXX <- crossprod(Xu, inv_s_delta_Xu) + cp_X_low / delta
 	QXY <- crossprod(Xu, inv_s_delta_Yu) + cp_X_low_Y_low / delta
-	beta <<- solve( QXX, QXY)
+	beta <- solve( QXX, QXY)
 
 	# Eval sig_g
 	ru 				<- Yu - Xu %*% beta
@@ -137,7 +147,7 @@ ll_R = function( delta, Y, X, Yu, Xu, U, s ){
 	inv_s_delta_ru 	<- inv_s_delta * ru
 
 	Qrr <- crossprod(ru, inv_s_delta_ru) + (crossprod(r)[1] - crossprod(ru)[1])/ delta
-	sig_g <<- Qrr[1] / n
+	sig_g <- Qrr[1] / n
 
 	-n/2 * log(2*pi*sig_g) - 1/2 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2
 } 

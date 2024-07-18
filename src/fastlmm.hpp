@@ -10,6 +10,7 @@
 
 #include "local_min.hpp"
 
+namespace fastglmm {
 
 class FASTLMM_result {       
   public:  
@@ -377,6 +378,8 @@ std::vector<FASTLMM_result>
                                const double &delta,
                                const double &tol){
 
+  // need to apply weights matrix Y_all_, decomp, and X 
+
   // responses are stored as _rows_
   arma::mat Yu_all = Y_all_ * U;
 
@@ -410,6 +413,8 @@ std::vector<FASTLMM_result>
   }
 
   return result;
+}
+
 }
 
 

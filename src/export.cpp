@@ -7,6 +7,7 @@
 
 using namespace Rcpp; 
 using namespace arma;
+using namespace fastglmm;
 
 // Depends on Rcpp::List, so define outside of class
 const List toList(FASTLMM_result &res){

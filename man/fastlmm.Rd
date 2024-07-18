@@ -7,8 +7,7 @@
 fastlmm(
   Y,
   X,
-  U,
-  s,
+  indObj,
   delta = NULL,
   sig_a_fixed = FALSE,
   rank = ncol(U),
@@ -21,10 +20,6 @@ fastlmm(
 
 \item{X}{matrix of covariates}
 
-\item{U}{principal components of covariance matrix}
-
-\item{s}{eigen values from of covariance matrix}
-
 \item{delta}{ratio of variance components estimated using}
 
 \item{rank}{number of of principal components used}
@@ -32,6 +27,10 @@ fastlmm(
 \item{weights}{weight of each sample}
 
 \item{tol}{tolerance for estimating delta by Brent's method}
+
+\item{U}{principal components of covariance matrix}
+
+\item{s}{eigen values from of covariance matrix}
 }
 \value{
 summary statistics for model fit, and hypothesis testing using X_test_lst, if available

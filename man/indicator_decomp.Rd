@@ -2,12 +2,12 @@
 % Please edit documentation in R/decomps.R
 \name{indicator_decomp}
 \alias{indicator_decomp}
-\title{Spetral decomposition of factor indicator matrix}
+\title{Spectral decomposition of factor indicator matrix}
 \usage{
-indicator_decomp(Factor, weights = rep(1, length(Factor)))
+indicator_decomp(x, weights = NULL)
 }
 \arguments{
-\item{Factor}{object of type \code{factor}}
+\item{x}{object of type \code{factor} or \code{sparseMatrix}}
 }
 \value{
 list storing spectral decomposition like from \code{eigen()}
