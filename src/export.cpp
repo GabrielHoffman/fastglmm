@@ -10,7 +10,7 @@ using namespace arma;
 using namespace fastglmm;
 
 // Depends on Rcpp::List, so define outside of class
-const List toList(FASTLMM_result &res){
+const List toList(fastlmm_result &res){
 
   return List::create( 
                 Named("logLik") = res.logLik, 
@@ -23,18 +23,18 @@ const List toList(FASTLMM_result &res){
                 Named("iter")   = res.iter);
 }
 
-template <typename T>
-const List toList(FASTLMM<T> & fit){
-  FASTLMM_result a = fit.get_result();
+template <typename T1, typename T2, typename T3>
+const List toList(fastlmm<T1, T2, T3> & fit){
+  fastlmm_result a = fit.get_result();
   return toList( a);
 }
 
 
-List toList( const std::vector<FASTLMM_result> &resList){
+List toList( const vector<fastlmm_result> &resList){
   List L = List::create();
 
   for(int i=0; i<resList.size(); i++){
-    FASTLMM_result a = resList.at(i);
+    fastlmm_result a = resList.at(i);
     L.push_back( toList(a) );
   }
   return L;
@@ -45,17 +45,16 @@ List toList( const std::vector<FASTLMM_result> &resList){
 // so write separately for matrix and sparse matrix
 
 // [[Rcpp::export(".fastlmm_mat")]]
-List fastlmm_mat( const arma::vec &Y, 
-                  const arma::mat &X,  
-                  const arma::mat &U, 
-                  const arma::vec &s,
-                  const arma::vec &weights,
+List fastlmm_mat( const vec &Y, 
+                  const mat &X,  
+                  const mat &U, 
+                  const vec &s,
+                  const vec &weights,
                   const double &delta,
                   const double & tol){
 
   // initialize
-  FASTLMM<arma::mat> fit = 
-      FASTLMM<arma::mat>(Y, X, U, s, weights);
+  fastlmm fit = fastlmm(Y, X, U, s, weights);
 
   if( delta > 0 ){
     fit.eval_delta( delta ); 
@@ -68,17 +67,16 @@ List fastlmm_mat( const arma::vec &Y,
 
 
 // [[Rcpp::export(".fastlmm_spmat")]]
-List fastlmm_spmat( const arma::vec &Y, 
-                    const arma::mat &X,  
-                    const arma::sp_mat &U, 
-                    const arma::vec &s,
-                    const arma::vec &weights,
+List fastlmm_spmat( const vec &Y, 
+                    const mat &X,  
+                    const sp_mat &U, 
+                    const vec &s,
+                    const vec &weights,
                     const double &delta,
                     const double & tol){
 
   // initialize  
-  FASTLMM<arma::sp_mat> fit = 
-      FASTLMM<arma::sp_mat>(Y, X, U, s, weights);
+  fastlmm fit = fastlmm(Y, X, U, s, weights);
 
   if( delta > 0 ){
     fit.eval_delta( delta ); 
@@ -91,19 +89,18 @@ List fastlmm_spmat( const arma::vec &Y,
 
 
 // [[Rcpp::export(".fastlmm_batch_mat")]]
-List fastlmm_batch_mat( const arma::mat &Y_all, 
-                        const arma::mat &X,  
-                        const arma::mat &U, 
-                        const arma::vec &s,
-                        const arma::mat &weights,
+List fastlmm_batch_mat( const mat &Y_all, 
+                        const mat &X,  
+                        const mat &U, 
+                        const vec &s,
+                        const mat &weights,
                         const double &delta,
                         const double & tol){
 
   // initialize
-  FASTLMM<arma::mat> fit = 
-      FASTLMM<arma::mat>(X, U, s);
+  fastlmm fit = fastlmm<mat, mat, mat>(X, U, s);
 
-  std::vector<FASTLMM_result> res;
+  vector<fastlmm_result> res;
   res = fit.fit_batch_response(Y_all, weights, delta, tol );
 
   return toList(res);
@@ -111,26 +108,22 @@ List fastlmm_batch_mat( const arma::mat &Y_all,
 
 
 // [[Rcpp::export(".fastlmm_batch_spmat")]]
-List fastlmm_batch_spmat( const arma::mat &Y_all, 
-                          const arma::mat &X,  
-                          const arma::sp_mat &U, 
-                          const arma::vec &s,
-                          const arma::vec &weights,
+List fastlmm_batch_spmat( const mat &Y_all, 
+                          const mat &X,  
+                          const sp_mat &U, 
+                          const vec &s,
+                          const vec &weights,
                           const double &delta,
                           const double & tol){
 
   // initialize
-  FASTLMM<arma::sp_mat> fit = 
-      FASTLMM<arma::sp_mat>(X, U, s);
+  fastlmm fit = fastlmm<mat, mat, sp_mat>(X, U, s);
 
-  std::vector<FASTLMM_result> res;
+  vector<fastlmm_result> res;
   res = fit.fit_batch_response(Y_all, weights, delta, tol );
 
   return toList(res);
 }
-
-
-
 
 
 

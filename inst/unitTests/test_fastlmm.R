@@ -225,6 +225,35 @@ test_logLik = function(){
 }
 
 
+R
+library(MASS)
+library(fastglmm)
+library(Matrix)
+set.seed(1)
+
+n = 100000
+ndonors = 300
+
+info = data.frame(x = rnorm(n))
+info$Indiv = factor(sample(seq(ndonors), n, replace=TRUE))
+info$Indiv = droplevels(info$Indiv)
+beta = 1
+eta = 4 + info$x * beta + model.matrix(~ 0 + Indiv, info) %*% rnorm(nlevels(info$Indiv), 0, sqrt(3)) 
+# info$y = rnegbin(n, mu=exp(eta), theta = 10)
+info$y = eta + rnorm(length(eta))
+
+dcmp = indicator_decomp( info$Indiv )
+indicObj = preprocess_indicator( info$Indiv )
+X = model.matrix( ~ x, info)
+
+
+# 1 response, matrix dcmp$vectors
+U = as.matrix(dcmp$vectors)
+s = dcmp$values
+Y = as.numeric(info$y)
+fit2 = fastlmm(Y, X, indObj=indicObj)
+
+
 test_fastlmm = function(){
 
 	library(MASS)
@@ -276,7 +305,7 @@ test_fastlmm = function(){
 	s = dcmp$values
 	Y = info$y
 	fit1 = fastlmm_R( Y, X, U = U, s = s)
-	fit2 = fastlmm(Y, X, U = U, s = s)
+	fit2 = fastlmm(Y, X, indObj=indicObj)
 	isSame(fit1, fit2)
 
 	# multiple responses, matrix dcmp$vectors
@@ -284,7 +313,7 @@ test_fastlmm = function(){
 	U = as.matrix(dcmp$vectors)
 	s = dcmp$values
 	fit1 = fastlmm_R( Ym[,2], X, U = U, s = s)
-	fit2 = fastlmm(Ym[,2], X, U = U, s = s)
+	fit2 = fastlmm(Ym[,2], X, indObj=indicObj)
 	isSame(fit1, fit2)
 
 	# multiple responses, Sparse dcmp$vectors
@@ -292,14 +321,14 @@ test_fastlmm = function(){
 	U = dcmp$vectors
 	s = dcmp$values
 	fit1 = fastlmm_R( Ym[,2], X, U = U, s = s)
-	fit2 = fastlmm(Ym[,2], X, U = U, s = s)
+	fit2 = fastlmm(Ym[,2], X, indObj=indicObj)
 	isSame(fit1, fit2)
 
 	# batch, matrix dcmp$vectors
 	U = as.matrix(dcmp$vectors)
 	fitList1 = lapply(seq(ncol(Ym)), function(i){
-		fastlmm( Ym[,i], X, U = U, s = s)})
-	fitList2 = fastlmm(Ym, X, U = U, s = s)
+		fastlmm( Ym[,i], X, indObj=indicObj)})
+	fitList2 = fastlmm(Ym, X, indObj=indicObj)
 	res = lapply(seq(ncol(Ym)), function(i){
 		isSame(fitList1[[i]], fitList2[[i]])
 	})
@@ -308,8 +337,8 @@ test_fastlmm = function(){
 	# batch, sparse dcmp$vectors
 	U = dcmp$vectors
 	fitList1 = lapply(seq(ncol(Ym)), function(i){
-		fastlmm( Ym[,i], X, U = U, s = s)})
-	fitList2 = fastlmm(Ym, X, U = U, s = s)
+		fastlmm( Ym[,i], X, indObj=indicObj)})
+	fitList2 = fastlmm(Ym, X, indObj=indicObj)
 	res = lapply(seq(ncol(Ym)), function(i){
 		isSame(fitList1[[i]], fitList2[[i]])
 	})
@@ -323,10 +352,10 @@ test_fastlmm = function(){
 
 	library(lme4)
 	fit = lmer(y ~ x + (1|Indiv), info, REML=FALSE)
-	dcmp = indicator_decomp( info$Indiv )
-	U = dcmp$vectors
-	s = dcmp$values
-	fit2 = fastlmm(info$y, X, U = U, s = s)
+	dcmp = preprocess_indicator( info$Indiv )
+	# U = dcmp$vectors
+	# s = dcmp$values
+	fit2 = fastlmm(info$y, X, indObj=dcmp)
 	
 	tol = 1e-3
 	res = coef(summary(fit))
@@ -339,10 +368,17 @@ test_fastlmm = function(){
 
 
 	# fastlmm is 100x faster than lmer()
-	# system.time(
-	# 	replicate(100, lmer(y ~ x + (1|Indiv), info, REML=FALSE)))
-	# system.time(
-	# 	replicate(100, fastlmm(info$y, X, U = U, s = s)))
+	system.time(
+		replicate(100, lmer(y ~ x + (1|Indiv), info, REML=FALSE)))
+	system.time(
+		replicate(100, fastlmm(info$y, X, indObj=dcmp)))
+
+	Y_stack = lapply(seq(100), function(x){ info$y})
+	Y_stack = do.call(cbind, Y_stack)
+	system.time(
+		fastlmm(Y_stack, X, indObj=dcmp))
+
+
 
 	# weights
 	#--------
@@ -359,7 +395,7 @@ test_fastlmm = function(){
 	yw = info$y * sqrt(weights)
 	Xw = X * sqrt(weights)
 	fit2 = fastlmm_R(yw, Xw, U = U, s = s, weights=weights)
-	fit3 = fastlmm(yw, Xw, U = U, s = s, weights=weights)
+	fit3 = fastlmm(yw, Xw, indObj=dcmp, weights=weights)
 
 	a = intersect(names(fit2), names(fit3))
 	a = a[a!="iter"]
@@ -472,7 +508,7 @@ test_profile = function(){
 	library(RUnit)
 	set.seed(1)
 
-	n = 10000
+	n = 100000
 	ndonors = 300
 
 	# n = 3000
@@ -525,8 +561,8 @@ test_profile = function(){
 
 	fit1$logLik
 
-	# create profile log-likelihood surface from delta surface
-	# get standard error from hessian of hsq surface at 
+	# 1) create profile log-likelihood surface from delta surface, and get standard error from hessian of hsq surface at hsq_hat
+	# 2) fast permutations
 
 	heritability = function(fit, Y, X, U = U, s = s, method=c("information", "permutation"), nperms=100){
 
@@ -556,7 +592,7 @@ test_profile = function(){
 
 		}else if( method == "permutation"){
 
-			Y_mat = lapply(seq(100), function(i){
+			Y_mat = lapply(seq(nperms), function(i){
 				sample(Y, length(Y), replace=TRUE)
 			})
 			Y_mat = do.call(cbind, Y_mat)
