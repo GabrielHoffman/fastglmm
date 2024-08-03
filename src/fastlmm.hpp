@@ -16,7 +16,7 @@ namespace fastglmm {
 
 class fastlmm_result {       
   public:  
-    double logLik, sig_g, sig_e, delta;
+    double logLik, sigSq_g, sigSq_e, delta;
     int iter;
     vec beta, beta_se;
     mat vcov;
@@ -28,16 +28,16 @@ class fastlmm_result {
                     const mat &vcov_,
                     const vec &beta_se_,
                     const double &delta_,
-                    const double &sig_g_,
-                    const double &sig_e_,
+                    const double &sigSq_g_,
+                    const double &sigSq_e_,
                     const int &iter_ ){
       logLik = logLik_;
       beta   = beta_;
       vcov   = vcov_;
       beta_se= beta_se_;
       delta  = delta_;
-      sig_g  = sig_g_;
-      sig_e  = sig_e_;
+      sigSq_g  = sigSq_g_;
+      sigSq_e  = sigSq_e_;
       iter   = iter_;
     }
 };
@@ -94,22 +94,22 @@ class fastlmm {
                               V,
                               sqrt(diagvec(V)),
                               get_delta(),
-                              get_sigg(),
-                              get_sige(),
+                              get_sigSq_g(),
+                              get_sigSq_e(),
                               get_iter());
     }
 
     // Accessors
     const double get_logLik(){ return this->logLik; }
     const vec get_beta(){ return this->beta; }
-    const double get_sigg(){ return sig_g;}
-    const double get_sige(){ 
-      return this->delta_hat * this->sig_g;
+    const double get_sigSq_g(){ return sigSq_g;}
+    const double get_sigSq_e(){ 
+      return this->delta_hat * this->sigSq_g;
     }
     const int get_iter(){ return this->iter;}
     const double get_delta(){ return this->delta_hat;}
     const mat get_vcov(){
-      return inv_sympd(this->QXX) * this->sig_g;
+      return inv_sympd(this->QXX) * this->sigSq_g;
     }
     const mat get_beta_se(){
       return sqrt(diagvec(get_vcov()));
@@ -166,7 +166,7 @@ class fastlmm {
     mat beta;
     vec r, ru;
 
-    double logLik, sig_g, delta_hat;
+    double logLik, sigSq_g, delta_hat;
     int iter = 0;
 };
 
@@ -305,10 +305,10 @@ double fastlmm<T1, T2, T3>::ll(const double &delta ) {
   // Qrr <- crossprod(ru, inv_s_delta_ru) + (crossprod(r)[1] - crossprod(ru)[1])/ delta
   // sig_g <<- Qrr[1] / n
   double QRR = dot(ru, (inv_s_delta % ru)) + (dot(r,r) - dot(ru,ru)) / delta;
-  sig_g = QRR / n;
+  sigSq_g = QRR / n;
 
   // use 2.0 to ensure double precision
-  double logLik = -n/2.0 * log(2.0*M_PI*sig_g) - 1.0/2.0 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2.0 + sum(log(weights))/2.0;
+  double logLik = -n/2.0 * log(2.0*M_PI*sigSq_g) - 1.0/2.0 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2.0 + sum(log(weights))/2.0;
 
   return logLik;
 }

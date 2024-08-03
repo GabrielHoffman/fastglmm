@@ -42,45 +42,48 @@ NULL
 #' @return summary statistics for model fit, and hypothesis testing using X_test_lst, if available
 #' 
 #' @export
-fastlmm = function( Y, X, indObj, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U), weights = NULL, tol = .Machine$double.eps^0.25){
+fastlmm <- function( Y, X, indObj, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U), weights = NULL, tol = .Machine$double.eps^0.25){
 
 	# add data checks here 
 	if( !is.matrix(Y) ){
-		Y = as.matrix(Y)
+		Y <- as.matrix(Y)
 	}
 
 	# apply weights
-	dcmp = indicator_decomp( indObj, weights)
-	U = dcmp$vectors
-	s = dcmp$values 
+	dcmp <- indicator_decomp( indObj, weights)
+	U <- dcmp$vectors
+	s <- dcmp$values 
 
 	if( !is.null(weights) ){
-		Y = Y * sqrt(weights)
-		X = X * sqrt(weights)
+		Y <- Y * sqrt(weights)
+		X <- X * sqrt(weights)
+		is_weights_one <- FALSE
+	}else{
+		weights <- matrix(1, nrow(Y), ncol(Y))
+		is_weights_one <- TRUE
 	}
-	weights = matrix(1, nrow(Y), ncol(Y))
 
 	# internals assume responses are _rows_
-	Y = t(Y)
+	Y <- t(Y)
 
 	if( ncol(Y) != nrow(X) ){
 		stop("dimension of Y and X do not match")
 	}
 
-	rank = min( rank, ncol(U) )
+	rank <- min( rank, ncol(U) )
 
 	if( rank < ncol(U)){
-		U = U[,seq_len(rank), drop=FALSE]
-		s = abs(s[seq_len(rank), drop=FALSE])
+		U <- U[,seq_len(rank), drop=FALSE]
+		s <- abs(s[seq_len(rank), drop=FALSE])
 	}
 
 	# if delta is NULL, estimate its value
 	# but setting to -1 for C++ call
-	delta = ifelse( is.null(delta), -1, delta)
+	delta <- ifelse( is.null(delta), -1, delta)
 	
 	if( nrow(Y) == 1){
 		if( is(U, "sparseMatrix") ){
-			res = .fastlmm_spmat( Y = Y, 
+			res <- .fastlmm_vms( Y = Y, 
 								X = X, 
 								U = U, 
 								s = s,
@@ -88,7 +91,7 @@ fastlmm = function( Y, X, indObj, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U),
 								delta = delta, 
 								tol = tol)
 		}else{
-			res = .fastlmm_mat( Y = Y, 
+			res = .fastlmm_vmm( Y = Y, 
 								X = X, 
 								U = U, 
 								s = s,
@@ -96,41 +99,62 @@ fastlmm = function( Y, X, indObj, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U),
 								delta = delta, 
 								tol = tol)
 		}
-		class(res) = "fastlmm"
+		# format results
+		res$coefficients <- as.numeric(res$coefficients)
+		res$se <- as.numeric(res$se)
+
+		names(res$coefficients) <- colnames(X)
+		names(res$se) <- colnames(X)
+		rownames(res$vcov) <- colnames(X)
+		colnames(res$vcov) <- colnames(X)
+		res$rank = ncol(X)
+
+		if( ! is_weights_one ){
+			res$weights = weights
+		}
+
+
+		# adapt this to be rdf from H
+		res$df.residual <- nrow(X) - ncol(X)
+
+		class(res) <- "fastlmm"
 	}else{
 
 		if( is(U, "sparseMatrix") ){
-			res = .fastlmm_batch_spmat( Y_all = Y, 
-									X = X, 
-									U = U, 
-									s = s,
-									weights = weights, 
-									delta = delta, 
-									tol = tol)
+			res <- .fastlmm_mms( Y_all = Y, 
+								X = X, 
+								U = U, 
+								s = s,
+								weights = weights, 
+								delta = delta, 
+								tol = tol)
 		}else{
-			res = .fastlmm_batch_mat( Y_all = Y, 
-									X = X, 
-									U = U, 
-									s = s,
-									weights = weights,
-									delta = delta, 
-									tol = tol)
+			res <- .fastlmm_mmm( Y_all = Y, 
+								X = X, 
+								U = U, 
+								s = s,
+								weights = weights,
+								delta = delta, 
+								tol = tol)
 		}
-		class(res) = "fastlmmList"
+
+		# format results for each entry in list here
+
+		class(res) <- "fastlmmList"
 	}
 
 	res
 }
 
-ll_R = function( delta, Y, X, Yu, Xu, U, s ){			
+ll_R <- function( delta, Y, X, Yu, Xu, U, s ){			
 
-	info = QXX = sig_g = NA
+	info <- QXX <- sig_g <- NA
 
-	n = nrow(X)
-	rank = nrow(Xu)
+	n <- nrow(X)
+	rank <- nrow(Xu)
 
-	cp_X_low = crossprod(X) - crossprod(Xu)
-	cp_X_low_Y_low = crossprod(X, Y) - crossprod(Xu, Yu)
+	cp_X_low <- crossprod(X) - crossprod(Xu)
+	cp_X_low_Y_low <- crossprod(X, Y) - crossprod(Xu, Yu)
 
 	# Eval Beta
 	inv_s_delta 	<- 1/(s+delta)
@@ -170,42 +194,42 @@ ll_R = function( delta, Y, X, Yu, Xu, U, s ){
 #' 
 #' @importFrom stats optimize
 #' @export
-fastlmm_R = function( Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NULL, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U)){
+fastlmm_R <- function( Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NULL, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U)){
 
-	rank = min( rank, ncol(U) )
+	rank <- min( rank, ncol(U) )
 
 	if( rank < ncol(U)){
-		U = U[,seq_len(rank), drop=FALSE]
-		s = abs(s[seq_len(rank), drop=FALSE])
+		U <- U[,seq_len(rank), drop=FALSE]
+		s <- abs(s[seq_len(rank), drop=FALSE])
 	}
 	if( is.integer(Y) ){
-		Y = as.numeric(Y)
+		Y <- as.numeric(Y)
 	}
 
 	if( is.null(Xu) ){
-		Xu = crossprod(U, X)
+		Xu <- crossprod(U, X)
 	}
 	if( is.null(Yu) ){
-		Yu = crossprod(U, Y)
+		Yu <- crossprod(U, Y)
 	}
 
-	log_interval = c(10, -10) 
+	log_interval <- c(10, -10) 
 
-	n = nrow(Y)
+	n <- nrow(Y)
 
 	if( is.null(n) ){
-		n = length(Y)
+		n <- length(Y)
 	}	
 
-	cp_X_low = crossprod(X) - crossprod(Xu)
-	cp_X_low_Y_low = crossprod(X, Y) - crossprod(Xu, Yu)
+	cp_X_low <- crossprod(X) - crossprod(Xu)
+	cp_X_low_Y_low <- crossprod(X, Y) - crossprod(Xu, Yu)
 
-	beta = sig_g = QXX = 1
+	beta <- sigSq_g <- QXX <- 1
 
 	i <- 0
-	ll = function( delta_log ){			
+	ll <- function( delta_log ){			
 		i <<- i + 1
-		delta = exp(delta_log)
+		delta <- exp(delta_log)
 
 		# Eval Beta
 		inv_s_delta 	<- 1/(s+delta)
@@ -224,50 +248,50 @@ fastlmm_R = function( Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NUL
 		inv_s_delta_ru 	<- inv_s_delta * ru
 
 		if( sig_a_fixed ){
-			sig_g <<- 1
+			sigSq_g <<- 1
 		}else{
 			Qrr <- crossprod(ru, inv_s_delta_ru) + (crossprod(r)[1] - crossprod(ru)[1])/ delta
-			sig_g <<- Qrr[1] / n
+			sigSq_g <<- Qrr[1] / n
 		}
 
-		-n/2 * log(2*pi*sig_g) - 1/2 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2 + 1/2 * sum(log(weights))
+		-n/2 * log(2*pi*sigSq_g) - 1/2 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2 + 1/2 * sum(log(weights))
 	} 
 
 	if( is.null(delta) ){
-		result = optimize( ll, log_interval, maximum=TRUE)
+		result <- optimize( ll, log_interval, maximum=TRUE)
 
-		# delta = result$maximum
-		delta = exp(result$maximum)
+		# delta <- result$maximum
+		delta <- exp(result$maximum)
 	}
 
 	# Need to evaluate ll(), so that obj values are evaluated
-	log_L = ll( delta_log = log(delta))
+	log_L <- ll( delta_log = log(delta))
 
-	beta = array(beta, dimnames=list(rownames(beta)))
-	sig_e = delta * sig_g
+	beta <- array(beta, dimnames=list(rownames(beta)))
+	sigSq_e <- delta * sigSq_g
 
 	###################################
 	# Hypothesis test using Wald test #
 	###################################
 
-	S = solve( QXX ) * sig_g
-	beta_se = sqrt(diag(S))
+	S <- solve( QXX ) * sigSq_g
+	beta_se <- sqrt(diag(S))
 
-	pValues = pnorm( abs(beta), 0, beta_se, lower.tail=FALSE)*2
+	pValues <- pnorm( abs(beta), 0, beta_se, lower.tail=FALSE)*2
 	
-	df = sum(s[seq_len(rank)]/(s[seq_len(rank)]+delta))
+	df <- sum(s[seq_len(rank)]/(s[seq_len(rank)]+delta))
 	
-	res = list( logLik 	= log_L, 
-				beta 	= beta,
-				beta_se = beta_se, 
+	res <- list( logLik 	= log_L, 
+				coefficients 	= beta,
+				se = beta_se, 
 				vcov 	= S,
 				delta 	= delta, 
-				sig_g 	= sig_g, 
-				sig_e 	= sig_e, 
+				sigSq_g = sigSq_g, 
+				sigSq_e = sigSq_e, 
 				iter 	= i,
 				df 		= df, 
 				pValues	= pValues)
-	class(res) = "fastlmm"
+	class(res) <- "fastlmm"
 	return(res)
 }
 
