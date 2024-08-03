@@ -2,38 +2,38 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 .fastlmm_vmm <- function(Y, X, U, s, weights, delta, tol) {
-    .Call('_fastglmm_fastlmm_vmm', PACKAGE = 'fastglmm', Y, X, U, s, weights, delta, tol)
+    .Call('_fastlmm_fastlmm_vmm', PACKAGE = 'fastlmm', Y, X, U, s, weights, delta, tol)
 }
 
 .fastlmm_vms <- function(Y, X, U, s, weights, delta, tol) {
-    .Call('_fastglmm_fastlmm_vms', PACKAGE = 'fastglmm', Y, X, U, s, weights, delta, tol)
+    .Call('_fastlmm_fastlmm_vms', PACKAGE = 'fastlmm', Y, X, U, s, weights, delta, tol)
 }
 
 .fastlmm_vsm <- function(Y, X, U, s, weights, delta, tol) {
-    .Call('_fastglmm_fastlmm_vsm', PACKAGE = 'fastglmm', Y, X, U, s, weights, delta, tol)
+    .Call('_fastlmm_fastlmm_vsm', PACKAGE = 'fastlmm', Y, X, U, s, weights, delta, tol)
 }
 
 .fastlmm_vss <- function(Y, X, U, s, weights, delta, tol) {
-    .Call('_fastglmm_fastlmm_vss', PACKAGE = 'fastglmm', Y, X, U, s, weights, delta, tol)
+    .Call('_fastlmm_fastlmm_vss', PACKAGE = 'fastlmm', Y, X, U, s, weights, delta, tol)
 }
 
 .fastlmm_mmm <- function(Y_all, X, U, s, weights, delta, tol) {
-    .Call('_fastglmm_fastlmm_mmm', PACKAGE = 'fastglmm', Y_all, X, U, s, weights, delta, tol)
+    .Call('_fastlmm_fastlmm_mmm', PACKAGE = 'fastlmm', Y_all, X, U, s, weights, delta, tol)
 }
 
 .fastlmm_msm <- function(Y_all, X, U, s, weights, delta, tol) {
-    .Call('_fastglmm_fastlmm_msm', PACKAGE = 'fastglmm', Y_all, X, U, s, weights, delta, tol)
+    .Call('_fastlmm_fastlmm_msm', PACKAGE = 'fastlmm', Y_all, X, U, s, weights, delta, tol)
 }
 
 .fastlmm_mms <- function(Y_all, X, U, s, weights, delta, tol) {
-    .Call('_fastglmm_fastlmm_mms', PACKAGE = 'fastglmm', Y_all, X, U, s, weights, delta, tol)
+    .Call('_fastlmm_fastlmm_mms', PACKAGE = 'fastlmm', Y_all, X, U, s, weights, delta, tol)
 }
 
 .fastlmm_mss <- function(Y_all, X, U, s, weights, delta, tol) {
-    .Call('_fastglmm_fastlmm_mss', PACKAGE = 'fastglmm', Y_all, X, U, s, weights, delta, tol)
+    .Call('_fastlmm_fastlmm_mss', PACKAGE = 'fastlmm', Y_all, X, U, s, weights, delta, tol)
 }
 
 theta_ml <- function(y, mu, n, weights, limit, eps) {
-    .Call('_fastglmm_theta_ml', PACKAGE = 'fastglmm', y, mu, n, weights, limit, eps)
+    .Call('_fastlmm_theta_ml', PACKAGE = 'fastlmm', y, mu, n, weights, limit, eps)
 }
 

@@ -15,7 +15,7 @@ library(RUnit)
 
 test_indicator_decomp = function(){
 	library(MASS)
-	library(fastglmm)
+	library(fastlmm)
 	library(Matrix)
 	set.seed(1)
 
@@ -95,7 +95,7 @@ test_logLik = function(){
 	library(mvtnorm)
 	library(lme4)
 	library(RUnit)
-	library(fastglmm)
+	library(fastlmm)
 
 	set.seed(1)
 	n = 2000
@@ -244,7 +244,7 @@ test_logLik = function(){
 test_fxn = function(){
 
 	library(MASS)
-	library(fastglmm)
+	library(fastlmm)
 	library(Matrix)
 	set.seed(1)
 
@@ -274,7 +274,7 @@ test_fxn = function(){
 test_fastlmm = function(){
 
 	library(MASS)
-	library(fastglmm)
+	library(fastlmm)
 	library(Matrix)
 	library(RUnit)
 	set.seed(1)
@@ -307,7 +307,7 @@ test_fastlmm = function(){
 		})
 	}
 
-	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastglmm")
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
 
 	# 1 response, matrix dcmp$vectors
 	U = as.matrix(dcmp$vectors)
@@ -507,7 +507,7 @@ test_fastlmm = function(){
 test_profile = function(){
 
 	library(MASS)
-	library(fastglmm)
+	library(fastlmm)
 	library(Matrix)
 	library(RUnit)
 	set.seed(1)
@@ -540,7 +540,7 @@ test_profile = function(){
 		})
 	}
 
-	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastglmm")
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
 
 	# formulas
 	# sa = 3
@@ -565,8 +565,8 @@ test_profile = function(){
 
 	fit1$logLik
 
-	fastglmm:::heritability(fit1, Y, X, U, s)
-	fastglmm:::heritability(fit1, Y, X, U, s, indicObj, method = "perm")
+	fastlmm:::heritability(fit1, Y, X, U, s)
+	fastlmm:::heritability(fit1, Y, X, U, s, indicObj, method = "perm")
 
 	# hsq under null
 	# h_sq_null = sapply( seq(100), function(i){
@@ -603,7 +603,7 @@ test_profile = function(){
 	# f = function(hsq){
 	# 	delta = 1 / (1/hsq - 1)
 	# 	sapply(delta, function(x){
-	# 	fastglmm:::ll_R(x, Y, X, Yu, Xu, U, s)
+	# 	fastlmm:::ll_R(x, Y, X, Yu, Xu, U, s)
 	# 	})
 	# }
 

@@ -11,7 +11,7 @@ system.time(dcmp2 <- svd(Z))
 library(MASS)
 library(lme4)
 library(glmmTMB)
-library(fastglmm)
+library(fastlmm)
 set.seed(1)
 
 n = 300000
@@ -121,7 +121,7 @@ X = model.matrix(~x, info)
 info$y = as.numeric(info$y)
 fit1 = fastlmm_R( info$y, X, U = dcmp$vectors, s = sqrt(dcmp$values))
 
-fit2 = fastglmm::fastlmm(info$y, X, U = dcmp$vectors, s = sqrt(dcmp$values))
+fit2 = fastlmm::fastlmm(info$y, X, U = dcmp$vectors, s = sqrt(dcmp$values))
 
 
 # give same answer
@@ -200,9 +200,9 @@ res1 <- MASS::theta.ml(resp, mu, weights = object@resp$weights, limit=20,
 )
 
 
-# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastglmm")
+# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
 system.time(
-res2 <- fastglmm:::theta_ml(resp, mu, n = length(mu),
+res2 <- fastlmm:::theta_ml(resp, mu, n = length(mu),
 				weights = object@resp$weights,
 				limit = 20,
 				eps = .Machine$double.eps^0.5)

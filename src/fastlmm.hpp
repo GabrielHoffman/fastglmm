@@ -12,7 +12,7 @@ using namespace arma;
 
 #include "local_min.hpp"
 
-namespace fastglmm {
+namespace fastlmm_ns {
 
 class fastlmm_result {       
   public:  

@@ -10,17 +10,17 @@
 #  just add fixed effect rank to random effect rank
 #  assumes they are orthogonal
 
-# eventually, call this _fastglmm
+# eventually, call this _fastlmm
 # and call it from within the PQL iteration
 
 # can I estimate theta within PQL?
 
-#' fastglmm
+#' fastlmm
 #'
 #' Description 
 #'
-#' @name fastglmm
-#' @useDynLib fastglmm 
+#' @name fastlmm
+#' @useDynLib fastlmm 
 #' @importFrom Rcpp evalCpp
 NULL
 

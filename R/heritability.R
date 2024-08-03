@@ -15,7 +15,7 @@ heritability = function(fit, Y, X, U, s, indicObj, method=c("information", "perm
 		Xu = crossprod(U,X)
 		f = function(hsq){
 			delta = 1 / (1/hsq - 1)
-			-1*fastglmm:::ll_R(delta, Y, X, Yu, Xu, U, s)
+			-1*fastlmm:::ll_R(delta, Y, X, Yu, Xu, U, s)
 		}
 
 		# Fisher information at delta_hat

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fastlmm.R
 \name{fastlmm}
 \alias{fastlmm}
-\title{Fit linear mixed model using SVD of covariance}
+\title{fastlmm}
 \usage{
 fastlmm(
   Y,
@@ -36,6 +36,8 @@ fastlmm(
 summary statistics for model fit, and hypothesis testing using X_test_lst, if available
 }
 \description{
+Description
+
 Fit linear mixed model using SVD of covariance to scale to large sample sizes.
 }
 \details{
