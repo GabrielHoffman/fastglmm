@@ -36,7 +36,7 @@
 #' dcmp
 #' @importFrom Matrix Diagonal t colSums
 #' @export 
-indicator_decomp = function( x, weights = NULL){
+indicator_decomp = function( x, weights = NULL, k = NULL){
 
 	if( is.factor(x) ){
 		Z.mod = preprocess_indicator( x )
@@ -58,6 +58,11 @@ indicator_decomp = function( x, weights = NULL){
 	Z.mod = Z.mod[,idx]
 
 	vectors = Z.mod %*% Diagonal(ncol(Z.mod), 1/sqrt(cs))
+
+	if( !is.null(k) & k < ncol(vectors) & k > 0){
+		U <- vectors[,seq_len(k), drop=FALSE]
+		cs <- cs[seq_len(k), drop=FALSE]
+	}
 
 	list(vectors = vectors, values = as.numeric(cs))
 }

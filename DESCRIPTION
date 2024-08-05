@@ -1,17 +1,22 @@
 Package: fastlmm
 Type: Package
-Title: What the Package Does (Short Line)
+Title: Fit linear mixed model with a single random effect on >1M samples very efficiently
 Version: 1.0
 Date: 2024-06-06
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
+Authors@R: person("Gabriel", "Hoffman", role=c("aut", "cre"), email="gabriel.hoffman@mssm.edu", comment=c(ORCID="0000-0002-0957-0224"))
+Maintainer: Gabriel E. Hoffman <gabriel.hoffman@mssm.edu>
 Description: More about what it does (maybe more than one line).
 License: GPL-3
+URL: https://GabrielHoffman.github.io/fastlmm
+BugReports: https://GabrielHoffman.github.io/fastlmm/issues
 Imports: 
 	Rcpp (>= 1.0.12),
-	Matrix
+	Matrix,
+	lme4,
+	S4Vectors
 Encoding: UTF-8
 LinkingTo: 
 	Rcpp, 
 	RcppArmadillo
 RoxygenNote: 7.3.2
+RdMacros: Rdpack

@@ -127,7 +127,9 @@ class fastlmm {
     // compute log likelihood
     double ll(const double &delta);
 
-    void estimate_delta( const double &tol);
+    void estimate_delta(  const double &left,
+                          const double &right,
+                          const double &tol);
 
     void update_response(const T1 &Y_);
     void update_response(const T1 &Y_, 
@@ -137,6 +139,8 @@ class fastlmm {
         fit_batch_response(const T1 &Y_all_, 
                            const mat &weights_,
                            const double &delta,
+                           const double &left,
+                           const double &right,
                            const double &tol);
 
     // evaluate logLik, beta, etc at delta value
@@ -350,9 +354,10 @@ bool isSpMatrix( const sp_mat &t) { return true; }
 
 
 template <typename T1, typename T2, typename T3> 
-void fastlmm<T1, T2, T3>::estimate_delta( const double &tol ){
+void fastlmm<T1, T2, T3>::estimate_delta( const double &left, const double &right, const double &tol ){
 
-  double left = -10, right = 10;
+  double leftIn = left; 
+  double rightIn = right;
   iter = 0;
   
   // initialize function
@@ -370,7 +375,7 @@ void fastlmm<T1, T2, T3>::estimate_delta( const double &tol ){
   // need to mutliply but -1 since it actually minimizes
   // evaluated at minimum value 
   double res;
-  logLik = -1*local_min(left, right, tol, &F, res, iter);
+  logLik = -1*local_min(leftIn, rightIn, tol, &F, res, iter);
   delta_hat = exp(res);
 }
 
@@ -383,6 +388,8 @@ vector<fastlmm_result>
   fastlmm<T1, T2, T3>::fit_batch_response( const T1 &Y_all_,
                                const mat &weights_,
                                const double &delta,
+                               const double &left,
+                               const double &right,
                                const double &tol){
 
   // need to apply weights matrix Y_all_, decomp, and X 
@@ -411,7 +418,7 @@ vector<fastlmm_result>
       if( delta > 0 ){
         fit.eval_delta( delta ); 
       }else{
-        fit.estimate_delta( tol );
+        fit.estimate_delta( left, right, tol );
       }
 
       #pragma omp critical

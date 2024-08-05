@@ -4,7 +4,7 @@
 \alias{indicator_decomp}
 \title{Spectral decomposition of factor indicator matrix}
 \usage{
-indicator_decomp(x, weights = NULL)
+indicator_decomp(x, weights = NULL, k = NULL)
 }
 \arguments{
 \item{x}{object of type \code{factor} or \code{sparseMatrix}}

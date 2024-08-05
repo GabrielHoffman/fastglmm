@@ -37,7 +37,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">indicator_decomp</span><span class="op">(</span><span class="va">x</span>, weights <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">indicator_decomp</span><span class="op">(</span><span class="va">x</span>, weights <span class="op">=</span> <span class="cn">NULL</span>, k <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -66,23 +66,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># fast spectral decomposition</span></span></span>
 <span class="r-in"><span><span class="fu">indicator_decomp</span><span class="op">(</span> <span class="va">indiv</span> <span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $vectors</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 x 4 sparse Matrix of class "dgCMatrix"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 0.5 .         .         .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] .   .         .         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] .   .         0.7071068 .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] .   .         0.7071068 .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] .   0.5773503 .         .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] .   0.5773503 .         .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 0.5 .         .         .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 0.5 .         .         .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 0.5 .         .         .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] .   0.5773503 .         .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $values</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4 3 2 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in if (!is.null(k) &amp; k &lt; ncol(vectors) &amp; k &gt; 0) {    U &lt;- vectors[, seq_len(k), drop = FALSE]    cs &lt;- cs[seq_len(k), drop = FALSE]}:</span> argument is of length zero</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create spectral decomposition</span></span></span>
 <span class="r-in"><span><span class="co"># using a slower approach ignoring the </span></span></span>
@@ -123,7 +107,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Who to complain to.</p>
+  <p>Developed by <a href="http://gabrielhoffman.github.io" class="external-link">Gabriel Hoffman</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

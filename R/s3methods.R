@@ -64,7 +64,7 @@ nobs.fastlmm <- function(object,...){
 #' @export
 print.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), ...){
 
-	cat("\nCall:\n", paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n\n", sep = "")
+	cat("\nCall:\n", paste(deparse(attr(x, "call")), sep = "\n", collapse = "\n"), "\n\n", sep = "")
     if (length(coef(x))) {
         cat("Coefficients:\n")
         print.default(format(coef(x), digits = digits), print.gap = 2L, quote = FALSE)
@@ -86,7 +86,7 @@ print.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), ...){
 
 #' @export
 sigma.fastlmm = function(object,...){
-	object$sigSq_e
+	sqrt(object$sigSq_e)
 }
 
 #' @export

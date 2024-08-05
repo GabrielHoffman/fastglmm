@@ -1,17 +1,79 @@
-# # fastlmm is 100x faster than lmer()
-# system.time(
-# 	replicate(100, lmer(y ~ x + (1|Indiv), info, REML=FALSE)))
-# system.time(
-# 	replicate(100, fastlmm(info$y, X, indObj=dcmp)))
-
-# Y_stack = lapply(seq(100), function(x){ info$y})
-# Y_stack = do.call(cbind, Y_stack)
-# system.time(
-# 	fastlmm(Y_stack, X, indObj=dcmp))
-
-
 
 library(RUnit)
+
+test_user_fxn = function(){
+
+	library(fastlmm)
+	library(lme4)
+	library(RUnit)
+
+	fit1 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML=FALSE)
+	fit2 <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy)
+
+	checkEqualsNumeric( fit1@beta, coef(fit2) )
+	checkEqualsNumeric( sigma(fit1), sigma(fit2) )
+	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=1e-7 )
+	checkEqualsNumeric( logLik(fit1), logLik(fit2) )
+	checkEqualsNumeric( coef(summary(fit1)), coef(summary(fit2))[,1:3] )
+
+	# test multivariate model
+	fit3 <- fastlmm(cbind(Reaction, Reaction) ~ Days + (1 | Subject), sleepstudy)
+
+	attr(fit3[[1]], "call")  = attr(fit2, "call") 
+	checkEquals(fit2, fit3[[1]])
+
+
+
+
+}
+
+
+test_multivariate = function(){
+
+	library(MASS)
+	library(fastlmm)
+	library(Matrix)
+	library(lme4)
+	library(RUnit)
+	set.seed(1)
+
+	n = 100000
+	ndonors = 300
+
+	info = data.frame(x = rnorm(n))
+	info$Indiv = factor(sample(seq(ndonors), n, replace=TRUE))
+	info$Indiv = droplevels(info$Indiv)
+	beta = 1
+	eta = 4 + info$x * beta + model.matrix(~ 0 + Indiv, info) %*% rnorm(nlevels(info$Indiv), 0, sqrt(3)) 
+	# info$y = rnegbin(n, mu=exp(eta), theta = 10)
+	info$y = eta + rnorm(length(eta))
+
+	dcmp = indicator_decomp( info$Indiv )
+	indicObj = preprocess_indicator( info$Indiv )
+
+	Y_stack = lapply(seq(100), function(x){ info$y})
+	Y_stack = do.call(cbind, Y_stack)
+	colnames(Y_stack) = paste0("resp_", seq(ncol(Y_stack)))
+
+	fit1 = fastlmm(y ~ x + (1|Indiv), info)
+	fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info)
+
+	
+	attr(fit2[[1]], "call")  = attr(fit1, "call") 
+	checkEquals(fit1, fit2[[1]])
+
+
+	# fastlmm is 100x faster than lmer()
+	if( FALSE ){
+	system.time(
+		replicate(100, lmer(y ~ x + (1|Indiv), info, REML=FALSE)))
+	system.time(
+		replicate(100, fastlmm(y ~ x + (1|Indiv), info)))
+	system.time(
+		fastlmm(Y_stack ~ x + (1|Indiv), info))
+	}
+}
+
 
 test_indicator_decomp = function(){
 	library(MASS)
@@ -268,7 +330,7 @@ test_fxn = function(){
 	U = as.matrix(dcmp$vectors)
 	s = dcmp$values
 	Y = as.numeric(info$y)
-	fit2 = fastlmm(Y, X, indObj=indicObj)
+	fit2 = fastlmm.fit(Y, X, indObj=indicObj)
 }
 
 test_fastlmm = function(){
@@ -314,7 +376,7 @@ test_fastlmm = function(){
 	s = dcmp$values
 	Y = as.numeric(info$y)
 	fit1 = fastlmm_R( Y, X, U = U, s = s)
-	fit2 = fastlmm(Y, X, indObj=indicObj)
+	fit2 = fastlmm.fit(Y, X, indObj=indicObj)
 	isSame(fit1, fit2)
 
 	# 1 response, Sparse dcmp$vectors
@@ -322,7 +384,7 @@ test_fastlmm = function(){
 	s = dcmp$values
 	Y = info$y
 	fit1 = fastlmm_R( Y, X, U = U, s = s)
-	fit2 = fastlmm(Y, X, indObj=indicObj)
+	fit2 = fastlmm.fit(Y, X, indObj=indicObj)
 	isSame(fit1, fit2)
 
 	# multiple responses, matrix dcmp$vectors
@@ -330,7 +392,7 @@ test_fastlmm = function(){
 	U = as.matrix(dcmp$vectors)
 	s = dcmp$values
 	fit1 = fastlmm_R( Ym[,2], X, U = U, s = s)
-	fit2 = fastlmm(Ym[,2], X, indObj=indicObj)
+	fit2 = fastlmm.fit(Ym[,2], X, indObj=indicObj)
 	isSame(fit1, fit2)
 
 	# multiple responses, Sparse dcmp$vectors
@@ -338,14 +400,14 @@ test_fastlmm = function(){
 	U = dcmp$vectors
 	s = dcmp$values
 	fit1 = fastlmm_R( Ym[,2], X, U = U, s = s)
-	fit2 = fastlmm(Ym[,2], X, indObj=indicObj)
+	fit2 = fastlmm.fit(Ym[,2], X, indObj=indicObj)
 	isSame(fit1, fit2)
 
 	# batch, matrix dcmp$vectors
 	U = as.matrix(dcmp$vectors)
 	fitList1 = lapply(seq(ncol(Ym)), function(i){
-		fastlmm( Ym[,i], X, indObj=indicObj)})
-	fitList2 = fastlmm(Ym, X, indObj=indicObj)
+		fastlmm.fit( Ym[,i], X, indObj=indicObj)})
+	fitList2 = fastlmm.fit(Ym, X, indObj=indicObj)
 	res = lapply(seq(ncol(Ym)), function(i){
 		isSame(fitList1[[i]], fitList2[[i]])
 	})
@@ -354,8 +416,8 @@ test_fastlmm = function(){
 	# batch, sparse dcmp$vectors
 	U = dcmp$vectors
 	fitList1 = lapply(seq(ncol(Ym)), function(i){
-		fastlmm( Ym[,i], X, indObj=indicObj)})
-	fitList2 = fastlmm(Ym, X, indObj=indicObj)
+		fastlmm.fit( Ym[,i], X, indObj=indicObj)})
+	fitList2 = fastlmm.fit(Ym, X, indObj=indicObj)
 	res = lapply(seq(ncol(Ym)), function(i){
 		isSame(fitList1[[i]], fitList2[[i]])
 	})
@@ -372,7 +434,7 @@ test_fastlmm = function(){
 	dcmp = preprocess_indicator( info$Indiv )
 	# U = dcmp$vectors
 	# s = dcmp$values
-	fit2 = fastlmm(info$y, X, indObj=dcmp)
+	fit2 = fastlmm.fit(info$y, X, indObj=dcmp)
 	
 	tol = 1e-3
 	res = coef(summary(fit))
@@ -400,7 +462,7 @@ test_fastlmm = function(){
 	yw = info$y * sqrt(weights)
 	Xw = X * sqrt(weights)
 	fit2 = fastlmm_R(yw, Xw, U = U, s = s, weights=weights)
-	fit3 = fastlmm(y, X, indObj=indicObj, weights=weights)
+	fit3 = fastlmm.fit(y, X, indObj=indicObj, weights=weights)
 
 	a = intersect(names(fit2), names(fit3))
 	a = a[a!="iter"]
@@ -479,7 +541,7 @@ test_fastlmm = function(){
 	Xw = X * sqrt(weights)
 	fit2 = fastlmm_R(yw, Xw, U = U, s = s, weights=weights)
 
-	fit3 = fastlmm(info$y, X, indObj = indicatorObj, weights=weights)
+	fit3 = fastlmm.fit(info$y, X, indObj = indicatorObj, weights=weights)
 
 	a = intersect(names(fit2), names(fit3))
 	a = a[a!="iter"]
@@ -560,7 +622,7 @@ test_profile = function(){
 	s = dcmp$values
 	Y = as.numeric(info$y)
 	fit1 = fastlmm_R( Y, X, U = U, s = s)
-	fit2 = fastlmm(Y, X, indObj=indicObj)
+	fit2 = fastlmm.fit(Y, X, indObj=indicObj)
 	isSame(fit1, fit2)
 
 	fit1$logLik
@@ -573,7 +635,7 @@ test_profile = function(){
 
 	# 	y = sample(Y, length(Y), replace=TRUE)
 	# 	# fit = fastlmm_R( y, X, U = U, s = s)
-	# 	fit = fastlmm(y, X, indObj=indicObj)
+	# 	fit = fastlmm.fit(y, X, indObj=indicObj)
 	# 	# estimate of hsq
 	# 	# 1 - 1/(1 + 1/fit$delta)
 	# 	with(fit, sig_g / (sig_g + sig_e))

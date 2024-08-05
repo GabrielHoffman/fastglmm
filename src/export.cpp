@@ -55,7 +55,9 @@ List fastlmm_vmm( const arma::vec &Y,
                   const arma::vec &s,
                   const arma::vec &weights,
                   const double &delta,
-                  const double & tol){
+                  const double &left,
+                  const double &right,
+                  const double &tol){
 
   // initialize
   fastlmm fit = fastlmm(Y, X, U, s, weights);
@@ -63,7 +65,7 @@ List fastlmm_vmm( const arma::vec &Y,
   if( delta > 0 ){
     fit.eval_delta( delta ); 
   }else{
-    fit.estimate_delta( tol );
+    fit.estimate_delta( left, right, tol );
   }
 
   return toList(fit);
@@ -76,7 +78,9 @@ List fastlmm_vms( const arma::vec &Y,
                   const arma::vec &s,
                   const arma::vec &weights,
                   const double &delta,
-                  const double & tol){
+                  const double &left,
+                  const double &right,
+                  const double &tol){
 
   // initialize
   fastlmm fit = fastlmm(Y, X, U, s, weights);
@@ -84,7 +88,7 @@ List fastlmm_vms( const arma::vec &Y,
   if( delta > 0 ){
     fit.eval_delta( delta ); 
   }else{
-    fit.estimate_delta( tol );
+    fit.estimate_delta( left, right, tol );
   }
 
   return toList(fit);
@@ -99,7 +103,9 @@ List fastlmm_vsm( const arma::vec &Y,
                   const arma::vec &s,
                   const arma::vec &weights,
                   const double &delta,
-                  const double & tol){
+                  const double &left,
+                  const double &right,
+                  const double &tol){
 
   // initialize
   fastlmm fit = fastlmm(Y, X, U, s, weights);
@@ -107,7 +113,7 @@ List fastlmm_vsm( const arma::vec &Y,
   if( delta > 0 ){
     fit.eval_delta( delta ); 
   }else{
-    fit.estimate_delta( tol );
+    fit.estimate_delta( left, right, tol );
   }
 
   return toList(fit);
@@ -120,7 +126,9 @@ List fastlmm_vss( const arma::vec &Y,
                   const arma::vec &s,
                   const arma::vec &weights,
                   const double &delta,
-                  const double & tol){
+                  const double &left,
+                  const double &right,
+                  const double &tol){
 
   // initialize
   fastlmm fit = fastlmm(Y, X, U, s, weights);
@@ -128,7 +136,7 @@ List fastlmm_vss( const arma::vec &Y,
   if( delta > 0 ){
     fit.eval_delta( delta ); 
   }else{
-    fit.estimate_delta( tol );
+    fit.estimate_delta( left, right, tol );
   }
 
   return toList(fit);
@@ -147,13 +155,15 @@ List fastlmm_mmm(   const arma::mat &Y_all,
                     const arma::vec &s,
                     const arma::mat &weights,
                     const double &delta,
-                    const double & tol){
+                    const double &left,
+                    const double &right,
+                    const double &tol){
 
   // initialize
   fastlmm fit = fastlmm<mat, mat, mat>(X, U, s);
 
   vector<fastlmm_result> res;
-  res = fit.fit_batch_response(Y_all, weights, delta, tol );
+  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol );
 
   return toList(res);
 }
@@ -166,13 +176,15 @@ List fastlmm_msm(   const arma::mat &Y_all,
                     const arma::vec &s,
                     const arma::mat &weights,
                     const double &delta,
-                    const double & tol){
+                    const double &left,
+                    const double &right,
+                    const double &tol){
 
   // initialize
   fastlmm fit = fastlmm<mat, sp_mat, mat>(X, U, s);
 
   vector<fastlmm_result> res;
-  res = fit.fit_batch_response(Y_all, weights, delta, tol );
+  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol );
 
   return toList(res);
 }
@@ -184,13 +196,15 @@ List fastlmm_mms(   const arma::mat &Y_all,
                     const arma::vec &s,
                     const arma::mat &weights,
                     const double &delta,
-                    const double & tol){
+                    const double &left,
+                    const double &right,
+                    const double &tol){
 
   // initialize
   fastlmm fit = fastlmm<mat, mat, sp_mat>(X, U, s);
 
   vector<fastlmm_result> res;
-  res = fit.fit_batch_response(Y_all, weights, delta, tol );
+  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol );
 
   return toList(res);
 }
@@ -203,16 +217,24 @@ List fastlmm_mss(   const arma::mat &Y_all,
                     const arma::vec &s,
                     const arma::mat &weights,
                     const double &delta,
-                    const double & tol){
+                    const double &left,
+                    const double &right,
+                    const double &tol){
 
   // initialize
   fastlmm fit = fastlmm<mat, sp_mat, sp_mat>(X, U, s);
 
   vector<fastlmm_result> res;
-  res = fit.fit_batch_response(Y_all, weights, delta, tol );
+  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol );
 
   return toList(res);
 }
+
+
+
+
+
+
 
 
 // Aug 2, 2024

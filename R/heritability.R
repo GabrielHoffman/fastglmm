@@ -36,7 +36,7 @@ heritability = function(fit, Y, X, U, s, indicObj, method=c("information", "perm
 		Y_mat = do.call(cbind, Y_mat)
 
 		# Run as batch
-		fitList = fastlmm(Y_mat, X, indObj=indicObj)
+		fitList = fastlmm.fit(Y_mat, X, indObj=indicObj)
 
 		h_sq_null = sapply(fitList, function(fit){
 			1 - 1/(1 + 1/fit$delta)

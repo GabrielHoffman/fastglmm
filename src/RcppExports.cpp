@@ -12,8 +12,8 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // fastlmm_vmm
-List fastlmm_vmm(const arma::vec& Y, const arma::mat& X, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const double& delta, const double& tol);
-RcppExport SEXP _fastlmm_fastlmm_vmm(SEXP YSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP tolSEXP) {
+List fastlmm_vmm(const arma::vec& Y, const arma::mat& X, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const double& delta, const double& left, const double& right, const double& tol);
+RcppExport SEXP _fastlmm_fastlmm_vmm(SEXP YSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -23,14 +23,16 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
     Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
     Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
+    Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
     Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastlmm_vmm(Y, X, U, s, weights, delta, tol));
+    rcpp_result_gen = Rcpp::wrap(fastlmm_vmm(Y, X, U, s, weights, delta, left, right, tol));
     return rcpp_result_gen;
 END_RCPP
 }
 // fastlmm_vms
-List fastlmm_vms(const arma::vec& Y, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights, const double& delta, const double& tol);
-RcppExport SEXP _fastlmm_fastlmm_vms(SEXP YSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP tolSEXP) {
+List fastlmm_vms(const arma::vec& Y, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights, const double& delta, const double& left, const double& right, const double& tol);
+RcppExport SEXP _fastlmm_fastlmm_vms(SEXP YSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -40,14 +42,16 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
     Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
     Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
+    Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
     Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastlmm_vms(Y, X, U, s, weights, delta, tol));
+    rcpp_result_gen = Rcpp::wrap(fastlmm_vms(Y, X, U, s, weights, delta, left, right, tol));
     return rcpp_result_gen;
 END_RCPP
 }
 // fastlmm_vsm
-List fastlmm_vsm(const arma::vec& Y, const arma::sp_mat& X, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const double& delta, const double& tol);
-RcppExport SEXP _fastlmm_fastlmm_vsm(SEXP YSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP tolSEXP) {
+List fastlmm_vsm(const arma::vec& Y, const arma::sp_mat& X, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const double& delta, const double& left, const double& right, const double& tol);
+RcppExport SEXP _fastlmm_fastlmm_vsm(SEXP YSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -57,14 +61,16 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
     Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
     Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
+    Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
     Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastlmm_vsm(Y, X, U, s, weights, delta, tol));
+    rcpp_result_gen = Rcpp::wrap(fastlmm_vsm(Y, X, U, s, weights, delta, left, right, tol));
     return rcpp_result_gen;
 END_RCPP
 }
 // fastlmm_vss
-List fastlmm_vss(const arma::vec& Y, const arma::sp_mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights, const double& delta, const double& tol);
-RcppExport SEXP _fastlmm_fastlmm_vss(SEXP YSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP tolSEXP) {
+List fastlmm_vss(const arma::vec& Y, const arma::sp_mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights, const double& delta, const double& left, const double& right, const double& tol);
+RcppExport SEXP _fastlmm_fastlmm_vss(SEXP YSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -74,14 +80,16 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
     Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
     Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
+    Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
     Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastlmm_vss(Y, X, U, s, weights, delta, tol));
+    rcpp_result_gen = Rcpp::wrap(fastlmm_vss(Y, X, U, s, weights, delta, left, right, tol));
     return rcpp_result_gen;
 END_RCPP
 }
 // fastlmm_mmm
-List fastlmm_mmm(const arma::mat& Y_all, const arma::mat& X, const arma::mat& U, const arma::vec& s, const arma::mat& weights, const double& delta, const double& tol);
-RcppExport SEXP _fastlmm_fastlmm_mmm(SEXP Y_allSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP tolSEXP) {
+List fastlmm_mmm(const arma::mat& Y_all, const arma::mat& X, const arma::mat& U, const arma::vec& s, const arma::mat& weights, const double& delta, const double& left, const double& right, const double& tol);
+RcppExport SEXP _fastlmm_fastlmm_mmm(SEXP Y_allSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -91,14 +99,16 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type weights(weightsSEXP);
     Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
+    Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
     Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastlmm_mmm(Y_all, X, U, s, weights, delta, tol));
+    rcpp_result_gen = Rcpp::wrap(fastlmm_mmm(Y_all, X, U, s, weights, delta, left, right, tol));
     return rcpp_result_gen;
 END_RCPP
 }
 // fastlmm_msm
-List fastlmm_msm(const arma::mat& Y_all, const arma::sp_mat& X, const arma::mat& U, const arma::vec& s, const arma::mat& weights, const double& delta, const double& tol);
-RcppExport SEXP _fastlmm_fastlmm_msm(SEXP Y_allSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP tolSEXP) {
+List fastlmm_msm(const arma::mat& Y_all, const arma::sp_mat& X, const arma::mat& U, const arma::vec& s, const arma::mat& weights, const double& delta, const double& left, const double& right, const double& tol);
+RcppExport SEXP _fastlmm_fastlmm_msm(SEXP Y_allSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -108,14 +118,16 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type weights(weightsSEXP);
     Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
+    Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
     Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastlmm_msm(Y_all, X, U, s, weights, delta, tol));
+    rcpp_result_gen = Rcpp::wrap(fastlmm_msm(Y_all, X, U, s, weights, delta, left, right, tol));
     return rcpp_result_gen;
 END_RCPP
 }
 // fastlmm_mms
-List fastlmm_mms(const arma::mat& Y_all, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::mat& weights, const double& delta, const double& tol);
-RcppExport SEXP _fastlmm_fastlmm_mms(SEXP Y_allSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP tolSEXP) {
+List fastlmm_mms(const arma::mat& Y_all, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::mat& weights, const double& delta, const double& left, const double& right, const double& tol);
+RcppExport SEXP _fastlmm_fastlmm_mms(SEXP Y_allSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -125,14 +137,16 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type weights(weightsSEXP);
     Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
+    Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
     Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastlmm_mms(Y_all, X, U, s, weights, delta, tol));
+    rcpp_result_gen = Rcpp::wrap(fastlmm_mms(Y_all, X, U, s, weights, delta, left, right, tol));
     return rcpp_result_gen;
 END_RCPP
 }
 // fastlmm_mss
-List fastlmm_mss(const arma::mat& Y_all, const arma::sp_mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::mat& weights, const double& delta, const double& tol);
-RcppExport SEXP _fastlmm_fastlmm_mss(SEXP Y_allSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP tolSEXP) {
+List fastlmm_mss(const arma::mat& Y_all, const arma::sp_mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::mat& weights, const double& delta, const double& left, const double& right, const double& tol);
+RcppExport SEXP _fastlmm_fastlmm_mss(SEXP Y_allSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -142,8 +156,10 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type weights(weightsSEXP);
     Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
+    Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
     Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastlmm_mss(Y_all, X, U, s, weights, delta, tol));
+    rcpp_result_gen = Rcpp::wrap(fastlmm_mss(Y_all, X, U, s, weights, delta, left, right, tol));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -165,14 +181,14 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_fastlmm_fastlmm_vmm", (DL_FUNC) &_fastlmm_fastlmm_vmm, 7},
-    {"_fastlmm_fastlmm_vms", (DL_FUNC) &_fastlmm_fastlmm_vms, 7},
-    {"_fastlmm_fastlmm_vsm", (DL_FUNC) &_fastlmm_fastlmm_vsm, 7},
-    {"_fastlmm_fastlmm_vss", (DL_FUNC) &_fastlmm_fastlmm_vss, 7},
-    {"_fastlmm_fastlmm_mmm", (DL_FUNC) &_fastlmm_fastlmm_mmm, 7},
-    {"_fastlmm_fastlmm_msm", (DL_FUNC) &_fastlmm_fastlmm_msm, 7},
-    {"_fastlmm_fastlmm_mms", (DL_FUNC) &_fastlmm_fastlmm_mms, 7},
-    {"_fastlmm_fastlmm_mss", (DL_FUNC) &_fastlmm_fastlmm_mss, 7},
+    {"_fastlmm_fastlmm_vmm", (DL_FUNC) &_fastlmm_fastlmm_vmm, 9},
+    {"_fastlmm_fastlmm_vms", (DL_FUNC) &_fastlmm_fastlmm_vms, 9},
+    {"_fastlmm_fastlmm_vsm", (DL_FUNC) &_fastlmm_fastlmm_vsm, 9},
+    {"_fastlmm_fastlmm_vss", (DL_FUNC) &_fastlmm_fastlmm_vss, 9},
+    {"_fastlmm_fastlmm_mmm", (DL_FUNC) &_fastlmm_fastlmm_mmm, 9},
+    {"_fastlmm_fastlmm_msm", (DL_FUNC) &_fastlmm_fastlmm_msm, 9},
+    {"_fastlmm_fastlmm_mms", (DL_FUNC) &_fastlmm_fastlmm_mms, 9},
+    {"_fastlmm_fastlmm_mss", (DL_FUNC) &_fastlmm_fastlmm_mss, 9},
     {"_fastlmm_theta_ml", (DL_FUNC) &_fastlmm_theta_ml, 6},
     {NULL, NULL, 0}
 };
