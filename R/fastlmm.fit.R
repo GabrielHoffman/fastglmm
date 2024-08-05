@@ -24,7 +24,14 @@
 #' @importFrom Rcpp evalCpp
 NULL
 
-
+#' Convert list to fastlmm class
+#' 
+#' Convert list to fastlmm class
+#' 
+#' @param x list from \code{.fastlmm_*()}
+#' @param design design matrix 
+#' 
+#' @return object of class \code{fastlmm}
 #' @export
 as.fastlmm = function(x, design){
 

@@ -4,10 +4,14 @@
 \alias{indicator_decomp}
 \title{Spectral decomposition of factor indicator matrix}
 \usage{
-indicator_decomp(x, weights = NULL, k = NULL)
+indicator_decomp(x, weights = NULL, rank = NULL)
 }
 \arguments{
 \item{x}{object of type \code{factor} or \code{sparseMatrix}}
+
+\item{weights}{vector of weights with a value for each sample.  If ommited, weights are set to 1.}
+
+\item{rank}{rank of random effect.  The maximum rank is the number of columns in \code{Z}.  A low rank approximation can be useful if the eigen-values decrease quickly.}
 }
 \value{
 list storing spectral decomposition like from \code{eigen()}

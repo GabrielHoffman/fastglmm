@@ -5,7 +5,9 @@
 #' 
 #' Given a factor, construct the spectral decompostion of the corresponding indicator matrix.  Uses linear time algorithm and sparse matrix algebra.  Resulting vector space is also sparse.
 #' 
-#' @param x object of type \code{factor} or \code{sparseMatrix} 
+#' @param x object of type \code{factor} or \code{sparseMatrix}
+#' @param weights vector of weights with a value for each sample.  If ommited, weights are set to 1.
+#' @param rank rank of random effect.  The maximum rank is the number of columns in \code{Z}.  A low rank approximation can be useful if the eigen-values decrease quickly.
 #' 
 #' @details This approach is dramatically faster than the naive algorithm that is quadratic time in the number of levels.
 #' 
@@ -36,7 +38,7 @@
 #' dcmp
 #' @importFrom Matrix Diagonal t colSums
 #' @export 
-indicator_decomp = function( x, weights = NULL, k = NULL){
+indicator_decomp = function( x, weights = NULL, rank = NULL){
 
 	if( is.factor(x) ){
 		Z.mod = preprocess_indicator( x )
@@ -59,9 +61,9 @@ indicator_decomp = function( x, weights = NULL, k = NULL){
 
 	vectors = Z.mod %*% Diagonal(ncol(Z.mod), 1/sqrt(cs))
 
-	if( !is.null(k) & k < ncol(vectors) & k > 0){
-		U <- vectors[,seq_len(k), drop=FALSE]
-		cs <- cs[seq_len(k), drop=FALSE]
+	if( !is.null(rank) && rank < ncol(vectors) && rank > 0){
+		U <- vectors[,seq_len(rank), drop=FALSE]
+		cs <- cs[seq_len(rank), drop=FALSE]
 	}
 
 	list(vectors = vectors, values = as.numeric(cs))

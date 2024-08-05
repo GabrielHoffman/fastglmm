@@ -10,9 +10,9 @@
 
 using namespace arma;
 
-#include "local_min.hpp"
+#include "local_min.h"
 
-namespace fastlmm_ns {
+namespace fastlmmLib {
 
 class fastlmm_result {       
   public:  

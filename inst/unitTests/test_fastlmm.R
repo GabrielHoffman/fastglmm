@@ -330,7 +330,7 @@ test_fxn = function(){
 	U = as.matrix(dcmp$vectors)
 	s = dcmp$values
 	Y = as.numeric(info$y)
-	fit2 = fastlmm.fit(Y, X, indObj=indicObj)
+	fit2 = fastlmm.fit(Y, X, Z=indicObj)
 }
 
 test_fastlmm = function(){
@@ -376,7 +376,7 @@ test_fastlmm = function(){
 	s = dcmp$values
 	Y = as.numeric(info$y)
 	fit1 = fastlmm_R( Y, X, U = U, s = s)
-	fit2 = fastlmm.fit(Y, X, indObj=indicObj)
+	fit2 = fastlmm.fit(Y, X, Z=indicObj)
 	isSame(fit1, fit2)
 
 	# 1 response, Sparse dcmp$vectors
@@ -384,7 +384,7 @@ test_fastlmm = function(){
 	s = dcmp$values
 	Y = info$y
 	fit1 = fastlmm_R( Y, X, U = U, s = s)
-	fit2 = fastlmm.fit(Y, X, indObj=indicObj)
+	fit2 = fastlmm.fit(Y, X, Z=indicObj)
 	isSame(fit1, fit2)
 
 	# multiple responses, matrix dcmp$vectors
@@ -392,7 +392,7 @@ test_fastlmm = function(){
 	U = as.matrix(dcmp$vectors)
 	s = dcmp$values
 	fit1 = fastlmm_R( Ym[,2], X, U = U, s = s)
-	fit2 = fastlmm.fit(Ym[,2], X, indObj=indicObj)
+	fit2 = fastlmm.fit(Ym[,2], X, Z=indicObj)
 	isSame(fit1, fit2)
 
 	# multiple responses, Sparse dcmp$vectors
@@ -400,14 +400,14 @@ test_fastlmm = function(){
 	U = dcmp$vectors
 	s = dcmp$values
 	fit1 = fastlmm_R( Ym[,2], X, U = U, s = s)
-	fit2 = fastlmm.fit(Ym[,2], X, indObj=indicObj)
+	fit2 = fastlmm.fit(Ym[,2], X, Z=indicObj)
 	isSame(fit1, fit2)
 
 	# batch, matrix dcmp$vectors
 	U = as.matrix(dcmp$vectors)
 	fitList1 = lapply(seq(ncol(Ym)), function(i){
-		fastlmm.fit( Ym[,i], X, indObj=indicObj)})
-	fitList2 = fastlmm.fit(Ym, X, indObj=indicObj)
+		fastlmm.fit( Ym[,i], X, Z=indicObj)})
+	fitList2 = fastlmm.fit(Ym, X, Z=indicObj)
 	res = lapply(seq(ncol(Ym)), function(i){
 		isSame(fitList1[[i]], fitList2[[i]])
 	})
@@ -416,8 +416,8 @@ test_fastlmm = function(){
 	# batch, sparse dcmp$vectors
 	U = dcmp$vectors
 	fitList1 = lapply(seq(ncol(Ym)), function(i){
-		fastlmm.fit( Ym[,i], X, indObj=indicObj)})
-	fitList2 = fastlmm.fit(Ym, X, indObj=indicObj)
+		fastlmm.fit( Ym[,i], X, Z=indicObj)})
+	fitList2 = fastlmm.fit(Ym, X, Z=indicObj)
 	res = lapply(seq(ncol(Ym)), function(i){
 		isSame(fitList1[[i]], fitList2[[i]])
 	})
@@ -434,7 +434,7 @@ test_fastlmm = function(){
 	dcmp = preprocess_indicator( info$Indiv )
 	# U = dcmp$vectors
 	# s = dcmp$values
-	fit2 = fastlmm.fit(info$y, X, indObj=dcmp)
+	fit2 = fastlmm.fit(info$y, X, Z=dcmp)
 	
 	tol = 1e-3
 	res = coef(summary(fit))
@@ -462,7 +462,7 @@ test_fastlmm = function(){
 	yw = info$y * sqrt(weights)
 	Xw = X * sqrt(weights)
 	fit2 = fastlmm_R(yw, Xw, U = U, s = s, weights=weights)
-	fit3 = fastlmm.fit(y, X, indObj=indicObj, weights=weights)
+	fit3 = fastlmm.fit(y, X, Z=indicObj, weights=weights)
 
 	a = intersect(names(fit2), names(fit3))
 	a = a[a!="iter"]
@@ -541,7 +541,7 @@ test_fastlmm = function(){
 	Xw = X * sqrt(weights)
 	fit2 = fastlmm_R(yw, Xw, U = U, s = s, weights=weights)
 
-	fit3 = fastlmm.fit(info$y, X, indObj = indicatorObj, weights=weights)
+	fit3 = fastlmm.fit(info$y, X, Z = indicatorObj, weights=weights)
 
 	a = intersect(names(fit2), names(fit3))
 	a = a[a!="iter"]
@@ -622,7 +622,7 @@ test_profile = function(){
 	s = dcmp$values
 	Y = as.numeric(info$y)
 	fit1 = fastlmm_R( Y, X, U = U, s = s)
-	fit2 = fastlmm.fit(Y, X, indObj=indicObj)
+	fit2 = fastlmm.fit(Y, X, Z=indicObj)
 	isSame(fit1, fit2)
 
 	fit1$logLik
@@ -635,7 +635,7 @@ test_profile = function(){
 
 	# 	y = sample(Y, length(Y), replace=TRUE)
 	# 	# fit = fastlmm_R( y, X, U = U, s = s)
-	# 	fit = fastlmm.fit(y, X, indObj=indicObj)
+	# 	fit = fastlmm.fit(y, X, Z=indicObj)
 	# 	# estimate of hsq
 	# 	# 1 - 1/(1 + 1/fit$delta)
 	# 	with(fit, sig_g / (sig_g + sig_e))

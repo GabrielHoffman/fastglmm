@@ -16,10 +16,11 @@ coef.fastlmm = function(object,...){
 
 # cooks.distance.fastlmm
 
-#' @export
-family.fastlmm = function(object,...){
-	gaussian()
-}
+#' @importFrom stats gaussian
+# #' @export
+# family.fastlmm = function(object,...){
+# 	gaussian()
+# }
 
 # formula.fastlmm
 
@@ -60,7 +61,6 @@ nobs.fastlmm <- function(object,...){
 
 # predict.fastlmm
 
-
 #' @export
 print.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), ...){
 
@@ -93,8 +93,7 @@ sigma.fastlmm = function(object,...){
 print.summary.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), symbolic.cor = x$symbolic.cor, 
     signif.stars = getOption("show.signif.stars"), ...){
 
-	cat("\nCall:\n", paste(deparse(x$call), sep = "\n", collapse = "\n"), 
-        "\n", sep = "")
+	cat("Linear mixed model fit by", ifelse(x$REML, "REML", "ML"), " ['fastlmm']\n\n")
     
     cat("\nCoefficients:\n")
     coefs <- x$coefficients

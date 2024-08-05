@@ -23,7 +23,7 @@
 #' 
 #' # results are identical for lmer(...,REML=FALSE)
 #' fit2 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML=FALSE)
-#' summary(fit2)
+#' coef(summary(fit2))
 #' 
 #' @details fill in 
 #' 

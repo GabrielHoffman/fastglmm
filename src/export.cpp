@@ -2,12 +2,12 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include <omp.h>
-#include "fastlmm.hpp"
-#include "nb_theta.hpp"
+#include "fastlmm.h"
+#include "./nb_theta.h"
 
 using namespace Rcpp; 
 using namespace arma;
-using namespace fastlmm_ns;
+using namespace fastlmmLib;
 
 // Depends on Rcpp::List, so define outside of class
 const List toList(fastlmm_result &res){

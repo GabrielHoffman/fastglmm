@@ -2,7 +2,7 @@
 # 1) create profile log-likelihood surface from delta surface, and get standard error from hessian of hsq surface at hsq_hat
 # 2) fast permutations
 
-heritability = function(fit, Y, X, U, s, indicObj, method=c("information", "permutation"), nperms=100){
+heritability = function(fit, Y, X, U, s, Z, method=c("information", "permutation"), nperms=100){
 
 	method = match.arg(method)
 
@@ -36,7 +36,7 @@ heritability = function(fit, Y, X, U, s, indicObj, method=c("information", "perm
 		Y_mat = do.call(cbind, Y_mat)
 
 		# Run as batch
-		fitList = fastlmm.fit(Y_mat, X, indObj=indicObj)
+		fitList = fastlmm.fit(Y_mat, X, Z=Z)
 
 		h_sq_null = sapply(fitList, function(fit){
 			1 - 1/(1 + 1/fit$delta)
