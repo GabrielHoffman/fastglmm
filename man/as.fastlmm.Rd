@@ -4,12 +4,10 @@
 \alias{as.fastlmm}
 \title{Convert list to fastlmm class}
 \usage{
-as.fastlmm(x, design)
+as.fastlmm(x)
 }
 \arguments{
 \item{x}{list from \code{.fastlmm_()}}
-
-\item{design}{design matrix}
 }
 \value{
 object of class \code{fastlmm}

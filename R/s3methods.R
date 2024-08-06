@@ -6,6 +6,7 @@
 
 # summary(lm.D9)
 
+# blup
 
 #' @export
 coef.fastlmm = function(object,...){
@@ -16,11 +17,12 @@ coef.fastlmm = function(object,...){
 
 # cooks.distance.fastlmm
 
-#' @importFrom stats gaussian
-# #' @export
-# family.fastlmm = function(object,...){
-# 	gaussian()
-# }
+
+#' @importFrom stats family gaussian
+#' @export
+family.fastlmm = function(object,...){
+	gaussian()
+}
 
 # formula.fastlmm
 
@@ -51,6 +53,8 @@ logLik.fastlmm = function(object, ...){
 
 # model.matrix.fastlmm
 
+
+#' @importFrom stats nobs
 #' @export
 nobs.fastlmm <- function(object,...){
 	if (!is.null(w <- object$weights)) sum(w != 0) 
@@ -61,6 +65,7 @@ nobs.fastlmm <- function(object,...){
 
 # predict.fastlmm
 
+#' @importFrom stats coef
 #' @export
 print.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), ...){
 
@@ -74,6 +79,8 @@ print.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), ...){
     invisible(x)
 }
 
+# ranef.fastlmm
+
 # residuals.fastlmm
 
 # rstandard.fastlmm
@@ -83,12 +90,21 @@ print.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), ...){
 
 # show.fastlmm
 
-
+#' Extract Residual Standard Deviation
+#'
+#' Extract the estimated standard deviation of the errors
+#' 
+#' @param object fitted model of class \code{fastlmm}
+#' @param ... other args, not used
+#' 
+#' @return numeric, estimated standard deviation of the errors
+#' @importFrom stats sigma
 #' @export
 sigma.fastlmm = function(object,...){
 	sqrt(object$sigSq_e)
 }
 
+#' @importFrom stats printCoefmat
 #' @export
 print.summary.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), symbolic.cor = x$symbolic.cor, 
     signif.stars = getOption("show.signif.stars"), ...){
@@ -114,6 +130,7 @@ print.summary.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L),
     cat("\n")
 } 
 
+#' @importFrom stats coef pt
 #' @export
 summary.fastlmm = function(object, ...){
 

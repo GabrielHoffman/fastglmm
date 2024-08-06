@@ -2,6 +2,7 @@
 # 1) create profile log-likelihood surface from delta surface, and get standard error from hessian of hsq surface at hsq_hat
 # 2) fast permutations
 
+#' @importFrom numDeriv hessian
 heritability = function(fit, Y, X, U, s, Z, method=c("information", "permutation"), nperms=100){
 
 	method = match.arg(method)
@@ -15,11 +16,11 @@ heritability = function(fit, Y, X, U, s, Z, method=c("information", "permutation
 		Xu = crossprod(U,X)
 		f = function(hsq){
 			delta = 1 / (1/hsq - 1)
-			-1*fastlmm:::ll_R(delta, Y, X, Yu, Xu, U, s)
+			-1*ll_R(delta, Y, X, Yu, Xu, U, s)
 		}
 
 		# Fisher information at delta_hat
-		infor = numDeriv::hessian(f, hsq_hat)
+		infor = hessian(f, hsq_hat)
 
 		# variance of estimate
 		se_hsq = sqrt(1 / infor)

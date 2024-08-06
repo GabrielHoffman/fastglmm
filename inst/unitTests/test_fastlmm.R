@@ -23,7 +23,12 @@ test_user_fxn = function(){
 	checkEquals(fit2, fit3[[1]])
 
 
+	# predict
+	pred <- drop(X %*% coef(fit2))
 
+	head(predict(fit1))
+	head(fitted(fit1))
+	head(fit2$eta)
 
 }
 
@@ -55,10 +60,14 @@ test_multivariate = function(){
 	Y_stack = do.call(cbind, Y_stack)
 	colnames(Y_stack) = paste0("resp_", seq(ncol(Y_stack)))
 
-	fit1 = fastlmm(y ~ x + (1|Indiv), info)
-	fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info)
 
-	
+
+	devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
+	weights = c(seq(nrow(info)))
+	fit1 = fastlmm(y ~ x + (1|Indiv), info, weights = weights)
+	fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights)
+
+
 	attr(fit2[[1]], "call")  = attr(fit1, "call") 
 	checkEquals(fit1, fit2[[1]])
 

@@ -14,6 +14,7 @@ using namespace arma;
 
 namespace fastlmmLib {
 
+template <typename T1, typename T2, typename T3> 
 class fastlmm_result {       
   public:  
     double logLik, sigSq_g, sigSq_e, delta;
@@ -21,26 +22,42 @@ class fastlmm_result {
     vec beta, beta_se;
     mat vcov;
 
+    T1 Y;
+    T2 X;
+    T3 U;
+    vec s, weights;
+
     fastlmm_result(){}
 
     fastlmm_result( const double &logLik_,
                     const vec &beta_,
                     const mat &vcov_,
                     const vec &beta_se_,
+                    const T1 &Y_,
+                    const T2 &X_,
+                    const T3 &U_,
+                    const vec &s_,
+                    const vec &weights_,
                     const double &delta_,
                     const double &sigSq_g_,
                     const double &sigSq_e_,
                     const int &iter_ ){
-      logLik = logLik_;
-      beta   = beta_;
-      vcov   = vcov_;
-      beta_se= beta_se_;
-      delta  = delta_;
-      sigSq_g  = sigSq_g_;
-      sigSq_e  = sigSq_e_;
-      iter   = iter_;
+      logLik  = logLik_;
+      beta    = beta_;
+      vcov    = vcov_;
+      beta_se = beta_se_;
+      Y       = Y_;
+      X       = X_;
+      U       = U_;
+      s       = s_;
+      weights = weights_;
+      delta   = delta_;
+      sigSq_g = sigSq_g_;
+      sigSq_e = sigSq_e_;
+      iter    = iter_;
     }
 };
+
 
 // Order of template variables
 // T1 Y
@@ -85,14 +102,22 @@ class fastlmm {
             const vec &s_);
 
     // extract results
-    fastlmm_result get_result(){
+    fastlmm_result<T1, T2, T3> get_result(){
 
       mat V = get_vcov();
 
-      return fastlmm_result(  get_logLik(),
+      vec w = get_weights();
+
+      return fastlmm_result<T1, T2, T3>(  
+                              get_logLik(),
                               get_beta(),
                               V,
                               sqrt(diagvec(V)),
+                              get_Y(),
+                              get_X(),
+                              get_U(),
+                              get_s(),
+                              get_weights(),
                               get_delta(),
                               get_sigSq_g(),
                               get_sigSq_e(),
@@ -131,11 +156,13 @@ class fastlmm {
                           const double &right,
                           const double &tol);
 
-    void update_response(const T1 &Y_);
     void update_response(const T1 &Y_, 
-                         const mat &Yu_);
+                          const vec &weights_);
+    void update_response(const T1 &Y_, 
+                         const mat &Yu_,
+                         const vec &weights_);
 
-    vector<fastlmm_result> 
+    vector<fastlmm_result<T1, T2, T3> > 
         fit_batch_response(const T1 &Y_all_, 
                            const mat &weights_,
                            const double &delta,
@@ -157,6 +184,13 @@ class fastlmm {
 
     // Update X, keeping rest constant
     void update_X( const vec &X_);
+
+    // accessors
+    T1 get_Y(){ return Y;}
+    T2 get_X(){ return X;}
+    T3 get_U(){ return U;}
+    vec get_s(){ return s;}
+    vec get_weights(){ return weights;}
 
   private:
     T1 Y, Yu;
@@ -188,13 +222,16 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
   this->X = X_;
   this->U = U_;
   this->s = s_;
+
+  // use weights here
   this->weights = weights_;
-  this->Yu = U_.t() * Y_;
-  this->Xu = U_.t() * X_;
+
+  this->Yu = U_.t() * Y;
+  this->Xu = U_.t() * X;
   this->cp_X_low = X.t() * X - Xu.t() * Xu;
   this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
   this->inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
-  // use weights here
+
 } 
 
 // constructor, precompute Yu, Xu
@@ -207,7 +244,7 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
         const vec &Yu_, 
         const mat &Xu_){
 
-  this->Y = Y_;
+  this->Y = Y_.t();
   this->X = X_;
   this->U = U_;
   this->s = s_;
@@ -233,7 +270,7 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
             const mat &cp_X_low_, 
             const mat &cp_X_low_Y_low_){
 
-  this->Y = Y_;
+  this->Y = Y_.t();
   this->X = X_;
   this->U = U_;
   this->s = s_;
@@ -260,15 +297,16 @@ fastlmm<T1, T2, T3>::fastlmm( const T2 &X_,
 }
 
 template <typename T1, typename T2, typename T3> 
-void fastlmm<T1, T2, T3>::update_response(const T1 &Y_){
+void fastlmm<T1, T2, T3>::update_response(const T1 &Y_, const vec &weights_){
 
-  update_response(Y, U.t() * Y_);
+  update_response(Y, U.t() * Y_, weights_);
 } 
 
 
 template <typename T1, typename T2, typename T3> 
 void fastlmm<T1, T2, T3>::update_response(const T1 &Y_, 
-                              const mat &Yu_){
+                              const mat &Yu_, const vec &weights_){
+  this->weights = weights_;
   this->Y = Y_;
   this->Yu = Yu_;  
   this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu;
@@ -384,7 +422,7 @@ void fastlmm<T1, T2, T3>::estimate_delta( const double &left, const double &righ
 
 
 template <typename T1, typename T2, typename T3> 
-vector<fastlmm_result> 
+vector<fastlmm_result<T1, T2, T3> > 
   fastlmm<T1, T2, T3>::fit_batch_response( const T1 &Y_all_,
                                const mat &weights_,
                                const double &delta,
@@ -394,26 +432,37 @@ vector<fastlmm_result>
 
   // need to apply weights matrix Y_all_, decomp, and X 
 
-  // responses are stored as _rows_
-  mat Yu_all = Y_all_ * U;
+  // responses are stored as _rows_ in Y_all
+  mat Y_all = Y_all_;
+  mat Yu_all = Y_all * U;
+  mat weights = weights_;
 
-  int n_responses = Y_all_.n_rows;
+  int n_responses = Y_all.n_rows;
 
   // store results
-  vector<fastlmm_result> result(n_responses, fastlmm_result()); 
+  vector<fastlmm_result<T1, T2, T3> > 
+    result(n_responses, fastlmm_result<T1, T2, T3>()); 
+
+  #ifdef _OPENMP
   int OMP_CHUNK_SIZE = n_responses / omp_get_num_threads();
+  #endif
 
   // disable nested parallelism
+  #ifdef _OPENMP
   omp_set_nested(0);
   #pragma omp parallel
+  #endif
   {
     // initialize
     fastlmm fit = fastlmm(X, U, s);
 
     // iterate thru responses i.e. rows
+    #ifdef _OPENMP 
     #pragma omp for schedule(static, OMP_CHUNK_SIZE)
+    #endif
     for( int i = 0; i < n_responses; i++){
-      fit.update_response(Y_all_.row(i).t(), Yu_all.row(i).t());
+
+      fit.update_response(Y_all.row(i).t(), Yu_all.row(i).t(), weights.row(i).t());
 
       if( delta > 0 ){
         fit.eval_delta( delta ); 
@@ -421,7 +470,9 @@ vector<fastlmm_result>
         fit.estimate_delta( left, right, tol );
       }
 
+      #ifdef _OPENMP 
       #pragma omp critical
+      #endif
       result.at(i) = fit.get_result();
     }
   }

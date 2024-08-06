@@ -38,14 +38,18 @@ ll_R <- function( delta, Y, X, Yu, Xu, U, s ){
 #' @param X matrix of covariates
 #' @param U principal components of covariance matrix
 #' @param s eigen values from of covariance matrix
+#' @param weights vector weights with value for each sample
+#' @param Xu pre-transformed X value
+#' @param Yu pre-transformed Y value
 #' @param delta ratio of variance components estimated using
+#' @param sig_a_fixed if \code{FALSE}, estimate \code{sigSq_a} from data
 #' @param rank number of of principal components used 
 #' 
 #' @details Fit a linear mixed model with a single variance component.
 #'
 #' @return summary statistics for model fit, and hypothesis testing using X_test_lst, if available
 #' 
-#' @importFrom stats optimize
+#' @importFrom stats optimize pnorm sd pbeta
 #' @export
 fastlmm_R <- function( Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NULL, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U)){
 

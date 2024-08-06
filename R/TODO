@@ -13,3 +13,7 @@ How is sigma() affected by weights?
 
 fastlmm.fit and as.fastlmm should return input data 
  like lmer does
+
+df.residual
+rdf
+edf

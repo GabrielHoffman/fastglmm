@@ -11,9 +11,11 @@ Imports:
 	Rcpp (>= 1.0.12),
 	Matrix,
 	lme4,
-	stats,
+	numDeriv,
 	Rdpack,
-	S4Vectors
+	S4Vectors,
+	stats,
+	methods
 Encoding: UTF-8
 LinkingTo: 
 	Rcpp, 
