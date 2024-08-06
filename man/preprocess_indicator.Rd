@@ -2,10 +2,16 @@
 % Please edit documentation in R/decomps.R
 \name{preprocess_indicator}
 \alias{preprocess_indicator}
-\title{init}
+\title{Create sparse indicator matrix}
 \usage{
-preprocess_indicator(Factor)
+preprocess_indicator(x)
+}
+\arguments{
+\item{x}{a \code{factor}}
+}
+\value{
+sparse indicator with levels as columns
 }
 \description{
-init
+Create sparse indicator matrix from factor
 }

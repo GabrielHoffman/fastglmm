@@ -7,7 +7,7 @@
 as.fastlmm(x, design)
 }
 \arguments{
-\item{x}{list from \code{.fastlmm_*()}}
+\item{x}{list from \code{.fastlmm_()}}
 
 \item{design}{design matrix}
 }
