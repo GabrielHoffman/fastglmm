@@ -89,6 +89,7 @@ print.fastlmmList = function(x, ...){
 #' @param delta  if \code{NULL} estimate delta, if value is given used this fixed values
 #' @param delta.range min and max values (in log space), of the search space for delta to fit the random effect
 #' @param tol convergence criterion for the 1D search of the delta space
+#' @param nthreads number of threads
 #
 #' @details Fit a linear mixed model with a single variance component.
 #'
@@ -97,7 +98,7 @@ print.fastlmmList = function(x, ...){
 # other args: sig_a_fixed = FALSE
 #' @importFrom methods is
 #' @export
-fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, delta.range = c(-10, 10), tol = .Machine$double.eps^0.5){
+fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, delta.range = c(-10, 10), tol = .Machine$double.eps^0.5, nthreads=6){
 
 	if( delta.range[1] >= delta.range[2] ){
 		stop("delta.range are not valid")
@@ -141,7 +142,8 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 								delta = delta, 
 								left = delta.range[1],
 								right = delta.range[2],
-								tol = tol)
+								tol = tol,
+								nthreads = nthreads)
 		}else{
 			res = .fastlmm_vmm( Y = Y, 
 								X = X,  
@@ -151,7 +153,8 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 								delta = delta, 
 								left = delta.range[1],
 								right = delta.range[2],
-								tol = tol)
+								tol = tol,
+								nthreads = nthreads)
 		}
 		
 		res = as.fastlmm(res, design=X)
@@ -170,7 +173,8 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 								delta = delta, 
 								left = delta.range[1],
 								right = delta.range[2],
-								tol = tol)
+								tol = tol,
+								nthreads = nthreads)
 		}else{
 			res <- .fastlmm_mmm(Y_all = Y, 
 								X = X,  
@@ -180,7 +184,8 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 								delta = delta,  
 								left = delta.range[1],
 								right = delta.range[2],
-								tol = tol)
+								tol = tol,
+								nthreads = nthreads)
 		}
 
 		# convert each entry to an fastlmm object

@@ -12,7 +12,8 @@ fastlmm.fit(
   rank = ncol(Z),
   weights = NULL,
   delta.range = c(-10, 10),
-  tol = .Machine$double.eps^0.5
+  tol = .Machine$double.eps^0.5,
+  nthreads = 6
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ fastlmm.fit(
 \item{delta.range}{min and max values (in log space), of the search space for delta to fit the random effect}
 
 \item{tol}{convergence criterion for the 1D search of the delta space}
+
+\item{nthreads}{number of threads}
 }
 \value{
 fill in

@@ -11,6 +11,7 @@
 #' @param delta  if \code{NULL} estimate delta, if value is given used this fixed values
 #' @param delta.range min and max values (in log space), of the search space for delta to fit the random effect
 #' @param tol convergence criterion for the 1D search of the delta space
+#' @param nthreads number of threads
 #
 #' @examples
 #' library(lme4)
@@ -37,7 +38,7 @@
 #' @importFrom Rdpack reprompt
 #' @seealso \code{lme4::lmer()}
 #' @export
-fastlmm = function (formula, data, REML = TRUE, delta = NULL, weights = NULL, delta.range = c(-10, 10), tol = .Machine$double.eps^0.5){
+fastlmm = function (formula, data, REML = TRUE, delta = NULL, weights = NULL, delta.range = c(-10, 10), tol = .Machine$double.eps^0.5, nthreads=6){
 
     mc <- mcout <- match.call()
 
@@ -103,11 +104,12 @@ fastlmm = function (formula, data, REML = TRUE, delta = NULL, weights = NULL, de
     	Y = Y, 
     	X = X, 
     	Z = Z, 
-    	delta 	= delta,
     	rank 	= ncol(Z), 
-    	weights = weights, 
+    	weights = weights,
+        delta   = delta, 
+        delta.range = delta.range,
     	tol 	= tol, 
-    	delta.range = delta.range)
+        nthreads = nthreads)
 
     # return model fit
    	attr(fit, "call") <- mc

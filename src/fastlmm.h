@@ -158,7 +158,8 @@ class fastlmm {
                            const double &delta,
                            const double &left,
                            const double &right,
-                           const double &tol);
+                           const double &tol,
+                           const int &nthreads);
 
     // evaluate logLik, beta, etc at delta value
     void eval_delta( const double &delta){
@@ -424,7 +425,8 @@ vector<fastlmm_result>
                                const double &delta,
                                const double &left,
                                const double &right,
-                               const double &tol){
+                               const double &tol,
+                               const int &nthreads){
 
   // need to apply weights matrix Y_all_, decomp, and X
   mat Yu_all = U.t() * Y_all_;
@@ -438,9 +440,8 @@ vector<fastlmm_result>
   blas_set_num_threads(1);
   Rcpp::Rcout << "done...\n";
 
-
   #ifdef _OPENMP
-  omp_set_num_threads(6);
+  omp_set_num_threads(nthreads);
   int OMP_CHUNK_SIZE = n_responses / omp_get_num_threads();
   #endif
 
@@ -449,7 +450,7 @@ vector<fastlmm_result>
 
   // disable nested parallelism
   #ifdef _OPENMP
-  // omp_set_nested(0);
+  omp_set_nested(0);
   #endif
   #pragma omp parallel
   {

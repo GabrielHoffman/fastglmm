@@ -11,7 +11,8 @@ fastlmm(
   delta = NULL,
   weights = NULL,
   delta.range = c(-10, 10),
-  tol = .Machine$double.eps^0.5
+  tol = .Machine$double.eps^0.5,
+  nthreads = 6
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ fastlmm(
 \item{delta.range}{min and max values (in log space), of the search space for delta to fit the random effect}
 
 \item{tol}{convergence criterion for the 1D search of the delta space}
+
+\item{nthreads}{number of threads}
 }
 \description{
 Fit a linear mixed-effects model with 1 random effect with REML or maximum likelihood using the very fast algorithm and implementation

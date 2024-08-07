@@ -60,7 +60,8 @@ List fastlmm_vmm( const arma::vec &Y,
                   const double &delta,
                   const double &left,
                   const double &right,
-                  const double &tol){
+                  const double &tol,
+                  const int &nthreads){
 
   // initialize
   fastlmm fit = fastlmm(Y, X, U, s, weights);
@@ -83,7 +84,8 @@ List fastlmm_vms( const arma::vec &Y,
                   const double &delta,
                   const double &left,
                   const double &right,
-                  const double &tol){
+                  const double &tol,
+                  const int &nthreads){
 
   // initialize
   fastlmm fit = fastlmm(Y, X, U, s, weights);
@@ -108,7 +110,8 @@ List fastlmm_vsm( const arma::vec &Y,
                   const double &delta,
                   const double &left,
                   const double &right,
-                  const double &tol){
+                  const double &tol,
+                  const int &nthreads){
 
   // initialize
   fastlmm fit = fastlmm(Y, X, U, s, weights);
@@ -131,7 +134,8 @@ List fastlmm_vss( const arma::vec &Y,
                   const double &delta,
                   const double &left,
                   const double &right,
-                  const double &tol){
+                  const double &tol,
+                  const int &nthreads){
 
   // initialize
   fastlmm fit = fastlmm(Y, X, U, s, weights);
@@ -160,13 +164,14 @@ List fastlmm_mmm(   const arma::mat &Y_all,
                     const double &delta,
                     const double &left,
                     const double &right,
-                    const double &tol){
+                    const double &tol,
+                    const int &nthreads){
 
   // initialize
   fastlmm fit = fastlmm<mat, mat, mat>(X, U, s);
 
   vector<fastlmm_result> res;
-  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol );
+  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol, nthreads );
 
   return toList(res);
 }
@@ -181,13 +186,14 @@ List fastlmm_msm(   const arma::mat &Y_all,
                     const double &delta,
                     const double &left,
                     const double &right,
-                    const double &tol){
+                    const double &tol,
+                    const int &nthreads){
 
   // initialize
   fastlmm fit = fastlmm<mat, sp_mat, mat>(X, U, s);
 
   vector<fastlmm_result> res;
-  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol );
+  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol, nthreads );
 
   return toList(res);
 }
@@ -201,13 +207,14 @@ List fastlmm_mms(   const arma::mat &Y_all,
                     const double &delta,
                     const double &left,
                     const double &right,
-                    const double &tol){
+                    const double &tol,
+                    const int &nthreads){
 
   // initialize
   fastlmm fit = fastlmm<mat, mat, sp_mat>(X, U, s);
 
   vector<fastlmm_result> res;
-  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol );
+  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol, nthreads );
 
   return toList(res);
 }
@@ -222,13 +229,14 @@ List fastlmm_mss(   const arma::mat &Y_all,
                     const double &delta,
                     const double &left,
                     const double &right,
-                    const double &tol){
+                    const double &tol,
+                    const int &nthreads){
 
   // initialize
   fastlmm fit = fastlmm<mat, sp_mat, sp_mat>(X, U, s);
 
   vector<fastlmm_result> res;
-  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol );
+  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol, nthreads);
 
   return toList(res);
 }
