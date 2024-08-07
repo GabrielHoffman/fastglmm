@@ -1,7 +1,6 @@
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 
-#include <omp.h>
 #include "fastlmm.h"
 #include "./nb_theta.h"
 

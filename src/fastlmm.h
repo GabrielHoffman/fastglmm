@@ -5,6 +5,15 @@
 // Can be imported by plain C++ without Rcpp*
 //  by only modifying header above
 
+
+#ifdef _OPENMP
+    #include <omp.h>
+#else
+    #define omp_get_num_threads() 0
+    #define omp_get_thread_num() 0
+#endif
+
+
 #ifndef FASTLMM_H_
 #define FASTLMM_H_
 
@@ -434,13 +443,20 @@ vector<fastlmm_result>
   #endif
   {
     // initialize
-
     fastlmm fit = fastlmm(X, U, s);
 
-    // iterate thru responses 
-    #ifdef _OPENMP 
+    #pragma omp critical
+    {
+        int nthreads = omp_get_num_threads();
+        int thread_id = omp_get_thread_num();
+
+        Rcpp::Rcout << "I am thread number " << thread_id
+                  << " out of a total " << nthreads 
+                  << std::endl;
+    }
+
+    // iterate through responses 
     #pragma omp for schedule(static, OMP_CHUNK_SIZE)
-    #endif
     for( int i = 0; i < n_responses; i++){
 
       fit.update_response(Y_all_.col(i), weights_.col(i), Yu_all.col(i));
@@ -451,9 +467,7 @@ vector<fastlmm_result>
         fit.estimate_delta( left, right, tol );
       }
 
-      #ifdef _OPENMP
       #pragma omp critical
-      #endif
       result.at(i) = fit.get_result();
     }
   }
