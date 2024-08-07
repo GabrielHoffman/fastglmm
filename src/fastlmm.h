@@ -433,7 +433,12 @@ vector<fastlmm_result>
   // store results
   vector<fastlmm_result> result(n_responses, fastlmm_result());
 
+  // use single BLAS thread
+  blas_set_num_threads(1);
+
+
   #ifdef _OPENMP
+  omp_set_num_threads(6);
   int OMP_CHUNK_SIZE = n_responses / omp_get_num_threads();
   #endif
 
