@@ -440,15 +440,15 @@ vector<fastlmm_result>
 
 
   #ifdef _OPENMP
-  omp_set_num_threads(6);
+  // omp_set_num_threads(6);
   int OMP_CHUNK_SIZE = n_responses / omp_get_num_threads();
   #endif
 
   // disable nested parallelism
   #ifdef _OPENMP
-  omp_set_nested(0);
-  #pragma omp parallel
+  // omp_set_nested(0);
   #endif
+  #pragma omp parallel
   {
     // initialize
     fastlmm fit = fastlmm(X, U, s);
