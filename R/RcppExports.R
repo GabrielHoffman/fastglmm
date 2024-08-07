@@ -33,7 +33,3 @@
     .Call('_fastlmm_fastlmm_mss', PACKAGE = 'fastlmm', Y_all, X, U, s, weights, delta, left, right, tol, nthreads)
 }
 
-theta_ml <- function(y, mu, n, weights, limit, eps) {
-    .Call('_fastlmm_theta_ml', PACKAGE = 'fastlmm', y, mu, n, weights, limit, eps)
-}
-

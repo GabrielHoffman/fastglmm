@@ -21,7 +21,6 @@
 using namespace arma;
 
 #include "local_min.h"
-#include "blasctl.h"
 
 namespace fastlmmLib {
 
@@ -440,11 +439,10 @@ vector<fastlmm_result>
   // "C stack usage is too close to the limit"
 
   #ifdef _OPENMP 
+  // set threads
   omp_set_num_threads(nthreads);
   // disable nested parallelism
   omp_set_max_active_levels(1);
-  int OMP_CHUNK_SIZE = n_responses / omp_get_max_threads();
-  Rcpp::Rcout << "omp_get_max_threads: " << omp_get_max_threads() << std::endl;
   #endif
 
   #pragma omp parallel
@@ -456,7 +454,9 @@ vector<fastlmm_result>
     #pragma omp for 
     for( int i = 0; i < n_responses; i++){
 
-      fit.update_response(Y_all_.col(i), weights_.col(i), Yu_all.col(i));
+      fit.update_response(Y_all_.col(i), 
+                          weights_.col(i), 
+                          Yu_all.col(i));
 
       if( delta > 0 ){
         fit.eval_delta( delta ); 

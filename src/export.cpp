@@ -2,7 +2,6 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include "fastlmm.h"
-#include "./nb_theta.h"
 
 using namespace Rcpp; 
 using namespace arma;

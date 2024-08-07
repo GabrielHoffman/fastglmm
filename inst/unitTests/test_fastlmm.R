@@ -59,7 +59,7 @@ test_multivariate = function(){
 	dcmp = indicator_decomp( info$Indiv )
 	indicObj = preprocess_indicator( info$Indiv )
 
-	n_reps = 500
+	n_reps = 50
 	Y_stack = lapply(seq(n_reps), function(x){ info$y})
 	Y_stack = do.call(cbind, Y_stack)
 	colnames(Y_stack) = paste0("resp_", seq(ncol(Y_stack)))
@@ -80,9 +80,9 @@ test_multivariate = function(){
 	system.time(
 		replicate(n_reps, fastlmm(y ~ x + (1|Indiv), info, weights = weights)))
 	system.time(
-		a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights))
-	system.time(
 		a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights, nthreads=1))
+	system.time(
+		a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights))
 	system.time(
 		fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights, delta=1))
 	}

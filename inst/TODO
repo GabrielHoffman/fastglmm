@@ -1,5 +1,11 @@
 
 
+Aug 7 2024
+# fastlmm<T1, T2, T3>::fit_batch_response() 
+	uses a fastlmm object inside.  This is confusing and might cause issues with thread safety
+
+
+
 # Aug 2, 2024
 # Need 
 # residuals, fitted.values, df.residual, hatvalues
@@ -55,3 +61,5 @@ rdf = tr((I-H)(I-H)) ??
 the log is expenseive to evaluate millions of times
 
 # the model fit can be large for many reponses
+
+

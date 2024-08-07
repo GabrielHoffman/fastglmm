@@ -1,3 +1,6 @@
+# fastlmm 0.1.2
+ - Aug 7, 2024
+ - multivariate model is run in parallel
 
 # fastlmm 0.1.1
  - Aug 6, 2024
