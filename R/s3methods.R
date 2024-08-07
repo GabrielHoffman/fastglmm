@@ -1,5 +1,5 @@
 
-# methods(class="lm")
+# methods(class="fastlmm")
 # getS3method("deviance", "lm")
 # getS3method("family", "lm")
 # getS3method("print", "summary.lm")
@@ -8,6 +8,13 @@
 
 # blup
 
+# Extract Model Coefficients
+#
+# Extract Model Coefficients
+# 
+# @param object fitted model of class \code{fastlmm}
+# @param ... other args, not used
+# 
 #' @export
 coef.fastlmm = function(object,...){
 	object$coefficients
@@ -21,7 +28,11 @@ coef.fastlmm = function(object,...){
 #' @importFrom stats family gaussian
 #' @export
 family.fastlmm = function(object,...){
+<<<<<<< Updated upstream
 	gaussian()
+=======
+    gaussian()
+>>>>>>> Stashed changes
 }
 
 # formula.fastlmm
@@ -44,7 +55,7 @@ logLik.fastlmm = function(object, ...){
     val <- object$logLik
     attr(val, "nall") <- N0
     attr(val, "nobs") <- N
-    attr(val, "df") <- p + 1
+    attr(val, "df") <- p + 2
     class(val) <- "logLik"
     val
 }
@@ -53,7 +64,10 @@ logLik.fastlmm = function(object, ...){
 
 # model.matrix.fastlmm
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 #' @importFrom stats nobs
 #' @export
 nobs.fastlmm <- function(object,...){
@@ -90,6 +104,7 @@ print.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), ...){
 
 # show.fastlmm
 
+<<<<<<< Updated upstream
 #' Extract Residual Standard Deviation
 #'
 #' Extract the estimated standard deviation of the errors
@@ -98,6 +113,16 @@ print.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), ...){
 #' @param ... other args, not used
 #' 
 #' @return numeric, estimated standard deviation of the errors
+=======
+# Extract Residual Standard Deviation
+#
+# Extract the estimated standard deviation of the errors
+# 
+# @param object fitted model of class \code{fastlmm}
+# @param ... other args, not used
+# 
+# @return numeric, estimated standard deviation of the errors
+>>>>>>> Stashed changes
 #' @importFrom stats sigma
 #' @export
 sigma.fastlmm = function(object,...){

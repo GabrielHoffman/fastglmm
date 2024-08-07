@@ -19,7 +19,7 @@ class fastlmm_result {
   public:  
     double logLik, sigSq_g, sigSq_e, delta;
     int iter;
-    vec beta, beta_se;
+    vec beta, beta_se, weights;
     mat vcov;
 
     T1 Y;
@@ -33,10 +33,13 @@ class fastlmm_result {
                     const vec &beta_,
                     const mat &vcov_,
                     const vec &beta_se_,
+<<<<<<< Updated upstream
                     const T1 &Y_,
                     const T2 &X_,
                     const T3 &U_,
                     const vec &s_,
+=======
+>>>>>>> Stashed changes
                     const vec &weights_,
                     const double &delta_,
                     const double &sigSq_g_,
@@ -46,10 +49,13 @@ class fastlmm_result {
       beta    = beta_;
       vcov    = vcov_;
       beta_se = beta_se_;
+<<<<<<< Updated upstream
       Y       = Y_;
       X       = X_;
       U       = U_;
       s       = s_;
+=======
+>>>>>>> Stashed changes
       weights = weights_;
       delta   = delta_;
       sigSq_g = sigSq_g_;
@@ -113,10 +119,13 @@ class fastlmm {
                               get_beta(),
                               V,
                               sqrt(diagvec(V)),
+<<<<<<< Updated upstream
                               get_Y(),
                               get_X(),
                               get_U(),
                               get_s(),
+=======
+>>>>>>> Stashed changes
                               get_weights(),
                               get_delta(),
                               get_sigSq_g(),
@@ -156,11 +165,18 @@ class fastlmm {
                           const double &right,
                           const double &tol);
 
+<<<<<<< Updated upstream
     void update_response(const T1 &Y_, 
                           const vec &weights_);
     void update_response(const T1 &Y_, 
                          const mat &Yu_,
                          const vec &weights_);
+=======
+    void update_response(const T1 &Y_, const vec &weights_);
+    void update_response(const T1 &Y_,
+                         const vec &weights_, 
+                         const mat &Yu_);
+>>>>>>> Stashed changes
 
     vector<fastlmm_result<T1, T2, T3> > 
         fit_batch_response(const T1 &Y_all_, 
@@ -185,11 +201,14 @@ class fastlmm {
     // Update X, keeping rest constant
     void update_X( const vec &X_);
 
+<<<<<<< Updated upstream
     // accessors
     T1 get_Y(){ return Y;}
     T2 get_X(){ return X;}
     T3 get_U(){ return U;}
     vec get_s(){ return s;}
+=======
+>>>>>>> Stashed changes
     vec get_weights(){ return weights;}
 
   private:
@@ -297,15 +316,29 @@ fastlmm<T1, T2, T3>::fastlmm( const T2 &X_,
 }
 
 template <typename T1, typename T2, typename T3> 
+<<<<<<< Updated upstream
 void fastlmm<T1, T2, T3>::update_response(const T1 &Y_, const vec &weights_){
 
   update_response(Y, U.t() * Y_, weights_);
+=======
+void fastlmm<T1, T2, T3>::update_response(const T1 &Y_,
+                                          const vec &weights_){
+
+
+  update_response(Y, weights_, U.t() * Y_);
+>>>>>>> Stashed changes
 } 
 
 
 template <typename T1, typename T2, typename T3> 
 void fastlmm<T1, T2, T3>::update_response(const T1 &Y_, 
+<<<<<<< Updated upstream
                               const mat &Yu_, const vec &weights_){
+=======
+                                          const vec &weights_,
+                                          const mat &Yu_){
+
+>>>>>>> Stashed changes
   this->weights = weights_;
   this->Y = Y_;
   this->Yu = Yu_;  
@@ -350,7 +383,11 @@ double fastlmm<T1, T2, T3>::ll(const double &delta ) {
   sigSq_g = QRR / n;
 
   // use 2.0 to ensure double precision
-  double logLik = -n/2.0 * log(2.0*M_PI*sigSq_g) - 1.0/2.0 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2.0 + sum(log(weights))/2.0;
+  double logLik = -n/2.0 * log(2.0*M_PI*sigSq_g) - 1.0/2.0 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2.0; 
+
+  // this is fixed, so don't eval every time, 
+  //     just after estimation
+  // + sum(log(weights))/2.0;
 
   return logLik;
 }
@@ -414,6 +451,10 @@ void fastlmm<T1, T2, T3>::estimate_delta( const double &left, const double &righ
   // evaluated at minimum value 
   double res;
   logLik = -1*local_min(leftIn, rightIn, tol, &F, res, iter);
+
+  // augment with value this is constant for varying delta's
+  logLik += sum(log(weights))/2.0;
+
   delta_hat = exp(res);
 }
 
@@ -430,8 +471,9 @@ vector<fastlmm_result<T1, T2, T3> >
                                const double &right,
                                const double &tol){
 
-  // need to apply weights matrix Y_all_, decomp, and X 
+  // need to apply weights matrix Y_all_, decomp, and X
 
+<<<<<<< Updated upstream
   // responses are stored as _rows_ in Y_all
   mat Y_all = Y_all_;
   mat Yu_all = Y_all * U;
@@ -442,6 +484,14 @@ vector<fastlmm_result<T1, T2, T3> >
   // store results
   vector<fastlmm_result<T1, T2, T3> > 
     result(n_responses, fastlmm_result<T1, T2, T3>()); 
+=======
+  mat Yu_all = U.t() * Y_all_ ;
+
+  int n_responses = Y_all_.n_cols;
+
+  // store results
+  vector<fastlmm_result> result(n_responses, fastlmm_result());
+>>>>>>> Stashed changes
 
   #ifdef _OPENMP
   int OMP_CHUNK_SIZE = n_responses / omp_get_num_threads();
@@ -457,12 +507,20 @@ vector<fastlmm_result<T1, T2, T3> >
     fastlmm fit = fastlmm(X, U, s);
 
     // iterate thru responses i.e. rows
+<<<<<<< Updated upstream
     #ifdef _OPENMP 
+=======
+    #ifdef _OPENMP
+>>>>>>> Stashed changes
     #pragma omp for schedule(static, OMP_CHUNK_SIZE)
     #endif
     for( int i = 0; i < n_responses; i++){
 
+<<<<<<< Updated upstream
       fit.update_response(Y_all.row(i).t(), Yu_all.row(i).t(), weights.row(i).t());
+=======
+      fit.update_response(Y_all_.col(i), weights_.col(i), Yu_all.col(i));
+>>>>>>> Stashed changes
 
       if( delta > 0 ){
         fit.eval_delta( delta ); 
@@ -470,7 +528,11 @@ vector<fastlmm_result<T1, T2, T3> >
         fit.estimate_delta( left, right, tol );
       }
 
+<<<<<<< Updated upstream
       #ifdef _OPENMP 
+=======
+      #ifdef _OPENMP
+>>>>>>> Stashed changes
       #pragma omp critical
       #endif
       result.at(i) = fit.get_result();

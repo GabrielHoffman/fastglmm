@@ -69,7 +69,19 @@ indicator_decomp = function( x, weights = NULL, rank = NULL){
 	list(vectors = vectors, values = as.numeric(cs))
 }
 
+ #' Create sparse indicator matrix
+ #' 
+ #' Create sparse indicator matrix from factor
+ #'
+ #' @param x a \code{factor}
+ #' 
+ #' @return sparse indicator with levels as columns
+ #' @importFrom Matrix fac2sparse
+ #' @export 
+ preprocess_indicator = function( x ){
+ 	stopifnot( is.factor(x) )
 
+<<<<<<< Updated upstream
 #' Create sparse indicator matrix
 #' 
 #' Create sparse indicator matrix from factor
@@ -87,7 +99,13 @@ preprocess_indicator = function( x ){
 
 	Z.mod
 }
+=======
+ 	x = droplevels( x )
+ 	Z.mod = t(fac2sparse(x))
+>>>>>>> Stashed changes
 
+ 	Z.mod
+ }
 
 
 

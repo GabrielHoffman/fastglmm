@@ -18,6 +18,7 @@ const List toList(fastlmm_result<T1, T2, T3> &res){
                 Named("coefficients") = res.beta,
                 Named("se")           = res.beta_se,
                 Named("vcov")         = res.vcov, 
+<<<<<<< Updated upstream
                 Named("delta")        = res.delta,
                 Named("sigSq_g")      = res.sigSq_g,
                 Named("sigSq_e")      = res.sigSq_e,
@@ -26,6 +27,12 @@ const List toList(fastlmm_result<T1, T2, T3> &res){
                 Named("U")            = res.U,
                 Named("s")            = res.s,
                 Named("weights")      = res.weights,
+=======
+                Named("weights")      = res.weights,
+                Named("delta")        = res.delta,
+                Named("sigSq_g")      = res.sigSq_g,
+                Named("sigSq_e")      = res.sigSq_e,
+>>>>>>> Stashed changes
                 Named("iter")         = res.iter);
 }
 

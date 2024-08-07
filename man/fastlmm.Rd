@@ -6,7 +6,7 @@
 \usage{
 fastlmm(
   formula,
-  data = NULL,
+  data,
   REML = TRUE,
   delta = NULL,
   weights = NULL,
@@ -15,7 +15,7 @@ fastlmm(
 )
 }
 \arguments{
-\item{formula}{a two-sided linear formula object describing both the fixed-effects and random-effects part of the model, with the response on the left of a \code{~} operator and the terms, separated by \code{+} operators, on the right.  Random-effects terms are distinguished by vertical bars (\code{|}) separating expressions for design matrices from grouping factors.}
+\item{formula}{a two-sided linear formula object describing both the fixed-effects and random-effects part of the model, with the response on the left of a \code{~} operator and the terms, separated by \code{+} operators, on the right. Random-effects terms are distinguished by vertical bars (\code{|}) separating expressions for design matrices from grouping factors.}
 
 \item{data}{an optional data frame containing the variables named in}
 
@@ -35,7 +35,7 @@ Fit a linear mixed-effects model with 1 random effect with REML or maximum likel
 Description
 }
 \details{
-fill in
+\insertCite{hoffman2013}{fastlmm} and \insertCite{lippert2011}{fastlmm}
 }
 \examples{
 library(lme4)
@@ -52,9 +52,8 @@ coef(summary(fit2))
 
 }
 \references{
-{
-  \insertRef{hoffman2013}{fastlmm}
-
-  \insertRef{lippert2011}{fastlmm}
+\insertAllCited{}
 }
+\seealso{
+\code{lme4::lmer()}
 }

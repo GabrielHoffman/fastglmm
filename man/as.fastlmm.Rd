@@ -8,6 +8,11 @@ as.fastlmm(x)
 }
 \arguments{
 \item{x}{list from \code{.fastlmm_()}}
+<<<<<<< Updated upstream
+=======
+
+\item{design}{design matrix for fixed effects}
+>>>>>>> Stashed changes
 }
 \value{
 object of class \code{fastlmm}

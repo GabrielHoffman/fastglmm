@@ -60,7 +60,11 @@ test_multivariate = function(){
 	indicObj = preprocess_indicator( info$Indiv )
 
 	n_reps = 100
+<<<<<<< Updated upstream
 	Y_stack = lapply(seq(n_reps), function(x){ info$y})
+=======
+	Y_stack = lapply(seq(100), function(x){ info$y})
+>>>>>>> Stashed changes
 	Y_stack = do.call(cbind, Y_stack)
 	colnames(Y_stack) = paste0("resp_", seq(ncol(Y_stack)))
 
@@ -74,15 +78,26 @@ test_multivariate = function(){
 	
 
 
+<<<<<<< Updated upstream
+=======
+	system.time(replicate(100, lme(y  ~ x, random = ~ 1 | Indiv, data=info, weights=varFixed(~weights))))
+
+>>>>>>> Stashed changes
 
 	# fastlmm is 100x faster than lmer()
 	if( FALSE ){
 	system.time(replicate(n_reps, lme(y  ~ x, random = ~ 1 | Indiv, data=info, weights=varFixed(~weights))))
 
 	system.time(
+<<<<<<< Updated upstream
 		replicate(n_reps, lmer(y ~ x + (1|Indiv), info, REML=FALSE, weights = weights)))
 	system.time(
 		replicate(n_reps, fastlmm(y ~ x + (1|Indiv), info, weights = weights)))
+=======
+		replicate(1000, lmer(y ~ x + (1|Indiv), info, REML=FALSE, weights = weights)))
+	system.time(
+		replicate(1000, fastlmm(y ~ x + (1|Indiv), info, weights = weights)))
+>>>>>>> Stashed changes
 	system.time(
 		fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights))
 	}
