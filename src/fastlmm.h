@@ -435,24 +435,19 @@ vector<fastlmm_result>
   // store results
   vector<fastlmm_result> result(n_responses, fastlmm_result());
 
-  // use single BLAS thread
-  // blas_set_num_threads(1);
-
   #ifdef _OPENMP
-  Rcpp::Rcout << "nthreads: " << nthreads << std::endl;
-  omp_set_num_threads(nthreads);
-  int OMP_CHUNK_SIZE = n_responses / omp_get_num_threads();
   #endif
 
-  Rcpp::Rcout << "omp_get_num_threads(): " << omp_get_num_threads() << std::endl;
 
   // NOTE: Do not use Rcpp in parallel section
   // "C stack usage is too close to the limit"
 
+  #ifdef _OPENMP  
   // disable nested parallelism
-  #ifdef _OPENMP
-  omp_set_nested(0);
+  omp_set_max_active_levels(1);
+  int OMP_CHUNK_SIZE = n_responses / omp_get_num_threads();
   #endif
+  
   #pragma omp parallel
   {
     // initialize
