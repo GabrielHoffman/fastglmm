@@ -7,6 +7,7 @@
 
 
 #ifdef _OPENMP
+    // [[Rcpp::plugins(openmp)]]
     #include <omp.h>
 #else
     #define omp_get_num_threads() 0
@@ -435,26 +436,23 @@ vector<fastlmm_result>
   // store results
   vector<fastlmm_result> result(n_responses, fastlmm_result());
 
-  #ifdef _OPENMP
-  #endif
-
-
   // NOTE: Do not use Rcpp in parallel section
   // "C stack usage is too close to the limit"
 
-  #ifdef _OPENMP  
+  #ifdef _OPENMP 
   // disable nested parallelism
   omp_set_max_active_levels(1);
-  int OMP_CHUNK_SIZE = n_responses / omp_get_num_threads();
+  int OMP_CHUNK_SIZE = n_responses / omp_get_max_threads();
+  Rcpp::Rcout << "omp_get_max_threads: " << omp_get_max_threads() << std::endl;
   #endif
-  
+
   #pragma omp parallel
   {
     // initialize
     fastlmm fit = fastlmm(X, U, s);
 
     // iterate through responses 
-    #pragma omp for schedule(static, OMP_CHUNK_SIZE)
+    #pragma omp for 
     for( int i = 0; i < n_responses; i++){
 
       fit.update_response(Y_all_.col(i), weights_.col(i), Yu_all.col(i));
