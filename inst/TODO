@@ -15,6 +15,13 @@ How is sigma() affected by weights?
  df.residual
  rdf
 
+
+# Move to Rcpp
+Y <- Y * sqrt(weights)
+X <- X * sqrt(weights)
+
+
+
 # hat matrices
 ##############
 
@@ -42,6 +49,8 @@ H_2 = I - V^{-1} + X (X^T V^{-1} X)^{-1} X^T V^{-1}
 edf = tr(H)
 rdf = tr((I-H)(I-H)) ??
 
+
+## Fixed
 //+ sum(log(weights))/2.0; is fixed, but evaluated everytime !!!!
 the log is expenseive to evaluate millions of times
 

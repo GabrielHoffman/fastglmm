@@ -20,6 +20,7 @@
 using namespace arma;
 
 #include "local_min.h"
+#include "blasctl.h"
 
 namespace fastlmmLib {
 
