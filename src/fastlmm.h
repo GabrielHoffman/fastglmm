@@ -453,16 +453,6 @@ vector<fastlmm_result>
     // initialize
     fastlmm fit = fastlmm(X, U, s);
 
-    #pragma omp critical
-    {
-        int nthreads = omp_get_num_threads();
-        int thread_id = omp_get_thread_num();
-
-        Rcpp::Rcout << "I am thread number " << thread_id
-                  << " out of a total " << nthreads 
-                  << std::endl;
-    }
-
     // iterate through responses 
     #pragma omp for schedule(static, OMP_CHUNK_SIZE)
     for( int i = 0; i < n_responses; i++){
