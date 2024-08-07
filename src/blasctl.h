@@ -4,17 +4,11 @@
 // Gabriel Hoffman
 // Icahn School of Medicine at Mount Sinai
 
+// I use this at the C++ level, so I dropped code 
+// exposing to R
+
 #define OPTION_WIN_RBLAS_NAME "RhpcBLASctl.win.Rblas.name"
 #define OPTION_WIN_RBLAS_TYPE "RhpcBLASctl.win.Rblas.type"
-
-// static char *getRblasName(void)
-// {
-//   static char Rblas[1024];
-//   SEXP ret = GetOption1(install(OPTION_WIN_RBLAS_NAME));
-//   if(ret==R_NilValue||XLENGTH(ret)<1||TYPEOF(ret)!=STRSXP) return("Rblas.dll");
-//   strncpy(Rblas, CHAR(STRING_ELT(ret,0)), sizeof(Rblas)-1);
-//   return(Rblas);
-// }
 
 
 #ifdef WIN32

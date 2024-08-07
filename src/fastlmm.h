@@ -434,7 +434,9 @@ vector<fastlmm_result>
   vector<fastlmm_result> result(n_responses, fastlmm_result());
 
   // use single BLAS thread
+  Rcpp::Rcout << "blas_set_num_threads...\n";
   blas_set_num_threads(1);
+  Rcpp::Rcout << "done...\n";
 
 
   #ifdef _OPENMP
