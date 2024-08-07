@@ -441,6 +441,7 @@ vector<fastlmm_result>
   Rcpp::Rcout << "done...\n";
 
   #ifdef _OPENMP
+  Rcpp::Rcout << "nthreads: " << nthreads << std::endl;
   omp_set_num_threads(nthreads);
   int OMP_CHUNK_SIZE = n_responses / omp_get_num_threads();
   #endif
