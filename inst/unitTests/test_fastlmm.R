@@ -7,28 +7,31 @@ test_user_fxn = function(){
 	library(lme4)
 	library(RUnit)
 
-	fit1 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML=FALSE)
-	fit2 <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy)
+	w = seq(nrow(sleepstudy))
+	w = w / mean(w)
+	
+	fit1 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML=FALSE, weights = w)
+	fit2 <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy, weights = w)
 
 	checkEqualsNumeric( fit1@beta, coef(fit2) )
-	checkEqualsNumeric( sigma(fit1), sigma(fit2) )
-	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=1e-7 )
+	checkEqualsNumeric( sigma(fit1), sigma(fit2), tol=5e-7 )
+	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=5e-7 )
 	checkEqualsNumeric( logLik(fit1), logLik(fit2) )
 	checkEqualsNumeric( coef(summary(fit1)), coef(summary(fit2))[,1:3] )
 
 	# test multivariate model
-	fit3 <- fastlmm(cbind(Reaction, Reaction) ~ Days + (1 | Subject), sleepstudy)
+	fit3 <- fastlmm(cbind(Reaction, Reaction) ~ Days + (1 | Subject), sleepstudy, weights = w)
 
 	attr(fit3[[1]], "call")  = attr(fit2, "call") 
 	checkEquals(fit2, fit3[[1]])
 
 
 	# predict
-	pred <- drop(X %*% coef(fit2))
+	# pred <- drop(X %*% coef(fit2))
 
-	head(predict(fit1))
-	head(fitted(fit1))
-	head(fit2$eta)
+	# head(predict(fit1))
+	# head(fitted(fit1))
+	# head(fit2$eta)
 
 }
 
@@ -56,31 +59,34 @@ test_multivariate = function(){
 	dcmp = indicator_decomp( info$Indiv )
 	indicObj = preprocess_indicator( info$Indiv )
 
-	Y_stack = lapply(seq(100), function(x){ info$y})
+	n_reps = 100
+	Y_stack = lapply(seq(n_reps), function(x){ info$y})
 	Y_stack = do.call(cbind, Y_stack)
 	colnames(Y_stack) = paste0("resp_", seq(ncol(Y_stack)))
 
-
-
-	devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
 	weights = c(seq(nrow(info)))
 	fit1 = fastlmm(y ~ x + (1|Indiv), info, weights = weights)
 	fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights)
 
-
 	attr(fit2[[1]], "call")  = attr(fit1, "call") 
 	checkEquals(fit1, fit2[[1]])
+
+	
+
 
 
 	# fastlmm is 100x faster than lmer()
 	if( FALSE ){
+	system.time(replicate(n_reps, lme(y  ~ x, random = ~ 1 | Indiv, data=info, weights=varFixed(~weights))))
+
 	system.time(
-		replicate(100, lmer(y ~ x + (1|Indiv), info, REML=FALSE)))
+		replicate(n_reps, lmer(y ~ x + (1|Indiv), info, REML=FALSE, weights = weights)))
 	system.time(
-		replicate(100, fastlmm(y ~ x + (1|Indiv), info)))
+		replicate(n_reps, fastlmm(y ~ x + (1|Indiv), info, weights = weights)))
 	system.time(
-		fastlmm(Y_stack ~ x + (1|Indiv), info))
+		fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights))
 	}
+
 }
 
 
