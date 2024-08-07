@@ -440,7 +440,7 @@ vector<fastlmm_result>
   // "C stack usage is too close to the limit"
 
   #ifdef _OPENMP 
-  omp_get_max_threads(nthreads);
+  omp_set_num_threads(nthreads);
   // disable nested parallelism
   omp_set_max_active_levels(1);
   int OMP_CHUNK_SIZE = n_responses / omp_get_max_threads();
