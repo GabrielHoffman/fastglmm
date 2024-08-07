@@ -435,14 +435,17 @@ vector<fastlmm_result>
 
   // use single BLAS thread
   Rcpp::Rcout << "blas_set_num_threads...\n";
-  // blas_set_num_threads(1);
+  blas_set_num_threads(1);
   Rcpp::Rcout << "done...\n";
 
 
   #ifdef _OPENMP
-  // omp_set_num_threads(6);
+  omp_set_num_threads(6);
   int OMP_CHUNK_SIZE = n_responses / omp_get_num_threads();
   #endif
+
+  // NOTE: Do not use Rcpp in parallel section
+  // "C stack usage is too close to the limit"
 
   // disable nested parallelism
   #ifdef _OPENMP
