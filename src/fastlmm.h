@@ -14,7 +14,6 @@ using namespace arma;
 
 namespace fastlmmLib {
 
-template <typename T1, typename T2, typename T3> 
 class fastlmm_result {       
   public:  
     double logLik, sigSq_g, sigSq_e, delta;
@@ -22,24 +21,12 @@ class fastlmm_result {
     vec beta, beta_se, weights;
     mat vcov;
 
-    T1 Y;
-    T2 X;
-    T3 U;
-    vec s, weights;
-
     fastlmm_result(){}
 
     fastlmm_result( const double &logLik_,
                     const vec &beta_,
                     const mat &vcov_,
                     const vec &beta_se_,
-<<<<<<< Updated upstream
-                    const T1 &Y_,
-                    const T2 &X_,
-                    const T3 &U_,
-                    const vec &s_,
-=======
->>>>>>> Stashed changes
                     const vec &weights_,
                     const double &delta_,
                     const double &sigSq_g_,
@@ -49,13 +36,6 @@ class fastlmm_result {
       beta    = beta_;
       vcov    = vcov_;
       beta_se = beta_se_;
-<<<<<<< Updated upstream
-      Y       = Y_;
-      X       = X_;
-      U       = U_;
-      s       = s_;
-=======
->>>>>>> Stashed changes
       weights = weights_;
       delta   = delta_;
       sigSq_g = sigSq_g_;
@@ -108,24 +88,16 @@ class fastlmm {
             const vec &s_);
 
     // extract results
-    fastlmm_result<T1, T2, T3> get_result(){
+    fastlmm_result get_result(){
 
       mat V = get_vcov();
 
       vec w = get_weights();
 
-      return fastlmm_result<T1, T2, T3>(  
-                              get_logLik(),
+      return fastlmm_result(  get_logLik(),
                               get_beta(),
                               V,
                               sqrt(diagvec(V)),
-<<<<<<< Updated upstream
-                              get_Y(),
-                              get_X(),
-                              get_U(),
-                              get_s(),
-=======
->>>>>>> Stashed changes
                               get_weights(),
                               get_delta(),
                               get_sigSq_g(),
@@ -165,20 +137,12 @@ class fastlmm {
                           const double &right,
                           const double &tol);
 
-<<<<<<< Updated upstream
-    void update_response(const T1 &Y_, 
-                          const vec &weights_);
-    void update_response(const T1 &Y_, 
-                         const mat &Yu_,
-                         const vec &weights_);
-=======
     void update_response(const T1 &Y_, const vec &weights_);
     void update_response(const T1 &Y_,
                          const vec &weights_, 
                          const mat &Yu_);
->>>>>>> Stashed changes
 
-    vector<fastlmm_result<T1, T2, T3> > 
+    vector<fastlmm_result> 
         fit_batch_response(const T1 &Y_all_, 
                            const mat &weights_,
                            const double &delta,
@@ -201,14 +165,6 @@ class fastlmm {
     // Update X, keeping rest constant
     void update_X( const vec &X_);
 
-<<<<<<< Updated upstream
-    // accessors
-    T1 get_Y(){ return Y;}
-    T2 get_X(){ return X;}
-    T3 get_U(){ return U;}
-    vec get_s(){ return s;}
-=======
->>>>>>> Stashed changes
     vec get_weights(){ return weights;}
 
   private:
@@ -316,29 +272,18 @@ fastlmm<T1, T2, T3>::fastlmm( const T2 &X_,
 }
 
 template <typename T1, typename T2, typename T3> 
-<<<<<<< Updated upstream
-void fastlmm<T1, T2, T3>::update_response(const T1 &Y_, const vec &weights_){
-
-  update_response(Y, U.t() * Y_, weights_);
-=======
 void fastlmm<T1, T2, T3>::update_response(const T1 &Y_,
                                           const vec &weights_){
 
 
   update_response(Y, weights_, U.t() * Y_);
->>>>>>> Stashed changes
 } 
 
 
 template <typename T1, typename T2, typename T3> 
-void fastlmm<T1, T2, T3>::update_response(const T1 &Y_, 
-<<<<<<< Updated upstream
-                              const mat &Yu_, const vec &weights_){
-=======
+void fastlmm<T1, T2, T3>::update_response(const T1 &Y_,
                                           const vec &weights_,
                                           const mat &Yu_){
-
->>>>>>> Stashed changes
   this->weights = weights_;
   this->Y = Y_;
   this->Yu = Yu_;  
@@ -463,7 +408,7 @@ void fastlmm<T1, T2, T3>::estimate_delta( const double &left, const double &righ
 
 
 template <typename T1, typename T2, typename T3> 
-vector<fastlmm_result<T1, T2, T3> > 
+vector<fastlmm_result> 
   fastlmm<T1, T2, T3>::fit_batch_response( const T1 &Y_all_,
                                const mat &weights_,
                                const double &delta,
@@ -472,26 +417,11 @@ vector<fastlmm_result<T1, T2, T3> >
                                const double &tol){
 
   // need to apply weights matrix Y_all_, decomp, and X
-
-<<<<<<< Updated upstream
-  // responses are stored as _rows_ in Y_all
-  mat Y_all = Y_all_;
-  mat Yu_all = Y_all * U;
-  mat weights = weights_;
-
-  int n_responses = Y_all.n_rows;
-
-  // store results
-  vector<fastlmm_result<T1, T2, T3> > 
-    result(n_responses, fastlmm_result<T1, T2, T3>()); 
-=======
-  mat Yu_all = U.t() * Y_all_ ;
-
+  mat Yu_all = U.t() * Y_all_;
   int n_responses = Y_all_.n_cols;
 
   // store results
   vector<fastlmm_result> result(n_responses, fastlmm_result());
->>>>>>> Stashed changes
 
   #ifdef _OPENMP
   int OMP_CHUNK_SIZE = n_responses / omp_get_num_threads();
@@ -504,23 +434,16 @@ vector<fastlmm_result<T1, T2, T3> >
   #endif
   {
     // initialize
+
     fastlmm fit = fastlmm(X, U, s);
 
-    // iterate thru responses i.e. rows
-<<<<<<< Updated upstream
+    // iterate thru responses 
     #ifdef _OPENMP 
-=======
-    #ifdef _OPENMP
->>>>>>> Stashed changes
     #pragma omp for schedule(static, OMP_CHUNK_SIZE)
     #endif
     for( int i = 0; i < n_responses; i++){
 
-<<<<<<< Updated upstream
-      fit.update_response(Y_all.row(i).t(), Yu_all.row(i).t(), weights.row(i).t());
-=======
       fit.update_response(Y_all_.col(i), weights_.col(i), Yu_all.col(i));
->>>>>>> Stashed changes
 
       if( delta > 0 ){
         fit.eval_delta( delta ); 
@@ -528,11 +451,7 @@ vector<fastlmm_result<T1, T2, T3> >
         fit.estimate_delta( left, right, tol );
       }
 
-<<<<<<< Updated upstream
-      #ifdef _OPENMP 
-=======
       #ifdef _OPENMP
->>>>>>> Stashed changes
       #pragma omp critical
       #endif
       result.at(i) = fit.get_result();

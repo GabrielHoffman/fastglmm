@@ -42,8 +42,5 @@ importFrom(stats,printCoefmat)
 importFrom(stats,pt)
 importFrom(stats,sd)
 importFrom(stats,sigma)
-<<<<<<< Updated upstream
-=======
 importFrom(stats,update)
->>>>>>> Stashed changes
 useDynLib(fastlmm)

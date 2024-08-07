@@ -4,11 +4,7 @@
 #'
 #' Fit a linear mixed-effects model with 1 random effect with REML or maximum likelihood using the very fast algorithm and implementation 
 #'
-<<<<<<< Updated upstream
 #' @param formula a two-sided linear formula object describing both the fixed-effects and random-effects part of the model, with the response on the left of a \code{~} operator and the terms, separated by \code{+} operators, on the right.  Random-effects terms are distinguished by vertical bars (\code{|}) separating expressions for design matrices from grouping factors.
-=======
-#' @param formula a two-sided linear formula object describing both the fixed-effects and random-effects part of the model, with the response on the left of a \code{~} operator and the terms, separated by \code{+} operators, on the right. Random-effects terms are distinguished by vertical bars (\code{|}) separating expressions for design matrices from grouping factors.
->>>>>>> Stashed changes
 #' @param data an optional data frame containing the variables named in
 #' @param REML logical scalar - Should the estimates be chosen to optimize the REML criterion vs ML?
 #' @param weights an optional vector of prior weights with a value for each sample.  When the response has multiple columns, a vector of weight can be reused for each respose, or a matrix the same dimension as the responses matrix can weight each response separately.
@@ -37,14 +33,9 @@
 # other args
 # verbose = 0L, subset, weights = NULL, na.action, offset, contrasts = NULL
 #' @importFrom lme4 findbars nobars
-<<<<<<< Updated upstream
-#' @importFrom stats as.formula model.frame model.response model.matrix
-#' @import Rdpack
-=======
 #' @importFrom stats as.formula model.frame model.response model.matrix update
 #' @importFrom Rdpack reprompt
 #' @seealso \code{lme4::lmer()}
->>>>>>> Stashed changes
 #' @export
 fastlmm = function (formula, data, REML = TRUE, delta = NULL, weights = NULL, delta.range = c(-10, 10), tol = .Machine$double.eps^0.5){
 

@@ -29,22 +29,14 @@ NULL
 #' Convert list to fastlmm class
 #' 
 #' @param x list from \code{.fastlmm_()}
-<<<<<<< Updated upstream
-# @param design design matrix for fixed effects
+#' @param design design matrix for fixed effects
 # @param U eigen-vectors of random effects design matrix
 # @param s eigen-values of random effects design matrix
 # @param weights weights
 #' 
 #' @return object of class \code{fastlmm}
 #' @export
-as.fastlmm = function(x){
-=======
-#' @param design design matrix for fixed effects
-#' 
-#' @return object of class \code{fastlmm}
-#' @export
- as.fastlmm = function(x, design){
->>>>>>> Stashed changes
+as.fastlmm = function(x, design){
 
 	# format results
 	x$coefficients <- as.numeric(x$coefficients)
@@ -52,21 +44,10 @@ as.fastlmm = function(x){
 	x$design = design
 
 	names(x$coefficients) <- colnames(x$design)
-<<<<<<< Updated upstream
 	names(x$se) <- colnames(x$design)
 	rownames(x$vcov) <- colnames(x$design)
 	colnames(x$vcov) <- colnames(x$design)
 	x$rank = ncol(x$design)
-
-
-	# fitted value for fixed effects
-	# x$eta = design %*% x$coefficients
-=======
- 	names(x$se) <- colnames(x$design)
- 	rownames(x$vcov) <- colnames(x$design)
- 	colnames(x$vcov) <- colnames(x$design)
- 	x$rank = ncol(x$design)
->>>>>>> Stashed changes
 
 	# if( ! is_weights_one ){
 	# 	x$weights = weights
@@ -149,64 +130,53 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 	# by setting to -1 for C++ call
 	delta <- ifelse( is.null(delta), -1, delta)
 	
-<<<<<<< Updated upstream
 	# if 1 response 
-=======
->>>>>>> Stashed changes
 	if( ncol(Y) == 1){
 		if( is(dcmp$vectors, "sparseMatrix") ){
-			res <- .fastlmm_vms(Y = as.numeric(Y), 
+			res <- .fastlmm_vms(Y = Y, 
 								X = X, 
 								U = dcmp$vectors, 
 								s = dcmp$values,
-								weights = as.numeric(weights), 
+								weights = weights, 
 								delta = delta, 
 								left = delta.range[1],
 								right = delta.range[2],
 								tol = tol)
 		}else{
-			res = .fastlmm_vmm( Y = as.numeric(Y), 
+			res = .fastlmm_vmm( Y = Y, 
 								X = X,  
 								U = dcmp$vectors, 
 								s = dcmp$values,
-								weights = as.numeric(weights), 
+								weights = weights, 
 								delta = delta, 
 								left = delta.range[1],
 								right = delta.range[2],
 								tol = tol)
 		}
 		
-		res = as.fastlmm(res)
+		res = as.fastlmm(res, design=X)
 	}else{
 
-<<<<<<< Updated upstream
-		# if weights is a vector
-		# create a matrix of weights 
-		if( ! identical(dim(weights), dim(Y)) ){
-			weights = lapply(seq(ncol(Y)), function(x) weights)
-			weights = do.call(cbind, weights)
-=======
 		if( length(weights) == nrow(Y) ){
 			weights = matrix(weights, nrow=nrow(Y), ncol=ncol(Y))
->>>>>>> Stashed changes
 		}
 
 		if( is(dcmp$vectors, "sparseMatrix") ){
-			res <- .fastlmm_mms(Y_all = t(Y), 
+			res <- .fastlmm_mms(Y_all = Y, 
 								X = X,  
 								U = dcmp$vectors, 
 								s = dcmp$values,
-								weights = t(weights), 
+								weights = weights, 
 								delta = delta, 
 								left = delta.range[1],
 								right = delta.range[2],
 								tol = tol)
 		}else{
-			res <- .fastlmm_mmm(Y_all = t(Y), 
+			res <- .fastlmm_mmm(Y_all = Y, 
 								X = X,  
 								U = dcmp$vectors, 
 								s = dcmp$values,
-								weights = t(weights),
+								weights = weights,
 								delta = delta,  
 								left = delta.range[1],
 								right = delta.range[2],
@@ -214,11 +184,7 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 		}
 
 		# convert each entry to an fastlmm object
-<<<<<<< Updated upstream
-		res = lapply(res, as.fastlmm)
-=======
 		res = lapply(res, as.fastlmm, design=X)
->>>>>>> Stashed changes
 		names(res) = colnames(Y)
 		class(res) <- "fastlmmList"
 	}

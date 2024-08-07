@@ -1,7 +1,7 @@
 Package: fastlmm
 Type: Package
 Title: Efficient Fit of Linear Mixed Model with a Single Random Effect on >1 Million Samples
-Version: 0.1.0
+Version: 0.1.1
 Date: 2024-08-06
 Authors@R: person("Gabriel", "Hoffman", role=c("aut", "cre"), email="gabriel.hoffman@mssm.edu", comment=c(ORCID="0000-0002-0957-0224"))
 Maintainer: Gabriel Hoffman <gabriel.hoffman@mssm.edu>
@@ -10,21 +10,12 @@ License: GPL-3
 Imports: 
 	Rcpp (>= 1.0.12),
 	Matrix,
-<<<<<<< Updated upstream
 	lme4,
 	numDeriv,
 	Rdpack,
 	S4Vectors,
 	stats,
 	methods
-=======
- 	lme4,
- 	numDeriv,
- 	Rdpack,
- 	S4Vectors,
- 	stats,
- 	methods
->>>>>>> Stashed changes
 Encoding: UTF-8
 LinkingTo: 
 	Rcpp, 

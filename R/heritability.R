@@ -2,11 +2,7 @@
 # 1) create profile log-likelihood surface from delta surface, and get standard error from hessian of hsq surface at hsq_hat
 # 2) fast permutations
 
-<<<<<<< Updated upstream
 #' @importFrom numDeriv hessian
-=======
- #' @importFrom numDeriv hessian
->>>>>>> Stashed changes
 heritability = function(fit, Y, X, U, s, Z, method=c("information", "permutation"), nperms=100){
 
 	method = match.arg(method)

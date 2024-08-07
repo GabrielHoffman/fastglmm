@@ -10,29 +10,17 @@ using namespace arma;
 using namespace fastlmmLib;
 
 // Depends on Rcpp::List, so define outside of class
-template <typename T1, typename T2, typename T3>
-const List toList(fastlmm_result<T1, T2, T3> &res){
+const List toList(fastlmm_result &res){
 
   return List::create( 
                 Named("logLik")       = res.logLik, 
                 Named("coefficients") = res.beta,
                 Named("se")           = res.beta_se,
                 Named("vcov")         = res.vcov, 
-<<<<<<< Updated upstream
-                Named("delta")        = res.delta,
-                Named("sigSq_g")      = res.sigSq_g,
-                Named("sigSq_e")      = res.sigSq_e,
-                Named("Y")            = res.Y,
-                Named("design")       = res.X,
-                Named("U")            = res.U,
-                Named("s")            = res.s,
-                Named("weights")      = res.weights,
-=======
                 Named("weights")      = res.weights,
                 Named("delta")        = res.delta,
                 Named("sigSq_g")      = res.sigSq_g,
                 Named("sigSq_e")      = res.sigSq_e,
->>>>>>> Stashed changes
                 Named("iter")         = res.iter);
 }
 
@@ -46,8 +34,7 @@ const List toList(fastlmm<T1, T2, T3> & fit){
 }
 
 
-template <typename T1, typename T2, typename T3>
-List toList( const vector<fastlmm_result<T1, T2, T3> > &resList){
+List toList( const vector<fastlmm_result> &resList){
   List L = List::create();
 
   for(int i=0; i<resList.size(); i++){
@@ -179,7 +166,7 @@ List fastlmm_mmm(   const arma::mat &Y_all,
   // initialize
   fastlmm fit = fastlmm<mat, mat, mat>(X, U, s);
 
-  vector<fastlmm_result<mat, mat, mat> > res;
+  vector<fastlmm_result> res;
   res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol );
 
   return toList(res);
@@ -200,7 +187,7 @@ List fastlmm_msm(   const arma::mat &Y_all,
   // initialize
   fastlmm fit = fastlmm<mat, sp_mat, mat>(X, U, s);
 
-  vector<fastlmm_result<mat, sp_mat, mat> > res;
+  vector<fastlmm_result> res;
   res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol );
 
   return toList(res);
@@ -220,7 +207,7 @@ List fastlmm_mms(   const arma::mat &Y_all,
   // initialize
   fastlmm fit = fastlmm<mat, mat, sp_mat>(X, U, s);
 
-  vector<fastlmm_result<mat, mat, sp_mat> > res;
+  vector<fastlmm_result> res;
   res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol );
 
   return toList(res);
@@ -241,7 +228,7 @@ List fastlmm_mss(   const arma::mat &Y_all,
   // initialize
   fastlmm fit = fastlmm<mat, sp_mat, sp_mat>(X, U, s);
 
-  vector<fastlmm_result<mat, sp_mat, sp_mat> > res;
+  vector<fastlmm_result> res;
   res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol );
 
   return toList(res);
