@@ -1,0 +1,48 @@
+
+
+# Aug 2, 2024
+# Need 
+# residuals, fitted.values, df.residual, hatvalues
+
+How is sigma() affected by weights?
+	compared to lm()?
+
+# REML
+
+ fastlmm.fit and as.fastlmm should return input data 
+  like lmer does
+
+ df.residual
+ rdf
+
+# hat matrices
+##############
+
+# need diag(H) and tr(H)
+# Hoffman (2013) doesn't included fixed effects
+
+# A recap on Linear Mixed Models and their hat-matrices
+or 
+# https://riviste.unimi.it/index.php/ijphjournal/article/view/22694/20277
+# https://rdrr.io/cran/lme4/man/hatvalues.merMod.html
+# https://www.sfu.ca/sasdoc/sashtml/stat/chap41/sect23.htm
+
+Best Linear Unbiased Predictor 
+D Z^T V^{-1} (y - X\beta)
+
+Since \beta = (X^T V^{-1} X)^{-1} X^T V^{-1} y, then
+fitted value is 
+X \beta = X (X^T V^{-1} X)^{-1} X^T V^{-1} y
+
+
+
+H_1 = X (X^T V^{-1} X)^{-1} X^T V^{-1}
+H_2 = I - V^{-1} + X (X^T V^{-1} X)^{-1} X^T V^{-1}
+
+edf = tr(H)
+rdf = tr((I-H)(I-H)) ??
+
+//+ sum(log(weights))/2.0; is fixed, but evaluated everytime !!!!
+the log is expenseive to evaluate millions of times
+
+# the model fit can be large for many reponses
