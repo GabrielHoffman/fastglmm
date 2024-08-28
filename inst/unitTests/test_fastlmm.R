@@ -13,6 +13,9 @@ test_user_fxn = function(){
 	fit1 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML=FALSE, weights = w)
 	fit2 <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy, weights = w)
 
+
+	ranef(fit2)
+
 	checkEqualsNumeric( fit1@beta, coef(fit2) )
 	checkEqualsNumeric( sigma(fit1), sigma(fit2), tol=5e-7 )
 	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=5e-7 )
@@ -103,7 +106,6 @@ test_multivariate = function(){
 	system.time(
 		fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights, delta=1))
 	}
-
 }
 
 
@@ -365,6 +367,7 @@ test_fxn = function(){
 	fit2 = fastlmm.fit(Y, X, Z=indicObj)
 }
 
+
 test_fastlmm = function(){
 
 	library(MASS)
@@ -373,7 +376,7 @@ test_fastlmm = function(){
 	library(RUnit)
 	set.seed(1)
 
-	n = 1000
+	n = 100000
 	ndonors = 300
 
 	# n = 3000
@@ -436,7 +439,7 @@ test_fastlmm = function(){
 	isSame(fit1, fit2)
 
 	# batch, matrix dcmp$vectors
-	U = as.matrix(dcmp$vectors)
+	# U = as.matrix(dcmp$vectors)
 	fitList1 = lapply(seq(ncol(Ym)), function(i){
 		fastlmm.fit( Ym[,i], X, Z=indicObj)})
 	fitList2 = fastlmm.fit(Ym, X, Z=indicObj)
@@ -446,7 +449,7 @@ test_fastlmm = function(){
 	checkTrue(unique(unlist(res)))
 
 	# batch, sparse dcmp$vectors
-	U = dcmp$vectors
+	# U = dcmp$vectors
 	fitList1 = lapply(seq(ncol(Ym)), function(i){
 		fastlmm.fit( Ym[,i], X, Z=indicObj)})
 	fitList2 = fastlmm.fit(Ym, X, Z=indicObj)
@@ -462,11 +465,13 @@ test_fastlmm = function(){
 	#################
 
 	library(lme4)
-	fit = lmer(y ~ x + (1|Indiv), info, REML=FALSE)
+	w = seq(nrow(info))
+	w = w / mean(w)
+	fit = lmer(y ~ x + (1|Indiv), info, weights = w, REML=FALSE)
 	Z = preprocess_indicator( info$Indiv )
 	# U = dcmp$vectors
 	# s = dcmp$values
-	fit2 = fastlmm.fit(info$y, X, Z=Z)
+	fit2 = fastlmm.fit(info$y, X, Z=Z, weights = w)
 	
 	tol = 1e-3
 	res = coef(summary(fit))
@@ -482,13 +487,12 @@ test_fastlmm = function(){
 	s = dcmp$values
 	# fit1 = fastlmm_R( info$y, X, U = U, s = s)
 
-	fit1 = fastlmm(y ~ x + (1|Indiv), info)
+	fit1 = fastlmm(y ~ x + (1|Indiv), info, weights = w)
 
-	
 	checkEqualsNumeric(logLik(fit1)[1], fit2$logLik, tol=tol)
 	checkEqualsNumeric(res[,1], coef(fit1), tol=tol)
-	checkEqualsNumeric(ranef(fit)$Indiv[,1], ranef.fastlmm(fit1))
 	checkEqualsNumeric(fixef(fit), fixef.fastlmm(fit1))
+	checkEqualsNumeric(ranef(fit)$Indiv[,1], ranef.fastlmm(fit1))
 	checkEqualsNumeric(fitted.values(fit), fitted(fit1))
 
 	# weights

@@ -20,6 +20,7 @@ const List toList(fastlmm_result &res){
                 Named("sigSq_g")      = res.sigSq_g,
                 Named("sigSq_e")      = res.sigSq_e,
                 Named("ru")           = res.ru,
+                Named("r")           = res.r,
                 Named("iter")         = res.iter);
 }
 

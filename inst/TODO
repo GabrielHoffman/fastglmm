@@ -1,4 +1,8 @@
 
+# August 28,
+    ranef.fastlmm() and fitted.fastlmm() work when weights are all equal
+    - NEED to fix for varying weights
+
 
 Aug 7 2024
 # fastlmm<T1, T2, T3>::fit_batch_response() 

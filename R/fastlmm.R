@@ -40,7 +40,7 @@
 #' @export
 fastlmm = function (formula, data, REML = TRUE, delta = NULL, weights = NULL, delta.range = c(-10, 10), tol = .Machine$double.eps^0.5, nthreads=6){
 
-    mc <- mcout <- match.call()
+    mc <- match.call()
 
     # simplest way to extract data
     formula <- as.formula(formula, env =, parent.frame(1L))

@@ -28,7 +28,7 @@ class fastlmm_result {
   public:  
     double logLik, sigSq_g, sigSq_e, delta;
     int iter;
-    vec beta, beta_se, weights, ru;
+    vec beta, beta_se, weights, ru, r;
     mat vcov;
 
     fastlmm_result(){}
@@ -39,6 +39,7 @@ class fastlmm_result {
                     const vec &beta_se_,
                     const vec &weights_,
                     const vec &ru_,
+                    const vec &r_,
                     const double &delta_,
                     const double &sigSq_g_,
                     const double &sigSq_e_,
@@ -49,6 +50,7 @@ class fastlmm_result {
       beta_se = beta_se_;
       weights = weights_;
       ru = ru_;
+      r = r_;
       delta   = delta_;
       sigSq_g = sigSq_g_;
       sigSq_e = sigSq_e_;
@@ -112,6 +114,7 @@ class fastlmm {
                               sqrt(diagvec(V)),
                               get_weights(),
                               get_ru(),
+                              get_r(),
                               get_delta(),
                               get_sigSq_g(),
                               get_sigSq_e(),
@@ -182,6 +185,7 @@ class fastlmm {
     vec get_weights(){ return weights;}
 
     vec get_ru(){ return ru;}
+    vec get_r(){ return r;}
 
   private:
     T1 Y, Yu;

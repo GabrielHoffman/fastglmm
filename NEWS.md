@@ -1,3 +1,7 @@
+# fastlmm 0.1.3
+ - Aug 28, 2024
+ - changes to allow PQL with `fastglmm()`
+
 # fastlmm 0.1.2
  - Aug 7, 2024
  - multivariate model is run in parallel

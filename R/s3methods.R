@@ -164,23 +164,30 @@ vcov.fastlmm <- function(object,...){
 	object$vcov
 }
 
+#' @importFrom lme4 ranef
 #' @export
-ranef.fastlmm = function(fit,...){
+ranef.fastlmm = function(object,...){
 
-    v = crossprod(crossprod(fit$U, fit$Z), fit$ru / (fit$s+fit$delta))
+    Zw = c(sqrt(object$weights)) * object$Z
+    v = crossprod(crossprod(object$U, Zw), object$ru / (object$s+object$delta))
     as.matrix(v)
 }
 
+#' @importFrom lme4 fixef
 #' @export
-fixef.fastlmm = function(fit,...){
-    coef(fit)
+fixef.fastlmm = function(object,...){
+    coef(object)
 }
 
+#' @importFrom stats fitted
 #' @export
-fitted.fastlmm  = function(fit,...){
-    v = fit$Z %*% ranef(fit) + fit$design %*% coef(fit)
+fitted.fastlmm  = function(object,...){
+    v = object$Z %*% ranef.fastlmm(object) + object$design %*% coef(object)
     as.numeric(v)
 }
+
+
+
 
 
 

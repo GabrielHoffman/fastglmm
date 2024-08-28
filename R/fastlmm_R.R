@@ -145,7 +145,7 @@ fastlmm_R <- function( Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NU
 	cp_X_low <- crossprod(X) - crossprod(Xu)
 	cp_X_low_Y_low <- crossprod(X, Y) - crossprod(Xu, Yu)
 
-	beta <- sigSq_g <- QXX <- 1
+	beta <- sigSq_g <- QXX <- ru <- r <- 1
 
 	i <- 0
 	ll <- function( delta_log ){			
