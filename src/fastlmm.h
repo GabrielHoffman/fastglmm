@@ -28,7 +28,7 @@ class fastlmm_result {
   public:  
     double logLik, sigSq_g, sigSq_e, delta;
     int iter;
-    vec beta, beta_se, weights;
+    vec beta, beta_se, weights, ru;
     mat vcov;
 
     fastlmm_result(){}
@@ -38,6 +38,7 @@ class fastlmm_result {
                     const mat &vcov_,
                     const vec &beta_se_,
                     const vec &weights_,
+                    const vec &ru_,
                     const double &delta_,
                     const double &sigSq_g_,
                     const double &sigSq_e_,
@@ -47,6 +48,7 @@ class fastlmm_result {
       vcov    = vcov_;
       beta_se = beta_se_;
       weights = weights_;
+      ru = ru_;
       delta   = delta_;
       sigSq_g = sigSq_g_;
       sigSq_e = sigSq_e_;
@@ -109,6 +111,7 @@ class fastlmm {
                               V,
                               sqrt(diagvec(V)),
                               get_weights(),
+                              get_ru(),
                               get_delta(),
                               get_sigSq_g(),
                               get_sigSq_e(),
@@ -178,6 +181,8 @@ class fastlmm {
 
     vec get_weights(){ return weights;}
 
+    vec get_ru(){ return ru;}
+
   private:
     T1 Y, Yu;
     T2 X, Xu;
@@ -203,6 +208,14 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
         const T3 &U_, 
         const vec &s_,
         const vec &weights_){
+
+  // indicator_decomp
+  // modiy this->U  and this->s internally
+  // compute sqrt(weights) for 
+  // Y <- Y * sqrt(weights)
+  // X <- X * sqrt(weights)
+  // vec sqrtW = sqrt(weights_);
+  // update_weights( Y_, X_, U_, s_, weights_);
 
   this->Y = Y_;
   this->X = X_;
@@ -286,7 +299,6 @@ template <typename T1, typename T2, typename T3>
 void fastlmm<T1, T2, T3>::update_response(const T1 &Y_,
                                           const vec &weights_){
 
-
   update_response(Y, weights_, U.t() * Y_);
 } 
 
@@ -295,6 +307,18 @@ template <typename T1, typename T2, typename T3>
 void fastlmm<T1, T2, T3>::update_response(const T1 &Y_,
                                           const vec &weights_,
                                           const mat &Yu_){
+
+  // indicator_decomp
+  // modiy this->U  and this->s internally
+  // compute sqrt(weights) for 
+  // Y <- Y * sqrt(weights)
+  // X <- X * sqrt(weights)
+  // vec sqrtW = sqrt(weights_);
+  // update_weights( Y_, X_, U_, s_, weights_);
+  // Need to save X, U, s unmodified so it
+  // can be weighted later
+
+
   this->weights = weights_;
   this->Y = Y_;
   this->Yu = Yu_;  
@@ -427,6 +451,8 @@ vector<fastlmm_result>
                                const double &right,
                                const double &tol,
                                const int &nthreads){
+
+    Rcpp::Rcout << "Fit batch response" << std::endl;
 
   // need to apply weights matrix Y_all_, decomp, and X
   mat Yu_all = U.t() * Y_all_;

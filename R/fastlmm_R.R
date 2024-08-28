@@ -16,7 +16,7 @@ ll_R <- function( delta, Y, X, Yu, Xu, U, s ){
 
 	QXX <- crossprod(Xu, inv_s_delta_Xu) + cp_X_low / delta
 	QXY <- crossprod(Xu, inv_s_delta_Yu) + cp_X_low_Y_low / delta
-	beta <- solve( QXX, QXY)
+	beta <- solve( QXX, as.matrix(QXY))
 
 	# Eval sig_g
 	ru 				<- Yu - Xu %*% beta
@@ -26,8 +26,72 @@ ll_R <- function( delta, Y, X, Yu, Xu, U, s ){
 	Qrr <- crossprod(ru, inv_s_delta_ru) + (crossprod(r)[1] - crossprod(ru)[1])/ delta
 	sig_g <- Qrr[1] / n
 
+
 	-n/2 * log(2*pi*sig_g) - 1/2 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2
 } 
+
+
+# browser()
+# # hatvalues
+# # H_2 = I - V^{-1} + X (X^T V^{-1} X)^{-1} X^T V^{-1}
+# Iu = crossprod(U,diag(1,nrow(X)))
+# cp_X_low_I <- crossprod(X, diag(1,nrow(X))) - crossprod(Xu, Iu)
+# inv_s_delta_Iu <- inv_s_delta * Iu
+# QXI <- crossprod(Xu, inv_s_delta_Iu) + cp_X_low_I / delta
+# s_expand = c(s, rep(0, nrow(X) - length(s)))
+# # H = diag(1, nrow(X)) - diag(1/(s_expand+delta)) + X %*% solve(QXX, QXI) 
+# sig_e = delta * sig_g
+# V = (diag(1, nrow(X)) * sig_e + tcrossprod(Z) * sig_g)
+# H = diag(1, nrow(X)) - solve(V) + solve(V) %*% X %*% solve(t(X) %*% solve(V, X)) %*% t(X) %*% solve(V)
+# diag(H)
+
+# methods(class = "fastlmm")
+
+# BLUP
+# V = (diag(1, nrow(X)) * sig_e + U %*% diag(s ) * sig_g)
+# Z'V^{-1}(y-Xb) * sig_g
+# crossprod(Z, solve(V, y - X %*% beta)) * sig_g^2
+# crossprod(Z*sig_g, solve(V/sig_g, y - X %*% beta))
+
+	# fitted values
+###############
+
+# Z'V^{-1}(y-Xb) 
+# U s ()
+
+# Zu =  crossprod(U, Z)
+# cp_Z_low_r_low <- crossprod(Z, r) - crossprod(Zu, ru)
+# inv_s_delta 	<- 1/(s+delta)
+# QZr <- crossprod(Zu, inv_s_delta * ru) + cp_Z_low_r_low / delta
+# crossprod(crossprod(U, Z), inv_s_delta * ru)
+# crossprod(crossprod(U, U %*% diag(s)), inv_s_delta * ru)
+# crossprod(diag(s), inv_s_delta * as.matrix(ru))
+
+# plot(ranef(fit)$Indiv[,1], QZr)
+
+# plot(ranef(fit)$Indiv[,1], as.matrix(fit1$ru))
+
+
+# Z.mod = Z
+# cs = colSums(Z.mod^2)
+# idx = order(cs, decreasing = TRUE)
+# # idx = seq(length(cs))
+# cs = cs[idx]
+# Z.mod = Z.mod[, idx]
+# vectors = Z.mod %*% Diagonal(ncol(Z.mod), 1/sqrt(cs))
+
+# # diag(cor(as.matrix(vectors), as.matrix(U)))
+# diag(cor(as.matrix(vectors), svd(Z)$u))
+
+# diag(cor(as.matrix(Z), as.matrix(with(svd(Z), u %*% diag(d)))))[1:4]
+
+# # have same crossprod
+# diag(cor(as.matrix(crossprod(Z)), crossprod(as.matrix(with(svd(Z), u %*% diag(d))))))
+
+
+# # Z'V^{-1}(y-Xb) * sigSq_g
+# V = (diag(1, nrow(X)) * sigSq_e + tcrossprod(Z) * sigSq_g)
+# crossprod(Z, solve(V, Y - X %*% beta)) * sigSq_g
 
 
 #' Fit linear mixed model using SVD of covariance 
@@ -98,9 +162,8 @@ fastlmm_R <- function( Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NU
 		beta <<- solve( QXX, as.matrix(QXY))
 
 		# Eval sig_g
-		ru 				<- Yu - Xu %*% beta
-		r 				<- Y - X %*% beta
-		# r <- r * sqrt(weights)
+		ru 				<<- Yu - Xu %*% beta
+		r 				<<- Y - X %*% beta
 
 		inv_s_delta_ru 	<- inv_s_delta * ru
 
@@ -127,6 +190,7 @@ fastlmm_R <- function( Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NU
 	beta <- array(beta, dimnames=list(rownames(beta)))
 	sigSq_e <- delta * sigSq_g
 
+
 	###################################
 	# Hypothesis test using Wald test #
 	###################################
@@ -147,6 +211,8 @@ fastlmm_R <- function( Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NU
 				sigSq_e = sigSq_e, 
 				iter 	= i,
 				df 		= df, 
+				r 		= r, 
+				ru 		= ru,
 				pValues	= pValues)
 	class(res) <- "fastlmm"
 	return(res)

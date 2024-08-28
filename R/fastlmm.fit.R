@@ -113,6 +113,7 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 	# apply weights
 	dcmp <- indicator_decomp( Z, weights, rank)
 
+	X.original = X
 	if( !is.null(weights) ){
 		# move to Rcpp????
 		Y <- Y * sqrt(weights)
@@ -157,7 +158,7 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 								nthreads = nthreads)
 		}
 		
-		res = as.fastlmm(res, design=X)
+		res = as.fastlmm(res, design = X.original)
 	}else{
 
 		if( length(weights) == nrow(Y) ){
@@ -189,10 +190,18 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 		}
 
 		# convert each entry to an fastlmm object
-		res = lapply(res, as.fastlmm, design=X)
+		res = lapply(res, as.fastlmm, design = X.original)
 		names(res) = colnames(Y)
 		class(res) <- "fastlmmList"
 	}
+
+	# include indicator matrix and its decomposition
+	# Does this need to stay in?
+	res$Z = Z
+	res$U = dcmp$vectors
+	res$s = dcmp$values
+
+	res$method = "ML"
 
 	res
 }

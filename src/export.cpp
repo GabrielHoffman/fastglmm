@@ -19,6 +19,7 @@ const List toList(fastlmm_result &res){
                 Named("delta")        = res.delta,
                 Named("sigSq_g")      = res.sigSq_g,
                 Named("sigSq_e")      = res.sigSq_e,
+                Named("ru")           = res.ru,
                 Named("iter")         = res.iter);
 }
 

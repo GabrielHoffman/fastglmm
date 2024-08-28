@@ -108,7 +108,11 @@ sigma.fastlmm = function(object,...){
 print.summary.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), symbolic.cor = x$symbolic.cor, 
     signif.stars = getOption("show.signif.stars"), ...){
 
-	cat("Linear mixed model fit by", ifelse(x$REML, "REML", "ML"), " ['fastlmm']\n\n")
+    if( x$method %in% c("ML", "REML")){
+    	cat("Linear mixed model fit by", x$method, "['fastlmm']\n")
+    }else{        
+        cat("Generlized linear mixed model fit by", x$method, "['fastglmm']\n")
+    }
     
     cat("\nCoefficients:\n")
     coefs <- x$coefficients
@@ -148,6 +152,7 @@ summary.fastlmm = function(object, ...){
     ans$sigSq_g = object$sigSq_g
     ans$sigSq_e = object$sigSq_e
     ans$delta = object$delta
+    ans$method = object$method
 
     class(ans) <- "summary.fastlmm"
     ans
@@ -158,4 +163,26 @@ summary.fastlmm = function(object, ...){
 vcov.fastlmm <- function(object,...){
 	object$vcov
 }
+
+#' @export
+ranef.fastlmm = function(fit,...){
+
+    v = crossprod(crossprod(fit$U, fit$Z), fit$ru / (fit$s+fit$delta))
+    as.matrix(v)
+}
+
+#' @export
+fixef.fastlmm = function(fit,...){
+    coef(fit)
+}
+
+#' @export
+fitted.fastlmm  = function(fit,...){
+    v = fit$Z %*% ranef(fit) + fit$design %*% coef(fit)
+    as.numeric(v)
+}
+
+
+
+
 

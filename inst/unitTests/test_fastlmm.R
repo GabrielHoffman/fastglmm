@@ -25,14 +25,31 @@ test_user_fxn = function(){
 	attr(fit3[[1]], "call")  = attr(fit2, "call") 
 	checkEquals(fit2, fit3[[1]])
 
+	# hatvalues
+	#------------
 
-	# predict
-	# pred <- drop(X %*% coef(fit2))
 
-	# head(predict(fit1))
-	# head(fitted(fit1))
-	# head(fit2$eta)
+	Z = preprocess_indicator( sleepstudy$Subject)
+	dcmp = indicator_decomp(Z, w)
+	y = sleepstudy$Reaction
+	X = model.matrix(~Days, sleepstudy)
 
+	# doesn't work with weights
+	fit4 <- fastlmm_R(y, X, dcmp$vectors, dcmp$values, weights = w)
+	checkEqualsNumeric( coef(fit4), coef(fit2) )
+	checkEqualsNumeric( fit4$delta, fit2$delta, tol=1e-6 )
+	
+	logLik(fit4)
+
+	hatvalues(fit1)[1:4]
+	# H_2 = I - V^{-1} + X (X^T V^{-1} X)^{-1} X^T V^{-1}
+
+	U = dcmp$vectors
+	y = matrix(y)
+	Yu = crossprod(U,y)
+	Xu = crossprod(U,X)
+	fastlmm:::ll_R(fit4$delta, y, X, Yu, Xu, U, dcmp$values)
+	
 }
 
 
@@ -356,7 +373,7 @@ test_fastlmm = function(){
 	library(RUnit)
 	set.seed(1)
 
-	n = 100000
+	n = 1000
 	ndonors = 300
 
 	# n = 3000
@@ -446,10 +463,10 @@ test_fastlmm = function(){
 
 	library(lme4)
 	fit = lmer(y ~ x + (1|Indiv), info, REML=FALSE)
-	dcmp = preprocess_indicator( info$Indiv )
+	Z = preprocess_indicator( info$Indiv )
 	# U = dcmp$vectors
 	# s = dcmp$values
-	fit2 = fastlmm.fit(info$y, X, Z=dcmp)
+	fit2 = fastlmm.fit(info$y, X, Z=Z)
 	
 	tol = 1e-3
 	res = coef(summary(fit))
@@ -458,6 +475,21 @@ test_fastlmm = function(){
 	checkEqualsNumeric(res[,1], coef(fit2), tol=tol)
 	checkEqualsNumeric(res[,2], fit2$se, tol=tol)
 	checkEqualsNumeric(VarCorr(fit)[[1]][1], fit2$sigSq_g, tol=tol)
+
+	# dcmp = indicator_decomp( info$Indiv )
+	dcmp = indicator_decomp(Z)
+	U = dcmp$vectors
+	s = dcmp$values
+	# fit1 = fastlmm_R( info$y, X, U = U, s = s)
+
+	fit1 = fastlmm(y ~ x + (1|Indiv), info)
+
+	
+	checkEqualsNumeric(logLik(fit1)[1], fit2$logLik, tol=tol)
+	checkEqualsNumeric(res[,1], coef(fit1), tol=tol)
+	checkEqualsNumeric(ranef(fit)$Indiv[,1], ranef.fastlmm(fit1))
+	checkEqualsNumeric(fixef(fit), fixef.fastlmm(fit1))
+	checkEqualsNumeric(fitted.values(fit), fitted(fit1))
 
 	# weights
 	#--------
