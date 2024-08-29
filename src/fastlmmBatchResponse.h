@@ -2,6 +2,7 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include "fastlmm.h"
+#include "spectralDecomp.h"
 
 #ifdef _OPENMP
     // [[Rcpp::plugins(openmp)]]
@@ -22,15 +23,14 @@ namespace fastlmmLib {
 // Order of template variables
 // T1 Y
 // T2 X
-// T3 U
+// T3 Z
 template <typename T1, typename T2, typename T3> 
 class fastlmmBatchResponse {
 
     public:
     fastlmmBatchResponse(   const T1 &Y_all_, 
                             const T2 &X_, 
-                            const T3 &U_, 
-                            const vec &s_,
+                            const T3 &Z_,
                             const mat &Weights_,
                             const double &left_,
                             const double &right_,
@@ -42,8 +42,7 @@ class fastlmmBatchResponse {
     private:
     T1 Y_all; 
     T2 X;  
-    T3 U; 
-    vec s;
+    T3 Z;
     mat Weights;
     double left, right, tol;
     int nthreads;
@@ -56,8 +55,7 @@ template <typename T1, typename T2, typename T3>
 fastlmmBatchResponse<T1, T2, T3>::fastlmmBatchResponse(
                             const T1 &Y_all_, 
                             const T2 &X_, 
-                            const T3 &U_, 
-                            const vec &s_,
+                            const T3 &Z_,
                             const mat &Weights_,
                             const double &left_,
                             const double &right_,
@@ -65,8 +63,7 @@ fastlmmBatchResponse<T1, T2, T3>::fastlmmBatchResponse(
                             const int &nthreads_){
     this->Y_all     = Y_all_;
     this->X         = X_;
-    this->U         = U_;
-    this->s         = s_;
+    this->Z         = Z_;
     this->Weights   = Weights_;
     this->left      = left_;
     this->right     = right_;
@@ -81,8 +78,6 @@ vector<fastlmm_result>
 
   Rcpp::Rcout << "Fit batch response" << std::endl;
 
-  // need to apply weights matrix Y_all_, decomp, and X
-  mat Yu_all = U.t() * Y_all;
   int n_responses = Y_all.n_cols;
 
   // store results
@@ -111,20 +106,22 @@ vector<fastlmm_result>
   #pragma omp parallel
   {
     // initialize
-    fastlmm fit = fastlmm<T1, T2, T3>(X, U, s);
+    // fastlmm fit = fastlmm<T1, T2, T3>();
 
     // iterate through responses 
     #pragma omp for 
     for( int i = 0; i < n_responses; i++){
 
-        decomp dcmp = decomp(Z, Weights.col(i));
+        spectralDecomp dcmp = spectralDecomp<T3>(Z, Weights.col(i));
+        T1 Yw = Y_all.col(i) * Weights.col(i);
+        T2 Xw = X % Weights.col(i);        
+        T1 Yu = dcmp.get_vectors().t() * Yw;
+        mat Xu = dcmp.get_vectors().t() * conv_to<mat>::from(Xw); 
+        mat cp_X_low = Xw.t() * Xw - Xu.t() * Xu;
+        mat cp_X_low_Y_low = Xw.t() * Yw - Xu.t() * Yu;  
 
 
-
-        // fit.update_response(Y_all.col(i), 
-        //                   Weights.col(i), 
-        //                   Yu_all.col(i));
-
+        fastlmm fit = fastlmm(Yw, Xu, dcmp.get_vectors(), dcmp.get_values(), Weights.col(i), Yu, Xu, cp_X_low, cp_X_low_Y_low);
 
         fit.estimate_delta( left, right, tol );
 

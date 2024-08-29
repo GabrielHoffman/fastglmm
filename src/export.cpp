@@ -160,8 +160,7 @@ List fastlmm_vss( const arma::vec &Y,
 // [[Rcpp::export(".fastlmm_mmm")]]
 List fastlmm_mmm(   const arma::mat &Y_all, 
                     const arma::mat &X,  
-                    const arma::mat &U, 
-                    const arma::vec &s,
+                    const arma::mat &Z,
                     const arma::mat &weights,
                     const double &delta,
                     const double &left,
@@ -171,7 +170,7 @@ List fastlmm_mmm(   const arma::mat &Y_all,
 
   // initialize
   fastlmmBatchResponse fit = 
-    fastlmmBatchResponse<mat, mat, mat>(Y_all, X, U, s, weights, left, right, tol, nthreads);
+    fastlmmBatchResponse<mat, mat, mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
 
   // evaluate each response
   vector<fastlmm_result> res = fit.eval();
@@ -183,8 +182,7 @@ List fastlmm_mmm(   const arma::mat &Y_all,
 // [[Rcpp::export(".fastlmm_msm")]]
 List fastlmm_msm(   const arma::mat &Y_all, 
                     const arma::sp_mat &X,  
-                    const arma::mat &U, 
-                    const arma::vec &s,
+                    const arma::mat &Z,
                     const arma::mat &weights,
                     const double &delta,
                     const double &left,
@@ -194,7 +192,7 @@ List fastlmm_msm(   const arma::mat &Y_all,
 
   // initialize
   fastlmmBatchResponse fit = 
-    fastlmmBatchResponse<mat, sp_mat, mat>(Y_all, X, U, s, weights, left, right, tol, nthreads);
+    fastlmmBatchResponse<mat, sp_mat, mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
 
   // evaluate each response
   vector<fastlmm_result> res = fit.eval();
@@ -205,8 +203,7 @@ List fastlmm_msm(   const arma::mat &Y_all,
 // [[Rcpp::export(".fastlmm_mms")]]
 List fastlmm_mms(   const arma::mat &Y_all, 
                     const arma::mat &X,  
-                    const arma::sp_mat &U, 
-                    const arma::vec &s,
+                    const arma::sp_mat &Z,
                     const arma::mat &weights,
                     const double &left,
                     const double &right,
@@ -215,7 +212,7 @@ List fastlmm_mms(   const arma::mat &Y_all,
 
   // initialize
   fastlmmBatchResponse fit = 
-    fastlmmBatchResponse<mat, mat, sp_mat>(Y_all, X, U, s, weights, left, right, tol, nthreads);
+    fastlmmBatchResponse<mat, mat, sp_mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
 
   // evaluate each response
   vector<fastlmm_result> res = fit.eval();
@@ -227,8 +224,7 @@ List fastlmm_mms(   const arma::mat &Y_all,
 // [[Rcpp::export(".fastlmm_mss")]]
 List fastlmm_mss(   const arma::mat &Y_all, 
                     const arma::sp_mat &X,  
-                    const arma::sp_mat &U, 
-                    const arma::vec &s,
+                    const arma::sp_mat &Z,
                     const arma::mat &weights,
                     const double &delta,
                     const double &left,
@@ -238,7 +234,7 @@ List fastlmm_mss(   const arma::mat &Y_all,
 
   // initialize
   fastlmmBatchResponse fit = 
-    fastlmmBatchResponse<mat, sp_mat, sp_mat>(Y_all, X, U, s, weights, left, right, tol, nthreads);
+    fastlmmBatchResponse<mat, sp_mat, sp_mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
 
   // evaluate each response
   vector<fastlmm_result> res = fit.eval();
