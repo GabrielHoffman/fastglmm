@@ -36,7 +36,7 @@ NULL
 #' 
 #' @return object of class \code{fastlmm}
 #' @export
-as.fastlmm = function(x, design){
+as.fastlmm = function(x, design, method){
 
 	# format results
 	x$coefficients <- as.numeric(x$coefficients)
@@ -49,12 +49,9 @@ as.fastlmm = function(x, design){
 	colnames(x$vcov) <- colnames(x$design)
 	x$rank = ncol(x$design)
 
-	# if( ! is_weights_one ){
-	# 	x$weights = weights
-	# }
-
 	# adapt this to be rdf from H
 	x$df.residual <- nrow(x$design) - ncol(x$design)
+	x$method = method
 
 	class(x) <- "fastlmm"
 	x
@@ -109,19 +106,8 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 	if( !is.matrix(Y) ){
 		Y <- as.matrix(Y)
 	}
-
-	# apply weights
-	dcmp <- indicator_decomp( Z, weights, rank)
-
-	X.original = X
-	if( !is.null(weights) ){
-		# move to Rcpp????
-		Y <- Y * sqrt(weights)
-		X <- X * sqrt(weights)
-		is_weights_one <- FALSE
-	}else{
-		weights <- matrix(1, nrow(Y), ncol(Y))
-		is_weights_one <- TRUE
+	if( !is.matrix(weights) ){
+		weights <- as.matrix(weights)
 	}
 
 	if( nrow(Y) != nrow(X) ){
@@ -131,10 +117,22 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 	# if delta is NULL, estimate its value
 	# by setting to -1 for C++ call
 	delta <- ifelse( is.null(delta), -1, delta)
-	
+
+	if( is.null(weights) ){
+		weights <- matrix(1, nrow(Y), ncol(Y))
+	}
+
+	if( !identical(dim(Y), dim(weights)) ){
+		stop("Dimension of Y and weights must be the same")
+	}
+
 	# if 1 response 
 	if( ncol(Y) == 1){
-		if( is(dcmp$vectors, "sparseMatrix") ){
+
+		# apply weights
+		dcmp <- indicator_decomp( Z, c(weights), rank)
+
+		if( is(Z, "sparseMatrix") ){
 			res <- .fastlmm_vms(Y = Y, 
 								X = X, 
 								U = dcmp$vectors, 
@@ -158,20 +156,25 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 								nthreads = nthreads)
 		}
 		
-		res = as.fastlmm(res, design = X.original)
+		res = as.fastlmm(res, design = X, method = "ML")
+
+		# include indicator matrix and its decomposition
+		# Does this need to stay in?
+		res$Z = Z
+		res$U = dcmp$vectors
+		res$s = dcmp$values
+
 	}else{
 
 		if( length(weights) == nrow(Y) ){
 			weights = matrix(weights, nrow=nrow(Y), ncol=ncol(Y))
 		}
 
-		if( is(dcmp$vectors, "sparseMatrix") ){
+		if( is(Z, "sparseMatrix") ){
 			res <- .fastlmm_mms(Y_all = Y, 
 								X = X,  
-								U = dcmp$vectors, 
-								s = dcmp$values,
+								Z = Z,
 								weights = weights, 
-								delta = delta, 
 								left = delta.range[1],
 								right = delta.range[2],
 								tol = tol,
@@ -179,10 +182,8 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 		}else{
 			res <- .fastlmm_mmm(Y_all = Y, 
 								X = X,  
-								U = dcmp$vectors, 
-								s = dcmp$values,
+								Z = Z,
 								weights = weights,
-								delta = delta,  
 								left = delta.range[1],
 								right = delta.range[2],
 								tol = tol,
@@ -190,18 +191,10 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 		}
 
 		# convert each entry to an fastlmm object
-		res = lapply(res, as.fastlmm, design = X.original)
+		res = lapply(res, as.fastlmm, design = X, method = "ML")
 		names(res) = colnames(Y)
 		class(res) <- "fastlmmList"
 	}
-
-	# include indicator matrix and its decomposition
-	# Does this need to stay in?
-	res$Z = Z
-	res$U = dcmp$vectors
-	res$s = dcmp$values
-
-	res$method = "ML"
 
 	res
 }

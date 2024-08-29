@@ -17,19 +17,19 @@
     .Call('_fastlmm_fastlmm_vss', PACKAGE = 'fastlmm', Y, X, U, s, weights, delta, left, right, tol, nthreads)
 }
 
-.fastlmm_mmm <- function(Y_all, X, U, s, weights, delta, left, right, tol, nthreads) {
-    .Call('_fastlmm_fastlmm_mmm', PACKAGE = 'fastlmm', Y_all, X, U, s, weights, delta, left, right, tol, nthreads)
+.fastlmm_mmm <- function(Y_all, X, Z, weights, delta, left, right, tol, nthreads) {
+    .Call('_fastlmm_fastlmm_mmm', PACKAGE = 'fastlmm', Y_all, X, Z, weights, delta, left, right, tol, nthreads)
 }
 
-.fastlmm_msm <- function(Y_all, X, U, s, weights, delta, left, right, tol, nthreads) {
-    .Call('_fastlmm_fastlmm_msm', PACKAGE = 'fastlmm', Y_all, X, U, s, weights, delta, left, right, tol, nthreads)
+.fastlmm_msm <- function(Y_all, X, Z, weights, delta, left, right, tol, nthreads) {
+    .Call('_fastlmm_fastlmm_msm', PACKAGE = 'fastlmm', Y_all, X, Z, weights, delta, left, right, tol, nthreads)
 }
 
-.fastlmm_mms <- function(Y_all, X, U, s, weights, delta, left, right, tol, nthreads) {
-    .Call('_fastlmm_fastlmm_mms', PACKAGE = 'fastlmm', Y_all, X, U, s, weights, delta, left, right, tol, nthreads)
+.fastlmm_mms <- function(Y_all, X, Z, weights, left, right, tol, nthreads) {
+    .Call('_fastlmm_fastlmm_mms', PACKAGE = 'fastlmm', Y_all, X, Z, weights, left, right, tol, nthreads)
 }
 
-.fastlmm_mss <- function(Y_all, X, U, s, weights, delta, left, right, tol, nthreads) {
-    .Call('_fastlmm_fastlmm_mss', PACKAGE = 'fastlmm', Y_all, X, U, s, weights, delta, left, right, tol, nthreads)
+.fastlmm_mss <- function(Y_all, X, Z, weights, delta, left, right, tol, nthreads) {
+    .Call('_fastlmm_fastlmm_mss', PACKAGE = 'fastlmm', Y_all, X, Z, weights, delta, left, right, tol, nthreads)
 }
 

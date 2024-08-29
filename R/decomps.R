@@ -8,6 +8,7 @@
 #' @param x object of type \code{factor} or \code{sparseMatrix}
 #' @param weights vector of weights with a value for each sample.  If ommited, weights are set to 1.
 #' @param rank rank of random effect.  The maximum rank is the number of columns in \code{Z}.  A low rank approximation can be useful if the eigen-values decrease quickly.
+#' @param sort sort eigen vectors and values
 #' 
 #' @details This approach is dramatically faster than the naive algorithm that is quadratic time in the number of levels.
 #' 
@@ -38,7 +39,7 @@
 #' dcmp
 #' @importFrom Matrix Diagonal t colSums
 #' @export 
-indicator_decomp = function( x, weights = NULL, rank = NULL){
+indicator_decomp = function( x, weights = NULL, rank = NULL, sort=FALSE){
 
 	if( is.factor(x) ){
 		Z.mod = preprocess_indicator( x )
@@ -54,10 +55,12 @@ indicator_decomp = function( x, weights = NULL, rank = NULL){
 	# compute col sum of squares
 	cs = colSums(Z.mod^2)
 
-	# sort by cs value
-	idx = order(cs, decreasing=TRUE)
-	cs = cs[idx]
-	Z.mod = Z.mod[,idx]
+	if( sort ){
+		# sort by cs value
+		idx = order(cs, decreasing=TRUE)
+		cs = cs[idx]
+		Z.mod = Z.mod[,idx]
+	}
 
 	vectors = Z.mod %*% Diagonal(ncol(Z.mod), 1/sqrt(cs))
 

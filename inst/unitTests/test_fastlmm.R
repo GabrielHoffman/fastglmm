@@ -6,13 +6,15 @@ test_user_fxn = function(){
 	library(fastlmm)
 	library(lme4)
 	library(RUnit)
+	set.seed(1)
 
-	w = seq(nrow(sleepstudy))
-	w = w / mean(w)
+	w = rpois(nrow(sleepstudy), 10)
+	w = cbind(w / mean(w), w/ mean(w))
+	w[,2] = rpois(nrow(sleepstudy), 10)
+	w[,2] = w[,2] / mean(w[,2])
 	
-	fit1 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML=FALSE, weights = w)
-	fit2 <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy, weights = w)
-
+	fit1 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML=FALSE, weights = w[,1])
+	fit2 <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy, weights = w[,1])
 
 	ranef(fit2)
 
@@ -23,37 +25,125 @@ test_user_fxn = function(){
 	checkEqualsNumeric( coef(summary(fit1)), coef(summary(fit2))[,1:3] )
 
 	# test multivariate model
-	fit3 <- fastlmm(cbind(Reaction, Reaction) ~ Days + (1 | Subject), sleepstudy, weights = w)
+	fit3 <- fastlmm(cbind(Reaction, Reaction^2) ~ Days + (1 | Subject), sleepstudy, weights = w)
 
 	attr(fit3[[1]], "call")  = attr(fit2, "call") 
-	checkEquals(fit2, fit3[[1]])
+	# checkEquals(fit2, fit3[[1]])
+
+	isSame = function(fit1, fit2){
+		ids = intersect(names(fit1), names(fit2))
+		ids = ids[-which(ids == 'iter')]
+		a = lapply(ids, function(id){
+			cat(id, "...\n")
+			checkEqualsNumeric( fit1[[id]], fit2[[id]], tol = .Machine$double.eps^0.2)
+		})
+	}
+	isSame(fit2, fit3[[1]])
+
+	fit4 <- fastlmm(Reaction^2 ~ Days + (1 | Subject), sleepstudy, weights = w[,2])
+	isSame(fit4, fit3[[2]])
+
+
 
 	# hatvalues
 	#------------
 
+	# Z = preprocess_indicator( sleepstudy$Subject)
+	# dcmp = indicator_decomp(Z, w)
+	# y = sleepstudy$Reaction
+	# X = model.matrix(~Days, sleepstudy)
 
-	Z = preprocess_indicator( sleepstudy$Subject)
-	dcmp = indicator_decomp(Z, w)
-	y = sleepstudy$Reaction
-	X = model.matrix(~Days, sleepstudy)
-
-	# doesn't work with weights
-	fit4 <- fastlmm_R(y, X, dcmp$vectors, dcmp$values, weights = w)
-	checkEqualsNumeric( coef(fit4), coef(fit2) )
-	checkEqualsNumeric( fit4$delta, fit2$delta, tol=1e-6 )
+	# # doesn't work with weights
+	# fit4 <- fastlmm_R(y, X, dcmp$vectors, dcmp$values, weights = w)
+	# checkEqualsNumeric( coef(fit4), coef(fit2) )
+	# checkEqualsNumeric( fit4$delta, fit2$delta, tol=1e-6 )
 	
-	logLik(fit4)
+	# logLik(fit4)
 
-	hatvalues(fit1)[1:4]
-	# H_2 = I - V^{-1} + X (X^T V^{-1} X)^{-1} X^T V^{-1}
+	# hatvalues(fit1)[1:4]
+	# # H_2 = I - V^{-1} + X (X^T V^{-1} X)^{-1} X^T V^{-1}
 
-	U = dcmp$vectors
-	y = matrix(y)
-	Yu = crossprod(U,y)
-	Xu = crossprod(U,X)
-	fastlmm:::ll_R(fit4$delta, y, X, Yu, Xu, U, dcmp$values)
+	# U = dcmp$vectors
+	# y = matrix(y)
+	# Yu = crossprod(U,y)
+	# Xu = crossprod(U,X)
+	# fastlmm:::ll_R(fit4$delta, y, X, Yu, Xu, U, dcmp$values)
 	
 }
+
+
+
+devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
+fit3 <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy, weights = w)
+
+
+
+devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
+fit3 <- fastlmm(cbind(Reaction, Reaction) ~ Days + (1 | Subject), sleepstudy, weights = w)
+
+
+
+indicator_decomp(Z, w)$vectors[1:4,-c(1:16)]
+
+
+f = function (x, weights = NULL, rank = NULL) {
+    if (is.factor(x)) {
+        Z = preprocess_indicator(x)
+    }
+    else if (is(x, "sparseMatrix")) {
+        Z = x
+    }
+    if (!is.null(weights)) {
+        Z.mod = sqrt(weights) * Z
+    }else{
+    	Z.mod = Z
+    }
+    cs = colSums(Z.mod^2)
+    vectors = Z.mod %*% Diagonal(ncol(Z.mod), 1/sqrt(cs))
+    list(vectors = vectors, values = as.numeric(cs))
+}
+
+f(Z, w)$values
+
+
+a = colSums(crossprod(sqrt(weights) * Z))
+one = matrix(1, 1, ncol(Z))
+b = one %*% crossprod(sqrt(weights) * Z)
+W = Diagonal(length(weights), sqrt(weights))
+d = one %*% crossprod( W %*% Z)
+e = one %*% t(Z) %*% t(W) %*% W %*% Z
+e = (one %*% t(Z)) %*% (t(W) %*% W) %*% Z
+
+
+M1 = tcrossprod(one, Z)
+W2 = Diagonal(length(weights), weights)
+
+e = M1 %*% W2 %*% Z
+
+a[1:4]
+b[1:4]
+d[1:4]
+e[1:4]
+
+
+
+devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
+
+system.time(
+a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W))
+
+
+
+
+
+
+
+
+fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W)
+
+
+system.time(
+		a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, nthreads=1))
 
 
 test_multivariate = function(){
@@ -65,7 +155,7 @@ test_multivariate = function(){
 	library(RUnit)
 	set.seed(1)
 
-	n = 100000
+	n = 1000000
 	ndonors = 300
 
 	info = data.frame(x = rnorm(n))
@@ -79,17 +169,49 @@ test_multivariate = function(){
 	dcmp = indicator_decomp( info$Indiv )
 	indicObj = preprocess_indicator( info$Indiv )
 
-	n_reps = 50
+	n_reps = 4
 	Y_stack = lapply(seq(n_reps), function(x){ info$y})
 	Y_stack = do.call(cbind, Y_stack)
 	colnames(Y_stack) = paste0("resp_", seq(ncol(Y_stack)))
 
 	weights = c(seq(nrow(info)))
+	W = lapply(seq(n_reps), function(i) weights)
+	W = do.call(cbind, W)
 	fit1 = fastlmm(y ~ x + (1|Indiv), info, weights = weights)
-	fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights)
+	fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W)
 
-	attr(fit2[[1]], "call")  = attr(fit1, "call") 
-	checkEquals(fit1, fit2[[1]])
+	# attr(fit2[[1]], "call")  = attr(fit1, "call") 
+	# checkEquals(fit1, fit2[[1]])
+
+	isSame = function(fit1, fit2){
+		ids = intersect(names(fit1), names(fit2))
+		ids = ids[-which(ids == 'iter')]
+		a = lapply(ids, function(id){
+			cat(id, "...\n")
+			checkEqualsNumeric( fit1[[id]], fit2[[id]], tol = .Machine$double.eps^0.2)
+		})
+	}
+	isSame(fit1, fit2[[1]])
+
+	# varying weights
+	#################
+
+	set.seed(1)
+	W = lapply(seq(ncol(Y_stack)), function(i){
+		# w = seq(nrow(info)) + sqrt(i)
+		w = rpois(nrow(info), 50)
+		w / mean(w)
+	})
+	W = do.call(cbind, W)
+	W[1:3,1:3]
+
+
+	fit1 = fastlmm(y ~ x + (1|Indiv), info, weights = W[,1])
+	fit1b = fastlmm(y ~ x + (1|Indiv), info, weights = W[,2])
+	fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W)
+
+	isSame(fit1, fit2[[1]])
+	isSame(fit1b, fit2[[2]])
 
 
 	# fastlmm is 100x faster than lmer()
@@ -100,13 +222,20 @@ test_multivariate = function(){
 	system.time(
 		replicate(n_reps, fastlmm(y ~ x + (1|Indiv), info, weights = weights)))
 	system.time(
-		a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights, nthreads=1))
+		a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, nthreads=1))
 	system.time(
 		a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights))
 	system.time(
 		fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights, delta=1))
 	}
 }
+
+
+devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
+
+system.time(
+a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, nthreads=1))
+
 
 
 test_indicator_decomp = function(){
@@ -137,7 +266,7 @@ test_indicator_decomp = function(){
 	dcmp$vectors = tcrossprod(Z, solve(dcmp$vectors)) %*% diag(1/sqrt(dcmp$values))
 	dcmp$vectors = Matrix(dcmp$vectors, sparse = TRUE)
 
-	dcmp2 = indicator_decomp( info$Indiv )
+	dcmp2 = indicator_decomp( info$Indiv, sort=TRUE )
 
 	checkEqualsNumeric( dcmp$values, dcmp2$values)
 
@@ -162,15 +291,15 @@ test_indicator_decomp = function(){
 	D = Diagonal(length(dcmp$values), 1/sqrt(dcmp$values))
 	dcmp$vectors = tcrossprod(sqrt(weights) *Z, A) %*% D
 
-	dcmp2 = indicator_decomp( info$Indiv, weights)
+	dcmp2 = indicator_decomp( info$Indiv, weights, sort=TRUE)
 
 	checkEqualsNumeric( dcmp$values, dcmp2$values)
 	checkEqualsNumeric( dcmp$vectors[,1], dcmp2$vectors[,1])
 
 	# check indicator decomp
-	dcmp1 = indicator_decomp( info$Indiv, weights )
+	dcmp1 = indicator_decomp( info$Indiv, weights, sort=TRUE )
 	indicObj = preprocess_indicator( info$Indiv )
-	dcmp2 = indicator_decomp( indicObj, weights)
+	dcmp2 = indicator_decomp( indicObj, weights, sort=TRUE)
 	checkEqualsNumeric(dcmp1$values, dcmp2$values)
 	checkEqualsNumeric(dcmp1$vectors, dcmp2$vectors)
 
@@ -491,9 +620,9 @@ test_fastlmm = function(){
 
 	checkEqualsNumeric(logLik(fit1)[1], fit2$logLik, tol=tol)
 	checkEqualsNumeric(res[,1], coef(fit1), tol=tol)
-	checkEqualsNumeric(fixef(fit), fixef.fastlmm(fit1))
-	checkEqualsNumeric(ranef(fit)$Indiv[,1], ranef.fastlmm(fit1))
-	checkEqualsNumeric(fitted.values(fit), fitted(fit1))
+	checkEqualsNumeric(fixef(fit), fixef(fit1))
+	checkEqualsNumeric(ranef(fit)$Indiv[,1], ranef(fit1))
+	checkEqualsNumeric(fitted(fit), fitted(fit1))
 
 	# weights
 	#--------

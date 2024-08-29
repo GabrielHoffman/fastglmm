@@ -11,6 +11,7 @@
 using namespace arma;
 
 #include "local_min.h"
+#include "misc.h"
 
 namespace fastlmmLib {
 
@@ -194,29 +195,21 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
         const vec &s_,
         const vec &weights_){
 
-  // indicator_decomp
-  // modiy this->U  and this->s internally
-  // compute sqrt(weights) for 
-  // Y <- Y * sqrt(weights)
-  // X <- X * sqrt(weights)
-  // vec sqrtW = sqrt(weights_);
-  // update_weights( Y_, X_, U_, s_, weights_);
-
-  this->Y = Y_;
-  this->X = X_;
+  vec wSq = sqrt(weights_);
+  this->Y = Y_ % wSq;
+  this->X = scaleRows(X_, wSq);
   this->U = U_;
   this->s = s_;
-
-  // use weights here
   this->weights = weights_;
-
   this->Yu = U_.t() * Y;
   this->Xu = U_.t() * X;
   this->cp_X_low = X.t() * X - Xu.t() * Xu;
   this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
   this->inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
-
 } 
+
+
+
 
 // constructor, precompute Yu, Xu
 template <typename T1, typename T2, typename T3> 
@@ -228,8 +221,9 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
         const vec &Yu_, 
         const mat &Xu_){
 
-  this->Y = Y_.t();
-  this->X = X_;
+  vec wSq = sqrt(weights_);
+  this->Y = Y_.t() % wSq;
+  this->X = scaleRows(X_, wSq);
   this->U = U_;
   this->s = s_;
   this->weights = weights_;
@@ -238,24 +232,23 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
   this->cp_X_low = X.t() * X - Xu.t() * Xu;
   this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
   this->inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
-
-  // use weights here
 } 
 
 // constructor, precompute Yu, Xu, cp_X_low, cp_X_low_Y_low
 template <typename T1, typename T2, typename T3> 
 fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_, 
-            const T2 &X_,
-            const T3 &U_, 
-            const vec &s_,
-            const vec &weights_,
-            const vec &Yu_, 
-            const mat &Xu_,
-            const mat &cp_X_low_, 
-            const mat &cp_X_low_Y_low_){
+                            const T2 &X_,
+                            const T3 &U_, 
+                            const vec &s_,
+                            const vec &weights_,
+                            const vec &Yu_, 
+                            const mat &Xu_,
+                            const mat &cp_X_low_, 
+                            const mat &cp_X_low_Y_low_){
 
-  this->Y = Y_.t();
-  this->X = X_;
+  vec wSq = sqrt(weights_);
+  this->Y = Y_.t() % wSq;
+  this->X = scaleRows(X_, wSq);
   this->U = U_;
   this->s = s_;
   this->weights = weights_;
@@ -264,14 +257,13 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
   this->cp_X_low = cp_X_low_;
   this->cp_X_low_Y_low = cp_X_low_Y_low_;
   this->inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
-  // use weights here?
 } 
 
 
 template <typename T1, typename T2, typename T3> 
 fastlmm<T1, T2, T3>::fastlmm( const T2 &X_, 
-                  const T3 &U_, 
-                  const vec &s_){
+                              const T3 &U_, 
+                              const vec &s_){
   this->X = X_;
   this->U = U_;
   this->s = s_;

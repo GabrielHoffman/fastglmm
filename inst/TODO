@@ -1,7 +1,10 @@
 
 # August 28,
-    ranef.fastlmm() and fitted.fastlmm() work when weights are all equal
-    - NEED to fix for varying weights
+    in fastlmmBatchResponse::eval();
+       handle preprocessing of Y, X, weights, U, s
+       init fastlmm(), then estimate_delta
+
+
 
 
 Aug 7 2024
