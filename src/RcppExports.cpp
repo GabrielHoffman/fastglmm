@@ -132,8 +132,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // fastlmm_mms
-List fastlmm_mms(const arma::mat& Y_all, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::mat& weights, const double& delta, const double& left, const double& right, const double& tol, const int& nthreads);
-RcppExport SEXP _fastlmm_fastlmm_mms(SEXP Y_allSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP nthreadsSEXP) {
+List fastlmm_mms(const arma::mat& Y_all, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::mat& weights, const double& left, const double& right, const double& tol, const int& nthreads);
+RcppExport SEXP _fastlmm_fastlmm_mms(SEXP Y_allSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP nthreadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -142,12 +142,11 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::sp_mat& >::type U(USEXP);
     Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type weights(weightsSEXP);
-    Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
     Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
     Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
     Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
     Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastlmm_mms(Y_all, X, U, s, weights, delta, left, right, tol, nthreads));
+    rcpp_result_gen = Rcpp::wrap(fastlmm_mms(Y_all, X, U, s, weights, left, right, tol, nthreads));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -179,7 +178,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_fastlmm_fastlmm_vss", (DL_FUNC) &_fastlmm_fastlmm_vss, 10},
     {"_fastlmm_fastlmm_mmm", (DL_FUNC) &_fastlmm_fastlmm_mmm, 10},
     {"_fastlmm_fastlmm_msm", (DL_FUNC) &_fastlmm_fastlmm_msm, 10},
-    {"_fastlmm_fastlmm_mms", (DL_FUNC) &_fastlmm_fastlmm_mms, 10},
+    {"_fastlmm_fastlmm_mms", (DL_FUNC) &_fastlmm_fastlmm_mms, 9},
     {"_fastlmm_fastlmm_mss", (DL_FUNC) &_fastlmm_fastlmm_mss, 10},
     {NULL, NULL, 0}
 };

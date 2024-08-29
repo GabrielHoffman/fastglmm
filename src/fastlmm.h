@@ -5,16 +5,6 @@
 // Can be imported by plain C++ without Rcpp*
 //  by only modifying header above
 
-
-#ifdef _OPENMP
-    // [[Rcpp::plugins(openmp)]]
-    #include <omp.h>
-#else
-    #define omp_get_num_threads() 0
-    #define omp_get_thread_num() 0
-#endif
-
-
 #ifndef FASTLMM_H_
 #define FASTLMM_H_
 
@@ -101,6 +91,12 @@ class fastlmm {
             const T3 &U_, 
             const vec &s_);
 
+
+    void update_response(const T1 &Y_, const vec &weights_);
+    void update_response(const T1 &Y_,
+                         const vec &weights_, 
+                         const mat &Yu_);
+
     // extract results
     fastlmm_result get_result(){
 
@@ -152,21 +148,6 @@ class fastlmm {
     void estimate_delta(  const double &left,
                           const double &right,
                           const double &tol);
-
-    void update_response(const T1 &Y_, const vec &weights_);
-    void update_response(const T1 &Y_,
-                         const vec &weights_, 
-                         const mat &Yu_);
-
-    vector<fastlmm_result> 
-        fit_batch_response(const T1 &Y_all_, 
-                           const mat &weights_,
-                           const double &delta,
-                           const double &left,
-                           const double &right,
-                           const double &tol,
-                           const int &nthreads);
-
     // evaluate logLik, beta, etc at delta value
     void eval_delta( const double &delta){
       this->logLik = ll( delta );
@@ -299,35 +280,6 @@ fastlmm<T1, T2, T3>::fastlmm( const T2 &X_,
   this->inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 }
 
-template <typename T1, typename T2, typename T3> 
-void fastlmm<T1, T2, T3>::update_response(const T1 &Y_,
-                                          const vec &weights_){
-
-  update_response(Y, weights_, U.t() * Y_);
-} 
-
-
-template <typename T1, typename T2, typename T3> 
-void fastlmm<T1, T2, T3>::update_response(const T1 &Y_,
-                                          const vec &weights_,
-                                          const mat &Yu_){
-
-  // indicator_decomp
-  // modiy this->U  and this->s internally
-  // compute sqrt(weights) for 
-  // Y <- Y * sqrt(weights)
-  // X <- X * sqrt(weights)
-  // vec sqrtW = sqrt(weights_);
-  // update_weights( Y_, X_, U_, s_, weights_);
-  // Need to save X, U, s unmodified so it
-  // can be weighted later
-
-
-  this->weights = weights_;
-  this->Y = Y_;
-  this->Yu = Yu_;  
-  this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu;
-}
 
 template <typename T1, typename T2, typename T3>  
 double fastlmm<T1, T2, T3>::ll(const double &delta ) { 
@@ -443,64 +395,37 @@ void fastlmm<T1, T2, T3>::estimate_delta( const double &left, const double &righ
 }
 
 
+template <typename T1, typename T2, typename T3> 
+void fastlmm<T1, T2, T3>::update_response(const T1 &Y_,
+                                          const vec &weights_){
 
+  update_response(Y, weights_, U.t() * Y_);
+} 
 
 
 template <typename T1, typename T2, typename T3> 
-vector<fastlmm_result> 
-  fastlmm<T1, T2, T3>::fit_batch_response( const T1 &Y_all_,
-                               const mat &weights_,
-                               const double &delta,
-                               const double &left,
-                               const double &right,
-                               const double &tol,
-                               const int &nthreads){
+void fastlmm<T1, T2, T3>::update_response(const T1 &Y_,
+                                          const vec &weights_,
+                                          const mat &Yu_){
 
-    Rcpp::Rcout << "Fit batch response" << std::endl;
+  // indicator_decomp
+  // modiy this->U  and this->s internally
+  // compute sqrt(weights) for 
+  // Y <- Y * sqrt(weights)
+  // X <- X * sqrt(weights)
+  // vec sqrtW = sqrt(weights_);
+  // update_weights( Y_, X_, U_, s_, weights_);
+  // Need to save X, U, s unmodified so it
+  // can be weighted later
 
-  // need to apply weights matrix Y_all_, decomp, and X
-  mat Yu_all = U.t() * Y_all_;
-  int n_responses = Y_all_.n_cols;
 
-  // store results
-  vector<fastlmm_result> result(n_responses, fastlmm_result());
-
-  // NOTE: Do not use Rcpp in parallel section
-  // "C stack usage is too close to the limit"
-
-  #ifdef _OPENMP 
-  // set threads
-  omp_set_num_threads(nthreads);
-  // disable nested parallelism
-  omp_set_max_active_levels(1);
-  #endif
-
-  #pragma omp parallel
-  {
-    // initialize
-    fastlmm fit = fastlmm(X, U, s);
-
-    // iterate through responses 
-    #pragma omp for 
-    for( int i = 0; i < n_responses; i++){
-
-      fit.update_response(Y_all_.col(i), 
-                          weights_.col(i), 
-                          Yu_all.col(i));
-
-      if( delta > 0 ){
-        fit.eval_delta( delta ); 
-      }else{
-        fit.estimate_delta( left, right, tol );
-      }
-
-      #pragma omp critical
-      result.at(i) = fit.get_result();
-    }
-  }
-
-  return result;
+  this->weights = weights_;
+  this->Y = Y_;
+  this->Yu = Yu_;  
+  this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu;
 }
+
+
 
 }
 

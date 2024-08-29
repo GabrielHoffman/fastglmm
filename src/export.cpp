@@ -2,6 +2,7 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include "fastlmm.h"
+#include "fastlmmBatchResponse.h"
 
 using namespace Rcpp; 
 using namespace arma;
@@ -169,10 +170,11 @@ List fastlmm_mmm(   const arma::mat &Y_all,
                     const int &nthreads){
 
   // initialize
-  fastlmm fit = fastlmm<mat, mat, mat>(X, U, s);
+  fastlmmBatchResponse fit = 
+    fastlmmBatchResponse<mat, mat, mat>(Y_all, X, U, s, weights, left, right, tol, nthreads);
 
-  vector<fastlmm_result> res;
-  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol, nthreads );
+  // evaluate each response
+  vector<fastlmm_result> res = fit.eval();
 
   return toList(res);
 }
@@ -191,10 +193,11 @@ List fastlmm_msm(   const arma::mat &Y_all,
                     const int &nthreads){
 
   // initialize
-  fastlmm fit = fastlmm<mat, sp_mat, mat>(X, U, s);
+  fastlmmBatchResponse fit = 
+    fastlmmBatchResponse<mat, sp_mat, mat>(Y_all, X, U, s, weights, left, right, tol, nthreads);
 
-  vector<fastlmm_result> res;
-  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol, nthreads );
+  // evaluate each response
+  vector<fastlmm_result> res = fit.eval();
 
   return toList(res);
 }
@@ -205,17 +208,17 @@ List fastlmm_mms(   const arma::mat &Y_all,
                     const arma::sp_mat &U, 
                     const arma::vec &s,
                     const arma::mat &weights,
-                    const double &delta,
                     const double &left,
                     const double &right,
                     const double &tol,
                     const int &nthreads){
 
   // initialize
-  fastlmm fit = fastlmm<mat, mat, sp_mat>(X, U, s);
+  fastlmmBatchResponse fit = 
+    fastlmmBatchResponse<mat, mat, sp_mat>(Y_all, X, U, s, weights, left, right, tol, nthreads);
 
-  vector<fastlmm_result> res;
-  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol, nthreads );
+  // evaluate each response
+  vector<fastlmm_result> res = fit.eval();
 
   return toList(res);
 }
@@ -234,10 +237,11 @@ List fastlmm_mss(   const arma::mat &Y_all,
                     const int &nthreads){
 
   // initialize
-  fastlmm fit = fastlmm<mat, sp_mat, sp_mat>(X, U, s);
+  fastlmmBatchResponse fit = 
+    fastlmmBatchResponse<mat, sp_mat, sp_mat>(Y_all, X, U, s, weights, left, right, tol, nthreads);
 
-  vector<fastlmm_result> res;
-  res = fit.fit_batch_response(Y_all, weights, delta, left, right, tol, nthreads);
+  // evaluate each response
+  vector<fastlmm_result> res = fit.eval();
 
   return toList(res);
 }
