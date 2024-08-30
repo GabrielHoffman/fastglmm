@@ -784,6 +784,49 @@ test_profile = function(){
 }
 
 
+test_BatchDesign = function(){
 
+	library(MASS)
+	library(fastlmm)
+	library(Matrix)
+	library(RUnit)
+	set.seed(1)
+
+	n = 100000
+	ndonors = 300
+
+	# n = 3000
+	# info = data.frame(x = rnorm(n))
+	# info$Indiv = factor(seq(n))
+
+	info = data.frame(x = rnorm(n))
+	info$Indiv = factor(sample(seq(ndonors), n, replace=TRUE))
+	info$Indiv = droplevels(info$Indiv)
+	beta = 1
+	eta = 4 + info$x * beta + model.matrix(~ 0 + Indiv, info) %*% rnorm(nlevels(info$Indiv), 0, sqrt(3)) 
+	# info$y = rnegbin(n, mu=exp(eta), theta = 10)
+	info$y = eta + rnorm(length(eta))
+
+	Z = preprocess_indicator( info$Indiv )
+	dcmp = indicator_decomp( Z )
+	X = model.matrix( ~ x, info)
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
 
 
