@@ -4,8 +4,10 @@
        process and recycle X, Y with U and weights
 
    spectralDecomp::initWithEigenDecomp() should use QR SVD decomp
+      faster version with no weights
 
    Write test for fastlmmBatchDesign in test_BatchDesign()
+
 
 
 
