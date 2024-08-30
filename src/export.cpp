@@ -3,6 +3,7 @@
 
 #include "fastlmm.h"
 #include "fastlmmBatchResponse.h"
+#include "fastlmmBatchDesign.h"
 
 using namespace Rcpp; 
 using namespace arma;
@@ -21,7 +22,7 @@ const List toList(fastlmm_result &res){
                 Named("sigSq_g")      = res.sigSq_g,
                 Named("sigSq_e")      = res.sigSq_e,
                 Named("ru")           = res.ru,
-                Named("r")           = res.r,
+                // Named("r")            = res.r,
                 Named("iter")         = res.iter);
 }
 
@@ -325,4 +326,67 @@ List fastlmm_mss(   const arma::mat &Y_all,
 
 //   return toList(res);
 // }
+
+
+
+
+
+
+// [[Rcpp::export(".fastlmm_batch_design_m")]]
+List fastlmm_batch_design_m(const arma::mat &Y, 
+                            const arma::mat &X,
+                            const arma::mat &X_add,   
+                            const arma::mat &U, 
+                            const arma::vec &s,
+                            const arma::vec &weights,
+                            const double &delta,
+                            const double &left,
+                            const double &right,
+                            const double &tol,
+                            const int &nthreads){
+
+  // initialize
+  fastlmmBatchDesign fit = 
+    fastlmmBatchDesign<mat, mat, mat>(Y, X, U, s, weights);
+
+  // evaluate each column of X_add, one at a time
+  vector<fastlmm_result> res = fit.eval(X_add, delta, left, right, tol, nthreads );
+
+  return toList( res );
+}
+
+
+// [[Rcpp::export(".fastlmm_batch_design_s")]]
+List fastlmm_batch_design_s(const arma::mat &Y, 
+                            const arma::mat &X,
+                            const arma::mat &X_add,   
+                            const arma::sp_mat &U, 
+                            const arma::vec &s,
+                            const arma::vec &weights,
+                            const double &delta,
+                            const double &left,
+                            const double &right,
+                            const double &tol,
+                            const int &nthreads){
+
+  // initialize
+  fastlmmBatchDesign fit = 
+    fastlmmBatchDesign<mat, mat, sp_mat>(Y, X, U, s, weights);
+
+  // evaluate each column of X_add, one at a time
+  vector<fastlmm_result> res = fit.eval(X_add, delta, left, right, tol, nthreads );
+
+  return toList( res );
+}
+
+
+
+
+
+
+
+
+
+
+
 

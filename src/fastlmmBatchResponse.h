@@ -100,13 +100,14 @@ vector<fastlmm_result>
         T1 y = Y_all.col(i);
         vec w = Weights.col(i);
 
-        spectralDecomp dcmp = spectralDecomp<T3>(Z, w);
+        spectralDecomp<T3> dcmp;
+        dcmp.initWithIndicator(Z, w);
 
         fastlmm fit = fastlmm(y, X, dcmp.get_vectors(), dcmp.get_values(), w);
 
         fit.estimate_delta( left, right, tol );
 
-        #pragma omp critical
+        // #pragma omp critical
         result.at(i) = fit.get_result();
     }
   }

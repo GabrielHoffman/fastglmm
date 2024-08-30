@@ -4,7 +4,7 @@
 \alias{indicator_decomp}
 \title{Spectral decomposition of factor indicator matrix}
 \usage{
-indicator_decomp(x, weights = NULL, rank = NULL)
+indicator_decomp(x, weights = NULL, rank = NULL, sort = FALSE)
 }
 \arguments{
 \item{x}{object of type \code{factor} or \code{sparseMatrix}}
@@ -12,6 +12,8 @@ indicator_decomp(x, weights = NULL, rank = NULL)
 \item{weights}{vector of weights with a value for each sample.  If ommited, weights are set to 1.}
 
 \item{rank}{rank of random effect.  The maximum rank is the number of columns in \code{Z}.  A low rank approximation can be useful if the eigen-values decrease quickly.}
+
+\item{sort}{sort eigen vectors and values}
 }
 \value{
 list storing spectral decomposition like from \code{eigen()}
@@ -29,7 +31,7 @@ set.seed(2)
 indiv = factor(sample(LETTERS[seq(4)], 10, replace=TRUE))
 
 # fast spectral decomposition
-indicator_decomp( indiv )
+indicator_decomp( indiv, sort=TRUE )
 
 # Create spectral decomposition
 # using a slower approach ignoring the 

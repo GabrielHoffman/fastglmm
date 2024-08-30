@@ -1,9 +1,11 @@
 
 # August 28,
-    in fastlmmBatchResponse::eval();
-       handle preprocessing of Y, X, weights, U, s
-       init fastlmm(), then estimate_delta
+   in fastlmmBatchResponse::eval();
+       process and recycle X, Y with U and weights
 
+   spectralDecomp::initWithEigenDecomp() should use QR SVD decomp
+
+   Write test for fastlmmBatchDesign in test_BatchDesign()
 
 
 

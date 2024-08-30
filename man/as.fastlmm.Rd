@@ -4,7 +4,7 @@
 \alias{as.fastlmm}
 \title{Convert list to fastlmm class}
 \usage{
-as.fastlmm(x, design)
+as.fastlmm(x, design, method)
 }
 \arguments{
 \item{x}{list from \code{.fastlmm_()}}

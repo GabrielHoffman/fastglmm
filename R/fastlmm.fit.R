@@ -30,9 +30,7 @@ NULL
 #' 
 #' @param x list from \code{.fastlmm_()}
 #' @param design design matrix for fixed effects
-# @param U eigen-vectors of random effects design matrix
-# @param s eigen-values of random effects design matrix
-# @param weights weights
+#' @param method method used in model fit
 #' 
 #' @return object of class \code{fastlmm}
 #' @export
@@ -106,6 +104,9 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 	if( !is.matrix(Y) ){
 		Y <- as.matrix(Y)
 	}
+	if( is.null(weights) ){
+		weights <- matrix(1, nrow(Y), ncol(Y))
+	}
 	if( !is.matrix(weights) ){
 		weights <- as.matrix(weights)
 	}
@@ -117,10 +118,6 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 	# if delta is NULL, estimate its value
 	# by setting to -1 for C++ call
 	delta <- ifelse( is.null(delta), -1, delta)
-
-	if( is.null(weights) ){
-		weights <- matrix(1, nrow(Y), ncol(Y))
-	}
 
 	if( !identical(dim(Y), dim(weights)) ){
 		stop("Dimension of Y and weights must be the same")

@@ -166,6 +166,48 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// fastlmm_batch_design_m
+List fastlmm_batch_design_m(const arma::mat& Y, const arma::mat& X, const arma::mat& X_add, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const double& delta, const double& left, const double& right, const double& tol, const int& nthreads);
+RcppExport SEXP _fastlmm_fastlmm_batch_design_m(SEXP YSEXP, SEXP XSEXP, SEXP X_addSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP nthreadsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X_add(X_addSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type U(USEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
+    Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
+    Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
+    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(fastlmm_batch_design_m(Y, X, X_add, U, s, weights, delta, left, right, tol, nthreads));
+    return rcpp_result_gen;
+END_RCPP
+}
+// fastlmm_batch_design_s
+List fastlmm_batch_design_s(const arma::mat& Y, const arma::mat& X, const arma::mat& X_add, const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights, const double& delta, const double& left, const double& right, const double& tol, const int& nthreads);
+RcppExport SEXP _fastlmm_fastlmm_batch_design_s(SEXP YSEXP, SEXP XSEXP, SEXP X_addSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP nthreadsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X_add(X_addSEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat& >::type U(USEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
+    Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
+    Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
+    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(fastlmm_batch_design_s(Y, X, X_add, U, s, weights, delta, left, right, tol, nthreads));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_fastlmm_fastlmm_vmm", (DL_FUNC) &_fastlmm_fastlmm_vmm, 10},
@@ -176,6 +218,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_fastlmm_fastlmm_msm", (DL_FUNC) &_fastlmm_fastlmm_msm, 9},
     {"_fastlmm_fastlmm_mms", (DL_FUNC) &_fastlmm_fastlmm_mms, 8},
     {"_fastlmm_fastlmm_mss", (DL_FUNC) &_fastlmm_fastlmm_mss, 9},
+    {"_fastlmm_fastlmm_batch_design_m", (DL_FUNC) &_fastlmm_fastlmm_batch_design_m, 11},
+    {"_fastlmm_fastlmm_batch_design_s", (DL_FUNC) &_fastlmm_fastlmm_batch_design_s, 11},
     {NULL, NULL, 0}
 };
 

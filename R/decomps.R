@@ -21,7 +21,7 @@
 #' indiv = factor(sample(LETTERS[seq(4)], 10, replace=TRUE))
 #' 
 #' # fast spectral decomposition
-#' indicator_decomp( indiv )
+#' indicator_decomp( indiv, sort=TRUE )
 #' 
 #' # Create spectral decomposition
 #' # using a slower approach ignoring the 
@@ -42,35 +42,38 @@
 indicator_decomp = function( x, weights = NULL, rank = NULL, sort=FALSE){
 
 	if( is.factor(x) ){
-		Z.mod = preprocess_indicator( x )
+		Z = preprocess_indicator( x )
 	}else if( is(x, "sparseMatrix") ){
-		Z.mod = x
+		Z = x
 	}
 
-	# weight the rows of the indicator matrix
-	if( ! is.null(weights) ){
-		Z.mod = sqrt(weights) * Z.mod
+	if( is.null(weights) ){
+		weights = rep(1, nrow(Z))
 	}
 
-	# compute col sum of squares
-	cs = colSums(Z.mod^2)
-
+	# Compute eigen values and vectors	
+	evalues = as.numeric(weights %*% Z)
+	D = Diagonal(length(evalues), 1 / sqrt(evalues))
+	vectors = (Z * sqrt(weights)) %*% D
+	
 	if( sort ){
 		# sort by cs value
-		idx = order(cs, decreasing=TRUE)
-		cs = cs[idx]
-		Z.mod = Z.mod[,idx]
+		idx = order(evalues, decreasing=TRUE)
+		evalues = evalues[idx]
+		vectors = vectors[,idx]
 	}
-
-	vectors = Z.mod %*% Diagonal(ncol(Z.mod), 1/sqrt(cs))
 
 	if( !is.null(rank) && rank < ncol(vectors) && rank > 0){
-		U <- vectors[,seq_len(rank), drop=FALSE]
-		cs <- cs[seq_len(rank), drop=FALSE]
+		idx = seq_len(rank)
+		U <- vectors[,idx, drop=FALSE]
+		evalues <- evalues[idx, drop=FALSE]
 	}
 
-	list(vectors = vectors, values = as.numeric(cs))
+	list(vectors = vectors, values = evalues)
 }
+
+
+
 
  #' Create sparse indicator matrix
  #' 

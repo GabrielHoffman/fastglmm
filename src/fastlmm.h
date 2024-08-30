@@ -30,7 +30,7 @@ class fastlmm_result {
                     const vec &beta_se_,
                     const vec &weights_,
                     const vec &ru_,
-                    const vec &r_,
+                    // const vec &r_,
                     const double &delta_,
                     const double &sigSq_g_,
                     const double &sigSq_e_,
@@ -41,7 +41,7 @@ class fastlmm_result {
       beta_se = beta_se_;
       weights = weights_;
       ru = ru_;
-      r = r_;
+      // r = r_;
       delta   = delta_;
       sigSq_g = sigSq_g_;
       sigSq_e = sigSq_e_;
@@ -111,7 +111,7 @@ class fastlmm {
                               sqrt(diagvec(V)),
                               get_weights(),
                               get_ru(),
-                              get_r(),
+                              // get_r(),
                               get_delta(),
                               get_sigSq_g(),
                               get_sigSq_e(),

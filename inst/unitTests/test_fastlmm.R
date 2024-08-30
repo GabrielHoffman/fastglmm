@@ -73,79 +73,6 @@ test_user_fxn = function(){
 
 
 
-devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
-fit3 <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy, weights = w)
-
-
-
-devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
-fit3 <- fastlmm(cbind(Reaction, Reaction) ~ Days + (1 | Subject), sleepstudy, weights = w)
-
-
-
-indicator_decomp(Z, w)$vectors[1:4,-c(1:16)]
-
-
-f = function (x, weights = NULL, rank = NULL) {
-    if (is.factor(x)) {
-        Z = preprocess_indicator(x)
-    }
-    else if (is(x, "sparseMatrix")) {
-        Z = x
-    }
-    if (!is.null(weights)) {
-        Z.mod = sqrt(weights) * Z
-    }else{
-    	Z.mod = Z
-    }
-    cs = colSums(Z.mod^2)
-    vectors = Z.mod %*% Diagonal(ncol(Z.mod), 1/sqrt(cs))
-    list(vectors = vectors, values = as.numeric(cs))
-}
-
-f(Z, w)$values
-
-
-a = colSums(crossprod(sqrt(weights) * Z))
-one = matrix(1, 1, ncol(Z))
-b = one %*% crossprod(sqrt(weights) * Z)
-W = Diagonal(length(weights), sqrt(weights))
-d = one %*% crossprod( W %*% Z)
-e = one %*% t(Z) %*% t(W) %*% W %*% Z
-e = (one %*% t(Z)) %*% (t(W) %*% W) %*% Z
-
-
-M1 = tcrossprod(one, Z)
-W2 = Diagonal(length(weights), weights)
-
-e = M1 %*% W2 %*% Z
-
-a[1:4]
-b[1:4]
-d[1:4]
-e[1:4]
-
-
-
-devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
-
-system.time(
-a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W))
-
-
-
-
-
-
-
-
-fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W)
-
-
-system.time(
-		a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, nthreads=1))
-
-
 test_multivariate = function(){
 
 	library(MASS)
@@ -169,7 +96,7 @@ test_multivariate = function(){
 	dcmp = indicator_decomp( info$Indiv )
 	indicObj = preprocess_indicator( info$Indiv )
 
-	n_reps = 4
+	n_reps = 100
 	Y_stack = lapply(seq(n_reps), function(x){ info$y})
 	Y_stack = do.call(cbind, Y_stack)
 	colnames(Y_stack) = paste0("resp_", seq(ncol(Y_stack)))
@@ -229,12 +156,6 @@ test_multivariate = function(){
 		fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights, delta=1))
 	}
 }
-
-
-devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
-
-system.time(
-a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, nthreads=1))
 
 
 
@@ -485,7 +406,7 @@ test_fxn = function(){
 	info$y = eta + rnorm(length(eta))
 
 	dcmp = indicator_decomp( info$Indiv )
-	indicObj = preprocess_indicator( info$Indiv )
+	Z = preprocess_indicator( info$Indiv )
 	X = model.matrix( ~ x, info)
 
 
@@ -493,7 +414,7 @@ test_fxn = function(){
 	U = as.matrix(dcmp$vectors)
 	s = dcmp$values
 	Y = as.numeric(info$y)
-	fit2 = fastlmm.fit(Y, X, Z=indicObj)
+	fit2 = fastlmm.fit(Y, X, Z=Z)
 }
 
 
