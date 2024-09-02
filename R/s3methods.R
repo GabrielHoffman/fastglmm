@@ -165,6 +165,7 @@ vcov.fastlmm <- function(object,...){
 }
 
 #' @importFrom lme4 ranef
+#' @importFrom Matrix crossprod
 #' @export
 ranef.fastlmm = function(object,...){
 
