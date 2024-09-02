@@ -103,7 +103,7 @@ vector<fastlmm_result>
         spectralDecomp<T3> dcmp;
         dcmp.initWithIndicator(Z, w);
 
-        fastlmm fit = fastlmm(y, X, dcmp.get_vectors(), dcmp.get_values(), w);
+        fastlmm fit = fastlmm<T1, T2, T3>(y, X, dcmp.get_vectors(), dcmp.get_values(), w);
 
         fit.estimate_delta( left, right, tol );
 
