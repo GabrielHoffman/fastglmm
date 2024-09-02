@@ -1,12 +1,21 @@
 
+Code profiling
+   http://minimallysufficient.github.io/r/programming/c++/2018/02/16/profiling-rcpp-packages.html
+
+
 # August 28,
    in fastlmmBatchResponse::eval();
        process and recycle X, Y with U and weights
 
    spectralDecomp::initWithEigenDecomp() should use QR SVD decomp
       faster version with no weights
+      defautl args weights = vec(), and check with noWeights()
 
    Write test for fastlmmBatchDesign in test_BatchDesign()
+
+
+   sum colums of sparse matrix arma::sum(A, 2)
+   diagonal matrix diagmat()
 
 
 

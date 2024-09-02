@@ -159,6 +159,7 @@ test_multivariate = function(){
 
 
 
+
 test_indicator_decomp = function(){
 	library(MASS)
 	library(fastlmm)

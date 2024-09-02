@@ -10,6 +10,8 @@ as.fastlmm(x, design, method)
 \item{x}{list from \code{.fastlmm_()}}
 
 \item{design}{design matrix for fixed effects}
+
+\item{method}{method used in model fit}
 }
 \value{
 object of class \code{fastlmm}
