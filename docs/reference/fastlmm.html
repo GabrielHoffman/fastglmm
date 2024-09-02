@@ -9,7 +9,7 @@ Description"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">fastlmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,6 +21,7 @@ Description"></head><body>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/GabrielHoffman/fastlmm/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -30,7 +31,7 @@ Description"></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fast Linear Mixed Model with 1 random effect</h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/GabrielHoffman/fastlmm/blob/HEAD/R/fastlmm.R" class="external-link"><code>R/fastlmm.R</code></a>, <a href="https://github.com/GabrielHoffman/fastlmm/blob/HEAD/R/fastlmm.fit.R" class="external-link"><code>R/fastlmm.fit.R</code></a></small>
       <div class="d-none name"><code>fastlmm.Rd</code></div>
     </div>
 
@@ -48,7 +49,8 @@ Description"></head><body>
 <span>  delta <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  delta.range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span>,</span>
-<span>  tol <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">^</span><span class="fl">0.5</span></span>
+<span>  tol <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">^</span><span class="fl">0.5</span>,</span>
+<span>  nthreads <span class="op">=</span> <span class="fl">6</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -82,6 +84,10 @@ Description"></head><body>
 
 <dt id="arg-tol">tol<a class="anchor" aria-label="anchor" href="#arg-tol"></a></dt>
 <dd><p>convergence criterion for the 1D search of the delta space</p></dd>
+
+
+<dt id="arg-nthreads">nthreads<a class="anchor" aria-label="anchor" href="#arg-nthreads"></a></dt>
+<dd><p>number of threads</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -120,8 +126,7 @@ Description"></head><body>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Linear mixed model fit by   ['fastlmm']</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Linear mixed model fit by ML ['fastlmm']</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             Estimate Std. Error t value Pr(&gt;|t|)    </span>
