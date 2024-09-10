@@ -30,16 +30,18 @@ NULL
 #' 
 #' @param x list from \code{.fastlmm_()}
 #' @param design design matrix for fixed effects
+#' @param offset offset
 #' @param method method used in model fit
 #' 
 #' @return object of class \code{fastlmm}
 #' @export
-as.fastlmm = function(x, design, method){
+as.fastlmm = function(x, design, offset, method){
 
 	# format results
 	x$coefficients <- as.numeric(x$coefficients)
 	x$se <- as.numeric(x$se)
 	x$design = design
+	x$offset = offset
 
 	names(x$coefficients) <- colnames(x$design)
 	names(x$se) <- colnames(x$design)
@@ -78,6 +80,7 @@ print.fastlmmList = function(x, ...){
 #' @param Y response vector, or matrix with responses as _columns_
 #' @param X design matrix
 #' @param Z sparse matrix of indicators for random effect
+#' @param offset offset
 #' @param rank rank of random effect.  The maximum rank is the number of columns in \code{Z}.  A low rank approximation can be useful if the eigen-values decrease quickly.
 #' @param weights an optional vector of prior weights with a value for each sample.  When the response has multiple columns, a vector of weight can be reused for each respose, or a matrix the same dimension as the responses matrix can weight each response separately.
 #' 
@@ -93,7 +96,7 @@ print.fastlmmList = function(x, ...){
 # other args: sig_a_fixed = FALSE
 #' @importFrom methods is
 #' @export
-fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, delta.range = c(-10, 10), tol = .Machine$double.eps^0.5, nthreads=6){
+fastlmm.fit <- function( Y, X, Z, offset = NULL, delta=NULL, rank = ncol(Z), weights = NULL, delta.range = c(-10, 10), tol = .Machine$double.eps^0.5, nthreads=6){
 
 	if( delta.range[1] >= delta.range[2] ){
 		stop("delta.range are not valid")
@@ -121,6 +124,11 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 
 	if( !identical(dim(Y), dim(weights)) ){
 		stop("Dimension of Y and weights must be the same")
+	}
+
+	if ( ! is.null(offset) ){
+		offset <- as.matrix(offset)
+		Y <- Y - offset
 	}
 
 	# if 1 response 
@@ -153,7 +161,7 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 								nthreads = nthreads)
 		}
 		
-		res = as.fastlmm(res, design = X, method = "ML")
+		res = as.fastlmm(res, design = X, offset = offset, method = "ML")
 
 		# include indicator matrix and its decomposition
 		# Does this need to stay in?
@@ -188,7 +196,7 @@ fastlmm.fit <- function( Y, X, Z, delta=NULL, rank = ncol(Z), weights = NULL, de
 		}
 
 		# convert each entry to an fastlmm object
-		res = lapply(res, as.fastlmm, design = X, method = "ML")
+		res = lapply(res, as.fastlmm, design = X, offset = offset, method = "ML")
 		names(res) = colnames(Y)
 		class(res) <- "fastlmmList"
 	}

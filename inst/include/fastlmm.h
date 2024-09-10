@@ -1,13 +1,9 @@
-#include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
-
-// only depends on armadillo 
-// Can be imported by plain C++ without Rcpp*
-//  by only modifying header above
 
 #ifndef FASTLMM_H_
 #define FASTLMM_H_
 
+#include <RcppArmadillo.h>
+#include <armadillo>
 using namespace arma;
 
 #include "local_min.h"
@@ -19,7 +15,7 @@ class fastlmm_result {
   public:  
     double logLik, sigSq_g, sigSq_e, delta;
     int iter;
-    vec beta, beta_se, weights, ru, r;
+    vec beta, beta_se, weights, ru, y;
     mat vcov;
 
     fastlmm_result(){}
@@ -30,7 +26,7 @@ class fastlmm_result {
                     const vec &beta_se_,
                     const vec &weights_,
                     const vec &ru_,
-                    // const vec &r_,
+                    const vec &y_,
                     const double &delta_,
                     const double &sigSq_g_,
                     const double &sigSq_e_,
@@ -41,7 +37,7 @@ class fastlmm_result {
       beta_se = beta_se_;
       weights = weights_;
       ru = ru_;
-      // r = r_;
+      y = y_;
       delta   = delta_;
       sigSq_g = sigSq_g_;
       sigSq_e = sigSq_e_;
@@ -111,7 +107,7 @@ class fastlmm {
                               sqrt(diagvec(V)),
                               get_weights(),
                               get_ru(),
-                              // get_r(),
+                              get_y(),
                               get_delta(),
                               get_sigSq_g(),
                               get_sigSq_e(),
@@ -168,6 +164,7 @@ class fastlmm {
 
     vec get_ru(){ return ru;}
     vec get_r(){ return r;}
+    vec get_y(){ return Y;}
 
   private:
     T1 Y, Yu;
@@ -184,7 +181,6 @@ class fastlmm {
     double logLik, sigSq_g, delta_hat;
     int iter = 0;
 };
-
 
 
 // constructor, minimal
@@ -323,7 +319,7 @@ double fastlmm<T1, T2, T3>::ll(const double &delta ) {
 
 
 // function to be minimized
-double ll_alone_mat( double delta_log, void *arg){
+static inline double ll_alone_mat( double delta_log, void *arg){
 
   auto *fit = (fastlmm<mat,mat,mat> *) arg;
 
@@ -335,7 +331,7 @@ double ll_alone_mat( double delta_log, void *arg){
 }
 
 // sparse version
-double ll_alone_spmat( double delta_log, void *arg){
+static inline double ll_alone_spmat( double delta_log, void *arg){
 
   auto *fit = (fastlmm<mat,mat,sp_mat> *) arg;
 
@@ -345,15 +341,6 @@ double ll_alone_spmat( double delta_log, void *arg){
 
   return -1.0*fit->get_logLik();
 }
-
-// general case, returns false
-template <class T>
-bool isSpMatrix(const T &t) { return false;  } 
-
- // but for sp_mat returns true
-template <>
-bool isSpMatrix( const sp_mat &t) { return true; } 
-
 
 
 template <typename T1, typename T2, typename T3> 

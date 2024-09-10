@@ -34,7 +34,7 @@
 # other args
 # verbose = 0L, subset, weights = NULL, na.action, offset, contrasts = NULL
 #' @importFrom lme4 findbars nobars
-#' @importFrom stats as.formula model.frame model.response model.matrix update
+#' @importFrom stats as.formula model.frame model.response model.matrix update model.offset
 #' @importFrom Rdpack reprompt
 #' @seealso \code{lme4::lmer()}
 #' @export
@@ -76,6 +76,7 @@ fastlmm = function (formula, data, REML = TRUE, delta = NULL, weights = NULL, de
         mf <- model.frame( form.fixed, data, drop.unused.levels=TRUE)
         X <- model.matrix( mf, data )
         Y <- model.response( mf )
+        offset <- model.offset(mf)
     }else{
         # if Y is a matrix in the parent environment
         # get matrix directly from parent
@@ -90,6 +91,7 @@ fastlmm = function (formula, data, REML = TRUE, delta = NULL, weights = NULL, de
         mf <- model.frame( form2, data, drop.unused.levels=TRUE)
         X <- model.matrix( mf, data )
         Y <- eval.parent(parse(text=respVar))
+        offset <- model.offset(mf)
     }
 
     # decomposition of random effect variable
@@ -104,6 +106,7 @@ fastlmm = function (formula, data, REML = TRUE, delta = NULL, weights = NULL, de
     	Y = Y, 
     	X = X, 
     	Z = Z, 
+        offset = offset,
     	rank 	= ncol(Z), 
     	weights = weights,
         delta   = delta, 

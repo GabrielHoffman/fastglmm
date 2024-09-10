@@ -8,6 +8,7 @@ fastlmm.fit(
   Y,
   X,
   Z,
+  offset = NULL,
   delta = NULL,
   rank = ncol(Z),
   weights = NULL,
@@ -22,6 +23,8 @@ fastlmm.fit(
 \item{X}{design matrix}
 
 \item{Z}{sparse matrix of indicators for random effect}
+
+\item{offset}{offset}
 
 \item{delta}{if \code{NULL} estimate delta, if value is given used this fixed values}
 

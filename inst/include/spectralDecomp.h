@@ -1,14 +1,11 @@
-#include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
-
-// only depends on armadillo 
 
 #ifndef SPECTRAL_DECOMP_H_
 #define SPECTRAL_DECOMP_H_
 
-#include "misc.h"
-
+#include <armadillo>
 using namespace arma;
+
+#include "misc.h"
 
 namespace fastlmmLib {
 

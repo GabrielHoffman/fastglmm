@@ -4,12 +4,14 @@
 \alias{as.fastlmm}
 \title{Convert list to fastlmm class}
 \usage{
-as.fastlmm(x, design, method)
+as.fastlmm(x, design, offset, method)
 }
 \arguments{
 \item{x}{list from \code{.fastlmm_()}}
 
 \item{design}{design matrix for fixed effects}
+
+\item{offset}{offset}
 
 \item{method}{method used in model fit}
 }

@@ -814,14 +814,87 @@ test_BatchDesign = function(){
 
 
 
-	
+}
+
+
+
+test_S3_offset = function(){
+
+	library(lme4)
+	library(fastlmm)
+	library(RUnit)
+
+	weights = seq(nrow(sleepstudy))
+	weights[] = 1
+	weights = weights / mean(weights)
+
+	form = Reaction ~ (1 | Subject) + offset(10000*Days) 
+	fit1 <- fastlmm(form, sleepstudy, weights=weights)
+	coef(summary(fit1))
+
+	fit2 <- lmer(form, sleepstudy, weights=weights, REML=FALSE)
+	coef(summary(fit2))
+
+	checkEqualsNumeric(sigma(fit1), sigma(fit2))
+
+	checkEqualsNumeric(fixef(fit1), fixef(fit2))
+	checkEqualsNumeric(array(ranef(fit1)), array(unlist(ranef(fit2))), tol=1e-7)
+	checkEqualsNumeric(fitted(fit1), fitted(fit2))
+	checkEqualsNumeric(residuals(fit1), residuals(fit2))
+	checkEqualsNumeric(predict(fit1), predict(fit2))
+
+
+
+	# FASTLMM / LM
+	sleepstudy$Subject = factor(rep(LETTERS[1:2], nrow(sleepstudy) / 2))
+	form = Reaction ~ (1 | Subject) + offset(100*Days) 
+	fit1 <- fastlmm(form, sleepstudy, weights=weights, delta = 1e12)
+	coef(summary(fit1))
+
+	fit2 <- glm(nobars(form), sleepstudy, weights=weights, family="gaussian")
+	coef(summary(fit2))
+
+	a = nrow(sleepstudy) / (nrow(sleepstudy) - 1)
+	checkEqualsNumeric(sigma(fit1)*sqrt(a), sigma(fit2))
+	checkEqualsNumeric(coef(fit1), coef(fit2))
+	checkEqualsNumeric(fitted(fit1), fitted(fit2))
+	checkEqualsNumeric(residuals(fit1), residuals(fit2, type="working"))
+	checkEqualsNumeric(predict(fit1), predict(fit2))
 
 
 
 
+	# FASTGLMM / GLM
+
+
+	devtools::reload("/Users/gabrielhoffman/workspace/repos/fastglmm")
 
 
 
+	library(fastglmm)
+	library(MASS)
+
+
+	fam = gaussian()
+	set.seed(1)
+	sleepstudy$a = rnorm(nrow(sleepstudy))
+	form = Reaction ~ (1 | Subject) + offset(1*Days) 
+	fit1 <- fastglmm(form, sleepstudy, weights=weights, init="lm", family=fam)
+	coef(summary(fit1))
+	fit1$iter.pql
+
+	fit1a <- fastglmm(form, sleepstudy, weights=weights, init.fit=fit1, family=fam)
+	coef(summary(fit1a))
+	fit1a$iter.pql
+
+	fit2 <- glmmPQL(nobars(form), random = ~ 1 | Subject, sleepstudy, weights=weights, family=fam)
+	coef(summary(fit2))
+
+	checkEqualsNumeric(sigma(fit1), sigma(fit2))
+	checkEqualsNumeric(fixef(fit1), fixef(fit2))
+	checkEqualsNumeric(fitted(fit1), fitted(fit2))
+	checkEqualsNumeric(residuals(fit1), residuals(fit2))
+	checkEqualsNumeric(predict(fit1), predict(fit2))
 
 
 
@@ -829,5 +902,6 @@ test_BatchDesign = function(){
 
 
 }
+
 
 

@@ -69,7 +69,17 @@ nobs.fastlmm <- function(object,...){
 
 # plot.fastlmm
 
-# predict.fastlmm
+
+#' @importFrom stats nobs
+#' @export
+predict.fastlmm = function(object, newdata = NULL, ...){
+
+    if(!is.null(newdata) ){
+        stop("newdata is not currently supported")
+    }
+    fitted(object)
+}
+
 
 #' @importFrom stats coef
 #' @export
@@ -87,7 +97,7 @@ print.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), ...){
 
 # ranef.fastlmm
 
-# residuals.fastlmm
+
 
 # rstandard.fastlmm
 
@@ -183,12 +193,33 @@ fixef.fastlmm = function(object,...){
 #' @importFrom stats fitted
 #' @export
 fitted.fastlmm  = function(object,...){
-    v = object$Z %*% ranef.fastlmm(object) + object$design %*% coef(object)
-    as.numeric(v)
+    v = object$Z %*% ranef.fastlmm(object) + object$design %*% coef(object) 
+    v = as.numeric(v)
+
+    if( ! is.null(object$offset) ){
+        v = v + object$offset
+    }
+    v
 }
 
 
+#' @importFrom stats residuals
+#' @export
+residuals.fastlmm = function(object, ...){
 
+    if( is.null(object$weights) ){
+        w = 1
+    }else{
+        w = object$weights
+    }
+
+    v = object$y / sqrt(w) - fitted(object)
+
+    if( ! is.null(object$offset) ){
+        v = v + object$offset
+    }
+    v
+}
 
 
 

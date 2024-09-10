@@ -1,7 +1,17 @@
-#include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
+#ifndef FASTLMM_BATCH_RESPONSE_H_
+#define FASTLMM_BATCH_RESPONSE_H_
+
+#include <armadillo>
+
+using namespace arma;
+using namespace std;
 
 #include "fastlmm.h"
+
+
+
+#include "fastlmmBatchResponse.h"
+
 #include "spectralDecomp.h"
 
 #ifdef _OPENMP
@@ -13,10 +23,6 @@
 #endif
 
 
-#ifndef FASTLMM_BATCH_RESPONSE_H_
-#define FASTLMM_BATCH_RESPONSE_H_
-
-using namespace arma;
 
 namespace fastlmmLib {
 

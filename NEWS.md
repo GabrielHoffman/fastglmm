@@ -1,4 +1,8 @@
 
+# fastlmm 0.1.4
+ - Sept 10, 2024
+ - move `fastlmmLib` code to `inst/include` for accessible header-only library
+
 # fastlmm 0.1.3
  - Aug 28, 2024
  - changes to allow PQL with `fastglmm()`

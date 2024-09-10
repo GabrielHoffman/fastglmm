@@ -1,5 +1,7 @@
-#include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
+#ifndef FASTLMM_BATCH_DESIGN_H_
+#define FASTLMM_BATCH_DESIGN_H_
+
+#include <armadillo>
 
 #include "fastlmm.h"
 #include "spectralDecomp.h"
@@ -11,10 +13,6 @@
     #define omp_get_num_threads() 0
     #define omp_get_thread_num() 0
 #endif
-
-
-#ifndef FASTLMM_BATCH_DESIGN_H_
-#define FASTLMM_BATCH_DESIGN_H_
 
 using namespace arma;
 

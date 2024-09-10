@@ -1,3 +1,7 @@
+#ifndef LOCAL_MIN_H
+#define LOCAL_MIN_H
+
+
 # include <cfloat>
 # include <cmath>
 # include <cstdlib>
@@ -18,7 +22,7 @@ struct funcStruct
 
 //****************************************************************************80
 
-double local_min ( double a, double b, double t, funcStruct *f, double &x, int &calls )
+inline double local_min ( double a, double b, double t, funcStruct *f, double &x, int &calls )
 
 //****************************************************************************80
 //
@@ -266,4 +270,5 @@ double local_min ( double a, double b, double t, funcStruct *f, double &x, int &
   }
   return fx;
 }
+#endif
 
