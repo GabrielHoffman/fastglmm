@@ -303,4 +303,3 @@ List fastlmm_batch_design_s(const arma::mat &Y,
 
 
 
-

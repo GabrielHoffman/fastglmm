@@ -7,6 +7,7 @@
 #include "fastlmm.h"
 #include "fastlmmBatchResponse.h"
 #include "fastlmmBatchDesign.h"
+#include "linearRegression.h"
 
 
 #endif

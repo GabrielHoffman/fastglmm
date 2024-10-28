@@ -8,7 +8,7 @@
 #' @param data an optional data frame containing the variables named in
 #' @param REML logical scalar - Should the estimates be chosen to optimize the REML criterion vs ML?
 #' @param weights an optional vector of prior weights with a value for each sample.  When the response has multiple columns, a vector of weight can be reused for each respose, or a matrix the same dimension as the responses matrix can weight each response separately.
-#' @param delta  if \code{NULL} estimate delta, if value is given used this fixed values
+#' @param delta  if \code{NULL} estimate delta, if value is given use this fixed value
 #' @param delta.range min and max values (in log space), of the search space for delta to fit the random effect
 #' @param tol convergence criterion for the 1D search of the delta space
 #' @param nthreads number of threads

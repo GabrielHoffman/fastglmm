@@ -203,6 +203,7 @@ fitted.fastlmm  = function(object,...){
 }
 
 
+# See ?residuals.glm
 #' @importFrom stats residuals
 #' @export
 residuals.fastlmm = function(object, ...){

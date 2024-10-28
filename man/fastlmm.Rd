@@ -22,7 +22,7 @@ fastlmm(
 
 \item{REML}{logical scalar - Should the estimates be chosen to optimize the REML criterion vs ML?}
 
-\item{delta}{if \code{NULL} estimate delta, if value is given used this fixed values}
+\item{delta}{if \code{NULL} estimate delta, if value is given use this fixed value}
 
 \item{weights}{an optional vector of prior weights with a value for each sample.  When the response has multiple columns, a vector of weight can be reused for each respose, or a matrix the same dimension as the responses matrix can weight each response separately.}
 
