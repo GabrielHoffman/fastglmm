@@ -1,10 +1,15 @@
 #ifndef FASTLMM_MISC_H_
 #define FASTLMM_MISC_H_
 
+// if -D ARMA, use plain armadillo library
+#ifdef ARMA
 #include <armadillo>
+#else
+#include <RcppArmadillo.h>
+#endif
+
 
 using namespace arma;
-
 
 namespace fastlmmLib {
 

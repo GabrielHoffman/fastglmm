@@ -1,8 +1,6 @@
 #ifndef FASTLMM_BATCH_DESIGN_H_
 #define FASTLMM_BATCH_DESIGN_H_
 
-#include <armadillo>
-
 #include "fastlmm.h"
 #include "spectralDecomp.h"
 

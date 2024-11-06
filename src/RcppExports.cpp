@@ -12,6 +12,17 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// test
+double test(const arma::vec& X);
+RcppExport SEXP _fastlmm_test(SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(test(X));
+    return rcpp_result_gen;
+END_RCPP
+}
 // fastlmm_vmm
 List fastlmm_vmm(const arma::vec& Y, const arma::mat& X, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const double& delta, const double& left, const double& right, const double& tol, const int& nthreads);
 RcppExport SEXP _fastlmm_fastlmm_vmm(SEXP YSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP nthreadsSEXP) {
@@ -211,6 +222,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_fastlmm_test", (DL_FUNC) &_fastlmm_test, 1},
     {"_fastlmm_fastlmm_vmm", (DL_FUNC) &_fastlmm_fastlmm_vmm, 10},
     {"_fastlmm_fastlmm_vms", (DL_FUNC) &_fastlmm_fastlmm_vms, 10},
     {"_fastlmm_fastlmm_vsm", (DL_FUNC) &_fastlmm_fastlmm_vsm, 10},

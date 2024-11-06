@@ -2,13 +2,18 @@
 #ifndef SPECTRAL_DECOMP_H_
 #define SPECTRAL_DECOMP_H_
 
+// if -D ARMA, use plain armadillo library
+#ifdef ARMA
 #include <armadillo>
-using namespace arma;
+#else
+#include <RcppArmadillo.h>
+#endif
 
 #include "misc.h"
 
-namespace fastlmmLib {
+using namespace arma;
 
+namespace fastlmmLib {
 
 template <typename T> 
 class spectralDecomp {

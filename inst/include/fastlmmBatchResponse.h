@@ -1,15 +1,10 @@
 #ifndef FASTLMM_BATCH_RESPONSE_H_
 #define FASTLMM_BATCH_RESPONSE_H_
 
-#include <armadillo>
-
 using namespace arma;
 using namespace std;
 
 #include "fastlmm.h"
-
-
-
 #include "fastlmmBatchResponse.h"
 
 #include "spectralDecomp.h"

@@ -2,13 +2,24 @@
  * @file		linearRegression.h
  * @author		Gabriel Hoffman
  * @email		gabriel.hoffman@mssm.edu
- * @brief		Evaluate linear regression with Armadollo library
+ * @brief		Evaluate linear regression with Armadillo library
  * Copyright (C) 2024 Gabriel Hoffman
  ***********************************************************************/
 
 
 #ifndef LINEAR_REGRESSION_H_
 #define LINEAR_REGRESSION_H_
+
+// if -D ARMA, use plain armadillo library
+#ifdef ARMA
+#include <armadillo>
+#else
+#include <RcppArmadillo.h>
+#endif
+
+using namespace arma;
+
+namespace fastlmmLib {
 
 struct ModelFit {
 	vec coef;
@@ -40,7 +51,7 @@ struct LMWork {
 / adapted from https://github.com/RcppCore/RcppArmadillo/blob/master/src/fastLm.cpp
 / https://genomicsclass.github.io/book/pages/qr_and_regression.html
 */
-ModelFit lm(const arma::mat& X, const arma::colvec& y, const bool &hat = false, LMWork *work = nullptr) {
+static ModelFit lm(const arma::mat& X, const arma::colvec& y, const bool &hat = false, LMWork *work = nullptr) {
 
 	int n = X.n_rows, k = X.n_cols;
 
@@ -85,6 +96,25 @@ ModelFit lm(const arma::mat& X, const arma::colvec& y, const bool &hat = false, 
 
 	return fit;
 }
+
+
+
+static ModelFit wlm(const arma::mat& X, const arma::colvec& y, const arma::colvec& w = {}) {
+
+	ModelFit fit;
+
+	if( w.is_empty() ){
+		fit = lm( X, y );
+	}else{
+		arma::colvec wsqrt = sqrt(w / mean(w));
+		fit = lm( X * wsqrt, y * wsqrt );
+	}
+
+	return fit;
+}
+
+}
+
 
 
 #endif

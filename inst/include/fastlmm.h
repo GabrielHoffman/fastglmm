@@ -2,8 +2,13 @@
 #ifndef FASTLMM_H_
 #define FASTLMM_H_
 
-#include <RcppArmadillo.h>
+// if -D ARMA, use plain armadillo library
+#ifdef ARMA
 #include <armadillo>
+#else
+#include <RcppArmadillo.h>
+#endif
+
 using namespace arma;
 
 #include "local_min.h"
