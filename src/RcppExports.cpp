@@ -12,17 +12,6 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// test
-double test(const arma::vec& X);
-RcppExport SEXP _fastlmm_test(SEXP XSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::vec& >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(test(X));
-    return rcpp_result_gen;
-END_RCPP
-}
 // fastlmm_vmm
 List fastlmm_vmm(const arma::vec& Y, const arma::mat& X, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const double& delta, const double& left, const double& right, const double& tol, const int& nthreads);
 RcppExport SEXP _fastlmm_fastlmm_vmm(SEXP YSEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP nthreadsSEXP) {
@@ -220,9 +209,40 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// lmFitFeatures_export
+List lmFitFeatures_export(const arma::vec& y, const arma::mat& X_design, const arma::mat& X_features, const vector<string>& ids, const arma::vec& weights, const int& nthreads);
+RcppExport SEXP _fastlmm_lmFitFeatures_export(SEXP ySEXP, SEXP X_designSEXP, SEXP X_featuresSEXP, SEXP idsSEXP, SEXP weightsSEXP, SEXP nthreadsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X_design(X_designSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X_features(X_featuresSEXP);
+    Rcpp::traits::input_parameter< const vector<string>& >::type ids(idsSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(lmFitFeatures_export(y, X_design, X_features, ids, weights, nthreads));
+    return rcpp_result_gen;
+END_RCPP
+}
+// lmFitFeatures_preproj_export
+List lmFitFeatures_preproj_export(const arma::vec& y, const arma::mat& X_design, const arma::mat& X_features, const vector<string>& ids, const arma::vec& weights, const int& nthreads);
+RcppExport SEXP _fastlmm_lmFitFeatures_preproj_export(SEXP ySEXP, SEXP X_designSEXP, SEXP X_featuresSEXP, SEXP idsSEXP, SEXP weightsSEXP, SEXP nthreadsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X_design(X_designSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X_features(X_featuresSEXP);
+    Rcpp::traits::input_parameter< const vector<string>& >::type ids(idsSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(lmFitFeatures_preproj_export(y, X_design, X_features, ids, weights, nthreads));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_fastlmm_test", (DL_FUNC) &_fastlmm_test, 1},
     {"_fastlmm_fastlmm_vmm", (DL_FUNC) &_fastlmm_fastlmm_vmm, 10},
     {"_fastlmm_fastlmm_vms", (DL_FUNC) &_fastlmm_fastlmm_vms, 10},
     {"_fastlmm_fastlmm_vsm", (DL_FUNC) &_fastlmm_fastlmm_vsm, 10},
@@ -233,6 +253,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_fastlmm_fastlmm_mss", (DL_FUNC) &_fastlmm_fastlmm_mss, 9},
     {"_fastlmm_fastlmm_batch_design_m", (DL_FUNC) &_fastlmm_fastlmm_batch_design_m, 11},
     {"_fastlmm_fastlmm_batch_design_s", (DL_FUNC) &_fastlmm_fastlmm_batch_design_s, 11},
+    {"_fastlmm_lmFitFeatures_export", (DL_FUNC) &_fastlmm_lmFitFeatures_export, 6},
+    {"_fastlmm_lmFitFeatures_preproj_export", (DL_FUNC) &_fastlmm_lmFitFeatures_preproj_export, 6},
     {NULL, NULL, 0}
 };
 

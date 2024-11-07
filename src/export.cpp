@@ -2,10 +2,14 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include <fastlmmLib.h>
+#include "linearRegression.h"
 
 using namespace Rcpp; 
 using namespace arma;
 using namespace fastlmmLib;
+
+
+
 
 // Depends on Rcpp::List, so define outside of class
 const List toList(fastlmm_result &res){
@@ -298,7 +302,50 @@ List fastlmm_batch_design_s(const arma::mat &Y,
 
 
 
+List toList( const vector<ModelFit> & fitList){
+
+    int ncoef = fitList[0].coef.n_elem;
+    int nrow = fitList.size(); 
+
+    arma::mat coefMat(nrow,ncoef);
+    arma::mat seMat(nrow,ncoef);
+    arma::vec dfVec(nrow);
+    vector<string> ID;
+    ID.reserve(nrow);
+
+    for(int i=0; i< fitList.size(); i++){
+      coefMat.row(i) = fitList[i].coef.t();
+      seMat.row(i) = fitList[i].se.t();
+      dfVec(i) = fitList[i].df;
+      ID.push_back(fitList[i].ID);  
+    }
+
+    List lst = List::create(
+        Named("ID") = wrap(ID),
+        Named("coef") = coefMat,
+        Named("se") = seMat,
+        Named("df") = dfVec
+      );
+
+    return lst;
+}
 
 
+// [[Rcpp::export("lmFitFeatures")]]
+List lmFitFeatures_export(const arma::vec &y, const arma::mat &X_design, const arma::mat &X_features, const vector<string> &ids, const arma::vec &weights, const int &nthreads = 1){
+
+  vector<ModelFit> fitList = lmFitFeatures(y, X_design, X_features, ids, weights, nthreads);
+
+  return toList(fitList);
+}
+
+
+// [[Rcpp::export("lmFitFeatures_preproj")]]
+List lmFitFeatures_preproj_export(const arma::vec &y, const arma::mat &X_design, const arma::mat &X_features, const vector<string> &ids, const arma::vec &weights, const int &nthreads = 1){
+
+  vector<ModelFit> fitList = lmFitFeatures_preproj(y, X_design, X_features, ids, weights, nthreads);
+
+  return toList(fitList);
+}
 
 
