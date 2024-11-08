@@ -1,4 +1,51 @@
+# Nov 7, 2024
 
+test_lmFitResponses = function(){
+
+	library(fastlmm)
+	library(RUnit)
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
+
+	n = 14
+	m = 3
+	nc = 2
+	set.seed(1)
+	Y = matrix(rnorm(n*m), n, m)
+	rownames(Y) = paste0("s", seq(n))
+	colnames(Y) = paste0("r", seq(m))
+
+	X = matrix(rnorm(n*nc), n,nc)
+	colnames(X) = paste0("V", seq(nc))
+	W = matrix(runif(n*m), n,m)	
+
+	fitList = lapply(seq(m), function(j){
+		lm(Y[,j] ~ 0 + X, weights=W[,j])
+		})
+	beta = do.call(rbind, lapply(fitList, coef))
+	sig = sapply(fitList, sigma)
+	se = do.call(rbind, lapply(fitList, function(fit){
+		coef(summary(fit))[,2]}))
+	V = do.call(cbind, lapply(fitList, function(x) c(vcov(x))))
+	res = do.call(cbind, lapply(fitList, residuals))
+	hat = do.call(cbind, lapply(fitList, hatvalues))
+
+	fit = lmFitResponses(Y, X, colnames(Y), W, detail=3)
+
+	checkEqualsNumeric(beta, fit$coef)
+	checkEqualsNumeric(se, fit$se)
+	checkEqualsNumeric(sig^2, fit$sigSq)
+	checkEqualsNumeric(V, fit$vcov)
+	checkEqualsNumeric(res, fit$residuals)
+	checkEqualsNumeric(hat, fit$hatvalues)
+	
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
+	# fit = lmFitResponses(Y, X, colnames(Y), W, detail=1)
+
+
+
+
+}
 
 
 
@@ -9,9 +56,9 @@ test_lmFitFeatures = function(){
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
 
-	n = 30000
-	p = 10000
-	nc = 8
+	n = 10
+	p = 5
+	nc = 2
 	set.seed(1)
 	y = seq(n)
 	X = matrix(rnorm(n*p), n, p)
@@ -25,34 +72,46 @@ test_lmFitFeatures = function(){
 		lm(y ~ 0 + X_design + X[,j], weights=w)
 		})
 	beta = do.call(rbind, lapply(fitList, coef))
+	sig = sapply(fitList, sigma)
 	se = do.call(rbind, lapply(fitList, function(fit){
 		coef(summary(fit))[,2]}))
+	V = do.call(cbind, lapply(fitList, function(x) c(vcov(x))))
+	res = do.call(cbind, lapply(fitList, residuals))
+	hat = do.call(cbind, lapply(fitList, hatvalues))
 
-	fit = fastlmm:::lmFitFeatures(y, X_design, X, colnames(X), w)
+	fit = lmFitFeatures(y, X_design, X, colnames(X), w, detail=3, FALSE)
 
 	checkEqualsNumeric(beta, fit$coef)
 	checkEqualsNumeric(se, fit$se)
+	checkEqualsNumeric(sig^2, fit$sigSq)
+	checkEqualsNumeric(V, fit$vcovStacked)
+	checkEqualsNumeric(res, fit$residuals)
+	checkEqualsNumeric(hat, fit$hatvalues)
 
-	
-	fit = fastlmm:::lmFitFeatures(y, X_design, X, colnames(X), w)
-	fit2 = fastlmm:::lmFitFeatures_preproj(y, X_design, X, colnames(X), w)
-
+	fit2 = lmFitFeatures(y, X_design, X, colnames(X), w, detail=2, TRUE)
 
 	idx = nc + 1
 	checkEqualsNumeric(fit$coef[,idx], fit2$coef)
 	checkEqualsNumeric(fit$se[,idx], fit2$se)
-
-
-	system.time(fit <- fastlmm:::lmFitFeatures(y, X_design, X, colnames(X), w))
-	system.time(fit2 <- fastlmm:::lmFitFeatures_preproj(y, X_design, X, colnames(X), w))
-
-
-
+	checkEqualsNumeric(fit$sigSq, fit2$sigSq)
+	checkEqualsNumeric(fit$rdf, fit2$rdf)
+	checkEqualsNumeric(fit$vcovStacked[idx^2,], fit2$vcovStacked)
+	checkEqualsNumeric(fit$residuals, fit2$residuals)
 
 
 
 
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
+	# fit = fastlmm:::lmFitFeatures(y, X_design, X, colnames(X), w, FALSE)
+	# fit2 = fastlmm:::lmFitFeatures(y, X_design, X, colnames(X), w, TRUE)
+	# idx = nc + 1
+	# checkEqualsNumeric(fit$coef[,idx], fit2$coef)
+	# checkEqualsNumeric(fit$se[,idx], fit2$se)
 
+
+
+	# system.time(fit <- lmFitFeatures(y, X_design, X, colnames(X), w, FALSE))
+	# system.time(fit2 <- lmFitFeatures(y, X_design, X, colnames(X), w, TRUE))
 
 	# # Pre-projection with full H
 	# H = diag(1,n) - X_design %*% solve(crossprod(X_design)) %*% t(X_design)

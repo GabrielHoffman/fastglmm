@@ -1,0 +1,127 @@
+\doxysection{fastlmm\+Lib\+::fastlmm\+\_\+result Class Reference}
+\hypertarget{classfastlmm_lib_1_1fastlmm__result}{}\label{classfastlmm_lib_1_1fastlmm__result}\index{fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}}
+
+
+{\ttfamily \#include $<$fastlmm.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result_ac7c155837b8d6daae9a0b7b03941396d}{fastlmm\+\_\+result}} ()
+\item 
+\mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result_afdf7d03f3939d261532c08f769a5163e}{fastlmm\+\_\+result}} (const double \&log\+Lik\+\_\+, const vec \&beta\+\_\+, const mat \&vcov\+\_\+, const vec \&beta\+\_\+se\+\_\+, const vec \&weights\+\_\+, const vec \&ru\+\_\+, const vec \&y\+\_\+, const double \&delta\+\_\+, const double \&sig\+Sq\+\_\+g\+\_\+, const double \&sig\+Sq\+\_\+e\+\_\+, const int \&iter\+\_\+)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result_a928e2ef28ac07a98d196057a4f07eb25}{log\+Lik}}
+\item 
+double \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result_a6b7ab5adb45550ae569319fff6dcb9f9}{sig\+Sq\+\_\+g}}
+\item 
+double \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result_ae06d8f0d4639d256c045a678b5ad8e1d}{sig\+Sq\+\_\+e}}
+\item 
+double \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result_a9020e3de470a79f17da8b049be3d7283}{delta}}
+\item 
+int \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result_a5519f884441cd1f9b56cb0a912bf4b72}{iter}}
+\item 
+vec \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result_ae4eb0f0388098259574d940981664f5a}{beta}}
+\item 
+vec \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result_a34b9e9c7afa4e216a162966d75ce7483}{beta\+\_\+se}}
+\item 
+vec \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result_ae9c2a42adbda19a3d017af73605aaf5f}{weights}}
+\item 
+vec \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result_a4bc6d69c8833027bfb5c65a30ef2e50b}{ru}}
+\item 
+vec \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result_adf684b888406e2f3c588f1d92b832d32}{y}}
+\item 
+mat \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result_a1f1200efe3ef1271a626b93c64dba4d4}{vcov}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classfastlmm_lib_1_1fastlmm__result_ac7c155837b8d6daae9a0b7b03941396d}\index{fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}!fastlmm\_result@{fastlmm\_result}}
+\index{fastlmm\_result@{fastlmm\_result}!fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}}
+\doxysubsubsection{\texorpdfstring{fastlmm\_result()}{fastlmm\_result()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classfastlmm_lib_1_1fastlmm__result_ac7c155837b8d6daae9a0b7b03941396d} 
+fastlmm\+Lib\+::fastlmm\+\_\+result\+::fastlmm\+\_\+result (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classfastlmm_lib_1_1fastlmm__result_afdf7d03f3939d261532c08f769a5163e}\index{fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}!fastlmm\_result@{fastlmm\_result}}
+\index{fastlmm\_result@{fastlmm\_result}!fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}}
+\doxysubsubsection{\texorpdfstring{fastlmm\_result()}{fastlmm\_result()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classfastlmm_lib_1_1fastlmm__result_afdf7d03f3939d261532c08f769a5163e} 
+fastlmm\+Lib\+::fastlmm\+\_\+result\+::fastlmm\+\_\+result (\begin{DoxyParamCaption}\item[{const double \&}]{log\+Lik\+\_\+}{, }\item[{const vec \&}]{beta\+\_\+}{, }\item[{const mat \&}]{vcov\+\_\+}{, }\item[{const vec \&}]{beta\+\_\+se\+\_\+}{, }\item[{const vec \&}]{weights\+\_\+}{, }\item[{const vec \&}]{ru\+\_\+}{, }\item[{const vec \&}]{y\+\_\+}{, }\item[{const double \&}]{delta\+\_\+}{, }\item[{const double \&}]{sig\+Sq\+\_\+g\+\_\+}{, }\item[{const double \&}]{sig\+Sq\+\_\+e\+\_\+}{, }\item[{const int \&}]{iter\+\_\+}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classfastlmm_lib_1_1fastlmm__result_ae4eb0f0388098259574d940981664f5a}\index{fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}!beta@{beta}}
+\index{beta@{beta}!fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}}
+\doxysubsubsection{\texorpdfstring{beta}{beta}}
+{\footnotesize\ttfamily \label{classfastlmm_lib_1_1fastlmm__result_ae4eb0f0388098259574d940981664f5a} 
+vec fastlmm\+Lib\+::fastlmm\+\_\+result\+::beta}
+
+\Hypertarget{classfastlmm_lib_1_1fastlmm__result_a34b9e9c7afa4e216a162966d75ce7483}\index{fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}!beta\_se@{beta\_se}}
+\index{beta\_se@{beta\_se}!fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}}
+\doxysubsubsection{\texorpdfstring{beta\_se}{beta\_se}}
+{\footnotesize\ttfamily \label{classfastlmm_lib_1_1fastlmm__result_a34b9e9c7afa4e216a162966d75ce7483} 
+vec fastlmm\+Lib\+::fastlmm\+\_\+result\+::beta\+\_\+se}
+
+\Hypertarget{classfastlmm_lib_1_1fastlmm__result_a9020e3de470a79f17da8b049be3d7283}\index{fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}!delta@{delta}}
+\index{delta@{delta}!fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}}
+\doxysubsubsection{\texorpdfstring{delta}{delta}}
+{\footnotesize\ttfamily \label{classfastlmm_lib_1_1fastlmm__result_a9020e3de470a79f17da8b049be3d7283} 
+double fastlmm\+Lib\+::fastlmm\+\_\+result\+::delta}
+
+\Hypertarget{classfastlmm_lib_1_1fastlmm__result_a5519f884441cd1f9b56cb0a912bf4b72}\index{fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}!iter@{iter}}
+\index{iter@{iter}!fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}}
+\doxysubsubsection{\texorpdfstring{iter}{iter}}
+{\footnotesize\ttfamily \label{classfastlmm_lib_1_1fastlmm__result_a5519f884441cd1f9b56cb0a912bf4b72} 
+int fastlmm\+Lib\+::fastlmm\+\_\+result\+::iter}
+
+\Hypertarget{classfastlmm_lib_1_1fastlmm__result_a928e2ef28ac07a98d196057a4f07eb25}\index{fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}!logLik@{logLik}}
+\index{logLik@{logLik}!fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}}
+\doxysubsubsection{\texorpdfstring{logLik}{logLik}}
+{\footnotesize\ttfamily \label{classfastlmm_lib_1_1fastlmm__result_a928e2ef28ac07a98d196057a4f07eb25} 
+double fastlmm\+Lib\+::fastlmm\+\_\+result\+::log\+Lik}
+
+\Hypertarget{classfastlmm_lib_1_1fastlmm__result_a4bc6d69c8833027bfb5c65a30ef2e50b}\index{fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}!ru@{ru}}
+\index{ru@{ru}!fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}}
+\doxysubsubsection{\texorpdfstring{ru}{ru}}
+{\footnotesize\ttfamily \label{classfastlmm_lib_1_1fastlmm__result_a4bc6d69c8833027bfb5c65a30ef2e50b} 
+vec fastlmm\+Lib\+::fastlmm\+\_\+result\+::ru}
+
+\Hypertarget{classfastlmm_lib_1_1fastlmm__result_ae06d8f0d4639d256c045a678b5ad8e1d}\index{fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}!sigSq\_e@{sigSq\_e}}
+\index{sigSq\_e@{sigSq\_e}!fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}}
+\doxysubsubsection{\texorpdfstring{sigSq\_e}{sigSq\_e}}
+{\footnotesize\ttfamily \label{classfastlmm_lib_1_1fastlmm__result_ae06d8f0d4639d256c045a678b5ad8e1d} 
+double fastlmm\+Lib\+::fastlmm\+\_\+result\+::sig\+Sq\+\_\+e}
+
+\Hypertarget{classfastlmm_lib_1_1fastlmm__result_a6b7ab5adb45550ae569319fff6dcb9f9}\index{fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}!sigSq\_g@{sigSq\_g}}
+\index{sigSq\_g@{sigSq\_g}!fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}}
+\doxysubsubsection{\texorpdfstring{sigSq\_g}{sigSq\_g}}
+{\footnotesize\ttfamily \label{classfastlmm_lib_1_1fastlmm__result_a6b7ab5adb45550ae569319fff6dcb9f9} 
+double fastlmm\+Lib\+::fastlmm\+\_\+result\+::sig\+Sq\+\_\+g}
+
+\Hypertarget{classfastlmm_lib_1_1fastlmm__result_a1f1200efe3ef1271a626b93c64dba4d4}\index{fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}!vcov@{vcov}}
+\index{vcov@{vcov}!fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}}
+\doxysubsubsection{\texorpdfstring{vcov}{vcov}}
+{\footnotesize\ttfamily \label{classfastlmm_lib_1_1fastlmm__result_a1f1200efe3ef1271a626b93c64dba4d4} 
+mat fastlmm\+Lib\+::fastlmm\+\_\+result\+::vcov}
+
+\Hypertarget{classfastlmm_lib_1_1fastlmm__result_ae9c2a42adbda19a3d017af73605aaf5f}\index{fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}!weights@{weights}}
+\index{weights@{weights}!fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}}
+\doxysubsubsection{\texorpdfstring{weights}{weights}}
+{\footnotesize\ttfamily \label{classfastlmm_lib_1_1fastlmm__result_ae9c2a42adbda19a3d017af73605aaf5f} 
+vec fastlmm\+Lib\+::fastlmm\+\_\+result\+::weights}
+
+\Hypertarget{classfastlmm_lib_1_1fastlmm__result_adf684b888406e2f3c588f1d92b832d32}\index{fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}!y@{y}}
+\index{y@{y}!fastlmmLib::fastlmm\_result@{fastlmmLib::fastlmm\_result}}
+\doxysubsubsection{\texorpdfstring{y}{y}}
+{\footnotesize\ttfamily \label{classfastlmm_lib_1_1fastlmm__result_adf684b888406e2f3c588f1d92b832d32} 
+vec fastlmm\+Lib\+::fastlmm\+\_\+result\+::y}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{fastlmm_8h}{fastlmm.\+h}}\end{DoxyCompactItemize}

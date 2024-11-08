@@ -1,4 +1,32 @@
 
+Nov 7, 2024
+   Linear regression defines
+      ModelDetail to define results to return
+      ModelFit to store results
+      lm() to perform regression
+      preprojection() to remove covariates
+      wlm() to run lm() on weighted variables
+      lmFitFeatures() for changing design matrix
+      lmFitResponses() for changing responses
+
+   Adapt fastlmm so
+      fastlmm_result uses ModelFit 
+      use each_col for 
+         replace inv_s_delta_Xu.col(i) = inv_s_delta % Xu.col(i);  
+      REML
+      fastlmmBatchResponse -> fastlmmFitResponses
+      fastlmmBatchDesign -> fastlmmFitFeatures
+
+      in misc.h
+         clarify scaleRows() and scaleCols()
+         replace with scaleEachCol() or scaleEachRow()
+
+      fastlmm works with weighted indicator random effects
+         but doesn't handle weights for continuous random effects
+
+
+
+
 Code profiling
    http://minimallysufficient.github.io/r/programming/c++/2018/02/16/profiling-rcpp-packages.html
 

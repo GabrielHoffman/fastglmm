@@ -13,6 +13,20 @@ using namespace arma;
 
 namespace fastlmmLib {
 
+// for each column, scale by w
+inline mat scaleEachCol(const mat &X, const vec &w){
+  return X.each_col() % w;  
+}
+
+// for each column, scale by w
+inline sp_mat scaleEachCol(const sp_mat &X, const vec &w){
+
+  sp_mat M = sp_mat(X);
+  for(size_t i=0; i<X.n_cols; i++){
+    M.col(i) %= w;
+  }
+  return( M );
+}
 
 // for each column, scale by w
 inline mat scaleRows(const mat &X, const vec &w){

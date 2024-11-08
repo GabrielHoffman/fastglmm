@@ -1,0 +1,84 @@
+\doxysection{spectral\+Decomp.\+h}
+\hypertarget{spectral_decomp_8h_source}{}\label{spectral_decomp_8h_source}\index{inst/include/spectralDecomp.h@{inst/include/spectralDecomp.h}}
+\mbox{\hyperlink{spectral_decomp_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ SPECTRAL\_DECOMP\_H\_}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ SPECTRAL\_DECOMP\_H\_}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ if\ -\/D\ ARMA,\ use\ plain\ armadillo\ library}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifdef\ ARMA}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <armadillo>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{misc_8h}{misc.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{using\ namespace\ }arma;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacefastlmm_lib}{fastlmmLib}}\ \{}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp}{spectralDecomp}}\ \{}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_ad6e9102eaff691c54b8c71938b6a260c}{spectralDecomp}}()\{\};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//\ Initialize\ with\ indicator\ matrix\ Z;}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_a88d7bf325a288603b177068afa511e02}{initWithIndicator}}(\ \textcolor{keyword}{const}\ T\ \&Z\_,\ \textcolor{keyword}{const}\ vec\ \&weights\_);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ Initialize\ with\ U\ and\ s\ from\ eigen\ decomp}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_acac5bec27192513c03691f7c1886d735}{initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U\_,\ \textcolor{keyword}{const}\ vec\ \&s\_);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//\ Initialize\ with\ U\ and\ s\ from\ eigen\ decomp,\ and\ weights}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_a28e3f67e12292be4d0b88f70cc345f64}{initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U\_,\ \textcolor{keyword}{const}\ vec\ \&s\_,\ \textcolor{keyword}{const}\ vec\ \&weights\_);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ T\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_affb81b7065cb24c722af4b3989ef6106}{get\_vectors}}()\{\textcolor{keywordflow}{return}\ U;\}}
+\DoxyCodeLine{00034\ \ \ \ \ vec\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_a921bef30fdae30e0cfb550235fadfee5}{get\_values}}()\{\textcolor{keywordflow}{return}\ s;\}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ T\ U;}
+\DoxyCodeLine{00038\ \ \ \ vec\ s;}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ Initialize\ with\ indicator\ matrix}}
+\DoxyCodeLine{00042\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_a88d7bf325a288603b177068afa511e02}{spectralDecomp<T>::initWithIndicator}}(\ \textcolor{keyword}{const}\ T\ \&Z\_,\ \textcolor{keyword}{const}\ vec\ \&weights\_)\{}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ s\ =\ (weights\_.t()\ *\ Z\_).t();}
+\DoxyCodeLine{00046\ \ \ \ \ U\ =\ \mbox{\hyperlink{namespacefastlmm_lib_af02cc098608137ba1b8ce04a1d7cf1d7}{scaleRowsCols}}(Z\_,\ sqrt(weights\_),\ 1\ /\ sqrt(s));}
+\DoxyCodeLine{00047\ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ Initialize\ with\ U\ and\ s\ from\ eigen\ decomp}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_acac5bec27192513c03691f7c1886d735}{spectralDecomp<T>::initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U\_,\ \textcolor{keyword}{const}\ vec\ \&s\_)\{}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ this-\/>U\ =\ U\_;}
+\DoxyCodeLine{00055\ \ \ \ \ this-\/>s\ =\ s\_;}
+\DoxyCodeLine{00056\ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ Initialize\ with\ U\ and\ s\ from\ eigen\ decomp,\ and\ weights}}
+\DoxyCodeLine{00059\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_acac5bec27192513c03691f7c1886d735}{spectralDecomp<T>::initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U\_,\ \textcolor{keyword}{const}\ vec\ \&s\_,\ \textcolor{keyword}{const}\ vec\ \&weights\_)\{}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ SVD\ after\ applying\ weights}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//\ mat\ Q,\ R;}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{//\ qr(Q,\ R,\ scaleCols(U\_,\ s\_));}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ this-\/>U\ =\ U\_;}}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ this-\/>s\ =\ s\_;}}
+\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

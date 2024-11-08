@@ -1,0 +1,1035 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>fastlmm: fastlmmLib::fastlmm&lt; T1, T2, T3 &gt; Class Template Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">fastlmm
+   </div>
+   <div id="projectbrief">Massively scalable linear mixed models</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacefastlmm_lib.html">fastlmmLib</a></li><li class="navelem"><a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmm</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classfastlmm_lib_1_1fastlmm-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">fastlmmLib::fastlmm&lt; T1, T2, T3 &gt; Class Template Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="fastlmm_8h_source.html">fastlmm.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a223979daade44e9c83b3580378a5e51e" id="r_a223979daade44e9c83b3580378a5e51e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a223979daade44e9c83b3580378a5e51e">fastlmm</a> ()</td></tr>
+<tr class="separator:a223979daade44e9c83b3580378a5e51e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d5749d3a47508c7be09ea6827099556" id="r_a0d5749d3a47508c7be09ea6827099556"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d5749d3a47508c7be09ea6827099556">fastlmm</a> (const T1 &amp;Y_, const T2 &amp;X_, const T3 &amp;U_, const vec &amp;s_, const vec &amp;weights_)</td></tr>
+<tr class="separator:a0d5749d3a47508c7be09ea6827099556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1fc8b1d1a5ad0b414ed747bd0306118" id="r_ab1fc8b1d1a5ad0b414ed747bd0306118"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1fc8b1d1a5ad0b414ed747bd0306118">fastlmm</a> (const T1 &amp;Y_, const T2 &amp;X_, const T3 &amp;U_, const vec &amp;s_, const vec &amp;weights_, const vec &amp;Yu_, const mat &amp;Xu_)</td></tr>
+<tr class="separator:ab1fc8b1d1a5ad0b414ed747bd0306118"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfcfccc3a29423602b3e08f15470e522" id="r_adfcfccc3a29423602b3e08f15470e522"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adfcfccc3a29423602b3e08f15470e522">fastlmm</a> (const T1 &amp;Y_, const T2 &amp;X_, const T3 &amp;U_, const vec &amp;s_, const vec &amp;weights_, const vec &amp;Yu_, const mat &amp;Xu_, const mat &amp;cp_X_low_, const mat &amp;cp_X_low_Y_low_)</td></tr>
+<tr class="separator:adfcfccc3a29423602b3e08f15470e522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d63113e10ca1510440c599032340e6b" id="r_a8d63113e10ca1510440c599032340e6b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d63113e10ca1510440c599032340e6b">fastlmm</a> (const T2 &amp;X_, const T3 &amp;U_, const vec &amp;s_)</td></tr>
+<tr class="separator:a8d63113e10ca1510440c599032340e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8592e6fd56acb55e5ac7be634492fef2" id="r_a8592e6fd56acb55e5ac7be634492fef2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8592e6fd56acb55e5ac7be634492fef2">update_response</a> (const T1 &amp;Y_, const vec &amp;weights_)</td></tr>
+<tr class="separator:a8592e6fd56acb55e5ac7be634492fef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6213986fba5377ae3389da3145882623" id="r_a6213986fba5377ae3389da3145882623"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6213986fba5377ae3389da3145882623">update_response</a> (const T1 &amp;Y_, const vec &amp;weights_, const mat &amp;Yu_)</td></tr>
+<tr class="separator:a6213986fba5377ae3389da3145882623"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a751dd6bcb0d4063d059fbe5b4d559be5" id="r_a751dd6bcb0d4063d059fbe5b4d559be5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastlmm_lib_1_1fastlmm__result.html">fastlmm_result</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a751dd6bcb0d4063d059fbe5b4d559be5">get_result</a> ()</td></tr>
+<tr class="separator:a751dd6bcb0d4063d059fbe5b4d559be5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2a46b073c03907224a7a9a0d34aa1ca" id="r_ab2a46b073c03907224a7a9a0d34aa1ca"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2a46b073c03907224a7a9a0d34aa1ca">get_logLik</a> ()</td></tr>
+<tr class="separator:ab2a46b073c03907224a7a9a0d34aa1ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6ebe575ba5d077036997b493639ee39" id="r_ab6ebe575ba5d077036997b493639ee39"><td class="memItemLeft" align="right" valign="top">const vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6ebe575ba5d077036997b493639ee39">get_beta</a> ()</td></tr>
+<tr class="separator:ab6ebe575ba5d077036997b493639ee39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4bcb43c205fbe97fd7eaa87b8704cff" id="r_ac4bcb43c205fbe97fd7eaa87b8704cff"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4bcb43c205fbe97fd7eaa87b8704cff">get_sigSq_g</a> ()</td></tr>
+<tr class="separator:ac4bcb43c205fbe97fd7eaa87b8704cff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae393bf5b96aae0034d6a366aca942bc" id="r_aae393bf5b96aae0034d6a366aca942bc"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae393bf5b96aae0034d6a366aca942bc">get_sigSq_e</a> ()</td></tr>
+<tr class="separator:aae393bf5b96aae0034d6a366aca942bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c94e3a4cb37e36a9ea46e28280649d6" id="r_a7c94e3a4cb37e36a9ea46e28280649d6"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c94e3a4cb37e36a9ea46e28280649d6">get_iter</a> ()</td></tr>
+<tr class="separator:a7c94e3a4cb37e36a9ea46e28280649d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac442fecda5c2c60a2c51fbd7a0b55018" id="r_ac442fecda5c2c60a2c51fbd7a0b55018"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac442fecda5c2c60a2c51fbd7a0b55018">get_delta</a> ()</td></tr>
+<tr class="separator:ac442fecda5c2c60a2c51fbd7a0b55018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac75c170effa25d2770b16c557fcd80ce" id="r_ac75c170effa25d2770b16c557fcd80ce"><td class="memItemLeft" align="right" valign="top">const mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac75c170effa25d2770b16c557fcd80ce">get_vcov</a> ()</td></tr>
+<tr class="separator:ac75c170effa25d2770b16c557fcd80ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad92f64f53191c3d60a4d58b38bb58126" id="r_ad92f64f53191c3d60a4d58b38bb58126"><td class="memItemLeft" align="right" valign="top">const mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad92f64f53191c3d60a4d58b38bb58126">get_beta_se</a> ()</td></tr>
+<tr class="separator:ad92f64f53191c3d60a4d58b38bb58126"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46fe85762e190a7ebcb370d782f68d55" id="r_a46fe85762e190a7ebcb370d782f68d55"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46fe85762e190a7ebcb370d782f68d55">get_edf</a> ()</td></tr>
+<tr class="separator:a46fe85762e190a7ebcb370d782f68d55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64042341b702fbfbb717784359e64ec5" id="r_a64042341b702fbfbb717784359e64ec5"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64042341b702fbfbb717784359e64ec5">get_rdf</a> ()</td></tr>
+<tr class="separator:a64042341b702fbfbb717784359e64ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3f83616a043978dee16312126bce608" id="r_ab3f83616a043978dee16312126bce608"><td class="memItemLeft" align="right" valign="top">const vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3f83616a043978dee16312126bce608">hatvalues</a> ()</td></tr>
+<tr class="separator:ab3f83616a043978dee16312126bce608"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5042471b0e49fe64c1278993daeb1c5a" id="r_a5042471b0e49fe64c1278993daeb1c5a"><td class="memItemLeft" align="right" valign="top">const vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5042471b0e49fe64c1278993daeb1c5a">residuals</a> ()</td></tr>
+<tr class="separator:a5042471b0e49fe64c1278993daeb1c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2822998cf0a0f3cd958523e731f5db6d" id="r_a2822998cf0a0f3cd958523e731f5db6d"><td class="memItemLeft" align="right" valign="top">const vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2822998cf0a0f3cd958523e731f5db6d">predict</a> ()</td></tr>
+<tr class="separator:a2822998cf0a0f3cd958523e731f5db6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7837f0b2be11a99143a6925198213574" id="r_a7837f0b2be11a99143a6925198213574"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7837f0b2be11a99143a6925198213574">ll</a> (const double &amp;delta)</td></tr>
+<tr class="separator:a7837f0b2be11a99143a6925198213574"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada69d2b7814692260dd22704f078c81d" id="r_ada69d2b7814692260dd22704f078c81d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada69d2b7814692260dd22704f078c81d">estimate_delta</a> (const double &amp;left, const double &amp;right, const double &amp;tol)</td></tr>
+<tr class="separator:ada69d2b7814692260dd22704f078c81d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75e726fee4bea3d81618a1cebe5dba01" id="r_a75e726fee4bea3d81618a1cebe5dba01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75e726fee4bea3d81618a1cebe5dba01">eval_delta</a> (const double &amp;delta)</td></tr>
+<tr class="separator:a75e726fee4bea3d81618a1cebe5dba01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae59e2c8e11dde35f8364a488281a78cc" id="r_ae59e2c8e11dde35f8364a488281a78cc"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae59e2c8e11dde35f8364a488281a78cc">score_test</a> (const vec &amp;x_)</td></tr>
+<tr class="separator:ae59e2c8e11dde35f8364a488281a78cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ea6e8756163cf657d16a083dc752d89" id="r_a7ea6e8756163cf657d16a083dc752d89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ea6e8756163cf657d16a083dc752d89">update_Y</a> (const T1 &amp;Y_)</td></tr>
+<tr class="separator:a7ea6e8756163cf657d16a083dc752d89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a628de2756ac8b51724b336e96d985aa4" id="r_a628de2756ac8b51724b336e96d985aa4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a628de2756ac8b51724b336e96d985aa4">update_X</a> (const vec &amp;X_)</td></tr>
+<tr class="separator:a628de2756ac8b51724b336e96d985aa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8be64c8f13f44144a4bc91340bac9c5a" id="r_a8be64c8f13f44144a4bc91340bac9c5a"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8be64c8f13f44144a4bc91340bac9c5a">get_weights</a> ()</td></tr>
+<tr class="separator:a8be64c8f13f44144a4bc91340bac9c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a496286b3d296c1b6a4bb799785bebf17" id="r_a496286b3d296c1b6a4bb799785bebf17"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a496286b3d296c1b6a4bb799785bebf17">get_ru</a> ()</td></tr>
+<tr class="separator:a496286b3d296c1b6a4bb799785bebf17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81e5a44d19785d1cd670c037ff5e4004" id="r_a81e5a44d19785d1cd670c037ff5e4004"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81e5a44d19785d1cd670c037ff5e4004">get_r</a> ()</td></tr>
+<tr class="separator:a81e5a44d19785d1cd670c037ff5e4004"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae4d036d88b47af249e32f2038ffc977" id="r_aae4d036d88b47af249e32f2038ffc977"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae4d036d88b47af249e32f2038ffc977">get_y</a> ()</td></tr>
+<tr class="separator:aae4d036d88b47af249e32f2038ffc977"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a223979daade44e9c83b3580378a5e51e" name="a223979daade44e9c83b3580378a5e51e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a223979daade44e9c83b3580378a5e51e">&#9670;&#160;</a></span>fastlmm() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::fastlmm </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0d5749d3a47508c7be09ea6827099556" name="a0d5749d3a47508c7be09ea6827099556"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d5749d3a47508c7be09ea6827099556">&#9670;&#160;</a></span>fastlmm() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::fastlmm </td>
+          <td>(</td>
+          <td class="paramtype">const T1 &amp;</td>          <td class="paramname"><span class="paramname"><em>Y_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T2 &amp;</td>          <td class="paramname"><span class="paramname"><em>X_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T3 &amp;</td>          <td class="paramname"><span class="paramname"><em>U_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>s_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>weights_</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab1fc8b1d1a5ad0b414ed747bd0306118" name="ab1fc8b1d1a5ad0b414ed747bd0306118"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1fc8b1d1a5ad0b414ed747bd0306118">&#9670;&#160;</a></span>fastlmm() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::fastlmm </td>
+          <td>(</td>
+          <td class="paramtype">const T1 &amp;</td>          <td class="paramname"><span class="paramname"><em>Y_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T2 &amp;</td>          <td class="paramname"><span class="paramname"><em>X_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T3 &amp;</td>          <td class="paramname"><span class="paramname"><em>U_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>s_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>weights_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>Yu_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>Xu_</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adfcfccc3a29423602b3e08f15470e522" name="adfcfccc3a29423602b3e08f15470e522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfcfccc3a29423602b3e08f15470e522">&#9670;&#160;</a></span>fastlmm() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::fastlmm </td>
+          <td>(</td>
+          <td class="paramtype">const T1 &amp;</td>          <td class="paramname"><span class="paramname"><em>Y_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T2 &amp;</td>          <td class="paramname"><span class="paramname"><em>X_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T3 &amp;</td>          <td class="paramname"><span class="paramname"><em>U_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>s_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>weights_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>Yu_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>Xu_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>cp_X_low_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>cp_X_low_Y_low_</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8d63113e10ca1510440c599032340e6b" name="a8d63113e10ca1510440c599032340e6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d63113e10ca1510440c599032340e6b">&#9670;&#160;</a></span>fastlmm() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::fastlmm </td>
+          <td>(</td>
+          <td class="paramtype">const T2 &amp;</td>          <td class="paramname"><span class="paramname"><em>X_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T3 &amp;</td>          <td class="paramname"><span class="paramname"><em>U_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>s_</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ada69d2b7814692260dd22704f078c81d" name="ada69d2b7814692260dd22704f078c81d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada69d2b7814692260dd22704f078c81d">&#9670;&#160;</a></span>estimate_delta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::estimate_delta </td>
+          <td>(</td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>tol</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a75e726fee4bea3d81618a1cebe5dba01" name="a75e726fee4bea3d81618a1cebe5dba01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75e726fee4bea3d81618a1cebe5dba01">&#9670;&#160;</a></span>eval_delta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::eval_delta </td>
+          <td>(</td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>delta</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab6ebe575ba5d077036997b493639ee39" name="ab6ebe575ba5d077036997b493639ee39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6ebe575ba5d077036997b493639ee39">&#9670;&#160;</a></span>get_beta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const vec <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_beta </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad92f64f53191c3d60a4d58b38bb58126" name="ad92f64f53191c3d60a4d58b38bb58126"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad92f64f53191c3d60a4d58b38bb58126">&#9670;&#160;</a></span>get_beta_se()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const mat <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_beta_se </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac442fecda5c2c60a2c51fbd7a0b55018" name="ac442fecda5c2c60a2c51fbd7a0b55018"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac442fecda5c2c60a2c51fbd7a0b55018">&#9670;&#160;</a></span>get_delta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_delta </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a46fe85762e190a7ebcb370d782f68d55" name="a46fe85762e190a7ebcb370d782f68d55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46fe85762e190a7ebcb370d782f68d55">&#9670;&#160;</a></span>get_edf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const double <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_edf </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7c94e3a4cb37e36a9ea46e28280649d6" name="a7c94e3a4cb37e36a9ea46e28280649d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c94e3a4cb37e36a9ea46e28280649d6">&#9670;&#160;</a></span>get_iter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_iter </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab2a46b073c03907224a7a9a0d34aa1ca" name="ab2a46b073c03907224a7a9a0d34aa1ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2a46b073c03907224a7a9a0d34aa1ca">&#9670;&#160;</a></span>get_logLik()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_logLik </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a81e5a44d19785d1cd670c037ff5e4004" name="a81e5a44d19785d1cd670c037ff5e4004"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81e5a44d19785d1cd670c037ff5e4004">&#9670;&#160;</a></span>get_r()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vec <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_r </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a64042341b702fbfbb717784359e64ec5" name="a64042341b702fbfbb717784359e64ec5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64042341b702fbfbb717784359e64ec5">&#9670;&#160;</a></span>get_rdf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const double <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_rdf </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a751dd6bcb0d4063d059fbe5b4d559be5" name="a751dd6bcb0d4063d059fbe5b4d559be5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a751dd6bcb0d4063d059fbe5b4d559be5">&#9670;&#160;</a></span>get_result()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classfastlmm_lib_1_1fastlmm__result.html">fastlmm_result</a> <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_result </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a496286b3d296c1b6a4bb799785bebf17" name="a496286b3d296c1b6a4bb799785bebf17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a496286b3d296c1b6a4bb799785bebf17">&#9670;&#160;</a></span>get_ru()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vec <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_ru </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aae393bf5b96aae0034d6a366aca942bc" name="aae393bf5b96aae0034d6a366aca942bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae393bf5b96aae0034d6a366aca942bc">&#9670;&#160;</a></span>get_sigSq_e()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_sigSq_e </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac4bcb43c205fbe97fd7eaa87b8704cff" name="ac4bcb43c205fbe97fd7eaa87b8704cff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4bcb43c205fbe97fd7eaa87b8704cff">&#9670;&#160;</a></span>get_sigSq_g()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_sigSq_g </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac75c170effa25d2770b16c557fcd80ce" name="ac75c170effa25d2770b16c557fcd80ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac75c170effa25d2770b16c557fcd80ce">&#9670;&#160;</a></span>get_vcov()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const mat <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_vcov </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8be64c8f13f44144a4bc91340bac9c5a" name="a8be64c8f13f44144a4bc91340bac9c5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8be64c8f13f44144a4bc91340bac9c5a">&#9670;&#160;</a></span>get_weights()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vec <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_weights </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aae4d036d88b47af249e32f2038ffc977" name="aae4d036d88b47af249e32f2038ffc977"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae4d036d88b47af249e32f2038ffc977">&#9670;&#160;</a></span>get_y()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vec <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_y </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab3f83616a043978dee16312126bce608" name="ab3f83616a043978dee16312126bce608"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3f83616a043978dee16312126bce608">&#9670;&#160;</a></span>hatvalues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const vec <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::hatvalues </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7837f0b2be11a99143a6925198213574" name="a7837f0b2be11a99143a6925198213574"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7837f0b2be11a99143a6925198213574">&#9670;&#160;</a></span>ll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">double <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::ll </td>
+          <td>(</td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>delta</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2822998cf0a0f3cd958523e731f5db6d" name="a2822998cf0a0f3cd958523e731f5db6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2822998cf0a0f3cd958523e731f5db6d">&#9670;&#160;</a></span>predict()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const vec <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::predict </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5042471b0e49fe64c1278993daeb1c5a" name="a5042471b0e49fe64c1278993daeb1c5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5042471b0e49fe64c1278993daeb1c5a">&#9670;&#160;</a></span>residuals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const vec <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::residuals </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae59e2c8e11dde35f8364a488281a78cc" name="ae59e2c8e11dde35f8364a488281a78cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae59e2c8e11dde35f8364a488281a78cc">&#9670;&#160;</a></span>score_test()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">double <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::score_test </td>
+          <td>(</td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>x_</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8592e6fd56acb55e5ac7be634492fef2" name="a8592e6fd56acb55e5ac7be634492fef2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8592e6fd56acb55e5ac7be634492fef2">&#9670;&#160;</a></span>update_response() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::update_response </td>
+          <td>(</td>
+          <td class="paramtype">const T1 &amp;</td>          <td class="paramname"><span class="paramname"><em>Y_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>weights_</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6213986fba5377ae3389da3145882623" name="a6213986fba5377ae3389da3145882623"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6213986fba5377ae3389da3145882623">&#9670;&#160;</a></span>update_response() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::update_response </td>
+          <td>(</td>
+          <td class="paramtype">const T1 &amp;</td>          <td class="paramname"><span class="paramname"><em>Y_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>weights_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>Yu_</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a628de2756ac8b51724b336e96d985aa4" name="a628de2756ac8b51724b336e96d985aa4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a628de2756ac8b51724b336e96d985aa4">&#9670;&#160;</a></span>update_X()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::update_X </td>
+          <td>(</td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>X_</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ea6e8756163cf657d16a083dc752d89" name="a7ea6e8756163cf657d16a083dc752d89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ea6e8756163cf657d16a083dc752d89">&#9670;&#160;</a></span>update_Y()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T1 , typename T2 , typename T3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classfastlmm_lib_1_1fastlmm.html">fastlmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::update_Y </td>
+          <td>(</td>
+          <td class="paramtype">const T1 &amp;</td>          <td class="paramname"><span class="paramname"><em>Y_</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>inst/include/<a class="el" href="fastlmm_8h_source.html">fastlmm.h</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

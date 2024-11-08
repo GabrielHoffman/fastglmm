@@ -1,4 +1,9 @@
 
+# fastlmm 0.1.5
+ - Nov 7, 2024
+ - `linearRegression.h` supports weighted regression with preprojection
+
+
 # fastlmm 0.1.4
  - Sept 10, 2024
  - move `fastlmmLib` code to `inst/include` for accessible header-only library
