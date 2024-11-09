@@ -298,9 +298,11 @@ static ModelFit wlm(const arma::mat& X, const arma::colvec& y, const arma::colve
 		arma::colvec wsqrt = sqrt(w / mean(w));
 		fit = lm( X.each_col() % wsqrt, y % wsqrt, md, rdf_offset, work );
 
-		// Rescale residuals by weights afterward
-        //  since input X and y are scaled before lm()
-        fit.residuals /= wsqrt;
+		if( md >= HIGH){
+            // Rescale residuals by weights afterward
+            //  since input X and y are scaled before lm()
+            fit.residuals /= wsqrt;
+        }
 	}
 
 	return fit;
@@ -433,6 +435,14 @@ template <typename T1, typename T2>
 vector<ModelFit> lmFitFeatures(const arma::vec &y, const T1 &X_design, const T2 &X_features, const vector<string> &ids, const arma::vec &weights = {}, const ModelDetail md = LOW, const bool &preprojection = true, const int &nthreads = 1){
 
 	vector<ModelFit> fitList;
+
+	// handle case when X_features is empty
+	// TODO: fix this issue with GenomicDataStream
+	if( X_features.n_cols == 0){
+		// return vector<ModelFit>(0, ModelFit());
+		return(fitList);
+	}
+
 
 	if( preprojection ){
 		// supports mat and sp_mat

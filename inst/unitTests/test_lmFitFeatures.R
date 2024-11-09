@@ -57,7 +57,7 @@ test_lmFitFeatures = function(){
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
 
 	n = 10
-	p = 5
+	p = 3
 	nc = 2
 	set.seed(1)
 	y = seq(n)
@@ -110,8 +110,8 @@ test_lmFitFeatures = function(){
 
 
 
-	# system.time(fit <- lmFitFeatures(y, X_design, X, colnames(X), w, FALSE))
-	# system.time(fit2 <- lmFitFeatures(y, X_design, X, colnames(X), w, TRUE))
+	# system.time(fit <- lmFitFeatures(y, X_design, X, colnames(X), w, 0, FALSE))
+	# system.time(fit2 <- lmFitFeatures(y, X_design, X, colnames(X), w, 0, TRUE))
 
 	# # Pre-projection with full H
 	# H = diag(1,n) - X_design %*% solve(crossprod(X_design)) %*% t(X_design)

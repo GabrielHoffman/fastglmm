@@ -24,6 +24,26 @@ Nov 7, 2024
       fastlmm works with weighted indicator random effects
          but doesn't handle weights for continuous random effects
 
+         mQTL needs contunuous random effects, but no weighting
+
+      Preprojection
+         Does it work with weighted indicator random effects
+
+   GenomicDataStream
+      use new linear models for fastLM() and regrExprResponse()
+
+      lmFitResponses() and lmFitFeatures() should take 
+         GenomicDataStream argument
+
+      Close file in GenomicDataStream and C++
+      GenomicDataStream can return an empty matrix
+         that causes lmFitFeatures_preproj to crash 
+
+     lmFitFeatures with signature 
+      # signature(design = "matrix",      data = "matrix")
+      # signature(design = "matrix",      data = "sparseMatrix")
+      # signature(design = "sparseMatrix",data = "matrix")
+      # signature(design = "sparseMatrix",data = "sparseMatrix")      
 
 
 
