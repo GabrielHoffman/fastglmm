@@ -3,6 +3,7 @@
 {\ttfamily \#include $<$Rcpp\+Armadillo.\+h$>$}\newline
 {\ttfamily \#include $<$fastlmm\+Lib.\+h$>$}\newline
 {\ttfamily \#include "{}linear\+Regression.\+h"{}}\newline
+{\ttfamily \#include "{}export\+To\+R.\+h"{}}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -28,11 +29,9 @@ List \mbox{\hyperlink{export_8cpp_a47339fdbce2ef759d53144a0e0b66263}{fastlmm\+\_
 \item 
 List \mbox{\hyperlink{export_8cpp_aff76eb693cf63d64447706ebfd1fe762}{fastlmm\+\_\+mss}} (const arma\+::mat \&Y\+\_\+all, const arma\+::sp\+\_\+mat \&X, const arma\+::sp\+\_\+mat \&Z, const arma\+::mat \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
 \item 
-List \mbox{\hyperlink{export_8cpp_a6b349cf32fcfc3712886ee1735fe7752}{fastlmm\+\_\+batch\+\_\+design\+\_\+m}} (const arma\+::mat \&Y, const arma\+::mat \&X, const arma\+::mat \&X\+\_\+add, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
+List \mbox{\hyperlink{export_8cpp_a0887555c6ef4085ebe5d2c6fb07c5afa}{fastlmm\+Fit\+Features\+\_\+m}} (const arma\+::mat \&Y, const arma\+::mat \&X\+\_\+design, const arma\+::mat \&X\+\_\+features, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
 \item 
-List \mbox{\hyperlink{export_8cpp_af58583b42c167282432456244c2ac5d0}{fastlmm\+\_\+batch\+\_\+design\+\_\+s}} (const arma\+::mat \&Y, const arma\+::mat \&X, const arma\+::mat \&X\+\_\+add, const arma\+::sp\+\_\+mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
-\item 
-List \mbox{\hyperlink{export_8cpp_a7c1b183d88bfe2cd0acd2909cf6bd374}{to\+List}} (const vector$<$ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit}{Model\+Fit}} $>$ \&fit\+List)
+List \mbox{\hyperlink{export_8cpp_af27530cfb025961b98235744345f2212}{fastlmm\+Fit\+Features\+\_\+s}} (const arma\+::mat \&Y, const arma\+::mat \&X\+\_\+design, const arma\+::mat \&X\+\_\+features, const arma\+::sp\+\_\+mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
 \item 
 List \mbox{\hyperlink{export_8cpp_add69e731253ea6b6136cc177b943ad0d}{lm\+Fit\+Features\+\_\+export}} (const arma\+::vec \&y, const arma\+::mat \&X\+\_\+design, const arma\+::mat \&X\+\_\+features, const vector$<$ string $>$ \&ids, const arma\+::vec \&weights, const int detail=0, const bool \&preprojection=true, const int \&nthreads=1)
 \item 
@@ -41,18 +40,6 @@ List \mbox{\hyperlink{export_8cpp_a744179a427db43c107588647570fe6cf}{lm\+Fit\+Re
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{export_8cpp_a6b349cf32fcfc3712886ee1735fe7752}\index{export.cpp@{export.cpp}!fastlmm\_batch\_design\_m@{fastlmm\_batch\_design\_m}}
-\index{fastlmm\_batch\_design\_m@{fastlmm\_batch\_design\_m}!export.cpp@{export.cpp}}
-\doxysubsubsection{\texorpdfstring{fastlmm\_batch\_design\_m()}{fastlmm\_batch\_design\_m()}}
-{\footnotesize\ttfamily \label{export_8cpp_a6b349cf32fcfc3712886ee1735fe7752} 
-List fastlmm\+\_\+batch\+\_\+design\+\_\+m (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::mat \&}]{X\+\_\+add}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
-
-\Hypertarget{export_8cpp_af58583b42c167282432456244c2ac5d0}\index{export.cpp@{export.cpp}!fastlmm\_batch\_design\_s@{fastlmm\_batch\_design\_s}}
-\index{fastlmm\_batch\_design\_s@{fastlmm\_batch\_design\_s}!export.cpp@{export.cpp}}
-\doxysubsubsection{\texorpdfstring{fastlmm\_batch\_design\_s()}{fastlmm\_batch\_design\_s()}}
-{\footnotesize\ttfamily \label{export_8cpp_af58583b42c167282432456244c2ac5d0} 
-List fastlmm\+\_\+batch\+\_\+design\+\_\+s (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::mat \&}]{X\+\_\+add}{, }\item[{const arma\+::sp\+\_\+mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
-
 \Hypertarget{export_8cpp_a1652747b23605dd1b753eac2dcf72390}\index{export.cpp@{export.cpp}!fastlmm\_mmm@{fastlmm\_mmm}}
 \index{fastlmm\_mmm@{fastlmm\_mmm}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{fastlmm\_mmm()}{fastlmm\_mmm()}}
@@ -101,6 +88,18 @@ List fastlmm\+\_\+vsm (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{Y}{
 {\footnotesize\ttfamily \label{export_8cpp_a144e06b72bf2c20f901d53f5ae67e9d4} 
 List fastlmm\+\_\+vss (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{Y}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
 
+\Hypertarget{export_8cpp_a0887555c6ef4085ebe5d2c6fb07c5afa}\index{export.cpp@{export.cpp}!fastlmmFitFeatures\_m@{fastlmmFitFeatures\_m}}
+\index{fastlmmFitFeatures\_m@{fastlmmFitFeatures\_m}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{fastlmmFitFeatures\_m()}{fastlmmFitFeatures\_m()}}
+{\footnotesize\ttfamily \label{export_8cpp_a0887555c6ef4085ebe5d2c6fb07c5afa} 
+List fastlmm\+Fit\+Features\+\_\+m (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const arma\+::mat \&}]{X\+\_\+design}{, }\item[{const arma\+::mat \&}]{X\+\_\+features}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_af27530cfb025961b98235744345f2212}\index{export.cpp@{export.cpp}!fastlmmFitFeatures\_s@{fastlmmFitFeatures\_s}}
+\index{fastlmmFitFeatures\_s@{fastlmmFitFeatures\_s}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{fastlmmFitFeatures\_s()}{fastlmmFitFeatures\_s()}}
+{\footnotesize\ttfamily \label{export_8cpp_af27530cfb025961b98235744345f2212} 
+List fastlmm\+Fit\+Features\+\_\+s (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const arma\+::mat \&}]{X\+\_\+design}{, }\item[{const arma\+::mat \&}]{X\+\_\+features}{, }\item[{const arma\+::sp\+\_\+mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
+
 \Hypertarget{export_8cpp_add69e731253ea6b6136cc177b943ad0d}\index{export.cpp@{export.cpp}!lmFitFeatures\_export@{lmFitFeatures\_export}}
 \index{lmFitFeatures\_export@{lmFitFeatures\_export}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{lmFitFeatures\_export()}{lmFitFeatures\_export()}}
@@ -115,26 +114,20 @@ List lm\+Fit\+Responses\+\_\+export (\begin{DoxyParamCaption}\item[{const arma\+
 
 \Hypertarget{export_8cpp_a8c477e98a8047542cb45d3d16644f239}\index{export.cpp@{export.cpp}!toList@{toList}}
 \index{toList@{toList}!export.cpp@{export.cpp}}
-\doxysubsubsection{\texorpdfstring{toList()}{toList()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+\doxysubsubsection{\texorpdfstring{toList()}{toList()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily \label{export_8cpp_a8c477e98a8047542cb45d3d16644f239} 
 List to\+List (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result}{fastlmm\+\_\+result}} $>$ \&}]{res\+List}{}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_a7c1b183d88bfe2cd0acd2909cf6bd374}\index{export.cpp@{export.cpp}!toList@{toList}}
-\index{toList@{toList}!export.cpp@{export.cpp}}
-\doxysubsubsection{\texorpdfstring{toList()}{toList()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily \label{export_8cpp_a7c1b183d88bfe2cd0acd2909cf6bd374} 
-List to\+List (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit}{Model\+Fit}} $>$ \&}]{fit\+List}{}\end{DoxyParamCaption})}
-
 \Hypertarget{export_8cpp_ab9696a0e4bb6c0618c95305b0754a5e9}\index{export.cpp@{export.cpp}!toList@{toList}}
 \index{toList@{toList}!export.cpp@{export.cpp}}
-\doxysubsubsection{\texorpdfstring{toList()}{toList()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+\doxysubsubsection{\texorpdfstring{toList()}{toList()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily \label{export_8cpp_ab9696a0e4bb6c0618c95305b0754a5e9} 
 template$<$typename T1 , typename T2 , typename T3 $>$ \\
 const List to\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfastlmm_lib_1_1fastlmm}{fastlmm}}$<$ T1, T2, T3 $>$ \&}]{fit}{}\end{DoxyParamCaption})}
 
 \Hypertarget{export_8cpp_ab1c68146eead34e03299381e09f18d69}\index{export.cpp@{export.cpp}!toList@{toList}}
 \index{toList@{toList}!export.cpp@{export.cpp}}
-\doxysubsubsection{\texorpdfstring{toList()}{toList()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+\doxysubsubsection{\texorpdfstring{toList()}{toList()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
 {\footnotesize\ttfamily \label{export_8cpp_ab1c68146eead34e03299381e09f18d69} 
 const List to\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfastlmm_lib_1_1fastlmm__result}{fastlmm\+\_\+result}} \&}]{res}{}\end{DoxyParamCaption})}
 

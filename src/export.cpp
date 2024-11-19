@@ -173,8 +173,8 @@ List fastlmm_mmm(   const arma::mat &Y_all,
                     const int &nthreads){
 
   // initialize
-  fastlmmBatchResponse fit = 
-    fastlmmBatchResponse<mat, mat, mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
+  fastlmmFitResponses fit = 
+    fastlmmFitResponses<mat, mat, mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
 
   // evaluate each response
   vector<fastlmm_result> res = fit.eval();
@@ -195,8 +195,8 @@ List fastlmm_msm(   const arma::mat &Y_all,
                     const int &nthreads){
 
   // initialize
-  fastlmmBatchResponse fit = 
-    fastlmmBatchResponse<mat, sp_mat, mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
+  fastlmmFitResponses fit = 
+    fastlmmFitResponses<mat, sp_mat, mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
 
   // evaluate each response
   vector<fastlmm_result> res = fit.eval();
@@ -215,8 +215,8 @@ List fastlmm_mms(   const arma::mat &Y_all,
                     const int &nthreads){
 
   // initialize
-  fastlmmBatchResponse fit = 
-    fastlmmBatchResponse<mat, mat, sp_mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
+  fastlmmFitResponses fit = 
+    fastlmmFitResponses<mat, mat, sp_mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
 
   // evaluate each response
   vector<fastlmm_result> res = fit.eval();
@@ -237,8 +237,8 @@ List fastlmm_mss(   const arma::mat &Y_all,
                     const int &nthreads){
 
   // initialize
-  fastlmmBatchResponse fit = 
-    fastlmmBatchResponse<mat, sp_mat, sp_mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
+  fastlmmFitResponses fit = 
+    fastlmmFitResponses<mat, sp_mat, sp_mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
 
   // evaluate each response
   vector<fastlmm_result> res = fit.eval();
@@ -247,17 +247,10 @@ List fastlmm_mss(   const arma::mat &Y_all,
 }
 
 
-
-
-
-
-
-
-
-// [[Rcpp::export(".fastlmm_batch_design_m")]]
-List fastlmm_batch_design_m(const arma::mat &Y, 
-                            const arma::mat &X,
-                            const arma::mat &X_add,   
+// [[Rcpp::export(".fastlmmFitFeatures_m")]]
+List fastlmmFitFeatures_m(const arma::mat &Y, 
+                            const arma::mat &X_design,
+                            const arma::mat &X_features,   
                             const arma::mat &U, 
                             const arma::vec &s,
                             const arma::vec &weights,
@@ -268,20 +261,20 @@ List fastlmm_batch_design_m(const arma::mat &Y,
                             const int &nthreads){
 
   // initialize
-  fastlmmBatchDesign fit = 
-    fastlmmBatchDesign<mat, mat, mat>(Y, X, U, s, weights);
+  fastlmmFitFeatures fit = 
+    fastlmmFitFeatures<mat, mat, mat>(Y, X_design, U, s, weights);
 
   // evaluate each column of X_add, one at a time
-  vector<fastlmm_result> res = fit.eval(X_add, delta, left, right, tol, nthreads );
+  vector<fastlmm_result> res = fit.eval(X_features, delta, left, right, tol, nthreads );
 
   return toList( res );
 }
 
 
 // [[Rcpp::export(".fastlmm_batch_design_s")]]
-List fastlmm_batch_design_s(const arma::mat &Y, 
-                            const arma::mat &X,
-                            const arma::mat &X_add,   
+List fastlmmFitFeatures_s(const arma::mat &Y, 
+                            const arma::mat &X_design, 
+                            const arma::mat &X_features,  
                             const arma::sp_mat &U, 
                             const arma::vec &s,
                             const arma::vec &weights,
@@ -292,11 +285,11 @@ List fastlmm_batch_design_s(const arma::mat &Y,
                             const int &nthreads){
 
   // initialize
-  fastlmmBatchDesign fit = 
-    fastlmmBatchDesign<mat, mat, sp_mat>(Y, X, U, s, weights);
+  fastlmmFitFeatures fit = 
+    fastlmmFitFeatures<mat, mat, sp_mat>(Y, X_design, U, s, weights);
 
   // evaluate each column of X_add, one at a time
-  vector<fastlmm_result> res = fit.eval(X_add, delta, left, right, tol, nthreads );
+  vector<fastlmm_result> res = fit.eval(X_features, delta, left, right, tol, nthreads );
 
   return toList( res );
 }
@@ -309,7 +302,14 @@ List fastlmm_batch_design_s(const arma::mat &Y,
 
 
 // [[Rcpp::export]]
-List lmFitFeatures_export(const arma::vec &y, const arma::mat &X_design, const arma::mat &X_features, const vector<string> &ids, const arma::vec &weights, const int detail = 0, const bool &preprojection = true, const int &nthreads = 1){
+List lmFitFeatures_export(const arma::vec &y, 
+                          const arma::mat &X_design, 
+                          const arma::mat &X_features, 
+                          const vector<string> &ids, 
+                          const arma::vec &weights, 
+                          const int detail = 0, 
+                          const bool &preprojection = true, 
+                          const int &nthreads = 1){
 
   ModelDetail md = static_cast<ModelDetail>(detail);
 
@@ -322,15 +322,14 @@ List lmFitFeatures_export(const arma::vec &y, const arma::mat &X_design, const a
   return toList(fitList);
 }
 
-
-
-//' @param ids vector<string> storing identifier for each column in Y
 // [[Rcpp::export]]
 List lmFitResponses_export(const arma::mat &Y, const arma::mat &X, const vector<string> &ids, const arma::mat &Weights, const int detail = 0,const int &nthreads = 1){
 
   ModelDetail md = static_cast<ModelDetail>(detail);
 
-  vector<ModelFit> fitList = lmFitResponses(Y, X, ids, Weights, md, nthreads);
+
+  // convert responses from __rows__ to __columns__
+  vector<ModelFit> fitList = lmFitResponses(Y.t(), X, ids, Weights.t(), md, nthreads);
 
   return toList(fitList);
 }

@@ -1,4 +1,8 @@
 
+# fastlmm 0.1.6
+ - Nov 19, 2024
+ - fix API for linear and mixed model regression
+
 # fastlmm 0.1.5
  - Nov 7, 2024
  - `linearRegression.h` supports weighted regression with preprojection

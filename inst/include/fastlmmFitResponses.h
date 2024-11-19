@@ -5,7 +5,6 @@ using namespace arma;
 using namespace std;
 
 #include "fastlmm.h"
-#include "fastlmmBatchResponse.h"
 
 #include "spectralDecomp.h"
 
@@ -26,10 +25,10 @@ namespace fastlmmLib {
 // T2 X
 // T3 Z
 template <typename T1, typename T2, typename T3> 
-class fastlmmBatchResponse {
+class fastlmmFitResponses {
 
     public:
-    fastlmmBatchResponse(   const T1 &Y_all_, 
+    fastlmmFitResponses(   const T1 &Y_all_, 
                             const T2 &X_, 
                             const T3 &Z_,
                             const mat &Weights_,
@@ -53,7 +52,7 @@ class fastlmmBatchResponse {
 
 // constructor
 template <typename T1, typename T2, typename T3> 
-fastlmmBatchResponse<T1, T2, T3>::fastlmmBatchResponse(
+fastlmmFitResponses<T1, T2, T3>::fastlmmFitResponses(
                             const T1 &Y_all_, 
                             const T2 &X_, 
                             const T3 &Z_,
@@ -78,7 +77,7 @@ fastlmmBatchResponse<T1, T2, T3>::fastlmmBatchResponse(
 // "C stack usage is too close to the limit"
 template <typename T1, typename T2, typename T3> 
 vector<fastlmm_result> 
-  fastlmmBatchResponse<T1, T2, T3>::eval(){
+  fastlmmFitResponses<T1, T2, T3>::eval(){
 
   int n_responses = Y_all.n_cols;
 

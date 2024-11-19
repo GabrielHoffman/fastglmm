@@ -1,4 +1,8 @@
 
+Nov 19, 
+   offset()
+   names of regression coefs
+
 Nov 7, 2024
    Linear regression defines
       ModelDetail to define results to return
@@ -43,7 +47,10 @@ Nov 7, 2024
       # signature(design = "matrix",      data = "matrix")
       # signature(design = "matrix",      data = "sparseMatrix")
       # signature(design = "sparseMatrix",data = "matrix")
-      # signature(design = "sparseMatrix",data = "sparseMatrix")      
+      # signature(design = "sparseMatrix",data = "sparseMatrix")  
+      
+   for dreamlet, variancePartition
+      Push changes to devel branch 
 
 
 

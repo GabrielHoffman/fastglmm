@@ -21,10 +21,10 @@ namespace fastlmmLib {
 // T2 X
 // T3 Z
 template <typename T1, typename T2, typename T3> 
-class fastlmmBatchDesign {
+class fastlmmFitFeatures {
 
     public:
-    fastlmmBatchDesign( const T1 &Y_, 
+    fastlmmFitFeatures( const T1 &Y_, 
                         const T2 &X_, 
                         const T3 &U_,
                         const vec &s_,
@@ -52,7 +52,7 @@ class fastlmmBatchDesign {
 
 // constructor
 template <typename T1, typename T2, typename T3> 
-fastlmmBatchDesign<T1, T2, T3>::fastlmmBatchDesign(
+fastlmmFitFeatures<T1, T2, T3>::fastlmmFitFeatures(
                             const T1 &Y_, 
                             const T2 &X_, 
                             const T3 &U_,
@@ -77,7 +77,7 @@ fastlmmBatchDesign<T1, T2, T3>::fastlmmBatchDesign(
 // "C stack usage is too close to the limit"
 template <typename T1, typename T2, typename T3> 
 vector<fastlmm_result> 
-  fastlmmBatchDesign<T1, T2, T3>::eval( const T2 &X_add_,
+  fastlmmFitFeatures<T1, T2, T3>::eval( const T2 &X_add_,
                                         const double &delta_,
                                         const double &left_,
                                         const double &right_,

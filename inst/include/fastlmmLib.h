@@ -6,8 +6,8 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include "fastlmm.h"
-#include "fastlmmBatchResponse.h"
-#include "fastlmmBatchDesign.h"
+#include "fastlmmFitResponses.h"
+#include "fastlmmFitFeatures.h"
 #include "linearRegression.h"
 
 #endif

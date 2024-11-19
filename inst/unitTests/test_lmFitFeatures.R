@@ -11,16 +11,16 @@ test_lmFitResponses = function(){
 	m = 3
 	nc = 2
 	set.seed(1)
-	Y = matrix(rnorm(n*m), n, m)
-	rownames(Y) = paste0("s", seq(n))
-	colnames(Y) = paste0("r", seq(m))
+	Y = matrix(rnorm(n*m), m, n)
+	colnames(Y) = paste0("s", seq(n))
+	rownames(Y) = paste0("r", seq(m))
 
 	X = matrix(rnorm(n*nc), n,nc)
 	colnames(X) = paste0("V", seq(nc))
-	W = matrix(runif(n*m), n,m)	
+	W = matrix(runif(n*m), ,n)	
 
 	fitList = lapply(seq(m), function(j){
-		lm(Y[,j] ~ 0 + X, weights=W[,j])
+		lm(Y[j,] ~ 0 + X, weights=W[j,])
 		})
 	beta = do.call(rbind, lapply(fitList, coef))
 	sig = sapply(fitList, sigma)
@@ -30,7 +30,8 @@ test_lmFitResponses = function(){
 	res = do.call(cbind, lapply(fitList, residuals))
 	hat = do.call(cbind, lapply(fitList, hatvalues))
 
-	fit = lmFitResponses(Y, X, colnames(Y), W, detail=3)
+	# matrix
+	fit = lmFitResponses(Y, X, W, detail=3)
 
 	checkEqualsNumeric(beta, fit$coef)
 	checkEqualsNumeric(se, fit$se)
@@ -42,7 +43,10 @@ test_lmFitResponses = function(){
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
 	# fit = lmFitResponses(Y, X, colnames(Y), W, detail=1)
 
+	# library(Matrix)
 
+	# # dgeMatrix not allowed
+	# fit = lmFitResponses(Matrix(Y), X, W, detail=3)
 
 
 }
@@ -79,7 +83,7 @@ test_lmFitFeatures = function(){
 	res = do.call(cbind, lapply(fitList, residuals))
 	hat = do.call(cbind, lapply(fitList, hatvalues))
 
-	fit = lmFitFeatures(y, X_design, X, colnames(X), w, detail=3, FALSE)
+	fit = lmFitFeatures(y, X_design, X, w, detail=3, FALSE)
 
 	checkEqualsNumeric(beta, fit$coef)
 	checkEqualsNumeric(se, fit$se)
@@ -88,7 +92,7 @@ test_lmFitFeatures = function(){
 	checkEqualsNumeric(res, fit$residuals)
 	checkEqualsNumeric(hat, fit$hatvalues)
 
-	fit2 = lmFitFeatures(y, X_design, X, colnames(X), w, detail=2, TRUE)
+	fit2 = lmFitFeatures(y, X_design, X, w, detail=2, TRUE)
 
 	idx = nc + 1
 	checkEqualsNumeric(fit$coef[,idx], fit2$coef)
