@@ -55,10 +55,17 @@ setMethod(
 
     if( detail > 3) stop("detail > 3 not defined");
 
+    # if weights is not given, set to empty vector
+    if( missing(weights)){
+      weights = rep(1,0)
+    }
+
     # check dimensions
     stopifnot( length(y) == nrow(design) )
     stopifnot( length(y) == nrow(data) )
-    stopifnot( length(y) == length(weights) )
+    if( length(weights) > 0 ){
+      stopifnot(  length(y) == length(weights) )
+    }
 
     ids = colnames(data)
     if( is.null(ids) ){
@@ -118,6 +125,11 @@ setMethod(
   function(Y, design, Weights, detail = 0, nthreads = 1, ...) {
 
     if( detail > 3) stop("detail > 3 not defined");
+
+    # if weights is not given, set to empty vector
+    if( missing(Weights)){
+      Weights = matrix(1, nrow(Y), ncol(Y))
+    }
 
     # check dimensions
     stopifnot( ncol(Y) == nrow(design) )
