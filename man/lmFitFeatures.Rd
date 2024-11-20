@@ -52,19 +52,19 @@ List of parameter estimates with entries \code{coef},  \code{se}, \code{sigSq}, 
 Fit regression model \code{y ~ design + X_features[,j]} for each feature j
 }
 \examples{
-n = 100 # number of samples
-p = 10  # number of features
-nc = 3  # number shared covariates
+n <- 100 # number of samples
+p <- 10 # number of features
+nc <- 3 # number shared covariates
 set.seed(1)
-y = rnorm(n)
-X = matrix(rnorm(n*p), n, p)
-colnames(X) = seq(p)
-design = matrix(rnorm(n*nc), n,nc)
-w = seq(n)
-w = w / mean(w)
+y <- rnorm(n)
+X <- matrix(rnorm(n * p), n, p)
+colnames(X) <- seq(p)
+design <- matrix(rnorm(n * nc), n, nc)
+w <- seq(n)
+w <- w / mean(w)
 
 # fit regressions with model j including X[,j]
-fit = lmFitFeatures(y, design, X, w)
+fit <- lmFitFeatures(y, design, X, w)
 
 # examine results
 lapply(fit, head, 2)

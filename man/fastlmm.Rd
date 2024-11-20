@@ -50,7 +50,7 @@ fit
 summary(fit)
 
 # results are identical for lmer(...,REML=FALSE)
-fit2 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML=FALSE)
+fit2 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML = FALSE)
 coef(summary(fit2))
 
 }

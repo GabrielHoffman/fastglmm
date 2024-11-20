@@ -1,34 +1,32 @@
+ll_R <- function(delta, Y, X, Yu, Xu, U, s) {
+  info <- QXX <- sig_g <- NA
 
-ll_R <- function( delta, Y, X, Yu, Xu, U, s ){			
+  n <- nrow(X)
+  rank <- nrow(Xu)
 
-	info <- QXX <- sig_g <- NA
+  cp_X_low <- crossprod(X) - crossprod(Xu)
+  cp_X_low_Y_low <- crossprod(X, Y) - crossprod(Xu, Yu)
 
-	n <- nrow(X)
-	rank <- nrow(Xu)
+  # Eval Beta
+  inv_s_delta <- 1 / (s + delta)
+  inv_s_delta_Yu <- inv_s_delta * Yu
+  inv_s_delta_Xu <- inv_s_delta * Xu
 
-	cp_X_low <- crossprod(X) - crossprod(Xu)
-	cp_X_low_Y_low <- crossprod(X, Y) - crossprod(Xu, Yu)
+  QXX <- crossprod(Xu, inv_s_delta_Xu) + cp_X_low / delta
+  QXY <- crossprod(Xu, inv_s_delta_Yu) + cp_X_low_Y_low / delta
+  beta <- solve(QXX, as.matrix(QXY))
 
-	# Eval Beta
-	inv_s_delta 	<- 1/(s+delta)
-	inv_s_delta_Yu 	<- inv_s_delta * Yu
-	inv_s_delta_Xu 	<- inv_s_delta * Xu
+  # Eval sig_g
+  ru <- Yu - Xu %*% beta
+  r <- Y - X %*% beta
+  inv_s_delta_ru <- inv_s_delta * ru
 
-	QXX <- crossprod(Xu, inv_s_delta_Xu) + cp_X_low / delta
-	QXY <- crossprod(Xu, inv_s_delta_Yu) + cp_X_low_Y_low / delta
-	beta <- solve( QXX, as.matrix(QXY))
-
-	# Eval sig_g
-	ru 				<- Yu - Xu %*% beta
-	r 				<- Y - X %*% beta
-	inv_s_delta_ru 	<- inv_s_delta * ru
-
-	Qrr <- crossprod(ru, inv_s_delta_ru) + (crossprod(r)[1] - crossprod(ru)[1])/ delta
-	sig_g <- Qrr[1] / n
+  Qrr <- crossprod(ru, inv_s_delta_ru) + (crossprod(r)[1] - crossprod(ru)[1]) / delta
+  sig_g <- Qrr[1] / n
 
 
-	-n/2 * log(2*pi*sig_g) - 1/2 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2
-} 
+  -n / 2 * log(2 * pi * sig_g) - 1 / 2 * (sum(log(s + delta)) + (n - rank) * log(delta)) - n / 2
+}
 
 
 # browser()
@@ -39,7 +37,7 @@ ll_R <- function( delta, Y, X, Yu, Xu, U, s ){
 # inv_s_delta_Iu <- inv_s_delta * Iu
 # QXI <- crossprod(Xu, inv_s_delta_Iu) + cp_X_low_I / delta
 # s_expand = c(s, rep(0, nrow(X) - length(s)))
-# # H = diag(1, nrow(X)) - diag(1/(s_expand+delta)) + X %*% solve(QXX, QXI) 
+# # H = diag(1, nrow(X)) - diag(1/(s_expand+delta)) + X %*% solve(QXX, QXI)
 # sig_e = delta * sig_g
 # V = (diag(1, nrow(X)) * sig_e + tcrossprod(Z) * sig_g)
 # H = diag(1, nrow(X)) - solve(V) + solve(V) %*% X %*% solve(t(X) %*% solve(V, X)) %*% t(X) %*% solve(V)
@@ -53,10 +51,10 @@ ll_R <- function( delta, Y, X, Yu, Xu, U, s ){
 # crossprod(Z, solve(V, y - X %*% beta)) * sig_g^2
 # crossprod(Z*sig_g, solve(V/sig_g, y - X %*% beta))
 
-	# fitted values
+# fitted values
 ###############
 
-# Z'V^{-1}(y-Xb) 
+# Z'V^{-1}(y-Xb)
 # U s ()
 
 # Zu =  crossprod(U, Z)
@@ -94,7 +92,7 @@ ll_R <- function( delta, Y, X, Yu, Xu, U, s ){
 # crossprod(Z, solve(V, Y - X %*% beta)) * sigSq_g
 
 
-#' Fit linear mixed model using SVD of covariance 
+#' Fit linear mixed model using SVD of covariance
 #'
 #' Fit linear mixed model using SVD of covariance to scale to large sample sizes.
 #'
@@ -107,115 +105,113 @@ ll_R <- function( delta, Y, X, Yu, Xu, U, s ){
 #' @param Yu pre-transformed Y value
 #' @param delta ratio of variance components estimated using
 #' @param sig_a_fixed if \code{FALSE}, estimate \code{sigSq_a} from data
-#' @param rank number of of principal components used 
-#' 
+#' @param rank number of of principal components used
+#'
 #' @details Fit a linear mixed model with a single variance component.
 #'
 #' @return summary statistics for model fit, and hypothesis testing using X_test_lst, if available
-#' 
+#'
 #' @importFrom stats optimize pnorm sd pbeta
 #' @export
-fastlmm_R <- function( Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NULL, delta=NULL, sig_a_fixed = FALSE, rank=ncol(U)){
+fastlmm_R <- function(Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NULL, delta = NULL, sig_a_fixed = FALSE, rank = ncol(U)) {
+  rank <- min(rank, ncol(U))
 
-	rank <- min( rank, ncol(U) )
+  if (rank < ncol(U)) {
+    U <- U[, seq_len(rank), drop = FALSE]
+    s <- abs(s[seq_len(rank), drop = FALSE])
+  }
+  if (is.integer(Y)) {
+    Y <- as.numeric(Y)
+  }
 
-	if( rank < ncol(U)){
-		U <- U[,seq_len(rank), drop=FALSE]
-		s <- abs(s[seq_len(rank), drop=FALSE])
-	}
-	if( is.integer(Y) ){
-		Y <- as.numeric(Y)
-	}
+  if (is.null(Xu)) {
+    Xu <- crossprod(U, X)
+  }
+  if (is.null(Yu)) {
+    Yu <- crossprod(U, Y)
+  }
 
-	if( is.null(Xu) ){
-		Xu <- crossprod(U, X)
-	}
-	if( is.null(Yu) ){
-		Yu <- crossprod(U, Y)
-	}
+  log_interval <- c(10, -10)
 
-	log_interval <- c(10, -10) 
+  n <- nrow(Y)
 
-	n <- nrow(Y)
+  if (is.null(n)) {
+    n <- length(Y)
+  }
 
-	if( is.null(n) ){
-		n <- length(Y)
-	}	
+  cp_X_low <- crossprod(X) - crossprod(Xu)
+  cp_X_low_Y_low <- crossprod(X, Y) - crossprod(Xu, Yu)
 
-	cp_X_low <- crossprod(X) - crossprod(Xu)
-	cp_X_low_Y_low <- crossprod(X, Y) - crossprod(Xu, Yu)
+  beta <- sigSq_g <- QXX <- ru <- r <- 1
 
-	beta <- sigSq_g <- QXX <- ru <- r <- 1
+  i <- 0
+  ll <- function(delta_log) {
+    i <<- i + 1
+    delta <- exp(delta_log)
 
-	i <- 0
-	ll <- function( delta_log ){			
-		i <<- i + 1
-		delta <- exp(delta_log)
+    # Eval Beta
+    inv_s_delta <- 1 / (s + delta)
+    inv_s_delta_Yu <- inv_s_delta * Yu
+    inv_s_delta_Xu <- inv_s_delta * Xu
 
-		# Eval Beta
-		inv_s_delta 	<- 1/(s+delta)
-		inv_s_delta_Yu 	<- inv_s_delta * Yu
-		inv_s_delta_Xu 	<- inv_s_delta * Xu
+    QXX <<- crossprod(Xu, inv_s_delta_Xu) + cp_X_low / delta
+    QXY <- crossprod(Xu, inv_s_delta_Yu) + cp_X_low_Y_low / delta
+    beta <<- solve(QXX, as.matrix(QXY))
 
-		QXX <<- crossprod(Xu, inv_s_delta_Xu) + cp_X_low / delta
-		QXY <- crossprod(Xu, inv_s_delta_Yu) + cp_X_low_Y_low / delta
-		beta <<- solve( QXX, as.matrix(QXY))
+    # Eval sig_g
+    ru <<- Yu - Xu %*% beta
+    r <<- Y - X %*% beta
 
-		# Eval sig_g
-		ru 				<<- Yu - Xu %*% beta
-		r 				<<- Y - X %*% beta
+    inv_s_delta_ru <- inv_s_delta * ru
 
-		inv_s_delta_ru 	<- inv_s_delta * ru
+    if (sig_a_fixed) {
+      sigSq_g <<- 1
+    } else {
+      Qrr <- crossprod(ru, inv_s_delta_ru) + (crossprod(r)[1] - crossprod(ru)[1]) / delta
+      sigSq_g <<- Qrr[1] / n
+    }
 
-		if( sig_a_fixed ){
-			sigSq_g <<- 1
-		}else{
-			Qrr <- crossprod(ru, inv_s_delta_ru) + (crossprod(r)[1] - crossprod(ru)[1])/ delta
-			sigSq_g <<- Qrr[1] / n
-		}
+    -n / 2 * log(2 * pi * sigSq_g) - 1 / 2 * (sum(log(s + delta)) + (n - rank) * log(delta)) - n / 2 + 1 / 2 * sum(log(weights))
+  }
 
-		-n/2 * log(2*pi*sigSq_g) - 1/2 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2 + 1/2 * sum(log(weights))
-	} 
+  if (is.null(delta)) {
+    result <- optimize(ll, log_interval, maximum = TRUE)
 
-	if( is.null(delta) ){
-		result <- optimize( ll, log_interval, maximum=TRUE)
+    # delta <- result$maximum
+    delta <- exp(result$maximum)
+  }
 
-		# delta <- result$maximum
-		delta <- exp(result$maximum)
-	}
+  # Need to evaluate ll(), so that obj values are evaluated
+  log_L <- ll(delta_log = log(delta))
 
-	# Need to evaluate ll(), so that obj values are evaluated
-	log_L <- ll( delta_log = log(delta))
+  beta <- array(beta, dimnames = list(rownames(beta)))
+  sigSq_e <- delta * sigSq_g
 
-	beta <- array(beta, dimnames=list(rownames(beta)))
-	sigSq_e <- delta * sigSq_g
+  ###################################
+  # Hypothesis test using Wald test #
+  ###################################
 
+  S <- solve(QXX) * sigSq_g
+  beta_se <- sqrt(diag(S))
 
-	###################################
-	# Hypothesis test using Wald test #
-	###################################
+  pValues <- pnorm(abs(beta), 0, beta_se, lower.tail = FALSE) * 2
 
-	S <- solve( QXX ) * sigSq_g
-	beta_se <- sqrt(diag(S))
+  df <- sum(s[seq_len(rank)] / (s[seq_len(rank)] + delta))
 
-	pValues <- pnorm( abs(beta), 0, beta_se, lower.tail=FALSE)*2
-	
-	df <- sum(s[seq_len(rank)]/(s[seq_len(rank)]+delta))
-	
-	res <- list( logLik 	= log_L, 
-				coefficients 	= beta,
-				se = beta_se, 
-				vcov 	= S,
-				delta 	= delta, 
-				sigSq_g = sigSq_g, 
-				sigSq_e = sigSq_e, 
-				iter 	= i,
-				df 		= df, 
-				r 		= r, 
-				ru 		= ru,
-				pValues	= pValues)
-	class(res) <- "fastlmm"
-	return(res)
+  res <- list(
+    logLik = log_L,
+    coefficients = beta,
+    se = beta_se,
+    vcov = S,
+    delta = delta,
+    sigSq_g = sigSq_g,
+    sigSq_e = sigSq_e,
+    iter = i,
+    df = df,
+    r = r,
+    ru = ru,
+    pValues = pValues
+  )
+  class(res) <- "fastlmm"
+  return(res)
 }
-
-

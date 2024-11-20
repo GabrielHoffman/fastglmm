@@ -1,4 +1,3 @@
-
 # methods(class="fastlmm")
 # getS3method("deviance", "lm")
 # getS3method("family", "lm")
@@ -11,13 +10,13 @@
 # Extract Model Coefficients
 #
 # Extract Model Coefficients
-# 
+#
 # @param object fitted model of class \code{fastlmm}
 # @param ... other args, not used
-# 
+#
 #' @export
-coef.fastlmm = function(object,...){
-	object$coefficients
+coef.fastlmm <- function(object, ...) {
+  object$coefficients
 }
 
 # confint(fit2)
@@ -27,8 +26,8 @@ coef.fastlmm = function(object,...){
 
 #' @importFrom stats family gaussian
 #' @export
-family.fastlmm = function(object,...){
-    gaussian()
+family.fastlmm <- function(object, ...) {
+  gaussian()
 }
 
 # formula.fastlmm
@@ -42,18 +41,17 @@ family.fastlmm = function(object,...){
 # labels.fastlmm
 
 #' @export
-logLik.fastlmm = function(object, ...){
-	
-    res <- object$residuals
-    p <- object$rank
-    N <- length(res)
-    N0 <- N
-    val <- object$logLik
-    attr(val, "nall") <- N0
-    attr(val, "nobs") <- N
-    attr(val, "df") <- p + 2
-    class(val) <- "logLik"
-    val
+logLik.fastlmm <- function(object, ...) {
+  res <- object$residuals
+  p <- object$rank
+  N <- length(res)
+  N0 <- N
+  val <- object$logLik
+  attr(val, "nall") <- N0
+  attr(val, "nobs") <- N
+  attr(val, "df") <- p + 2
+  class(val) <- "logLik"
+  val
 }
 
 # model.frame.fastlmm
@@ -62,9 +60,12 @@ logLik.fastlmm = function(object, ...){
 
 #' @importFrom stats nobs
 #' @export
-nobs.fastlmm <- function(object,...){
-	if (!is.null(w <- object$weights)) sum(w != 0) 
-	else NROW(object$residuals)
+nobs.fastlmm <- function(object, ...) {
+  if (!is.null(w <- object$weights)) {
+    sum(w != 0)
+  } else {
+    NROW(object$residuals)
+  }
 }
 
 # plot.fastlmm
@@ -72,27 +73,26 @@ nobs.fastlmm <- function(object,...){
 
 #' @importFrom stats nobs
 #' @export
-predict.fastlmm = function(object, newdata = NULL, ...){
-
-    if(!is.null(newdata) ){
-        stop("newdata is not currently supported")
-    }
-    fitted(object)
+predict.fastlmm <- function(object, newdata = NULL, ...) {
+  if (!is.null(newdata)) {
+    stop("newdata is not currently supported")
+  }
+  fitted(object)
 }
 
 
 #' @importFrom stats coef
 #' @export
-print.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), ...){
-
-	cat("\nCall:\n", paste(deparse(attr(x, "call")), sep = "\n", collapse = "\n"), "\n\n", sep = "")
-    if (length(coef(x))) {
-        cat("Coefficients:\n")
-        print.default(format(coef(x), digits = digits), print.gap = 2L, quote = FALSE)
-    }
-    else cat("No coefficients\n")
-    cat("\n")
-    invisible(x)
+print.fastlmm <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
+  cat("\nCall:\n", paste(deparse(attr(x, "call")), sep = "\n", collapse = "\n"), "\n\n", sep = "")
+  if (length(coef(x))) {
+    cat("Coefficients:\n")
+    print.default(format(coef(x), digits = digits), print.gap = 2L, quote = FALSE)
+  } else {
+    cat("No coefficients\n")
+  }
+  cat("\n")
+  invisible(x)
 }
 
 # ranef.fastlmm
@@ -109,120 +109,117 @@ print.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), ...){
 
 #' @importFrom stats sigma
 #' @export
-sigma.fastlmm = function(object,...){
-	sqrt(object$sigSq_e)
+sigma.fastlmm <- function(object, ...) {
+  sqrt(object$sigSq_e)
 }
 
 #' @importFrom stats printCoefmat
 #' @export
-print.summary.fastlmm = function (x, digits = max(3L, getOption("digits") - 3L), symbolic.cor = x$symbolic.cor, 
-    signif.stars = getOption("show.signif.stars"), ...){
+print.summary.fastlmm <- function(
+    x, digits = max(3L, getOption("digits") - 3L), symbolic.cor = x$symbolic.cor,
+    signif.stars = getOption("show.signif.stars"), ...) {
+  if (x$method %in% c("ML", "REML")) {
+    cat("Linear mixed model fit by", x$method, "['fastlmm']\n")
+  } else {
+    cat("Generlized linear mixed model fit by", x$method, "['fastglmm']\n")
+  }
 
-    if( x$method %in% c("ML", "REML")){
-    	cat("Linear mixed model fit by", x$method, "['fastlmm']\n")
-    }else{        
-        cat("Generlized linear mixed model fit by", x$method, "['fastglmm']\n")
-    }
-    
-    cat("\nCoefficients:\n")
-    coefs <- x$coefficients
-    if (any(aliased <- x$aliased)) {
-        cn <- names(aliased)
-        coefs <- matrix(NA, length(aliased), 4, dimnames = list(cn, 
-            colnames(coefs)))
-        coefs[!aliased, ] <- x$coefficients
-    }
-    printCoefmat(coefs, digits = digits, signif.stars = signif.stars, na.print = "NA", ...)
+  cat("\nCoefficients:\n")
+  coefs <- x$coefficients
+  if (any(aliased <- x$aliased)) {
+    cn <- names(aliased)
+    coefs <- matrix(NA, length(aliased), 4, dimnames = list(
+      cn,
+      colnames(coefs)
+    ))
+    coefs[!aliased, ] <- x$coefficients
+  }
+  printCoefmat(coefs, digits = digits, signif.stars = signif.stars, na.print = "NA", ...)
 
-    cat("\nVariance components:")
-    cat("\n  sigSq_g:", format(x$sigSq_g, digits=digits))
-    cat("\n  sigSq_e:", format(x$sigSq_e, digits=digits))
-    # cat("\n  delta: ", format(x$delta, digits=digits))
-    cat("\n  hSq:    ", format(100*x$sigSq_g / (x$sigSq_g + x$sigSq_e), digits=digits), "%\n")
+  cat("\nVariance components:")
+  cat("\n  sigSq_g:", format(x$sigSq_g, digits = digits))
+  cat("\n  sigSq_e:", format(x$sigSq_e, digits = digits))
+  # cat("\n  delta: ", format(x$delta, digits=digits))
+  cat("\n  hSq:    ", format(100 * x$sigSq_g / (x$sigSq_g + x$sigSq_e), digits = digits), "%\n")
 
-    cat("\n")
-} 
+  cat("\n")
+}
 
 #' @importFrom stats coef pt
 #' @export
-summary.fastlmm = function(object, ...){
+summary.fastlmm <- function(object, ...) {
+  z <- object
 
-	z <- object
+  est <- coef(object)
+  se <- object$se
+  rdf <- object$df.residual
+  tval <- est / se
+  ans <- z[c("call", "terms", if (!is.null(z$weights)) "weights")]
+  ans$aliased <- is.na(coef(object))
+  ans$residuals <- z$residuals
+  ans$coefficients <- cbind(
+    Estimate = est, `Std. Error` = se,
+    `t value` = tval, `Pr(>|t|)` = 2 * pt(abs(tval), rdf,
+      lower.tail = FALSE
+    )
+  )
+  ans$sigSq_g <- object$sigSq_g
+  ans$sigSq_e <- object$sigSq_e
+  ans$delta <- object$delta
+  ans$method <- object$method
 
-	est <- coef(object) 
-	se <- object$se
-	rdf <- object$df.residual
-	tval <- est / se
-    ans <- z[c("call", "terms", if (!is.null(z$weights)) "weights")]
-    ans$aliased <- is.na(coef(object))
-    ans$residuals <- z$residuals
-    ans$coefficients <- cbind(Estimate = est, `Std. Error` = se, 
-        `t value` = tval, `Pr(>|t|)` = 2 * pt(abs(tval), rdf, 
-            lower.tail = FALSE))
-    ans$sigSq_g = object$sigSq_g
-    ans$sigSq_e = object$sigSq_e
-    ans$delta = object$delta
-    ans$method = object$method
-
-    class(ans) <- "summary.fastlmm"
-    ans
+  class(ans) <- "summary.fastlmm"
+  ans
 }
 
 
 #' @export
-vcov.fastlmm <- function(object,...){
-	object$vcov
+vcov.fastlmm <- function(object, ...) {
+  object$vcov
 }
 
 #' @importFrom lme4 ranef
 #' @importFrom Matrix crossprod
 #' @export
-ranef.fastlmm = function(object,...){
-
-    Zw = c(sqrt(object$weights)) * object$Z
-    v = crossprod(crossprod(object$U, Zw), object$ru / (object$s+object$delta))
-    as.matrix(v)
+ranef.fastlmm <- function(object, ...) {
+  Zw <- c(sqrt(object$weights)) * object$Z
+  v <- crossprod(crossprod(object$U, Zw), object$ru / (object$s + object$delta))
+  as.matrix(v)
 }
 
 #' @importFrom lme4 fixef
 #' @export
-fixef.fastlmm = function(object,...){
-    coef(object)
+fixef.fastlmm <- function(object, ...) {
+  coef(object)
 }
 
 #' @importFrom stats fitted
 #' @export
-fitted.fastlmm  = function(object,...){
-    v = object$Z %*% ranef.fastlmm(object) + object$design %*% coef(object) 
-    v = as.numeric(v)
+fitted.fastlmm <- function(object, ...) {
+  v <- object$Z %*% ranef.fastlmm(object) + object$design %*% coef(object)
+  v <- as.numeric(v)
 
-    if( ! is.null(object$offset) ){
-        v = v + object$offset
-    }
-    v
+  if (!is.null(object$offset)) {
+    v <- v + object$offset
+  }
+  v
 }
 
 
 # See ?residuals.glm
 #' @importFrom stats residuals
 #' @export
-residuals.fastlmm = function(object, ...){
+residuals.fastlmm <- function(object, ...) {
+  if (is.null(object$weights)) {
+    w <- 1
+  } else {
+    w <- object$weights
+  }
 
-    if( is.null(object$weights) ){
-        w = 1
-    }else{
-        w = object$weights
-    }
+  v <- object$y / sqrt(w) - fitted(object)
 
-    v = object$y / sqrt(w) - fitted(object)
-
-    if( ! is.null(object$offset) ){
-        v = v + object$offset
-    }
-    v
+  if (!is.null(object$offset)) {
+    v <- v + object$offset
+  }
+  v
 }
-
-
-
-
-

@@ -28,23 +28,23 @@ This approach is dramatically faster than the naive algorithm that is quadratic 
 set.seed(2)
 
 # get 10 samples from 4 individuals
-indiv = factor(sample(LETTERS[seq(4)], 10, replace=TRUE))
+indiv <- factor(sample(LETTERS[seq(4)], 10, replace = TRUE))
 
 # fast spectral decomposition
-indicator_decomp( indiv, sort=TRUE )
+indicator_decomp(indiv, sort = TRUE)
 
 # Create spectral decomposition
-# using a slower approach ignoring the 
+# using a slower approach ignoring the
 # special structure of the problem.
 # This is quadratic time in the number of levels
 library(Matrix)
-Z = t(fac2sparse(indiv))
-ZtZ = crossprod(Z)
-dcmp = eigen(ZtZ, symmetric=TRUE)
-dcmp$vectors = Matrix(zapsmall(dcmp$vectors), sparse = TRUE)
-A = solve(dcmp$vectors)
-D = Diagonal(length(dcmp$values), 1/sqrt(dcmp$values))
-dcmp$vectors = tcrossprod(Z, A) \%*\% D
+Z <- t(fac2sparse(indiv))
+ZtZ <- crossprod(Z)
+dcmp <- eigen(ZtZ, symmetric = TRUE)
+dcmp$vectors <- Matrix(zapsmall(dcmp$vectors), sparse = TRUE)
+A <- solve(dcmp$vectors)
+D <- Diagonal(length(dcmp$values), 1 / sqrt(dcmp$values))
+dcmp$vectors <- tcrossprod(Z, A) \%*\% D
 
 dcmp
 }

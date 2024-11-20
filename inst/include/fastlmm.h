@@ -198,7 +198,7 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
 
   vec wSq = sqrt(weights_);
   this->Y = Y_ % wSq;
-  this->X = scaleRows(X_, wSq);
+  this->X = scaleEachCol(X_, wSq);
   this->U = U_;
   this->s = s_;
   this->weights = weights_;
@@ -224,7 +224,7 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
 
   vec wSq = sqrt(weights_);
   this->Y = Y_.t() % wSq;
-  this->X = scaleRows(X_, wSq);
+  this->X = scaleEachCol(X_, wSq);
   this->U = U_;
   this->s = s_;
   this->weights = weights_;
@@ -249,7 +249,7 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
 
   vec wSq = sqrt(weights_);
   this->Y = Y_.t() % wSq;
-  this->X = scaleRows(X_, wSq);
+  this->X = scaleEachCol(X_, wSq);
   this->U = U_;
   this->s = s_;
   this->weights = weights_;
@@ -283,12 +283,7 @@ double fastlmm<T1, T2, T3>::ll(const double &delta ) {
   inv_s_delta = 1 / (s+delta);
 
   // inv_s_delta_Xu   <- inv_s_delta * Xu
-  // R recycles over each column,
-  //    here do manually
-  // inv_s_delta_Xu( Xu.n_rows, Xu.n_cols);
-  for(int i=0; i<Xu.n_cols; i++){
-    inv_s_delta_Xu.col(i) = inv_s_delta % Xu.col(i);
-  };
+  inv_s_delta_Xu = scaleEachCol(Xu, inv_s_delta);
 
   // QXX = crossprod(Xu, inv_s_delta_Xu) + cp_X_low / delta
   QXX = Xu.t() * inv_s_delta_Xu + cp_X_low / delta;

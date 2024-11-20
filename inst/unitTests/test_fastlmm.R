@@ -3,6 +3,9 @@ library(RUnit)
 
 test_user_fxn = function(){
 
+
+	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
+
 	library(fastlmm)
 	library(lme4)
 	library(RUnit)
@@ -12,11 +15,12 @@ test_user_fxn = function(){
 	w = cbind(w / mean(w), w/ mean(w))
 	w[,2] = rpois(nrow(sleepstudy), 10)
 	w[,2] = w[,2] / mean(w[,2])
+	# w[] = 1
 	
 	fit1 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML=FALSE, weights = w[,1])
 	fit2 <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy, weights = w[,1])
 
-	ranef(fit2)
+	# ranef(fit2)
 
 	checkEqualsNumeric( fit1@beta, coef(fit2) )
 	checkEqualsNumeric( sigma(fit1), sigma(fit2), tol=5e-7 )
@@ -49,17 +53,18 @@ test_user_fxn = function(){
 	#------------
 
 	# Z = preprocess_indicator( sleepstudy$Subject)
-	# dcmp = indicator_decomp(Z, w)
+	# dcmp = indicator_decomp(Z, w[,1])
 	# y = sleepstudy$Reaction
 	# X = model.matrix(~Days, sleepstudy)
 
 	# # doesn't work with weights
-	# fit4 <- fastlmm_R(y, X, dcmp$vectors, dcmp$values, weights = w)
+	# fit4 <- fastlmm_R(y, X, dcmp$vectors, dcmp$values, weights = w[,1])
 	# checkEqualsNumeric( coef(fit4), coef(fit2) )
 	# checkEqualsNumeric( fit4$delta, fit2$delta, tol=1e-6 )
 	
 	# logLik(fit4)
 
+	# sum(hatvalues(fit1))
 	# hatvalues(fit1)[1:4]
 	# # H_2 = I - V^{-1} + X (X^T V^{-1} X)^{-1} X^T V^{-1}
 
@@ -68,7 +73,30 @@ test_user_fxn = function(){
 	# Yu = crossprod(U,y)
 	# Xu = crossprod(U,X)
 	# fastlmm:::ll_R(fit4$delta, y, X, Yu, Xu, U, dcmp$values)
-	
+
+
+	# # source("fastlmm/R/fastlmm_R.R")
+	# # crossprod form
+	# U = as.matrix(dcmp$vectors)
+	# Xu = crossprod(U,X)
+	# crossprod(Xu, (1/(s+delta)) * Xu) + (crossprod(X) - crossprod(Xu)) / delta
+
+	# # need sqrt form
+	# # (t(U) %*% X) / sqrt(s+delta) + (X - t(U) %*% X)/delta
+
+	# A = (t(U) %*% X) / sqrt(s+delta)
+	# crossprod(A)
+
+	# (crossprod(X) - crossprod(Xu))
+	# t(X) %*% X - t(crossprod(U,X)) %*% crossprod(U,X)
+	# 			# t(t(U) %*%X) %*% t(U) %*%X
+	# 			t(X) %*% U %*% t(U) %*%X
+
+	# t(X) %*% (diag(1,180) - U %*% t(U) ) %*% X			
+
+
+
+
 }
 
 
