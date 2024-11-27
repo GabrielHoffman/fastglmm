@@ -1,7 +1,7 @@
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 
-#include <fastlmmLib.h>
+#include "fastlmmLib.h"
 #include "linearRegression.h"
 #include "exportToR.h"
 
