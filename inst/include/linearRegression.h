@@ -14,11 +14,6 @@
 #include <type_traits>
 #include "misc.h"
 
-// DISABLE warning: solve(): system is singular
-#define ARMA_WARN_LEVEL 1
-// Important: this definition ensures Armadillo enables SuperLU
-// #define ARMA_USE_SUPERLU 1
-
 // if -D ARMA, use plain armadillo library
 #ifdef ARMA
 #include <armadillo>
@@ -105,7 +100,15 @@ static ModelFit lm(const arma::mat& X, const arma::colvec& y, const ModelDetail 
 	qr_econ(work->Q, work->R, X);
 
     // back solve
-	vec beta = solve(work->R, trans(work->Q) * y);
+    vec beta;
+	bool status = solve(beta, work->R, trans(work->Q) * y, solve_opts::no_approx);
+
+	// if system is singular,
+	// set beta to NaN
+	if( ! status ){
+		beta = vec(work->R.n_cols);
+        beta.fill(datum::nan);
+	}
 
     // residuals
 	work->residuals = y - X*beta;
