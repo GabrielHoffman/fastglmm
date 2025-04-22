@@ -2,7 +2,6 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include "fastlmmLib.h"
-#include "linearRegression.h"
 #include "exportToR.h"
 
 using namespace Rcpp; 
@@ -13,12 +12,12 @@ using namespace fastlmmLib;
 
 
 // Depends on Rcpp::List, so define outside of class
-const List toList(fastlmm_result &res){
+const List toList(ModelFitLMM &res){
 
   return List::create( 
                 Named("logLik")       = res.logLik, 
-                Named("coefficients") = res.beta,
-                Named("se")           = res.beta_se,
+                Named("coefficients") = res.coef,
+                Named("se")           = res.se,
                 Named("vcov")         = res.vcov, 
                 Named("weights")      = res.weights,
                 Named("delta")        = res.delta,
@@ -34,16 +33,18 @@ const List toList(fastlmm_result &res){
 
 template <typename T1, typename T2, typename T3>
 const List toList(fastlmm<T1, T2, T3> & fit){
-  fastlmm_result a = fit.get_result();
+
+  ModelFitLMM a = fit.get_result();
+
   return toList( a);
 }
 
 
-List toList( const vector<fastlmm_result> &resList){
+List toList( const vector<ModelFitLMM> &resList){
   List L = List::create();
 
   for(int i=0; i<resList.size(); i++){
-    fastlmm_result a = resList.at(i);
+    ModelFitLMM a = resList.at(i);
     L.push_back( toList(a) );
   }
   return L;
@@ -173,11 +174,11 @@ List fastlmm_mmm(   const arma::mat &Y_all,
                     const int &nthreads){
 
   // initialize
-  fastlmmFitResponses fit = 
-    fastlmmFitResponses<mat, mat, mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
+  lmmFitResponses fit = 
+    lmmFitResponses<mat, mat, mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
 
   // evaluate each response
-  vector<fastlmm_result> res = fit.eval();
+  vector<ModelFitLMM> res = fit.eval();
 
   return toList(res);
 }
@@ -195,11 +196,11 @@ List fastlmm_msm(   const arma::mat &Y_all,
                     const int &nthreads){
 
   // initialize
-  fastlmmFitResponses fit = 
-    fastlmmFitResponses<mat, sp_mat, mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
+  lmmFitResponses fit = 
+    lmmFitResponses<mat, sp_mat, mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
 
   // evaluate each response
-  vector<fastlmm_result> res = fit.eval();
+  vector<ModelFitLMM> res = fit.eval();
 
   return toList(res);
 }
@@ -215,11 +216,11 @@ List fastlmm_mms(   const arma::mat &Y_all,
                     const int &nthreads){
 
   // initialize
-  fastlmmFitResponses fit = 
-    fastlmmFitResponses<mat, mat, sp_mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
+  lmmFitResponses fit = 
+    lmmFitResponses<mat, mat, sp_mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
 
   // evaluate each response
-  vector<fastlmm_result> res = fit.eval();
+  vector<ModelFitLMM> res = fit.eval();
 
   return toList(res);
 }
@@ -237,11 +238,11 @@ List fastlmm_mss(   const arma::mat &Y_all,
                     const int &nthreads){
 
   // initialize
-  fastlmmFitResponses fit = 
-    fastlmmFitResponses<mat, sp_mat, sp_mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
+  lmmFitResponses fit = 
+    lmmFitResponses<mat, sp_mat, sp_mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
 
   // evaluate each response
-  vector<fastlmm_result> res = fit.eval();
+  vector<ModelFitLMM> res = fit.eval();
 
   return toList(res);
 }
@@ -261,11 +262,11 @@ List fastlmmFitFeatures_m(const arma::mat &Y,
                             const int &nthreads){
 
   // initialize
-  fastlmmFitFeatures fit = 
-    fastlmmFitFeatures<mat, mat, mat>(Y, X_design, U, s, weights);
+  lmmFitFeatures fit = 
+    lmmFitFeatures<mat, mat, mat>(Y, X_design, U, s, weights);
 
   // evaluate each column of X_add, one at a time
-  vector<fastlmm_result> res = fit.eval(X_features, delta, left, right, tol, nthreads );
+  vector<ModelFitLMM> res = fit.eval(X_features, delta, left, right, tol, nthreads );
 
   return toList( res );
 }
@@ -285,52 +286,14 @@ List fastlmmFitFeatures_s(const arma::mat &Y,
                             const int &nthreads){
 
   // initialize
-  fastlmmFitFeatures fit = 
-    fastlmmFitFeatures<mat, mat, sp_mat>(Y, X_design, U, s, weights);
+  lmmFitFeatures fit = 
+    lmmFitFeatures<mat, mat, sp_mat>(Y, X_design, U, s, weights);
 
   // evaluate each column of X_add, one at a time
-  vector<fastlmm_result> res = fit.eval(X_features, delta, left, right, tol, nthreads );
+  vector<ModelFitLMM> res = fit.eval(X_features, delta, left, right, tol, nthreads );
 
   return toList( res );
 }
 
 
-
-
-
-
-
-
-// [[Rcpp::export]]
-List lmFitFeatures_export(const arma::vec &y, 
-                          const arma::mat &X_design, 
-                          const arma::mat &X_features, 
-                          const vector<string> &ids, 
-                          const arma::vec &weights, 
-                          const int detail = 0, 
-                          const bool &preprojection = true, 
-                          const int &nthreads = 1){
-
-  ModelDetail md = static_cast<ModelDetail>(detail);
-
-  if( preprojection && md == MOST ){
-    stop("Cannot compute hatvalues with pre-projection");
-  }
-
-  vector<ModelFit> fitList = lmFitFeatures(y, X_design, X_features, ids, weights, md, preprojection, nthreads);
-
-  return toList(fitList);
-}
-
-// [[Rcpp::export]]
-List lmFitResponses_export(const arma::mat &Y, const arma::mat &X, const vector<string> &ids, const arma::mat &Weights, const int detail = 0,const int &nthreads = 1){
-
-  ModelDetail md = static_cast<ModelDetail>(detail);
-
-
-  // convert responses from __rows__ to __columns__
-  vector<ModelFit> fitList = lmFitResponses(Y.t(), X, ids, Weights.t(), md, nthreads);
-
-  return toList(fitList);
-}
 

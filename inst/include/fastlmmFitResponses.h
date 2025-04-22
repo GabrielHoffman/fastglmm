@@ -8,16 +8,6 @@ using namespace std;
 
 #include "spectralDecomp.h"
 
-#ifdef _OPENMP
-    // [[Rcpp::plugins(openmp)]]
-    #include <omp.h>
-#else
-    #define omp_get_num_threads() 0
-    #define omp_get_thread_num() 0
-#endif
-
-
-
 namespace fastlmmLib {
 
 // Order of template variables
@@ -25,19 +15,19 @@ namespace fastlmmLib {
 // T2 X
 // T3 Z
 template <typename T1, typename T2, typename T3> 
-class fastlmmFitResponses {
+class lmmFitResponses {
 
     public:
-    fastlmmFitResponses(   const T1 &Y_all_, 
-                            const T2 &X_, 
-                            const T3 &Z_,
-                            const mat &Weights_,
-                            const double &left_,
-                            const double &right_,
-                            const double &tol_,
-                            const int &nthreads_);
+    lmmFitResponses(const T1 &Y_all_, 
+                    const T2 &X_, 
+                    const T3 &Z_,
+                    const mat &Weights_,
+                    const double &left_,
+                    const double &right_,
+                    const double &tol_,
+                    const int &nthreads_);
 
-    vector<fastlmm_result> eval();
+    ModelFitLMMList eval();
 
     private:
     T1 Y_all; 
@@ -52,7 +42,7 @@ class fastlmmFitResponses {
 
 // constructor
 template <typename T1, typename T2, typename T3> 
-fastlmmFitResponses<T1, T2, T3>::fastlmmFitResponses(
+lmmFitResponses<T1, T2, T3>::lmmFitResponses(
                             const T1 &Y_all_, 
                             const T2 &X_, 
                             const T3 &Z_,
@@ -76,25 +66,14 @@ fastlmmFitResponses<T1, T2, T3>::fastlmmFitResponses(
 // NOTE: Do not use Rcpp in parallel section
 // "C stack usage is too close to the limit"
 template <typename T1, typename T2, typename T3> 
-vector<fastlmm_result> 
-  fastlmmFitResponses<T1, T2, T3>::eval(){
+ModelFitLMMList 
+  lmmFitResponses<T1, T2, T3>::eval(){
 
-  int n_responses = Y_all.n_cols;
+    int n_responses = Y_all.n_cols;
 
-  // store results
-  vector<fastlmm_result> result(n_responses, fastlmm_result());
+    // store results
+    ModelFitLMMList result(n_responses, ModelFitLMM());
 
-  #ifdef _OPENMP 
-  // set threads
-  omp_set_num_threads(nthreads);
-  // disable nested parallelism
-  omp_set_max_active_levels(1);
-  #endif
-
-  #pragma omp parallel
-  {
-    // iterate through responses 
-    #pragma omp for 
     for( int i = 0; i < n_responses; i++){
 
         T1 y = Y_all.col(i);
@@ -110,9 +89,8 @@ vector<fastlmm_result>
         // #pragma omp critical
         result.at(i) = fit.get_result();
     }
-  }
-
-  return result;
+  
+    return result;
 }
 
 

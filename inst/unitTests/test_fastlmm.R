@@ -108,10 +108,11 @@ test_multivariate = function(){
 	library(Matrix)
 	library(lme4)
 	library(RUnit)
+	library(microbenchmark)
 	set.seed(1)
 
-	n = 1000
-	ndonors = 30
+	n = 100000
+	ndonors = 1000
 
 	info = data.frame(x = rnorm(n))
 	info$Indiv = factor(sample(seq(ndonors), n, replace=TRUE))
@@ -124,7 +125,7 @@ test_multivariate = function(){
 	dcmp = indicator_decomp( info$Indiv )
 	indicObj = preprocess_indicator( info$Indiv )
 
-	n_reps = 100
+	n_reps = 1000
 	Y_stack = lapply(seq(n_reps), function(x){ info$y})
 	Y_stack = do.call(cbind, Y_stack)
 	colnames(Y_stack) = paste0("resp_", seq(ncol(Y_stack)))
@@ -179,10 +180,44 @@ test_multivariate = function(){
 	system.time(
 		a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, nthreads=1))
 	system.time(
-		a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights))
-	system.time(
-		fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights, delta=1))
+		fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, delta=1))
+	# system.time(
+		# a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights))
 	}
+
+	if( FALSE ){
+		res <- microbenchmark( 
+			lmer = replicate(n_reps,lmer(y ~ x + (1|Indiv), info, REML=FALSE, weights = weights)),
+			fastlmm = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, nthreads=1),
+			# fastlmm_delta = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, delta=1),
+			unit="seconds",
+			times=1)
+
+		library(ggplot2)
+		library(tidyverse)
+		main = paste0("Cells: ", n, ", donors: ", ndonors, ", genes: ", n_reps)
+
+		fig = res %>% 
+			data.frame %>%
+			mutate(Seconds = time *1e-9) %>%
+			ggplot(aes(Seconds, expr, fill = expr, label=format(Seconds, digits=2))) +
+				geom_bar(stat="identity") +
+				theme_classic() +
+				theme(aspect.ratio=1, plot.title = element_text(hjust = 0.5), legend.position="none") + 
+				xlab("Runtime (seconds)") +
+				ylab("Method") +
+				scale_x_continuous(expand=c(0,0), limits=c(0,700)) +
+				scale_fill_manual(values=c("red3", "blue3")) +
+				ggtitle(main) +
+				geom_text(aes(x = Seconds + 35))
+
+		ggsave(fig, file="~/Downloads/fastlmm.png", height=5, width=5)
+
+
+
+
+	}
+
 }
 
 

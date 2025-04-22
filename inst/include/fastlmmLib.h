@@ -8,6 +8,5 @@
 #include "fastlmm.h"
 #include "fastlmmFitResponses.h"
 #include "fastlmmFitFeatures.h"
-#include "linearRegression.h"
 
 #endif

@@ -1,4 +1,8 @@
 
+# fastlmm 0.2.0
+ - March 6, 2025
+ - Major refactor
+
 # fastlmm 0.1.6
  - Nov 19, 2024
  - fix API for linear and mixed model regression

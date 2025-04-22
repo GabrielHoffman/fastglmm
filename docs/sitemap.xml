@@ -1,84 +1,255 @@
-<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/404.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/authors.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/_rcpp_exports_8cpp.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/annotated.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classes.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm-members.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm__result-members.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm__result.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_batch_design-members.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_batch_design.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_batch_response-members.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_batch_response.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_fit_features-members.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_fit_features.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_fit_responses-members.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_fit_responses.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1spectral_decomp-members.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1spectral_decomp.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/dir_2b5d1a398a9eec011391d543f21db223.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/dir_68267d1309a1af8e8297ef4c3efbcdba.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/dir_920884c6b3b2f0be94e27d51660adee5.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/doxygen_crawl.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/export_8cpp.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/export_to_r_8h.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/export_to_r_8h_source.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_8h.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_8h_source.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_batch_design_8h.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_batch_design_8h_source.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_batch_response_8cpp.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_batch_response_8h.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_batch_response_8h_source.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_fit_features_8h.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_fit_features_8h_source.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_fit_responses_8h.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_fit_responses_8h_source.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_lib_8h.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_lib_8h_source.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/files.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/functions.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/functions_func.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/functions_vars.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/globals.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/globals_defs.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/globals_func.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/index.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/linear_regression_8h.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/linear_regression_8h_source.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/local__min_8h.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/local__min_8h_source.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/misc_8h.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/misc_8h_source.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespacefastlmm_lib.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespacemembers.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespacemembers_enum.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespacemembers_eval.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespacemembers_func.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespaces.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/spectral_decomp_8h.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/spectral_decomp_8h_source.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/structfastlmm_lib_1_1_l_m_work-members.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/structfastlmm_lib_1_1_l_m_work.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/structfastlmm_lib_1_1_model_fit-members.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/structfastlmm_lib_1_1_model_fit.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/structfunc_struct-members.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/structfunc_struct.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/index.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/news/index.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/reference/as.fastlmm.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/reference/fastglmm.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/reference/fastlmm.fit.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/reference/fastlmm.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/reference/fastlmm3.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/reference/fastlmm_R.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/reference/index.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/reference/indicator_decomp.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/reference/lmFitFeatures.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/reference/lmFitResponses.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/reference/preprocess_indicator.html</loc></url>
-<url><loc>http://GabrielHoffman.github.io/fastglmm/reference/sigma.fastlmm.html</loc></url>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/404.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/authors.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/_rcpp_exports_8cpp.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/annotated.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classes.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm__result-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm__result.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_batch_design-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_batch_design.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_batch_response-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_batch_response.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_fit_features-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_fit_features.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_fit_responses-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_fit_responses.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1spectral_decomp-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1spectral_decomp.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/dir_2b5d1a398a9eec011391d543f21db223.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/dir_68267d1309a1af8e8297ef4c3efbcdba.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/dir_920884c6b3b2f0be94e27d51660adee5.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/doxygen_crawl.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/export_8cpp.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/export_to_r_8h.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/export_to_r_8h_source.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_8h.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_8h_source.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_batch_design_8h.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_batch_design_8h_source.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_batch_response_8cpp.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_batch_response_8h.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_batch_response_8h_source.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_fit_features_8h.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_fit_features_8h_source.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_fit_responses_8h.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_fit_responses_8h_source.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_lib_8h.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/fastlmm_lib_8h_source.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/files.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/functions.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/functions_func.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/functions_vars.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/globals.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/globals_defs.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/globals_func.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/index.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/linear_regression_8h.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/linear_regression_8h_source.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/local__min_8h.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/local__min_8h_source.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/misc_8h.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/misc_8h_source.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespacefastlmm_lib.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespacemembers.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespacemembers_enum.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespacemembers_eval.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespacemembers_func.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespaces.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/spectral_decomp_8h.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/spectral_decomp_8h_source.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/structfastlmm_lib_1_1_l_m_work-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/structfastlmm_lib_1_1_l_m_work.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/structfastlmm_lib_1_1_model_fit-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/structfastlmm_lib_1_1_model_fit.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/structfunc_struct-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/structfunc_struct.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/index.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/news/index.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/as.fastlmm.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/fastglmm.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/fastlmm.fit.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/fastlmm.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/fastlmm3.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/fastlmm_R.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/indicator_decomp.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/lmFitFeatures,ANY,ANY,matrix-method.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/lmFitFeatures,matrix-method.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/lmFitFeatures.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/lmFitResponses,matrix-method.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/lmFitResponses.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/preprocess_indicator.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/sigma.fastlmm.html</loc>
+  </url>
 </urlset>
-

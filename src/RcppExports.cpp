@@ -209,40 +209,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// lmFitFeatures_export
-List lmFitFeatures_export(const arma::vec& y, const arma::mat& X_design, const arma::mat& X_features, const vector<string>& ids, const arma::vec& weights, const int detail, const bool& preprojection, const int& nthreads);
-RcppExport SEXP _fastlmm_lmFitFeatures_export(SEXP ySEXP, SEXP X_designSEXP, SEXP X_featuresSEXP, SEXP idsSEXP, SEXP weightsSEXP, SEXP detailSEXP, SEXP preprojectionSEXP, SEXP nthreadsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::vec& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type X_design(X_designSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type X_features(X_featuresSEXP);
-    Rcpp::traits::input_parameter< const vector<string>& >::type ids(idsSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
-    Rcpp::traits::input_parameter< const int >::type detail(detailSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type preprojection(preprojectionSEXP);
-    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
-    rcpp_result_gen = Rcpp::wrap(lmFitFeatures_export(y, X_design, X_features, ids, weights, detail, preprojection, nthreads));
-    return rcpp_result_gen;
-END_RCPP
-}
-// lmFitResponses_export
-List lmFitResponses_export(const arma::mat& Y, const arma::mat& X, const vector<string>& ids, const arma::mat& Weights, const int detail, const int& nthreads);
-RcppExport SEXP _fastlmm_lmFitResponses_export(SEXP YSEXP, SEXP XSEXP, SEXP idsSEXP, SEXP WeightsSEXP, SEXP detailSEXP, SEXP nthreadsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
-    Rcpp::traits::input_parameter< const vector<string>& >::type ids(idsSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type Weights(WeightsSEXP);
-    Rcpp::traits::input_parameter< const int >::type detail(detailSEXP);
-    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
-    rcpp_result_gen = Rcpp::wrap(lmFitResponses_export(Y, X, ids, Weights, detail, nthreads));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_fastlmm_fastlmm_vmm", (DL_FUNC) &_fastlmm_fastlmm_vmm, 10},
@@ -255,8 +221,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_fastlmm_fastlmm_mss", (DL_FUNC) &_fastlmm_fastlmm_mss, 9},
     {"_fastlmm_fastlmmFitFeatures_m", (DL_FUNC) &_fastlmm_fastlmmFitFeatures_m, 11},
     {"_fastlmm_fastlmmFitFeatures_s", (DL_FUNC) &_fastlmm_fastlmmFitFeatures_s, 11},
-    {"_fastlmm_lmFitFeatures_export", (DL_FUNC) &_fastlmm_lmFitFeatures_export, 8},
-    {"_fastlmm_lmFitResponses_export", (DL_FUNC) &_fastlmm_lmFitResponses_export, 6},
     {NULL, NULL, 0}
 };
 
