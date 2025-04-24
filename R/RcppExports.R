@@ -41,11 +41,3 @@
     .Call('_fastlmm_fastlmmFitFeatures_s', PACKAGE = 'fastlmm', Y, X_design, X_features, U, s, weights, delta, left, right, tol, nthreads)
 }
 
-lmFitFeatures_export <- function(y, X_design, X_features, ids, weights, detail = 0L, preprojection = TRUE, nthreads = 1L) {
-    .Call('_fastlmm_lmFitFeatures_export', PACKAGE = 'fastlmm', y, X_design, X_features, ids, weights, detail, preprojection, nthreads)
-}
-
-lmFitResponses_export <- function(Y, X, ids, Weights, detail = 0L, nthreads = 1L) {
-    .Call('_fastlmm_lmFitResponses_export', PACKAGE = 'fastlmm', Y, X, ids, Weights, detail, nthreads)
-}
-

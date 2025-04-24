@@ -24,16 +24,17 @@
 #' fit2 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML = FALSE)
 #' coef(summary(fit2))
 #'
-#' @details \insertCite{hoffman2013}{fastlmm} and \insertCite{lippert2011}{fastlmm}
+#' @details Hoffman (2013), Lippert, et al. (2011) 
 #'
 #' @references
-#' \insertAllCited{}
+#' Hoffman, G. E. (2013). Correcting for population structure and kinship using the linear mixed model: theory and extensions. PloS one, 8(10), e75707. \url{https://doi.org/10.1371/journal.pone.0075707}
+#' 
+#' Lippert, C., Listgarten, J., Liu, Y., Kadie, C. M., Davidson, R. I., & Heckerman, D. (2011). FaST linear mixed models for genome-wide association studies. Nature methods, 8(10), 833-835. \url{https://www.nature.com/articles/nmeth.1681}
 #'
 # other args
 # verbose = 0L, subset, weights = NULL, na.action, offset, contrasts = NULL
 #' @importFrom lme4 findbars nobars
 #' @importFrom stats as.formula model.frame model.response model.matrix update model.offset
-#' @importFrom Rdpack reprompt
 #' @seealso \code{lme4::lmer()}
 #' @export
 fastlmm <- function(formula, data, REML = TRUE, delta = NULL, weights = NULL, delta.range = c(-10, 10), tol = .Machine$double.eps^0.5, nthreads = 6) {

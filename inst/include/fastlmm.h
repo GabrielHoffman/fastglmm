@@ -13,43 +13,112 @@ using namespace arma;
 
 #include "local_min.h"
 #include "misc.h"
+#include "ModelFit.h"
 
 namespace fastlmmLib {
 
-class fastlmm_result {       
+class ModelFitLMM : public ModelFit {      
   public:  
-    double logLik, sigSq_g, sigSq_e, delta;
-    int iter;
-    vec beta, beta_se, weights, ru, y;
-    mat vcov;
+  // additional information needed beyond ModelFit
+  double logLik;
+  vec weights, ru, y;
+  double delta, sigSq_g, sigSq_e;
+  int iter;
 
-    fastlmm_result(){}
+  ModelFitLMM(){}
 
-    fastlmm_result( const double &logLik_,
-                    const vec &beta_,
-                    const mat &vcov_,
-                    const vec &beta_se_,
-                    const vec &weights_,
-                    const vec &ru_,
-                    const vec &y_,
-                    const double &delta_,
-                    const double &sigSq_g_,
-                    const double &sigSq_e_,
-                    const int &iter_ ){
-      logLik  = logLik_;
-      beta    = beta_;
-      vcov    = vcov_;
-      beta_se = beta_se_;
-      weights = weights_;
-      ru = ru_;
-      y = y_;
-      delta   = delta_;
-      sigSq_g = sigSq_g_;
-      sigSq_e = sigSq_e_;
-      iter    = iter_;
-    }
+   // LEAST
+  ModelFitLMM(const bool & success, 
+              const double &logLik,
+              const vec &weights,
+              const vec &ru,
+              const vec &y,
+              const double &delta,
+              const double &sigSq_g,
+              const double &sigSq_e,
+              const int &iter, 
+              const vec &coef) : 
+    ModelFit( success, coef),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    {} 
+
+  // LOW
+  ModelFitLMM( const bool & success, 
+                  const double &logLik,
+                  const vec &weights,
+                  const vec &ru,
+                  const vec &y,
+                  const double &delta,
+                  const double &sigSq_g,
+                  const double &sigSq_e,
+                  const int &iter, 
+                  const vec &coef, 
+                  const vec &se, 
+                  const double &rdf) : 
+    ModelFit( success, coef, se, sigSq_e, rdf),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    {} 
+  
+  // MEDIUM
+  ModelFitLMM( const bool & success, 
+                  const double &logLik,
+                  const vec &weights,
+                  const vec &ru,
+                  const vec &y,
+                  const double &delta,
+                  const double &sigSq_g,
+                  const double &sigSq_e,
+                  const int &iter, 
+                  const vec &coef, 
+                  const vec &se, 
+                  const double &rdf, 
+                  const mat & vcov) : 
+    ModelFit( success, coef, se, sigSq_e, rdf, vcov),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter) 
+    {} 
+
+  // HIGH
+  ModelFitLMM( const bool & success, 
+                  const double &logLik,
+                  const vec &weights,
+                  const vec &ru,
+                  const vec &y,
+                  const double &delta,
+                  const double &sigSq_g,
+                  const double &sigSq_e,
+                  const int &iter, 
+                  const vec &coef, 
+                  const vec &se, 
+                  const double &rdf, 
+                  const mat & vcov, 
+                  const vec &residuals) : 
+    ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    {}   
+
+  // MOST
+  ModelFitLMM( const bool & success, 
+                  const double &logLik,
+                  const vec &weights,
+                  const vec &ru,
+                  const vec &y,
+                  const double &delta,
+                  const double &sigSq_g,
+                  const double &sigSq_e,
+                  const int &iter, 
+                  const vec &coef, 
+                  const vec &se, 
+                  const double &rdf, 
+                  const mat & vcov, 
+                  const vec &residuals, 
+                  const vec &hatvalues) : 
+    ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals, hatvalues),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    {}   
 };
 
+
+typedef vector<ModelFitLMM> ModelFitLMMList;
 
 // Order of template variables
 // T1 Y
@@ -100,23 +169,23 @@ class fastlmm {
                          const mat &Yu_);
 
     // extract results
-    fastlmm_result get_result(){
+    ModelFitLMM get_result(){
 
       mat V = get_vcov();
 
-      vec w = get_weights();
-
-      return fastlmm_result(  get_logLik(),
-                              get_beta(),
-                              V,
-                              sqrt(diagvec(V)),
-                              get_weights(),
-                              get_ru(),
-                              get_y(),
-                              get_delta(),
-                              get_sigSq_g(),
-                              get_sigSq_e(),
-                              get_iter());
+      return ModelFitLMM( true, 
+                get_logLik(),
+                get_weights(),
+                get_ru(),
+                get_y(),
+                get_delta(),
+                get_sigSq_g(),
+                get_sigSq_e(),
+                get_iter(),
+                get_beta(),
+                sqrt(diagvec(V)), 
+                get_rdf(),
+                V);
     }
 
     // Accessors
@@ -138,7 +207,9 @@ class fastlmm {
     // how to combine X and K?
     // to create diagonals of hat matrix?
     const double get_edf(); // defined before
-    const double get_rdf(); // based on Hastie, et al
+    const double get_rdf(){
+      return r.n_rows - X.n_cols;
+    } // based on Hastie, et al
     const vec hatvalues(); // diag of hat matrix
     const vec residuals();
     const vec predict();

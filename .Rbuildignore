@@ -1,3 +1,5 @@
 ^\.github$
 docs
 _pkgdown.yml
+^vignettes/Makefile$
+^inst/doxygen$

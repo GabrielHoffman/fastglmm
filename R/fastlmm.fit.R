@@ -57,7 +57,6 @@ as.fastlmm <- function(x, design, offset, method) {
 }
 
 
-#' @importFrom S4Vectors coolcat
 #' @export
 print.fastlmmList <- function(x, ...) {
   cat("\nCall:\n", paste(deparse(attr(x, "call")), sep = "\n", collapse = "\n"), "\n\n", sep = "")
@@ -119,6 +118,7 @@ fastlmm.fit <- function(Y, X, Z, offset = NULL, delta = NULL, rank = ncol(Z), we
   delta <- ifelse(is.null(delta), -1, delta)
 
   if (!identical(dim(Y), dim(weights))) {
+    browser()
     stop("Dimension of Y and weights must be the same")
   }
 

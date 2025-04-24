@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['delta_0',['delta',['../classfastlmm_lib_1_1fastlmm__result.html#a9020e3de470a79f17da8b049be3d7283',1,'fastlmmLib::fastlmm_result']]]
+  ['function_0',['function',['../structfunc_struct.html#a1ee5932dce2b8db8f1d6b9ae043f582f',1,'funcStruct']]]
 ];

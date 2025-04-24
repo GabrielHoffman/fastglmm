@@ -1,0 +1,120 @@
+\doxysection{Model\+Fit.\+h}
+\hypertarget{_model_fit_8h_source}{}\label{_model_fit_8h_source}\index{inst/include/ModelFit.h@{inst/include/ModelFit.h}}
+\mbox{\hyperlink{_model_fit_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/***********************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ \ \ \ \ ModelFit.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ @author\ \ \ \ \ \ Gabriel\ Hoffman}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ @email\ \ \ \ \ \ \ gabriel.hoffman@mssm.edu}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ @brief\ \ \ \ \ \ \ Store\ parameters\ from\ model\ fit}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2024\ Gabriel\ Hoffman}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ ***********************************************************************/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ from\ fastlmm}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{misc_8h}{misc.h}}>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{using\ namespace\ }arma;}
+\DoxyCodeLine{00017\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ Specify\ level\ of\ model\ detail\ to\ return\ from\ regression\ fit}}
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{_model_fit_8h_ac3fb2f1c70ff5af98fa773661b1deab4a93ce8972d0f4ddf006654868cef460f0}{LEAST}},\ \ \textcolor{comment}{//\ just\ beta}}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{_model_fit_8h_ac3fb2f1c70ff5af98fa773661b1deab4a6a226f4143ca3b18999551694cdb72a8}{LOW}},\ \ \ \ \ \textcolor{comment}{//\ baseline\ parameters:\ beta,\ se,\ dispersion,\ rdf}}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{_model_fit_8h_ac3fb2f1c70ff5af98fa773661b1deab4a5340ec7ecef6cc3886684a3bd3450d64}{MEDIUM}},\ \textcolor{comment}{//\ vcov}}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{_model_fit_8h_ac3fb2f1c70ff5af98fa773661b1deab4a0c3a1dacf94061154b3ee354359c5893}{HIGH}},\ \ \ \textcolor{comment}{//\ pearson\ residuals}}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{_model_fit_8h_ac3fb2f1c70ff5af98fa773661b1deab4a9dc4ab9acd588be3559f4e914ec81f65}{MOST}},\ \ \ \textcolor{comment}{//\ hatvalues,\ fitted.values}}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{_model_fit_8h_ac3fb2f1c70ff5af98fa773661b1deab4ad7e097bda6d981de2520f49fe74c25b7}{MAX}}\ \ \ \ \ \textcolor{comment}{//\ deviance\ residuals}}
+\DoxyCodeLine{00027\ \}\ \mbox{\hyperlink{_model_fit_8h_ac3fb2f1c70ff5af98fa773661b1deab4}{ModelDetail}};}
+\DoxyCodeLine{00028\ \ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_model_fit_a9749852053f0a7bd55c5388bdaa319dd}{ModelFit}}\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{public}:\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}};}
+\DoxyCodeLine{00034\ \ \ \ \ vec\ \mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}};}
+\DoxyCodeLine{00035\ \ \ \ \ vec\ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}};}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_model_fit_ab7196b1e23b991e87b944a3606e73799}{ID}};}
+\DoxyCodeLine{00039\ \ \ \ \ mat\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}};}
+\DoxyCodeLine{00040\ \ \ \ \ vec\ \mbox{\hyperlink{class_model_fit_aa1312a776d691af917f8c41c4d849df3}{residuals}};}
+\DoxyCodeLine{00041\ \ \ \ \ vec\ \mbox{\hyperlink{class_model_fit_a727d34245889930071e38f01d1a8a83f}{hatvalues}};}
+\DoxyCodeLine{00042\ \ \ \ \ vec\ \mbox{\hyperlink{class_model_fit_a308854170ab0ed2695e9d2ac2f4f6357}{mu}};}
+\DoxyCodeLine{00043\ \ \ \ \ vec\ \mbox{\hyperlink{class_model_fit_aa8748da2c53f059ad80aee3604d72168}{devianceResiduals}};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_model_fit_a9749852053f0a7bd55c5388bdaa319dd}{ModelFit}}()\ \{\}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{//\ LEAST}}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{class_model_fit_adc4541511905745535435b37ac84bef5}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}})\ :\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}(\mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}),\ \mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}(\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}})\ \{\}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{comment}{//\ LOW}}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{class_model_fit_a29917fe4f279289047d0a6ab826782d8}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}})\ :\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}(\mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}),\ \mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}(\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}),\ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}(\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}),\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}(\mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}),\ \mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}(\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}})\ \{}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ init();}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{comment}{//\ LOW\ with\ scalar\ coef\ and\ se}}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_model_fit_adf7b8a2234574633e7837c84ca11ad63}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}):\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}(\mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}),\ \mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}(vec(1,\ fill::value(\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}))),\ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}(vec(1,\ fill::value(\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}))),\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}(\mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}),\ \mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}(\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}})\ \{\}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ MEDIUM}}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_model_fit_abb2b9891b31f70693c28a3b6993c7ec8}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}},\ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}})\ :}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}(\mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}),\ \mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}(\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}),\ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}(\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}),\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}(\mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}),\ \mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}(\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}),\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}(\mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}})\ \{}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ init();}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{//\ HIGH}}
+\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{class_model_fit_af5a9746f8bb2c0816030bc78e38bd728}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}},\ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_aa1312a776d691af917f8c41c4d849df3}{residuals}})\ :\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}(\mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}),\ \mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}(\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}),\ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}(\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}),\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}(\mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}),\ \mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}(\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}),\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}(\mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}),\ \mbox{\hyperlink{class_model_fit_aa1312a776d691af917f8c41c4d849df3}{residuals}}(\mbox{\hyperlink{class_model_fit_aa1312a776d691af917f8c41c4d849df3}{residuals}})\ \{}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ init();}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{comment}{//\ MOST}}
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{class_model_fit_a3772e452008b1c5717df4bdfbf494248}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}},\ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_aa1312a776d691af917f8c41c4d849df3}{residuals}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a727d34245889930071e38f01d1a8a83f}{hatvalues}})\ :\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}(\mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}),\ \mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}(\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}),\ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}(\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}),\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}(\mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}),\ \mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}(\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}),\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}(\mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}),\ \mbox{\hyperlink{class_model_fit_aa1312a776d691af917f8c41c4d849df3}{residuals}}(\mbox{\hyperlink{class_model_fit_aa1312a776d691af917f8c41c4d849df3}{residuals}}),\ \mbox{\hyperlink{class_model_fit_a727d34245889930071e38f01d1a8a83f}{hatvalues}}(\mbox{\hyperlink{class_model_fit_a727d34245889930071e38f01d1a8a83f}{hatvalues}})\ \{}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ init();}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//\ MAX}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_model_fit_a5be54e96e787f47bd8e94a994d7c206d}{setDevResids}}(\ \textcolor{keyword}{const}\ vec\ \&dr,\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a308854170ab0ed2695e9d2ac2f4f6357}{mu}})\{}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ transform\ from\ residuals.glm}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ d.res\ <-\/\ sqrt(pmax((object\$family\$dev.resids)(y,\ mu,\ }}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ wts),\ 0))}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ifelse(y\ >\ mu,\ d.res,\ -\/d.res)}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_aa8748da2c53f059ad80aee3604d72168}{devianceResiduals}}\ =\ sqrt(pmax(dr,\ 0));}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ uvec\ idx\ =\ find(y\ <=\ \mbox{\hyperlink{class_model_fit_a308854170ab0ed2695e9d2ac2f4f6357}{mu}});}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_aa8748da2c53f059ad80aee3604d72168}{devianceResiduals}}.elem(idx)\ =\ -\/1.0*\mbox{\hyperlink{class_model_fit_aa8748da2c53f059ad80aee3604d72168}{devianceResiduals}}.elem(idx);}
+\DoxyCodeLine{00093\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_model_fit_a0e4c7390296eb9b7ada56da67c17354f}{setFittedValues}}(\ \textcolor{keyword}{const}\ vec\ \&mu\_in)\{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a308854170ab0ed2695e9d2ac2f4f6357}{mu}}\ =\ mu\_in;}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{void}\ init()\{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ model\ didn't\ succeed,\ set\ values\ to\ nan}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}\ )\{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}.fill(datum::nan);}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}.fill(datum::nan);}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ vcov\ is\ empty,\ set\ to\ be\ se.n\_elem\ x\ se.n\_elem}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ with\ elements\ nan}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}.n\_elem\ ==\ 0)\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}\ =\ mat(\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}.n\_elem,\ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}.n\_elem);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}.fill(datum::nan);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{typedef}\ vector<ModelFit>\ \mbox{\hyperlink{_model_fit_8h_adc39be6a32d02a4af0c01f51ec1b114f}{ModelFitList}};}
+
+\end{DoxyCode}

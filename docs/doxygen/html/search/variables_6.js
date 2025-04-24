@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['loglik_0',['logLik',['../classfastlmm_lib_1_1fastlmm__result.html#a928e2ef28ac07a98d196057a4f07eb25',1,'fastlmmLib::fastlmm_result']]]
+  ['mu_0',['mu',['../class_model_fit.html#a308854170ab0ed2695e9d2ac2f4f6357',1,'ModelFit']]]
 ];

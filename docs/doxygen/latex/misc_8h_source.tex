@@ -15,105 +15,132 @@
 \DoxyCodeLine{00011\ }
 \DoxyCodeLine{00012\ \textcolor{keyword}{using\ namespace\ }arma;}
 \DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacefastlmm_lib}{fastlmmLib}}\ \{}
-\DoxyCodeLine{00015\ }
-\DoxyCodeLine{00016\ \textcolor{comment}{//\ for\ each\ column,\ scale\ by\ w}}
-\DoxyCodeLine{00017\ \textcolor{keyword}{inline}\ mat\ \mbox{\hyperlink{namespacefastlmm_lib_a5009d41cc8af32cb6424dc00ce60d9d5}{scaleEachCol}}(\textcolor{keyword}{const}\ mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
-\DoxyCodeLine{00018\ \ \ \textcolor{keywordflow}{return}\ X.each\_col()\ \%\ w;\ \ }
-\DoxyCodeLine{00019\ \}}
-\DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \textcolor{comment}{//\ for\ each\ column,\ scale\ by\ w}}
-\DoxyCodeLine{00022\ \textcolor{keyword}{inline}\ sp\_mat\ \mbox{\hyperlink{namespacefastlmm_lib_a5009d41cc8af32cb6424dc00ce60d9d5}{scaleEachCol}}(\textcolor{keyword}{const}\ sp\_mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \ \ sp\_mat\ M\ =\ sp\_mat(X);}
-\DoxyCodeLine{00025\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i=0;\ i<X.n\_cols;\ i++)\{}
-\DoxyCodeLine{00026\ \ \ \ \ M.col(i)\ \%=\ w;}
-\DoxyCodeLine{00027\ \ \ \}}
-\DoxyCodeLine{00028\ \ \ \textcolor{keywordflow}{return}(\ M\ );}
-\DoxyCodeLine{00029\ \}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ for\ each\ column,\ scale\ by\ w}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{inline}\ mat\ \mbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(\textcolor{keyword}{const}\ mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
+\DoxyCodeLine{00017\ \ \ \textcolor{keywordflow}{return}\ X.each\_col()\ \%\ w;\ \ }
+\DoxyCodeLine{00018\ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ for\ each\ column,\ scale\ by\ w}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{inline}\ sp\_mat\ \mbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(\textcolor{keyword}{const}\ sp\_mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ sp\_mat\ M\ =\ sp\_mat(X);}
+\DoxyCodeLine{00024\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i=0;\ i<X.n\_cols;\ i++)\{}
+\DoxyCodeLine{00025\ \ \ \ \ M.col(i)\ \%=\ w;}
+\DoxyCodeLine{00026\ \ \ \}}
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordflow}{return}(\ M\ );}
+\DoxyCodeLine{00028\ \}}
+\DoxyCodeLine{00029\ }
 \DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{comment}{//\ for\ each\ column,\ scale\ by\ w}}
-\DoxyCodeLine{00032\ \textcolor{keyword}{inline}\ mat\ \mbox{\hyperlink{namespacefastlmm_lib_a1d0c4fce86ef0941370cd7cdd78eb934}{scaleRows}}(\textcolor{keyword}{const}\ mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
-\DoxyCodeLine{00033\ \ \ \textcolor{keywordflow}{return}\ X.each\_col()\ \%\ w;\ \ }
-\DoxyCodeLine{00034\ \}}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \textcolor{comment}{//\ for\ each\ column,\ scale\ by\ w}}
-\DoxyCodeLine{00038\ \textcolor{keyword}{inline}\ sp\_mat\ \mbox{\hyperlink{namespacefastlmm_lib_a1d0c4fce86ef0941370cd7cdd78eb934}{scaleRows}}(\textcolor{keyword}{const}\ sp\_mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \ \ sp\_mat\ M\ =\ sp\_mat(X);}
-\DoxyCodeLine{00041\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i=0;\ i<X.n\_cols;\ i++)\{}
-\DoxyCodeLine{00042\ \ \ \ \ M.col(i)\ \%=\ w;}
-\DoxyCodeLine{00043\ \ \ \}}
-\DoxyCodeLine{00044\ \ \ \textcolor{keywordflow}{return}(\ M\ );}
-\DoxyCodeLine{00045\ \}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ scale\ by\ w\ and\ s}}
+\DoxyCodeLine{00032\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00033\ T\ \mbox{\hyperlink{misc_8h_aff616cc0cfc16600b8f55bf7b77f455e}{scaleRowsCols}}(\textcolor{keyword}{const}\ T\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w1,\ \textcolor{keyword}{const}\ vec\ \&w2)\{}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ T\ M\ =\ T(X);}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i=0;\ i<X.n\_cols;\ i++)\{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ M.col(i)\ \%=\ w1\ *\ w2(i);}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//\ manually\ setting\ order\ of\ operations\ is\ \_much\_\ faster}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ since\ this\ reduces\ the\ number\ of\ multiplications}}
+\DoxyCodeLine{00040\ \ \ \ \ M.col(i)\ *=\ w2(i);}
+\DoxyCodeLine{00041\ \ \ \ \ M.col(i)\ \%=\ w1;}
+\DoxyCodeLine{00042\ \ \ \}}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordflow}{return}(\ M\ );}
+\DoxyCodeLine{00044\ \}}
+\DoxyCodeLine{00045\ }
 \DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \textcolor{comment}{//\ template\ <typename\ T>\ }}
-\DoxyCodeLine{00049\ \textcolor{comment}{//\ T\ scaleRows(const\ T\ \&X,\ const\ vec\ \&w)\{}}
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ general\ case,\ returns\ false}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00049\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{misc_8h_a7f27bd5a55dc69659fbe6d20e0c6c4c4}{isSpMatrix}}(\textcolor{keyword}{const}\ T\ \&t)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \ \}\ }
 \DoxyCodeLine{00050\ }
-\DoxyCodeLine{00051\ \textcolor{comment}{//\ \ \ T\ M\ =\ T(X);}}
-\DoxyCodeLine{00052\ \textcolor{comment}{//\ \ \ for(size\_t\ i=0;\ i<X.n\_cols;\ i++)\{}}
-\DoxyCodeLine{00053\ \textcolor{comment}{//\ \ \ \ \ M.col(i)\ \%=\ w;}}
-\DoxyCodeLine{00054\ \textcolor{comment}{//\ \ \ \}}}
-\DoxyCodeLine{00055\ \textcolor{comment}{//\ \ \ return(\ M\ );}}
-\DoxyCodeLine{00056\ \textcolor{comment}{//\ \}}}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \textcolor{keyword}{inline}\ mat\ \mbox{\hyperlink{namespacefastlmm_lib_a1537dc18867c9ccdf9df5163ff370c51}{scaleCols}}(\textcolor{keyword}{const}\ mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
-\DoxyCodeLine{00059\ \ \ \textcolor{keywordflow}{return}\ X.each\_row()\ \%\ w;\ \ }
-\DoxyCodeLine{00060\ \}}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \textcolor{comment}{//\ for\ each\ column,\ scale\ by\ w}}
-\DoxyCodeLine{00064\ \textcolor{keyword}{inline}\ sp\_mat\ \mbox{\hyperlink{namespacefastlmm_lib_a1537dc18867c9ccdf9df5163ff370c51}{scaleCols}}(\textcolor{keyword}{const}\ sp\_mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
+\DoxyCodeLine{00051\ \ \textcolor{comment}{//\ but\ for\ sp\_mat\ returns\ true}}
+\DoxyCodeLine{00052\ \textcolor{keyword}{template}\ <>}
+\DoxyCodeLine{00053\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{misc_8h_a7f27bd5a55dc69659fbe6d20e0c6c4c4}{isSpMatrix}}(\ \textcolor{keyword}{const}\ sp\_mat\ \&t)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ template\ <typename\ T>}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ const\ T\&\ min(const\ T\&\ a,\ const\ T\&\ b)\ \{}}
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ \ \ \ \ return\ (a\ <\ b)\ ?\ a\ :\ b;}}
+\DoxyCodeLine{00059\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ template\ <typename\ T>}}
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ const\ T\&\ max(const\ T\&\ a,\ const\ T\&\ b)\ \{}}
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ \ \ \ \ return\ (a\ >\ b)\ ?\ a\ :\ b;}}
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ \}}}
 \DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \ \ sp\_mat\ M\ =\ sp\_mat(X);}
-\DoxyCodeLine{00067\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i=0;\ i<X.n\_cols;\ i++)\{}
-\DoxyCodeLine{00068\ \ \ \ \ M.col(i)\ *=\ w(i);}
-\DoxyCodeLine{00069\ \ \ \}}
-\DoxyCodeLine{00070\ \ \ \textcolor{keywordflow}{return}(\ M\ );}
-\DoxyCodeLine{00071\ \}}
+\DoxyCodeLine{00066\ \textcolor{keyword}{static}\ vec\ pmax(\ \textcolor{keyword}{const}\ vec\ \&v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&value)\{}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ vec\ tmp(v);}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<tmp.n\_elem;\ i++)\{}
+\DoxyCodeLine{00070\ \ \ \ \ tmp[i]\ =\ std::max(tmp[i],\ value);}
+\DoxyCodeLine{00071\ \ \ \}}
 \DoxyCodeLine{00072\ }
-\DoxyCodeLine{00073\ \textcolor{comment}{//\ template\ <typename\ T>\ }}
-\DoxyCodeLine{00074\ \textcolor{comment}{//\ T\ scaleCols(const\ T\ \&X,\ const\ vec\ \&w)\{}}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordflow}{return}\ tmp;}
+\DoxyCodeLine{00074\ \}}
 \DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \textcolor{comment}{//\ \ \ T\ M\ =\ T(X);}}
-\DoxyCodeLine{00077\ \textcolor{comment}{//\ \ \ for(size\_t\ i=0;\ i<X.n\_cols;\ i++)\{}}
-\DoxyCodeLine{00078\ \textcolor{comment}{//\ \ \ \ \ M.col(i)\ *=\ w(i);}}
-\DoxyCodeLine{00079\ \textcolor{comment}{//\ \ \ \}}}
-\DoxyCodeLine{00080\ \textcolor{comment}{//\ \ \ return(\ M\ );}}
-\DoxyCodeLine{00081\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00076\ \textcolor{keyword}{static}\ vec\ pmin(\ \textcolor{keyword}{const}\ vec\ \&v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&value)\{}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ vec\ tmp(v);}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<tmp.n\_elem;\ i++)\{}
+\DoxyCodeLine{00080\ \ \ \ \ tmp[i]\ =\ std::min(tmp[i],\ value);}
+\DoxyCodeLine{00081\ \ \ \}}
 \DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \textcolor{comment}{//\ //\ scale\ by\ w\ and\ s}}
-\DoxyCodeLine{00084\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00085\ T\ \mbox{\hyperlink{namespacefastlmm_lib_af02cc098608137ba1b8ce04a1d7cf1d7}{scaleRowsCols}}(\textcolor{keyword}{const}\ T\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w1,\ \textcolor{keyword}{const}\ vec\ \&w2)\{}
-\DoxyCodeLine{00086\ }
-\DoxyCodeLine{00087\ \ \ T\ M\ =\ T(X);}
-\DoxyCodeLine{00088\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i=0;\ i<X.n\_cols;\ i++)\{}
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{comment}{//\ M.col(i)\ \%=\ w1\ *\ w2(i);}}
-\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{//\ manually\ setting\ order\ of\ operations\ is\ \_much\_\ faster}}
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{comment}{//\ since\ this\ reduces\ the\ number\ of\ multiplications}}
-\DoxyCodeLine{00092\ \ \ \ \ M.col(i)\ *=\ w2(i);}
-\DoxyCodeLine{00093\ \ \ \ \ M.col(i)\ \%=\ w1;}
-\DoxyCodeLine{00094\ \ \ \}}
-\DoxyCodeLine{00095\ \ \ \textcolor{keywordflow}{return}(\ M\ );}
-\DoxyCodeLine{00096\ \}}
-\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordflow}{return}\ tmp;}
+\DoxyCodeLine{00084\ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{static}\ vec\ qnorm(\ \textcolor{keyword}{const}\ vec\ \&\ v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&mean=0,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&sd=1\ )\{}
+\DoxyCodeLine{00087\ \ \ vec\ tmp(v);}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<tmp.n\_elem;\ i++)\{}
+\DoxyCodeLine{00089\ \ \ \ \ tmp[i]\ =\ R::qnorm(tmp[i],\ mean,\ sd,\ 1,\ 0);}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{//\ tmp[i]\ =\ glm::qnorm(tmp[i],\ \ mean,\ sd,\ 1,\ 0);}}
+\DoxyCodeLine{00091\ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordflow}{return}\ tmp;}
+\DoxyCodeLine{00094\ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{static}\ vec\ y\_log\_y(\textcolor{keyword}{const}\ vec\ \&\ y,\ \textcolor{keyword}{const}\ vec\ \&\ mu)\{}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{comment}{//\ (y)\ ?\ (y\ *\ log(y/mu))\ :\ 0;}}
 \DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \textcolor{comment}{//\ general\ case,\ returns\ false}}
-\DoxyCodeLine{00100\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
-\DoxyCodeLine{00101\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacefastlmm_lib_aacc735b41c962e560f034bab30591237}{isSpMatrix}}(\textcolor{keyword}{const}\ T\ \&t)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \ \}\ }
-\DoxyCodeLine{00102\ }
-\DoxyCodeLine{00103\ \ \textcolor{comment}{//\ but\ for\ sp\_mat\ returns\ true}}
-\DoxyCodeLine{00104\ \textcolor{keyword}{template}\ <>}
-\DoxyCodeLine{00105\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacefastlmm_lib_aacc735b41c962e560f034bab30591237}{isSpMatrix}}(\ \textcolor{keyword}{const}\ sp\_mat\ \&t)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}\ }
-\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{comment}{//\ initialize\ to\ zeros}}
+\DoxyCodeLine{00100\ \ \ vec\ ret(y.n\_elem,\ fill::zeros);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<y.n\_elem;\ i++)\{}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{if}(\ y[i]\ !=\ 0.0)\{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ ret[i]\ =\ y[i]\ *\ log(y[i]/mu[i]);}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \}}
 \DoxyCodeLine{00107\ }
-\DoxyCodeLine{00108\ }
-\DoxyCodeLine{00109\ }
-\DoxyCodeLine{00110\ \}}
-\DoxyCodeLine{00111\ }
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00109\ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{//\ Adapted\ from\ tbb::blocked\_range}}
+\DoxyCodeLine{00112\ \textcolor{comment}{//\ Designed\ to\ be\ used\ when\ tbb\ is\ not\ available}}
+\DoxyCodeLine{00113\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00114\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classblocked__range_a2d8fd08bdc4b9f36956da0ab4a20e35a}{blocked\_range}}\ \{}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ constructors}}
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{classblocked__range_a2d8fd08bdc4b9f36956da0ab4a20e35a}{blocked\_range}}(\ T\ \mbox{\hyperlink{classblocked__range_ae476798641214d341773f96d6a34dd7f}{begin}},\ T\ \mbox{\hyperlink{classblocked__range_a3fcfbfea120452696ad38bc0ac4642eb}{end}}\ )\ :\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ begin\_value(\mbox{\hyperlink{classblocked__range_ae476798641214d341773f96d6a34dd7f}{begin}}),\ end\_value(\mbox{\hyperlink{classblocked__range_a3fcfbfea120452696ad38bc0ac4642eb}{end}})\ \{\}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{comment}{//\ get\ range\ limits}}
+\DoxyCodeLine{00121\ \ \ \ \ T\ \mbox{\hyperlink{classblocked__range_ae476798641214d341773f96d6a34dd7f}{begin}}()\{\ \textcolor{keywordflow}{return}\ begin\_value;\ \}}
+\DoxyCodeLine{00122\ \ \ \ \ T\ \mbox{\hyperlink{classblocked__range_a3fcfbfea120452696ad38bc0ac4642eb}{end}}()\{\ \textcolor{keywordflow}{return}\ end\_value;\ \}}
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00124\ \ \ \ \ T\ begin\_value,\ end\_value;}
+\DoxyCodeLine{00125\ \};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{comment}{//\ Set\ OpenMP\ threads\ to\ 1\ and\ disable\ nested\ parallelism}}
+\DoxyCodeLine{00129\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ disable\_parallel\_blas()\{}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\ \ \#ifdef\ \_OPENMP}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\ \ \#include\ <omp.h>}\ }
+\DoxyCodeLine{00132\ \ \ \textcolor{comment}{//\ set\ threads}}
+\DoxyCodeLine{00133\ \ \ omp\_set\_num\_threads(1);}
+\DoxyCodeLine{00134\ \ \ \textcolor{comment}{//\ disable\ nested\ parallelism}}
+\DoxyCodeLine{00135\ \ \ omp\_set\_max\_active\_levels(0);}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{00137\ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

@@ -1,4 +1,9 @@
 var searchData=
 [
-  ['tolist_0',['toList',['../export_8cpp.html#ab1c68146eead34e03299381e09f18d69',1,'toList(fastlmm_result &amp;res):&#160;export.cpp'],['../export_8cpp.html#ab9696a0e4bb6c0618c95305b0754a5e9',1,'toList(fastlmm&lt; T1, T2, T3 &gt; &amp;fit):&#160;export.cpp'],['../export_8cpp.html#a8c477e98a8047542cb45d3d16644f239',1,'toList(const vector&lt; fastlmm_result &gt; &amp;resList):&#160;export.cpp'],['../export_to_r_8h.html#a7c1b183d88bfe2cd0acd2909cf6bd374',1,'toList(const vector&lt; ModelFit &gt; &amp;fitList):&#160;exportToR.h']]]
+  ['scaleeachcol_0',['scaleEachCol',['../misc_8h.html#a0045cd455dd233e9e16362f826b46bfb',1,'scaleEachCol(const mat &amp;X, const vec &amp;w):&#160;misc.h'],['../misc_8h.html#a22e1b21e8ed9c35826aee032cf93ad89',1,'scaleEachCol(const sp_mat &amp;X, const vec &amp;w):&#160;misc.h']]],
+  ['scalerowscols_1',['scaleRowsCols',['../misc_8h.html#aff616cc0cfc16600b8f55bf7b77f455e',1,'misc.h']]],
+  ['score_5ftest_2',['score_test',['../classfastlmm_lib_1_1fastlmm.html#ae59e2c8e11dde35f8364a488281a78cc',1,'fastlmmLib::fastlmm']]],
+  ['setdevresids_3',['setDevResids',['../class_model_fit.html#a5be54e96e787f47bd8e94a994d7c206d',1,'ModelFit']]],
+  ['setfittedvalues_4',['setFittedValues',['../class_model_fit.html#a0e4c7390296eb9b7ada56da67c17354f',1,'ModelFit']]],
+  ['spectraldecomp_5',['spectralDecomp',['../classfastlmm_lib_1_1spectral_decomp.html#ad6e9102eaff691c54b8c71938b6a260c',1,'fastlmmLib::spectralDecomp']]]
 ];

@@ -11,7 +11,6 @@
 
 using namespace arma;
 
-namespace fastlmmLib {
 
 // for each column, scale by w
 inline mat scaleEachCol(const mat &X, const vec &w){
@@ -54,64 +53,87 @@ template <>
 inline bool isSpMatrix( const sp_mat &t) { return true; } 
 
 
-
-
-
-
-// // for each column, scale by w
-// inline mat scaleRows(const mat &X, const vec &w){
-//   return X.each_col() % w;  
+// template <typename T>
+// const T& min(const T& a, const T& b) {
+//     return (a < b) ? a : b;
 // }
 
-
-// // for each column, scale by w
-// inline sp_mat scaleRows(const sp_mat &X, const vec &w){
-
-//   sp_mat M = sp_mat(X);
-//   for(size_t i=0; i<X.n_cols; i++){
-//     M.col(i) %= w;
-//   }
-//   return( M );
+// template <typename T>
+// const T& max(const T& a, const T& b) {
+//     return (a > b) ? a : b;
 // }
 
+static vec pmax( const vec &v, const double &value){
 
-// template <typename T> 
-// T scaleRows(const T &X, const vec &w){
+  vec tmp(v);
+  for(int i=0; i<tmp.n_elem; i++){
+    tmp[i] = std::max(tmp[i], value);
+  }
 
-//   T M = T(X);
-//   for(size_t i=0; i<X.n_cols; i++){
-//     M.col(i) %= w;
-//   }
-//   return( M );
-// }
+  return tmp;
+}
 
-// inline mat scaleCols(const mat &X, const vec &w){
-//   return X.each_row() % w;  
-// }
+static vec pmin( const vec &v, const double &value){
+
+  vec tmp(v);
+  for(int i=0; i<tmp.n_elem; i++){
+    tmp[i] = std::min(tmp[i], value);
+  }
+
+  return tmp;
+}
+
+static vec qnorm( const vec & v, const double &mean=0, const double &sd=1 ){
+  vec tmp(v);
+  for(int i=0; i<tmp.n_elem; i++){
+    tmp[i] = R::qnorm(tmp[i], mean, sd, 1, 0);
+    // tmp[i] = glm::qnorm(tmp[i],  mean, sd, 1, 0);
+  }
+
+  return tmp;
+}
+
+static vec y_log_y(const vec & y, const vec & mu){
+    // (y) ? (y * log(y/mu)) : 0;
+
+    // initialize to zeros
+  vec ret(y.n_elem, fill::zeros);
+
+  for(int i=0; i<y.n_elem; i++){
+    if( y[i] != 0.0){
+      ret[i] = y[i] * log(y[i]/mu[i]);
+    }
+  }
+
+  return ret;
+}
+
+// Adapted from tbb::blocked_range
+// Designed to be used when tbb is not available
+template<typename T>
+class blocked_range {
+  public:
+    // constructors
+    blocked_range( T begin, T end ) : 
+      begin_value(begin), end_value(end) {}
+
+    // get range limits
+    T begin(){ return begin_value; }
+    T end(){ return end_value; }
+  private:
+    T begin_value, end_value;
+};
 
 
-// // for each column, scale by w
-// inline sp_mat scaleCols(const sp_mat &X, const vec &w){
-
-//   sp_mat M = sp_mat(X);
-//   for(size_t i=0; i<X.n_cols; i++){
-//     M.col(i) *= w(i);
-//   }
-//   return( M );
-// }
-
-// template <typename T> 
-// T scaleCols(const T &X, const vec &w){
-
-//   T M = T(X);
-//   for(size_t i=0; i<X.n_cols; i++){
-//     M.col(i) *= w(i);
-//   }
-//   return( M );
-// }
-
-
-
+// Set OpenMP threads to 1 and disable nested parallelism
+static void disable_parallel_blas(){
+  #ifdef _OPENMP
+  #include <omp.h> 
+  // set threads
+  omp_set_num_threads(1);
+  // disable nested parallelism
+  omp_set_max_active_levels(0);
+  #endif
 }
 
 

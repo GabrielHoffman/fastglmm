@@ -22,78 +22,78 @@
 \DoxyCodeLine{00018\ \textcolor{keyword}{using\ namespace\ }arma;}
 \DoxyCodeLine{00019\ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespacefastlmm_lib}{fastlmmLib}};}
 \DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ List\ \mbox{\hyperlink{export_to_r_8h_a7c1b183d88bfe2cd0acd2909cf6bd374}{toList}}(\ \textcolor{keyword}{const}\ vector<ModelFit>\ \&\ fitList)\{}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ List\ toList(\ const\ vector<ModelFit>\ \&\ fitList)\{}}
 \DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{int}\ ncoef\ =\ fitList[0].coef.n\_elem;}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{int}\ nmodels\ =\ fitList.size();\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ \ \ int\ ncoef\ =\ fitList[0].coef.n\_elem;}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ \ \ int\ nmodels\ =\ fitList.size();\ }}
 \DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ mat\ coefMat(nmodels,ncoef);}
-\DoxyCodeLine{00027\ \ \ \ \ mat\ seMat(nmodels,ncoef);}
-\DoxyCodeLine{00028\ \ \ \ \ NumericVector\ rdf(nmodels);}
-\DoxyCodeLine{00029\ \ \ \ \ NumericVector\ sigSq(nmodels);}
-\DoxyCodeLine{00030\ \ \ \ \ vector<string>\ ID;}
-\DoxyCodeLine{00031\ \ \ \ \ ID.reserve(nmodels);}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ \ \ \ \ mat\ coefMat(nmodels,ncoef);}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ \ \ \ \ mat\ seMat(nmodels,ncoef);}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ \ \ \ \ NumericVector\ rdf(nmodels);}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ \ \ \ \ NumericVector\ sigSq(nmodels);}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ \ \ \ \ vector<string>\ ID;}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ \ \ \ \ ID.reserve(nmodels);}}
 \DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//\ check\ optional\ properties\ of\ model}}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{bool}\ useVCOV\ =\ (fitList[0].vcov.n\_rows\ !=0);}
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{bool}\ useResid\ =\ (fitList[0].residuals.n\_elem\ !=0);}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{bool}\ useHat\ =\ (fitList[0].hatvalues.n\_elem\ !=0);}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ \ \ \ \ //\ check\ optional\ properties\ of\ model}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ \ \ \ \ bool\ useVCOV\ =\ (fitList[0].vcov.n\_rows\ !=0);}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ \ \ \ \ bool\ useResid\ =\ (fitList[0].residuals.n\_elem\ !=0);}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ \ \ \ \ bool\ useHat\ =\ (fitList[0].hatvalues.n\_elem\ !=0);}}
 \DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ mat\ vcovStacked;}
-\DoxyCodeLine{00039\ \ \ \ \ mat\ residuals,\ hatvalues;}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ \ \ \ \ mat\ vcovStacked;}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ \ \ \ \ mat\ residuals,\ hatvalues;}}
 \DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{if}(\ useVCOV\ )\{}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \textcolor{comment}{//\ column\ i\ stores\ the\ vcov\ matrix\ for\ response\ i}}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ vcovStacked\ =\ mat(pow(ncoef,2),\ nmodels);}
-\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ \ \ \ \ if(\ useVCOV\ )\{}}
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ \ \ \ \ \ \ //\ column\ i\ stores\ the\ vcov\ matrix\ for\ response\ i}}
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ \ \ \ \ \ \ vcovStacked\ =\ mat(pow(ncoef,2),\ nmodels);}}
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ \ \ \ \ \}}}
 \DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{if}(\ useResid\ )\{}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ residuals\ =\ mat(fitList[0].residuals.n\_elem,\ nmodels);}
-\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ \ \ \ \ if(\ useResid\ )\{}}
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ \ \ \ \ \ \ residuals\ =\ mat(fitList[0].residuals.n\_elem,\ nmodels);}}
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ \ \ \ \ \}}}
 \DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{if}(\ useHat\ )\{}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ hatvalues\ =\ mat(fitList[0].hatvalues.n\_elem,\ nmodels);}
-\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ \ \ \ \ if(\ useHat\ )\{}}
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ \ \ \ \ \ \ hatvalues\ =\ mat(fitList[0].hatvalues.n\_elem,\ nmodels);}}
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ \ \ \ \ \}}}
 \DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//\ for\ each\ model}}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<\ fitList.size();\ i++)\{}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ coefMat.row(i)\ =\ fitList[i].coef.t();}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ seMat.row(i)\ =\ fitList[i].se.t();}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ sigSq(i)\ =\ fitList[i].sigSq;}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ rdf(i)\ =\ fitList[i].rdf;}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ ID.push\_back(fitList[i].ID);}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ useVCOV\ )\ vcovStacked.col(i)\ =\ fitList[i].vcov.as\_col();}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ useResid\ )\ residuals.col(i)\ =\ fitList[i].residuals;}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ useHat\ )\ hatvalues.col(i)\ =\ fitList[i].hatvalues;}
-\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ \ \ \ \ //\ for\ each\ model}}
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ \ \ \ \ for(int\ i=0;\ i<\ fitList.size();\ i++)\{}}
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ \ \ \ \ \ \ coefMat.row(i)\ =\ fitList[i].coef.t();}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ \ \ \ \ \ \ seMat.row(i)\ =\ fitList[i].se.t();}}
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ \ \ \ \ \ \ sigSq(i)\ =\ fitList[i].sigSq;}}
+\DoxyCodeLine{00059\ \textcolor{comment}{//\ \ \ \ \ \ \ rdf(i)\ =\ fitList[i].rdf;}}
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ \ \ \ \ \ \ ID.push\_back(fitList[i].ID);}}
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ \ \ \ \ \ \ if(\ useVCOV\ )\ vcovStacked.col(i)\ =\ fitList[i].vcov.as\_col();}}
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ \ \ \ \ \ \ if(\ useResid\ )\ residuals.col(i)\ =\ fitList[i].residuals;}}
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ \ \ \ \ \ \ if(\ useHat\ )\ hatvalues.col(i)\ =\ fitList[i].hatvalues;}}
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ \ \ \ \ \}}}
 \DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ Create\ standard\ return\ values}}
-\DoxyCodeLine{00067\ \ \ \ \ CharacterVector\ IDcv(ID.begin(),\ ID.end());}
+\DoxyCodeLine{00066\ \textcolor{comment}{//\ \ \ \ \ //\ Create\ standard\ return\ values}}
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ \ \ \ \ CharacterVector\ IDcv(ID.begin(),\ ID.end());}}
 \DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \ \ \ \ sigSq.attr(\textcolor{stringliteral}{"{}names"{}})\ =\ IDcv;}
-\DoxyCodeLine{00070\ \ \ \ \ rdf.attr(\textcolor{stringliteral}{"{}names"{}})\ =\ IDcv;}
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ \ \ \ \ sigSq.attr("{}names"{})\ =\ IDcv;}}
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ \ \ \ \ rdf.attr("{}names"{})\ =\ IDcv;}}
 \DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \ \ \ \ List\ lst\ =\ List::create(}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}coef"{}})\ =\ coefMat,}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}se"{}})\ =\ seMat,}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}sigSq"{}})\ =\ sigSq,}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}rdf"{}})\ =\ rdf}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ );}
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ \ \ \ \ List\ lst\ =\ List::create(}}
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Named("{}coef"{})\ =\ coefMat,}}
+\DoxyCodeLine{00074\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Named("{}se"{})\ =\ seMat,}}
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Named("{}sigSq"{})\ =\ sigSq,}}
+\DoxyCodeLine{00076\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ Named("{}rdf"{})\ =\ rdf}}
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ \ \ \ \ \ \ );}}
 \DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{comment}{//\ Insert\ other\ return\ values}}
-\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{if}(\ useVCOV\ )\ lst[\textcolor{stringliteral}{"{}vcovStacked"{}}]\ =\ vcovStacked;}
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{if}(\ useResid\ )\ lst[\textcolor{stringliteral}{"{}residuals"{}}]\ =\ residuals;}
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{if}(\ useHat\ )\ lst[\textcolor{stringliteral}{"{}hatvalues"{}}]\ =\ hatvalues;}
+\DoxyCodeLine{00079\ \textcolor{comment}{//\ \ \ \ \ //\ Insert\ other\ return\ values}}
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ \ \ \ \ if(\ useVCOV\ )\ lst["{}vcovStacked"{}]\ =\ vcovStacked;}}
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ \ \ \ \ if(\ useResid\ )\ lst["{}residuals"{}]\ =\ residuals;}}
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ \ \ \ \ if(\ useHat\ )\ lst["{}hatvalues"{}]\ =\ hatvalues;}}
 \DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{comment}{//\ Set\ names}}
-\DoxyCodeLine{00085\ \ \ \ \ rownames(lst[\textcolor{stringliteral}{"{}coef"{}}])\ =\ IDcv;}
-\DoxyCodeLine{00086\ \ \ \ \ rownames(lst[\textcolor{stringliteral}{"{}se"{}}])\ =\ IDcv;;}
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordflow}{if}(\ useVCOV\ )\ \ \ colnames(lst[\textcolor{stringliteral}{"{}vcovStacked"{}}])\ =\ IDcv;}
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{if}(\ useResid\ )\ \ colnames(lst[\textcolor{stringliteral}{"{}residuals"{}}])\ =\ IDcv;}
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{if}(\ useHat\ )\ \ \ \ colnames(lst[\textcolor{stringliteral}{"{}hatvalues"{}}])\ =\ IDcv;}
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ \ \ \ \ //\ Set\ names}}
+\DoxyCodeLine{00085\ \textcolor{comment}{//\ \ \ \ \ rownames(lst["{}coef"{}])\ =\ IDcv;}}
+\DoxyCodeLine{00086\ \textcolor{comment}{//\ \ \ \ \ rownames(lst["{}se"{}])\ =\ IDcv;;}}
+\DoxyCodeLine{00087\ \textcolor{comment}{//\ \ \ \ \ if(\ useVCOV\ )\ \ \ colnames(lst["{}vcovStacked"{}])\ =\ IDcv;}}
+\DoxyCodeLine{00088\ \textcolor{comment}{//\ \ \ \ \ if(\ useResid\ )\ \ colnames(lst["{}residuals"{}])\ =\ IDcv;}}
+\DoxyCodeLine{00089\ \textcolor{comment}{//\ \ \ \ \ if(\ useHat\ )\ \ \ \ colnames(lst["{}hatvalues"{}])\ =\ IDcv;}}
 \DoxyCodeLine{00090\ }
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{return}\ lst;}
-\DoxyCodeLine{00092\ \}}
+\DoxyCodeLine{00091\ \textcolor{comment}{//\ \ \ \ \ return\ lst;}}
+\DoxyCodeLine{00092\ \textcolor{comment}{//\ \}}}
 \DoxyCodeLine{00093\ }
 \DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
 

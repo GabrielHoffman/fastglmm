@@ -9,7 +9,5 @@ var searchData=
   ['_5ffastlmm_5ffastlmm_5fvsm_6',['_fastlmm_fastlmm_vsm',['../_rcpp_exports_8cpp.html#ac445157e77f6954c31dcceb123b85f1d',1,'RcppExports.cpp']]],
   ['_5ffastlmm_5ffastlmm_5fvss_7',['_fastlmm_fastlmm_vss',['../_rcpp_exports_8cpp.html#acb38f67c1c61b22c63190416d04a9acc',1,'RcppExports.cpp']]],
   ['_5ffastlmm_5ffastlmmfitfeatures_5fm_8',['_fastlmm_fastlmmFitFeatures_m',['../_rcpp_exports_8cpp.html#a1a91746e61629630f639d356edd65ac0',1,'RcppExports.cpp']]],
-  ['_5ffastlmm_5ffastlmmfitfeatures_5fs_9',['_fastlmm_fastlmmFitFeatures_s',['../_rcpp_exports_8cpp.html#a76930ac4e49fceed7eb4e4df90576ec2',1,'RcppExports.cpp']]],
-  ['_5ffastlmm_5flmfitfeatures_5fexport_10',['_fastlmm_lmFitFeatures_export',['../_rcpp_exports_8cpp.html#a3e387d36d763ffd82a4d35b70086a72e',1,'RcppExports.cpp']]],
-  ['_5ffastlmm_5flmfitresponses_5fexport_11',['_fastlmm_lmFitResponses_export',['../_rcpp_exports_8cpp.html#a9baf9585d1d8efb88e7f6a4c49e5a76d',1,'RcppExports.cpp']]]
+  ['_5ffastlmm_5ffastlmmfitfeatures_5fs_9',['_fastlmm_fastlmmFitFeatures_s',['../_rcpp_exports_8cpp.html#a76930ac4e49fceed7eb4e4df90576ec2',1,'RcppExports.cpp']]]
 ];
