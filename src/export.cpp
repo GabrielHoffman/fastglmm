@@ -2,14 +2,10 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include "fastlmmLib.h"
-#include "exportToR.h"
 
 using namespace Rcpp; 
 using namespace arma;
 using namespace fastlmmLib;
-
-
-
 
 // Depends on Rcpp::List, so define outside of class
 const List toList(ModelFitLMM &res){

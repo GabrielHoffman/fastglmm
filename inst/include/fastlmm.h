@@ -28,19 +28,19 @@ class ModelFitLMM : public ModelFit {
   ModelFitLMM(){}
 
    // LEAST
-  ModelFitLMM( const bool & success, 
-                  const double &logLik,
-                  const vec &weights,
-                  const vec &ru,
-                  const vec &y,
-                  const double &delta,
-                  const double &sigSq_g,
-                  const double &sigSq_e,
-                  const int &iter, 
-                  const vec &coef) : 
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter),
-    ModelFit( success, coef){
-  } 
+  ModelFitLMM(const bool & success, 
+              const double &logLik,
+              const vec &weights,
+              const vec &ru,
+              const vec &y,
+              const double &delta,
+              const double &sigSq_g,
+              const double &sigSq_e,
+              const int &iter, 
+              const vec &coef) : 
+    ModelFit( success, coef),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    {} 
 
   // LOW
   ModelFitLMM( const bool & success, 
@@ -55,9 +55,9 @@ class ModelFitLMM : public ModelFit {
                   const vec &coef, 
                   const vec &se, 
                   const double &rdf) : 
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter),
-    ModelFit( success, coef, se, sigSq_e, rdf) {
-  } 
+    ModelFit( success, coef, se, sigSq_e, rdf),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    {} 
   
   // MEDIUM
   ModelFitLMM( const bool & success, 
@@ -73,9 +73,9 @@ class ModelFitLMM : public ModelFit {
                   const vec &se, 
                   const double &rdf, 
                   const mat & vcov) : 
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter),
-    ModelFit( success, coef, se, sigSq_e, rdf, vcov) {
-  } 
+    ModelFit( success, coef, se, sigSq_e, rdf, vcov),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter) 
+    {} 
 
   // HIGH
   ModelFitLMM( const bool & success, 
@@ -92,9 +92,9 @@ class ModelFitLMM : public ModelFit {
                   const double &rdf, 
                   const mat & vcov, 
                   const vec &residuals) : 
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter),
-    ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals){
-  }   
+    ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    {}   
 
   // MOST
   ModelFitLMM( const bool & success, 
@@ -112,9 +112,9 @@ class ModelFitLMM : public ModelFit {
                   const mat & vcov, 
                   const vec &residuals, 
                   const vec &hatvalues) : 
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter),
-    ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals, hatvalues){
-  }   
+    ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals, hatvalues),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    {}   
 };
 
 

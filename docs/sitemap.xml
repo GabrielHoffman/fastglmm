@@ -4,7 +4,19 @@
     <loc>http://GabrielHoffman.github.io/fastglmm/404.html</loc>
   </url>
   <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/articles/fastlmm-Doxygen.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/articles/index.html</loc>
+  </url>
+  <url>
     <loc>http://GabrielHoffman.github.io/fastglmm/authors.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/_model_fit_8h.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/_model_fit_8h_source.html</loc>
   </url>
   <url>
     <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/_rcpp_exports_8cpp.html</loc>
@@ -13,7 +25,25 @@
     <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/annotated.html</loc>
   </url>
   <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/class_model_fit-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/class_model_fit.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classblocked__range-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classblocked__range.html</loc>
+  </url>
+  <url>
     <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classes.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1_model_fit_l_m_m-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1_model_fit_l_m_m.html</loc>
   </url>
   <url>
     <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm-members.html</loc>
@@ -50,6 +80,18 @@
   </url>
   <url>
     <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1fastlmm_fit_responses.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1lmm_fit_features-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1lmm_fit_features.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1lmm_fit_responses-members.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1lmm_fit_responses.html</loc>
   </url>
   <url>
     <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/classfastlmm_lib_1_1spectral_decomp-members.html</loc>
@@ -136,7 +178,19 @@
     <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/globals_defs.html</loc>
   </url>
   <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/globals_enum.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/globals_eval.html</loc>
+  </url>
+  <url>
     <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/globals_func.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/globals_type.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/hierarchy.html</loc>
   </url>
   <url>
     <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/index.html</loc>
@@ -175,6 +229,9 @@
     <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespacemembers_func.html</loc>
   </url>
   <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespacemembers_type.html</loc>
+  </url>
+  <url>
     <loc>http://GabrielHoffman.github.io/fastglmm/doxygen/html/namespaces.html</loc>
   </url>
   <url>
@@ -209,6 +266,9 @@
   </url>
   <url>
     <loc>http://GabrielHoffman.github.io/fastglmm/reference/as.fastlmm.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/concatItem.html</loc>
   </url>
   <url>
     <loc>http://GabrielHoffman.github.io/fastglmm/reference/fastglmm.html</loc>

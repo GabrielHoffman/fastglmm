@@ -1,4 +1,8 @@
 
+# fastlmm 0.2.1
+ - April 24, 2025
+ - refactor for compatibility across ecosystem
+
 # fastlmm 0.2.0
  - March 6, 2025
  - Major refactor
