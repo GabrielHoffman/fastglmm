@@ -1,10 +1,11 @@
-#ifndef FASTLMM_BATCH_DESIGN_H_
-#define FASTLMM_BATCH_DESIGN_H_
+#ifndef LMM_FIT_FEATURES_H_
+#define LMM_FIT_FEATURES_H_
 
 #include "fastlmm.h"
 #include "spectralDecomp.h"
 
 using namespace arma;
+using namespace std;
 
 namespace fastlmmLib {
 
@@ -17,24 +18,25 @@ class lmmFitFeatures {
 
     public:
     lmmFitFeatures( const T1 &Y_, 
-                        const T2 &X_, 
-                        const T3 &U_,
-                        const vec &s_,
-                        const vec &weights_);
+                    const T2 &X_, 
+                    const T3 &U_,
+                    const vec &s_,
+                    const vec &weights_,
+                    const double &delta_,
+                    const double &left_,
+                    const double &right_,
+                    const double &tol_,
+                    const int &nthreads_);
 
     ModelFitLMMList eval(const T2 &X_add_,
-                                const double &delta_,
-                                const double &left_,
-                                const double &right_,
-                                const double &tol_,
-                                const int &nthreads_);
+                        const vector<string> &ids);
 
     private:
     T1 Y; 
     T2 X_shared;  
     T3 U;
     vec s, weights;
-    double left, right, tol;
+    double delta, left, right, tol;
     int nthreads;
     fastlmm<T1, T2, T3> fit;
     spectralDecomp<T3> dcmp;
@@ -49,7 +51,12 @@ lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
                             const T2 &X_, 
                             const T3 &U_,
                             const vec &s_,
-                            const vec &weights_){
+                            const vec &weights_,     
+                            const double &delta_,
+                            const double &left_,
+                            const double &right_,
+                            const double &tol_,
+                            const int &nthreads_){
 
     // initialize internal variables
     this->Y         = Y_;
@@ -57,6 +64,11 @@ lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
     // this->U         = U_;
     // this->s         = s_;
     this->weights   = weights_;
+    this->delta = delta_;
+    this->left = left_;
+    this->right = right_;
+    this->tol = tol_;
+    this->nthreads = nthreads_;
 
     // curently no reweighting
     // , weights_
@@ -70,21 +82,17 @@ lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
 template <typename T1, typename T2, typename T3> 
 ModelFitLMMList 
   lmmFitFeatures<T1, T2, T3>::eval( const T2 &X_add_,
-                                        const double &delta_,
-                                        const double &left_,
-                                        const double &right_,
-                                        const double &tol_,
-                                        const int &nthreads_){
+                                    const vector<string> &ids){
 
     int n_tests = X_add_.n_cols;
 
     // store results
     ModelFitLMMList result(n_tests, ModelFitLMM());
 
-    for( int i = 0; i < n_tests; i++){
+    for( int j = 0; j < n_tests; j++){
 
         // currently, only 1 cbind'd
-        mat X_combined = join_cols(X_shared, X_add_.col(i));
+        mat X_combined = join_horiz(X_shared, X_add_.col(j));
 
         // fits full model each time,
         // for speed, need to save Y, X, scaled by U and s
@@ -92,8 +100,8 @@ ModelFitLMMList
 
         fit.estimate_delta( left, right, tol );
 
-        // #pragma omp critical
-        result.at(i) = fit.get_result();
+        result.at(j) = fit.get_result();
+        result.at(j).ID = ids[j];
     }
   
     return result;

@@ -1,5 +1,5 @@
-#ifndef FASTLMM_BATCH_RESPONSE_H_
-#define FASTLMM_BATCH_RESPONSE_H_
+#ifndef LMM_FIT_RESPONSE_H_
+#define LMM_FIT_RESPONSE_H_
 
 using namespace arma;
 using namespace std;
@@ -18,22 +18,21 @@ template <typename T1, typename T2, typename T3>
 class lmmFitResponses {
 
     public:
-    lmmFitResponses(const T1 &Y_all_, 
-                    const T2 &X_, 
+    lmmFitResponses(const T2 &X_, 
                     const T3 &Z_,
-                    const mat &Weights_,
                     const double &left_,
                     const double &right_,
                     const double &tol_,
                     const int &nthreads_);
 
-    ModelFitLMMList eval();
+    ModelFitLMMList eval(
+                    const T1 &Y,
+                    const vector<string> &ids,
+                    const mat &Weights);
 
     private:
-    T1 Y_all; 
     T2 X;  
     T3 Z;
-    mat Weights;
     double left, right, tol;
     int nthreads;
 };
@@ -43,18 +42,14 @@ class lmmFitResponses {
 // constructor
 template <typename T1, typename T2, typename T3> 
 lmmFitResponses<T1, T2, T3>::lmmFitResponses(
-                            const T1 &Y_all_, 
                             const T2 &X_, 
                             const T3 &Z_,
-                            const mat &Weights_,
                             const double &left_,
                             const double &right_,
                             const double &tol_,
                             const int &nthreads_){
-    this->Y_all     = Y_all_;
     this->X         = X_;
     this->Z         = Z_;
-    this->Weights   = Weights_;
     this->left      = left_;
     this->right     = right_;
     this->tol       = tol_;
@@ -63,21 +58,20 @@ lmmFitResponses<T1, T2, T3>::lmmFitResponses(
 
 
 
-// NOTE: Do not use Rcpp in parallel section
-// "C stack usage is too close to the limit"
 template <typename T1, typename T2, typename T3> 
 ModelFitLMMList 
-  lmmFitResponses<T1, T2, T3>::eval(){
-
-    int n_responses = Y_all.n_cols;
+  lmmFitResponses<T1, T2, T3>::eval(
+                    const T1 &Y,
+                    const vector<string> &ids,
+                    const mat &Weights){
 
     // store results
-    ModelFitLMMList result(n_responses, ModelFitLMM());
+    ModelFitLMMList result(Y.n_cols, ModelFitLMM());
 
-    for( int i = 0; i < n_responses; i++){
+    for( int j = 0; j < Y.n_cols; j++){
 
-        T1 y = Y_all.col(i);
-        vec w = Weights.col(i);
+        T1 y = Y.col(j);
+        vec w = Weights.col(j);
 
         spectralDecomp<T3> dcmp;
         dcmp.initWithIndicator(Z, w);
@@ -86,8 +80,8 @@ ModelFitLMMList
 
         fit.estimate_delta( left, right, tol );
 
-        // #pragma omp critical
-        result.at(i) = fit.get_result();
+        result.at(j) = fit.get_result();
+        result.at(j).ID = ids[j];
     }
   
     return result;

@@ -33,11 +33,3 @@
     .Call('_fastlmm_fastlmm_mss', PACKAGE = 'fastlmm', Y_all, X, Z, weights, delta, left, right, tol, nthreads)
 }
 
-.fastlmmFitFeatures_m <- function(Y, X_design, X_features, U, s, weights, delta, left, right, tol, nthreads) {
-    .Call('_fastlmm_fastlmmFitFeatures_m', PACKAGE = 'fastlmm', Y, X_design, X_features, U, s, weights, delta, left, right, tol, nthreads)
-}
-
-.fastlmm_batch_design_s <- function(Y, X_design, X_features, U, s, weights, delta, left, right, tol, nthreads) {
-    .Call('_fastlmm_fastlmmFitFeatures_s', PACKAGE = 'fastlmm', Y, X_design, X_features, U, s, weights, delta, left, right, tol, nthreads)
-}
-

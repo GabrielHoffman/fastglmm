@@ -56,8 +56,8 @@ void spectralDecomp<T>::initWithEigenDecomp( const T &U_, const vec &s_){
 }
 
 // Initialize with U and s from eigen decomp, and weights
-template <typename T> 
-void spectralDecomp<T>::initWithEigenDecomp( const T &U_, const vec &s_, const vec &weights_){
+// template <typename T> 
+// void spectralDecomp<T>::initWithEigenDecomp( const T &U_, const vec &s_, const vec &weights_){
 
 	// SVD after applying weights
 	// mat Q, R;
@@ -65,7 +65,7 @@ void spectralDecomp<T>::initWithEigenDecomp( const T &U_, const vec &s_, const v
 
 	// this->U = U_;
 	// this->s = s_;
-}
+// }
 
 
 

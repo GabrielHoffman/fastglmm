@@ -2,54 +2,13 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include "fastlmmLib.h"
+#include "exportToR_fastlmm.h"
 
-using namespace Rcpp; 
 using namespace arma;
 using namespace fastlmmLib;
 
-// Depends on Rcpp::List, so define outside of class
-const List toList(ModelFitLMM &res){
-
-  return List::create( 
-                Named("logLik")       = res.logLik, 
-                Named("coefficients") = res.coef,
-                Named("se")           = res.se,
-                Named("vcov")         = res.vcov, 
-                Named("weights")      = res.weights,
-                Named("delta")        = res.delta,
-                Named("sigSq_g")      = res.sigSq_g,
-                Named("sigSq_e")      = res.sigSq_e,
-                Named("ru")           = res.ru,
-                Named("y")            = res.y,
-                Named("iter")         = res.iter);
-}
-
-
-
-
-template <typename T1, typename T2, typename T3>
-const List toList(fastlmm<T1, T2, T3> & fit){
-
-  ModelFitLMM a = fit.get_result();
-
-  return toList( a);
-}
-
-
-List toList( const vector<ModelFitLMM> &resList){
-  List L = List::create();
-
-  for(int i=0; i<resList.size(); i++){
-    ModelFitLMM a = resList.at(i);
-    L.push_back( toList(a) );
-  }
-  return L;
-}
-
-
 // Cannot export template functions
 // so write separately for matrix and sparse matrix
-
 
 // Y = vec
 // X = mat
@@ -242,54 +201,5 @@ List fastlmm_mss(   const arma::mat &Y_all,
 
   return toList(res);
 }
-
-
-// [[Rcpp::export(".fastlmmFitFeatures_m")]]
-List fastlmmFitFeatures_m(const arma::mat &Y, 
-                            const arma::mat &X_design,
-                            const arma::mat &X_features,   
-                            const arma::mat &U, 
-                            const arma::vec &s,
-                            const arma::vec &weights,
-                            const double &delta,
-                            const double &left,
-                            const double &right,
-                            const double &tol,
-                            const int &nthreads){
-
-  // initialize
-  lmmFitFeatures fit = 
-    lmmFitFeatures<mat, mat, mat>(Y, X_design, U, s, weights);
-
-  // evaluate each column of X_add, one at a time
-  vector<ModelFitLMM> res = fit.eval(X_features, delta, left, right, tol, nthreads );
-
-  return toList( res );
-}
-
-
-// [[Rcpp::export(".fastlmm_batch_design_s")]]
-List fastlmmFitFeatures_s(const arma::mat &Y, 
-                            const arma::mat &X_design, 
-                            const arma::mat &X_features,  
-                            const arma::sp_mat &U, 
-                            const arma::vec &s,
-                            const arma::vec &weights,
-                            const double &delta,
-                            const double &left,
-                            const double &right,
-                            const double &tol,
-                            const int &nthreads){
-
-  // initialize
-  lmmFitFeatures fit = 
-    lmmFitFeatures<mat, mat, sp_mat>(Y, X_design, U, s, weights);
-
-  // evaluate each column of X_add, one at a time
-  vector<ModelFitLMM> res = fit.eval(X_features, delta, left, right, tol, nthreads );
-
-  return toList( res );
-}
-
 
 

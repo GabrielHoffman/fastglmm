@@ -35,6 +35,7 @@
 #'
 #' dcmp
 #' @importFrom Matrix Diagonal t colSums
+#' @seealso \code{preprocess_indicator()}
 #' @export
 indicator_decomp <- function(x, weights = NULL, rank = NULL, sort = FALSE) {
   if (is.factor(x)) {

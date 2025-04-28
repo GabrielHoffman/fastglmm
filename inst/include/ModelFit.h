@@ -6,6 +6,8 @@
  * Copyright (C) 2024 Gabriel Hoffman
  ***********************************************************************/
 
+#ifndef MODEL_FIT_H_
+#define MODEL_FIT_H_
 
 #include <vector>
 #include <string>
@@ -114,3 +116,5 @@ class ModelFit {
 };
 
 typedef vector<ModelFit> ModelFitList;
+
+#endif
