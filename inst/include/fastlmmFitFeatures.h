@@ -22,11 +22,13 @@ class lmmFitFeatures {
                     const T3 &U_,
                     const vec &s_,
                     const vec &weights_,
-                    const double &delta_,
-                    const double &left_,
-                    const double &right_,
-                    const double &tol_,
-                    const int &nthreads_);
+                    const double &delta,
+                    const double &left = -10,
+                    const double &right = 10,
+                    const double &tol = 1e-5,
+                    const int &nthreads = 1,
+                    const ModelDetail md = LOW,
+                    const bool REML = false);
 
     ModelFitLMMList eval(const T2 &X_add_,
                         const vector<string> &ids);
@@ -38,6 +40,8 @@ class lmmFitFeatures {
     vec s, weights;
     double delta, left, right, tol;
     int nthreads;
+    ModelDetail md;
+    bool REML;
     fastlmm<T1, T2, T3> fit;
     spectralDecomp<T3> dcmp;
 };
@@ -52,23 +56,20 @@ lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
                             const T3 &U_,
                             const vec &s_,
                             const vec &weights_,     
-                            const double &delta_,
-                            const double &left_,
-                            const double &right_,
-                            const double &tol_,
-                            const int &nthreads_){
+                            const double &delta,
+                            const double &left,
+                            const double &right,
+                            const double &tol,
+                            const int &nthreads,
+                            const ModelDetail md,
+                            const bool REML) :
+    delta(delta), left(left), right(right), tol(tol), nthreads(nthreads), md(md), REML(REML)
+    {
 
     // initialize internal variables
     this->Y         = Y_;
     this->X_shared  = X_;
-    // this->U         = U_;
-    // this->s         = s_;
     this->weights   = weights_;
-    this->delta = delta_;
-    this->left = left_;
-    this->right = right_;
-    this->tol = tol_;
-    this->nthreads = nthreads_;
 
     // curently no reweighting
     // , weights_
@@ -89,20 +90,31 @@ ModelFitLMMList
     // store results
     ModelFitLMMList result(n_tests, ModelFitLMM());
 
-    for( int j = 0; j < n_tests; j++){
+    // Parallel part using Thread Building Blocks
+    tbb::task_arena limited_arena(nthreads);
+    limited_arena.execute([&] {
+    tbb::parallel_for(
+        tbb::blocked_range<int>(0, n_tests, 100), 
+        [&](const tbb::blocked_range<int>& r){ 
 
-        // currently, only 1 cbind'd
-        mat X_combined = join_horiz(X_shared, X_add_.col(j));
+        disable_parallel_blas();
 
-        // fits full model each time,
-        // for speed, need to save Y, X, scaled by U and s
-        fastlmm fit = fastlmm(Y, X_combined, dcmp.get_vectors(), dcmp.get_values(), weights);
+        // iterate through responses 
+        for (int j = r.begin(); j != r.end(); ++j) { 
 
-        fit.estimate_delta( left, right, tol );
+            // currently, only 1 cbind'd
+            mat X_combined = join_horiz(X_shared, X_add_.col(j));
 
-        result.at(j) = fit.get_result();
-        result.at(j).ID = ids[j];
-    }
+            // fits full model each time,
+            // for speed, need to save Y, X, scaled by U and s
+            fastlmm fit = fastlmm(Y, X_combined, dcmp.get_vectors(), dcmp.get_values(), weights, md, REML);
+
+            fit.estimate_delta( left, right, tol );
+
+            result.at(j) = fit.get_result();
+            result.at(j).ID = ids[j];
+        }
+    }); });
   
     return result;
 }

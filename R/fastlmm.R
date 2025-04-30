@@ -37,7 +37,7 @@
 #' @importFrom stats as.formula model.frame model.response model.matrix update model.offset
 #' @seealso \code{lme4::lmer()}
 #' @export
-fastlmm <- function(formula, data, REML = TRUE, delta = NULL, weights = NULL, delta.range = c(-10, 10), tol = .Machine$double.eps^0.5, nthreads = 6) {
+fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, delta.range = c(-10, 10), tol = 1e-6, nthreads = 6) {
   mc <- match.call()
 
   # simplest way to extract data
@@ -107,6 +107,7 @@ fastlmm <- function(formula, data, REML = TRUE, delta = NULL, weights = NULL, de
     offset = offset,
     rank = ncol(Z),
     weights = weights,
+    REML = REML,
     delta = delta,
     delta.range = delta.range,
     tol = tol,

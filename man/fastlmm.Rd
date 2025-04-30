@@ -7,11 +7,11 @@
 fastlmm(
   formula,
   data,
-  REML = TRUE,
+  REML = FALSE,
   delta = NULL,
   weights = NULL,
   delta.range = c(-10, 10),
-  tol = .Machine$double.eps^0.5,
+  tol = 1e-06,
   nthreads = 6
 )
 }

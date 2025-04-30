@@ -17,109 +17,6 @@ using namespace arma;
 
 namespace fastlmmLib {
 
-class ModelFitLMM : public ModelFit {      
-  public:  
-  // additional information needed beyond ModelFit
-  double logLik;
-  vec weights, ru, y;
-  double delta, sigSq_g, sigSq_e;
-  int iter;
-
-  ModelFitLMM(){}
-
-   // LEAST
-  ModelFitLMM(const bool & success, 
-              const double &logLik,
-              const vec &weights,
-              const vec &ru,
-              const vec &y,
-              const double &delta,
-              const double &sigSq_g,
-              const double &sigSq_e,
-              const int &iter, 
-              const vec &coef) : 
-    ModelFit( success, coef),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
-    {} 
-
-  // LOW
-  ModelFitLMM( const bool & success, 
-                  const double &logLik,
-                  const vec &weights,
-                  const vec &ru,
-                  const vec &y,
-                  const double &delta,
-                  const double &sigSq_g,
-                  const double &sigSq_e,
-                  const int &iter, 
-                  const vec &coef, 
-                  const vec &se, 
-                  const double &rdf) : 
-    ModelFit( success, coef, se, sigSq_e, rdf),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
-    {} 
-  
-  // MEDIUM
-  ModelFitLMM( const bool & success, 
-                  const double &logLik,
-                  const vec &weights,
-                  const vec &ru,
-                  const vec &y,
-                  const double &delta,
-                  const double &sigSq_g,
-                  const double &sigSq_e,
-                  const int &iter, 
-                  const vec &coef, 
-                  const vec &se, 
-                  const double &rdf, 
-                  const mat & vcov) : 
-    ModelFit( success, coef, se, sigSq_e, rdf, vcov),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter) 
-    {} 
-
-  // HIGH
-  ModelFitLMM( const bool & success, 
-                  const double &logLik,
-                  const vec &weights,
-                  const vec &ru,
-                  const vec &y,
-                  const double &delta,
-                  const double &sigSq_g,
-                  const double &sigSq_e,
-                  const int &iter, 
-                  const vec &coef, 
-                  const vec &se, 
-                  const double &rdf, 
-                  const mat & vcov, 
-                  const vec &residuals) : 
-    ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
-    {}   
-
-  // MOST
-  ModelFitLMM( const bool & success, 
-                  const double &logLik,
-                  const vec &weights,
-                  const vec &ru,
-                  const vec &y,
-                  const double &delta,
-                  const double &sigSq_g,
-                  const double &sigSq_e,
-                  const int &iter, 
-                  const vec &coef, 
-                  const vec &se, 
-                  const double &rdf, 
-                  const mat & vcov, 
-                  const vec &residuals, 
-                  const vec &hatvalues) : 
-    ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals, hatvalues),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
-    {}   
-};
-
-
-typedef vector<ModelFitLMM> ModelFitLMMList;
-
 // Order of template variables
 // T1 Y
 // T2 X
@@ -135,7 +32,9 @@ class fastlmm {
             const T2 &X_, 
             const T3 &U_, 
             const vec &s_,
-            const vec &weights_);
+            const vec &weights_,
+            const ModelDetail md = LOW,
+            const bool REML = false);
 
     // constructor, precompute Yu, Xu
     fastlmm(const T1 &Y_, 
@@ -144,7 +43,9 @@ class fastlmm {
             const vec &s_,
             const vec &weights_,
             const vec &Yu_, 
-            const mat &Xu_);
+            const mat &Xu_,
+            const ModelDetail md = LOW,
+            const bool REML = false);
 
     // constructor, precompute Yu, Xu, cp_X_low, cp_X_low_Y_low
     fastlmm(const T1 &Y_, 
@@ -155,13 +56,16 @@ class fastlmm {
             const vec &Yu_, 
             const mat &Xu_,
             const mat &cp_X_low_, 
-            const mat &cp_X_low_Y_low_);
+            const mat &cp_X_low_Y_low_,
+            const ModelDetail md = LOW,
+            const bool REML = false);
 
     // constructor without response
     fastlmm(const T2 &X_, 
             const T3 &U_, 
-            const vec &s_);
-
+            const vec &s_,
+            const ModelDetail md = LOW,
+            const bool REML = false);
 
     void update_response(const T1 &Y_, const vec &weights_);
     void update_response(const T1 &Y_,
@@ -253,7 +157,8 @@ class fastlmm {
     mat QXX, QXY;
     mat beta;
     vec r, ru;
-
+    ModelDetail md;
+    bool REML;
     double logLik, sigSq_g, delta_hat;
     int iter = 0;
 };
@@ -265,7 +170,9 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
         const T2 &X_, 
         const T3 &U_, 
         const vec &s_,
-        const vec &weights_){
+        const vec &weights_,
+        const ModelDetail md,
+        const bool REML): md(md), REML(REML) {
 
   vec wSq = sqrt(weights_);
   this->Y = Y_ % wSq;
@@ -291,7 +198,9 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
         const vec &s_,
         const vec &weights_,
         const vec &Yu_, 
-        const mat &Xu_){
+        const mat &Xu_,
+        const ModelDetail md,
+        const bool REML): md(md), REML(REML) {
 
   vec wSq = sqrt(weights_);
   this->Y = Y_.t() % wSq;
@@ -316,7 +225,9 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
                             const vec &Yu_, 
                             const mat &Xu_,
                             const mat &cp_X_low_, 
-                            const mat &cp_X_low_Y_low_){
+                            const mat &cp_X_low_Y_low_,
+                            const ModelDetail md,
+                            const bool REML): md(md), REML(REML) {
 
   vec wSq = sqrt(weights_);
   this->Y = Y_.t() % wSq;
@@ -335,7 +246,9 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
 template <typename T1, typename T2, typename T3> 
 fastlmm<T1, T2, T3>::fastlmm( const T2 &X_, 
                               const T3 &U_, 
-                              const vec &s_){
+                              const vec &s_,
+                              const ModelDetail md,
+                              const bool REML): md(md), REML(REML) {
   this->X = X_;
   this->U = U_;
   this->s = s_;

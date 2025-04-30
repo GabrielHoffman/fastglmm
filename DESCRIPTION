@@ -19,11 +19,12 @@ Imports:
 Encoding: UTF-8
 LinkingTo: 
 	Rcpp, 
-	RcppArmadillo
+	RcppArmadillo,
+	RcppParallel
 RoxygenNote: 7.3.2
 Suggests: 
     knitr,
     rmarkdown,
     RUnit, 
-    BiocGenerics
+    MASS
 VignetteBuilder: knitr

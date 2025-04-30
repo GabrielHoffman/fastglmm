@@ -1,12 +1,15 @@
 #ifndef LMM_FIT_RESPONSE_H_
 #define LMM_FIT_RESPONSE_H_
 
-using namespace arma;
-using namespace std;
+// [[Rcpp::depends(RcppParallel)]]
+#include <RcppParallel.h>
 
 #include "fastlmm.h"
 
 #include "spectralDecomp.h"
+
+using namespace arma;
+using namespace std;
 
 namespace fastlmmLib {
 
@@ -20,10 +23,12 @@ class lmmFitResponses {
     public:
     lmmFitResponses(const T2 &X_, 
                     const T3 &Z_,
-                    const double &left_,
-                    const double &right_,
-                    const double &tol_,
-                    const int &nthreads_);
+                    const double &left = -10,
+                    const double &right = 10,
+                    const double &tol = 1e-5,
+                    const int &nthreads = 1,
+                    const ModelDetail md = LOW,
+                    const bool REML = false);
 
     ModelFitLMMList eval(
                     const T1 &Y,
@@ -35,6 +40,8 @@ class lmmFitResponses {
     T3 Z;
     double left, right, tol;
     int nthreads;
+    ModelDetail md;
+    bool REML;
 };
 
 
@@ -44,16 +51,20 @@ template <typename T1, typename T2, typename T3>
 lmmFitResponses<T1, T2, T3>::lmmFitResponses(
                             const T2 &X_, 
                             const T3 &Z_,
-                            const double &left_,
-                            const double &right_,
-                            const double &tol_,
-                            const int &nthreads_){
+                            const double &left,
+                            const double &right,
+                            const double &tol,
+                            const int &nthreads,
+                            const ModelDetail md,
+                            const bool REML):
+            left(left),
+            right(right),
+            tol(tol),
+            nthreads(nthreads),
+            md(md),
+            REML(REML) {
     this->X         = X_;
     this->Z         = Z_;
-    this->left      = left_;
-    this->right     = right_;
-    this->tol       = tol_;
-    this->nthreads  = nthreads_;
 }
 
 
@@ -68,21 +79,32 @@ ModelFitLMMList
     // store results
     ModelFitLMMList result(Y.n_cols, ModelFitLMM());
 
-    for( int j = 0; j < Y.n_cols; j++){
+    // Parallel part using Thread Building Blocks
+    tbb::task_arena limited_arena(nthreads);
+    limited_arena.execute([&] {
+    tbb::parallel_for(
+        tbb::blocked_range<int>(0, Y.n_cols, 100), 
+        [&](const tbb::blocked_range<int>& r){ 
 
-        T1 y = Y.col(j);
-        vec w = Weights.col(j);
+        disable_parallel_blas();
 
-        spectralDecomp<T3> dcmp;
-        dcmp.initWithIndicator(Z, w);
+        // iterate through responses 
+        for (int j = r.begin(); j != r.end(); ++j) { 
 
-        fastlmm fit = fastlmm<T1, T2, T3>(y, X, dcmp.get_vectors(), dcmp.get_values(), w);
+            T1 y = Y.col(j);
+            vec w = Weights.col(j);
 
-        fit.estimate_delta( left, right, tol );
+            spectralDecomp<T3> dcmp;
+            dcmp.initWithIndicator(Z, w);
 
-        result.at(j) = fit.get_result();
-        result.at(j).ID = ids[j];
-    }
+            fastlmm fit = fastlmm<T1, T2, T3>(y, X, dcmp.get_vectors(), dcmp.get_values(), w, md, REML);
+
+            fit.estimate_delta( left, right, tol );
+
+            result.at(j) = fit.get_result();
+            result.at(j).ID = ids[j];
+        }
+    }); });
   
     return result;
 }

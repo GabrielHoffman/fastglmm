@@ -9,11 +9,12 @@ fastlmm.fit(
   X,
   Z,
   offset = NULL,
+  REML = FALSE,
   delta = NULL,
   rank = ncol(Z),
   weights = NULL,
   delta.range = c(-10, 10),
-  tol = .Machine$double.eps^0.5,
+  tol = 1e-06,
   nthreads = 6
 )
 }
@@ -25,6 +26,8 @@ fastlmm.fit(
 \item{Z}{sparse matrix of indicators for random effect}
 
 \item{offset}{offset}
+
+\item{REML}{logical scalar - Should the estimates be chosen to optimize the REML criterion vs ML?}
 
 \item{delta}{if \code{NULL} estimate delta, if value is given used this fixed values}
 
