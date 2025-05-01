@@ -1,11 +1,23 @@
+/***************************************************************
+ * @file    export.cpp
+ * @author  Gabriel Hoffman
+ * @email   gabriel.hoffman@mssm.edu
+ * @brief   Export functions to R
+ * Copyright (C) 2024 Gabriel Hoffman
+ **************************************************************/
+
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 
-#include "fastlmmLib.h"
+#include "fastglmm.h"
 #include "exportToR_fastlmm.h"
+#include "nb_theta.h"
 
+using namespace Rcpp; 
 using namespace arma;
-using namespace fastlmmLib;
+using namespace fastglmmLib;
+
+
 
 // Cannot export template functions
 // so write separately for matrix and sparse matrix
@@ -230,10 +242,6 @@ List fastlmm_mss(   const arma::mat &Y,
   return toList(res);
 }
 
-#include "nb_theta.h"
-
-using namespace Rcpp; 
-using namespace arma;
 
 // [[Rcpp::export(".nb_theta")]]
 double nb_theta(const NumericVector &y,
@@ -244,6 +252,33 @@ double nb_theta(const NumericVector &y,
                 const double &right = 20,
                 const double &tol = 1e-5){
 
-  return nb_theta_ml(y, mu, n, weights, left, right, tol);
+  return nb_theta_ml(y, mu, n, weights, {}, false, {}, left, right, tol);
+}
+
+
+// y = vec
+// X = mat
+// U = mat
+// [[Rcpp::export(".fastglmm_mm")]]
+List fastglmm_mm( const arma::vec &y, 
+                  const arma::mat &X,  
+                  const arma::mat &U, 
+                  const arma::vec &s,
+                  const arma::vec &weights,
+                  const arma::vec &offset,
+                  const std::string &family,
+                  const double &delta,
+                  const double &left,
+                  const double &right,
+                  const double &tol,
+                  const int &nthreads){
+
+  ModelDetail md = MAX;
+
+  // initialize
+  fastglmm fit = fastglmm<vec,mat,mat>(y, X, U, s, weights, offset, family, md);
+
+  // return toList(fit);
+  return List();
 }
 

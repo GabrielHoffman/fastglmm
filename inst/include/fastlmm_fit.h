@@ -1,6 +1,13 @@
+/***************************************************************
+ * @file    fastlmm_fit.h
+ * @author  Gabriel Hoffman
+ * @email   gabriel.hoffman@mssm.edu
+ * @brief   Fit linear mixed model
+ * Copyright (C) 2024 Gabriel Hoffman
+ **************************************************************/
 
-#ifndef FASTLMM_H_
-#define FASTLMM_H_
+#ifndef _FASTLMM_FIT_H_
+#define _FASTLMM_FIT_H_
 
 // if -D ARMA, use plain armadillo library
 #ifdef ARMA
@@ -15,7 +22,7 @@ using namespace arma;
 #include "misc.h"
 #include "ModelFit.h"
 
-namespace fastlmmLib {
+namespace fastglmmLib {
 
 // Order of template variables
 // T1 Y
@@ -147,10 +154,13 @@ class fastlmm {
     vec get_y(){ return Y;}
 
   private:
-    T1 Y, Yu;
-    T2 X, Xu;
+    vec wSq;
+    T1 Y;
+    T2 X;
     T3 U;
     vec s, weights;
+    T1 Yu;
+    T2 Xu;
     mat cp_X_low, cp_X_low_Y_low;
     vec inv_s_delta;
     mat inv_s_delta_Xu;
@@ -172,19 +182,19 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
         const vec &s_,
         const vec &weights_,
         const ModelDetail md,
-        const bool REML): md(md), REML(REML) {
-
-  vec wSq = sqrt(weights_);
-  this->Y = Y_ % wSq;
-  this->X = scaleEachCol(X_, wSq);
-  this->U = U_;
-  this->s = s_;
-  this->weights = weights_;
-  this->Yu = U_.t() * Y;
-  this->Xu = U_.t() * X;
-  this->cp_X_low = X.t() * X - Xu.t() * Xu;
-  this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
-  this->inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
+        const bool REML):   
+  wSq(sqrt(weights_)),
+  Y(Y_ % wSq),
+  X(scaleEachCol(X_, wSq)),
+  U(U_),
+  s(s_),
+  weights(weights_),
+  md(md), REML(REML) {
+  Yu = U_.t() * Y;
+  Xu = U_.t() * X;
+  cp_X_low = X.t() * X - Xu.t() * Xu;
+  cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
+  inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 } 
 
 
@@ -200,19 +210,19 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
         const vec &Yu_, 
         const mat &Xu_,
         const ModelDetail md,
-        const bool REML): md(md), REML(REML) {
-
-  vec wSq = sqrt(weights_);
-  this->Y = Y_.t() % wSq;
-  this->X = scaleEachCol(X_, wSq);
-  this->U = U_;
-  this->s = s_;
-  this->weights = weights_;
-  this->Yu = Yu_;
-  this->Xu = Xu_;
-  this->cp_X_low = X.t() * X - Xu.t() * Xu;
-  this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
-  this->inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
+        const bool REML):   
+  wSq(sqrt(weights_)),
+  Y(Y_ % wSq),
+  X(scaleEachCol(X_, wSq)),
+  U(U_),
+  s(s_),
+  weights(weights_),
+  md(md), REML(REML) {
+  Yu = Yu_;
+  Xu = Xu_;
+  cp_X_low = X.t() * X - Xu.t() * Xu;
+  cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
+  inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 } 
 
 // constructor, precompute Yu, Xu, cp_X_low, cp_X_low_Y_low
@@ -227,19 +237,19 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
                             const mat &cp_X_low_, 
                             const mat &cp_X_low_Y_low_,
                             const ModelDetail md,
-                            const bool REML): md(md), REML(REML) {
-
-  vec wSq = sqrt(weights_);
-  this->Y = Y_.t() % wSq;
-  this->X = scaleEachCol(X_, wSq);
-  this->U = U_;
-  this->s = s_;
-  this->weights = weights_;
-  this->Yu = Yu_;
-  this->Xu = Xu_;
-  this->cp_X_low = cp_X_low_;
-  this->cp_X_low_Y_low = cp_X_low_Y_low_;
-  this->inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
+                            const bool REML):   
+  wSq(sqrt(weights_)),
+  Y(Y_ % wSq),
+  X(scaleEachCol(X_, wSq)),
+  U(U_),
+  s(s_),
+  weights(weights_),
+  md(md), REML(REML) {
+  Yu = Yu_;
+  Xu = Xu_;
+  cp_X_low = cp_X_low_;
+  cp_X_low_Y_low = cp_X_low_Y_low_;
+  inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 } 
 
 
@@ -249,12 +259,12 @@ fastlmm<T1, T2, T3>::fastlmm( const T2 &X_,
                               const vec &s_,
                               const ModelDetail md,
                               const bool REML): md(md), REML(REML) {
-  this->X = X_;
-  this->U = U_;
-  this->s = s_;
-  this->Xu = U_.t() * X_;
-  this->cp_X_low = X.t() * X - Xu.t() * Xu;
-  this->inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
+  X = X_;
+  U = U_;
+  s = s_;
+  Xu = U_.t() * X_;
+  cp_X_low = X.t() * X - Xu.t() * Xu;
+  inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 }
 
 

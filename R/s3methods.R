@@ -223,3 +223,39 @@ residuals.fastlmm <- function(object, ...) {
   }
   v
 }
+
+
+# fastglmm
+##########
+
+# get eta from fastglmm
+get_eta = function(object){
+  class(object) <- "fastlmm"
+  fitted(object)
+}
+
+#' @importFrom stats fitted
+#' @export
+fitted.fastglmm = function(object,...){
+
+  # convert eta to mu
+  object$family$linkinv( get_eta(object) )
+}
+
+
+#' @importFrom stats nobs
+#' @export
+predict.fastglmm <- function(object, newdata = NULL,
+                 type = c("link", "response"), ...) {
+
+  type <- match.arg(type)
+
+  if (!is.null(newdata)) {
+    stop("newdata is not currently supported")
+  }
+  
+  switch(type,
+      link = get_eta(object),
+      response = fitted(object))
+}
+

@@ -4,14 +4,13 @@
 // [[Rcpp::depends(RcppParallel)]]
 #include <RcppParallel.h>
 
-#include "fastlmm.h"
-
+// #include "fastlmm_fit.h"
 #include "spectralDecomp.h"
 
 using namespace arma;
 using namespace std;
 
-namespace fastlmmLib {
+namespace fastglmmLib {
 
 // Order of template variables
 // T1 Y
@@ -21,8 +20,8 @@ template <typename T1, typename T2, typename T3>
 class lmmFitResponses {
 
     public:
-    lmmFitResponses(const T2 &X_, 
-                    const T3 &Z_,
+    lmmFitResponses(const T2 &X, 
+                    const T3 &Z,
                     const double &left = -10,
                     const double &right = 10,
                     const double &tol = 1e-5,
@@ -49,22 +48,22 @@ class lmmFitResponses {
 // constructor
 template <typename T1, typename T2, typename T3> 
 lmmFitResponses<T1, T2, T3>::lmmFitResponses(
-                            const T2 &X_, 
-                            const T3 &Z_,
+                            const T2 &X, 
+                            const T3 &Z,
                             const double &left,
                             const double &right,
                             const double &tol,
                             const int &nthreads,
                             const ModelDetail md,
                             const bool REML):
+            X(X), 
+            Z(Z),
             left(left),
             right(right),
             tol(tol),
             nthreads(nthreads),
             md(md),
             REML(REML) {
-    this->X         = X_;
-    this->Z         = Z_;
 }
 
 

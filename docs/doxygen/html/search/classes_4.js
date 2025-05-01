@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['spectraldecomp_0',['spectralDecomp',['../classfastlmm_lib_1_1spectral_decomp.html',1,'fastlmmLib']]],
-  ['spectraldecomp_3c_20t3_20_3e_1',['spectralDecomp&lt; T3 &gt;',['../classfastlmm_lib_1_1spectral_decomp.html',1,'fastlmmLib']]]
+  ['modelfit_0',['ModelFit',['../classfastlmm_lib_1_1_model_fit.html',1,'fastlmmLib']]],
+  ['modelfitglm_1',['ModelFitGLM',['../classfastlmm_lib_1_1_model_fit_g_l_m.html',1,'fastlmmLib']]],
+  ['modelfitglmm_2',['ModelFitGLMM',['../classfastlmm_lib_1_1_model_fit_g_l_m_m.html',1,'fastlmmLib']]],
+  ['modelfitlmm_3',['ModelFitLMM',['../classfastlmm_lib_1_1_model_fit_l_m_m.html',1,'fastlmmLib']]]
 ];

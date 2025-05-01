@@ -2,119 +2,306 @@
 \hypertarget{_model_fit_8h_source}{}\label{_model_fit_8h_source}\index{inst/include/ModelFit.h@{inst/include/ModelFit.h}}
 \mbox{\hyperlink{_model_fit_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{comment}{/***********************************************************************}}
+\DoxyCodeLine{00001\ \textcolor{comment}{/***************************************************************}}
 \DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ \ \ \ \ ModelFit.h}}
 \DoxyCodeLine{00003\ \textcolor{comment}{\ *\ @author\ \ \ \ \ \ Gabriel\ Hoffman}}
 \DoxyCodeLine{00004\ \textcolor{comment}{\ *\ @email\ \ \ \ \ \ \ gabriel.hoffman@mssm.edu}}
 \DoxyCodeLine{00005\ \textcolor{comment}{\ *\ @brief\ \ \ \ \ \ \ Store\ parameters\ from\ model\ fit}}
 \DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2024\ Gabriel\ Hoffman}}
-\DoxyCodeLine{00007\ \textcolor{comment}{\ ***********************************************************************/}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ **************************************************************/}}
 \DoxyCodeLine{00008\ }
-\DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <string>}}
-\DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{comment}{//\ from\ fastlmm}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{misc_8h}{misc.h}}>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ MODEL\_FIT\_H\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ MODEL\_FIT\_H\_}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <regex>}}
 \DoxyCodeLine{00015\ }
-\DoxyCodeLine{00016\ \textcolor{keyword}{using\ namespace\ }arma;}
-\DoxyCodeLine{00017\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{misc_8h}{misc.h}}"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{glm__family_8h}{glm\_family.h}}"{}}}
 \DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{comment}{//\ Specify\ level\ of\ model\ detail\ to\ return\ from\ regression\ fit}}
-\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{_model_fit_8h_ac3fb2f1c70ff5af98fa773661b1deab4a93ce8972d0f4ddf006654868cef460f0}{LEAST}},\ \ \textcolor{comment}{//\ just\ beta}}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{_model_fit_8h_ac3fb2f1c70ff5af98fa773661b1deab4a6a226f4143ca3b18999551694cdb72a8}{LOW}},\ \ \ \ \ \textcolor{comment}{//\ baseline\ parameters:\ beta,\ se,\ dispersion,\ rdf}}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{_model_fit_8h_ac3fb2f1c70ff5af98fa773661b1deab4a5340ec7ecef6cc3886684a3bd3450d64}{MEDIUM}},\ \textcolor{comment}{//\ vcov}}
-\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{_model_fit_8h_ac3fb2f1c70ff5af98fa773661b1deab4a0c3a1dacf94061154b3ee354359c5893}{HIGH}},\ \ \ \textcolor{comment}{//\ pearson\ residuals}}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{_model_fit_8h_ac3fb2f1c70ff5af98fa773661b1deab4a9dc4ab9acd588be3559f4e914ec81f65}{MOST}},\ \ \ \textcolor{comment}{//\ hatvalues,\ fitted.values}}
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{_model_fit_8h_ac3fb2f1c70ff5af98fa773661b1deab4ad7e097bda6d981de2520f49fe74c25b7}{MAX}}\ \ \ \ \ \textcolor{comment}{//\ deviance\ residuals}}
-\DoxyCodeLine{00027\ \}\ \mbox{\hyperlink{_model_fit_8h_ac3fb2f1c70ff5af98fa773661b1deab4}{ModelDetail}};}
-\DoxyCodeLine{00028\ \ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_model_fit_a9749852053f0a7bd55c5388bdaa319dd}{ModelFit}}\ \{}
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{public}:\ }
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}};}
-\DoxyCodeLine{00034\ \ \ \ \ vec\ \mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}};}
-\DoxyCodeLine{00035\ \ \ \ \ vec\ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}};}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}};}
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}};}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_model_fit_ab7196b1e23b991e87b944a3606e73799}{ID}};}
-\DoxyCodeLine{00039\ \ \ \ \ mat\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}};}
-\DoxyCodeLine{00040\ \ \ \ \ vec\ \mbox{\hyperlink{class_model_fit_aa1312a776d691af917f8c41c4d849df3}{residuals}};}
-\DoxyCodeLine{00041\ \ \ \ \ vec\ \mbox{\hyperlink{class_model_fit_a727d34245889930071e38f01d1a8a83f}{hatvalues}};}
-\DoxyCodeLine{00042\ \ \ \ \ vec\ \mbox{\hyperlink{class_model_fit_a308854170ab0ed2695e9d2ac2f4f6357}{mu}};}
-\DoxyCodeLine{00043\ \ \ \ \ vec\ \mbox{\hyperlink{class_model_fit_aa8748da2c53f059ad80aee3604d72168}{devianceResiduals}};}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_model_fit_a9749852053f0a7bd55c5388bdaa319dd}{ModelFit}}()\ \{\}}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{//\ LEAST}}
-\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{class_model_fit_adc4541511905745535435b37ac84bef5}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}})\ :\ }
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}(\mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}),\ \mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}(\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}})\ \{\}}
-\DoxyCodeLine{00050\ }
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{comment}{//\ LOW}}
-\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{class_model_fit_a29917fe4f279289047d0a6ab826782d8}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}})\ :\ }
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}(\mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}),\ \mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}(\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}),\ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}(\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}),\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}(\mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}),\ \mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}(\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}})\ \{}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ init();}
-\DoxyCodeLine{00056\ \ \ \ \ \}}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{comment}{//\ LOW\ with\ scalar\ coef\ and\ se}}
-\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_model_fit_adf7b8a2234574633e7837c84ca11ad63}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}):\ }
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}(\mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}),\ \mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}(vec(1,\ fill::value(\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}))),\ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}(vec(1,\ fill::value(\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}))),\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}(\mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}),\ \mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}(\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}})\ \{\}}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ MEDIUM}}
-\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_model_fit_abb2b9891b31f70693c28a3b6993c7ec8}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}},\ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}})\ :}
-\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}(\mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}),\ \mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}(\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}),\ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}(\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}),\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}(\mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}),\ \mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}(\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}),\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}(\mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}})\ \{}
-\DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ init();}
-\DoxyCodeLine{00067\ \ \ \ \ \}}
-\DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{//\ HIGH}}
-\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{class_model_fit_af5a9746f8bb2c0816030bc78e38bd728}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}},\ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_aa1312a776d691af917f8c41c4d849df3}{residuals}})\ :\ }
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}(\mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}),\ \mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}(\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}),\ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}(\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}),\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}(\mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}),\ \mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}(\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}),\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}(\mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}),\ \mbox{\hyperlink{class_model_fit_aa1312a776d691af917f8c41c4d849df3}{residuals}}(\mbox{\hyperlink{class_model_fit_aa1312a776d691af917f8c41c4d849df3}{residuals}})\ \{}
-\DoxyCodeLine{00072\ }
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ init();}
-\DoxyCodeLine{00074\ \ \ \ \ \}}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{comment}{//\ MOST}}
-\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{class_model_fit_a3772e452008b1c5717df4bdfbf494248}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}},\ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_aa1312a776d691af917f8c41c4d849df3}{residuals}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a727d34245889930071e38f01d1a8a83f}{hatvalues}})\ :\ }
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}(\mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}),\ \mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}(\mbox{\hyperlink{class_model_fit_a222def6e4c187aa4217d8220fcacfc5b}{coef}}),\ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}(\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}),\ \mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}(\mbox{\hyperlink{class_model_fit_a23035913758fb951b18be2987c9c2e82}{dispersion}}),\ \mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}(\mbox{\hyperlink{class_model_fit_a4f9a8d6862f097745ceee12db6163be3}{rdf}}),\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}(\mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}),\ \mbox{\hyperlink{class_model_fit_aa1312a776d691af917f8c41c4d849df3}{residuals}}(\mbox{\hyperlink{class_model_fit_aa1312a776d691af917f8c41c4d849df3}{residuals}}),\ \mbox{\hyperlink{class_model_fit_a727d34245889930071e38f01d1a8a83f}{hatvalues}}(\mbox{\hyperlink{class_model_fit_a727d34245889930071e38f01d1a8a83f}{hatvalues}})\ \{}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ init();}
-\DoxyCodeLine{00081\ \ \ \ \ \}}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//\ MAX}}
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_model_fit_a5be54e96e787f47bd8e94a994d7c206d}{setDevResids}}(\ \textcolor{keyword}{const}\ vec\ \&dr,\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{class_model_fit_a308854170ab0ed2695e9d2ac2f4f6357}{mu}})\{}
-\DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ transform\ from\ residuals.glm}}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ d.res\ <-\/\ sqrt(pmax((object\$family\$dev.resids)(y,\ mu,\ }}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ wts),\ 0))}}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ifelse(y\ >\ mu,\ d.res,\ -\/d.res)}}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_aa8748da2c53f059ad80aee3604d72168}{devianceResiduals}}\ =\ sqrt(pmax(dr,\ 0));}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ uvec\ idx\ =\ find(y\ <=\ \mbox{\hyperlink{class_model_fit_a308854170ab0ed2695e9d2ac2f4f6357}{mu}});}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_aa8748da2c53f059ad80aee3604d72168}{devianceResiduals}}.elem(idx)\ =\ -\/1.0*\mbox{\hyperlink{class_model_fit_aa8748da2c53f059ad80aee3604d72168}{devianceResiduals}}.elem(idx);}
-\DoxyCodeLine{00093\ \ \ \ \ \}\ \ \ }
-\DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_model_fit_a0e4c7390296eb9b7ada56da67c17354f}{setFittedValues}}(\ \textcolor{keyword}{const}\ vec\ \&mu\_in)\{}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a308854170ab0ed2695e9d2ac2f4f6357}{mu}}\ =\ mu\_in;}
-\DoxyCodeLine{00097\ \ \ \ \ \}}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{void}\ init()\{}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ model\ didn't\ succeed,\ set\ values\ to\ nan}}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ \mbox{\hyperlink{class_model_fit_a7c1a92f9d303104a0e6b521c0d3254a3}{success}}\ )\{}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}.fill(datum::nan);}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}.fill(datum::nan);}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ vcov\ is\ empty,\ set\ to\ be\ se.n\_elem\ x\ se.n\_elem}}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ with\ elements\ nan}}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}.n\_elem\ ==\ 0)\{}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}\ =\ mat(\mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}.n\_elem,\ \mbox{\hyperlink{class_model_fit_a6c7a0573820d54c130289d73d5cc856a}{se}}.n\_elem);}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_model_fit_a4c78612f4ede43b1adb42029767b70e5}{vcov}}.fill(datum::nan);}
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00113\ \ \ \ \ \}}
-\DoxyCodeLine{00114\ \};}
-\DoxyCodeLine{00115\ }
-\DoxyCodeLine{00116\ \textcolor{keyword}{typedef}\ vector<ModelFit>\ \mbox{\hyperlink{_model_fit_8h_adc39be6a32d02a4af0c01f51ec1b114f}{ModelFitList}};}
+\DoxyCodeLine{00019\ \textcolor{keyword}{using\ namespace\ }arma;}
+\DoxyCodeLine{00020\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacefastlmm_lib}{fastlmmLib}}\ \{}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ Specify\ level\ of\ model\ detail\ to\ return\ from\ regression\ fit}}
+\DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2baa5ab4305a7fe3d32b0a55977703a2c35}{LEAST}},\ \ \textcolor{comment}{//\ just\ beta}}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}},\ \ \ \ \ \textcolor{comment}{//\ baseline\ parameters:\ beta,\ se,\ dispersion,\ rdf}}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba0aa074048824cc6451371747f11da418}{MEDIUM}},\ \textcolor{comment}{//\ vcov}}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba2fa325b1ac6f0b8fa1f300f5cbe8c2e0}{HIGH}},\ \ \ \textcolor{comment}{//\ pearson\ residuals}}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba98db90a71aabc3c2d20fec28a148f555}{MOST}},\ \ \ \textcolor{comment}{//\ hatvalues,\ fitted.values}}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2baeb043142ab974930489c3c7bbbe80005}{MAX}}\ \ \ \ \ \textcolor{comment}{//\ deviance\ residuals}}
+\DoxyCodeLine{00032\ \}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{ModelDetail}};}
+\DoxyCodeLine{00033\ \ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af3cd8a022801b89d43825be16d53582c}{ModelFit}}\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{public}:\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}};}
+\DoxyCodeLine{00039\ \ \ \ \ vec\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}};}
+\DoxyCodeLine{00040\ \ \ \ \ vec\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}};}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}};}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}};}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a3a2558c7ebd8dc4f7ea88f83af4764ac}{ID}};}
+\DoxyCodeLine{00044\ \ \ \ \ mat\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}};}
+\DoxyCodeLine{00045\ \ \ \ \ vec\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}};}
+\DoxyCodeLine{00046\ \ \ \ \ vec\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a09ecf2602ca44f28b69fe2e055ba4cad}{hatvalues}};}
+\DoxyCodeLine{00047\ \ \ \ \ vec\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_ae881682118944764ad0ebcdc4dd59489}{mu}};}
+\DoxyCodeLine{00048\ \ \ \ \ vec\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a572f450eb45b70c63351d83366585527}{devianceResiduals}};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af3cd8a022801b89d43825be16d53582c}{ModelFit}}()\ \{\}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//\ LEAST}}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a647d0e14e399085db0a7e734d3dca1ef}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}})\ :\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}})\ \{\}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ LOW}}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_ac84fd68d8063cdf248322b97836f1313}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}})\ :\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}})\ \{}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ init();}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//\ LOW\ with\ scalar\ coef\ and\ se}}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_aafbbba31267078094a72eeba7006d30e}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}):\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}(vec(1,\ fill::value(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}))),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}(vec(1,\ fill::value(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}))),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}})\ \{\}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ MEDIUM}}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_aeb43ed0d98f3de098a1762f54f547ae9}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}},\ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}})\ :}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}})\ \{}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ init();}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{//\ HIGH}}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_abe8b0e7b14a5d7f1fb6b8df7909bd2a7}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}},\ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}})\ :\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}})\ \{}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ init();}
+\DoxyCodeLine{00079\ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{comment}{//\ MOST}}
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_ada7a5c372061cf1c0ba557ef7c3225c8}{ModelFit}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}},\ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a09ecf2602ca44f28b69fe2e055ba4cad}{hatvalues}})\ :\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af2d71d3a73cda7e0dd5dfd65a6677385}{dispersion}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a09ecf2602ca44f28b69fe2e055ba4cad}{hatvalues}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a09ecf2602ca44f28b69fe2e055ba4cad}{hatvalues}})\ \{}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ init();}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{comment}{//\ MAX}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a964785637cccea91d87f843a6fa4b94e}{setDevResids}}(\ \textcolor{keyword}{const}\ vec\ \&dr,\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_ae881682118944764ad0ebcdc4dd59489}{mu}})\{}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ transform\ from\ residuals.glm}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ d.res\ <-\/\ sqrt(pmax((object\$family\$dev.resids)(y,\ mu,\ }}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ wts),\ 0))}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ifelse(y\ >\ mu,\ d.res,\ -\/d.res)}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a572f450eb45b70c63351d83366585527}{devianceResiduals}}\ =\ sqrt(pmax(dr,\ 0));}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ uvec\ idx\ =\ find(y\ <=\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_ae881682118944764ad0ebcdc4dd59489}{mu}});}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a572f450eb45b70c63351d83366585527}{devianceResiduals}}.elem(idx)\ =\ -\/1.0*\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a572f450eb45b70c63351d83366585527}{devianceResiduals}}.elem(idx);}
+\DoxyCodeLine{00098\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_ae6f108a680e1b29f6d6107c716aa82f1}{setFittedValues}}(\ \textcolor{keyword}{const}\ vec\ \&mu\_in)\{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_ae881682118944764ad0ebcdc4dd59489}{mu}}\ =\ mu\_in;}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ init()\{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ model\ didn't\ succeed,\ set\ values\ to\ nan}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}}\ )\{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}.fill(datum::nan);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}.fill(datum::nan);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ vcov\ is\ empty,\ set\ to\ be\ se.n\_elem\ x\ se.n\_elem}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ with\ elements\ nan}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}.n\_elem\ ==\ 0)\{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}\ =\ mat(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}.n\_elem,\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}.n\_elem);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}.fill(datum::nan);}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ \};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_a4b98fd8fd17efee05beb32585cfdbcb9}{ModelFitGLM}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af3cd8a022801b89d43825be16d53582c}{ModelFit}}\ \{}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_a4b98fd8fd17efee05beb32585cfdbcb9}{ModelFitGLM}}()\ \{\}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_ac7bfd01ca9499049bb8ee6a06cecbe4c}{ModelFitGLM}}(\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af3cd8a022801b89d43825be16d53582c}{ModelFit}}\ \&gmf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_ad304a1b6c747ced9e726591ced4c0e13}{family}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_aae0edd460d8dd6fa55f07150286f2928}{niter}}\ )\ :}
+\DoxyCodeLine{00129\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af3cd8a022801b89d43825be16d53582c}{ModelFit}}(gmf),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_ad304a1b6c747ced9e726591ced4c0e13}{family}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_ad304a1b6c747ced9e726591ced4c0e13}{family}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_aae0edd460d8dd6fa55f07150286f2928}{niter}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_aae0edd460d8dd6fa55f07150286f2928}{niter}})\ \{}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{comment}{//\ extract\ theta\ values\ from\ "{}nb:theta"{}}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{if}(\ regex\_search(\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_ad304a1b6c747ced9e726591ced4c0e13}{family}},\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}))\ )\{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ theta\_str\ =\ regex\_replace(\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_ad304a1b6c747ced9e726591ced4c0e13}{family}},\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}),\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_ae7d168ee076115d0573b3735cc2b1cd6}{theta}}\ =\ atof(theta\_str.c\_str());}
+\DoxyCodeLine{00135\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_ae7d168ee076115d0573b3735cc2b1cd6}{theta}}\ =\ datum::nan;}
+\DoxyCodeLine{00137\ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{comment}{//\ Account\ for\ loss\ of\ degrees\ of\ freedom\ when\ predicted\ counts\ are\ zero\ in\ a\ count\ model}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \textcolor{comment}{//\ https://doi.org/10.1515/sagmb-\/2017-\/0010}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ family\ is\ Poisson,\ quasipoisson\ or\ nb}}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{comment}{//\ Compute\ number\ of\ entries\ were\ predicted\ values\ are\ }}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{comment}{//\ effectively\ zero\ counts}}
+\DoxyCodeLine{00144\ \ \ \ \ shared\_ptr<GLMFamily>\ fam\ =\ getGLMFamily(\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_ad304a1b6c747ced9e726591ced4c0e13}{family}}\ );}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{if}(\ fam-\/>isCountModel()\ )\{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_a5f2265ab911ef32689d9e321756aeff6}{nZeroPrediction}}\ =\ sum(gmf.\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_ae881682118944764ad0ebcdc4dd59489}{mu}}\ <\ 1e-\/4);}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_ad304a1b6c747ced9e726591ced4c0e13}{family}}\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00151\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_ae7d168ee076115d0573b3735cc2b1cd6}{theta}}\ =\ datum::nan;}
+\DoxyCodeLine{00152\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_a081617d8310fdaf0e65070824e01b3f2}{mu\_mean}}\ =\ datum::nan;}
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_aae0edd460d8dd6fa55f07150286f2928}{niter}}\ =\ 0;}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_a5f2265ab911ef32689d9e321756aeff6}{nZeroPrediction}}\ =\ 0;}
+\DoxyCodeLine{00155\ \};}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ad35f7947a7e2960bcb52cae5b2c8dcb5}{ModelFitLMM}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af3cd8a022801b89d43825be16d53582c}{ModelFit}}\ \{\ \ \ \ \ \ }
+\DoxyCodeLine{00158\ \ \ \textcolor{keyword}{public}:\ \ }
+\DoxyCodeLine{00159\ \ \ \textcolor{comment}{//\ additional\ information\ needed\ beyond\ ModelFit}}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}};}
+\DoxyCodeLine{00161\ \ \ vec\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}};}
+\DoxyCodeLine{00162\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}};}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}};}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ad35f7947a7e2960bcb52cae5b2c8dcb5}{ModelFitLMM}}()\{\}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \textcolor{comment}{//\ LEAST}}
+\DoxyCodeLine{00168\ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afa510f826dcf8d60fe406415825a37a0}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}},}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}},}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}},}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}},}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}},}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}},}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}},}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}},\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}})\ :\ }
+\DoxyCodeLine{00178\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af3cd8a022801b89d43825be16d53582c}{ModelFit}}(\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}),}
+\DoxyCodeLine{00179\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}})}
+\DoxyCodeLine{00180\ \ \ \ \ \{\}\ }
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \textcolor{comment}{//\ LOW}}
+\DoxyCodeLine{00183\ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ab34e173782478e4b0b3ec77859882a1f}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}},}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}},}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}},}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}},}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}},}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}},}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}},}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}},\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ }
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ }
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}})\ :\ }
+\DoxyCodeLine{00195\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af3cd8a022801b89d43825be16d53582c}{ModelFit}}(\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}),}
+\DoxyCodeLine{00196\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}})}
+\DoxyCodeLine{00197\ \ \ \ \ \{\}\ }
+\DoxyCodeLine{00198\ \ \ }
+\DoxyCodeLine{00199\ \ \ \textcolor{comment}{//\ MEDIUM}}
+\DoxyCodeLine{00200\ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a73cd477118d404f10b6ed5fcc1eb8633}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ }
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}},}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}},}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}},}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}},}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}},}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}},}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}},}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}},\ }
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ }
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}},\ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}})\ :\ }
+\DoxyCodeLine{00213\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af3cd8a022801b89d43825be16d53582c}{ModelFit}}(\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}),}
+\DoxyCodeLine{00214\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}})\ }
+\DoxyCodeLine{00215\ \ \ \ \ \{\}\ }
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \textcolor{comment}{//\ HIGH}}
+\DoxyCodeLine{00218\ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a7ac36f4422a392a6316ed9c6f8f61a4f}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}},}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}},}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}},}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}},}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}},}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}},}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}},}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}},\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ }
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}},\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}},\ }
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}})\ :\ }
+\DoxyCodeLine{00232\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af3cd8a022801b89d43825be16d53582c}{ModelFit}}(\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}}),}
+\DoxyCodeLine{00233\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}})}
+\DoxyCodeLine{00234\ \ \ \ \ \{\}\ \ \ }
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \textcolor{comment}{//\ MOST}}
+\DoxyCodeLine{00237\ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a068dc5b050c940687537438a06bd98c0}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}},}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}},}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}},}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}},}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}},}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}},}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}},}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}},\ }
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ }
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}},\ }
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}},\ }
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}},\ }
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a09ecf2602ca44f28b69fe2e055ba4cad}{hatvalues}})\ :\ }
+\DoxyCodeLine{00252\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_af3cd8a022801b89d43825be16d53582c}{ModelFit}}(\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4e9a17b15a2e6619805db5973dd9aa27}{success}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}},\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a09ecf2602ca44f28b69fe2e055ba4cad}{hatvalues}}),}
+\DoxyCodeLine{00253\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}})}
+\DoxyCodeLine{00254\ \ \ \ \ \{\}\ \ \ }
+\DoxyCodeLine{00255\ \};}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_aa431e1618433b807a01900d607ab9be3}{ModelFitGLMM}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ad35f7947a7e2960bcb52cae5b2c8dcb5}{ModelFitLMM}}\ \{}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_aa431e1618433b807a01900d607ab9be3}{ModelFitGLMM}}()\ \{\}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a55ffea5ab87e19ec07c795647e69d957}{ModelFitGLMM}}(\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ad35f7947a7e2960bcb52cae5b2c8dcb5}{ModelFitLMM}}\ \&gmf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a40265a2881bbccd4c86a42050ec4f7b1}{family}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a7aa8c256771b2bbe5ff538547f65b9b6}{niter}}\ )\ :}
+\DoxyCodeLine{00265\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ad35f7947a7e2960bcb52cae5b2c8dcb5}{ModelFitLMM}}(gmf),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a40265a2881bbccd4c86a42050ec4f7b1}{family}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a40265a2881bbccd4c86a42050ec4f7b1}{family}}),\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a7aa8c256771b2bbe5ff538547f65b9b6}{niter}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a7aa8c256771b2bbe5ff538547f65b9b6}{niter}})\ \{}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{comment}{//\ extract\ theta\ values\ from\ "{}nb:theta"{}}}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordflow}{if}(\ regex\_search(\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a40265a2881bbccd4c86a42050ec4f7b1}{family}},\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}))\ )\{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ theta\_str\ =\ regex\_replace(\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a40265a2881bbccd4c86a42050ec4f7b1}{family}},\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}),\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a7d84cf2210d1c23c305027790745d7e1}{theta}}\ =\ atof(theta\_str.c\_str());}
+\DoxyCodeLine{00271\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a7d84cf2210d1c23c305027790745d7e1}{theta}}\ =\ datum::nan;}
+\DoxyCodeLine{00273\ \ \ \ \ \}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{comment}{//\ Account\ for\ loss\ of\ degrees\ of\ freedom\ when\ predicted\ counts\ are\ zero\ in\ a\ count\ model}}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \textcolor{comment}{//\ https://doi.org/10.1515/sagmb-\/2017-\/0010}}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ family\ is\ Poisson,\ quasipoisson\ or\ nb}}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{comment}{//\ Compute\ number\ of\ entries\ were\ predicted\ values\ are\ }}
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{comment}{//\ effectively\ zero\ counts}}
+\DoxyCodeLine{00280\ \ \ \ \ shared\_ptr<GLMFamily>\ fam\ =\ getGLMFamily(\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a40265a2881bbccd4c86a42050ec4f7b1}{family}}\ );}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keywordflow}{if}(\ fam-\/>isCountModel()\ )\{}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a5b649e4ecb84a097d4f967e5ee1901ac}{nZeroPrediction}}\ =\ sum(gmf.\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_ae881682118944764ad0ebcdc4dd59489}{mu}}\ <\ 1e-\/4);}
+\DoxyCodeLine{00283\ \ \ \ \ \}}
+\DoxyCodeLine{00284\ \ \ \}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a40265a2881bbccd4c86a42050ec4f7b1}{family}}\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00287\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a7d84cf2210d1c23c305027790745d7e1}{theta}}\ =\ datum::nan;}
+\DoxyCodeLine{00288\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a380a6bc35980a3174d1797c6dc72b480}{mu\_mean}}\ =\ datum::nan;}
+\DoxyCodeLine{00289\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a7aa8c256771b2bbe5ff538547f65b9b6}{niter}}\ =\ 0;}
+\DoxyCodeLine{00290\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m_a5b649e4ecb84a097d4f967e5ee1901ac}{nZeroPrediction}}\ =\ 0;}
+\DoxyCodeLine{00291\ \};}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \textcolor{keyword}{typedef}\ vector<ModelFit>\ \mbox{\hyperlink{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}{ModelFitList}};}
+\DoxyCodeLine{00295\ \textcolor{keyword}{typedef}\ vector<ModelFitGLM>\ \mbox{\hyperlink{namespacefastlmm_lib_a0543bcc67c7785cf361add26d2e5765b}{ModelFitGLMList}};}
+\DoxyCodeLine{00296\ \textcolor{keyword}{typedef}\ vector<ModelFitLMM>\ \mbox{\hyperlink{namespacefastlmm_lib_af34190eacba4fc760e0618d4c40c4884}{ModelFitLMMList}};}
+\DoxyCodeLine{00297\ \textcolor{keyword}{typedef}\ vector<ModelFitGLMM>\ \mbox{\hyperlink{namespacefastlmm_lib_a0a5ecd00e26c659c0387fc86b3808d24}{ModelFitGLMMList}};}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \}}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

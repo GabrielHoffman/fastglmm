@@ -8,7 +8,6 @@
 #include <RcppArmadillo.h>
 #endif
 
-
 using namespace arma;
 
 

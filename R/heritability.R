@@ -2,6 +2,7 @@
 # 2) fast permutations
 
 # emdbook::pchibarsq
+#' @importFrom stats pchisq
 pchibarsq <- function (p, df = 1, mix = 0.5, lower.tail = TRUE, log.p = FALSE) {
     df <- rep(df, length.out = length(p))
     mix <- rep(mix, length.out = length(p))
@@ -22,6 +23,7 @@ pchibarsq <- function (p, df = 1, mix = 0.5, lower.tail = TRUE, log.p = FALSE) {
 #' 
 #' @param fit model fit of class \code{fastlmm}
 #' @param method \code{"information"} or \code{"permutation"}, 
+#' @param nperms number of permutations
 #' 
 #' @details For \code{method == "information"}, the profile log-likelihood is evaluted with respect to hsq.  The standard error is obtained from the information matrix based on the Hessian evaluated at the MLE of hsq. The p-value is then computed from this estimated standard error using a normal approximation.  This approach can perform well for large sample sizes, by performs poorly for moderate sample sizes.
 #' 
@@ -34,7 +36,7 @@ pchibarsq <- function (p, df = 1, mix = 0.5, lower.tail = TRUE, log.p = FALSE) {
 
 heritability <- function(fit, method = c("information", "permutation"), nperms = 100) {
 
-  stop("PROGRESS")
+  warning("In progress")
 
   method <- match.arg(method)
 
@@ -65,13 +67,13 @@ heritability <- function(fit, method = c("information", "permutation"), nperms =
     se_hsq <- sqrt(1 / infor)
 
     stat <- hsq_hat / se_hsq
-    p.value = pchibarsq(stat^2, lower.tail=FALSE)
+    p.value = pchisq(stat^2, 1, lower.tail=FALSE)
 
     res <- data.frame(hsq = hsq_hat, se = se_hsq, p.value)
 
   } else if (method == "permutation") {
 
-    fit_null = refit(fit, delta = 1e-9)
+    fit_null = refitModel(fit, delta = 1e-9)
     residValues = residuals(fit_null)
 
     # Use residuals instead here

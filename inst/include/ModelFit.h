@@ -1,24 +1,26 @@
-/***********************************************************************
+/***************************************************************
  * @file		ModelFit.h
- * @author		Gabriel Hoffman
+ * @author	Gabriel Hoffman
  * @email		gabriel.hoffman@mssm.edu
  * @brief		Store parameters from model fit
  * Copyright (C) 2024 Gabriel Hoffman
- ***********************************************************************/
+ **************************************************************/
 
 #ifndef MODEL_FIT_H_
 #define MODEL_FIT_H_
 
 #include <vector>
 #include <string>
+#include <regex>
 
-// from fastlmm
-#include <misc.h>
+#include "misc.h"
+
+#include "glm_family.h"
 
 using namespace arma;
 using namespace std;
 
-namespace fastlmmLib {
+namespace fastglmmLib {
 
 // Specify level of model detail to return from regression fit
 typedef enum {
@@ -118,7 +120,40 @@ class ModelFit {
 };
 
 
-typedef vector<ModelFit> ModelFitList;
+class ModelFitGLM : public ModelFit {
+
+  public:
+
+  ModelFitGLM() {}
+
+  ModelFitGLM( ModelFit &gmf, const string &family, const int &niter ) :
+    ModelFit(gmf), family(family), niter(niter) {
+
+    // extract theta values from "nb:theta"
+    if( regex_search( family, regex("^nb:")) ){
+      string theta_str = regex_replace( family, regex("^nb:"), "");
+      theta = atof(theta_str.c_str());
+    }else{
+      theta = datum::nan;
+    }
+
+    // Account for loss of degrees of freedom when predicted counts are zero in a count model
+      // https://doi.org/10.1515/sagmb-2017-0010
+      // if family is Poisson, quasipoisson or nb
+    // Compute number of entries were predicted values are 
+    // effectively zero counts
+    shared_ptr<GLMFamily> fam = getGLMFamily( family );
+    if( fam->isCountModel() ){
+      nZeroPrediction = sum(gmf.mu < 1e-4);
+    }
+  }
+
+  string family = "";
+  double theta = datum::nan;
+  double mu_mean = datum::nan;
+  int niter = 0;
+  double nZeroPrediction = 0;
+};
 
 class ModelFitLMM : public ModelFit {      
   public:  
@@ -220,7 +255,49 @@ class ModelFitLMM : public ModelFit {
     {}   
 };
 
+
+class ModelFitGLMM : public ModelFitLMM {
+
+  public:
+
+  ModelFitGLMM() {}
+
+  ModelFitGLMM( ModelFitLMM &gmf, const string &family, const int &niter ) :
+    ModelFitLMM(gmf), family(family), niter(niter) {
+
+    // extract theta values from "nb:theta"
+    if( regex_search( family, regex("^nb:")) ){
+      string theta_str = regex_replace( family, regex("^nb:"), "");
+      theta = atof(theta_str.c_str());
+    }else{
+      theta = datum::nan;
+    }
+
+    // Account for loss of degrees of freedom when predicted counts are zero in a count model
+      // https://doi.org/10.1515/sagmb-2017-0010
+      // if family is Poisson, quasipoisson or nb
+    // Compute number of entries were predicted values are 
+    // effectively zero counts
+    shared_ptr<GLMFamily> fam = getGLMFamily( family );
+    if( fam->isCountModel() ){
+      nZeroPrediction = sum(gmf.mu < 1e-4);
+    }
+  }
+
+  string family = "";
+  double theta = datum::nan;
+  double mu_mean = datum::nan;
+  int niter = 0;
+  double nZeroPrediction = 0;
+};
+
+
+typedef vector<ModelFit> ModelFitList;
+typedef vector<ModelFitGLM> ModelFitGLMList;
 typedef vector<ModelFitLMM> ModelFitLMMList;
+typedef vector<ModelFitGLMM> ModelFitGLMMList;
+
+
 
 }
 

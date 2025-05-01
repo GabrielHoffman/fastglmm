@@ -1,13 +1,14 @@
 #ifndef LMM_FIT_FEATURES_H_
 #define LMM_FIT_FEATURES_H_
 
-#include "fastlmm.h"
+// #include "fastlmm_fit.h"
 #include "spectralDecomp.h"
 
 using namespace arma;
 using namespace std;
+using namespace fastglmmLib;
 
-namespace fastlmmLib {
+namespace fastglmmLib {
 
 // Order of template variables
 // T1 Y
@@ -17,11 +18,11 @@ template <typename T1, typename T2, typename T3>
 class lmmFitFeatures {
 
     public:
-    lmmFitFeatures( const T1 &Y_, 
-                    const T2 &X_, 
-                    const T3 &U_,
-                    const vec &s_,
-                    const vec &weights_,
+    lmmFitFeatures( const T1 &Y, 
+                    const T2 &X, 
+                    const T3 &U,
+                    const vec &s,
+                    const vec &weights,
                     const double &delta,
                     const double &left = -10,
                     const double &right = 10,
@@ -42,7 +43,6 @@ class lmmFitFeatures {
     int nthreads;
     ModelDetail md;
     bool REML;
-    fastlmm<T1, T2, T3> fit;
     spectralDecomp<T3> dcmp;
 };
 
@@ -51,11 +51,11 @@ class lmmFitFeatures {
 // constructor
 template <typename T1, typename T2, typename T3> 
 lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
-                            const T1 &Y_, 
-                            const T2 &X_, 
-                            const T3 &U_,
-                            const vec &s_,
-                            const vec &weights_,     
+                            const T1 &Y, 
+                            const T2 &X, 
+                            const T3 &U,
+                            const vec &s,
+                            const vec &weights,     
                             const double &delta,
                             const double &left,
                             const double &right,
@@ -63,17 +63,11 @@ lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
                             const int &nthreads,
                             const ModelDetail md,
                             const bool REML) :
+    Y(Y), X_shared(X), weights(weights),
     delta(delta), left(left), right(right), tol(tol), nthreads(nthreads), md(md), REML(REML)
     {
 
-    // initialize internal variables
-    this->Y         = Y_;
-    this->X_shared  = X_;
-    this->weights   = weights_;
-
-    // curently no reweighting
-    // , weights_
-    dcmp.initWithEigenDecomp(U_, s_);
+    dcmp.initWithEigenDecomp(U, s, weights);
 }
 
 
@@ -109,7 +103,11 @@ ModelFitLMMList
             // for speed, need to save Y, X, scaled by U and s
             fastlmm fit = fastlmm(Y, X_combined, dcmp.get_vectors(), dcmp.get_values(), weights, md, REML);
 
-            fit.estimate_delta( left, right, tol );
+            if( delta > 0 ){
+                fit.eval_delta( delta ); 
+            }else{
+                fit.estimate_delta( left, right, tol );
+            }
 
             result.at(j) = fit.get_result();
             result.at(j).ID = ids[j];

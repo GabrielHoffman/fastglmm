@@ -13,7 +13,7 @@
 
 using namespace arma;
 
-namespace fastlmmLib {
+namespace fastglmmLib {
 
 template <typename T> 
 class spectralDecomp {
@@ -22,13 +22,13 @@ class spectralDecomp {
   	spectralDecomp(){};
 
   	// Initialize with indicator matrix Z;
-    void initWithIndicator( const T &Z_, const vec &weights_);
+    void initWithIndicator( const T &Z, const vec &weights);
 
     // Initialize with U and s from eigen decomp
-    void initWithEigenDecomp( const T &U_, const vec &s_);
+    void initWithEigenDecomp( const T &U, const vec &s);
 
     // Initialize with U and s from eigen decomp, and weights
-    void initWithEigenDecomp( const T &U_, const vec &s_, const vec &weights_);
+    void initWithEigenDecomp( const T &U, const vec &s, const vec &weights);
 
     T get_vectors(){return U;}
     vec get_values(){return s;}
@@ -40,32 +40,34 @@ class spectralDecomp {
 
 // Initialize with indicator matrix
 template <typename T> 
-void spectralDecomp<T>::initWithIndicator( const T &Z_, const vec &weights_){
+void spectralDecomp<T>::initWithIndicator( const T &Z, const vec &weights){
 
-	s = (weights_.t() * Z_).t();
-	U = scaleRowsCols(Z_, sqrt(weights_), 1 / sqrt(s));
+	s = (weights.t() * Z).t();
+	U = scaleRowsCols(Z, sqrt(weights), 1 / sqrt(s));
 }
 
 
 // Initialize with U and s from eigen decomp
 template <typename T> 
-void spectralDecomp<T>::initWithEigenDecomp( const T &U_, const vec &s_){
+void spectralDecomp<T>::initWithEigenDecomp( const T &U, const vec &s){
 
-	this->U = U_;
-	this->s = s_;
+	this->U = U;
+	this->s = s;
 }
 
 // Initialize with U and s from eigen decomp, and weights
-// template <typename T> 
-// void spectralDecomp<T>::initWithEigenDecomp( const T &U_, const vec &s_, const vec &weights_){
+template <typename T> 
+void spectralDecomp<T>::initWithEigenDecomp( const T &U, const vec &s, const vec &weights){
+
+	Rcpp::Rcout << "Reweighting not applied" << std::endl;
 
 	// SVD after applying weights
 	// mat Q, R;
 	// qr(Q, R, scaleCols(U_, s_));
 
-	// this->U = U_;
-	// this->s = s_;
-// }
+	this->U = U;
+	this->s = s;
+}
 
 
 

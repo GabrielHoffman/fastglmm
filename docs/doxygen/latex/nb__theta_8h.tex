@@ -1,0 +1,45 @@
+\doxysection{inst/include/nb\+\_\+theta.h File Reference}
+\hypertarget{nb__theta_8h}{}\label{nb__theta_8h}\index{inst/include/nb\_theta.h@{inst/include/nb\_theta.h}}
+{\ttfamily \#include $<$armadillo$>$}\newline
+{\ttfamily \#include "{}local\+\_\+min.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structnb_data}{nb\+Data}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef unordered\+\_\+map$<$ long, double $>$ \mbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{Count\+Table}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{Count\+Table}} \mbox{\hyperlink{nb__theta_8h_af1606edb5f5100fae87e0fb66677e947}{Create\+LUT}} (const vec \&y, const vec \&weights=\{\}, const int \&max\+Unique\+Entries=1000)
+\item 
+double \mbox{\hyperlink{nb__theta_8h_a638ee7bd16c20f4eb386cf870d3ee36b}{nb\+\_\+ll}} (const vec \&y, const vec \&mu, const double \&n, const vec \&weights, const mat \&X, const bool \&do\+Cox\+Reid, const \mbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{Count\+Table}} \&ct, const double \&theta)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}\index{nb\_theta.h@{nb\_theta.h}!CountTable@{CountTable}}
+\index{CountTable@{CountTable}!nb\_theta.h@{nb\_theta.h}}
+\doxysubsubsection{\texorpdfstring{CountTable}{CountTable}}
+{\footnotesize\ttfamily \label{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b} 
+typedef unordered\+\_\+map$<$long, double$>$ \mbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{Count\+Table}}}
+
+Store number of observations for each count 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{nb__theta_8h_af1606edb5f5100fae87e0fb66677e947}\index{nb\_theta.h@{nb\_theta.h}!CreateLUT@{CreateLUT}}
+\index{CreateLUT@{CreateLUT}!nb\_theta.h@{nb\_theta.h}}
+\doxysubsubsection{\texorpdfstring{CreateLUT()}{CreateLUT()}}
+{\footnotesize\ttfamily \label{nb__theta_8h_af1606edb5f5100fae87e0fb66677e947} 
+\mbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{Count\+Table}} Create\+LUT (\begin{DoxyParamCaption}\item[{const vec \&}]{y}{, }\item[{const vec \&}]{weights}{ = {\ttfamily \{\}}, }\item[{const int \&}]{max\+Unique\+Entries}{ = {\ttfamily 1000}}\end{DoxyParamCaption})}
+
+Compute number of observations for each count \Hypertarget{nb__theta_8h_a638ee7bd16c20f4eb386cf870d3ee36b}\index{nb\_theta.h@{nb\_theta.h}!nb\_ll@{nb\_ll}}
+\index{nb\_ll@{nb\_ll}!nb\_theta.h@{nb\_theta.h}}
+\doxysubsubsection{\texorpdfstring{nb\_ll()}{nb\_ll()}}
+{\footnotesize\ttfamily \label{nb__theta_8h_a638ee7bd16c20f4eb386cf870d3ee36b} 
+double nb\+\_\+ll (\begin{DoxyParamCaption}\item[{const vec \&}]{y}{, }\item[{const vec \&}]{mu}{, }\item[{const double \&}]{n}{, }\item[{const vec \&}]{weights}{, }\item[{const mat \&}]{X}{, }\item[{const bool \&}]{do\+Cox\+Reid}{, }\item[{const \mbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{Count\+Table}} \&}]{ct}{, }\item[{const double \&}]{theta}{}\end{DoxyParamCaption})}
+

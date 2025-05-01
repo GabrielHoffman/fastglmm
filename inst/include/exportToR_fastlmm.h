@@ -1,12 +1,19 @@
 
+/***************************************************************
+ * @file    exportToR_fastlmm.h
+ * @author  Gabriel Hoffman
+ * @email   gabriel.hoffman@mssm.edu
+ * @brief   Export results to R as List
+ * Copyright (C) 2024 Gabriel Hoffman
+ **************************************************************/
+
 #ifndef _EXPORT_TO_R_FASTLMM_
 #define _EXPORT_TO_R_FASTLMM_
 
-
-#include "fastlmmLib.h"
+// #include "fastglmm.h"
 
 using namespace Rcpp; 
-using namespace fastlmmLib;
+using namespace fastglmmLib;
 
 // Depends on Rcpp::List, so define outside of class
 const List toList(ModelFitLMM &res){

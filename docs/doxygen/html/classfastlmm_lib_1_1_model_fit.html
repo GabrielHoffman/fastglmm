@@ -1,0 +1,721 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>fastlmm: fastlmmLib::ModelFit Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">fastlmm
+   </div>
+   <div id="projectbrief">Massively scalable linear mixed models</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacefastlmm_lib.html">fastlmmLib</a></li><li class="navelem"><a class="el" href="classfastlmm_lib_1_1_model_fit.html">ModelFit</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="classfastlmm_lib_1_1_model_fit-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">fastlmmLib::ModelFit Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_model_fit_8h_source.html">ModelFit.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for fastlmmLib::ModelFit:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classfastlmm_lib_1_1_model_fit.png" usemap="#fastlmmLib::ModelFit_map" alt=""/>
+  <map id="fastlmmLib::ModelFit_map" name="fastlmmLib::ModelFit_map">
+<area href="classfastlmm_lib_1_1_model_fit_g_l_m.html" alt="fastlmmLib::ModelFitGLM" shape="rect" coords="0,56,163,80"/>
+<area href="classfastlmm_lib_1_1_model_fit_l_m_m.html" alt="fastlmmLib::ModelFitLMM" shape="rect" coords="173,56,336,80"/>
+<area href="classfastlmm_lib_1_1_model_fit_g_l_m_m.html" alt="fastlmmLib::ModelFitGLMM" shape="rect" coords="173,112,336,136"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af3cd8a022801b89d43825be16d53582c" id="r_af3cd8a022801b89d43825be16d53582c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3cd8a022801b89d43825be16d53582c">ModelFit</a> ()</td></tr>
+<tr class="separator:af3cd8a022801b89d43825be16d53582c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a647d0e14e399085db0a7e734d3dca1ef" id="r_a647d0e14e399085db0a7e734d3dca1ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a647d0e14e399085db0a7e734d3dca1ef">ModelFit</a> (const bool &amp;<a class="el" href="#a4e9a17b15a2e6619805db5973dd9aa27">success</a>, const vec &amp;<a class="el" href="#a4d4c2c94cdbb4ad26c282d78facf8cc1">coef</a>)</td></tr>
+<tr class="separator:a647d0e14e399085db0a7e734d3dca1ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac84fd68d8063cdf248322b97836f1313" id="r_ac84fd68d8063cdf248322b97836f1313"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac84fd68d8063cdf248322b97836f1313">ModelFit</a> (const bool &amp;<a class="el" href="#a4e9a17b15a2e6619805db5973dd9aa27">success</a>, const vec &amp;<a class="el" href="#a4d4c2c94cdbb4ad26c282d78facf8cc1">coef</a>, const vec &amp;<a class="el" href="#a16a3d02ce26ec980d4f069991a5a23cd">se</a>, const double &amp;<a class="el" href="#af2d71d3a73cda7e0dd5dfd65a6677385">dispersion</a>, const double &amp;<a class="el" href="#a901fdda3301dcc82942bb1c0a65804fa">rdf</a>)</td></tr>
+<tr class="separator:ac84fd68d8063cdf248322b97836f1313"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafbbba31267078094a72eeba7006d30e" id="r_aafbbba31267078094a72eeba7006d30e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aafbbba31267078094a72eeba7006d30e">ModelFit</a> (const bool &amp;<a class="el" href="#a4e9a17b15a2e6619805db5973dd9aa27">success</a>, const double &amp;<a class="el" href="#a4d4c2c94cdbb4ad26c282d78facf8cc1">coef</a>, const double &amp;<a class="el" href="#a16a3d02ce26ec980d4f069991a5a23cd">se</a>, const double &amp;<a class="el" href="#af2d71d3a73cda7e0dd5dfd65a6677385">dispersion</a>, const double &amp;<a class="el" href="#a901fdda3301dcc82942bb1c0a65804fa">rdf</a>)</td></tr>
+<tr class="separator:aafbbba31267078094a72eeba7006d30e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb43ed0d98f3de098a1762f54f547ae9" id="r_aeb43ed0d98f3de098a1762f54f547ae9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb43ed0d98f3de098a1762f54f547ae9">ModelFit</a> (const bool &amp;<a class="el" href="#a4e9a17b15a2e6619805db5973dd9aa27">success</a>, const vec &amp;<a class="el" href="#a4d4c2c94cdbb4ad26c282d78facf8cc1">coef</a>, const vec &amp;<a class="el" href="#a16a3d02ce26ec980d4f069991a5a23cd">se</a>, const double &amp;<a class="el" href="#af2d71d3a73cda7e0dd5dfd65a6677385">dispersion</a>, const double &amp;<a class="el" href="#a901fdda3301dcc82942bb1c0a65804fa">rdf</a>, const mat &amp;<a class="el" href="#a7f02d66030601dbe1c806c0463f7c6d6">vcov</a>)</td></tr>
+<tr class="separator:aeb43ed0d98f3de098a1762f54f547ae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe8b0e7b14a5d7f1fb6b8df7909bd2a7" id="r_abe8b0e7b14a5d7f1fb6b8df7909bd2a7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe8b0e7b14a5d7f1fb6b8df7909bd2a7">ModelFit</a> (const bool &amp;<a class="el" href="#a4e9a17b15a2e6619805db5973dd9aa27">success</a>, const vec &amp;<a class="el" href="#a4d4c2c94cdbb4ad26c282d78facf8cc1">coef</a>, const vec &amp;<a class="el" href="#a16a3d02ce26ec980d4f069991a5a23cd">se</a>, const double &amp;<a class="el" href="#af2d71d3a73cda7e0dd5dfd65a6677385">dispersion</a>, const double &amp;<a class="el" href="#a901fdda3301dcc82942bb1c0a65804fa">rdf</a>, const mat &amp;<a class="el" href="#a7f02d66030601dbe1c806c0463f7c6d6">vcov</a>, const vec &amp;<a class="el" href="#a69baeb6b54efc0d73af24b683982cf19">residuals</a>)</td></tr>
+<tr class="separator:abe8b0e7b14a5d7f1fb6b8df7909bd2a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada7a5c372061cf1c0ba557ef7c3225c8" id="r_ada7a5c372061cf1c0ba557ef7c3225c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada7a5c372061cf1c0ba557ef7c3225c8">ModelFit</a> (const bool &amp;<a class="el" href="#a4e9a17b15a2e6619805db5973dd9aa27">success</a>, const vec &amp;<a class="el" href="#a4d4c2c94cdbb4ad26c282d78facf8cc1">coef</a>, const vec &amp;<a class="el" href="#a16a3d02ce26ec980d4f069991a5a23cd">se</a>, const double &amp;<a class="el" href="#af2d71d3a73cda7e0dd5dfd65a6677385">dispersion</a>, const double &amp;<a class="el" href="#a901fdda3301dcc82942bb1c0a65804fa">rdf</a>, const mat &amp;<a class="el" href="#a7f02d66030601dbe1c806c0463f7c6d6">vcov</a>, const vec &amp;<a class="el" href="#a69baeb6b54efc0d73af24b683982cf19">residuals</a>, const vec &amp;<a class="el" href="#a09ecf2602ca44f28b69fe2e055ba4cad">hatvalues</a>)</td></tr>
+<tr class="separator:ada7a5c372061cf1c0ba557ef7c3225c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a964785637cccea91d87f843a6fa4b94e" id="r_a964785637cccea91d87f843a6fa4b94e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a964785637cccea91d87f843a6fa4b94e">setDevResids</a> (const vec &amp;dr, const vec &amp;y, const vec &amp;<a class="el" href="#ae881682118944764ad0ebcdc4dd59489">mu</a>)</td></tr>
+<tr class="separator:a964785637cccea91d87f843a6fa4b94e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6f108a680e1b29f6d6107c716aa82f1" id="r_ae6f108a680e1b29f6d6107c716aa82f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6f108a680e1b29f6d6107c716aa82f1">setFittedValues</a> (const vec &amp;mu_in)</td></tr>
+<tr class="separator:ae6f108a680e1b29f6d6107c716aa82f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a4e9a17b15a2e6619805db5973dd9aa27" id="r_a4e9a17b15a2e6619805db5973dd9aa27"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e9a17b15a2e6619805db5973dd9aa27">success</a></td></tr>
+<tr class="separator:a4e9a17b15a2e6619805db5973dd9aa27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d4c2c94cdbb4ad26c282d78facf8cc1" id="r_a4d4c2c94cdbb4ad26c282d78facf8cc1"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d4c2c94cdbb4ad26c282d78facf8cc1">coef</a></td></tr>
+<tr class="separator:a4d4c2c94cdbb4ad26c282d78facf8cc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16a3d02ce26ec980d4f069991a5a23cd" id="r_a16a3d02ce26ec980d4f069991a5a23cd"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16a3d02ce26ec980d4f069991a5a23cd">se</a></td></tr>
+<tr class="separator:a16a3d02ce26ec980d4f069991a5a23cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2d71d3a73cda7e0dd5dfd65a6677385" id="r_af2d71d3a73cda7e0dd5dfd65a6677385"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2d71d3a73cda7e0dd5dfd65a6677385">dispersion</a></td></tr>
+<tr class="separator:af2d71d3a73cda7e0dd5dfd65a6677385"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a901fdda3301dcc82942bb1c0a65804fa" id="r_a901fdda3301dcc82942bb1c0a65804fa"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a901fdda3301dcc82942bb1c0a65804fa">rdf</a></td></tr>
+<tr class="separator:a901fdda3301dcc82942bb1c0a65804fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a2558c7ebd8dc4f7ea88f83af4764ac" id="r_a3a2558c7ebd8dc4f7ea88f83af4764ac"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a2558c7ebd8dc4f7ea88f83af4764ac">ID</a></td></tr>
+<tr class="separator:a3a2558c7ebd8dc4f7ea88f83af4764ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f02d66030601dbe1c806c0463f7c6d6" id="r_a7f02d66030601dbe1c806c0463f7c6d6"><td class="memItemLeft" align="right" valign="top">mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f02d66030601dbe1c806c0463f7c6d6">vcov</a></td></tr>
+<tr class="separator:a7f02d66030601dbe1c806c0463f7c6d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69baeb6b54efc0d73af24b683982cf19" id="r_a69baeb6b54efc0d73af24b683982cf19"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69baeb6b54efc0d73af24b683982cf19">residuals</a></td></tr>
+<tr class="separator:a69baeb6b54efc0d73af24b683982cf19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09ecf2602ca44f28b69fe2e055ba4cad" id="r_a09ecf2602ca44f28b69fe2e055ba4cad"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a09ecf2602ca44f28b69fe2e055ba4cad">hatvalues</a></td></tr>
+<tr class="separator:a09ecf2602ca44f28b69fe2e055ba4cad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae881682118944764ad0ebcdc4dd59489" id="r_ae881682118944764ad0ebcdc4dd59489"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae881682118944764ad0ebcdc4dd59489">mu</a></td></tr>
+<tr class="separator:ae881682118944764ad0ebcdc4dd59489"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a572f450eb45b70c63351d83366585527" id="r_a572f450eb45b70c63351d83366585527"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a572f450eb45b70c63351d83366585527">devianceResiduals</a></td></tr>
+<tr class="separator:a572f450eb45b70c63351d83366585527"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Store results from fitting linear regression model </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af3cd8a022801b89d43825be16d53582c" name="af3cd8a022801b89d43825be16d53582c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3cd8a022801b89d43825be16d53582c">&#9670;&#160;</a></span>ModelFit() <span class="overload">[1/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fastlmmLib::ModelFit::ModelFit </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a647d0e14e399085db0a7e734d3dca1ef" name="a647d0e14e399085db0a7e734d3dca1ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a647d0e14e399085db0a7e734d3dca1ef">&#9670;&#160;</a></span>ModelFit() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fastlmmLib::ModelFit::ModelFit </td>
+          <td>(</td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>success</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>coef</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac84fd68d8063cdf248322b97836f1313" name="ac84fd68d8063cdf248322b97836f1313"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac84fd68d8063cdf248322b97836f1313">&#9670;&#160;</a></span>ModelFit() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fastlmmLib::ModelFit::ModelFit </td>
+          <td>(</td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>success</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>coef</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>se</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>dispersion</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>rdf</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aafbbba31267078094a72eeba7006d30e" name="aafbbba31267078094a72eeba7006d30e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafbbba31267078094a72eeba7006d30e">&#9670;&#160;</a></span>ModelFit() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fastlmmLib::ModelFit::ModelFit </td>
+          <td>(</td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>success</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>coef</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>se</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>dispersion</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>rdf</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeb43ed0d98f3de098a1762f54f547ae9" name="aeb43ed0d98f3de098a1762f54f547ae9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb43ed0d98f3de098a1762f54f547ae9">&#9670;&#160;</a></span>ModelFit() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fastlmmLib::ModelFit::ModelFit </td>
+          <td>(</td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>success</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>coef</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>se</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>dispersion</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>rdf</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>vcov</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abe8b0e7b14a5d7f1fb6b8df7909bd2a7" name="abe8b0e7b14a5d7f1fb6b8df7909bd2a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe8b0e7b14a5d7f1fb6b8df7909bd2a7">&#9670;&#160;</a></span>ModelFit() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fastlmmLib::ModelFit::ModelFit </td>
+          <td>(</td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>success</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>coef</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>se</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>dispersion</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>rdf</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>vcov</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>residuals</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ada7a5c372061cf1c0ba557ef7c3225c8" name="ada7a5c372061cf1c0ba557ef7c3225c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada7a5c372061cf1c0ba557ef7c3225c8">&#9670;&#160;</a></span>ModelFit() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fastlmmLib::ModelFit::ModelFit </td>
+          <td>(</td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>success</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>coef</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>se</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>dispersion</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>rdf</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>vcov</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>residuals</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>hatvalues</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a964785637cccea91d87f843a6fa4b94e" name="a964785637cccea91d87f843a6fa4b94e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a964785637cccea91d87f843a6fa4b94e">&#9670;&#160;</a></span>setDevResids()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fastlmmLib::ModelFit::setDevResids </td>
+          <td>(</td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>dr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>mu</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae6f108a680e1b29f6d6107c716aa82f1" name="ae6f108a680e1b29f6d6107c716aa82f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6f108a680e1b29f6d6107c716aa82f1">&#9670;&#160;</a></span>setFittedValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fastlmmLib::ModelFit::setFittedValues </td>
+          <td>(</td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>mu_in</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a4d4c2c94cdbb4ad26c282d78facf8cc1" name="a4d4c2c94cdbb4ad26c282d78facf8cc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d4c2c94cdbb4ad26c282d78facf8cc1">&#9670;&#160;</a></span>coef</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vec fastlmmLib::ModelFit::coef</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a572f450eb45b70c63351d83366585527" name="a572f450eb45b70c63351d83366585527"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a572f450eb45b70c63351d83366585527">&#9670;&#160;</a></span>devianceResiduals</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vec fastlmmLib::ModelFit::devianceResiduals</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af2d71d3a73cda7e0dd5dfd65a6677385" name="af2d71d3a73cda7e0dd5dfd65a6677385"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2d71d3a73cda7e0dd5dfd65a6677385">&#9670;&#160;</a></span>dispersion</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double fastlmmLib::ModelFit::dispersion</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a09ecf2602ca44f28b69fe2e055ba4cad" name="a09ecf2602ca44f28b69fe2e055ba4cad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09ecf2602ca44f28b69fe2e055ba4cad">&#9670;&#160;</a></span>hatvalues</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vec fastlmmLib::ModelFit::hatvalues</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a2558c7ebd8dc4f7ea88f83af4764ac" name="a3a2558c7ebd8dc4f7ea88f83af4764ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a2558c7ebd8dc4f7ea88f83af4764ac">&#9670;&#160;</a></span>ID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string fastlmmLib::ModelFit::ID</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae881682118944764ad0ebcdc4dd59489" name="ae881682118944764ad0ebcdc4dd59489"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae881682118944764ad0ebcdc4dd59489">&#9670;&#160;</a></span>mu</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vec fastlmmLib::ModelFit::mu</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a901fdda3301dcc82942bb1c0a65804fa" name="a901fdda3301dcc82942bb1c0a65804fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a901fdda3301dcc82942bb1c0a65804fa">&#9670;&#160;</a></span>rdf</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double fastlmmLib::ModelFit::rdf</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a69baeb6b54efc0d73af24b683982cf19" name="a69baeb6b54efc0d73af24b683982cf19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69baeb6b54efc0d73af24b683982cf19">&#9670;&#160;</a></span>residuals</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vec fastlmmLib::ModelFit::residuals</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a16a3d02ce26ec980d4f069991a5a23cd" name="a16a3d02ce26ec980d4f069991a5a23cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16a3d02ce26ec980d4f069991a5a23cd">&#9670;&#160;</a></span>se</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vec fastlmmLib::ModelFit::se</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4e9a17b15a2e6619805db5973dd9aa27" name="a4e9a17b15a2e6619805db5973dd9aa27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e9a17b15a2e6619805db5973dd9aa27">&#9670;&#160;</a></span>success</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool fastlmmLib::ModelFit::success</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7f02d66030601dbe1c806c0463f7c6d6" name="a7f02d66030601dbe1c806c0463f7c6d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f02d66030601dbe1c806c0463f7c6d6">&#9670;&#160;</a></span>vcov</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">mat fastlmmLib::ModelFit::vcov</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>inst/include/<a class="el" href="_model_fit_8h_source.html">ModelFit.h</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['r_5finit_5ffastlmm_0',['R_init_fastlmm',['../_rcpp_exports_8cpp.html#a225f9b735e1ddf6b0b1b8f5b091e0322',1,'RcppExports.cpp']]],
-  ['rcppexports_2ecpp_1',['RcppExports.cpp',['../_rcpp_exports_8cpp.html',1,'']]],
-  ['rdf_2',['rdf',['../class_model_fit.html#a4f9a8d6862f097745ceee12db6163be3',1,'ModelFit']]],
-  ['residuals_3',['residuals',['../class_model_fit.html#aa1312a776d691af917f8c41c4d849df3',1,'ModelFit::residuals'],['../classfastlmm_lib_1_1fastlmm.html#a5042471b0e49fe64c1278993daeb1c5a',1,'fastlmmLib::fastlmm::residuals()']]],
-  ['ru_4',['ru',['../classfastlmm_lib_1_1_model_fit_l_m_m.html#a4bb7344a3a0363d6f4ed8fd1f15b1a3d',1,'fastlmmLib::ModelFitLMM']]]
+  ['params_0',['params',['../structfunc_struct.html#a4889c4a13fe90bea0e1e239ae86ad3d1',1,'funcStruct']]],
+  ['poissonlog_1',['PoissonLog',['../class_poisson_log.html',1,'PoissonLog'],['../class_poisson_log.html#a14fb03fac61fc4ffd7db701de59ead11',1,'PoissonLog::PoissonLog()']]],
+  ['predict_2',['predict',['../classfastlmm_lib_1_1fastlmm.html#a2822998cf0a0f3cd958523e731f5db6d',1,'fastlmmLib::fastlmm']]]
 ];

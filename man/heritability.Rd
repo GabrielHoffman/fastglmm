@@ -10,6 +10,8 @@ heritability(fit, method = c("information", "permutation"), nperms = 100)
 \item{fit}{model fit of class \code{fastlmm}}
 
 \item{method}{\code{"information"} or \code{"permutation"},}
+
+\item{nperms}{number of permutations}
 }
 \description{
 Hypothesis test for heritability using either asymptotic normal approximation  or empirical permutations.

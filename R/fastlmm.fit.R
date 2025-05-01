@@ -15,12 +15,12 @@
 
 # can I estimate theta within PQL?
 
-#' fastlmm
+#' fastglmm
 #'
-#' Description
+#' Efficient Fit of Generalized Linear Mixed Model with a Single Random Effect
 #'
-#' @name fastlmm
-#' @useDynLib fastlmm
+#' @name fastglmm
+#' @useDynLib fastglmm
 #' @importFrom Rcpp evalCpp
 NULL
 

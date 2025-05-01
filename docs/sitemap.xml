@@ -286,6 +286,9 @@
     <loc>http://GabrielHoffman.github.io/fastglmm/reference/fastlmm_R.html</loc>
   </url>
   <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/heritability.html</loc>
+  </url>
+  <url>
     <loc>http://GabrielHoffman.github.io/fastglmm/reference/index.html</loc>
   </url>
   <url>
@@ -307,7 +310,13 @@
     <loc>http://GabrielHoffman.github.io/fastglmm/reference/lmFitResponses.html</loc>
   </url>
   <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/nb_theta.html</loc>
+  </url>
+  <url>
     <loc>http://GabrielHoffman.github.io/fastglmm/reference/preprocess_indicator.html</loc>
+  </url>
+  <url>
+    <loc>http://GabrielHoffman.github.io/fastglmm/reference/refit.html</loc>
   </url>
   <url>
     <loc>http://GabrielHoffman.github.io/fastglmm/reference/sigma.fastlmm.html</loc>

@@ -2,114 +2,92 @@
 \hypertarget{export_8cpp}{}\label{export_8cpp}\index{src/export.cpp@{src/export.cpp}}
 {\ttfamily \#include $<$Rcpp\+Armadillo.\+h$>$}\newline
 {\ttfamily \#include "{}fastlmm\+Lib.\+h"{}}\newline
+{\ttfamily \#include "{}export\+To\+R\+\_\+fastlmm.\+h"{}}\newline
+{\ttfamily \#include "{}nb\+\_\+theta.\+h"{}}\newline
+{\ttfamily \#include "{}glm\+\_\+family.\+h"{}}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-const List \mbox{\hyperlink{export_8cpp_afd61edcac6899b7f0727d2802927cc00}{to\+List}} (\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m}{Model\+Fit\+LMM}} \&res)
+List \mbox{\hyperlink{export_8cpp_aaa068c4a413b6afc89a7d6856c730f6b}{fastlmm\+\_\+vmm}} (const arma\+::vec \&y, const arma\+::mat \&X, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML=false)
 \item 
-{\footnotesize template$<$typename T1, typename T2, typename T3$>$ }\\const List \mbox{\hyperlink{export_8cpp_ab9696a0e4bb6c0618c95305b0754a5e9}{to\+List}} (\mbox{\hyperlink{classfastlmm_lib_1_1fastlmm}{fastlmm}}$<$ T1, T2, T3 $>$ \&fit)
+List \mbox{\hyperlink{export_8cpp_ab61957253503ce8c4a6b582ab9203d9f}{fastlmm\+\_\+vms}} (const arma\+::vec \&y, const arma\+::mat \&X, const arma\+::sp\+\_\+mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML=false)
 \item 
-List \mbox{\hyperlink{export_8cpp_a33288a2ea76559c86bcc81f5d888fe98}{to\+List}} (const vector$<$ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m}{Model\+Fit\+LMM}} $>$ \&res\+List)
+List \mbox{\hyperlink{export_8cpp_a4e174f1ab3b4830a41afbcc5d1f12cce}{fastlmm\+\_\+vsm}} (const arma\+::vec \&y, const arma\+::sp\+\_\+mat \&X, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML=false)
 \item 
-List \mbox{\hyperlink{export_8cpp_a6dd978b6b5052ce6ef2a128fd9e7518e}{fastlmm\+\_\+vmm}} (const arma\+::vec \&Y, const arma\+::mat \&X, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
+List \mbox{\hyperlink{export_8cpp_af2102902135d45b0453fa56e08ac9bb8}{fastlmm\+\_\+vss}} (const arma\+::vec \&y, const arma\+::sp\+\_\+mat \&X, const arma\+::sp\+\_\+mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML=false)
 \item 
-List \mbox{\hyperlink{export_8cpp_aa0b338d6c46b6f6ca276de99ae5896b2}{fastlmm\+\_\+vms}} (const arma\+::vec \&Y, const arma\+::mat \&X, const arma\+::sp\+\_\+mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
+List \mbox{\hyperlink{export_8cpp_a950804aeeaa9447a87700776b125e051}{fastlmm\+\_\+mmm}} (const arma\+::mat \&Y, const std\+::vector$<$ std\+::string $>$ ids, const arma\+::mat \&X, const arma\+::mat \&Z, const arma\+::mat \&Weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML=false)
 \item 
-List \mbox{\hyperlink{export_8cpp_a56b1112dad55c03ac0507ded09a4d7f3}{fastlmm\+\_\+vsm}} (const arma\+::vec \&Y, const arma\+::sp\+\_\+mat \&X, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
+List \mbox{\hyperlink{export_8cpp_a9f3baa91d2ea2fb3bbaaa503b6ea85c4}{fastlmm\+\_\+msm}} (const arma\+::mat \&Y, const std\+::vector$<$ std\+::string $>$ ids, const arma\+::sp\+\_\+mat \&X, const arma\+::mat \&Z, const arma\+::mat \&Weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML=false)
 \item 
-List \mbox{\hyperlink{export_8cpp_a144e06b72bf2c20f901d53f5ae67e9d4}{fastlmm\+\_\+vss}} (const arma\+::vec \&Y, const arma\+::sp\+\_\+mat \&X, const arma\+::sp\+\_\+mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
+List \mbox{\hyperlink{export_8cpp_a2eed7b7f1f3cf6793d8805919d8d8e10}{fastlmm\+\_\+mms}} (const arma\+::mat \&Y, const std\+::vector$<$ std\+::string $>$ ids, const arma\+::mat \&X, const arma\+::sp\+\_\+mat \&Z, const arma\+::mat \&Weights, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML=false)
 \item 
-List \mbox{\hyperlink{export_8cpp_a1652747b23605dd1b753eac2dcf72390}{fastlmm\+\_\+mmm}} (const arma\+::mat \&Y\+\_\+all, const arma\+::mat \&X, const arma\+::mat \&Z, const arma\+::mat \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
+List \mbox{\hyperlink{export_8cpp_a7466285b0e8b9f309e6ca6c14ac96f55}{fastlmm\+\_\+mss}} (const arma\+::mat \&Y, const std\+::vector$<$ std\+::string $>$ ids, const arma\+::sp\+\_\+mat \&X, const arma\+::sp\+\_\+mat \&Z, const arma\+::mat \&Weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML=false)
 \item 
-List \mbox{\hyperlink{export_8cpp_a137754a4c8f1646eeef3605f4e785aa7}{fastlmm\+\_\+msm}} (const arma\+::mat \&Y\+\_\+all, const arma\+::sp\+\_\+mat \&X, const arma\+::mat \&Z, const arma\+::mat \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
+double \mbox{\hyperlink{export_8cpp_ab7062d9f2ba0c976843ef3b71b4df85d}{nb\+\_\+theta}} (const Numeric\+Vector \&y, const Numeric\+Vector \&mu, const double \&n, const Numeric\+Vector \&weights, const double \&left=-\/5, const double \&right=20, const double \&tol=1e-\/5)
 \item 
-List \mbox{\hyperlink{export_8cpp_a47339fdbce2ef759d53144a0e0b66263}{fastlmm\+\_\+mms}} (const arma\+::mat \&Y\+\_\+all, const arma\+::mat \&X, const arma\+::sp\+\_\+mat \&Z, const arma\+::mat \&weights, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
-\item 
-List \mbox{\hyperlink{export_8cpp_aff76eb693cf63d64447706ebfd1fe762}{fastlmm\+\_\+mss}} (const arma\+::mat \&Y\+\_\+all, const arma\+::sp\+\_\+mat \&X, const arma\+::sp\+\_\+mat \&Z, const arma\+::mat \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
-\item 
-List \mbox{\hyperlink{export_8cpp_a0887555c6ef4085ebe5d2c6fb07c5afa}{fastlmm\+Fit\+Features\+\_\+m}} (const arma\+::mat \&Y, const arma\+::mat \&X\+\_\+design, const arma\+::mat \&X\+\_\+features, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
-\item 
-List \mbox{\hyperlink{export_8cpp_af27530cfb025961b98235744345f2212}{fastlmm\+Fit\+Features\+\_\+s}} (const arma\+::mat \&Y, const arma\+::mat \&X\+\_\+design, const arma\+::mat \&X\+\_\+features, const arma\+::sp\+\_\+mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
+List \mbox{\hyperlink{export_8cpp_ac12d8a0a56bb2a2b9d8910979061c62b}{fastglmm\+\_\+mm}} (const arma\+::vec \&y, const arma\+::mat \&X, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const arma\+::vec \&offset, const std\+::string \&family, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{export_8cpp_a1652747b23605dd1b753eac2dcf72390}\index{export.cpp@{export.cpp}!fastlmm\_mmm@{fastlmm\_mmm}}
+\Hypertarget{export_8cpp_ac12d8a0a56bb2a2b9d8910979061c62b}\index{export.cpp@{export.cpp}!fastglmm\_mm@{fastglmm\_mm}}
+\index{fastglmm\_mm@{fastglmm\_mm}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{fastglmm\_mm()}{fastglmm\_mm()}}
+{\footnotesize\ttfamily \label{export_8cpp_ac12d8a0a56bb2a2b9d8910979061c62b} 
+List fastglmm\+\_\+mm (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const arma\+::vec \&}]{offset}{, }\item[{const std\+::string \&}]{family}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a950804aeeaa9447a87700776b125e051}\index{export.cpp@{export.cpp}!fastlmm\_mmm@{fastlmm\_mmm}}
 \index{fastlmm\_mmm@{fastlmm\_mmm}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{fastlmm\_mmm()}{fastlmm\_mmm()}}
-{\footnotesize\ttfamily \label{export_8cpp_a1652747b23605dd1b753eac2dcf72390} 
-List fastlmm\+\_\+mmm (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y\+\_\+all}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::mat \&}]{Z}{, }\item[{const arma\+::mat \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_a950804aeeaa9447a87700776b125e051} 
+List fastlmm\+\_\+mmm (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const std\+::vector$<$ std\+::string $>$}]{ids}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::mat \&}]{Z}{, }\item[{const arma\+::mat \&}]{Weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_a47339fdbce2ef759d53144a0e0b66263}\index{export.cpp@{export.cpp}!fastlmm\_mms@{fastlmm\_mms}}
+\Hypertarget{export_8cpp_a2eed7b7f1f3cf6793d8805919d8d8e10}\index{export.cpp@{export.cpp}!fastlmm\_mms@{fastlmm\_mms}}
 \index{fastlmm\_mms@{fastlmm\_mms}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{fastlmm\_mms()}{fastlmm\_mms()}}
-{\footnotesize\ttfamily \label{export_8cpp_a47339fdbce2ef759d53144a0e0b66263} 
-List fastlmm\+\_\+mms (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y\+\_\+all}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{Z}{, }\item[{const arma\+::mat \&}]{weights}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_a2eed7b7f1f3cf6793d8805919d8d8e10} 
+List fastlmm\+\_\+mms (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const std\+::vector$<$ std\+::string $>$}]{ids}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{Z}{, }\item[{const arma\+::mat \&}]{Weights}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_a137754a4c8f1646eeef3605f4e785aa7}\index{export.cpp@{export.cpp}!fastlmm\_msm@{fastlmm\_msm}}
+\Hypertarget{export_8cpp_a9f3baa91d2ea2fb3bbaaa503b6ea85c4}\index{export.cpp@{export.cpp}!fastlmm\_msm@{fastlmm\_msm}}
 \index{fastlmm\_msm@{fastlmm\_msm}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{fastlmm\_msm()}{fastlmm\_msm()}}
-{\footnotesize\ttfamily \label{export_8cpp_a137754a4c8f1646eeef3605f4e785aa7} 
-List fastlmm\+\_\+msm (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y\+\_\+all}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::mat \&}]{Z}{, }\item[{const arma\+::mat \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_a9f3baa91d2ea2fb3bbaaa503b6ea85c4} 
+List fastlmm\+\_\+msm (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const std\+::vector$<$ std\+::string $>$}]{ids}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::mat \&}]{Z}{, }\item[{const arma\+::mat \&}]{Weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_aff76eb693cf63d64447706ebfd1fe762}\index{export.cpp@{export.cpp}!fastlmm\_mss@{fastlmm\_mss}}
+\Hypertarget{export_8cpp_a7466285b0e8b9f309e6ca6c14ac96f55}\index{export.cpp@{export.cpp}!fastlmm\_mss@{fastlmm\_mss}}
 \index{fastlmm\_mss@{fastlmm\_mss}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{fastlmm\_mss()}{fastlmm\_mss()}}
-{\footnotesize\ttfamily \label{export_8cpp_aff76eb693cf63d64447706ebfd1fe762} 
-List fastlmm\+\_\+mss (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y\+\_\+all}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{Z}{, }\item[{const arma\+::mat \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_a7466285b0e8b9f309e6ca6c14ac96f55} 
+List fastlmm\+\_\+mss (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const std\+::vector$<$ std\+::string $>$}]{ids}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{Z}{, }\item[{const arma\+::mat \&}]{Weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_a6dd978b6b5052ce6ef2a128fd9e7518e}\index{export.cpp@{export.cpp}!fastlmm\_vmm@{fastlmm\_vmm}}
+\Hypertarget{export_8cpp_aaa068c4a413b6afc89a7d6856c730f6b}\index{export.cpp@{export.cpp}!fastlmm\_vmm@{fastlmm\_vmm}}
 \index{fastlmm\_vmm@{fastlmm\_vmm}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{fastlmm\_vmm()}{fastlmm\_vmm()}}
-{\footnotesize\ttfamily \label{export_8cpp_a6dd978b6b5052ce6ef2a128fd9e7518e} 
-List fastlmm\+\_\+vmm (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{Y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_aaa068c4a413b6afc89a7d6856c730f6b} 
+List fastlmm\+\_\+vmm (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_aa0b338d6c46b6f6ca276de99ae5896b2}\index{export.cpp@{export.cpp}!fastlmm\_vms@{fastlmm\_vms}}
+\Hypertarget{export_8cpp_ab61957253503ce8c4a6b582ab9203d9f}\index{export.cpp@{export.cpp}!fastlmm\_vms@{fastlmm\_vms}}
 \index{fastlmm\_vms@{fastlmm\_vms}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{fastlmm\_vms()}{fastlmm\_vms()}}
-{\footnotesize\ttfamily \label{export_8cpp_aa0b338d6c46b6f6ca276de99ae5896b2} 
-List fastlmm\+\_\+vms (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{Y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_ab61957253503ce8c4a6b582ab9203d9f} 
+List fastlmm\+\_\+vms (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_a56b1112dad55c03ac0507ded09a4d7f3}\index{export.cpp@{export.cpp}!fastlmm\_vsm@{fastlmm\_vsm}}
+\Hypertarget{export_8cpp_a4e174f1ab3b4830a41afbcc5d1f12cce}\index{export.cpp@{export.cpp}!fastlmm\_vsm@{fastlmm\_vsm}}
 \index{fastlmm\_vsm@{fastlmm\_vsm}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{fastlmm\_vsm()}{fastlmm\_vsm()}}
-{\footnotesize\ttfamily \label{export_8cpp_a56b1112dad55c03ac0507ded09a4d7f3} 
-List fastlmm\+\_\+vsm (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{Y}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_a4e174f1ab3b4830a41afbcc5d1f12cce} 
+List fastlmm\+\_\+vsm (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_a144e06b72bf2c20f901d53f5ae67e9d4}\index{export.cpp@{export.cpp}!fastlmm\_vss@{fastlmm\_vss}}
+\Hypertarget{export_8cpp_af2102902135d45b0453fa56e08ac9bb8}\index{export.cpp@{export.cpp}!fastlmm\_vss@{fastlmm\_vss}}
 \index{fastlmm\_vss@{fastlmm\_vss}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{fastlmm\_vss()}{fastlmm\_vss()}}
-{\footnotesize\ttfamily \label{export_8cpp_a144e06b72bf2c20f901d53f5ae67e9d4} 
-List fastlmm\+\_\+vss (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{Y}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{export_8cpp_af2102902135d45b0453fa56e08ac9bb8} 
+List fastlmm\+\_\+vss (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
-\Hypertarget{export_8cpp_a0887555c6ef4085ebe5d2c6fb07c5afa}\index{export.cpp@{export.cpp}!fastlmmFitFeatures\_m@{fastlmmFitFeatures\_m}}
-\index{fastlmmFitFeatures\_m@{fastlmmFitFeatures\_m}!export.cpp@{export.cpp}}
-\doxysubsubsection{\texorpdfstring{fastlmmFitFeatures\_m()}{fastlmmFitFeatures\_m()}}
-{\footnotesize\ttfamily \label{export_8cpp_a0887555c6ef4085ebe5d2c6fb07c5afa} 
-List fastlmm\+Fit\+Features\+\_\+m (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const arma\+::mat \&}]{X\+\_\+design}{, }\item[{const arma\+::mat \&}]{X\+\_\+features}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
-
-\Hypertarget{export_8cpp_af27530cfb025961b98235744345f2212}\index{export.cpp@{export.cpp}!fastlmmFitFeatures\_s@{fastlmmFitFeatures\_s}}
-\index{fastlmmFitFeatures\_s@{fastlmmFitFeatures\_s}!export.cpp@{export.cpp}}
-\doxysubsubsection{\texorpdfstring{fastlmmFitFeatures\_s()}{fastlmmFitFeatures\_s()}}
-{\footnotesize\ttfamily \label{export_8cpp_af27530cfb025961b98235744345f2212} 
-List fastlmm\+Fit\+Features\+\_\+s (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const arma\+::mat \&}]{X\+\_\+design}{, }\item[{const arma\+::mat \&}]{X\+\_\+features}{, }\item[{const arma\+::sp\+\_\+mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
-
-\Hypertarget{export_8cpp_a33288a2ea76559c86bcc81f5d888fe98}\index{export.cpp@{export.cpp}!toList@{toList}}
-\index{toList@{toList}!export.cpp@{export.cpp}}
-\doxysubsubsection{\texorpdfstring{toList()}{toList()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
-{\footnotesize\ttfamily \label{export_8cpp_a33288a2ea76559c86bcc81f5d888fe98} 
-List to\+List (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m}{Model\+Fit\+LMM}} $>$ \&}]{res\+List}{}\end{DoxyParamCaption})}
-
-\Hypertarget{export_8cpp_ab9696a0e4bb6c0618c95305b0754a5e9}\index{export.cpp@{export.cpp}!toList@{toList}}
-\index{toList@{toList}!export.cpp@{export.cpp}}
-\doxysubsubsection{\texorpdfstring{toList()}{toList()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
-{\footnotesize\ttfamily \label{export_8cpp_ab9696a0e4bb6c0618c95305b0754a5e9} 
-template$<$typename T1, typename T2, typename T3$>$ \\
-const List to\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfastlmm_lib_1_1fastlmm}{fastlmm}}$<$ T1, T2, T3 $>$ \&}]{fit}{}\end{DoxyParamCaption})}
-
-\Hypertarget{export_8cpp_afd61edcac6899b7f0727d2802927cc00}\index{export.cpp@{export.cpp}!toList@{toList}}
-\index{toList@{toList}!export.cpp@{export.cpp}}
-\doxysubsubsection{\texorpdfstring{toList()}{toList()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily \label{export_8cpp_afd61edcac6899b7f0727d2802927cc00} 
-const List to\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m}{Model\+Fit\+LMM}} \&}]{res}{}\end{DoxyParamCaption})}
+\Hypertarget{export_8cpp_ab7062d9f2ba0c976843ef3b71b4df85d}\index{export.cpp@{export.cpp}!nb\_theta@{nb\_theta}}
+\index{nb\_theta@{nb\_theta}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{nb\_theta()}{nb\_theta()}}
+{\footnotesize\ttfamily \label{export_8cpp_ab7062d9f2ba0c976843ef3b71b4df85d} 
+double nb\+\_\+theta (\begin{DoxyParamCaption}\item[{const Numeric\+Vector \&}]{y}{, }\item[{const Numeric\+Vector \&}]{mu}{, }\item[{const double \&}]{n}{, }\item[{const Numeric\+Vector \&}]{weights}{, }\item[{const double \&}]{left}{ = {\ttfamily -\/5}, }\item[{const double \&}]{right}{ = {\ttfamily 20}, }\item[{const double \&}]{tol}{ = {\ttfamily 1e-\/5}}\end{DoxyParamCaption})}
 

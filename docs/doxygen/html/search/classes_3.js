@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['modelfit_0',['ModelFit',['../class_model_fit.html',1,'']]],
-  ['modelfitlmm_1',['ModelFitLMM',['../classfastlmm_lib_1_1_model_fit_l_m_m.html',1,'fastlmmLib']]]
+  ['lmmfitfeatures_0',['lmmFitFeatures',['../classfastlmm_lib_1_1lmm_fit_features.html',1,'fastlmmLib']]],
+  ['lmmfitresponses_1',['lmmFitResponses',['../classfastlmm_lib_1_1lmm_fit_responses.html',1,'fastlmmLib']]],
+  ['lmwork_2',['LMWork',['../structfastlmm_lib_1_1_l_m_work.html',1,'fastlmmLib']]]
 ];

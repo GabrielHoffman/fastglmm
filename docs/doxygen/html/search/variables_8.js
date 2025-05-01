@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['rdf_0',['rdf',['../class_model_fit.html#a4f9a8d6862f097745ceee12db6163be3',1,'ModelFit']]],
-  ['residuals_1',['residuals',['../class_model_fit.html#aa1312a776d691af917f8c41c4d849df3',1,'ModelFit']]],
-  ['ru_2',['ru',['../classfastlmm_lib_1_1_model_fit_l_m_m.html#a4bb7344a3a0363d6f4ed8fd1f15b1a3d',1,'fastlmmLib::ModelFitLMM']]]
+  ['mu_0',['mu',['../structfastlmm_lib_1_1_g_l_m_work.html#a94b9324141aa56a20e32b3824d95fb9b',1,'fastlmmLib::GLMWork::mu'],['../classfastlmm_lib_1_1_model_fit.html#ae881682118944764ad0ebcdc4dd59489',1,'fastlmmLib::ModelFit::mu'],['../structnb_data.html#a1e9990688a22c8c856decd23ac2befee',1,'nbData::mu']]],
+  ['mu_5fmean_1',['mu_mean',['../classfastlmm_lib_1_1_model_fit_g_l_m.html#a081617d8310fdaf0e65070824e01b3f2',1,'fastlmmLib::ModelFitGLM::mu_mean'],['../classfastlmm_lib_1_1_model_fit_g_l_m_m.html#a380a6bc35980a3174d1797c6dc72b480',1,'fastlmmLib::ModelFitGLMM::mu_mean']]]
 ];

@@ -15,12 +15,11 @@
 #' 
 #' summary(fit)
 #' 
-#' summary(refit(fit, delta=1000))
+#' summary(refitModel(fit, delta=1000))
 #
 #' @export
 #' @keywords internal
-refit = function(fit, delta){
-
+refitModel = function(fit, delta){
 	fastlmm.fit(fit$y, 
 		X = fit$design, 
 		Z = fit$Z, 
