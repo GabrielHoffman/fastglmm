@@ -3,11 +3,23 @@
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
+class \mbox{\hyperlink{classfastlmm_lib_1_1fastglmm}{fastglmm}}
+\item 
 class \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm}{fastlmm}}
+\item 
+struct \mbox{\hyperlink{structfastlmm_lib_1_1_g_l_m_work}{GLMWork}}
 \item 
 class \mbox{\hyperlink{classfastlmm_lib_1_1lmm_fit_features}{lmm\+Fit\+Features}}
 \item 
 class \mbox{\hyperlink{classfastlmm_lib_1_1lmm_fit_responses}{lmm\+Fit\+Responses}}
+\item 
+struct \mbox{\hyperlink{structfastlmm_lib_1_1_l_m_work}{LMWork}}
+\item 
+class \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{Model\+Fit}}
+\item 
+class \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m}{Model\+Fit\+GLM}}
+\item 
+class \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m}{Model\+Fit\+GLMM}}
 \item 
 class \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m}{Model\+Fit\+LMM}}
 \item 
@@ -16,14 +28,420 @@ class \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp}{spectral\+Decomp}}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
+typedef vector$<$ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{Model\+Fit}} $>$ \mbox{\hyperlink{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}{Model\+Fit\+List}}
+\item 
+typedef vector$<$ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m}{Model\+Fit\+GLM}} $>$ \mbox{\hyperlink{namespacefastlmm_lib_a0543bcc67c7785cf361add26d2e5765b}{Model\+Fit\+GLMList}}
+\item 
 typedef vector$<$ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m}{Model\+Fit\+LMM}} $>$ \mbox{\hyperlink{namespacefastlmm_lib_af34190eacba4fc760e0618d4c40c4884}{Model\+Fit\+LMMList}}
+\item 
+typedef vector$<$ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m}{Model\+Fit\+GLMM}} $>$ \mbox{\hyperlink{namespacefastlmm_lib_a0a5ecd00e26c659c0387fc86b3808d24}{Model\+Fit\+GLMMList}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}} \{ \newline
+\mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2baa5ab4305a7fe3d32b0a55977703a2c35}{LEAST}}
+, \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}
+, \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba0aa074048824cc6451371747f11da418}{MEDIUM}}
+, \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba2fa325b1ac6f0b8fa1f300f5cbe8c2e0}{HIGH}}
+, \newline
+\mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba98db90a71aabc3c2d20fec28a148f555}{MOST}}
+, \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2baeb043142ab974930489c3c7bbbe80005}{MAX}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacefastlmm_lib_ab89e575953621a214b8088f41658a93e}{check\+Response}} (const vec \&y, const shared\+\_\+ptr$<$ \mbox{\hyperlink{class_g_l_m_family}{GLMFamily}} $>$ fam)
+\item 
+\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m}{Model\+Fit\+GLM}} \mbox{\hyperlink{namespacefastlmm_lib_a295f924aec24989a2c4278fc157bc806}{GLM}} (const mat \&X, const colvec \&y, const string \&family, const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}} md=\mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}, const vec \&weights=\{\}, const vec \&offset=\{\}, \mbox{\hyperlink{structfastlmm_lib_1_1_g_l_m_work}{GLMWork}} \texorpdfstring{$\ast$}{*}work=nullptr, const vec \&beta\+Init=\{\}, const double \&epsilon=1e-\/8, const double \&maxit=25)
+\item 
+\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m}{Model\+Fit\+GLM}} \mbox{\hyperlink{namespacefastlmm_lib_a2cbb7f0ef34041f1c9af2ff7fb43690b}{GLM\+\_\+\+NB}} (const mat \&X, const colvec \&y, const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}} md=\mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}, const vec \&weights=\{\}, const vec \&offset=\{\}, const bool \&do\+Cox\+Reid=true, \mbox{\hyperlink{structfastlmm_lib_1_1_g_l_m_work}{GLMWork}} \texorpdfstring{$\ast$}{*}work=nullptr, const vec \&beta\+Init=\{\}, const double \&epsilon=1e-\/8, const double \&maxit=25, const double \&epsilon\+\_\+nb=1e-\/4, const double \&maxit\+\_\+nb=5)
+\item 
+\mbox{\hyperlink{namespacefastlmm_lib_a0543bcc67c7785cf361add26d2e5765b}{Model\+Fit\+GLMList}} \mbox{\hyperlink{namespacefastlmm_lib_a92972c42bd315e0c882d7005c8820a66}{glm\+Fit\+Features}} (const arma\+::vec \&y, const arma\+::mat \&X\+\_\+design, const arma\+::mat \&X\+\_\+features, const vector$<$ string $>$ \&ids, string family, arma\+::vec weights=\{\}, const vec \&offset=\{\}, const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}} md=\mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}, const bool \&do\+Cox\+Reid=true, const bool \&share\+Theta=false, const bool \&fast\+Approx=false, const int \&nthreads=1, const double \&epsilon=1e-\/8, const double \&maxit=25, const double \&epsilon\+\_\+nb=1e-\/4, const double \&maxit\+\_\+nb=5)
+\item 
+\mbox{\hyperlink{namespacefastlmm_lib_a0543bcc67c7785cf361add26d2e5765b}{Model\+Fit\+GLMList}} \mbox{\hyperlink{namespacefastlmm_lib_ae58034e71eafebc4055b570181cb4f23}{glm\+Fit\+Responses}} (const arma\+::mat \&Y, const arma\+::mat \&X, const vector$<$ string $>$ \&ids, const vector$<$ string $>$ \&family, const arma\+::vec weights=\{\}, const vec \&offset=\{\}, const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}} md=\mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}, const bool \&do\+Cox\+Reid=true, const int \&nthreads=1, const double \&epsilon=1e-\/8, const double \&maxit=25, const double \&epsilon\+\_\+nb=1e-\/4, const double \&maxit\+\_\+nb=5)
+\item 
+\mbox{\hyperlink{namespacefastlmm_lib_a0543bcc67c7785cf361add26d2e5765b}{Model\+Fit\+GLMList}} \mbox{\hyperlink{namespacefastlmm_lib_a696e5a00b6ca843c96950575095e9357}{glm\+Fit\+Responses}} (const arma\+::mat \&Y, const arma\+::mat \&X, const vector$<$ string $>$ \&ids, const string \&family, const arma\+::vec \&weights=\{\}, const vec \&offset=\{\}, const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}} md=\mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}, const bool \&do\+Cox\+Reid=true, const int \&nthreads=1, const double \&epsilon=1e-\/8, const double \&maxit=25, const double \&epsilon\+\_\+nb=1e-\/4, const double \&maxit\+\_\+nb=5)
+\item 
+vector$<$ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{Model\+Fit}} $>$ \mbox{\hyperlink{namespacefastlmm_lib_a5d2649bacae0069a92f4d92aec4b8722}{lm\+Fit\+Features\+\_\+standard}} (const arma\+::vec \&y, const arma\+::mat \&X\+\_\+design, const arma\+::mat \&X\+\_\+features, const vector$<$ string $>$ \&ids, const arma\+::vec \&weights=\{\}, const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}} md=\mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}, const int \&nthreads=1)
+\item 
+{\footnotesize template$<$typename T1, typename T2$>$ }\\\mbox{\hyperlink{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}{Model\+Fit\+List}} \mbox{\hyperlink{namespacefastlmm_lib_ae6461f135a12ae95a0d1978a9b075e1e}{lm\+Fit\+Features\+\_\+preproj}} (const arma\+::vec \&y, const T1 \&X\+\_\+design, const T2 \&X\+\_\+features, const vector$<$ string $>$ \&ids, const arma\+::vec \&weights=\{\}, const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}} md=\mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}, const int \&nthreads=1)
+\item 
+{\footnotesize template$<$typename T1, typename T2$>$ }\\\mbox{\hyperlink{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}{Model\+Fit\+List}} \mbox{\hyperlink{namespacefastlmm_lib_a60756a3921abf609f4ba6d02f21b7cf2}{lm\+Fit\+Features}} (const arma\+::vec \&y, const T1 \&X\+\_\+design, const T2 \&X\+\_\+features, const vector$<$ string $>$ \&ids, const arma\+::vec \&weights=\{\}, const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}} md=\mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}, const bool \&preprojection=true, const int \&nthreads=1)
+\item 
+\mbox{\hyperlink{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}{Model\+Fit\+List}} \mbox{\hyperlink{namespacefastlmm_lib_aa7bec9d1da8d1ed6af8db62843540a59}{lm\+Fit\+Responses}} (const arma\+::mat \&Y, const arma\+::mat \&X, const vector$<$ string $>$ \&ids, const arma\+::mat \&Weights, const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}} md=\mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}, const int \&nthreads=1)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Typedef Documentation}
+\Hypertarget{namespacefastlmm_lib_a0543bcc67c7785cf361add26d2e5765b}\index{fastlmmLib@{fastlmmLib}!ModelFitGLMList@{ModelFitGLMList}}
+\index{ModelFitGLMList@{ModelFitGLMList}!fastlmmLib@{fastlmmLib}}
+\doxysubsubsection{\texorpdfstring{ModelFitGLMList}{ModelFitGLMList}}
+{\footnotesize\ttfamily \label{namespacefastlmm_lib_a0543bcc67c7785cf361add26d2e5765b} 
+typedef vector$<$\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m}{Model\+Fit\+GLM}}$>$ \mbox{\hyperlink{namespacefastlmm_lib_a0543bcc67c7785cf361add26d2e5765b}{fastlmm\+Lib\+::\+Model\+Fit\+GLMList}}}
+
+\Hypertarget{namespacefastlmm_lib_a0a5ecd00e26c659c0387fc86b3808d24}\index{fastlmmLib@{fastlmmLib}!ModelFitGLMMList@{ModelFitGLMMList}}
+\index{ModelFitGLMMList@{ModelFitGLMMList}!fastlmmLib@{fastlmmLib}}
+\doxysubsubsection{\texorpdfstring{ModelFitGLMMList}{ModelFitGLMMList}}
+{\footnotesize\ttfamily \label{namespacefastlmm_lib_a0a5ecd00e26c659c0387fc86b3808d24} 
+typedef vector$<$\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m_m}{Model\+Fit\+GLMM}}$>$ \mbox{\hyperlink{namespacefastlmm_lib_a0a5ecd00e26c659c0387fc86b3808d24}{fastlmm\+Lib\+::\+Model\+Fit\+GLMMList}}}
+
+\Hypertarget{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}\index{fastlmmLib@{fastlmmLib}!ModelFitList@{ModelFitList}}
+\index{ModelFitList@{ModelFitList}!fastlmmLib@{fastlmmLib}}
+\doxysubsubsection{\texorpdfstring{ModelFitList}{ModelFitList}}
+{\footnotesize\ttfamily \label{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd} 
+typedef vector$<$\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{Model\+Fit}}$>$ \mbox{\hyperlink{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}{fastlmm\+Lib\+::\+Model\+Fit\+List}}}
+
 \Hypertarget{namespacefastlmm_lib_af34190eacba4fc760e0618d4c40c4884}\index{fastlmmLib@{fastlmmLib}!ModelFitLMMList@{ModelFitLMMList}}
 \index{ModelFitLMMList@{ModelFitLMMList}!fastlmmLib@{fastlmmLib}}
 \doxysubsubsection{\texorpdfstring{ModelFitLMMList}{ModelFitLMMList}}
 {\footnotesize\ttfamily \label{namespacefastlmm_lib_af34190eacba4fc760e0618d4c40c4884} 
 typedef vector$<$\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m}{Model\+Fit\+LMM}}$>$ \mbox{\hyperlink{namespacefastlmm_lib_af34190eacba4fc760e0618d4c40c4884}{fastlmm\+Lib\+::\+Model\+Fit\+LMMList}}}
 
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}\index{fastlmmLib@{fastlmmLib}!ModelDetail@{ModelDetail}}
+\index{ModelDetail@{ModelDetail}!fastlmmLib@{fastlmmLib}}
+\doxysubsubsection{\texorpdfstring{ModelDetail}{ModelDetail}}
+{\footnotesize\ttfamily \label{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b} 
+enum \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{fastlmm\+Lib\+::\+Model\+Detail}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LEAST@{LEAST}!fastlmmLib@{fastlmmLib}}\index{fastlmmLib@{fastlmmLib}!LEAST@{LEAST}}}\Hypertarget{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2baa5ab4305a7fe3d32b0a55977703a2c35}\label{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2baa5ab4305a7fe3d32b0a55977703a2c35} 
+LEAST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOW@{LOW}!fastlmmLib@{fastlmmLib}}\index{fastlmmLib@{fastlmmLib}!LOW@{LOW}}}\Hypertarget{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}\label{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122} 
+LOW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MEDIUM@{MEDIUM}!fastlmmLib@{fastlmmLib}}\index{fastlmmLib@{fastlmmLib}!MEDIUM@{MEDIUM}}}\Hypertarget{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba0aa074048824cc6451371747f11da418}\label{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba0aa074048824cc6451371747f11da418} 
+MEDIUM&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HIGH@{HIGH}!fastlmmLib@{fastlmmLib}}\index{fastlmmLib@{fastlmmLib}!HIGH@{HIGH}}}\Hypertarget{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba2fa325b1ac6f0b8fa1f300f5cbe8c2e0}\label{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba2fa325b1ac6f0b8fa1f300f5cbe8c2e0} 
+HIGH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOST@{MOST}!fastlmmLib@{fastlmmLib}}\index{fastlmmLib@{fastlmmLib}!MOST@{MOST}}}\Hypertarget{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba98db90a71aabc3c2d20fec28a148f555}\label{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba98db90a71aabc3c2d20fec28a148f555} 
+MOST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MAX@{MAX}!fastlmmLib@{fastlmmLib}}\index{fastlmmLib@{fastlmmLib}!MAX@{MAX}}}\Hypertarget{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2baeb043142ab974930489c3c7bbbe80005}\label{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2baeb043142ab974930489c3c7bbbe80005} 
+MAX&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacefastlmm_lib_ab89e575953621a214b8088f41658a93e}\index{fastlmmLib@{fastlmmLib}!checkResponse@{checkResponse}}
+\index{checkResponse@{checkResponse}!fastlmmLib@{fastlmmLib}}
+\doxysubsubsection{\texorpdfstring{checkResponse()}{checkResponse()}}
+{\footnotesize\ttfamily \label{namespacefastlmm_lib_ab89e575953621a214b8088f41658a93e} 
+void fastlmm\+Lib\+::check\+Response (\begin{DoxyParamCaption}\item[{const vec \&}]{y}{, }\item[{const shared\+\_\+ptr$<$ \mbox{\hyperlink{class_g_l_m_family}{GLMFamily}} $>$}]{fam}{}\end{DoxyParamCaption})}
+
+Check that response is valid for given family \Hypertarget{namespacefastlmm_lib_a295f924aec24989a2c4278fc157bc806}\index{fastlmmLib@{fastlmmLib}!GLM@{GLM}}
+\index{GLM@{GLM}!fastlmmLib@{fastlmmLib}}
+\doxysubsubsection{\texorpdfstring{GLM()}{GLM()}}
+{\footnotesize\ttfamily \label{namespacefastlmm_lib_a295f924aec24989a2c4278fc157bc806} 
+\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m}{Model\+Fit\+GLM}} fastlmm\+Lib\+::\+GLM (\begin{DoxyParamCaption}\item[{const mat \&}]{X}{, }\item[{const colvec \&}]{y}{, }\item[{const string \&}]{family}{, }\item[{const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}}}]{md}{ = {\ttfamily \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}}, }\item[{const vec \&}]{weights}{ = {\ttfamily \{\}}, }\item[{const vec \&}]{offset}{ = {\ttfamily \{\}}, }\item[{\mbox{\hyperlink{structfastlmm_lib_1_1_g_l_m_work}{GLMWork}} \texorpdfstring{$\ast$}{*}}]{work}{ = {\ttfamily nullptr}, }\item[{const vec \&}]{beta\+Init}{ = {\ttfamily \{\}}, }\item[{const double \&}]{epsilon}{ = {\ttfamily 1e-\/8}, }\item[{const double \&}]{maxit}{ = {\ttfamily 25}}\end{DoxyParamCaption})}
+
+Generalized linear model fit with IRLS
+
+Adapted from irls\+\_\+qrnewton() in \href{https://bwlewis.github.io/GLM/}{\texttt{ https\+://bwlewis.\+github.\+io/\+GLM/}} Values are mu are initialized as in R\textquotesingle{}s glm(). work-\/\texorpdfstring{$>$}{>}residuals stores the Pearson residuals. Calls lm() on weighted working response and design matrix.
+
+
+\begin{DoxyParams}{Parameters}
+{\em X} & design matrix \\
+\hline
+{\em y} & response vector \\
+\hline
+{\em family} & type of GLM\+: "{}gaussian"{}, "{}gaussian/identity"{}, "{}binomial/logit"{}, "{}binomial/probit"{}, "{}poisson/log"{}, "{}quasibinomial/logit"{}, "{}quasipoisson/log"{}, "{}nb"{}, nb\+:x"{} where x is a numeric value of theta \\
+\hline
+{\em md} & level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4, MAX = 5. LEAST (beta), LOW (beta, se, dispersion, rdf), MEDIUM (vcov), HIGH (pearson residuals), MOST (hatvalues), MAX (deviance residuals) \\
+\hline
+{\em weights} & sample-\/level weights \\
+\hline
+{\em offset} & sample-\/level offsets \\
+\hline
+{\em work} & \doxylink{structfastlmm_lib_1_1_g_l_m_work}{GLMWork} workspace to store intermediate results \\
+\hline
+{\em beta\+Init} & initial value for coefficients. If empty, use initialize() methods from \doxylink{class_g_l_m_family}{GLMFamily} \\
+\hline
+{\em epsilon} & stopping criteria for norm between coefficient estimates compare to the previous iteration \\
+\hline
+{\em maxit} & max iterations \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacefastlmm_lib_a2cbb7f0ef34041f1c9af2ff7fb43690b}\index{fastlmmLib@{fastlmmLib}!GLM\_NB@{GLM\_NB}}
+\index{GLM\_NB@{GLM\_NB}!fastlmmLib@{fastlmmLib}}
+\doxysubsubsection{\texorpdfstring{GLM\_NB()}{GLM\_NB()}}
+{\footnotesize\ttfamily \label{namespacefastlmm_lib_a2cbb7f0ef34041f1c9af2ff7fb43690b} 
+\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_g_l_m}{Model\+Fit\+GLM}} fastlmm\+Lib\+::\+GLM\+\_\+\+NB (\begin{DoxyParamCaption}\item[{const mat \&}]{X}{, }\item[{const colvec \&}]{y}{, }\item[{const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}}}]{md}{ = {\ttfamily \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}}, }\item[{const vec \&}]{weights}{ = {\ttfamily \{\}}, }\item[{const vec \&}]{offset}{ = {\ttfamily \{\}}, }\item[{const bool \&}]{do\+Cox\+Reid}{ = {\ttfamily true}, }\item[{\mbox{\hyperlink{structfastlmm_lib_1_1_g_l_m_work}{GLMWork}} \texorpdfstring{$\ast$}{*}}]{work}{ = {\ttfamily nullptr}, }\item[{const vec \&}]{beta\+Init}{ = {\ttfamily \{\}}, }\item[{const double \&}]{epsilon}{ = {\ttfamily 1e-\/8}, }\item[{const double \&}]{maxit}{ = {\ttfamily 25}, }\item[{const double \&}]{epsilon\+\_\+nb}{ = {\ttfamily 1e-\/4}, }\item[{const double \&}]{maxit\+\_\+nb}{ = {\ttfamily 5}}\end{DoxyParamCaption})}
+
+Negative binomial fit
+
+Fit Poisson model, then estimate theta parameter of negative binomial. Coefficients have a small dependence on theta that is apparent with using offset, so need to iteratively estimate coefficients and theta.
+
+
+\begin{DoxyParams}{Parameters}
+{\em X} & design matrix \\
+\hline
+{\em y} & response vector \\
+\hline
+{\em md} & level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4, MAX = 5. LEAST (beta), LOW (beta, se, dispersion, rdf), MEDIUM (vcov), HIGH (pearson residuals), MOST (hatvalues), MAX (deviance residuals) \\
+\hline
+{\em weights} & sample-\/level weights \\
+\hline
+{\em offset} & sample-\/level offsets \\
+\hline
+{\em do\+Cox\+Reid} & use Cox-\/\+Reid adjustment when estimating overdispersion for negative binomial models. \\
+\hline
+{\em work} & \doxylink{structfastlmm_lib_1_1_g_l_m_work}{GLMWork} workspace to store intermediate results \\
+\hline
+{\em beta\+Init} & initial value for coefficients. If empty, use initialize() methods from \doxylink{class_g_l_m_family}{GLMFamily} \\
+\hline
+{\em epsilon} & stopping criteria for norm between coefficient estimates compare to the previous iteration \\
+\hline
+{\em maxit} & max iterations \\
+\hline
+{\em epsilon\+\_\+nb} & stopping criteria for norm between coefficient estimates compare to the previous iteration in estimating theta \\
+\hline
+{\em maxit\+\_\+nb} & max iterations for estimating theta \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacefastlmm_lib_a92972c42bd315e0c882d7005c8820a66}\index{fastlmmLib@{fastlmmLib}!glmFitFeatures@{glmFitFeatures}}
+\index{glmFitFeatures@{glmFitFeatures}!fastlmmLib@{fastlmmLib}}
+\doxysubsubsection{\texorpdfstring{glmFitFeatures()}{glmFitFeatures()}}
+{\footnotesize\ttfamily \label{namespacefastlmm_lib_a92972c42bd315e0c882d7005c8820a66} 
+\mbox{\hyperlink{namespacefastlmm_lib_a0543bcc67c7785cf361add26d2e5765b}{Model\+Fit\+GLMList}} fastlmm\+Lib\+::glm\+Fit\+Features (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X\+\_\+design}{, }\item[{const arma\+::mat \&}]{X\+\_\+features}{, }\item[{const vector$<$ string $>$ \&}]{ids}{, }\item[{string}]{family}{, }\item[{arma\+::vec}]{weights}{ = {\ttfamily \{\}}, }\item[{const vec \&}]{offset}{ = {\ttfamily \{\}}, }\item[{const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}}}]{md}{ = {\ttfamily \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}}, }\item[{const bool \&}]{do\+Cox\+Reid}{ = {\ttfamily true}, }\item[{const bool \&}]{share\+Theta}{ = {\ttfamily false}, }\item[{const bool \&}]{fast\+Approx}{ = {\ttfamily false}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 1}, }\item[{const double \&}]{epsilon}{ = {\ttfamily 1e-\/8}, }\item[{const double \&}]{maxit}{ = {\ttfamily 25}, }\item[{const double \&}]{epsilon\+\_\+nb}{ = {\ttfamily 1e-\/4}, }\item[{const double \&}]{maxit\+\_\+nb}{ = {\ttfamily 5}}\end{DoxyParamCaption})}
+
+Fit series of linear regression models ~\newline
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em y} & response vector \\
+\hline
+{\em X\+\_\+design} & design matrix \\
+\hline
+{\em X\+\_\+features} & matrix with additional features to be fit one at a time \\
+\hline
+{\em ids} & vector$<$string$>$ storing identifier for each column in X\+\_\+features \\
+\hline
+{\em family} & type of GLM\+: "{}gaussian"{}, "{}gaussian/identity"{}, "{}binomial/logit"{}, "{}binomial/probit"{}, "{}poisson/log"{}, "{}quasibinomial/logit"{}, "{}quasipoisson/log"{}, "{}nb"{}, nb\+:x"{} where x is a numeric value of theta \\
+\hline
+{\em weights} & sample-\/level weights \\
+\hline
+{\em offsets} & sample-\/level offsets \\
+\hline
+{\em md} & level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4, MAX = 5. LEAST (beta), LOW (beta, se, dispersion, rdf), MEDIUM (vcov), HIGH (pearson residuals), MOST (hatvalues), MAX (deviance residuals) \\
+\hline
+{\em do\+Cox\+Reid} & use Cox-\/\+Reid adjustment when estimating overdispersion for negative binomial models. Default TRUE for less than 100 samples \\
+\hline
+{\em share\+Theta} & estimate theta from design matrix, and share across all features instead of re-\/estimating for each feature \\
+\hline
+{\em fast\+Approx} & default false. if true, use pre-\/projection on the working response from an initial regression fit on only the X\+\_\+design. Under the null for X\+\_\+features, this is a very good approximation and {\itshape much} faster \\
+\hline
+{\em nthreads} & number of threads. Each model is fit in serial, analysis is parallelized across features \\
+\hline
+{\em epsilon} & tolerance for GLM IRLS \\
+\hline
+{\em maxit} & max iterations for GLM IRLS \\
+\hline
+{\em epsilon\+\_\+nb} & tolerance for negative binomial \\
+\hline
+{\em maxit\+\_\+nb} & max iterations for negative binomial \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacefastlmm_lib_a696e5a00b6ca843c96950575095e9357}\index{fastlmmLib@{fastlmmLib}!glmFitResponses@{glmFitResponses}}
+\index{glmFitResponses@{glmFitResponses}!fastlmmLib@{fastlmmLib}}
+\doxysubsubsection{\texorpdfstring{glmFitResponses()}{glmFitResponses()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{namespacefastlmm_lib_a696e5a00b6ca843c96950575095e9357} 
+\mbox{\hyperlink{namespacefastlmm_lib_a0543bcc67c7785cf361add26d2e5765b}{Model\+Fit\+GLMList}} fastlmm\+Lib\+::glm\+Fit\+Responses (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const vector$<$ string $>$ \&}]{ids}{, }\item[{const string \&}]{family}{, }\item[{const arma\+::vec \&}]{weights}{ = {\ttfamily \{\}}, }\item[{const vec \&}]{offset}{ = {\ttfamily \{\}}, }\item[{const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}}}]{md}{ = {\ttfamily \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}}, }\item[{const bool \&}]{do\+Cox\+Reid}{ = {\ttfamily true}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 1}, }\item[{const double \&}]{epsilon}{ = {\ttfamily 1e-\/8}, }\item[{const double \&}]{maxit}{ = {\ttfamily 25}, }\item[{const double \&}]{epsilon\+\_\+nb}{ = {\ttfamily 1e-\/4}, }\item[{const double \&}]{maxit\+\_\+nb}{ = {\ttfamily 5}}\end{DoxyParamCaption})}
+
+Fit series of linear regression models to multiple responses with shared design matrix ~\newline
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em Y} & matrix of responses as columns \\
+\hline
+{\em X} & design matrix \\
+\hline
+{\em ids} & vector$<$string$>$ storing identifier for each column in Y \\
+\hline
+{\em family} & GLM family as a string \\
+\hline
+{\em weights} & sample-\/level weights the same number of samples as Y \\
+\hline
+{\em offset} & vector of sample-\/level offset values \\
+\hline
+{\em md} & return model with specified level of detail. LOW (beta, se, dispersion, rdf), MEDIUM (vcov), HIGH (residuals), MOST (hatvalues) \\
+\hline
+{\em nthreads} & number of threads. Each model is fit in serial, analysis is parallelized across responses. \\
+\hline
+{\em do\+Cox\+Reid} & use Cox-\/\+Reid adjustment when estimating overdispersion for negative binomial models. ~\newline
+ \\
+\hline
+{\em nthreads} & number of threads. Each model is fit in serial, analysis is parallelized across responses. \\
+\hline
+{\em epsilon} & tolerance for GLM IRLS \\
+\hline
+{\em maxit} & max iterations for GLM IRLS \\
+\hline
+{\em epsilon\+\_\+nb} & tolerance for negative binomial \\
+\hline
+{\em maxit\+\_\+nb} & max iterations for negative binomial\\
+\hline
+\end{DoxyParams}
+Since the weights vary for each response, each model is computed separately without recycling precomputed values \Hypertarget{namespacefastlmm_lib_ae58034e71eafebc4055b570181cb4f23}\index{fastlmmLib@{fastlmmLib}!glmFitResponses@{glmFitResponses}}
+\index{glmFitResponses@{glmFitResponses}!fastlmmLib@{fastlmmLib}}
+\doxysubsubsection{\texorpdfstring{glmFitResponses()}{glmFitResponses()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{namespacefastlmm_lib_ae58034e71eafebc4055b570181cb4f23} 
+\mbox{\hyperlink{namespacefastlmm_lib_a0543bcc67c7785cf361add26d2e5765b}{Model\+Fit\+GLMList}} fastlmm\+Lib\+::glm\+Fit\+Responses (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const vector$<$ string $>$ \&}]{ids}{, }\item[{const vector$<$ string $>$ \&}]{family}{, }\item[{const arma\+::vec}]{weights}{ = {\ttfamily \{\}}, }\item[{const vec \&}]{offset}{ = {\ttfamily \{\}}, }\item[{const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}}}]{md}{ = {\ttfamily \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}}, }\item[{const bool \&}]{do\+Cox\+Reid}{ = {\ttfamily true}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 1}, }\item[{const double \&}]{epsilon}{ = {\ttfamily 1e-\/8}, }\item[{const double \&}]{maxit}{ = {\ttfamily 25}, }\item[{const double \&}]{epsilon\+\_\+nb}{ = {\ttfamily 1e-\/4}, }\item[{const double \&}]{maxit\+\_\+nb}{ = {\ttfamily 5}}\end{DoxyParamCaption})}
+
+Fit series of linear regression models to multiple responses with shared design matrix ~\newline
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em Y} & matrix of responses as columns \\
+\hline
+{\em X} & design matrix \\
+\hline
+{\em ids} & vector$<$string$>$ storing identifier for each column in Y \\
+\hline
+{\em family} & GLM family as a vector of strings, one entry per response \\
+\hline
+{\em weights} & sample-\/level weights the same number of samples as Y \\
+\hline
+{\em offset} & vector of sample-\/level offset values \\
+\hline
+{\em md} & level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4, MAX = 5. LEAST (beta), LOW (beta, se, dispersion, rdf), MEDIUM (vcov), HIGH (pearson residuals), MOST (hatvalues), MAX (deviance residuals) \\
+\hline
+{\em nthreads} & number of threads. Each model is fit in serial, analysis is parallelized across responses. \\
+\hline
+{\em do\+Cox\+Reid} & use Cox-\/\+Reid adjustment when estimating overdispersion for negative binomial models. Default TRUE for less than 100 samples \\
+\hline
+{\em nthreads} & number of threads. Each model is fit in serial, analysis is parallelized across responses. \\
+\hline
+{\em epsilon} & tolerance for GLM IRLS \\
+\hline
+{\em maxit} & max iterations for GLM IRLS \\
+\hline
+{\em epsilon\+\_\+nb} & tolerance for negative binomial \\
+\hline
+{\em maxit\+\_\+nb} & max iterations for negative binomial\\
+\hline
+\end{DoxyParams}
+Since the weights vary for each response, each model is computed separately without recycling precomputed values \Hypertarget{namespacefastlmm_lib_a60756a3921abf609f4ba6d02f21b7cf2}\index{fastlmmLib@{fastlmmLib}!lmFitFeatures@{lmFitFeatures}}
+\index{lmFitFeatures@{lmFitFeatures}!fastlmmLib@{fastlmmLib}}
+\doxysubsubsection{\texorpdfstring{lmFitFeatures()}{lmFitFeatures()}}
+{\footnotesize\ttfamily \label{namespacefastlmm_lib_a60756a3921abf609f4ba6d02f21b7cf2} 
+template$<$typename T1, typename T2$>$ \\
+\mbox{\hyperlink{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}{Model\+Fit\+List}} fastlmm\+Lib\+::lm\+Fit\+Features (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const T1 \&}]{X\+\_\+design}{, }\item[{const T2 \&}]{X\+\_\+features}{, }\item[{const vector$<$ string $>$ \&}]{ids}{, }\item[{const arma\+::vec \&}]{weights}{ = {\ttfamily \{\}}, }\item[{const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}}}]{md}{ = {\ttfamily \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}}, }\item[{const bool \&}]{preprojection}{ = {\ttfamily true}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+Fit series of linear regression models using pre-\/projection. ~\newline
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em y} & response vector \\
+\hline
+{\em X\+\_\+design} & design matrix, mat or sp\+\_\+mat \\
+\hline
+{\em X\+\_\+features} & design matrix, mat or sp\+\_\+mat, with additional features to be fit one at a time \\
+\hline
+{\em ids} & vector$<$string$>$ storing identifier for each column in X\+\_\+features \\
+\hline
+{\em weights} & sample-\/level weights \\
+\hline
+{\em md} & level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4. LEAST (beta), LOW (beta, se, dispersion, rdf), MEDIUM (vcov), HIGH (pearson residuals), MOST (hatvalues) \\
+\hline
+{\em preprojection} & default true. Use preproject of design matrix to accelerate calculations \\
+\hline
+{\em nthreads} & number of threads. Each model is fit in serial, analysis is parallelized across features \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacefastlmm_lib_ae6461f135a12ae95a0d1978a9b075e1e}\index{fastlmmLib@{fastlmmLib}!lmFitFeatures\_preproj@{lmFitFeatures\_preproj}}
+\index{lmFitFeatures\_preproj@{lmFitFeatures\_preproj}!fastlmmLib@{fastlmmLib}}
+\doxysubsubsection{\texorpdfstring{lmFitFeatures\_preproj()}{lmFitFeatures\_preproj()}}
+{\footnotesize\ttfamily \label{namespacefastlmm_lib_ae6461f135a12ae95a0d1978a9b075e1e} 
+template$<$typename T1, typename T2$>$ \\
+\mbox{\hyperlink{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}{Model\+Fit\+List}} fastlmm\+Lib\+::lm\+Fit\+Features\+\_\+preproj (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const T1 \&}]{X\+\_\+design}{, }\item[{const T2 \&}]{X\+\_\+features}{, }\item[{const vector$<$ string $>$ \&}]{ids}{, }\item[{const arma\+::vec \&}]{weights}{ = {\ttfamily \{\}}, }\item[{const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}}}]{md}{ = {\ttfamily \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+Fit series of linear regression models using pre-\/projection. ~\newline
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em y} & response vector \\
+\hline
+{\em X\+\_\+design} & design matrix, mat or sp\+\_\+mat \\
+\hline
+{\em X\+\_\+features} & design matrix, mat or sp\+\_\+mat, with additional features to be fit one at a time \\
+\hline
+{\em ids} & vector$<$string$>$ storing identifier for each column in X\+\_\+features \\
+\hline
+{\em weights} & sample-\/level weights \\
+\hline
+{\em md} & level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4. LEAST (beta), LOW (beta, se, dispersion, rdf), MEDIUM (vcov), HIGH (pearson residuals), MOST (hatvalues) \\
+\hline
+{\em nthreads} & number of threads. Each model is fit in serial, analysis is parallelized across features \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacefastlmm_lib_a5d2649bacae0069a92f4d92aec4b8722}\index{fastlmmLib@{fastlmmLib}!lmFitFeatures\_standard@{lmFitFeatures\_standard}}
+\index{lmFitFeatures\_standard@{lmFitFeatures\_standard}!fastlmmLib@{fastlmmLib}}
+\doxysubsubsection{\texorpdfstring{lmFitFeatures\_standard()}{lmFitFeatures\_standard()}}
+{\footnotesize\ttfamily \label{namespacefastlmm_lib_a5d2649bacae0069a92f4d92aec4b8722} 
+vector$<$ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{Model\+Fit}} $>$ fastlmm\+Lib\+::lm\+Fit\+Features\+\_\+standard (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X\+\_\+design}{, }\item[{const arma\+::mat \&}]{X\+\_\+features}{, }\item[{const vector$<$ string $>$ \&}]{ids}{, }\item[{const arma\+::vec \&}]{weights}{ = {\ttfamily \{\}}, }\item[{const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}}}]{md}{ = {\ttfamily \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+Fit series of linear regression models ~\newline
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em y} & response vector \\
+\hline
+{\em X\+\_\+design} & design matrix \\
+\hline
+{\em X\+\_\+features} & matrix with additional features to be fit one at a time \\
+\hline
+{\em ids} & vector$<$string$>$ storing identifier for each column in X\+\_\+features \\
+\hline
+{\em weights} & sample-\/level weights \\
+\hline
+{\em md} & level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4. LEAST (beta), LOW (beta, se, dispersion, rdf), MEDIUM (vcov), HIGH (pearson residuals), MOST (hatvalues) \\
+\hline
+{\em nthreads} & number of threads. Each model is fit in serial, analysis is parallelized across features \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacefastlmm_lib_aa7bec9d1da8d1ed6af8db62843540a59}\index{fastlmmLib@{fastlmmLib}!lmFitResponses@{lmFitResponses}}
+\index{lmFitResponses@{lmFitResponses}!fastlmmLib@{fastlmmLib}}
+\doxysubsubsection{\texorpdfstring{lmFitResponses()}{lmFitResponses()}}
+{\footnotesize\ttfamily \label{namespacefastlmm_lib_aa7bec9d1da8d1ed6af8db62843540a59} 
+\mbox{\hyperlink{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}{Model\+Fit\+List}} fastlmm\+Lib\+::lm\+Fit\+Responses (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const vector$<$ string $>$ \&}]{ids}{, }\item[{const arma\+::mat \&}]{Weights}{, }\item[{const \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{Model\+Detail}}}]{md}{ = {\ttfamily \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+Fit series of linear regression models to multiple responses with shared design matrix ~\newline
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em Y} & matrix of responses as columns \\
+\hline
+{\em X} & design matrix \\
+\hline
+{\em ids} & vector$<$string$>$ storing identifier for each column in Y \\
+\hline
+{\em Weights} & matrix sample-\/level weights the same dimension as Y \\
+\hline
+{\em md} & level of model detail returned, with LEAST = 0, LOW = 1, MEDIUM = 2, HIGH = 3, MOST = 4. LEAST (beta), LOW (beta, se, dispersion, rdf), MEDIUM (vcov), HIGH (pearson residuals), MOST (hatvalues) \\
+\hline
+{\em nthreads} & number of threads. Each model is fit in serial, analysis is parallelized across responses.\\
+\hline
+\end{DoxyParams}
+Since the weights vary for each response, each model is computed separately without recycling precomputed values 

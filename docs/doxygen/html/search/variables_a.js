@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vcov_0',['vcov',['../class_model_fit.html#a4c78612f4ede43b1adb42029767b70e5',1,'ModelFit']]]
+  ['params_0',['params',['../structfunc_struct.html#a4889c4a13fe90bea0e1e239ae86ad3d1',1,'funcStruct']]]
 ];

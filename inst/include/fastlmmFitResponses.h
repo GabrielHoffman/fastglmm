@@ -1,14 +1,16 @@
-#ifndef FASTLMM_BATCH_RESPONSE_H_
-#define FASTLMM_BATCH_RESPONSE_H_
+#ifndef LMM_FIT_RESPONSE_H_
+#define LMM_FIT_RESPONSE_H_
+
+// [[Rcpp::depends(RcppParallel)]]
+#include <RcppParallel.h>
+
+// #include "fastlmm_fit.h"
+#include "spectralDecomp.h"
 
 using namespace arma;
 using namespace std;
 
-#include "fastlmm.h"
-
-#include "spectralDecomp.h"
-
-namespace fastlmmLib {
+namespace fastglmmLib {
 
 // Order of template variables
 // T1 Y
@@ -18,24 +20,27 @@ template <typename T1, typename T2, typename T3>
 class lmmFitResponses {
 
     public:
-    lmmFitResponses(const T1 &Y_all_, 
-                    const T2 &X_, 
-                    const T3 &Z_,
-                    const mat &Weights_,
-                    const double &left_,
-                    const double &right_,
-                    const double &tol_,
-                    const int &nthreads_);
+    lmmFitResponses(const T2 &X, 
+                    const T3 &Z,
+                    const double &left = -10,
+                    const double &right = 10,
+                    const double &tol = 1e-5,
+                    const int &nthreads = 1,
+                    const ModelDetail md = LOW,
+                    const bool REML = false);
 
-    ModelFitLMMList eval();
+    ModelFitLMMList eval(
+                    const T1 &Y,
+                    const vector<string> &ids,
+                    const mat &Weights);
 
     private:
-    T1 Y_all; 
     T2 X;  
     T3 Z;
-    mat Weights;
     double left, right, tol;
     int nthreads;
+    ModelDetail md;
+    bool REML;
 };
 
 
@@ -43,52 +48,62 @@ class lmmFitResponses {
 // constructor
 template <typename T1, typename T2, typename T3> 
 lmmFitResponses<T1, T2, T3>::lmmFitResponses(
-                            const T1 &Y_all_, 
-                            const T2 &X_, 
-                            const T3 &Z_,
-                            const mat &Weights_,
-                            const double &left_,
-                            const double &right_,
-                            const double &tol_,
-                            const int &nthreads_){
-    this->Y_all     = Y_all_;
-    this->X         = X_;
-    this->Z         = Z_;
-    this->Weights   = Weights_;
-    this->left      = left_;
-    this->right     = right_;
-    this->tol       = tol_;
-    this->nthreads  = nthreads_;
+                            const T2 &X, 
+                            const T3 &Z,
+                            const double &left,
+                            const double &right,
+                            const double &tol,
+                            const int &nthreads,
+                            const ModelDetail md,
+                            const bool REML):
+            X(X), 
+            Z(Z),
+            left(left),
+            right(right),
+            tol(tol),
+            nthreads(nthreads),
+            md(md),
+            REML(REML) {
 }
 
 
 
-// NOTE: Do not use Rcpp in parallel section
-// "C stack usage is too close to the limit"
 template <typename T1, typename T2, typename T3> 
 ModelFitLMMList 
-  lmmFitResponses<T1, T2, T3>::eval(){
-
-    int n_responses = Y_all.n_cols;
+  lmmFitResponses<T1, T2, T3>::eval(
+                    const T1 &Y,
+                    const vector<string> &ids,
+                    const mat &Weights){
 
     // store results
-    ModelFitLMMList result(n_responses, ModelFitLMM());
+    ModelFitLMMList result(Y.n_cols, ModelFitLMM());
 
-    for( int i = 0; i < n_responses; i++){
+    // Parallel part using Thread Building Blocks
+    tbb::task_arena limited_arena(nthreads);
+    limited_arena.execute([&] {
+    tbb::parallel_for(
+        tbb::blocked_range<int>(0, Y.n_cols, 100), 
+        [&](const tbb::blocked_range<int>& r){ 
 
-        T1 y = Y_all.col(i);
-        vec w = Weights.col(i);
+        disable_parallel_blas();
 
-        spectralDecomp<T3> dcmp;
-        dcmp.initWithIndicator(Z, w);
+        // iterate through responses 
+        for (int j = r.begin(); j != r.end(); ++j) { 
 
-        fastlmm fit = fastlmm<T1, T2, T3>(y, X, dcmp.get_vectors(), dcmp.get_values(), w);
+            T1 y = Y.col(j);
+            vec w = Weights.col(j);
 
-        fit.estimate_delta( left, right, tol );
+            spectralDecomp<T3> dcmp;
+            dcmp.initWithIndicator(Z, w);
 
-        // #pragma omp critical
-        result.at(i) = fit.get_result();
-    }
+            fastlmm fit = fastlmm<T1, T2, T3>(y, X, dcmp.get_vectors(), dcmp.get_values(), w, md, REML);
+
+            fit.estimate_delta( left, right, tol );
+
+            result.at(j) = fit.get_result();
+            result.at(j).ID = ids[j];
+        }
+    }); });
   
     return result;
 }

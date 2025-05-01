@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['scaleeachcol_0',['scaleEachCol',['../misc_8h.html#a0045cd455dd233e9e16362f826b46bfb',1,'scaleEachCol(const mat &amp;X, const vec &amp;w):&#160;misc.h'],['../misc_8h.html#a22e1b21e8ed9c35826aee032cf93ad89',1,'scaleEachCol(const sp_mat &amp;X, const vec &amp;w):&#160;misc.h']]],
-  ['scalerowscols_1',['scaleRowsCols',['../misc_8h.html#aff616cc0cfc16600b8f55bf7b77f455e',1,'misc.h']]],
-  ['score_5ftest_2',['score_test',['../classfastlmm_lib_1_1fastlmm.html#ae59e2c8e11dde35f8364a488281a78cc',1,'fastlmmLib::fastlmm']]],
-  ['setdevresids_3',['setDevResids',['../class_model_fit.html#a5be54e96e787f47bd8e94a994d7c206d',1,'ModelFit']]],
-  ['setfittedvalues_4',['setFittedValues',['../class_model_fit.html#a0e4c7390296eb9b7ada56da67c17354f',1,'ModelFit']]],
-  ['spectraldecomp_5',['spectralDecomp',['../classfastlmm_lib_1_1spectral_decomp.html#ad6e9102eaff691c54b8c71938b6a260c',1,'fastlmmLib::spectralDecomp']]]
+  ['nb_0',['NB',['../class_n_b.html#a18c5b4bb79a762485da1fd0c8f8cacac',1,'NB']]],
+  ['nb_5fll_1',['nb_ll',['../nb__theta_8h.html#a638ee7bd16c20f4eb386cf870d3ee36b',1,'nb_theta.h']]],
+  ['nb_5ftheta_2',['nb_theta',['../export_8cpp.html#ab7062d9f2ba0c976843ef3b71b4df85d',1,'nb_theta(const NumericVector &amp;y, const NumericVector &amp;mu, const double &amp;n, const NumericVector &amp;weights, const double &amp;left=-5, const double &amp;right=20, const double &amp;tol=1e-5):&#160;export.cpp'],['../_rcpp_exports_8cpp.html#a7fd3d775968b589d6f1d159316481ec2',1,'nb_theta(const NumericVector &amp;y, const NumericVector &amp;mu, const double &amp;n, const NumericVector &amp;weights, const double &amp;left, const double &amp;right, const double &amp;tol):&#160;export.cpp']]],
+  ['nbdata_3',['nbData',['../structnb_data.html#abc1985719b35b256291e8716eaf7edef',1,'nbData::nbData()'],['../structnb_data.html#ae76d4245e368ddf8076103e4248fc84b',1,'nbData::nbData(const vec &amp;y, const vec &amp;mu, const double &amp;n, const vec &amp;weights, const mat &amp;X, const bool &amp;doCoxReid, const CountTable &amp;ct={})']]]
 ];

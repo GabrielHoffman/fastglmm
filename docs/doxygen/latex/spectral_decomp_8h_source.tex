@@ -26,13 +26,13 @@
 \DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_ad6e9102eaff691c54b8c71938b6a260c}{spectralDecomp}}()\{\};}
 \DoxyCodeLine{00023\ }
 \DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//\ Initialize\ with\ indicator\ matrix\ Z;}}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_a88d7bf325a288603b177068afa511e02}{initWithIndicator}}(\ \textcolor{keyword}{const}\ T\ \&Z\_,\ \textcolor{keyword}{const}\ vec\ \&weights\_);}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_a149787e7e9ed75dc3b92ec11100b4501}{initWithIndicator}}(\ \textcolor{keyword}{const}\ T\ \&Z,\ \textcolor{keyword}{const}\ vec\ \&weights);}
 \DoxyCodeLine{00026\ }
 \DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ Initialize\ with\ U\ and\ s\ from\ eigen\ decomp}}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_acac5bec27192513c03691f7c1886d735}{initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U\_,\ \textcolor{keyword}{const}\ vec\ \&s\_);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_ac090f683aa98ed5154bd2e869d66c6c8}{initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U,\ \textcolor{keyword}{const}\ vec\ \&s);}
 \DoxyCodeLine{00029\ }
 \DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//\ Initialize\ with\ U\ and\ s\ from\ eigen\ decomp,\ and\ weights}}
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_a28e3f67e12292be4d0b88f70cc345f64}{initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U\_,\ \textcolor{keyword}{const}\ vec\ \&s\_,\ \textcolor{keyword}{const}\ vec\ \&weights\_);}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_a5333b1b7e79ac35823be4ed821e4ae8f}{initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U,\ \textcolor{keyword}{const}\ vec\ \&s,\ \textcolor{keyword}{const}\ vec\ \&weights);}
 \DoxyCodeLine{00032\ }
 \DoxyCodeLine{00033\ \ \ \ \ T\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_affb81b7065cb24c722af4b3989ef6106}{get\_vectors}}()\{\textcolor{keywordflow}{return}\ U;\}}
 \DoxyCodeLine{00034\ \ \ \ \ vec\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_a921bef30fdae30e0cfb550235fadfee5}{get\_values}}()\{\textcolor{keywordflow}{return}\ s;\}}
@@ -44,41 +44,43 @@
 \DoxyCodeLine{00040\ }
 \DoxyCodeLine{00041\ \textcolor{comment}{//\ Initialize\ with\ indicator\ matrix}}
 \DoxyCodeLine{00042\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_a88d7bf325a288603b177068afa511e02}{spectralDecomp<T>::initWithIndicator}}(\ \textcolor{keyword}{const}\ T\ \&Z\_,\ \textcolor{keyword}{const}\ vec\ \&weights\_)\{}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_a149787e7e9ed75dc3b92ec11100b4501}{spectralDecomp<T>::initWithIndicator}}(\ \textcolor{keyword}{const}\ T\ \&Z,\ \textcolor{keyword}{const}\ vec\ \&weights)\{}
 \DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ s\ =\ (weights\_.t()\ *\ Z\_).t();}
-\DoxyCodeLine{00046\ \ \ \ \ U\ =\ \mbox{\hyperlink{misc_8h_aff616cc0cfc16600b8f55bf7b77f455e}{scaleRowsCols}}(Z\_,\ sqrt(weights\_),\ 1\ /\ sqrt(s));}
+\DoxyCodeLine{00045\ \ \ \ \ s\ =\ (weights.t()\ *\ Z).t();}
+\DoxyCodeLine{00046\ \ \ \ \ U\ =\ \mbox{\hyperlink{misc_8h_aff616cc0cfc16600b8f55bf7b77f455e}{scaleRowsCols}}(Z,\ sqrt(weights),\ 1\ /\ sqrt(s));}
 \DoxyCodeLine{00047\ \}}
 \DoxyCodeLine{00048\ }
 \DoxyCodeLine{00049\ }
 \DoxyCodeLine{00050\ \textcolor{comment}{//\ Initialize\ with\ U\ and\ s\ from\ eigen\ decomp}}
 \DoxyCodeLine{00051\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_acac5bec27192513c03691f7c1886d735}{spectralDecomp<T>::initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U\_,\ \textcolor{keyword}{const}\ vec\ \&s\_)\{}
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_ac090f683aa98ed5154bd2e869d66c6c8}{spectralDecomp<T>::initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U,\ \textcolor{keyword}{const}\ vec\ \&s)\{}
 \DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \ \ \ \ this-\/>U\ =\ U\_;}
-\DoxyCodeLine{00055\ \ \ \ \ this-\/>s\ =\ s\_;}
+\DoxyCodeLine{00054\ \ \ \ \ this-\/>U\ =\ U;}
+\DoxyCodeLine{00055\ \ \ \ \ this-\/>s\ =\ s;}
 \DoxyCodeLine{00056\ \}}
 \DoxyCodeLine{00057\ }
 \DoxyCodeLine{00058\ \textcolor{comment}{//\ Initialize\ with\ U\ and\ s\ from\ eigen\ decomp,\ and\ weights}}
 \DoxyCodeLine{00059\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00060\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_acac5bec27192513c03691f7c1886d735}{spectralDecomp<T>::initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U\_,\ \textcolor{keyword}{const}\ vec\ \&s\_,\ \textcolor{keyword}{const}\ vec\ \&weights\_)\{}
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastlmm_lib_1_1spectral_decomp_ac090f683aa98ed5154bd2e869d66c6c8}{spectralDecomp<T>::initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U,\ \textcolor{keyword}{const}\ vec\ \&s,\ \textcolor{keyword}{const}\ vec\ \&weights)\{}
 \DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ SVD\ after\ applying\ weights}}
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//\ mat\ Q,\ R;}}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{//\ qr(Q,\ R,\ scaleCols(U\_,\ s\_));}}
-\DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ this-\/>U\ =\ U\_;}}
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ this-\/>s\ =\ s\_;}}
-\DoxyCodeLine{00068\ \}}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00062\ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}Reweighting\ not\ applied"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{//\ SVD\ after\ applying\ weights}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{//\ mat\ Q,\ R;}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ qr(Q,\ R,\ scaleCols(U\_,\ s\_));}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ this-\/>U\ =\ U;}
+\DoxyCodeLine{00069\ \ \ \ \ this-\/>s\ =\ s;}
+\DoxyCodeLine{00070\ \}}
 \DoxyCodeLine{00071\ }
 \DoxyCodeLine{00072\ }
-\DoxyCodeLine{00073\ \}}
+\DoxyCodeLine{00073\ }
 \DoxyCodeLine{00074\ }
-\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00075\ \}}
 \DoxyCodeLine{00076\ }
 \DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

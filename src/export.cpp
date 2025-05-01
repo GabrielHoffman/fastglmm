@@ -1,61 +1,32 @@
+/***************************************************************
+ * @file    export.cpp
+ * @author  Gabriel Hoffman
+ * @email   gabriel.hoffman@mssm.edu
+ * @brief   Export functions to R
+ * Copyright (C) 2024 Gabriel Hoffman
+ **************************************************************/
+
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 
-#include "fastlmmLib.h"
+#include "fastglmm.h"
+#include "exportToR_fastlmm.h"
+#include "nb_theta.h"
 
 using namespace Rcpp; 
 using namespace arma;
-using namespace fastlmmLib;
+using namespace fastglmmLib;
 
-// Depends on Rcpp::List, so define outside of class
-const List toList(ModelFitLMM &res){
-
-  return List::create( 
-                Named("logLik")       = res.logLik, 
-                Named("coefficients") = res.coef,
-                Named("se")           = res.se,
-                Named("vcov")         = res.vcov, 
-                Named("weights")      = res.weights,
-                Named("delta")        = res.delta,
-                Named("sigSq_g")      = res.sigSq_g,
-                Named("sigSq_e")      = res.sigSq_e,
-                Named("ru")           = res.ru,
-                Named("y")            = res.y,
-                Named("iter")         = res.iter);
-}
-
-
-
-
-template <typename T1, typename T2, typename T3>
-const List toList(fastlmm<T1, T2, T3> & fit){
-
-  ModelFitLMM a = fit.get_result();
-
-  return toList( a);
-}
-
-
-List toList( const vector<ModelFitLMM> &resList){
-  List L = List::create();
-
-  for(int i=0; i<resList.size(); i++){
-    ModelFitLMM a = resList.at(i);
-    L.push_back( toList(a) );
-  }
-  return L;
-}
 
 
 // Cannot export template functions
 // so write separately for matrix and sparse matrix
 
-
 // Y = vec
 // X = mat
 // U = mat
 // [[Rcpp::export(".fastlmm_vmm")]]
-List fastlmm_vmm( const arma::vec &Y, 
+List fastlmm_vmm( const arma::vec &y, 
                   const arma::mat &X,  
                   const arma::mat &U, 
                   const arma::vec &s,
@@ -64,10 +35,13 @@ List fastlmm_vmm( const arma::vec &Y,
                   const double &left,
                   const double &right,
                   const double &tol,
-                  const int &nthreads){
+                  const int &nthreads,
+                  const bool REML = false){
+
+  ModelDetail md = MAX;
 
   // initialize
-  fastlmm fit = fastlmm(Y, X, U, s, weights);
+  fastlmm fit = fastlmm(y, X, U, s, weights, md, REML);
 
   if( delta > 0 ){
     fit.eval_delta( delta ); 
@@ -79,7 +53,7 @@ List fastlmm_vmm( const arma::vec &Y,
 }
 
 // [[Rcpp::export(".fastlmm_vms")]]
-List fastlmm_vms( const arma::vec &Y, 
+List fastlmm_vms( const arma::vec &y, 
                   const arma::mat &X,  
                   const arma::sp_mat &U, 
                   const arma::vec &s,
@@ -88,10 +62,13 @@ List fastlmm_vms( const arma::vec &Y,
                   const double &left,
                   const double &right,
                   const double &tol,
-                  const int &nthreads){
+                  const int &nthreads,
+                  const bool REML = false){
+
+  ModelDetail md = MAX;
 
   // initialize
-  fastlmm fit = fastlmm(Y, X, U, s, weights);
+  fastlmm fit = fastlmm(y, X, U, s, weights, md, REML);
 
   if( delta > 0 ){
     fit.eval_delta( delta ); 
@@ -105,7 +82,7 @@ List fastlmm_vms( const arma::vec &Y,
 
 
 // [[Rcpp::export(".fastlmm_vsm")]]
-List fastlmm_vsm( const arma::vec &Y, 
+List fastlmm_vsm( const arma::vec &y, 
                   const arma::sp_mat &X,  
                   const arma::mat &U, 
                   const arma::vec &s,
@@ -114,10 +91,13 @@ List fastlmm_vsm( const arma::vec &Y,
                   const double &left,
                   const double &right,
                   const double &tol,
-                  const int &nthreads){
+                  const int &nthreads,
+                  const bool REML = false){
+
+  ModelDetail md = MAX;
 
   // initialize
-  fastlmm fit = fastlmm(Y, X, U, s, weights);
+  fastlmm fit = fastlmm(y, X, U, s, weights, md, REML);
 
   if( delta > 0 ){
     fit.eval_delta( delta ); 
@@ -129,7 +109,7 @@ List fastlmm_vsm( const arma::vec &Y,
 }
 
 // [[Rcpp::export(".fastlmm_vss")]]
-List fastlmm_vss( const arma::vec &Y, 
+List fastlmm_vss( const arma::vec &y, 
                   const arma::sp_mat &X,  
                   const arma::sp_mat &U, 
                   const arma::vec &s,
@@ -138,10 +118,13 @@ List fastlmm_vss( const arma::vec &Y,
                   const double &left,
                   const double &right,
                   const double &tol,
-                  const int &nthreads){
+                  const int &nthreads,
+                  const bool REML = false){
+
+  ModelDetail md = MAX;
 
   // initialize
-  fastlmm fit = fastlmm(Y, X, U, s, weights);
+  fastlmm fit = fastlmm(y, X, U, s, weights, md, REML);
 
   if( delta > 0 ){
     fit.eval_delta( delta ); 
@@ -159,137 +142,143 @@ List fastlmm_vss( const arma::vec &Y,
 // X = mat
 // U = mat
 // [[Rcpp::export(".fastlmm_mmm")]]
-List fastlmm_mmm(   const arma::mat &Y_all, 
+List fastlmm_mmm(   const arma::mat &Y, 
+                    const std::vector<std::string> ids, 
                     const arma::mat &X,  
                     const arma::mat &Z,
-                    const arma::mat &weights,
+                    const arma::mat &Weights,
                     const double &delta,
                     const double &left,
                     const double &right,
                     const double &tol,
-                    const int &nthreads){
+                    const int &nthreads,
+                    const bool REML = false){
+
+  ModelDetail md = MAX;
 
   // initialize
   lmmFitResponses fit = 
-    lmmFitResponses<mat, mat, mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
+    lmmFitResponses<mat, mat, mat>(X, Z, left, right, tol, nthreads, md, REML);
 
   // evaluate each response
-  vector<ModelFitLMM> res = fit.eval();
+  vector<ModelFitLMM> res = fit.eval(Y, ids, Weights);
 
   return toList(res);
 }
 
 
 // [[Rcpp::export(".fastlmm_msm")]]
-List fastlmm_msm(   const arma::mat &Y_all, 
+List fastlmm_msm(   const arma::mat &Y, 
+                    const std::vector<std::string> ids, 
                     const arma::sp_mat &X,  
                     const arma::mat &Z,
-                    const arma::mat &weights,
+                    const arma::mat &Weights,
                     const double &delta,
                     const double &left,
                     const double &right,
                     const double &tol,
-                    const int &nthreads){
+                    const int &nthreads,
+                    const bool REML = false){
+
+  ModelDetail md = MAX;
 
   // initialize
   lmmFitResponses fit = 
-    lmmFitResponses<mat, sp_mat, mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
+    lmmFitResponses<mat, sp_mat, mat>(X, Z, left, right, tol, nthreads, md, REML);
 
   // evaluate each response
-  vector<ModelFitLMM> res = fit.eval();
+  vector<ModelFitLMM> res = fit.eval(Y, ids, Weights);
 
   return toList(res);
 }
 
 // [[Rcpp::export(".fastlmm_mms")]]
-List fastlmm_mms(   const arma::mat &Y_all, 
+List fastlmm_mms(   const arma::mat &Y, 
+                    const std::vector<std::string> ids, 
                     const arma::mat &X,  
                     const arma::sp_mat &Z,
-                    const arma::mat &weights,
+                    const arma::mat &Weights,
                     const double &left,
                     const double &right,
                     const double &tol,
-                    const int &nthreads){
+                    const int &nthreads,
+                    const bool REML = false){
+
+  ModelDetail md = MAX;
 
   // initialize
   lmmFitResponses fit = 
-    lmmFitResponses<mat, mat, sp_mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
+    lmmFitResponses<mat, mat, sp_mat>(X, Z, left, right, tol, nthreads, md, REML);
 
   // evaluate each response
-  vector<ModelFitLMM> res = fit.eval();
+  vector<ModelFitLMM> res = fit.eval(Y, ids, Weights);
 
   return toList(res);
 }
 
 
 // [[Rcpp::export(".fastlmm_mss")]]
-List fastlmm_mss(   const arma::mat &Y_all, 
+List fastlmm_mss(   const arma::mat &Y,
+                    const std::vector<std::string> ids, 
                     const arma::sp_mat &X,  
                     const arma::sp_mat &Z,
-                    const arma::mat &weights,
+                    const arma::mat &Weights,
                     const double &delta,
                     const double &left,
                     const double &right,
                     const double &tol,
-                    const int &nthreads){
+                    const int &nthreads,
+                    const bool REML = false){
+
+  ModelDetail md = MAX;
 
   // initialize
   lmmFitResponses fit = 
-    lmmFitResponses<mat, sp_mat, sp_mat>(Y_all, X, Z, weights, left, right, tol, nthreads);
+    lmmFitResponses<mat, sp_mat, sp_mat>(X, Z, left, right, tol, nthreads, md, REML);
 
   // evaluate each response
-  vector<ModelFitLMM> res = fit.eval();
+  vector<ModelFitLMM> res = fit.eval(Y, ids, Weights);
 
   return toList(res);
 }
 
 
-// [[Rcpp::export(".fastlmmFitFeatures_m")]]
-List fastlmmFitFeatures_m(const arma::mat &Y, 
-                            const arma::mat &X_design,
-                            const arma::mat &X_features,   
-                            const arma::mat &U, 
-                            const arma::vec &s,
-                            const arma::vec &weights,
-                            const double &delta,
-                            const double &left,
-                            const double &right,
-                            const double &tol,
-                            const int &nthreads){
+// [[Rcpp::export(".nb_theta")]]
+double nb_theta(const NumericVector &y,
+                const NumericVector &mu,
+                const double &n, 
+                const NumericVector &weights,
+                const double &left = -5,
+                const double &right = 20,
+                const double &tol = 1e-5){
 
-  // initialize
-  lmmFitFeatures fit = 
-    lmmFitFeatures<mat, mat, mat>(Y, X_design, U, s, weights);
-
-  // evaluate each column of X_add, one at a time
-  vector<ModelFitLMM> res = fit.eval(X_features, delta, left, right, tol, nthreads );
-
-  return toList( res );
+  return nb_theta_ml(y, mu, n, weights, {}, false, {}, left, right, tol);
 }
 
 
-// [[Rcpp::export(".fastlmm_batch_design_s")]]
-List fastlmmFitFeatures_s(const arma::mat &Y, 
-                            const arma::mat &X_design, 
-                            const arma::mat &X_features,  
-                            const arma::sp_mat &U, 
-                            const arma::vec &s,
-                            const arma::vec &weights,
-                            const double &delta,
-                            const double &left,
-                            const double &right,
-                            const double &tol,
-                            const int &nthreads){
+// y = vec
+// X = mat
+// U = mat
+// [[Rcpp::export(".fastglmm_mm")]]
+List fastglmm_mm( const arma::vec &y, 
+                  const arma::mat &X,  
+                  const arma::mat &U, 
+                  const arma::vec &s,
+                  const arma::vec &weights,
+                  const arma::vec &offset,
+                  const std::string &family,
+                  const double &delta,
+                  const double &left,
+                  const double &right,
+                  const double &tol,
+                  const int &nthreads){
+
+  ModelDetail md = MAX;
 
   // initialize
-  lmmFitFeatures fit = 
-    lmmFitFeatures<mat, mat, sp_mat>(Y, X_design, U, s, weights);
+  fastglmm fit = fastglmm<vec,mat,mat>(y, X, U, s, weights, offset, family, md);
 
-  // evaluate each column of X_add, one at a time
-  vector<ModelFitLMM> res = fit.eval(X_features, delta, left, right, tol, nthreads );
-
-  return toList( res );
+  // return toList(fit);
+  return List();
 }
-
-
 

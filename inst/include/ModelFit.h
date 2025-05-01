@@ -1,20 +1,26 @@
-/***********************************************************************
+/***************************************************************
  * @file		ModelFit.h
- * @author		Gabriel Hoffman
+ * @author	Gabriel Hoffman
  * @email		gabriel.hoffman@mssm.edu
  * @brief		Store parameters from model fit
  * Copyright (C) 2024 Gabriel Hoffman
- ***********************************************************************/
+ **************************************************************/
 
+#ifndef MODEL_FIT_H_
+#define MODEL_FIT_H_
 
 #include <vector>
 #include <string>
+#include <regex>
 
-// from fastlmm
-#include <misc.h>
+#include "misc.h"
+
+#include "glm_family.h"
 
 using namespace arma;
 using namespace std;
+
+namespace fastglmmLib {
 
 // Specify level of model detail to return from regression fit
 typedef enum {
@@ -113,4 +119,186 @@ class ModelFit {
 	}
 };
 
+
+class ModelFitGLM : public ModelFit {
+
+  public:
+
+  ModelFitGLM() {}
+
+  ModelFitGLM( ModelFit &gmf, const string &family, const int &niter ) :
+    ModelFit(gmf), family(family), niter(niter) {
+
+    // extract theta values from "nb:theta"
+    if( regex_search( family, regex("^nb:")) ){
+      string theta_str = regex_replace( family, regex("^nb:"), "");
+      theta = atof(theta_str.c_str());
+    }else{
+      theta = datum::nan;
+    }
+
+    // Account for loss of degrees of freedom when predicted counts are zero in a count model
+      // https://doi.org/10.1515/sagmb-2017-0010
+      // if family is Poisson, quasipoisson or nb
+    // Compute number of entries were predicted values are 
+    // effectively zero counts
+    shared_ptr<GLMFamily> fam = getGLMFamily( family );
+    if( fam->isCountModel() ){
+      nZeroPrediction = sum(gmf.mu < 1e-4);
+    }
+  }
+
+  string family = "";
+  double theta = datum::nan;
+  double mu_mean = datum::nan;
+  int niter = 0;
+  double nZeroPrediction = 0;
+};
+
+class ModelFitLMM : public ModelFit {      
+  public:  
+  // additional information needed beyond ModelFit
+  double logLik;
+  vec weights, ru, y;
+  double delta, sigSq_g, sigSq_e;
+  int iter;
+
+  ModelFitLMM(){}
+
+   // LEAST
+  ModelFitLMM(const bool & success, 
+              const double &logLik,
+              const vec &weights,
+              const vec &ru,
+              const vec &y,
+              const double &delta,
+              const double &sigSq_g,
+              const double &sigSq_e,
+              const int &iter, 
+              const vec &coef) : 
+    ModelFit( success, coef),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    {} 
+
+  // LOW
+  ModelFitLMM(const bool & success, 
+              const double &logLik,
+              const vec &weights,
+              const vec &ru,
+              const vec &y,
+              const double &delta,
+              const double &sigSq_g,
+              const double &sigSq_e,
+              const int &iter, 
+              const vec &coef, 
+              const vec &se, 
+              const double &rdf) : 
+    ModelFit( success, coef, se, sigSq_e, rdf),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    {} 
+  
+  // MEDIUM
+  ModelFitLMM(const bool & success, 
+              const double &logLik,
+              const vec &weights,
+              const vec &ru,
+              const vec &y,
+              const double &delta,
+              const double &sigSq_g,
+              const double &sigSq_e,
+              const int &iter, 
+              const vec &coef, 
+              const vec &se, 
+              const double &rdf, 
+              const mat & vcov) : 
+    ModelFit( success, coef, se, sigSq_e, rdf, vcov),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter) 
+    {} 
+
+  // HIGH
+  ModelFitLMM(const bool & success, 
+              const double &logLik,
+              const vec &weights,
+              const vec &ru,
+              const vec &y,
+              const double &delta,
+              const double &sigSq_g,
+              const double &sigSq_e,
+              const int &iter, 
+              const vec &coef, 
+              const vec &se, 
+              const double &rdf, 
+              const mat & vcov, 
+              const vec &residuals) : 
+    ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    {}   
+
+  // MOST
+  ModelFitLMM(const bool & success, 
+              const double &logLik,
+              const vec &weights,
+              const vec &ru,
+              const vec &y,
+              const double &delta,
+              const double &sigSq_g,
+              const double &sigSq_e,
+              const int &iter, 
+              const vec &coef, 
+              const vec &se, 
+              const double &rdf, 
+              const mat & vcov, 
+              const vec &residuals, 
+              const vec &hatvalues) : 
+    ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals, hatvalues),
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    {}   
+};
+
+
+class ModelFitGLMM : public ModelFitLMM {
+
+  public:
+
+  ModelFitGLMM() {}
+
+  ModelFitGLMM( ModelFitLMM &gmf, const string &family, const int &niter ) :
+    ModelFitLMM(gmf), family(family), niter(niter) {
+
+    // extract theta values from "nb:theta"
+    if( regex_search( family, regex("^nb:")) ){
+      string theta_str = regex_replace( family, regex("^nb:"), "");
+      theta = atof(theta_str.c_str());
+    }else{
+      theta = datum::nan;
+    }
+
+    // Account for loss of degrees of freedom when predicted counts are zero in a count model
+      // https://doi.org/10.1515/sagmb-2017-0010
+      // if family is Poisson, quasipoisson or nb
+    // Compute number of entries were predicted values are 
+    // effectively zero counts
+    shared_ptr<GLMFamily> fam = getGLMFamily( family );
+    if( fam->isCountModel() ){
+      nZeroPrediction = sum(gmf.mu < 1e-4);
+    }
+  }
+
+  string family = "";
+  double theta = datum::nan;
+  double mu_mean = datum::nan;
+  int niter = 0;
+  double nZeroPrediction = 0;
+};
+
+
 typedef vector<ModelFit> ModelFitList;
+typedef vector<ModelFitGLM> ModelFitGLMList;
+typedef vector<ModelFitLMM> ModelFitLMMList;
+typedef vector<ModelFitGLMM> ModelFitGLMMList;
+
+
+
+}
+
+#endif

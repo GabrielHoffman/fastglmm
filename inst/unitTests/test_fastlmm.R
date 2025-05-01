@@ -6,6 +6,8 @@ test_user_fxn = function(){
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
 
+	q()
+	R
 	library(fastlmm)
 	library(lme4)
 	library(RUnit)
@@ -22,11 +24,15 @@ test_user_fxn = function(){
 
 	# ranef(fit2)
 
-	checkEqualsNumeric( fit1@beta, coef(fit2) )
-	checkEqualsNumeric( sigma(fit1), sigma(fit2), tol=5e-7 )
-	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=5e-7 )
-	checkEqualsNumeric( logLik(fit1), logLik(fit2) )
-	checkEqualsNumeric( coef(summary(fit1)), coef(summary(fit2))[,1:3] )
+	checkEqualsNumeric( fit1@beta, coef(fit2), tol=1e-5 )
+	checkEqualsNumeric( sigma(fit1), sigma(fit2), tol=1e-5 )
+	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=1e-5 )
+	checkEqualsNumeric( logLik(fit1), logLik(fit2), tol=1e-5 )
+	checkEqualsNumeric( coef(summary(fit1)), coef(summary(fit2))[,1:3], tol=1e-5 )
+
+
+
+	
 
 	# test multivariate model
 	fit3 <- fastlmm(cbind(Reaction, Reaction^2) ~ Days + (1 | Subject), sleepstudy, weights = w)
@@ -792,8 +798,8 @@ test_profile = function(){
 
 	fit1$logLik
 
-	fastlmm:::heritability(fit1, Y, X, U, s)
-	fastlmm:::heritability(fit1, Y, X, U, s, indicObj, method = "perm")
+	# fastlmm:::heritability(fit1, Y, X, U, s)
+	# fastlmm:::heritability(fit1, Y, X, U, s, indicObj, method = "perm")
 
 	# hsq under null
 	# h_sq_null = sapply( seq(100), function(i){

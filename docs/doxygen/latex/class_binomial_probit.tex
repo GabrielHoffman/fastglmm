@@ -1,0 +1,157 @@
+\doxysection{Binomial\+Probit Class Reference}
+\hypertarget{class_binomial_probit}{}\label{class_binomial_probit}\index{BinomialProbit@{BinomialProbit}}
+
+
+{\ttfamily \#include $<$glm\+\_\+family.\+h$>$}
+
+Inheritance diagram for Binomial\+Probit\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_binomial_probit}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_binomial_probit_af8df5edfdb710619bb5e4b92490a59aa}{Binomial\+Probit}} ()
+\item 
+\mbox{\hyperlink{class_binomial_probit_a4a247b93c7a2b9c927c0beb93841fa76}{\texorpdfstring{$\sim$}{\string~}\+Binomial\+Probit}} () override
+\item 
+vec \mbox{\hyperlink{class_binomial_probit_aac842e58b1626c77589e43446a39c6b1}{link}} (const vec \&mu) const override
+\item 
+vec \mbox{\hyperlink{class_binomial_probit_a751ec405957e4b5658592d2cf791d6b0}{linkinv}} (const vec \&eta) const override
+\item 
+vec \mbox{\hyperlink{class_binomial_probit_aace4e50ab56f3aca3ec101af71132cb4}{mu\+\_\+eta}} (const vec \&eta) const override
+\item 
+vec \mbox{\hyperlink{class_binomial_probit_a94023fe0dc124565933ec2ae5b9f5f7d}{variance}} (const vec \&mu) const override
+\item 
+vec \mbox{\hyperlink{class_binomial_probit_ac54a28c82173ffc0319e75eac5097424}{dev\+\_\+resids}} (const vec \&y, const vec \&mu, const vec \&weights) const override
+\item 
+vec \mbox{\hyperlink{class_binomial_probit_afc298d28ba387922841501b18b580aa2}{initialize}} (const vec \&y, const vec \&weights) const override
+\item 
+bool \mbox{\hyperlink{class_binomial_probit_ace7bb6c614cf2df0cb093d64d5413b22}{estimate\+Dispersion}} () const override
+\item 
+string \mbox{\hyperlink{class_binomial_probit_a68d7549a65af62c4d333f31f61b127d2}{family}} () const override
+\item 
+bool \mbox{\hyperlink{class_binomial_probit_aa93587103bc7109e4cdd58ff11f14002}{is\+Count\+Model}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_g_l_m_family}{GLMFamily}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_g_l_m_family_a0593af8716460adfce45b2febb26f637}{GLMFamily}} ()
+\item 
+virtual \mbox{\hyperlink{class_g_l_m_family_a250fedbe1bd85ec52fa6d3c3512e97a3}{\texorpdfstring{$\sim$}{\string~}\+GLMFamily}} ()=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_binomial_probit_af8df5edfdb710619bb5e4b92490a59aa}\index{BinomialProbit@{BinomialProbit}!BinomialProbit@{BinomialProbit}}
+\index{BinomialProbit@{BinomialProbit}!BinomialProbit@{BinomialProbit}}
+\doxysubsubsection{\texorpdfstring{BinomialProbit()}{BinomialProbit()}}
+{\footnotesize\ttfamily \label{class_binomial_probit_af8df5edfdb710619bb5e4b92490a59aa} 
+Binomial\+Probit\+::\+Binomial\+Probit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_binomial_probit_a4a247b93c7a2b9c927c0beb93841fa76}\index{BinomialProbit@{BinomialProbit}!````~BinomialProbit@{\texorpdfstring{$\sim$}{\string~}BinomialProbit}}
+\index{````~BinomialProbit@{\texorpdfstring{$\sim$}{\string~}BinomialProbit}!BinomialProbit@{BinomialProbit}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}BinomialProbit()}{\string~BinomialProbit()}}
+{\footnotesize\ttfamily \label{class_binomial_probit_a4a247b93c7a2b9c927c0beb93841fa76} 
+Binomial\+Probit\+::\texorpdfstring{$\sim$}{\string~}\+Binomial\+Probit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_binomial_probit_ac54a28c82173ffc0319e75eac5097424}\index{BinomialProbit@{BinomialProbit}!dev\_resids@{dev\_resids}}
+\index{dev\_resids@{dev\_resids}!BinomialProbit@{BinomialProbit}}
+\doxysubsubsection{\texorpdfstring{dev\_resids()}{dev\_resids()}}
+{\footnotesize\ttfamily \label{class_binomial_probit_ac54a28c82173ffc0319e75eac5097424} 
+vec Binomial\+Probit\+::dev\+\_\+resids (\begin{DoxyParamCaption}\item[{const vec \&}]{y}{, }\item[{const vec \&}]{mu}{, }\item[{const vec \&}]{weights}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_af4860375bc5d27062d28b8ee67e62775}{GLMFamily}}.
+
+\Hypertarget{class_binomial_probit_ace7bb6c614cf2df0cb093d64d5413b22}\index{BinomialProbit@{BinomialProbit}!estimateDispersion@{estimateDispersion}}
+\index{estimateDispersion@{estimateDispersion}!BinomialProbit@{BinomialProbit}}
+\doxysubsubsection{\texorpdfstring{estimateDispersion()}{estimateDispersion()}}
+{\footnotesize\ttfamily \label{class_binomial_probit_ace7bb6c614cf2df0cb093d64d5413b22} 
+bool Binomial\+Probit\+::estimate\+Dispersion (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_a796870786feca3b48b430bf5cf29c0bf}{GLMFamily}}.
+
+\Hypertarget{class_binomial_probit_a68d7549a65af62c4d333f31f61b127d2}\index{BinomialProbit@{BinomialProbit}!family@{family}}
+\index{family@{family}!BinomialProbit@{BinomialProbit}}
+\doxysubsubsection{\texorpdfstring{family()}{family()}}
+{\footnotesize\ttfamily \label{class_binomial_probit_a68d7549a65af62c4d333f31f61b127d2} 
+string Binomial\+Probit\+::family (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_a6de4f01576515cb200cce91a1d9934c3}{GLMFamily}}.
+
+\Hypertarget{class_binomial_probit_afc298d28ba387922841501b18b580aa2}\index{BinomialProbit@{BinomialProbit}!initialize@{initialize}}
+\index{initialize@{initialize}!BinomialProbit@{BinomialProbit}}
+\doxysubsubsection{\texorpdfstring{initialize()}{initialize()}}
+{\footnotesize\ttfamily \label{class_binomial_probit_afc298d28ba387922841501b18b580aa2} 
+vec Binomial\+Probit\+::initialize (\begin{DoxyParamCaption}\item[{const vec \&}]{y}{, }\item[{const vec \&}]{weights}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_a20a84714728416b7f24c1cf37c0ab284}{GLMFamily}}.
+
+\Hypertarget{class_binomial_probit_aa93587103bc7109e4cdd58ff11f14002}\index{BinomialProbit@{BinomialProbit}!isCountModel@{isCountModel}}
+\index{isCountModel@{isCountModel}!BinomialProbit@{BinomialProbit}}
+\doxysubsubsection{\texorpdfstring{isCountModel()}{isCountModel()}}
+{\footnotesize\ttfamily \label{class_binomial_probit_aa93587103bc7109e4cdd58ff11f14002} 
+bool Binomial\+Probit\+::is\+Count\+Model (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_ac257168190b2027747d34cc8eb53e6a3}{GLMFamily}}.
+
+\Hypertarget{class_binomial_probit_aac842e58b1626c77589e43446a39c6b1}\index{BinomialProbit@{BinomialProbit}!link@{link}}
+\index{link@{link}!BinomialProbit@{BinomialProbit}}
+\doxysubsubsection{\texorpdfstring{link()}{link()}}
+{\footnotesize\ttfamily \label{class_binomial_probit_aac842e58b1626c77589e43446a39c6b1} 
+vec Binomial\+Probit\+::link (\begin{DoxyParamCaption}\item[{const vec \&}]{mu}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_ac32e584620b1212694e5ffbbdddc88ee}{GLMFamily}}.
+
+\Hypertarget{class_binomial_probit_a751ec405957e4b5658592d2cf791d6b0}\index{BinomialProbit@{BinomialProbit}!linkinv@{linkinv}}
+\index{linkinv@{linkinv}!BinomialProbit@{BinomialProbit}}
+\doxysubsubsection{\texorpdfstring{linkinv()}{linkinv()}}
+{\footnotesize\ttfamily \label{class_binomial_probit_a751ec405957e4b5658592d2cf791d6b0} 
+vec Binomial\+Probit\+::linkinv (\begin{DoxyParamCaption}\item[{const vec \&}]{eta}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_ab962ad824e97d1ca47f8ce6a9b09d685}{GLMFamily}}.
+
+\Hypertarget{class_binomial_probit_aace4e50ab56f3aca3ec101af71132cb4}\index{BinomialProbit@{BinomialProbit}!mu\_eta@{mu\_eta}}
+\index{mu\_eta@{mu\_eta}!BinomialProbit@{BinomialProbit}}
+\doxysubsubsection{\texorpdfstring{mu\_eta()}{mu\_eta()}}
+{\footnotesize\ttfamily \label{class_binomial_probit_aace4e50ab56f3aca3ec101af71132cb4} 
+vec Binomial\+Probit\+::mu\+\_\+eta (\begin{DoxyParamCaption}\item[{const vec \&}]{eta}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_aedebf46fa9bab1f1322e87f2c56e045e}{GLMFamily}}.
+
+\Hypertarget{class_binomial_probit_a94023fe0dc124565933ec2ae5b9f5f7d}\index{BinomialProbit@{BinomialProbit}!variance@{variance}}
+\index{variance@{variance}!BinomialProbit@{BinomialProbit}}
+\doxysubsubsection{\texorpdfstring{variance()}{variance()}}
+{\footnotesize\ttfamily \label{class_binomial_probit_a94023fe0dc124565933ec2ae5b9f5f7d} 
+vec Binomial\+Probit\+::variance (\begin{DoxyParamCaption}\item[{const vec \&}]{mu}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_a176cc28223defa4cf0148ee95ce4f3a9}{GLMFamily}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{glm__family_8h}{glm\+\_\+family.\+h}}\end{DoxyCompactItemize}

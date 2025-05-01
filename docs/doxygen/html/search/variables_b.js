@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['weights_0',['weights',['../classfastlmm_lib_1_1_model_fit_l_m_m.html#a6c0000ffb7d39c14c8af4e6fa840c061',1,'fastlmmLib::ModelFitLMM']]]
+  ['q_0',['Q',['../structfastlmm_lib_1_1_l_m_work.html#a902562f8700a5e5d4e9b0fb91fc46710',1,'fastlmmLib::LMWork']]]
 ];

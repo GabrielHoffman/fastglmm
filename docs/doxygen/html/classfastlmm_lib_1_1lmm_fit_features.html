@@ -130,14 +130,14 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aaa8ddacd5819437bec90301b79e39c19" id="r_aaa8ddacd5819437bec90301b79e39c19"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa8ddacd5819437bec90301b79e39c19">lmmFitFeatures</a> (const T1 &amp;Y_, const T2 &amp;X_, const T3 &amp;U_, const vec &amp;s_, const vec &amp;weights_)</td></tr>
-<tr class="separator:aaa8ddacd5819437bec90301b79e39c19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ca1f03877cacedc947b08502f87135a" id="r_a7ca1f03877cacedc947b08502f87135a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefastlmm_lib.html#af34190eacba4fc760e0618d4c40c4884">ModelFitLMMList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ca1f03877cacedc947b08502f87135a">eval</a> (const T2 &amp;X_add_, const double &amp;delta_, const double &amp;left_, const double &amp;right_, const double &amp;tol_, const int &amp;nthreads_)</td></tr>
-<tr class="separator:a7ca1f03877cacedc947b08502f87135a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4fcb01516c4551d13d4a5e9c114cd88" id="r_ab4fcb01516c4551d13d4a5e9c114cd88"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4fcb01516c4551d13d4a5e9c114cd88">lmmFitFeatures</a> (const T1 &amp;Y, const T2 &amp;X, const T3 &amp;U, const vec &amp;s, const vec &amp;weights, const double &amp;delta, const double &amp;left=-10, const double &amp;right=10, const double &amp;tol=1e-5, const int &amp;nthreads=1, const <a class="el" href="namespacefastlmm_lib.html#a861ff55786eb7d3a33d5b2f2d155ee2b">ModelDetail</a> md=<a class="el" href="namespacefastlmm_lib.html#a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122">LOW</a>, const bool REML=false)</td></tr>
+<tr class="separator:ab4fcb01516c4551d13d4a5e9c114cd88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a388a2b69fa97857be93a1ef8a7449f91" id="r_a388a2b69fa97857be93a1ef8a7449f91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefastlmm_lib.html#af34190eacba4fc760e0618d4c40c4884">ModelFitLMMList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a388a2b69fa97857be93a1ef8a7449f91">eval</a> (const T2 &amp;X_add_, const vector&lt; string &gt; &amp;ids)</td></tr>
+<tr class="separator:a388a2b69fa97857be93a1ef8a7449f91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aaa8ddacd5819437bec90301b79e39c19" name="aaa8ddacd5819437bec90301b79e39c19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa8ddacd5819437bec90301b79e39c19">&#9670;&#160;</a></span>lmmFitFeatures()</h2>
+<a id="ab4fcb01516c4551d13d4a5e9c114cd88" name="ab4fcb01516c4551d13d4a5e9c114cd88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4fcb01516c4551d13d4a5e9c114cd88">&#9670;&#160;</a></span>lmmFitFeatures()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -147,27 +147,62 @@ template&lt;typename T1, typename T2, typename T3&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="classfastlmm_lib_1_1lmm_fit_features.html">fastlmmLib::lmmFitFeatures</a>&lt; T1, T2, T3 &gt;::lmmFitFeatures </td>
           <td>(</td>
-          <td class="paramtype">const T1 &amp;</td>          <td class="paramname"><span class="paramname"><em>Y_</em></span>, </td>
+          <td class="paramtype">const T1 &amp;</td>          <td class="paramname"><span class="paramname"><em>Y</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const T2 &amp;</td>          <td class="paramname"><span class="paramname"><em>X_</em></span>, </td>
+          <td class="paramtype">const T2 &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const T3 &amp;</td>          <td class="paramname"><span class="paramname"><em>U_</em></span>, </td>
+          <td class="paramtype">const T3 &amp;</td>          <td class="paramname"><span class="paramname"><em>U</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>s_</em></span>, </td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>weights_</em></span>&#160;)</td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>weights</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>delta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>left</em></span><span class="paramdefsep"> = </span><span class="paramdefval">-10</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>right</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>tol</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1e-5</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>nthreads</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacefastlmm_lib.html#a861ff55786eb7d3a33d5b2f2d155ee2b">ModelDetail</a></td>          <td class="paramname"><span class="paramname"><em>md</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespacefastlmm_lib.html#a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122">LOW</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>REML</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -175,8 +210,8 @@ template&lt;typename T1, typename T2, typename T3&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7ca1f03877cacedc947b08502f87135a" name="a7ca1f03877cacedc947b08502f87135a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ca1f03877cacedc947b08502f87135a">&#9670;&#160;</a></span>eval()</h2>
+<a id="a388a2b69fa97857be93a1ef8a7449f91" name="a388a2b69fa97857be93a1ef8a7449f91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a388a2b69fa97857be93a1ef8a7449f91">&#9670;&#160;</a></span>eval()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,27 +226,7 @@ template&lt;typename T1, typename T2, typename T3&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>delta_</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>left_</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>right_</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>tol_</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>nthreads_</em></span>&#160;)</td>
+          <td class="paramtype">const vector&lt; string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>ids</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

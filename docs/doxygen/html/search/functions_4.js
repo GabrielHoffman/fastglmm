@@ -1,20 +1,8 @@
 var searchData=
 [
-  ['get_5fbeta_0',['get_beta',['../classfastlmm_lib_1_1fastlmm.html#ab6ebe575ba5d077036997b493639ee39',1,'fastlmmLib::fastlmm']]],
-  ['get_5fbeta_5fse_1',['get_beta_se',['../classfastlmm_lib_1_1fastlmm.html#ad92f64f53191c3d60a4d58b38bb58126',1,'fastlmmLib::fastlmm']]],
-  ['get_5fdelta_2',['get_delta',['../classfastlmm_lib_1_1fastlmm.html#ac442fecda5c2c60a2c51fbd7a0b55018',1,'fastlmmLib::fastlmm']]],
-  ['get_5fedf_3',['get_edf',['../classfastlmm_lib_1_1fastlmm.html#a46fe85762e190a7ebcb370d782f68d55',1,'fastlmmLib::fastlmm']]],
-  ['get_5fiter_4',['get_iter',['../classfastlmm_lib_1_1fastlmm.html#a7c94e3a4cb37e36a9ea46e28280649d6',1,'fastlmmLib::fastlmm']]],
-  ['get_5floglik_5',['get_logLik',['../classfastlmm_lib_1_1fastlmm.html#ab2a46b073c03907224a7a9a0d34aa1ca',1,'fastlmmLib::fastlmm']]],
-  ['get_5fr_6',['get_r',['../classfastlmm_lib_1_1fastlmm.html#a81e5a44d19785d1cd670c037ff5e4004',1,'fastlmmLib::fastlmm']]],
-  ['get_5frdf_7',['get_rdf',['../classfastlmm_lib_1_1fastlmm.html#a64042341b702fbfbb717784359e64ec5',1,'fastlmmLib::fastlmm']]],
-  ['get_5fresult_8',['get_result',['../classfastlmm_lib_1_1fastlmm.html#ac53aa123da973e68c5123717110f561d',1,'fastlmmLib::fastlmm']]],
-  ['get_5fru_9',['get_ru',['../classfastlmm_lib_1_1fastlmm.html#a496286b3d296c1b6a4bb799785bebf17',1,'fastlmmLib::fastlmm']]],
-  ['get_5fsigsq_5fe_10',['get_sigSq_e',['../classfastlmm_lib_1_1fastlmm.html#aae393bf5b96aae0034d6a366aca942bc',1,'fastlmmLib::fastlmm']]],
-  ['get_5fsigsq_5fg_11',['get_sigSq_g',['../classfastlmm_lib_1_1fastlmm.html#ac4bcb43c205fbe97fd7eaa87b8704cff',1,'fastlmmLib::fastlmm']]],
-  ['get_5fvalues_12',['get_values',['../classfastlmm_lib_1_1spectral_decomp.html#a921bef30fdae30e0cfb550235fadfee5',1,'fastlmmLib::spectralDecomp']]],
-  ['get_5fvcov_13',['get_vcov',['../classfastlmm_lib_1_1fastlmm.html#ac75c170effa25d2770b16c557fcd80ce',1,'fastlmmLib::fastlmm']]],
-  ['get_5fvectors_14',['get_vectors',['../classfastlmm_lib_1_1spectral_decomp.html#affb81b7065cb24c722af4b3989ef6106',1,'fastlmmLib::spectralDecomp']]],
-  ['get_5fweights_15',['get_weights',['../classfastlmm_lib_1_1fastlmm.html#a8be64c8f13f44144a4bc91340bac9c5a',1,'fastlmmLib::fastlmm']]],
-  ['get_5fy_16',['get_y',['../classfastlmm_lib_1_1fastlmm.html#aae4d036d88b47af249e32f2038ffc977',1,'fastlmmLib::fastlmm']]]
+  ['end_0',['end',['../classblocked__range.html#a3fcfbfea120452696ad38bc0ac4642eb',1,'blocked_range']]],
+  ['estimate_5fdelta_1',['estimate_delta',['../classfastlmm_lib_1_1fastlmm.html#ada69d2b7814692260dd22704f078c81d',1,'fastlmmLib::fastlmm']]],
+  ['estimatedispersion_2',['estimateDispersion',['../class_g_l_m_family.html#a796870786feca3b48b430bf5cf29c0bf',1,'GLMFamily::estimateDispersion()'],['../class_gaussian_identity.html#a004a2bbc40ebdab93ec419a86909ff32',1,'GaussianIdentity::estimateDispersion()'],['../class_binomial_logit.html#aad1487d8a64dc1730b797c1841001f86',1,'BinomialLogit::estimateDispersion()'],['../class_binomial_probit.html#ace7bb6c614cf2df0cb093d64d5413b22',1,'BinomialProbit::estimateDispersion()'],['../class_poisson_log.html#a5f6fd556644cd7af44d849146aaa57a6',1,'PoissonLog::estimateDispersion()'],['../class_n_b.html#aaa25f0e6fcbacf547a82cf80e911ea96',1,'NB::estimateDispersion()']]],
+  ['eval_3',['eval',['../classfastlmm_lib_1_1lmm_fit_features.html#a388a2b69fa97857be93a1ef8a7449f91',1,'fastlmmLib::lmmFitFeatures::eval()'],['../classfastlmm_lib_1_1lmm_fit_responses.html#a8374f2a7b6897fc7587a3c59fea42891',1,'fastlmmLib::lmmFitResponses::eval()']]],
+  ['eval_5fdelta_4',['eval_delta',['../classfastlmm_lib_1_1fastlmm.html#a75e726fee4bea3d81618a1cebe5dba01',1,'fastlmmLib::fastlmm']]]
 ];

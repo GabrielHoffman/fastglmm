@@ -1,0 +1,157 @@
+\doxysection{Gaussian\+Identity Class Reference}
+\hypertarget{class_gaussian_identity}{}\label{class_gaussian_identity}\index{GaussianIdentity@{GaussianIdentity}}
+
+
+{\ttfamily \#include $<$glm\+\_\+family.\+h$>$}
+
+Inheritance diagram for Gaussian\+Identity\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_gaussian_identity}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_gaussian_identity_af889b1cf631f8b7d1544b0053a41ee53}{Gaussian\+Identity}} ()
+\item 
+\mbox{\hyperlink{class_gaussian_identity_a8986f83fa29a38d403f757f7d0a0d667}{\texorpdfstring{$\sim$}{\string~}\+Gaussian\+Identity}} () override
+\item 
+vec \mbox{\hyperlink{class_gaussian_identity_ac2d37bafb40a48dc61aa2feca3c8a37f}{link}} (const vec \&mu) const override
+\item 
+vec \mbox{\hyperlink{class_gaussian_identity_a0cb90a2657433277a3c8436826183aac}{linkinv}} (const vec \&eta) const override
+\item 
+vec \mbox{\hyperlink{class_gaussian_identity_a169ce90bb6a774a617faa8921db2ca87}{mu\+\_\+eta}} (const vec \&eta) const override
+\item 
+vec \mbox{\hyperlink{class_gaussian_identity_a5bd740f18fb165c1951e09dd81fec9e8}{variance}} (const vec \&mu) const override
+\item 
+vec \mbox{\hyperlink{class_gaussian_identity_aca09c83b9c92eab2a84e1a3b030a2121}{dev\+\_\+resids}} (const vec \&y, const vec \&mu, const vec \&weights) const override
+\item 
+vec \mbox{\hyperlink{class_gaussian_identity_aab03791f383465d53329dcf2257ef5a1}{initialize}} (const vec \&y, const vec \&weights) const override
+\item 
+bool \mbox{\hyperlink{class_gaussian_identity_a004a2bbc40ebdab93ec419a86909ff32}{estimate\+Dispersion}} () const override
+\item 
+string \mbox{\hyperlink{class_gaussian_identity_abc90e200366a3be56eb47acdbc6d42eb}{family}} () const override
+\item 
+bool \mbox{\hyperlink{class_gaussian_identity_a1fbed210a7df43d4e8e628cc54c24ca8}{is\+Count\+Model}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_g_l_m_family}{GLMFamily}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_g_l_m_family_a0593af8716460adfce45b2febb26f637}{GLMFamily}} ()
+\item 
+virtual \mbox{\hyperlink{class_g_l_m_family_a250fedbe1bd85ec52fa6d3c3512e97a3}{\texorpdfstring{$\sim$}{\string~}\+GLMFamily}} ()=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_gaussian_identity_af889b1cf631f8b7d1544b0053a41ee53}\index{GaussianIdentity@{GaussianIdentity}!GaussianIdentity@{GaussianIdentity}}
+\index{GaussianIdentity@{GaussianIdentity}!GaussianIdentity@{GaussianIdentity}}
+\doxysubsubsection{\texorpdfstring{GaussianIdentity()}{GaussianIdentity()}}
+{\footnotesize\ttfamily \label{class_gaussian_identity_af889b1cf631f8b7d1544b0053a41ee53} 
+Gaussian\+Identity\+::\+Gaussian\+Identity (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_gaussian_identity_a8986f83fa29a38d403f757f7d0a0d667}\index{GaussianIdentity@{GaussianIdentity}!````~GaussianIdentity@{\texorpdfstring{$\sim$}{\string~}GaussianIdentity}}
+\index{````~GaussianIdentity@{\texorpdfstring{$\sim$}{\string~}GaussianIdentity}!GaussianIdentity@{GaussianIdentity}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}GaussianIdentity()}{\string~GaussianIdentity()}}
+{\footnotesize\ttfamily \label{class_gaussian_identity_a8986f83fa29a38d403f757f7d0a0d667} 
+Gaussian\+Identity\+::\texorpdfstring{$\sim$}{\string~}\+Gaussian\+Identity (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_gaussian_identity_aca09c83b9c92eab2a84e1a3b030a2121}\index{GaussianIdentity@{GaussianIdentity}!dev\_resids@{dev\_resids}}
+\index{dev\_resids@{dev\_resids}!GaussianIdentity@{GaussianIdentity}}
+\doxysubsubsection{\texorpdfstring{dev\_resids()}{dev\_resids()}}
+{\footnotesize\ttfamily \label{class_gaussian_identity_aca09c83b9c92eab2a84e1a3b030a2121} 
+vec Gaussian\+Identity\+::dev\+\_\+resids (\begin{DoxyParamCaption}\item[{const vec \&}]{y}{, }\item[{const vec \&}]{mu}{, }\item[{const vec \&}]{weights}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_af4860375bc5d27062d28b8ee67e62775}{GLMFamily}}.
+
+\Hypertarget{class_gaussian_identity_a004a2bbc40ebdab93ec419a86909ff32}\index{GaussianIdentity@{GaussianIdentity}!estimateDispersion@{estimateDispersion}}
+\index{estimateDispersion@{estimateDispersion}!GaussianIdentity@{GaussianIdentity}}
+\doxysubsubsection{\texorpdfstring{estimateDispersion()}{estimateDispersion()}}
+{\footnotesize\ttfamily \label{class_gaussian_identity_a004a2bbc40ebdab93ec419a86909ff32} 
+bool Gaussian\+Identity\+::estimate\+Dispersion (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_a796870786feca3b48b430bf5cf29c0bf}{GLMFamily}}.
+
+\Hypertarget{class_gaussian_identity_abc90e200366a3be56eb47acdbc6d42eb}\index{GaussianIdentity@{GaussianIdentity}!family@{family}}
+\index{family@{family}!GaussianIdentity@{GaussianIdentity}}
+\doxysubsubsection{\texorpdfstring{family()}{family()}}
+{\footnotesize\ttfamily \label{class_gaussian_identity_abc90e200366a3be56eb47acdbc6d42eb} 
+string Gaussian\+Identity\+::family (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_a6de4f01576515cb200cce91a1d9934c3}{GLMFamily}}.
+
+\Hypertarget{class_gaussian_identity_aab03791f383465d53329dcf2257ef5a1}\index{GaussianIdentity@{GaussianIdentity}!initialize@{initialize}}
+\index{initialize@{initialize}!GaussianIdentity@{GaussianIdentity}}
+\doxysubsubsection{\texorpdfstring{initialize()}{initialize()}}
+{\footnotesize\ttfamily \label{class_gaussian_identity_aab03791f383465d53329dcf2257ef5a1} 
+vec Gaussian\+Identity\+::initialize (\begin{DoxyParamCaption}\item[{const vec \&}]{y}{, }\item[{const vec \&}]{weights}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_a20a84714728416b7f24c1cf37c0ab284}{GLMFamily}}.
+
+\Hypertarget{class_gaussian_identity_a1fbed210a7df43d4e8e628cc54c24ca8}\index{GaussianIdentity@{GaussianIdentity}!isCountModel@{isCountModel}}
+\index{isCountModel@{isCountModel}!GaussianIdentity@{GaussianIdentity}}
+\doxysubsubsection{\texorpdfstring{isCountModel()}{isCountModel()}}
+{\footnotesize\ttfamily \label{class_gaussian_identity_a1fbed210a7df43d4e8e628cc54c24ca8} 
+bool Gaussian\+Identity\+::is\+Count\+Model (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_ac257168190b2027747d34cc8eb53e6a3}{GLMFamily}}.
+
+\Hypertarget{class_gaussian_identity_ac2d37bafb40a48dc61aa2feca3c8a37f}\index{GaussianIdentity@{GaussianIdentity}!link@{link}}
+\index{link@{link}!GaussianIdentity@{GaussianIdentity}}
+\doxysubsubsection{\texorpdfstring{link()}{link()}}
+{\footnotesize\ttfamily \label{class_gaussian_identity_ac2d37bafb40a48dc61aa2feca3c8a37f} 
+vec Gaussian\+Identity\+::link (\begin{DoxyParamCaption}\item[{const vec \&}]{mu}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_ac32e584620b1212694e5ffbbdddc88ee}{GLMFamily}}.
+
+\Hypertarget{class_gaussian_identity_a0cb90a2657433277a3c8436826183aac}\index{GaussianIdentity@{GaussianIdentity}!linkinv@{linkinv}}
+\index{linkinv@{linkinv}!GaussianIdentity@{GaussianIdentity}}
+\doxysubsubsection{\texorpdfstring{linkinv()}{linkinv()}}
+{\footnotesize\ttfamily \label{class_gaussian_identity_a0cb90a2657433277a3c8436826183aac} 
+vec Gaussian\+Identity\+::linkinv (\begin{DoxyParamCaption}\item[{const vec \&}]{eta}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_ab962ad824e97d1ca47f8ce6a9b09d685}{GLMFamily}}.
+
+\Hypertarget{class_gaussian_identity_a169ce90bb6a774a617faa8921db2ca87}\index{GaussianIdentity@{GaussianIdentity}!mu\_eta@{mu\_eta}}
+\index{mu\_eta@{mu\_eta}!GaussianIdentity@{GaussianIdentity}}
+\doxysubsubsection{\texorpdfstring{mu\_eta()}{mu\_eta()}}
+{\footnotesize\ttfamily \label{class_gaussian_identity_a169ce90bb6a774a617faa8921db2ca87} 
+vec Gaussian\+Identity\+::mu\+\_\+eta (\begin{DoxyParamCaption}\item[{const vec \&}]{eta}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_aedebf46fa9bab1f1322e87f2c56e045e}{GLMFamily}}.
+
+\Hypertarget{class_gaussian_identity_a5bd740f18fb165c1951e09dd81fec9e8}\index{GaussianIdentity@{GaussianIdentity}!variance@{variance}}
+\index{variance@{variance}!GaussianIdentity@{GaussianIdentity}}
+\doxysubsubsection{\texorpdfstring{variance()}{variance()}}
+{\footnotesize\ttfamily \label{class_gaussian_identity_a5bd740f18fb165c1951e09dd81fec9e8} 
+vec Gaussian\+Identity\+::variance (\begin{DoxyParamCaption}\item[{const vec \&}]{mu}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_g_l_m_family_a176cc28223defa4cf0148ee95ce4f3a9}{GLMFamily}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{glm__family_8h}{glm\+\_\+family.\+h}}\end{DoxyCompactItemize}

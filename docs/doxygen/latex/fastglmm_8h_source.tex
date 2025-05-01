@@ -1,0 +1,107 @@
+\doxysection{fastglmm.\+h}
+\hypertarget{fastglmm_8h_source}{}\label{fastglmm_8h_source}\index{inst/include/fastglmm.h@{inst/include/fastglmm.h}}
+\mbox{\hyperlink{fastglmm_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/***************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ \ \ \ \ fastglmm.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ @author\ \ Gabriel\ Hoffman}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ @email\ \ \ \ \ \ \ gabriel.hoffman@mssm.edu}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ @brief\ \ \ \ \ \ \ Fit\ generalizd\ linear\ mixed\ model}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2024\ Gabriel\ Hoffman}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ **************************************************************/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ FASTGLMM\_H\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ FASTGLMM\_H\_}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ if\ -\/D\ ARMA,\ use\ plain\ armadillo\ library}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifdef\ ARMA}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <armadillo>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{fastlmm_8h}{fastlmm.h}}"{}}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \#include\ "{}glm\_family.h"{}}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ \#include\ "{}glm.h"{}}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{using\ namespace\ }arma;}
+\DoxyCodeLine{00024\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacefastlmm_lib}{fastlmmLib}}\ \{}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ Order\ of\ template\ variables}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ T1\ y}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ T2\ X}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ T3\ U}}
+\DoxyCodeLine{00032\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastlmm_lib_1_1fastglmm_a80aa0bd00f29f2900eca5e8cc551c6f6}{fastglmm}}\ \{\ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \textcolor{keyword}{public}:\ \ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//\ constructor,\ minimal}}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1fastglmm_a80aa0bd00f29f2900eca5e8cc551c6f6}{fastglmm}}()\{\};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1fastglmm_a80aa0bd00f29f2900eca5e8cc551c6f6}{fastglmm}}(\ \ \ \textcolor{keyword}{const}\ T1\ \&y,\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T2\ \&X,\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T3\ \&U,\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&s,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&weights,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&offset,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&family,\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{ModelDetail}}\ md\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}});}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//\ extract\ results}}
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m}{ModelFitLMM}}\ \mbox{\hyperlink{classfastlmm_lib_1_1fastglmm_ab76ac852a19d3d021eb5deffedece793}{get\_result}}();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm}{fastlmm<T1,T2,T3>}}\ fit;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
+\DoxyCodeLine{00057\ \mbox{\hyperlink{classfastlmm_lib_1_1fastglmm_a80aa0bd00f29f2900eca5e8cc551c6f6}{fastglmm<T1,\ T2,\ T3>::fastglmm}}(}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T1\ \&y,\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T2\ \&X,\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T3\ \&U,\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&s,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&weights,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&offset,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&family,\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{ModelDetail}}\ md)\{}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}fastglmm..."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{//\ Initialize\ eta}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{comment}{//\ ModelFitGLM\ fit\_init\ =\ GLM(X,\ y,\ family,\ md,\ weights,\ offset,\ nullptr,\ \{\},\ 1e-\/4,\ 5);}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{//\ vec\ etc\ =\ fit\_init-\/>eta;}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{//\ PQL\ iterations}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<10;\ i++)\{}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ mu,\ zz,\ wz,\ eta,\ }}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ fit\ fastlmm}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ fit\ =\ \mbox{\hyperlink{classfastlmm_lib_1_1fastlmm}{fastlmm}}(y,\ X,\ U,\ s,\ weights,\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2baeb043142ab974930489c3c7bbbe80005}{MAX}});}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{classtestclass}{testclass}}\ a;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ }
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
+\DoxyCodeLine{00091\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m}{ModelFitLMM}}\ \mbox{\hyperlink{classfastlmm_lib_1_1fastglmm_ab76ac852a19d3d021eb5deffedece793}{fastglmm<T1,\ T2,\ T3>::get\_result}}()\{}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{return}\ fit.get\_result();}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \}\ \textcolor{comment}{//\ end\ namespace}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

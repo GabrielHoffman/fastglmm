@@ -48,3 +48,6 @@ dcmp$vectors <- tcrossprod(Z, A) \%*\% D
 
 dcmp
 }
+\seealso{
+\code{preprocess_indicator()}
+}

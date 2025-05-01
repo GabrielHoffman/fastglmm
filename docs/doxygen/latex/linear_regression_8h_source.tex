@@ -2,13 +2,13 @@
 \hypertarget{linear_regression_8h_source}{}\label{linear_regression_8h_source}\index{inst/include/linearRegression.h@{inst/include/linearRegression.h}}
 \mbox{\hyperlink{linear_regression_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{comment}{/***********************************************************************}}
+\DoxyCodeLine{00001\ \textcolor{comment}{/***************************************************************}}
 \DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ \ \ \ \ linearRegression.h}}
 \DoxyCodeLine{00003\ \textcolor{comment}{\ *\ @author\ \ \ \ \ \ Gabriel\ Hoffman}}
 \DoxyCodeLine{00004\ \textcolor{comment}{\ *\ @email\ \ \ \ \ \ \ gabriel.hoffman@mssm.edu}}
 \DoxyCodeLine{00005\ \textcolor{comment}{\ *\ @brief\ \ \ \ \ \ \ Evaluate\ linear\ regression\ with\ Armadillo\ library}}
 \DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2024\ Gabriel\ Hoffman}}
-\DoxyCodeLine{00007\ \textcolor{comment}{\ ***********************************************************************/}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ **************************************************************/}}
 \DoxyCodeLine{00008\ }
 \DoxyCodeLine{00009\ }
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ LINEAR\_REGRESSION\_H\_}}
@@ -16,415 +16,412 @@
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <tuple>}}
 \DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{misc_8h}{misc.h}}"{}}}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{comment}{//\ DISABLE\ warning:\ solve():\ system\ is\ singular}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ ARMA\_WARN\_LEVEL\ 1}}
-\DoxyCodeLine{00019\ \textcolor{comment}{//\ Important:\ this\ definition\ ensures\ Armadillo\ enables\ SuperLU}}
-\DoxyCodeLine{00020\ \textcolor{comment}{//\ \#define\ ARMA\_USE\_SUPERLU\ 1}}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \textcolor{comment}{//\ if\ -\/D\ ARMA,\ use\ plain\ armadillo\ library}}
-\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifdef\ ARMA}}
-\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <armadillo>}}
-\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
-\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ if\ -\/D\ ARMA,\ use\ plain\ armadillo\ library}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifdef\ ARMA}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <armadillo>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ [[Rcpp::depends(RcppParallel)]]}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <RcppParallel.h>}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{misc_8h}{misc.h}}"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_model_fit_8h}{ModelFit.h}}"{}}}
 \DoxyCodeLine{00028\ }
 \DoxyCodeLine{00029\ \textcolor{keyword}{using\ namespace\ }arma;}
 \DoxyCodeLine{00030\ \textcolor{keyword}{using\ namespace\ }std;}
 \DoxyCodeLine{00031\ }
 \DoxyCodeLine{00032\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacefastlmm_lib}{fastlmmLib}}\ \{}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \textcolor{comment}{//\ Specify\ level\ of\ model\ detail\ to\ return\ from\ regression\ fit}}
-\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
-\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}},\ \ \ \ \ \textcolor{comment}{//\ baseline\ parameters:\ beta,\ se,\ sigSq,\ rdf}}
-\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba0aa074048824cc6451371747f11da418}{MEDIUM}},\ \textcolor{comment}{//\ vcov}}
-\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba2fa325b1ac6f0b8fa1f300f5cbe8c2e0}{HIGH}},\ \ \ \textcolor{comment}{//\ residuals}}
-\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba98db90a71aabc3c2d20fec28a148f555}{MOST}}\ \ \ \ \textcolor{comment}{//\ hatvalues}}
-\DoxyCodeLine{00040\ \}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{ModelDetail}};}
+\DoxyCodeLine{00033\ \ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfastlmm_lib_1_1_l_m_work_a27b569fef11fa2ffa27456e6805612a5}{LMWork}}\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ mat\ \mbox{\hyperlink{structfastlmm_lib_1_1_l_m_work_a902562f8700a5e5d4e9b0fb91fc46710}{Q}},\ \mbox{\hyperlink{structfastlmm_lib_1_1_l_m_work_a19d97e137bc966e476bbfade65bff6bf}{R}},\ \mbox{\hyperlink{structfastlmm_lib_1_1_l_m_work_a09278b4ec35ae6ea43c91df2a4a474f1}{V}};}
+\DoxyCodeLine{00038\ \ \ \ \ vec\ \mbox{\hyperlink{structfastlmm_lib_1_1_l_m_work_a533fa4ec68161c422034d01ca798d4fe}{residuals}};}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{structfastlmm_lib_1_1_l_m_work_a27b569fef11fa2ffa27456e6805612a5}{LMWork}}()\ \{\}}
+\DoxyCodeLine{00040\ \};}
 \DoxyCodeLine{00041\ }
-\DoxyCodeLine{00044\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit}{ModelFit}}\ \{}
-\DoxyCodeLine{00045\ \ \ \ \ vec\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}};}
-\DoxyCodeLine{00046\ \ \ \ \ vec\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}};}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3fb38d193056b696d1d6acbcc8763cb1}{sigSq}};}
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}};}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3a2558c7ebd8dc4f7ea88f83af4764ac}{ID}};}
-\DoxyCodeLine{00050\ \ \ \ \ mat\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}};}
-\DoxyCodeLine{00051\ \ \ \ \ vec\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}};}
-\DoxyCodeLine{00052\ \ \ \ \ vec\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a09ecf2602ca44f28b69fe2e055ba4cad}{hatvalues}};}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_af3cd8a022801b89d43825be16d53582c}{ModelFit}}()\ \{\}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{static}\ ModelFit\ lm(\textcolor{keyword}{const}\ arma::mat\&\ X,\ \textcolor{keyword}{const}\ arma::colvec\&\ y,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{ModelDetail}}\ md\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&rdf\_offset\ =\ 0,\ LMWork\ *work\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ estimateDispersion\ =\ \textcolor{keyword}{true},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ scaleByDispersion\ =\ \textcolor{keyword}{true})\ \{}
 \DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ LOW}}
-\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_aff904f4211f137bdad57c609d8b94b78}{ModelFit}}(\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3fb38d193056b696d1d6acbcc8763cb1}{sigSq}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}})\ :\ }
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3fb38d193056b696d1d6acbcc8763cb1}{sigSq}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3fb38d193056b696d1d6acbcc8763cb1}{sigSq}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}})\ \{\}}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{//\ MEDIUM}}
-\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_ab42753ba246f13ac163925d64c8433d2}{ModelFit}}(\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3fb38d193056b696d1d6acbcc8763cb1}{sigSq}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}},\ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}})\ :}
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3fb38d193056b696d1d6acbcc8763cb1}{sigSq}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3fb38d193056b696d1d6acbcc8763cb1}{sigSq}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}})\ \{\}}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{//\ HIGH}}
-\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a9375f0450cdb05b2f897b73a6ec4c342}{ModelFit}}(\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3fb38d193056b696d1d6acbcc8763cb1}{sigSq}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}},\ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}})\ :\ }
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3fb38d193056b696d1d6acbcc8763cb1}{sigSq}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3fb38d193056b696d1d6acbcc8763cb1}{sigSq}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}})\ \{\}}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{comment}{//\ MOST}}
-\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a879a10626bf646608994b0274ec688c5}{ModelFit}}(\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3fb38d193056b696d1d6acbcc8763cb1}{sigSq}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}},\ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a09ecf2602ca44f28b69fe2e055ba4cad}{hatvalues}})\ :\ }
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3fb38d193056b696d1d6acbcc8763cb1}{sigSq}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3fb38d193056b696d1d6acbcc8763cb1}{sigSq}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a901fdda3301dcc82942bb1c0a65804fa}{rdf}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}}),\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a09ecf2602ca44f28b69fe2e055ba4cad}{hatvalues}}(\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a09ecf2602ca44f28b69fe2e055ba4cad}{hatvalues}})\ \{\}}
-\DoxyCodeLine{00071\ \};}
-\DoxyCodeLine{00072\ }
-\DoxyCodeLine{00075\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfastlmm_lib_1_1_l_m_work}{LMWork}}\ \{}
-\DoxyCodeLine{00076\ \ \ \ \ mat\ \mbox{\hyperlink{structfastlmm_lib_1_1_l_m_work_a902562f8700a5e5d4e9b0fb91fc46710}{Q}},\ \mbox{\hyperlink{structfastlmm_lib_1_1_l_m_work_a19d97e137bc966e476bbfade65bff6bf}{R}},\ \mbox{\hyperlink{structfastlmm_lib_1_1_l_m_work_a09278b4ec35ae6ea43c91df2a4a474f1}{V}};}
-\DoxyCodeLine{00077\ \ \ \ \ vec\ \mbox{\hyperlink{structfastlmm_lib_1_1_l_m_work_a533fa4ec68161c422034d01ca798d4fe}{residuals}};}
-\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{structfastlmm_lib_1_1_l_m_work_a27b569fef11fa2ffa27456e6805612a5}{LMWork}}()\ \{\}}
-\DoxyCodeLine{00079\ \};}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ }
-\DoxyCodeLine{00093\ \textcolor{keyword}{static}\ ModelFit\ lm(\textcolor{keyword}{const}\ arma::mat\&\ X,\ \textcolor{keyword}{const}\ arma::colvec\&\ y,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{ModelDetail}}\ md\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&rdf\_offset\ =\ 0,\ LMWork\ *work\ =\ \textcolor{keyword}{nullptr})\ \{}
-\DoxyCodeLine{00094\ }
-\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ X.n\_rows,\ k\ =\ X.n\_cols;}
-\DoxyCodeLine{00096\ }
-\DoxyCodeLine{00097\ \ \ \ \ \textcolor{comment}{//\ allocate\ work,\ if\ not\ already\ alloc'd}}
-\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{bool}\ alloc\_local\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{if}(\ work\ ==\ \textcolor{keyword}{nullptr}\ )\{}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ alloc\_local\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ work\ =\ \textcolor{keyword}{new}\ LMWork();}
-\DoxyCodeLine{00102\ \ \ \ \ \}}
-\DoxyCodeLine{00103\ }
-\DoxyCodeLine{00104\ \ \ \ \ \textcolor{comment}{//\ QR\ decomp}}
-\DoxyCodeLine{00105\ \ \ \ \ qr\_econ(work-\/>Q,\ work-\/>R,\ X);}
-\DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{comment}{//\ back\ solve}}
-\DoxyCodeLine{00108\ \ \ \ \ vec\ beta\ =\ solve(work-\/>R,\ trans(work-\/>Q)\ *\ y);}
-\DoxyCodeLine{00109\ }
-\DoxyCodeLine{00110\ \ \ \ \ \textcolor{comment}{//\ residuals}}
-\DoxyCodeLine{00111\ \ \ \ \ work-\/>residuals\ =\ y\ -\/\ X*beta;}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \ \ \textcolor{comment}{//\ std.errors\ of\ coefficients}}
-\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{double}\ rdf\ =\ n\ -\/\ k\ -\/\ rdf\_offset;}
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{double}\ s2\ =\ dot(work-\/>residuals,\ work-\/>residuals)\ /\ rdf;\ }
-\DoxyCodeLine{00116\ }
-\DoxyCodeLine{00117\ \ \ \ \ \textcolor{comment}{//\ V\ =\ solve(t(R)*R)}}
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{bool}\ success\ =\ inv\_sympd(work-\/>V,\ trans(work-\/>R)*work-\/>R);}
-\DoxyCodeLine{00119\ }
-\DoxyCodeLine{00120\ \ \ \ \ vec\ stderr;}
-\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{if}(\ success\ )\{}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ stderr\ =\ sqrt(s2\ *\ diagvec(work-\/>V));}
-\DoxyCodeLine{00123\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ stderr\ =\ vec(k,\ fill::value(datum::nan));}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ beta.fill(datum::nan);}
-\DoxyCodeLine{00126\ \ \ \ \ \}}
-\DoxyCodeLine{00127\ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ X.n\_rows,\ k\ =\ X.n\_cols;}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{comment}{//\ allocate\ work,\ if\ not\ already\ alloc'd}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{bool}\ alloc\_local\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{if}(\ work\ ==\ \textcolor{keyword}{nullptr}\ )\{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ alloc\_local\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ work\ =\ \textcolor{keyword}{new}\ LMWork();}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{//\ QR\ decomp}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ success0\ indicates\ QR\ was\ successful\ and\ R\ is\ valid}}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{bool}\ success0\ =\ qr\_econ(work-\/>Q,\ work-\/>R,\ X);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{//\ test\ if\ X\ is\ full\ rank}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{double}\ minDiagR\ =\ abs(diagvec(work-\/>R)).min();}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{double}\ tol\ =\ 1e-\/12;}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{if}(\ success0\ \&\&\ (minDiagR\ <\ tol))\{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ success0\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ vec\ beta;}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{bool}\ success1\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{comment}{//\ if\ QR\ succeed,\ compute\ beta}}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{if}(\ success0\ )\{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ success1\ =\ solve(beta,\ work-\/>R,\ trans(work-\/>Q)\ *\ y,\ solve\_opts::no\_approx);}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{comment}{//\ if\ system\ is\ singular,}}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{comment}{//\ set\ beta\ to\ NaN}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ success0\ ||\ !\ success1)\{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ beta\ =\ vec\ (work-\/>R.n\_cols);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ beta.fill(datum::nan);}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{comment}{//\ if\ md\ !=\ LEAST,\ compute\ residuals}}
+\DoxyCodeLine{00092\ \ \ \ \ vec\ stderr;}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{double}\ rdf\ =\ n\ -\/\ k\ -\/\ rdf\_offset;\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{double}\ dispersion\ =\ 1.0;}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{bool}\ success2\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{if}(\ md\ !=\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2baa5ab4305a7fe3d32b0a55977703a2c35}{LEAST}}\ )\{}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ success1\ )\{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ only\ compute\ inverse\ if\ solve()\ above\ succeeded}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ V\ =\ solve(t(R)*R)}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ success2\ =\ inv\_sympd(work-\/>V,\ trans(work-\/>R)*work-\/>R);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ success2\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ residuals}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ work-\/>residuals\ =\ y\ -\/\ X*beta;}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ linear\ regression}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ estimateDispersion\ )\{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std.errors\ of\ coefficients}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ dispersion\ =\ dot(work-\/>residuals,\ work-\/>residuals)\ /\ rdf;\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ GLM,\ don't\ scale\ by\ residual\ variance}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ dispersion\ =\ 1.0;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ success0\ \&\&\ success1\ \&\&\ success2\ )\{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ stderr\ =\ sqrt(dispersion\ *\ diagvec(work-\/>V));}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ stderr\ =\ vec(k,\ fill::value(datum::nan));}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ beta.fill(datum::nan);}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{bool}\ success\ =\ success0\ \&\&\ success1\ \&\&\ success2;}
+\DoxyCodeLine{00127\ }
 \DoxyCodeLine{00128\ \ \ \ \ \textcolor{comment}{//\ return\ results\ with\ specified\ level\ of\ detail}}
-\DoxyCodeLine{00129\ \ \ \ \ ModelFit\ fit;}
+\DoxyCodeLine{00129\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{ModelFit}}\ fit;}
 \DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{switch}(\ md\ )\{}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}:}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ fit\ =\ ModelFit(\ beta,\ stderr,\ s2,\ rdf);}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2baa5ab4305a7fe3d32b0a55977703a2c35}{LEAST}}:}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ fit\ =\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{ModelFit}}(\ success,\ beta\ );}
 \DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00134\ }
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba0aa074048824cc6451371747f11da418}{MEDIUM}}:}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ fit\ =\ ModelFit(\ beta,\ stderr,\ s2,\ rdf,\ work-\/>V\ *\ s2);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}}:}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ fit\ =\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{ModelFit}}(\ success,\ beta,\ stderr,\ dispersion,\ rdf);}
 \DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00138\ }
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba2fa325b1ac6f0b8fa1f300f5cbe8c2e0}{HIGH}}:}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ fit\ =\ ModelFit(\ beta,\ stderr,\ s2,\ rdf,\ work-\/>V\ *\ s2,\ work-\/>residuals);}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba0aa074048824cc6451371747f11da418}{MEDIUM}}:}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ fit\ =\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{ModelFit}}(\ success,\ beta,\ stderr,\ dispersion,\ rdf,\ work-\/>V\ *\ dispersion);}
 \DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00142\ }
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba98db90a71aabc3c2d20fec28a148f555}{MOST}}:}
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ vec\ hatvalues\ =\ diagvec(work-\/>Q\ *\ trans(work-\/>Q));}
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ fit\ =\ ModelFit(\ beta,\ stderr,\ s2,\ rdf,\ work-\/>V\ *\ s2,\ work-\/>residuals,\ hatvalues);}
-\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00147\ \ \ \ \ \}}
-\DoxyCodeLine{00148\ }
-\DoxyCodeLine{00149\ \ \ \ \ \textcolor{comment}{//\ free\ work\ if\ allocated\ in\ this\ function}}
-\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordflow}{if}(\ alloc\_local)\ \textcolor{keyword}{delete}\ work;}
-\DoxyCodeLine{00151\ }
-\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordflow}{return}\ fit;}
-\DoxyCodeLine{00153\ \}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba2fa325b1ac6f0b8fa1f300f5cbe8c2e0}{HIGH}}:}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ fit\ =\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{ModelFit}}(\ success,\ beta,\ stderr,\ dispersion,\ rdf,\ work-\/>V\ *\ dispersion,\ work-\/>residuals);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba98db90a71aabc3c2d20fec28a148f555}{MOST}}:}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2baeb043142ab974930489c3c7bbbe80005}{MAX}}:\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ vec\ hatvalues\ =\ diagvec(work-\/>Q\ *\ trans(work-\/>Q));}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ fit\ =\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{ModelFit}}(\ success,\ beta,\ stderr,\ dispersion,\ rdf,\ work-\/>V\ *\ dispersion,\ work-\/>residuals,\ hatvalues);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ fit.setFittedValues(\ X*beta\ );}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00153\ \ \ \ \ \}}
 \DoxyCodeLine{00154\ }
-\DoxyCodeLine{00163\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00164\ \textcolor{keyword}{static}\ tuple<vec,\ T>\ preprojection(\textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ mat\ \&X\_design,\ \textcolor{keyword}{const}\ T\ \&X\_features,\ \textcolor{keyword}{const}\ vec\ \&weights\ =\ \{\})\{}
-\DoxyCodeLine{00165\ }
-\DoxyCodeLine{00166\ \ \ \ \ \textcolor{comment}{//\ naive\ calculation}}
-\DoxyCodeLine{00167\ \ \ \ \ \textcolor{comment}{//\ vec\ y\_proj\ =\ y\ -\/\ X\_design\ *\ inv(trans(X\_design)\ *\ X\_design)\ *\ trans(X\_design)\ *\ y;}}
-\DoxyCodeLine{00168\ \ \ \ \ \textcolor{comment}{//\ mat\ X\_proj\ =\ X\_features\ -\/\ X\_design\ *\ inv(trans(X\_design)\ *\ X\_design)\ *\ trans(X\_design)\ *\ X\_features;}}
-\DoxyCodeLine{00169\ }
-\DoxyCodeLine{00170\ \ \ \ \ \textcolor{comment}{//\ if\ weights\ is\ empty,\ set\ w\ to\ ones}}
-\DoxyCodeLine{00171\ \ \ \ \ vec\ w;}
-\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ weights.is\_empty()\ )\{}
-\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ w\ =\ weights;}
-\DoxyCodeLine{00174\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ w\ =\ vec(y.n\_elem).ones();}
-\DoxyCodeLine{00176\ \ \ \ \ \}}
-\DoxyCodeLine{00177\ \ \ \ \ arma::colvec\ wsqrt\ =\ sqrt(w\ /\ mean(w));}
-\DoxyCodeLine{00178\ }
-\DoxyCodeLine{00179\ \ \ \ \ \textcolor{comment}{//\ apply\ weights\ in\ computation\ to\ y,\ X\_design,\ and\ X\_features}}
-\DoxyCodeLine{00180\ \ \ \ \ mat\ X\_design\_wsqrt\ =\ X\_design.each\_col()\ \%\ wsqrt;}
-\DoxyCodeLine{00181\ \ \ \ \ vec\ y\_wsqrt\ =\ y\ \%\ wsqrt;}
-\DoxyCodeLine{00182\ \ \ \ \ T\ X\_features\_wsqrt\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a5009d41cc8af32cb6424dc00ce60d9d5}{scaleEachCol}}(X\_features,\ wsqrt);}
-\DoxyCodeLine{00183\ }
-\DoxyCodeLine{00184\ \ \ \ \ \textcolor{comment}{//\ Use\ QR\ decomp\ of\ X\_design,\ and\ recycle\ pre-\/computed\ values}}
-\DoxyCodeLine{00185\ \ \ \ \ mat\ Q,\ R;}
-\DoxyCodeLine{00186\ \ \ \ \ qr\_econ(Q,\ R,\ X\_design\_wsqrt);}
-\DoxyCodeLine{00187\ }
-\DoxyCodeLine{00188\ \ \ \ \ \textcolor{comment}{//\ back\ solve}}
-\DoxyCodeLine{00189\ \ \ \ \ vec\ beta\ =\ solve(R,\ trans(Q)\ *\ y\_wsqrt);}
-\DoxyCodeLine{00190\ \ \ \ \ vec\ y\_proj\ =\ y\_wsqrt\ -\/\ X\_design\_wsqrt\ *\ beta;}
-\DoxyCodeLine{00191\ }
-\DoxyCodeLine{00192\ \ \ \ \ \textcolor{comment}{//\ back\ solve}}
-\DoxyCodeLine{00193\ \ \ \ \ \textcolor{comment}{//\ use\ constructor\ T()\ to\ subtract\ matricies\ of\ the\ same\ type}}
-\DoxyCodeLine{00194\ \ \ \ \ mat\ gamma\ =\ solve(R,\ trans(Q)\ *\ X\_features\_wsqrt);}
-\DoxyCodeLine{00195\ \ \ \ \ T\ X\_proj;}
-\DoxyCodeLine{00196\ }
-\DoxyCodeLine{00197\ \ \ \ \ \textcolor{comment}{//\ cast\ X\_design\_wsqrt\ *\ gamma\ to\ type\ T\ if\ needed}}
-\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keywordflow}{if}(\ is\_same\_v<\textcolor{keyword}{decltype}(X\_features\_wsqrt),\ \textcolor{keyword}{decltype}(X\_design\_wsqrt)>\ )\{}
-\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ X\_proj\ =\ X\_features\_wsqrt\ -\/\ X\_design\_wsqrt\ *\ gamma;}
-\DoxyCodeLine{00200\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ X\_proj\ =\ X\_features\_wsqrt\ -\/\ T(X\_design\_wsqrt\ *\ gamma);}
-\DoxyCodeLine{00202\ \ \ \ \ \}}
-\DoxyCodeLine{00203\ }
-\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordflow}{return}\ \{y\_proj,\ X\_proj\};}
-\DoxyCodeLine{00205\ \}}
-\DoxyCodeLine{00206\ }
-\DoxyCodeLine{00207\ }
-\DoxyCodeLine{00215\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00216\ \textcolor{keyword}{static}\ tuple<vec,\ T>\ preprojection(\textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ sp\_mat\ \&X\_design,\ \textcolor{keyword}{const}\ T\ \&X\_features,\ \textcolor{keyword}{const}\ vec\ \&weights\ =\ \{\})\{}
-\DoxyCodeLine{00217\ }
-\DoxyCodeLine{00218\ \ \ \ \ \textcolor{comment}{//\ naive\ calculation}}
-\DoxyCodeLine{00219\ \ \ \ \ \textcolor{comment}{//\ vec\ y\_proj\ =\ y\ -\/\ X\_design\ *\ inv(trans(X\_design)\ *\ X\_design)\ *\ trans(X\_design)\ *\ y;}}
-\DoxyCodeLine{00220\ \ \ \ \ \textcolor{comment}{//\ mat\ X\_proj\ =\ X\_features\ -\/\ X\_design\ *\ inv(trans(X\_design)\ *\ X\_design)\ *\ trans(X\_design)\ *\ X\_features;}}
-\DoxyCodeLine{00221\ }
-\DoxyCodeLine{00222\ \ \ \ \ \textcolor{comment}{//\ if\ weights\ is\ empty,\ set\ w\ to\ ones}}
-\DoxyCodeLine{00223\ \ \ \ \ vec\ w;}
-\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ weights.is\_empty()\ )\{}
-\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ w\ =\ weights;}
-\DoxyCodeLine{00226\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ w\ =\ vec(y.n\_elem).ones();}
-\DoxyCodeLine{00228\ \ \ \ \ \}}
-\DoxyCodeLine{00229\ \ \ \ \ arma::colvec\ wsqrt\ =\ sqrt(w\ /\ mean(w));}
-\DoxyCodeLine{00230\ }
-\DoxyCodeLine{00231\ \ \ \ \ \textcolor{comment}{//\ apply\ weights\ in\ computation\ to\ y,\ X\_design,\ and\ X\_features}}
-\DoxyCodeLine{00232\ \ \ \ \ sp\_mat\ X\_design\_wsqrt\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a5009d41cc8af32cb6424dc00ce60d9d5}{scaleEachCol}}(X\_design,\ wsqrt);}
-\DoxyCodeLine{00233\ \ \ \ \ vec\ y\_wsqrt\ =\ y\ \%\ wsqrt;}
-\DoxyCodeLine{00234\ \ \ \ \ T\ X\_features\_wsqrt\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a5009d41cc8af32cb6424dc00ce60d9d5}{scaleEachCol}}(X\_features,\ wsqrt);}
-\DoxyCodeLine{00235\ }
-\DoxyCodeLine{00236\ \ \ \ \ \textcolor{comment}{//\ recycle\ sparse\ crossprod}}
-\DoxyCodeLine{00237\ \ \ \ \ \textcolor{comment}{//\ spsolve\ uses\ lapack\ after\ converting\ V\ to\ dense\ matrix}}
-\DoxyCodeLine{00238\ \ \ \ \ \textcolor{comment}{//\ minimal\ penalty\ practical\ V\ dimensions}}
-\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordtype}{bool}\ success;}
-\DoxyCodeLine{00240\ \ \ \ \ vec\ beta;}
-\DoxyCodeLine{00241\ \ \ \ \ mat\ gamma;}
-\DoxyCodeLine{00242\ }
-\DoxyCodeLine{00243\ \ \ \ \ sp\_mat\ V\ =\ trans(X\_design\_wsqrt)\ *\ X\_design\_wsqrt;}
-\DoxyCodeLine{00244\ \ \ \ \ success\ =\ spsolve(beta,\ V,\ vec(trans(X\_design\_wsqrt)\ *\ y\_wsqrt),\ \textcolor{stringliteral}{"{}lapack"{}});}
-\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ success\ )\ beta.fill(datum::nan);}
-\DoxyCodeLine{00246\ \ \ \ \ vec\ y\_proj\ =\ y\_wsqrt\ -\/\ X\_design\_wsqrt\ *\ beta;}
-\DoxyCodeLine{00247\ }
-\DoxyCodeLine{00248\ \ \ \ \ success\ =\ spsolve(gamma,\ V,\ mat(trans(X\_design\_wsqrt)\ *\ X\_features\_wsqrt),\ \textcolor{stringliteral}{"{}lapack"{}});}
-\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ success\ )\ gamma.fill(datum::nan);}
-\DoxyCodeLine{00250\ }
-\DoxyCodeLine{00251\ \ \ \ \ T\ X\_proj;}
-\DoxyCodeLine{00252\ \ \ \ \ \textcolor{comment}{//\ cast\ X\_design\_wsqrt\ *\ gamma\ to\ type\ T\ if\ needed}}
-\DoxyCodeLine{00253\ \ \ \ \ \textcolor{keywordflow}{if}(\ is\_same\_v<\textcolor{keyword}{decltype}(X\_features\_wsqrt),\ \textcolor{keyword}{decltype}(X\_design\_wsqrt)>\ )\{}
-\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ X\_proj\ =\ X\_features\_wsqrt\ -\/\ X\_design\_wsqrt\ *\ gamma;}
-\DoxyCodeLine{00255\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ X\_proj\ =\ X\_features\_wsqrt\ -\/\ T(X\_design\_wsqrt\ *\ gamma);}
-\DoxyCodeLine{00257\ \ \ \ \ \}}
-\DoxyCodeLine{00258\ }
-\DoxyCodeLine{00259\ \ \ \ \ \textcolor{comment}{//\ Use\ LU\ decomp\ of\ X\_design}}
-\DoxyCodeLine{00260\ \ \ \ \ \textcolor{comment}{//\ requires\ SuperLU\ library}}
-\DoxyCodeLine{00261\ \ \ \ \ \textcolor{comment}{//\ \ -\/L/opt/homebrew/Cellar/superlu/7.0.0/lib\ -\/lsuperlu}}
-\DoxyCodeLine{00262\ \ \ \ \ \textcolor{comment}{//\ but\ not\ portable}}
-\DoxyCodeLine{00263\ \ \ \ \ \textcolor{comment}{//\ spsolve\_factoriser\ SF;}}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{comment}{//\ free\ work\ if\ allocated\ in\ this\ function}}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordflow}{if}(\ alloc\_local)\ \textcolor{keyword}{delete}\ work;}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordflow}{return}\ fit;}
+\DoxyCodeLine{00159\ \}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00169\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00170\ \textcolor{keyword}{static}\ tuple<vec,\ T>\ preprojection(\textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ mat\ \&X\_design,\ \textcolor{keyword}{const}\ T\ \&X\_features,\ \textcolor{keyword}{const}\ vec\ \&weights\ =\ \{\})\{}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{comment}{//\ naive\ calculation}}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{comment}{//\ vec\ y\_proj\ =\ y\ -\/\ X\_design\ *\ inv(trans(X\_design)\ *\ X\_design)\ *\ trans(X\_design)\ *\ y;}}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{comment}{//\ mat\ X\_proj\ =\ X\_features\ -\/\ X\_design\ *\ inv(trans(X\_design)\ *\ X\_design)\ *\ trans(X\_design)\ *\ X\_features;}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{comment}{//\ if\ weights\ is\ empty,\ set\ w\ to\ ones}}
+\DoxyCodeLine{00177\ \ \ \ \ vec\ w;}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ weights.is\_empty()\ )\{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ w\ =\ weights;}
+\DoxyCodeLine{00180\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ w\ =\ vec(y.n\_elem).ones();}
+\DoxyCodeLine{00182\ \ \ \ \ \}}
+\DoxyCodeLine{00183\ \ \ \ \ arma::colvec\ wsqrt\ =\ sqrt(w\ /\ mean(w));}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{comment}{//\ apply\ weights\ in\ computation\ to\ y,\ X\_design,\ and\ X\_features}}
+\DoxyCodeLine{00186\ \ \ \ \ mat\ X\_design\_wsqrt\ =\ X\_design.each\_col()\ \%\ wsqrt;}
+\DoxyCodeLine{00187\ \ \ \ \ vec\ y\_wsqrt\ =\ y\ \%\ wsqrt;}
+\DoxyCodeLine{00188\ \ \ \ \ T\ X\_features\_wsqrt\ =\ \mbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(X\_features,\ wsqrt);}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{comment}{//\ Use\ QR\ decomp\ of\ X\_design,\ and\ recycle\ pre-\/computed\ values}}
+\DoxyCodeLine{00191\ \ \ \ \ mat\ Q,\ R;}
+\DoxyCodeLine{00192\ \ \ \ \ qr\_econ(Q,\ R,\ X\_design\_wsqrt);}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{comment}{//\ back\ solve}}
+\DoxyCodeLine{00195\ \ \ \ \ vec\ beta\ =\ solve(R,\ trans(Q)\ *\ y\_wsqrt);}
+\DoxyCodeLine{00196\ \ \ \ \ vec\ y\_proj\ =\ y\_wsqrt\ -\/\ X\_design\_wsqrt\ *\ beta;}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{comment}{//\ back\ solve}}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{comment}{//\ use\ constructor\ T()\ to\ subtract\ matricies\ of\ the\ same\ type}}
+\DoxyCodeLine{00200\ \ \ \ \ mat\ gamma\ =\ solve(R,\ trans(Q)\ *\ X\_features\_wsqrt);}
+\DoxyCodeLine{00201\ \ \ \ \ T\ X\_proj;}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{comment}{//\ cast\ X\_design\_wsqrt\ *\ gamma\ to\ type\ T\ if\ needed}}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordflow}{if}(\ is\_same\_v<\textcolor{keyword}{decltype}(X\_features\_wsqrt),\ \textcolor{keyword}{decltype}(X\_design\_wsqrt)>\ )\{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ X\_proj\ =\ X\_features\_wsqrt\ -\/\ X\_design\_wsqrt\ *\ gamma;}
+\DoxyCodeLine{00206\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ X\_proj\ =\ X\_features\_wsqrt\ -\/\ T(X\_design\_wsqrt\ *\ gamma);}
+\DoxyCodeLine{00208\ \ \ \ \ \}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{return}\ \{y\_proj,\ X\_proj\};}
+\DoxyCodeLine{00211\ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00221\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00222\ \textcolor{keyword}{static}\ tuple<vec,\ T>\ preprojection(\textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ sp\_mat\ \&X\_design,\ \textcolor{keyword}{const}\ T\ \&X\_features,\ \textcolor{keyword}{const}\ vec\ \&weights\ =\ \{\})\{}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{comment}{//\ naive\ calculation}}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{comment}{//\ vec\ y\_proj\ =\ y\ -\/\ X\_design\ *\ inv(trans(X\_design)\ *\ X\_design)\ *\ trans(X\_design)\ *\ y;}}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{comment}{//\ mat\ X\_proj\ =\ X\_features\ -\/\ X\_design\ *\ inv(trans(X\_design)\ *\ X\_design)\ *\ trans(X\_design)\ *\ X\_features;}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{comment}{//\ if\ weights\ is\ empty,\ set\ w\ to\ ones}}
+\DoxyCodeLine{00229\ \ \ \ \ vec\ w;}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ weights.is\_empty()\ )\{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ w\ =\ weights;}
+\DoxyCodeLine{00232\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ w\ =\ vec(y.n\_elem).ones();}
+\DoxyCodeLine{00234\ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \ \ \ \ arma::colvec\ wsqrt\ =\ sqrt(w\ /\ mean(w));}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{comment}{//\ apply\ weights\ in\ computation\ to\ y,\ X\_design,\ and\ X\_features}}
+\DoxyCodeLine{00238\ \ \ \ \ sp\_mat\ X\_design\_wsqrt\ =\ \mbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(X\_design,\ wsqrt);}
+\DoxyCodeLine{00239\ \ \ \ \ vec\ y\_wsqrt\ =\ y\ \%\ wsqrt;}
+\DoxyCodeLine{00240\ \ \ \ \ T\ X\_features\_wsqrt\ =\ \mbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(X\_features,\ wsqrt);}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{comment}{//\ recycle\ sparse\ crossprod}}
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{comment}{//\ spsolve\ uses\ lapack\ after\ converting\ V\ to\ dense\ matrix}}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{comment}{//\ minimal\ penalty\ practical\ V\ dimensions}}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordtype}{bool}\ success;}
+\DoxyCodeLine{00246\ \ \ \ \ vec\ beta;}
+\DoxyCodeLine{00247\ \ \ \ \ mat\ gamma;}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ sp\_mat\ V\ =\ trans(X\_design\_wsqrt)\ *\ X\_design\_wsqrt;}
+\DoxyCodeLine{00250\ \ \ \ \ success\ =\ spsolve(beta,\ V,\ vec(trans(X\_design\_wsqrt)\ *\ y\_wsqrt),\ \textcolor{stringliteral}{"{}lapack"{}});}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ success\ )\ beta.fill(datum::nan);}
+\DoxyCodeLine{00252\ \ \ \ \ vec\ y\_proj\ =\ y\_wsqrt\ -\/\ X\_design\_wsqrt\ *\ beta;}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ success\ =\ spsolve(gamma,\ V,\ mat(trans(X\_design\_wsqrt)\ *\ X\_features\_wsqrt),\ \textcolor{stringliteral}{"{}lapack"{}});}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ success\ )\ gamma.fill(datum::nan);}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ T\ X\_proj;}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{comment}{//\ cast\ X\_design\_wsqrt\ *\ gamma\ to\ type\ T\ if\ needed}}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordflow}{if}(\ is\_same\_v<\textcolor{keyword}{decltype}(X\_features\_wsqrt),\ \textcolor{keyword}{decltype}(X\_design\_wsqrt)>\ )\{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ X\_proj\ =\ X\_features\_wsqrt\ -\/\ X\_design\_wsqrt\ *\ gamma;}
+\DoxyCodeLine{00261\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ X\_proj\ =\ X\_features\_wsqrt\ -\/\ T(X\_design\_wsqrt\ *\ gamma);}
+\DoxyCodeLine{00263\ \ \ \ \ \}}
 \DoxyCodeLine{00264\ }
-\DoxyCodeLine{00265\ \ \ \ \ \textcolor{comment}{//\ bool\ status\ =\ SF.factorise(X\_design\_wsqrt);}}
-\DoxyCodeLine{00266\ }
-\DoxyCodeLine{00267\ \ \ \ \ \textcolor{comment}{//\ vec\ beta;}}
-\DoxyCodeLine{00268\ \ \ \ \ \textcolor{comment}{//\ SF.solve(beta,\ y\_wsqrt);}}
-\DoxyCodeLine{00269\ \ \ \ \ \textcolor{comment}{//\ vec\ y\_proj\ =\ y\_wsqrt\ -\/\ X\_design\_wsqrt\ *\ beta;}}
-\DoxyCodeLine{00270\ }
-\DoxyCodeLine{00271\ \ \ \ \ \textcolor{comment}{//\ vec\ gamma;}}
-\DoxyCodeLine{00272\ \ \ \ \ \textcolor{comment}{//\ SF.solve(gamma,\ X\_features\_wsqrt);}}
-\DoxyCodeLine{00273\ \ \ \ \ \textcolor{comment}{//\ T\ X\_proj\ =\ X\_features\_wsqrt\ -\/\ T(X\_design\_wsqrt\ *\ gamma);}}
-\DoxyCodeLine{00274\ }
-\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keywordflow}{return}\ \{y\_proj,\ X\_proj\};}
-\DoxyCodeLine{00276\ \}}
-\DoxyCodeLine{00277\ }
-\DoxyCodeLine{00278\ }
-\DoxyCodeLine{00279\ }
-\DoxyCodeLine{00291\ \textcolor{keyword}{static}\ ModelFit\ wlm(\textcolor{keyword}{const}\ arma::mat\&\ X,\ \textcolor{keyword}{const}\ arma::colvec\&\ y,\ \textcolor{keyword}{const}\ arma::colvec\&\ w\ =\ \{\},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{ModelDetail}}\ md\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&rdf\_offset\ =\ 0,\ LMWork\ *work\ =\ \textcolor{keyword}{nullptr})\ \{}
-\DoxyCodeLine{00292\ }
-\DoxyCodeLine{00293\ \ \ \ \ ModelFit\ fit;}
-\DoxyCodeLine{00294\ }
-\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keywordflow}{if}(\ w.is\_empty()\ )\{}
-\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ fit\ =\ lm(\ X,\ y,\ md,\ rdf\_offset,\ work\ );}
-\DoxyCodeLine{00297\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ arma::colvec\ wsqrt\ =\ sqrt(w\ /\ mean(w));}
-\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ fit\ =\ lm(\ X.each\_col()\ \%\ wsqrt,\ y\ \%\ wsqrt,\ md,\ rdf\_offset,\ work\ );}
+\DoxyCodeLine{00265\ \ \ \ \ \textcolor{keywordflow}{return}\ \{y\_proj,\ X\_proj\};}
+\DoxyCodeLine{00266\ \}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00281\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{ModelFit}}\ wlm(\textcolor{keyword}{const}\ arma::mat\&\ X,\ \textcolor{keyword}{const}\ arma::colvec\&\ y,\ \textcolor{keyword}{const}\ arma::colvec\&\ w\ =\ \{\},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{ModelDetail}}\ md\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&rdf\_offset\ =\ 0,\ \mbox{\hyperlink{structfastlmm_lib_1_1_l_m_work}{LMWork}}\ *work\ =\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{ModelFit}}\ fit;}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordflow}{if}(\ w.is\_empty()\ )\{}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ fit\ =\ lm(\ X,\ y,\ md,\ rdf\_offset,\ work\ );}
+\DoxyCodeLine{00287\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ arma::colvec\ wsqrt\ =\ sqrt(w\ /\ mean(w));}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ fit\ =\ lm(\ X.each\_col()\ \%\ wsqrt,\ y\ \%\ wsqrt,\ md,\ rdf\_offset,\ work\ );}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ md\ >=\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba2fa325b1ac6f0b8fa1f300f5cbe8c2e0}{HIGH}})\{}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rescale\ residuals\ by\ weights\ afterward}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ since\ input\ X\ and\ y\ are\ scaled\ before\ lm()}}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ fit.residuals\ /=\ wsqrt;}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00296\ \ \ \ \ \}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keywordflow}{return}\ fit;}
+\DoxyCodeLine{00299\ \}}
 \DoxyCodeLine{00300\ }
-\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ md\ >=\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba2fa325b1ac6f0b8fa1f300f5cbe8c2e0}{HIGH}})\{}
-\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rescale\ residuals\ by\ weights\ afterward}}
-\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ since\ input\ X\ and\ y\ are\ scaled\ before\ lm()}}
-\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ fit.residuals\ /=\ wsqrt;}
-\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00306\ \ \ \ \ \}}
-\DoxyCodeLine{00307\ }
-\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordflow}{return}\ fit;}
-\DoxyCodeLine{00309\ \}}
-\DoxyCodeLine{00310\ }
-\DoxyCodeLine{00322\ vector<ModelFit>\ \mbox{\hyperlink{namespacefastlmm_lib_a5d2649bacae0069a92f4d92aec4b8722}{lmFitFeatures\_standard}}(\textcolor{keyword}{const}\ arma::vec\ \&y,\ \textcolor{keyword}{const}\ arma::mat\ \&X\_design,\ \textcolor{keyword}{const}\ arma::mat\ \&X\_features,\ \textcolor{keyword}{const}\ vector<string>\ \&ids,\ \textcolor{keyword}{const}\ arma::vec\ \&weights\ =\ \{\},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{ModelDetail}}\ md\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1)\{}
-\DoxyCodeLine{00323\ }
-\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordtype}{int}\ n\_covs\ =\ X\_design.n\_cols;}
-\DoxyCodeLine{00325\ }
-\DoxyCodeLine{00326\ \ \ \ \ vector<ModelFit>\ fitList(X\_features.n\_cols,\ ModelFit());}
-\DoxyCodeLine{00327\ \ \ \ \ }
-\DoxyCodeLine{00328\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_OPENMP\ }}
-\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ threads}}
-\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ omp\_set\_num\_threads(nthreads);}
-\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ disable\ nested\ parallelism}}
-\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ omp\_set\_max\_active\_levels(1);}
-\DoxyCodeLine{00333\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00312\ vector<ModelFit>\ \mbox{\hyperlink{namespacefastlmm_lib_a5d2649bacae0069a92f4d92aec4b8722}{lmFitFeatures\_standard}}(\textcolor{keyword}{const}\ arma::vec\ \&y,\ \textcolor{keyword}{const}\ arma::mat\ \&X\_design,\ \textcolor{keyword}{const}\ arma::mat\ \&X\_features,\ \textcolor{keyword}{const}\ vector<string>\ \&ids,\ \textcolor{keyword}{const}\ arma::vec\ \&weights\ =\ \{\},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{ModelDetail}}\ md\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1)\{}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{keywordtype}{int}\ n\_covs\ =\ X\_design.n\_cols;}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keywordflow}{if}(\ X\_features.n\_cols\ ==\ 0)\{}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ invalid\_argument(\textcolor{stringliteral}{"{}X\_features\ has\ 0\ columns"{}});}
+\DoxyCodeLine{00318\ \ \ \ \ \}}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ vector<ModelFit>\ fitList(X\_features.n\_cols,\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{ModelFit}}());}
+\DoxyCodeLine{00321\ \ \ \ \ }
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{comment}{//\ Parallel\ part\ using\ Thread\ Building\ Blocks}}
+\DoxyCodeLine{00323\ \ \ \ \ tbb::task\_arena\ limited\_arena(nthreads);}
+\DoxyCodeLine{00324\ \ \ \ \ limited\_arena.execute([\&]\ \{}
+\DoxyCodeLine{00325\ \ \ \ \ tbb::parallel\_for(}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ tbb::blocked\_range<int>(0,\ X\_features.n\_cols,\ 100),\ }
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ design\ matrix\ with\ jth\ feature\ in\ the\ last\ column}}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ X\ =\ cbind(X\_design,\ X\_features[,0])}}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ arma::mat\ X(X\_design);}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ X.insert\_cols(n\_covs,\ X\_features.col(0));}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ LMWork\ *work\ =\ new\ LMWork();}
 \DoxyCodeLine{00334\ }
-\DoxyCodeLine{00335\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ omp\ parallel}}
-\DoxyCodeLine{00336\ \ \ \ \ \{}
-\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ design\ matrix\ with\ jth\ feature\ in\ the\ last\ column}}
-\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ X\ =\ cbind(X\_design,\ X\_features[,0])}}
-\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ arma::mat\ X(X\_design);}
-\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ X.insert\_cols(n\_covs,\ X\_features.col(0));}
-\DoxyCodeLine{00341\ }
-\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ LMWork\ *work\ =\ \textcolor{keyword}{new}\ LMWork();}
-\DoxyCodeLine{00343\ }
-\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ iterate\ through\ responses\ }}
-\DoxyCodeLine{00345\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#pragma\ omp\ for\ \ \ \ \ \ }}
-\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;\ j<X\_features.n\_cols;\ j++)\{}
-\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ design\ matrix\ with\ intercept\ as\ first\ column}}
-\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ X.col(n\_covs)\ =\ X\_features.col(j);}
-\DoxyCodeLine{00349\ }
-\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linear\ regression\ \ \ \ \ \ \ \ }}
-\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ ModelFit\ fit\ =\ wlm(X,\ y,\ weights,\ md,\ 0,\ work);}
-\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ fit.ID\ =\ ids[j];}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ iterate\ through\ responses\ }}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ for\ (int\ j\ =\ r.begin();\ j\ !=\ r.end();\ ++j)\ \{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ design\ matrix\ with\ intercept\ as\ first\ column}}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ X.col(n\_covs)\ =\ X\_features.col(j);}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linear\ regression\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ ModelFit\ fit\ =\ wlm(X,\ y,\ weights,\ md,\ 0,\ work);}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ fit.ID\ =\ ids[j];}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ result\ to\ list}}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ fitList.at(j)\ =\ \ fit;}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \}\ \ }
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ work;}
+\DoxyCodeLine{00349\ \ \ \ \ \});\ \});\ }
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{keywordflow}{return}\ fitList;}
+\DoxyCodeLine{00352\ \}}
 \DoxyCodeLine{00353\ }
-\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ result\ to\ list}}
-\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ fitList.at(j)\ =\ \ fit;}
-\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \}\ \ }
-\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ work;}
-\DoxyCodeLine{00358\ \ \ \ \ \}\ \ }
-\DoxyCodeLine{00359\ }
-\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keywordflow}{return}\ fitList;}
-\DoxyCodeLine{00361\ \}}
-\DoxyCodeLine{00362\ }
-\DoxyCodeLine{00363\ }
-\DoxyCodeLine{00364\ }
-\DoxyCodeLine{00376\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
-\DoxyCodeLine{00377\ vector<ModelFit>\ \mbox{\hyperlink{namespacefastlmm_lib_ab966ecaea47ef810b6cbd2833b0009d2}{lmFitFeatures\_preproj}}(\textcolor{keyword}{const}\ arma::vec\ \&y,\ \textcolor{keyword}{const}\ T1\ \&X\_design,\ \textcolor{keyword}{const}\ T2\ \&X\_features,\ \textcolor{keyword}{const}\ vector<string>\ \&ids,\ \textcolor{keyword}{const}\ arma::vec\ \&weights\ =\ \{\},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{ModelDetail}}\ md\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1)\{}
-\DoxyCodeLine{00378\ }
-\DoxyCodeLine{00379\ \ \ \ \ vector<ModelFit>\ fitList(X\_features.n\_cols,\ ModelFit());}
-\DoxyCodeLine{00380\ \ \ \ \ }
-\DoxyCodeLine{00381\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_OPENMP\ }}
-\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ threads}}
-\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ omp\_set\_num\_threads(nthreads);}
-\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ disable\ nested\ parallelism}}
-\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ omp\_set\_max\_active\_levels(1);}
-\DoxyCodeLine{00386\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
-\DoxyCodeLine{00387\ }
-\DoxyCodeLine{00388\ \ \ \ \ \textcolor{comment}{//\ pre-\/projection\ to\ regress\ out\ the\ covariates\ first}}
-\DoxyCodeLine{00389\ \ \ \ \ \textcolor{comment}{//\ set\ rdf\_offset\ to\ the\ number\ of\ covariates\ projected\ out}}
-\DoxyCodeLine{00390\ \ \ \ \ \textcolor{keyword}{auto}\ [y\_proj,\ X\_proj]\ =\ preprojection(y,\ X\_design,\ X\_features,\ weights);}
-\DoxyCodeLine{00391\ \ \ \ \ \textcolor{keywordtype}{double}\ rdf\_offset\ =\ X\_design.n\_cols;}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00367\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
+\DoxyCodeLine{00368\ \mbox{\hyperlink{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}{ModelFitList}}\ \mbox{\hyperlink{namespacefastlmm_lib_ae6461f135a12ae95a0d1978a9b075e1e}{lmFitFeatures\_preproj}}(\textcolor{keyword}{const}\ arma::vec\ \&y,\ \textcolor{keyword}{const}\ T1\ \&X\_design,\ \textcolor{keyword}{const}\ T2\ \&X\_features,\ \textcolor{keyword}{const}\ vector<string>\ \&ids,\ \textcolor{keyword}{const}\ arma::vec\ \&weights\ =\ \{\},\ \textcolor{keyword}{const}\ ModelDetail\ md\ =\ LOW,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1)\{}
+\DoxyCodeLine{00369\ \ \ \ \ }
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keywordflow}{if}(\ X\_features.n\_cols\ ==\ 0)\{}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ invalid\_argument(\textcolor{stringliteral}{"{}X\_features\ has\ 0\ columns"{}});}
+\DoxyCodeLine{00372\ \ \ \ \ \}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \ \ \ \ \mbox{\hyperlink{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}{ModelFitList}}\ fitList(X\_features.n\_cols,\ ModelFit());}
+\DoxyCodeLine{00375\ \ \ \ \ }
+\DoxyCodeLine{00376\ \ \ \ \ \textcolor{comment}{//\ pre-\/projection\ to\ regress\ out\ the\ covariates\ first}}
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{comment}{//\ set\ rdf\_offset\ to\ the\ number\ of\ covariates\ projected\ out}}
+\DoxyCodeLine{00378\ \ \ \ \ \textcolor{comment}{//\ auto\ [y\_proj,\ X\_proj]\ =\ preprojection(y,\ X\_design,\ X\_features,\ weights);}}
+\DoxyCodeLine{00379\ \ \ \ \ vec\ y\_proj;}
+\DoxyCodeLine{00380\ \ \ \ \ mat\ X\_proj;}
+\DoxyCodeLine{00381\ \ \ \ \ tie(y\_proj,\ X\_proj)\ =\ preprojection(y,\ X\_design,\ X\_features,\ weights);}
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{keywordtype}{double}\ rdf\_offset\ =\ X\_design.n\_cols;}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \ \ \ \ vec\ wsqrt\ =\ sqrt(weights);}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ \ \ \ \ \textcolor{comment}{//\ Parallel\ part\ using\ Thread\ Building\ Blocks}}
+\DoxyCodeLine{00387\ \ \ \ \ tbb::task\_arena\ limited\_arena(nthreads);}
+\DoxyCodeLine{00388\ \ \ \ \ limited\_arena.execute([\&]\ \{}
+\DoxyCodeLine{00389\ \ \ \ \ tbb::parallel\_for(}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ tbb::blocked\_range<int>(0,\ X\_proj.n\_cols,\ 100),\ }
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
 \DoxyCodeLine{00392\ }
-\DoxyCodeLine{00393\ \ \ \ \ vec\ wsqrt\ =\ sqrt(weights);}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ disable\_parallel\_blas();}
 \DoxyCodeLine{00394\ }
-\DoxyCodeLine{00395\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ omp\ parallel}}
-\DoxyCodeLine{00396\ \ \ \ \ \{}
-\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ LMWork\ *work\ =\ \textcolor{keyword}{new}\ LMWork();}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ LMWork\ *work\ =\ new\ LMWork();}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ for\ (int\ j\ =\ r.begin();\ j\ !=\ r.end();\ ++j)\ \{\ \ \ \ \ \ \ \ }
 \DoxyCodeLine{00398\ }
-\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ iterate\ through\ responses\ }}
-\DoxyCodeLine{00400\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#pragma\ omp\ for\ \ \ \ \ \ }}
-\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;\ j<X\_proj.n\_cols;\ j++)\{}
-\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linear\ regression\ \ \ \ \ \ \ \ }}
-\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ ModelFit\ fit\ =\ lm(X\_proj.col(j),\ y\_proj,\ md,\ rdf\_offset,\ work\ );}
-\DoxyCodeLine{00404\ }
-\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ fit.ID\ =\ ids[j];}
-\DoxyCodeLine{00406\ }
-\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ md\ >=\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba2fa325b1ac6f0b8fa1f300f5cbe8c2e0}{HIGH}})\{}
-\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rescale\ residuals\ by\ weights\ afterward}}
-\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ since\ input\ X\ and\ y\ are\ scaled\ before\ lm()}}
-\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit.residuals\ /=\ wsqrt;}
-\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00412\ }
-\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ result\ to\ list}}
-\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ fitList.at(j)\ =\ \ fit;}
-\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \}\ \ }
-\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ work;}
-\DoxyCodeLine{00417\ \ \ \ \ \}\ \ }
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linear\ regression\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ ModelFit\ fit\ =\ lm(X\_proj.col(j),\ y\_proj,\ md,\ rdf\_offset,\ work\ );}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ fit.ID\ =\ ids[j];}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ if(\ md\ >=\ HIGH)\{}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rescale\ residuals\ by\ weights\ afterward}}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ since\ input\ X\ and\ y\ are\ scaled\ before\ lm()}}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit.residuals\ /=\ wsqrt;}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ result\ to\ list}}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ fitList.at(j)\ =\ \ fit;}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \}\ \ }
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ work;}
+\DoxyCodeLine{00414\ \ \ \ \ \});\ \});\ }
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \ \ \ \ \textcolor{keywordflow}{return}\ fitList;}
+\DoxyCodeLine{00417\ \}}
 \DoxyCodeLine{00418\ }
-\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keywordflow}{return}\ fitList;}
-\DoxyCodeLine{00420\ \}}
-\DoxyCodeLine{00421\ }
-\DoxyCodeLine{00434\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
-\DoxyCodeLine{00435\ vector<ModelFit>\ \mbox{\hyperlink{namespacefastlmm_lib_a9df0761b7171a21609e12de0ac276adb}{lmFitFeatures}}(\textcolor{keyword}{const}\ arma::vec\ \&y,\ \textcolor{keyword}{const}\ T1\ \&X\_design,\ \textcolor{keyword}{const}\ T2\ \&X\_features,\ \textcolor{keyword}{const}\ vector<string>\ \&ids,\ \textcolor{keyword}{const}\ arma::vec\ \&weights\ =\ \{\},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{ModelDetail}}\ md\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&preprojection\ =\ \textcolor{keyword}{true},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1)\{}
-\DoxyCodeLine{00436\ }
-\DoxyCodeLine{00437\ \ \ \ \ vector<ModelFit>\ fitList;}
-\DoxyCodeLine{00438\ }
-\DoxyCodeLine{00439\ \ \ \ \ \textcolor{keywordflow}{if}(\ preprojection\ )\{}
-\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ supports\ mat\ and\ sp\_mat}}
-\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ fitList\ =\ \mbox{\hyperlink{namespacefastlmm_lib_ab966ecaea47ef810b6cbd2833b0009d2}{lmFitFeatures\_preproj}}(y,\ X\_design,\ X\_features,\ ids,\ weights,\ md,\ nthreads);}
-\DoxyCodeLine{00442\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ only\ supports\ mat\ }}
-\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ fitList\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a5d2649bacae0069a92f4d92aec4b8722}{lmFitFeatures\_standard}}(y,\ mat(X\_design),\ mat(X\_features),\ ids,\ weights,\ md,\ nthreads);}
-\DoxyCodeLine{00445\ \ \ \ \ \}}
+\DoxyCodeLine{00431\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2>}
+\DoxyCodeLine{00432\ \mbox{\hyperlink{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}{ModelFitList}}\ \mbox{\hyperlink{namespacefastlmm_lib_a60756a3921abf609f4ba6d02f21b7cf2}{lmFitFeatures}}(\textcolor{keyword}{const}\ arma::vec\ \&y,\ \textcolor{keyword}{const}\ T1\ \&X\_design,\ \textcolor{keyword}{const}\ T2\ \&X\_features,\ \textcolor{keyword}{const}\ vector<string>\ \&ids,\ \textcolor{keyword}{const}\ arma::vec\ \&weights\ =\ \{\},\ \textcolor{keyword}{const}\ ModelDetail\ md\ =\ LOW,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&preprojection\ =\ \textcolor{keyword}{true},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1)\{}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \ \ \ \ ModelFitList\ fitList;}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \ \ \ \ \textcolor{keywordflow}{if}(\ preprojection\ )\{}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ supports\ mat\ and\ sp\_mat}}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ fitList\ =\ lmFitFeatures\_preproj(y,\ X\_design,\ X\_features,\ ids,\ weights,\ md,\ nthreads);}
+\DoxyCodeLine{00439\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ only\ supports\ mat\ }}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ fitList\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a5d2649bacae0069a92f4d92aec4b8722}{lmFitFeatures\_standard}}(y,\ mat(X\_design),\ mat(X\_features),\ ids,\ weights,\ md,\ nthreads);}
+\DoxyCodeLine{00442\ \ \ \ \ \}}
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00444\ \ \ \ \ \textcolor{keywordflow}{return}\ fitList;}
+\DoxyCodeLine{00445\ \}}
 \DoxyCodeLine{00446\ }
-\DoxyCodeLine{00447\ \ \ \ \ \textcolor{keywordflow}{return}\ fitList;}
-\DoxyCodeLine{00448\ \}}
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00448\ }
 \DoxyCodeLine{00449\ }
 \DoxyCodeLine{00450\ }
 \DoxyCodeLine{00451\ }
-\DoxyCodeLine{00452\ }
-\DoxyCodeLine{00453\ }
-\DoxyCodeLine{00454\ }
-\DoxyCodeLine{00466\ vector<ModelFit>\ \mbox{\hyperlink{namespacefastlmm_lib_a99a3ad77788ce99d2178c706cc1655a3}{lmFitResponses}}(\textcolor{keyword}{const}\ arma::mat\ \&Y,\ \textcolor{keyword}{const}\ arma::mat\ \&X,\ \textcolor{keyword}{const}\ vector<string>\ \&ids,\ \textcolor{keyword}{const}\ arma::mat\ \&Weights,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{ModelDetail}}\ md\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1)\{}
-\DoxyCodeLine{00467\ }
-\DoxyCodeLine{00468\ \ \ \ \ vector<ModelFit>\ fitList(Y.n\_cols,\ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit}{ModelFit}}());}
+\DoxyCodeLine{00463\ \mbox{\hyperlink{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}{ModelFitList}}\ \mbox{\hyperlink{namespacefastlmm_lib_aa7bec9d1da8d1ed6af8db62843540a59}{lmFitResponses}}(\textcolor{keyword}{const}\ arma::mat\ \&Y,\ \textcolor{keyword}{const}\ arma::mat\ \&X,\ \textcolor{keyword}{const}\ vector<string>\ \&ids,\ \textcolor{keyword}{const}\ arma::mat\ \&Weights,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2b}{ModelDetail}}\ md\ =\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122}{LOW}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1)\{}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00465\ \ \ \ \ \mbox{\hyperlink{namespacefastlmm_lib_a8744186f0327388ecebd3725cdb4f1cd}{ModelFitList}}\ fitList(Y.n\_cols,\ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit}{ModelFit}}());}
+\DoxyCodeLine{00466\ }
+\DoxyCodeLine{00467\ \ \ \ \ arma::mat\ Wsqrt\ =\ sqrt(Weights);}
+\DoxyCodeLine{00468\ \ \ \ \ arma::mat\ Yw\ =\ Y\ \%\ Wsqrt;}
 \DoxyCodeLine{00469\ }
-\DoxyCodeLine{00470\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_OPENMP\ }}
-\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ threads}}
-\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ omp\_set\_num\_threads(nthreads);}
-\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ disable\ nested\ parallelism}}
-\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ omp\_set\_max\_active\_levels(1);}
-\DoxyCodeLine{00475\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00470\ \ \ \ \ \textcolor{comment}{//\ Parallel\ part\ using\ Thread\ Building\ Blocks}}
+\DoxyCodeLine{00471\ \ \ \ \ tbb::task\_arena\ limited\_arena(nthreads);}
+\DoxyCodeLine{00472\ \ \ \ \ limited\_arena.execute([\&]\ \{}
+\DoxyCodeLine{00473\ \ \ \ \ tbb::parallel\_for(}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ tbb::blocked\_range<int>(0,\ Y.n\_cols,\ 100),\ }
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
 \DoxyCodeLine{00476\ }
-\DoxyCodeLine{00477\ \ \ \ \ arma::mat\ Wsqrt\ =\ sqrt(Weights);}
-\DoxyCodeLine{00478\ \ \ \ \ arma::mat\ Yw\ =\ Y\ \%\ Wsqrt;}
-\DoxyCodeLine{00479\ }
-\DoxyCodeLine{00480\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ omp\ parallel}}
-\DoxyCodeLine{00481\ \ \ \ \ \{}
-\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ iterate\ through\ responses\ }}
-\DoxyCodeLine{00483\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#pragma\ omp\ for\ \ \ \ \ \ }}
-\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;\ j<Y.n\_cols;\ j++)\{}
-\DoxyCodeLine{00485\ }
-\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linear\ regression\ \ \ \ \ \ \ \ }}
-\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ModelFit\ fit\ =\ wlm(X,\ Y.col(j),\ Weights.col(j));}}
-\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structfastlmm_lib_1_1_model_fit}{ModelFit}}\ fit\ =\ lm(X.each\_col()\ \%\ Wsqrt.col(j),\ Yw.col(j),\ md);}
-\DoxyCodeLine{00489\ }
-\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ fit.\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a3a2558c7ebd8dc4f7ea88f83af4764ac}{ID}}\ =\ ids[j];}
-\DoxyCodeLine{00491\ }
-\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ md\ >=\ \mbox{\hyperlink{namespacefastlmm_lib_a861ff55786eb7d3a33d5b2f2d155ee2ba2fa325b1ac6f0b8fa1f300f5cbe8c2e0}{HIGH}})\{}
-\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rescale\ residuals\ by\ weights\ afterward}}
-\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ since\ input\ X\ and\ y\ are\ scaled\ before\ lm()}}
-\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit.\mbox{\hyperlink{structfastlmm_lib_1_1_model_fit_a69baeb6b54efc0d73af24b683982cf19}{residuals}}\ /=\ Wsqrt.col(j);}
-\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00497\ }
-\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ result\ to\ list}}
-\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \ \ \ \ fitList.at(j)\ =\ \ fit;}
-\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \}\ \ }
-\DoxyCodeLine{00501\ \ \ \ \ \}\ \ }
-\DoxyCodeLine{00502\ }
-\DoxyCodeLine{00503\ \ \ \ \ \textcolor{keywordflow}{return}\ fitList;}
-\DoxyCodeLine{00504\ \}}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ disable\_parallel\_blas();}
+\DoxyCodeLine{00478\ \ }
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ for\ (int\ j\ =\ r.begin();\ j\ !=\ r.end();\ ++j)\ \{\ \ \ \ }
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linear\ regression\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ModelFit\ fit\ =\ wlm(X,\ Y.col(j),\ Weights.col(j));}}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ ModelFit\ fit\ =\ lm(X.each\_col()\ \%\ Wsqrt.col(j),\ Yw.col(j),\ md);}
+\DoxyCodeLine{00484\ }
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \ \ \ \ fit.ID\ =\ ids[j];}
+\DoxyCodeLine{00486\ }
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ if(\ md\ >=\ HIGH)\{}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rescale\ residuals\ by\ weights\ afterward}}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ since\ input\ X\ and\ y\ are\ scaled\ before\ lm()}}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit.residuals\ /=\ Wsqrt.col(j);}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit.mu\ /=\ Wsqrt.col(j);}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ result\ to\ list}}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ fitList.at(j)\ =\ \ fit;}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00497\ \ \ \ \ \});\ \});\ }
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00499\ \ \ \ \ \textcolor{keywordflow}{return}\ fitList;}
+\DoxyCodeLine{00500\ \}}
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00502\ \}}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ }
 \DoxyCodeLine{00505\ }
-\DoxyCodeLine{00506\ \}}
-\DoxyCodeLine{00507\ }
-\DoxyCodeLine{00508\ }
-\DoxyCodeLine{00509\ }
-\DoxyCodeLine{00510\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00506\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

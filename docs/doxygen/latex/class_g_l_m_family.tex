@@ -1,0 +1,153 @@
+\doxysection{GLMFamily Class Reference}
+\hypertarget{class_g_l_m_family}{}\label{class_g_l_m_family}\index{GLMFamily@{GLMFamily}}
+
+
+{\ttfamily \#include $<$glm\+\_\+family.\+h$>$}
+
+Inheritance diagram for GLMFamily\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.666667cm]{class_g_l_m_family}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_g_l_m_family_a0593af8716460adfce45b2febb26f637}{GLMFamily}} ()
+\item 
+virtual \mbox{\hyperlink{class_g_l_m_family_a250fedbe1bd85ec52fa6d3c3512e97a3}{\texorpdfstring{$\sim$}{\string~}\+GLMFamily}} ()=0
+\item 
+virtual vec \mbox{\hyperlink{class_g_l_m_family_ac32e584620b1212694e5ffbbdddc88ee}{link}} (const vec \&mu) const =0
+\item 
+virtual vec \mbox{\hyperlink{class_g_l_m_family_ab962ad824e97d1ca47f8ce6a9b09d685}{linkinv}} (const vec \&eta) const =0
+\item 
+virtual vec \mbox{\hyperlink{class_g_l_m_family_aedebf46fa9bab1f1322e87f2c56e045e}{mu\+\_\+eta}} (const vec \&eta) const =0
+\item 
+virtual vec \mbox{\hyperlink{class_g_l_m_family_a176cc28223defa4cf0148ee95ce4f3a9}{variance}} (const vec \&mu) const =0
+\item 
+virtual vec \mbox{\hyperlink{class_g_l_m_family_af4860375bc5d27062d28b8ee67e62775}{dev\+\_\+resids}} (const vec \&y, const vec \&mu, const vec \&weights) const =0
+\item 
+virtual vec \mbox{\hyperlink{class_g_l_m_family_a20a84714728416b7f24c1cf37c0ab284}{initialize}} (const vec \&y, const vec \&weights) const =0
+\item 
+virtual bool \mbox{\hyperlink{class_g_l_m_family_a796870786feca3b48b430bf5cf29c0bf}{estimate\+Dispersion}} () const =0
+\item 
+virtual string \mbox{\hyperlink{class_g_l_m_family_a6de4f01576515cb200cce91a1d9934c3}{family}} () const =0
+\item 
+virtual bool \mbox{\hyperlink{class_g_l_m_family_ac257168190b2027747d34cc8eb53e6a3}{is\+Count\+Model}} () const =0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Virtual base class 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_g_l_m_family_a0593af8716460adfce45b2febb26f637}\index{GLMFamily@{GLMFamily}!GLMFamily@{GLMFamily}}
+\index{GLMFamily@{GLMFamily}!GLMFamily@{GLMFamily}}
+\doxysubsubsection{\texorpdfstring{GLMFamily()}{GLMFamily()}}
+{\footnotesize\ttfamily \label{class_g_l_m_family_a0593af8716460adfce45b2febb26f637} 
+GLMFamily\+::\+GLMFamily (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_g_l_m_family_a250fedbe1bd85ec52fa6d3c3512e97a3}\index{GLMFamily@{GLMFamily}!````~GLMFamily@{\texorpdfstring{$\sim$}{\string~}GLMFamily}}
+\index{````~GLMFamily@{\texorpdfstring{$\sim$}{\string~}GLMFamily}!GLMFamily@{GLMFamily}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}GLMFamily()}{\string~GLMFamily()}}
+{\footnotesize\ttfamily \label{class_g_l_m_family_a250fedbe1bd85ec52fa6d3c3512e97a3} 
+virtual GLMFamily\+::\texorpdfstring{$\sim$}{\string~}\+GLMFamily (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_g_l_m_family_af4860375bc5d27062d28b8ee67e62775}\index{GLMFamily@{GLMFamily}!dev\_resids@{dev\_resids}}
+\index{dev\_resids@{dev\_resids}!GLMFamily@{GLMFamily}}
+\doxysubsubsection{\texorpdfstring{dev\_resids()}{dev\_resids()}}
+{\footnotesize\ttfamily \label{class_g_l_m_family_af4860375bc5d27062d28b8ee67e62775} 
+virtual vec GLMFamily\+::dev\+\_\+resids (\begin{DoxyParamCaption}\item[{const vec \&}]{y}{, }\item[{const vec \&}]{mu}{, }\item[{const vec \&}]{weights}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_binomial_logit_a86446b450c983c3b8aa7799cd2eddcb0}{Binomial\+Logit}}, \mbox{\hyperlink{class_binomial_probit_ac54a28c82173ffc0319e75eac5097424}{Binomial\+Probit}}, \mbox{\hyperlink{class_gaussian_identity_aca09c83b9c92eab2a84e1a3b030a2121}{Gaussian\+Identity}}, \mbox{\hyperlink{class_n_b_abfc39d79cedd449c84fc13db3fc8aed8}{NB}}, and \mbox{\hyperlink{class_poisson_log_af41e5632efec1e044b438997de6861a1}{Poisson\+Log}}.
+
+\Hypertarget{class_g_l_m_family_a796870786feca3b48b430bf5cf29c0bf}\index{GLMFamily@{GLMFamily}!estimateDispersion@{estimateDispersion}}
+\index{estimateDispersion@{estimateDispersion}!GLMFamily@{GLMFamily}}
+\doxysubsubsection{\texorpdfstring{estimateDispersion()}{estimateDispersion()}}
+{\footnotesize\ttfamily \label{class_g_l_m_family_a796870786feca3b48b430bf5cf29c0bf} 
+virtual bool GLMFamily\+::estimate\+Dispersion (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_binomial_logit_aad1487d8a64dc1730b797c1841001f86}{Binomial\+Logit}}, \mbox{\hyperlink{class_binomial_probit_ace7bb6c614cf2df0cb093d64d5413b22}{Binomial\+Probit}}, \mbox{\hyperlink{class_gaussian_identity_a004a2bbc40ebdab93ec419a86909ff32}{Gaussian\+Identity}}, \mbox{\hyperlink{class_n_b_aaa25f0e6fcbacf547a82cf80e911ea96}{NB}}, and \mbox{\hyperlink{class_poisson_log_a5f6fd556644cd7af44d849146aaa57a6}{Poisson\+Log}}.
+
+\Hypertarget{class_g_l_m_family_a6de4f01576515cb200cce91a1d9934c3}\index{GLMFamily@{GLMFamily}!family@{family}}
+\index{family@{family}!GLMFamily@{GLMFamily}}
+\doxysubsubsection{\texorpdfstring{family()}{family()}}
+{\footnotesize\ttfamily \label{class_g_l_m_family_a6de4f01576515cb200cce91a1d9934c3} 
+virtual string GLMFamily\+::family (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_binomial_logit_a47bd15a975891f19fa419e67a851fcaa}{Binomial\+Logit}}, \mbox{\hyperlink{class_binomial_probit_a68d7549a65af62c4d333f31f61b127d2}{Binomial\+Probit}}, \mbox{\hyperlink{class_gaussian_identity_abc90e200366a3be56eb47acdbc6d42eb}{Gaussian\+Identity}}, \mbox{\hyperlink{class_n_b_ad055fbf10626ed1df2990535906b2e4a}{NB}}, and \mbox{\hyperlink{class_poisson_log_a90742bde94dd68561afa2db040065b6a}{Poisson\+Log}}.
+
+\Hypertarget{class_g_l_m_family_a20a84714728416b7f24c1cf37c0ab284}\index{GLMFamily@{GLMFamily}!initialize@{initialize}}
+\index{initialize@{initialize}!GLMFamily@{GLMFamily}}
+\doxysubsubsection{\texorpdfstring{initialize()}{initialize()}}
+{\footnotesize\ttfamily \label{class_g_l_m_family_a20a84714728416b7f24c1cf37c0ab284} 
+virtual vec GLMFamily\+::initialize (\begin{DoxyParamCaption}\item[{const vec \&}]{y}{, }\item[{const vec \&}]{weights}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_binomial_logit_aab16fa04870519d36e69ffb82f07fd81}{Binomial\+Logit}}, \mbox{\hyperlink{class_binomial_probit_afc298d28ba387922841501b18b580aa2}{Binomial\+Probit}}, \mbox{\hyperlink{class_gaussian_identity_aab03791f383465d53329dcf2257ef5a1}{Gaussian\+Identity}}, \mbox{\hyperlink{class_n_b_aac3fe9af596d8f7a8f2ecd30a1df686b}{NB}}, and \mbox{\hyperlink{class_poisson_log_a89668602dd4ee38b1b1c63379a7bee39}{Poisson\+Log}}.
+
+\Hypertarget{class_g_l_m_family_ac257168190b2027747d34cc8eb53e6a3}\index{GLMFamily@{GLMFamily}!isCountModel@{isCountModel}}
+\index{isCountModel@{isCountModel}!GLMFamily@{GLMFamily}}
+\doxysubsubsection{\texorpdfstring{isCountModel()}{isCountModel()}}
+{\footnotesize\ttfamily \label{class_g_l_m_family_ac257168190b2027747d34cc8eb53e6a3} 
+virtual bool GLMFamily\+::is\+Count\+Model (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_binomial_logit_af39864375a656d8b5e35e84b522bdd2f}{Binomial\+Logit}}, \mbox{\hyperlink{class_binomial_probit_aa93587103bc7109e4cdd58ff11f14002}{Binomial\+Probit}}, \mbox{\hyperlink{class_gaussian_identity_a1fbed210a7df43d4e8e628cc54c24ca8}{Gaussian\+Identity}}, \mbox{\hyperlink{class_n_b_a9632353b22e548cd225c70be238c19f8}{NB}}, and \mbox{\hyperlink{class_poisson_log_ad9512eec468d8ee7a5b8fe6d8a22996f}{Poisson\+Log}}.
+
+\Hypertarget{class_g_l_m_family_ac32e584620b1212694e5ffbbdddc88ee}\index{GLMFamily@{GLMFamily}!link@{link}}
+\index{link@{link}!GLMFamily@{GLMFamily}}
+\doxysubsubsection{\texorpdfstring{link()}{link()}}
+{\footnotesize\ttfamily \label{class_g_l_m_family_ac32e584620b1212694e5ffbbdddc88ee} 
+virtual vec GLMFamily\+::link (\begin{DoxyParamCaption}\item[{const vec \&}]{mu}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_binomial_logit_adc1feb251849970707feaf2b55b027ac}{Binomial\+Logit}}, \mbox{\hyperlink{class_binomial_probit_aac842e58b1626c77589e43446a39c6b1}{Binomial\+Probit}}, \mbox{\hyperlink{class_gaussian_identity_ac2d37bafb40a48dc61aa2feca3c8a37f}{Gaussian\+Identity}}, \mbox{\hyperlink{class_n_b_a7d5096b7372e6066c95cad1252429cca}{NB}}, and \mbox{\hyperlink{class_poisson_log_a0864e2a072f0473e5054771f2f801414}{Poisson\+Log}}.
+
+\Hypertarget{class_g_l_m_family_ab962ad824e97d1ca47f8ce6a9b09d685}\index{GLMFamily@{GLMFamily}!linkinv@{linkinv}}
+\index{linkinv@{linkinv}!GLMFamily@{GLMFamily}}
+\doxysubsubsection{\texorpdfstring{linkinv()}{linkinv()}}
+{\footnotesize\ttfamily \label{class_g_l_m_family_ab962ad824e97d1ca47f8ce6a9b09d685} 
+virtual vec GLMFamily\+::linkinv (\begin{DoxyParamCaption}\item[{const vec \&}]{eta}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_binomial_logit_aed4c133ddac4a9cd1a06be91b647c5a7}{Binomial\+Logit}}, \mbox{\hyperlink{class_binomial_probit_a751ec405957e4b5658592d2cf791d6b0}{Binomial\+Probit}}, \mbox{\hyperlink{class_gaussian_identity_a0cb90a2657433277a3c8436826183aac}{Gaussian\+Identity}}, \mbox{\hyperlink{class_n_b_a98ca4a73ee14fdc6fb267885d48e2e9d}{NB}}, and \mbox{\hyperlink{class_poisson_log_acad907a23f105f28e1ab8c39785d386e}{Poisson\+Log}}.
+
+\Hypertarget{class_g_l_m_family_aedebf46fa9bab1f1322e87f2c56e045e}\index{GLMFamily@{GLMFamily}!mu\_eta@{mu\_eta}}
+\index{mu\_eta@{mu\_eta}!GLMFamily@{GLMFamily}}
+\doxysubsubsection{\texorpdfstring{mu\_eta()}{mu\_eta()}}
+{\footnotesize\ttfamily \label{class_g_l_m_family_aedebf46fa9bab1f1322e87f2c56e045e} 
+virtual vec GLMFamily\+::mu\+\_\+eta (\begin{DoxyParamCaption}\item[{const vec \&}]{eta}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_binomial_logit_ad313e0e2794c727aaf1c6a8260cadd5f}{Binomial\+Logit}}, \mbox{\hyperlink{class_binomial_probit_aace4e50ab56f3aca3ec101af71132cb4}{Binomial\+Probit}}, \mbox{\hyperlink{class_gaussian_identity_a169ce90bb6a774a617faa8921db2ca87}{Gaussian\+Identity}}, \mbox{\hyperlink{class_n_b_a963dce894ccd3e589b33ea0e80463ece}{NB}}, and \mbox{\hyperlink{class_poisson_log_a8bf48da160c0682829b38cb6db917c44}{Poisson\+Log}}.
+
+\Hypertarget{class_g_l_m_family_a176cc28223defa4cf0148ee95ce4f3a9}\index{GLMFamily@{GLMFamily}!variance@{variance}}
+\index{variance@{variance}!GLMFamily@{GLMFamily}}
+\doxysubsubsection{\texorpdfstring{variance()}{variance()}}
+{\footnotesize\ttfamily \label{class_g_l_m_family_a176cc28223defa4cf0148ee95ce4f3a9} 
+virtual vec GLMFamily\+::variance (\begin{DoxyParamCaption}\item[{const vec \&}]{mu}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_binomial_logit_a3f0b4b5ee3ff2b92072e9cc2a6a2529a}{Binomial\+Logit}}, \mbox{\hyperlink{class_binomial_probit_a94023fe0dc124565933ec2ae5b9f5f7d}{Binomial\+Probit}}, \mbox{\hyperlink{class_gaussian_identity_a5bd740f18fb165c1951e09dd81fec9e8}{Gaussian\+Identity}}, \mbox{\hyperlink{class_n_b_ab486073adc69e53e991bed9e849b0040}{NB}}, and \mbox{\hyperlink{class_poisson_log_a3d261141a71a1dffab21994eafc0246c}{Poisson\+Log}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{glm__family_8h}{glm\+\_\+family.\+h}}\end{DoxyCompactItemize}

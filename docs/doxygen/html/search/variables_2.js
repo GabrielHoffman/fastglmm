@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['function_0',['function',['../structfunc_struct.html#a1ee5932dce2b8db8f1d6b9ae043f582f',1,'funcStruct']]]
+  ['eta_0',['eta',['../structfastlmm_lib_1_1_g_l_m_work.html#aa0512d6cfa875419eb0ec5783fadffdd',1,'fastlmmLib::GLMWork']]]
 ];

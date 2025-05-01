@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['max_0',['MAX',['../_model_fit_8h.html#ac3fb2f1c70ff5af98fa773661b1deab4ad7e097bda6d981de2520f49fe74c25b7',1,'ModelFit.h']]],
-  ['medium_1',['MEDIUM',['../_model_fit_8h.html#ac3fb2f1c70ff5af98fa773661b1deab4a5340ec7ecef6cc3886684a3bd3450d64',1,'ModelFit.h']]],
-  ['most_2',['MOST',['../_model_fit_8h.html#ac3fb2f1c70ff5af98fa773661b1deab4a9dc4ab9acd588be3559f4e914ec81f65',1,'ModelFit.h']]]
+  ['max_0',['MAX',['../namespacefastlmm_lib.html#a861ff55786eb7d3a33d5b2f2d155ee2baeb043142ab974930489c3c7bbbe80005',1,'fastlmmLib']]],
+  ['medium_1',['MEDIUM',['../namespacefastlmm_lib.html#a861ff55786eb7d3a33d5b2f2d155ee2ba0aa074048824cc6451371747f11da418',1,'fastlmmLib']]],
+  ['most_2',['MOST',['../namespacefastlmm_lib.html#a861ff55786eb7d3a33d5b2f2d155ee2ba98db90a71aabc3c2d20fec28a148f555',1,'fastlmmLib']]]
 ];

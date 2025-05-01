@@ -1,9 +1,8 @@
 pandoc: 3.6.3
 pkgdown: 2.0.9
 pkgdown_sha: ~
-articles:
-  fastlmm-Doxygen: fastlmm-Doxygen.html
-last_built: 2025-04-24T17:58Z
+articles: {}
+last_built: 2025-04-30T14:05Z
 urls:
   reference: http://GabrielHoffman.github.io/fastglmm/reference
   article: http://GabrielHoffman.github.io/fastglmm/articles

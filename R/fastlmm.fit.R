@@ -15,12 +15,12 @@
 
 # can I estimate theta within PQL?
 
-#' fastlmm
+#' fastglmm
 #'
-#' Description
+#' Efficient Fit of Generalized Linear Mixed Model with a Single Random Effect
 #'
-#' @name fastlmm
-#' @useDynLib fastlmm
+#' @name fastglmm
+#' @useDynLib fastglmm
 #' @importFrom Rcpp evalCpp
 NULL
 
@@ -79,7 +79,7 @@ print.fastlmmList <- function(x, ...) {
 #' @param offset offset
 #' @param rank rank of random effect.  The maximum rank is the number of columns in \code{Z}.  A low rank approximation can be useful if the eigen-values decrease quickly.
 #' @param weights an optional vector of prior weights with a value for each sample.  When the response has multiple columns, a vector of weight can be reused for each respose, or a matrix the same dimension as the responses matrix can weight each response separately.
-#'
+#' @param REML logical scalar - Should the estimates be chosen to optimize the REML criterion vs ML?
 #' @param delta  if \code{NULL} estimate delta, if value is given used this fixed values
 #' @param delta.range min and max values (in log space), of the search space for delta to fit the random effect
 #' @param tol convergence criterion for the 1D search of the delta space
@@ -92,10 +92,14 @@ print.fastlmmList <- function(x, ...) {
 # other args: sig_a_fixed = FALSE
 #' @importFrom methods is
 #' @export
-fastlmm.fit <- function(Y, X, Z, offset = NULL, delta = NULL, rank = ncol(Z), weights = NULL, delta.range = c(-10, 10), tol = .Machine$double.eps^0.5, nthreads = 6) {
+fastlmm.fit <- function(Y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank = ncol(Z), weights = NULL, delta.range = c(-10, 10), tol = 1e-6, nthreads = 6) {
+
   if (delta.range[1] >= delta.range[2]) {
     stop("delta.range are not valid")
   }
+
+  stopifnot( tol > 0)
+
   delta.range <- as.numeric(delta.range)
 
   # add data checks here
@@ -118,7 +122,6 @@ fastlmm.fit <- function(Y, X, Z, offset = NULL, delta = NULL, rank = ncol(Z), we
   delta <- ifelse(is.null(delta), -1, delta)
 
   if (!identical(dim(Y), dim(weights))) {
-    browser()
     stop("Dimension of Y and weights must be the same")
   }
 
@@ -134,11 +137,12 @@ fastlmm.fit <- function(Y, X, Z, offset = NULL, delta = NULL, rank = ncol(Z), we
 
     if (is(Z, "sparseMatrix")) {
       res <- .fastlmm_vms(
-        Y = Y,
+        y = Y,
         X = X,
         U = dcmp$vectors,
         s = dcmp$values,
         weights = weights,
+        REML = REML,
         delta = delta,
         left = delta.range[1],
         right = delta.range[2],
@@ -147,11 +151,12 @@ fastlmm.fit <- function(Y, X, Z, offset = NULL, delta = NULL, rank = ncol(Z), we
       )
     } else {
       res <- .fastlmm_vmm(
-        Y = Y,
+        y = Y,
         X = X,
         U = dcmp$vectors,
         s = dcmp$values,
         weights = weights,
+        REML = REML,
         delta = delta,
         left = delta.range[1],
         right = delta.range[2],
@@ -160,7 +165,7 @@ fastlmm.fit <- function(Y, X, Z, offset = NULL, delta = NULL, rank = ncol(Z), we
       )
     }
 
-    res <- as.fastlmm(res, design = X, offset = offset, method = "ML")
+    res <- as.fastlmm(res, design = X, offset = offset, method = ifelse(REML, "REML", "ML"))
 
     # include indicator matrix and its decomposition
     # Does this need to stay in?
@@ -172,12 +177,18 @@ fastlmm.fit <- function(Y, X, Z, offset = NULL, delta = NULL, rank = ncol(Z), we
       weights <- matrix(weights, nrow = nrow(Y), ncol = ncol(Y))
     }
 
+    if( is.null(colnames(Y)) ){
+      colnames(Y) = paste0("response_", seq(ncol(Y)))
+    }
+
     if (is(Z, "sparseMatrix")) {
       res <- .fastlmm_mms(
-        Y_all = Y,
+        Y = Y,
+        ids = colnames(Y),
         X = X,
         Z = Z,
-        weights = weights,
+        Weights = weights,
+        REML = REML,
         left = delta.range[1],
         right = delta.range[2],
         tol = tol,
@@ -185,10 +196,12 @@ fastlmm.fit <- function(Y, X, Z, offset = NULL, delta = NULL, rank = ncol(Z), we
       )
     } else {
       res <- .fastlmm_mmm(
-        Y_all = Y,
+        Y = Y,
+        ids = colnames(Y),
         X = X,
         Z = Z,
-        weights = weights,
+        Weights = weights,
+        REML = REML,
         left = delta.range[1],
         right = delta.range[2],
         tol = tol,
@@ -197,7 +210,7 @@ fastlmm.fit <- function(Y, X, Z, offset = NULL, delta = NULL, rank = ncol(Z), we
     }
 
     # convert each entry to an fastlmm object
-    res <- lapply(res, as.fastlmm, design = X, offset = offset, method = "ML")
+    res <- lapply(res, as.fastlmm, design = X, offset = offset, method = ifelse(REML, "REML", "ML"))
     names(res) <- colnames(Y)
     class(res) <- "fastlmmList"
   }

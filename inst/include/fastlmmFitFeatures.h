@@ -1,12 +1,14 @@
-#ifndef FASTLMM_BATCH_DESIGN_H_
-#define FASTLMM_BATCH_DESIGN_H_
+#ifndef LMM_FIT_FEATURES_H_
+#define LMM_FIT_FEATURES_H_
 
-#include "fastlmm.h"
+// #include "fastlmm_fit.h"
 #include "spectralDecomp.h"
 
 using namespace arma;
+using namespace std;
+using namespace fastglmmLib;
 
-namespace fastlmmLib {
+namespace fastglmmLib {
 
 // Order of template variables
 // T1 Y
@@ -16,27 +18,31 @@ template <typename T1, typename T2, typename T3>
 class lmmFitFeatures {
 
     public:
-    lmmFitFeatures( const T1 &Y_, 
-                        const T2 &X_, 
-                        const T3 &U_,
-                        const vec &s_,
-                        const vec &weights_);
+    lmmFitFeatures( const T1 &Y, 
+                    const T2 &X, 
+                    const T3 &U,
+                    const vec &s,
+                    const vec &weights,
+                    const double &delta,
+                    const double &left = -10,
+                    const double &right = 10,
+                    const double &tol = 1e-5,
+                    const int &nthreads = 1,
+                    const ModelDetail md = LOW,
+                    const bool REML = false);
 
     ModelFitLMMList eval(const T2 &X_add_,
-                                const double &delta_,
-                                const double &left_,
-                                const double &right_,
-                                const double &tol_,
-                                const int &nthreads_);
+                        const vector<string> &ids);
 
     private:
     T1 Y; 
     T2 X_shared;  
     T3 U;
     vec s, weights;
-    double left, right, tol;
+    double delta, left, right, tol;
     int nthreads;
-    fastlmm<T1, T2, T3> fit;
+    ModelDetail md;
+    bool REML;
     spectralDecomp<T3> dcmp;
 };
 
@@ -45,22 +51,23 @@ class lmmFitFeatures {
 // constructor
 template <typename T1, typename T2, typename T3> 
 lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
-                            const T1 &Y_, 
-                            const T2 &X_, 
-                            const T3 &U_,
-                            const vec &s_,
-                            const vec &weights_){
+                            const T1 &Y, 
+                            const T2 &X, 
+                            const T3 &U,
+                            const vec &s,
+                            const vec &weights,     
+                            const double &delta,
+                            const double &left,
+                            const double &right,
+                            const double &tol,
+                            const int &nthreads,
+                            const ModelDetail md,
+                            const bool REML) :
+    Y(Y), X_shared(X), weights(weights),
+    delta(delta), left(left), right(right), tol(tol), nthreads(nthreads), md(md), REML(REML)
+    {
 
-    // initialize internal variables
-    this->Y         = Y_;
-    this->X_shared  = X_;
-    // this->U         = U_;
-    // this->s         = s_;
-    this->weights   = weights_;
-
-    // curently no reweighting
-    // , weights_
-    dcmp.initWithEigenDecomp(U_, s_);
+    dcmp.initWithEigenDecomp(U, s, weights);
 }
 
 
@@ -70,31 +77,42 @@ lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
 template <typename T1, typename T2, typename T3> 
 ModelFitLMMList 
   lmmFitFeatures<T1, T2, T3>::eval( const T2 &X_add_,
-                                        const double &delta_,
-                                        const double &left_,
-                                        const double &right_,
-                                        const double &tol_,
-                                        const int &nthreads_){
+                                    const vector<string> &ids){
 
     int n_tests = X_add_.n_cols;
 
     // store results
     ModelFitLMMList result(n_tests, ModelFitLMM());
 
-    for( int i = 0; i < n_tests; i++){
+    // Parallel part using Thread Building Blocks
+    tbb::task_arena limited_arena(nthreads);
+    limited_arena.execute([&] {
+    tbb::parallel_for(
+        tbb::blocked_range<int>(0, n_tests, 100), 
+        [&](const tbb::blocked_range<int>& r){ 
 
-        // currently, only 1 cbind'd
-        mat X_combined = join_cols(X_shared, X_add_.col(i));
+        disable_parallel_blas();
 
-        // fits full model each time,
-        // for speed, need to save Y, X, scaled by U and s
-        fastlmm fit = fastlmm(Y, X_combined, dcmp.get_vectors(), dcmp.get_values(), weights);
+        // iterate through responses 
+        for (int j = r.begin(); j != r.end(); ++j) { 
 
-        fit.estimate_delta( left, right, tol );
+            // currently, only 1 cbind'd
+            mat X_combined = join_horiz(X_shared, X_add_.col(j));
 
-        // #pragma omp critical
-        result.at(i) = fit.get_result();
-    }
+            // fits full model each time,
+            // for speed, need to save Y, X, scaled by U and s
+            fastlmm fit = fastlmm(Y, X_combined, dcmp.get_vectors(), dcmp.get_values(), weights, md, REML);
+
+            if( delta > 0 ){
+                fit.eval_delta( delta ); 
+            }else{
+                fit.estimate_delta( left, right, tol );
+            }
+
+            result.at(j) = fit.get_result();
+            result.at(j).ID = ids[j];
+        }
+    }); });
   
     return result;
 }
