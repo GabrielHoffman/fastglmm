@@ -60,6 +60,7 @@ template <typename T>
 void spectralDecomp<T>::initWithEigenDecomp( const T &U, const vec &s, const vec &weights){
 
 	Rcpp::Rcout << "Reweighting not applied" << std::endl;
+	scaleRowsCols(U, sqrt(weights), 1 / sqrt(s));
 
 	// SVD after applying weights
 	// mat Q, R;

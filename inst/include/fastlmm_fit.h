@@ -79,25 +79,8 @@ class fastlmm {
                          const vec &weights_, 
                          const mat &Yu_);
 
-    // extract results
-    ModelFitLMM get_result(){
-
-      mat V = get_vcov();
-
-      return ModelFitLMM( true, 
-                get_logLik(),
-                get_weights(),
-                get_ru(),
-                get_y(),
-                get_delta(),
-                get_sigSq_g(),
-                get_sigSq_e(),
-                get_iter(),
-                get_beta(),
-                sqrt(diagvec(V)), 
-                get_rdf(),
-                V);
-    }
+    // extract results  
+    ModelFitLMM get_result(const bool &returnUS = false);
 
     // Accessors
     const double get_logLik(){ return this->logLik; }
@@ -123,8 +106,12 @@ class fastlmm {
     } // based on Hastie, et al
     const vec hatvalues(); // diag of hat matrix
     const vec residuals();
-    const vec predict();
+    const vec fitted();
     // df = sum(s[seq_len(rank)]/(s[seq_len(rank)]+delta))
+
+    // Best linear unbiased predictor of random effect
+    // same as ranef() in R
+    const vec blup();
 
     // compute log likelihood
     double ll(const double &delta);
@@ -267,6 +254,49 @@ fastlmm<T1, T2, T3>::fastlmm( const T2 &X_,
   inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 }
 
+template <typename T1, typename T2, typename T3> 
+const vec fastlmm<T1, T2, T3>::hatvalues(){
+  vec h(Y.n_elem, fill::ones);
+  return h;
+}
+
+template <typename T1, typename T2, typename T3> 
+const vec fastlmm<T1, T2, T3>::residuals(){
+  return (Y / sqrt(weights)) - fitted();
+}
+
+
+template <typename T1, typename T2, typename T3> 
+const vec fastlmm<T1, T2, T3>::fitted(){
+
+  // a <- object$U %*% (sqrt(object$s) * ranef.fastlmm(object))
+  // a / sqrt(object$weights) + object$design %*% coef(object)
+  // need to scale X because it was transformed at the start
+  return ((U * (sqrt(s) % blup())) + X * beta) / sqrt(weights);
+}
+
+
+template <typename T1, typename T2, typename T3> 
+const vec fastlmm<T1, T2, T3>::blup(){
+
+  // Zw <- c(sqrt(fit$weights)) * fit$Z
+  // A <- crossprod(fit$U, Zw)
+  // A <- with(fit, crossprod(fit$U, c(sqrt(weights)) * U * sqrt(s)))
+  // b <- fit$ru / (fit$s + fit$delta)
+  // crossprod(A, b)
+
+  // T3 A = U.t() * scaleRowsCols(U, sqrt(weights), sqrt(s));
+  // vec b = ru / (s + delta_hat);
+  // return A.t() * b;
+
+  // # since U^T U is identity if the GRM is full rank
+  // v <- with(object, sqrt(s)*ru / (s + delta))
+
+  return (sqrt(s) % ru) / (s + delta_hat);
+}
+
+
+
 
 template <typename T1, typename T2, typename T3>  
 double fastlmm<T1, T2, T3>::ll(const double &delta ) { 
@@ -398,9 +428,55 @@ void fastlmm<T1, T2, T3>::update_response(const T1 &Y_,
   this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu;
 }
 
+ 
+template <typename T1, typename T2, typename T3> 
+ModelFitLMM fastlmm<T1, T2, T3>::get_result(
+          const bool &returnUS){
 
+  // initialize with standard entries
+  ModelFitLMM res = ModelFitLMM( true, 
+                      get_logLik(),
+                      get_weights(),
+                      get_ru(),
+                      get_y(),
+                      get_delta(),
+                      get_sigSq_g(),
+                      get_sigSq_e(),
+                      get_iter(),
+                      get_beta());
 
+  // res.dispersion = get_sigSq_e();
+
+  // set additional values based on ModelDetail md
+  mat V = get_vcov();
+
+  switch( md ){
+    case MAX: 
+    case MOST:
+      res.hatvalues = hatvalues(); 
+    case HIGH: 
+      res.residuals = residuals();
+    case MEDIUM: 
+      res.vcov = V;
+    case LOW: 
+      res.se = sqrt(diagvec(V)); 
+      res.rdf = get_rdf();
+    case LEAST: 
+      break;
+  }
+
+  // if returnUS
+  // return U and s 
+  if( returnUS ){
+    res.setUS(U, s);
+  }
+
+  return res;
 }
+
+
+
+} // end namespace
 
 
 #endif

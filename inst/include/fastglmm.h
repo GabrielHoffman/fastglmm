@@ -13,8 +13,8 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include "fastglmm_fit.h"
-#include "fastlmmFitResponses.h"
-#include "fastlmmFitFeatures.h"
-#include "glm_family.h"
+#include "ModelFit.h"
+#include "lmmFitResponses.h"
+#include "lmmFitFeatures.h"
 
 #endif

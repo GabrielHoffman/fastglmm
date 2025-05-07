@@ -1,4 +1,4 @@
-# BiocGenerics:::testPackage("fastlmm")
+# BiocGenerics:::testPackage("fastglmm")
 
 # BiocGenerics:::testPackage
 testPackage = function (pkgname = NULL, subdir = "unitTests", pattern = "^test_.*\\.R$", 
@@ -65,4 +65,4 @@ testPackage = function (pkgname = NULL, subdir = "unitTests", pattern = "^test_.
     result
 }
 
-testPackage("fastlmm")
+testPackage("fastglmm")

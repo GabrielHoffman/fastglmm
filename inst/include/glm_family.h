@@ -18,136 +18,144 @@ using namespace arma;
 using namespace std;
 
 
-/** Virtual base class
+namespace fastglmmLib {
+
+/** base class
+ * This should be a virtual class
+ * Leaving these empty or using override in the derived
+ * classes causes:
+ * 
+ * symbol not found in flat namespace '__ZN9GLMFamilyD2E
 */
 class GLMFamily {
 	public: 
 	GLMFamily() {}
-	virtual ~GLMFamily() = 0;
-	virtual vec link( const vec &mu) const = 0;
-	virtual vec linkinv( const vec &eta) const = 0;
-	virtual vec mu_eta( const vec &eta) const = 0;
-	virtual vec variance( const vec &mu) const = 0;
+
+	virtual ~GLMFamily() {};
+	virtual vec link( const vec &mu) const {return vec(1);}
+	virtual vec linkinv( const vec &eta) const {return vec(1);}
+	virtual vec mu_eta( const vec &eta) const {return vec(1);}
+	virtual vec variance( const vec &mu) const {return vec(1);}
 
 	// compute deviance redisuals as in gaussian()$dev.resids
 	// But also need to transform as in residuals.glm(): 
 	// in ModelFit::setDevResids()
-	virtual vec dev_resids( const vec &y, const vec &mu, const vec &weights) const = 0;
-	virtual vec initialize( const vec &y, const vec &weights) const = 0;	
-	virtual bool estimateDispersion() const = 0;
-	virtual string family() const = 0;	
-	virtual bool isCountModel() const = 0;
+	virtual vec dev_resids( const vec &y, const vec &mu, const vec &weights) const {return vec(1);}
+	virtual vec initialize( const vec &y, const vec &weights) const {return vec(1);}
+	virtual bool estimateDispersion() const {return true;}
+	virtual string family() const {return "GLMFamily";};	
+	virtual bool isCountModel() const {return true;}
+	virtual void setOverdispersion( const double & value){}
 };
 
-namespace fastglmmLib {
 class GaussianIdentity :
-	public virtual GLMFamily {
+	virtual public GLMFamily {
 
 	public:
 	GaussianIdentity() {}
 
-	~GaussianIdentity() override {}
+	~GaussianIdentity() {}
 
-	vec link( const vec &mu) const override {
+	vec link( const vec &mu) const {
 		return mu;
 	}
-	vec linkinv( const vec &eta) const override {
+	vec linkinv( const vec &eta) const {
 		return eta;
 	}
-	vec mu_eta( const vec &eta) const override {
+	vec mu_eta( const vec &eta) const {
 		return vec(eta.n_elem, fill::ones);
 	}
-	vec variance( const vec &mu) const override {
+	vec variance( const vec &mu) const {
 		return vec(mu.n_elem, fill::ones);
 	}
-	vec dev_resids( const vec &y, const vec &mu, const vec &weights) const override {
+	vec dev_resids( const vec &y, const vec &mu, const vec &weights) const {
 		// wt * ((y - mu)^2)
 		return weights % pow(y-mu,2);	
 	}
-	vec initialize( const vec &y, const vec &weights) const override {
+	vec initialize( const vec &y, const vec &weights) const {
 		return y;
 	}
-	bool estimateDispersion() const override {return true;}
-	string family() const override {return "GaussianIdentity";}
-	bool isCountModel() const override { return false; }
+	bool estimateDispersion() const {return true;}
+	string family() const {return "GaussianIdentity";}
+	bool isCountModel() const { return false; }
 };
 
 class BinomialLogit :
-	public virtual GLMFamily {
+	virtual public GLMFamily {
 
 	public:
 	BinomialLogit() {}
 
-	~BinomialLogit() override {}
+	~BinomialLogit() {}
 
-	vec link( const vec &mu) const override {
+	vec link( const vec &mu) const {
 		return log(mu / (1-mu));
 	}
-	vec linkinv( const vec &eta) const override {
+	vec linkinv( const vec &eta) const {
 		return 1.0 / (1.0 + exp(-1.0*eta));
 	}
-	vec mu_eta( const vec &eta) const override {
+	vec mu_eta( const vec &eta) const {
 		vec v = exp(-1.0*eta);
 		return v / pow( 1.0 + v, 2);
 	}
-	vec variance( const vec &mu) const override {
+	vec variance( const vec &mu) const {
 		return mu % (1.0 - mu);
 	}	
-	vec dev_resids( const vec &y, const vec &mu, const vec &weights) const override {
+	vec dev_resids( const vec &y, const vec &mu, const vec &weights) const {
 
 		// 2 * rwt[i] * (y_log_y(yi, mui) + y_log_y(1 - yi, 1 - mui));
 		return 2.0 * weights % (y_log_y(y, mu) + y_log_y(1.0 - y, 1.0 - mu));
 	}
-	vec initialize( const vec &y, const vec &weights) const override {
+	vec initialize( const vec &y, const vec &weights) const {
 		return (weights % y + 0.5)/(weights + 1.0);
 	}
-	bool estimateDispersion() const override {return false;}
-	string family() const override {return "BinomialLogit";}
-	bool isCountModel() const override { return false; }
+	bool estimateDispersion() const {return false;}
+	string family() const {return "BinomialLogit";}
+	bool isCountModel() const { return false; }
 };
 
 
 class QuasibinomialLogit :
 	public BinomialLogit {
-	bool estimateDispersion() const override {return true;}
-	string family() const override {return "QuasibinomialLogit";}
+	bool estimateDispersion() const {return true;}
+	string family() const {return "QuasibinomialLogit";}
 };
 
 
 class BinomialProbit :
-	public virtual GLMFamily {
+	virtual public GLMFamily {
 
 	public:
 	BinomialProbit(){}
 
-	~BinomialProbit() override {}
+	~BinomialProbit() {}
 
-	vec link( const vec &mu) const override {
+	vec link( const vec &mu) const {
 		// qnorm(mu)
 		return qnorm(mu);
 	}
-	vec linkinv( const vec &eta) const override { 
-	    // pnorm(eta)
-	    return normcdf( pmin(pmax(eta, -thresh), thresh) );
+	vec linkinv( const vec &eta) const { 
+	  // pnorm(eta)
+	  return normcdf( pmin(pmax(eta, -thresh), thresh) );
 	}
-	vec mu_eta( const vec &eta) const override {
+	vec mu_eta( const vec &eta) const {
 		// pmax(dnorm(eta), .Machine$double.eps)
 		return pmax(normpdf(eta), tol);
 	}
-	vec variance( const vec &mu) const override {
+	vec variance( const vec &mu) const {
 		return mu % (1.0 - mu);
 	}
-	vec dev_resids( const vec &y, const vec &mu, const vec &weights) const override {
+	vec dev_resids( const vec &y, const vec &mu, const vec &weights) const {
 		
 		// 2 * rwt[i] * (y_log_y(yi, mui) + y_log_y(1 - yi, 1 - mui));
 		return 2.0 * weights % (y_log_y(y, mu) + y_log_y(1 - y, 1 - mu));
 	}
-	vec initialize( const vec &y, const vec &weights) const override {
+	vec initialize( const vec &y, const vec &weights) const {
 		return (weights % y + 0.5)/(weights + 1.0);
 	}
-	bool estimateDispersion() const override {return false;}
-	string family() const override {return "BinomialProbit";}
-	bool isCountModel() const override { return false; }
+	bool estimateDispersion() const {return false;}
+	string family() const {return "BinomialProbit";}
+	bool isCountModel() const { return false; }
 
 	private:
 	double tol = 2.220446e-16;
@@ -157,32 +165,32 @@ class BinomialProbit :
 
 
 class PoissonLog :
-	public virtual GLMFamily {
+	virtual public GLMFamily {
 
 	public:
 	PoissonLog(){}
 
-	~PoissonLog() override {}
+	~PoissonLog() {}
 
-	vec link( const vec &mu) const override {
+	vec link( const vec &mu) const {
 		return log(mu);
 	}
-	vec linkinv( const vec &eta) const override { 
-	    // pmax(exp(eta), .Machine$double.eps)
-	    return pmax(exp(eta), tol);
+	vec linkinv( const vec &eta) const { 
+	  // pmax(exp(eta), .Machine$double.eps)
+	  return pmax(exp(eta), tol);
 	}
-	vec mu_eta( const vec &eta) const override {
-	    // pmax(exp(eta), .Machine$double.eps)
-	    return pmax(exp(eta), tol);
+	vec mu_eta( const vec &eta) const {
+	  // pmax(exp(eta), .Machine$double.eps)
+	  return pmax(exp(eta), tol);
 	}
-	vec variance( const vec &mu) const override {
+	vec variance( const vec &mu) const {
 		return mu;
 	}
-	vec dev_resids( const vec &y, const vec &mu, const vec &weights) const override {
+	vec dev_resids( const vec &y, const vec &mu, const vec &weights) const {
 		// r <- mu * wt
-	    // p <- which(y > 0)
-	    // r[p] <- (wt * (y * log(y/mu) - (y - mu)))[p]
-	    // 2 * r
+	  // p <- which(y > 0)
+	  // r[p] <- (wt * (y * log(y/mu) - (y - mu)))[p]
+	  // 2 * r
 
 		vec res = mu % weights;
 		uvec idx = find(y > 0.0);
@@ -191,12 +199,12 @@ class PoissonLog :
 
 		return 2.0 * res;
 	}
-	vec initialize( const vec &y, const vec &weights) const override {
+	vec initialize( const vec &y, const vec &weights) const {
 		return y + 0.1;
 	}
-	bool estimateDispersion() const override {return false;}
-	string family() const override {return "PoissonLog";}
-	bool isCountModel() const override { return true; }
+	bool estimateDispersion() const {return false;}
+	string family() const {return "PoissonLog";}
+	bool isCountModel() const { return true; }
 
 	private:
 	double tol = 2.220446e-16;
@@ -205,56 +213,61 @@ class PoissonLog :
 
 class QuasipoissonLog :
 	public PoissonLog {
-	bool estimateDispersion() const override {return true;}
+	bool estimateDispersion() const {return true;}
 };
 
 class NB :
-	public virtual GLMFamily {
+	virtual public GLMFamily {
 
-	public:
+	public:	
+	NB() {}
+
 	NB(const double &theta) : 
 		theta(theta) {}
 
-	~NB() override {}
+	~NB() {}
 
-	vec link( const vec &mu) const override {
+	vec link( const vec &mu) const {
 		return log(mu);
 	}
-	vec linkinv( const vec &eta) const override { 
-	    // pmax(exp(eta), .Machine$double.eps)
-	    return pmax(exp(eta), tol);
+	vec linkinv( const vec &eta) const { 
+	  // pmax(exp(eta), .Machine$double.eps)
+	  return pmax(exp(eta), tol);
 	}
-	vec mu_eta( const vec &eta) const override {
-	    // pmax(exp(eta), .Machine$double.eps)
-	    return pmax(exp(eta), tol);
+	vec mu_eta( const vec &eta) const {
+	  // pmax(exp(eta), .Machine$double.eps)
+	  return pmax(exp(eta), tol);
 	}
-	vec variance( const vec &mu) const override {
+	vec variance( const vec &mu) const {
 		return mu + pow(mu, 2) / theta;
 	}
-	vec dev_resids( const vec &y, const vec &mu, const vec &weights) const override {
+	vec dev_resids( const vec &y, const vec &mu, const vec &weights) const {
 		// 2 * wt * (y * log(pmax(1, y)/mu) - (y + .Theta) * log((y + .Theta)/(mu + .Theta)))
 
 		return 2.0 * weights % (y % log(pmax(y, 1.0)/mu) - (y + theta) % log((y + theta)/(mu + theta)));
 	}
-	vec initialize( const vec &y, const vec &weights) const override {
+	vec initialize( const vec &y, const vec &weights) const {
 		// y + (y == 0)/6
 		return y + accu(y == 0) / 6.0;
 	}
-	bool estimateDispersion() const override {return true;}
-	string family() const override {return "NB";}
-	bool isCountModel() const override { return true; }
+	bool estimateDispersion() const {return true;}
+	string family() const {return "NB";}
+	bool isCountModel() const { return true; }
 
-	double theta;
+	void setOverdispersion( const double &value){
+		theta = value;
+	}
+
+	double theta = std::numeric_limits<double>::quiet_NaN();
 
 	private:
 	double tol = 2.220446e-16;
-
 };
 
 
 
 /** Get smart pointer to GLMFamily object
- * @param family type of GLM: "gaussian", "gaussian/identity", "binomial/logit", "binomial/probit", "poisson/log", "quasibinomial/logit", "quasipoisson/log", "nb", nb:x" where x is a numeric value of theta    
+ * @param family type of GLM: "gaussian", "gaussian/identity", "binomial/logit", "binomial/probit", "poisson/log", "quasibinomial/logit", "quasipoisson/log", "nb", nb:x" where x is a numeric value of theta  
  */ 
 static shared_ptr<GLMFamily> getGLMFamily( const string &family){
 	
@@ -278,6 +291,9 @@ static shared_ptr<GLMFamily> getGLMFamily( const string &family){
 	else if( family == "quasipoisson/log" ){
 		fam = shared_ptr<GLMFamily>(new QuasipoissonLog());
 	}
+	else if( family == "nb" ){
+		fam = shared_ptr<GLMFamily>(new NB());
+	}
 	else if( regex_search( family, regex("^nb:")) ){
 		string theta_str = regex_replace( family, regex("^nb:"), "");
 		double theta = atof(theta_str.c_str());
@@ -288,7 +304,6 @@ static shared_ptr<GLMFamily> getGLMFamily( const string &family){
 
 	return fam;
 }
-
 
 }
 

@@ -4,7 +4,8 @@
 // [[Rcpp::depends(RcppParallel)]]
 #include <RcppParallel.h>
 
-// #include "fastlmm_fit.h"
+#include "fastlmm_fit.h"
+#include "ModelFit.h"
 #include "spectralDecomp.h"
 
 using namespace arma;

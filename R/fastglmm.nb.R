@@ -49,7 +49,7 @@ fastglmm.nb = function (formula, data, weights, maxit = 100, tol = .Machine$doub
 	}
 
 	# fit poisson model
-	fit = fastglmm(formula, 
+	fit = fastglmm_R(formula, 
 				data = data, 
 				weights = weights, 
 				family = poisson(),
@@ -75,7 +75,7 @@ fastglmm.nb = function (formula, data, weights, maxit = 100, tol = .Machine$doub
 		ll_prev = logLik(fit)
 
 		# estimate NB model with dispersion fixed
-		fit <- fastglmm(formula, 
+		fit <- fastglmm_R(formula, 
 				data = data, 
 	        	weights = weights,
 	        	family = negative.binomial(theta),

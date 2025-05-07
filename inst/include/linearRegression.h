@@ -24,7 +24,7 @@
 #include <RcppParallel.h>
 
 #include "misc.h"
-// #include "ModelFit.h"
+#include "ModelFit.h"
 
 using namespace arma;
 using namespace std;

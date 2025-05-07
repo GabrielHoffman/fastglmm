@@ -50,7 +50,8 @@ indicator_decomp <- function(x, weights = NULL, rank = NULL, sort = FALSE) {
 
   # Compute eigen values and vectors
   evalues <- as.numeric(weights %*% Z)
-  D <- Diagonal(length(evalues), 1 / sqrt(evalues))
+  names(evalues) <- colnames(Z)
+  D <- Diagonal(length(evalues), 1 / sqrt(evalues), names=TRUE)
   vectors <- (Z * sqrt(weights)) %*% D
 
   if (sort) {

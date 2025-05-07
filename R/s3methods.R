@@ -182,10 +182,41 @@ vcov.fastlmm <- function(object, ...) {
 #' @importFrom Matrix crossprod
 #' @export
 ranef.fastlmm <- function(object, ...) {
-  Zw <- c(sqrt(object$weights)) * object$Z
-  v <- crossprod(crossprod(object$U, Zw), object$ru / (object$s + object$delta))
+
+  # original, uses Z
+  # Zw <- c(sqrt(object$weights)) * object$Z
+  # A <- crossprod(object$U, Zw)
+  # b <- object$ru / (object$s + object$delta)
+  # v <- crossprod(A, b)
+  # as.matrix(v)
+
+  U <- s <- weights <- ru <- delta <- NULL
+
+  # Use U and s, but not Z
+  # since Z = U diag(sqrt(s))
+  # A <- with(object, 
+  #       crossprod(U, U %*% Diagonal(length(s), sqrt(s))))
+  # b <- with(object, ru / (s + delta))
+  # v <- crossprod(A, b)
+  # rownames(v) <- colnames(object$Z)
+  # as.matrix(v)
+
+  # since U^T U is identity if the GRM is full rank
+  v <- with(object, sqrt(s)*ru / (s + delta))
+  rownames(v) <- colnames(object$U)
   as.matrix(v)
 }
+
+# attempt to simply fitted()
+# object$Z %*% v
+
+# with(object, (U * sqrt(s)) %*% crossprod(crossprod(U, c(sqrt(weights)) * U * sqrt(s)), b)) 
+
+# U = object$U
+# s = object$s
+# Us = (U * sqrt(s))
+# weights = object$weights
+# Us %*% crossprod(crossprod(U, c(sqrt(weights)) * Us), b) 
 
 #' @importFrom lme4 fixef
 #' @export
@@ -196,7 +227,10 @@ fixef.fastlmm <- function(object, ...) {
 #' @importFrom stats fitted
 #' @export
 fitted.fastlmm <- function(object, ...) {
-  v <- object$Z %*% ranef.fastlmm(object) + object$design %*% coef(object)
+  # v <- object$Z %*% ranef.fastlmm(object) + object$design %*% coef(object)
+
+  a <- object$U %*% (sqrt(object$s) * ranef.fastlmm(object))
+  v <- a / sqrt(object$weights) + object$design %*% coef(object)
   v <- as.numeric(v)
 
   if (!is.null(object$offset)) {

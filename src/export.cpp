@@ -274,11 +274,96 @@ List fastglmm_mm( const arma::vec &y,
                   const int &nthreads){
 
   ModelDetail md = MAX;
+  double tol_eta = 1e-4;
 
   // initialize
-  fastglmm fit = fastglmm<vec,mat,mat>(y, X, U, s, weights, offset, family, md);
+  fastglmm fit = fastglmm<vec,mat,mat>(y, X, U, s, weights, offset, family, md, tol, tol_eta, true);
 
-  // return toList(fit);
-  return List();
+  return toList(fit);
 }
+
+
+// y = vec
+// X = mat
+// U = mat
+// [[Rcpp::export(".fastglmm_ms")]]
+List fastglmm_ms( const arma::vec &y, 
+                  const arma::mat &X,  
+                  const arma::sp_mat &U, 
+                  const arma::vec &s,
+                  const arma::vec &weights,
+                  const arma::vec &offset,
+                  const std::string &family,
+                  const double &delta,
+                  const double &left,
+                  const double &right,
+                  const double &tol,
+                  const int &nthreads){
+
+  ModelDetail md = MAX;
+  double tol_eta = 1e-4;
+
+  // initialize
+  fastglmm fit = fastglmm<vec,mat,sp_mat>(y, X, U, s, weights, offset, family, md, tol, tol_eta, true);
+
+  return toList(fit);
+}
+
+
+// [[Rcpp::export]]
+void test_time_m(const arma::mat &U, 
+                const arma::vec &s,
+                const arma::vec &weights){
+
+  spectralDecomp<mat> dcmp;
+  mat Z = scaleEachRow(U, sqrt(s));
+  vec s2;
+  mat U2;
+
+  // for(int i=0; i<300; i++){    
+  //   // s2 = (weights.t() * Z).t();
+  //   mat Z = scaleEachRow(U, sqrt(s));
+  // }
+
+  for(int i=0; i<300; i++){    
+    U2 = scaleRowsCols(Z, (weights), s);
+  }
+}
+
+
+
+// [[Rcpp::export]]
+void test_time_s(const arma::sp_mat &U, 
+                const arma::vec &s,
+                const arma::vec &weights){
+
+  spectralDecomp<sp_mat> dcmp;
+  sp_mat Z = scaleEachRow(U, sqrt(s));
+  vec s2;
+  sp_mat U2;  
+  
+  for(int i=0; i<300; i++){    
+    U2 = scaleRowsCols(Z, (weights), s);
+  }
+
+  //   s2 = (weights.t() * Z).t();
+  // // sp_mat a = sp_mat(arma::diagmat(weights));
+  // sp_mat a(weights.n_elem, weights.n_elem);
+  // a.diag() = weights;
+  // a.brief_print();
+  // // sp_mat b = sp_mat(arma::diagmat(s2));
+  // sp_mat b(s2.n_elem, s2.n_elem);
+  // b.diag() = s2;
+
+  // for(int i=0; i<300; i++){    
+  //   U2 = a * Z * b;
+  // }
+}
+
+
+
+
+
+
+
 

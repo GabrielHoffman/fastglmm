@@ -25,11 +25,11 @@ namespace fastglmmLib {
 // Specify level of model detail to return from regression fit
 typedef enum {
 	LEAST,  // just beta
-    LOW, 	// baseline parameters: beta, se, dispersion, rdf
-    MEDIUM, // vcov
-    HIGH,   // pearson residuals
-    MOST,   // hatvalues, fitted.values
-    MAX     // deviance residuals
+  LOW, 	// baseline parameters: beta, se, dispersion, rdf
+  MEDIUM, // vcov
+  HIGH,   // pearson residuals
+  MOST,   // hatvalues, fitted.values
+  MAX     // deviance residuals
 } ModelDetail;
 
 /** Store results from fitting linear regression model
@@ -163,6 +163,12 @@ class ModelFitLMM : public ModelFit {
   double delta, sigSq_g, sigSq_e;
   int iter;
 
+  bool isSet_U = false;
+  bool isSet_Usp = false;
+  mat U;
+  sp_mat Usp; 
+  vec s;  
+
   ModelFitLMM(){}
 
    // LEAST
@@ -253,6 +259,18 @@ class ModelFitLMM : public ModelFit {
     ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals, hatvalues),
     logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
     {}   
+
+    void setUS(const mat &U_, const vec &s_){
+      U = U_;
+      s = s_;
+      isSet_U = true;
+    }
+
+    void setUS(const sp_mat &U_, const vec &s_){
+      Usp = U_;
+      s = s_;
+      isSet_Usp = true;
+    }
 };
 
 
@@ -262,9 +280,11 @@ class ModelFitGLMM : public ModelFitLMM {
 
   ModelFitGLMM() {}
 
-  ModelFitGLMM( ModelFitLMM &gmf, const string &family, const int &niter ) :
-    ModelFitLMM(gmf), family(family), niter(niter) {
+  ModelFitGLMM( ModelFitLMM &gmf, const string &family, const int &iter ) :
+    ModelFitLMM(gmf), family(family) {
 
+    this->iter = iter;
+    
     // extract theta values from "nb:theta"
     if( regex_search( family, regex("^nb:")) ){
       string theta_str = regex_replace( family, regex("^nb:"), "");
@@ -287,7 +307,6 @@ class ModelFitGLMM : public ModelFitLMM {
   string family = "";
   double theta = datum::nan;
   double mu_mean = datum::nan;
-  int niter = 0;
   double nZeroPrediction = 0;
 };
 

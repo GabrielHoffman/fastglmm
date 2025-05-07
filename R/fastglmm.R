@@ -82,7 +82,7 @@ process_formula = function(formula, data){
 #' coef(summary(fit))
 #' 
 #' # GLMM via PQL
-#' fit = fastglmm(y ~ trt + I(week > 2) + (1 | ID),
+#' fit = fastglmm_R(y ~ trt + I(week > 2) + (1 | ID),
 #'				family = binomial(), data = bacteria)
 #' coef(summary(fit))
 #
@@ -90,7 +90,7 @@ process_formula = function(formula, data){
 #' @importFrom lme4 nobars
 #' @importFrom methods is
 #' @export
-fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta = NULL,  delta.range = c(-10, 10), maxit = 100, tol = .Machine$double.eps^0.5, tol.eta = .Machine$double.eps^0.5, init.fit = NULL, init = c("lm", "glm"), nthreads = 6){
+fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-5, tol.eta = .Machine$double.eps^0.5, init.fit = NULL, init = c("lm", "glm"), nthreads = 6){
 
     mc <- match.call()
     init <- match.arg(init)
@@ -227,6 +227,164 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 
    	attr(fit, "call") <- mc
     fit
+} 
+
+
+
+#' Fit generalized linear mixed model via PQL
+#' 
+#' Fit generalized linear mixed model (GLMM) with a single random effect using penalized quasi-likelihood (PQL)
+#' 
+#' @param formula a two-sided linear formula object describing both the fixed-effects and random-effects part of the model, with the response on the left of a \code{~} operator and the terms, separated by \code{+} operators, on the right.  Random-effects terms are distinguished by vertical bars (\code{|}) separating expressions for design matrices from grouping factors.
+#' @param data an optional data frame containing the variables named in
+#' @param family a description of the error distribution and link function to be used in the model.  
+#' @param weights an optional vector of prior weights with a value for each sample.  
+#' @param delta if \code{NULL} estimate delta, if value is given uses this fixed value
+#' @param delta.range min and max values (in log space), of the search space for delta to fit the random effect
+#' @param maxit max number of PQL iterations
+#' @param tol convergence criterion for the 1D search of the delta space
+#' @param tol.eta convergence criterion \code{eta} in the PQL iteration
+#' @param nthreads number of threads
+#'
+#' @examples
+#' library(MASS)
+#' library(lme4)
+#' 
+#' # GLMM via Laplace approximation
+#' fit = glmer(y ~ trt + I(week > 2) + (1 | ID),
+#'				family = binomial(), data = bacteria)
+#' coef(summary(fit))
+#' 
+#' # GLMM via PQL
+#' fit = glmmPQL(y ~ trt + I(week > 2), random = ~ 1 | ID,
+#' 				family = binomial, data = bacteria, verbose = FALSE)
+#' coef(summary(fit))
+#' 
+#' # GLMM via PQL
+#' fit = fastglmm(y ~ trt + I(week > 2) + (1 | ID),
+#'				family = binomial(), data = bacteria)
+#' coef(summary(fit))
+#
+#' @import stats 
+#' @importFrom lme4 nobars
+#' @importFrom methods is
+#' @export
+fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-5, tol.eta = .Machine$double.eps^0.5, nthreads = 6){
+
+	mc <- match.call()
+
+	# simplest way to extract data
+	formula <- as.formula(formula, env = , parent.frame(1L))
+
+	# check that formula has exactly 1 random effect
+	fb <- findbars(formula)
+	if (length(fb) == 0) {
+		stop("formula must contain exactly 1 random effect, but none were specified")
+	}
+	if (length(fb) > 1) {
+		stop("formula must contain exactly 1 random effect, but ", length(fb), " were specified")
+	}
+
+	# check that only 1 random effect variable is used
+	vs <- all.vars(fb[[1]])
+	if (length(vs) != 1) {
+		stop("Only one variable can be used in the random effect")
+	}
+
+	# formula with only fixed effects
+	form.fixed <- nobars(formula)
+
+	# get variables used in response
+	respVar <- all.vars(update(form.fixed, . ~ 1))
+	
+	## family
+  if(is.character(family))
+      family <- get(family, mode = "function", envir = parent.frame())
+  if(is.function(family)) family <- family()
+  if(is.null(family$family)) {
+		print(family)
+		stop("'family' not recognized")
+  }
+  if( maxit < 1 ){
+  	stop("maxit must be >= 1")
+  }
+
+	# decompose formula
+	fres = process_formula( formula, data)
+	form_fixed = fres$form_fixed
+
+  # if all columns of response are in the data matrix
+  # for vector response, or cbind(v1, v2)
+  #   where v1 and v2 are cols in data
+  # this uses the standard R processing for formulas
+  if (all(respVar %in% colnames(data))) {
+    # extract data
+    # *very* slow when reponse is a large matrix
+    mf <- model.frame(form.fixed, data, drop.unused.levels = TRUE)
+    design <- model.matrix(mf, data)
+    y <- model.response(mf)
+    offset <- model.offset(mf)
+  } else {
+    # if Y is a matrix in the parent environment
+    # get matrix directly from parent
+
+    form2 <- update(form.fixed, NULL ~ .)
+
+    # Not allowed: y^2 ~ x
+    if (respVar != as.character(form.fixed)[2]) {
+      stop("Function cannot be applied to reponse: ", as.character(form.fixed)[2])
+    }
+
+    mf <- model.frame(form2, data, drop.unused.levels = TRUE)
+    design <- model.matrix(mf, data)
+    y <- eval.parent(parse(text = respVar))
+    offset <- model.offset(mf)
+  }
+
+  if( is.factor(y) ){
+  	y <- as.numeric(y) - 1
+  }
+  if( is.character(y) ){
+  	stop("Response must be numeric or factor")
+  }
+
+	if( is.null(weights) ) weights <- rep(1, nrow(data))
+	if( is.null(offset) ) offset <- rep(0, nrow(data))
+
+	dcmp <- indicator_decomp(data[[vs]])
+
+	# use function based on sparse U
+	if( is(dcmp$vectors, "sparseMatrix") ){
+		fxn = .fastglmm_ms
+	}else{
+		fxn = .fastglmm_mm
+	}
+
+	# run GLMM
+	fit = fxn(y = y, 
+						X = design, 
+						U = dcmp$vectors, 
+						s = dcmp$values, 
+						weights = weights, 
+						offset = offset, 
+						family = getFamilyString(family), 
+						delta = -1, 
+		        left = delta.range[1],
+		        right = delta.range[2],
+						tol = tol, 
+						nthreads = nthreads)
+
+	colnames(fit$U) <- colnames(dcmp$vectors)
+
+	# format output
+	fit <- as.fastlmm(fit, design = design, offset = offset, method = "PQL")
+
+	fit$family <- family
+	fit$iter.pql <- fit$niter
+	class(fit) <- c("fastglmm", "fastlmm")
+
+	attr(fit, "call") <- mc
+	fit
 } 
 
 

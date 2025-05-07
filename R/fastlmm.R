@@ -70,7 +70,7 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
   # this uses the standard R processing for formulas
   if (all(respVar %in% colnames(data))) {
     # extract data
-    # *very* low when reponse is a large matrix
+    # *very* slow when reponse is a large matrix
     mf <- model.frame(form.fixed, data, drop.unused.levels = TRUE)
     X <- model.matrix(mf, data)
     Y <- model.response(mf)

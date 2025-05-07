@@ -218,6 +218,52 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// fastglmm_ms
+List fastglmm_ms(const arma::vec& y, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights, const arma::vec& offset, const std::string& family, const double& delta, const double& left, const double& right, const double& tol, const int& nthreads);
+RcppExport SEXP _fastglmm_fastglmm_ms(SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP nthreadsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat& >::type U(USEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type offset(offsetSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type family(familySEXP);
+    Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
+    Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
+    Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
+    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(fastglmm_ms(y, X, U, s, weights, offset, family, delta, left, right, tol, nthreads));
+    return rcpp_result_gen;
+END_RCPP
+}
+// test_time_m
+void test_time_m(const arma::mat& U, const arma::vec& s, const arma::vec& weights);
+RcppExport SEXP _fastglmm_test_time_m(SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type U(USEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
+    test_time_m(U, s, weights);
+    return R_NilValue;
+END_RCPP
+}
+// test_time_s
+void test_time_s(const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights);
+RcppExport SEXP _fastglmm_test_time_s(SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::sp_mat& >::type U(USEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type s(sSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
+    test_time_s(U, s, weights);
+    return R_NilValue;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_fastglmm_fastlmm_vmm", (DL_FUNC) &_fastglmm_fastlmm_vmm, 11},
@@ -230,6 +276,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_fastglmm_fastlmm_mss", (DL_FUNC) &_fastglmm_fastlmm_mss, 11},
     {"_fastglmm_nb_theta", (DL_FUNC) &_fastglmm_nb_theta, 7},
     {"_fastglmm_fastglmm_mm", (DL_FUNC) &_fastglmm_fastglmm_mm, 12},
+    {"_fastglmm_fastglmm_ms", (DL_FUNC) &_fastglmm_fastglmm_ms, 12},
+    {"_fastglmm_test_time_m", (DL_FUNC) &_fastglmm_test_time_m, 3},
+    {"_fastglmm_test_time_s", (DL_FUNC) &_fastglmm_test_time_s, 3},
     {NULL, NULL, 0}
 };
 

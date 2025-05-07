@@ -37,7 +37,7 @@ static void checkResponse(const vec &y, const string &family){
 
 	if( famStr == "BinomialLogit" || famStr == "BinomialProbit" ){
 		// valid for binary logistic regression
-		bool valid_binary = (res.n_elem == 2 && res[0] == 0 && res[1] == 1);
+		bool valid_binary = (res.n_elem == 2 && (res[0] == 0 && res[1] == 1));
 
 		// valid for binomial with logit/probit link
 		bool valid_beta = (res[0] >= 0 && res[res.n_elem-1] <= 1);
@@ -62,7 +62,7 @@ static void checkResponse(const vec &y, const string &family){
 /** Workspace for GLM 
  */ 
 struct GLMWork : LMWork {	
-	vec eta, mu, gprime, z, wsqrt;
+	vec eta, mu, gprime, z, wsqrt, w;
     GLMWork() {}
 };
 
@@ -132,18 +132,17 @@ static ModelFitGLM GLM(
 			work->eta = X * fit.coef + offset_;
 			work->mu = fam->linkinv( work->eta );
 		}
+  	work->gprime= fam->mu_eta( work->eta );
+  	work->z  	= (work->eta - offset_) + (y - work->mu) / work->gprime;
+  	work->wsqrt = work->gprime % sqrt(weights_ / fam->variance( work->mu ));
 
-    	work->gprime= fam->mu_eta( work->eta );
-    	work->z  	= (work->eta - offset_) + (y - work->mu) / work->gprime;
-    	work->wsqrt = work->gprime % sqrt(weights_ / fam->variance( work->mu ));
+  	vec beta_prev(fit.coef);
 
-    	vec beta_prev(fit.coef);
+  	// Solve least squares system to get beta
+  	fit = lm(scaleEachCol(X, work->wsqrt), work->z % work->wsqrt, LEAST, 0, work);
 
-    	// Solve least squares system to get beta
-    	fit = lm(scaleEachCol(X, work->wsqrt), work->z % work->wsqrt, LEAST, 0, work);
-
-    	// if model is singular
-    	if( ! fit.success ) break;
+  	// if model is singular
+  	if( ! fit.success ) break;
 
 		// stopping criterion
 		if( i > 0 && norm(fit.coef - beta_prev) < epsilon ) break;
@@ -154,26 +153,26 @@ static ModelFitGLM GLM(
 	work->eta = X * fit.coef + offset_;
 	work->mu = fam->linkinv( work->eta );
 
-    // Solve least squares system, 
-    // estimate other parameters based on ModelDetail
-    // Estimate dispersion if needed
-    fit = lm(scaleEachCol(X, work->wsqrt), work->z % work->wsqrt, md, 0, work, fam->estimateDispersion());
+  // Solve least squares system, 
+  // estimate other parameters based on ModelDetail
+  // Estimate dispersion if needed
+  fit = lm(scaleEachCol(X, work->wsqrt), work->z % work->wsqrt, md, 0, work, fam->estimateDispersion());
 
-    if( md == MAX){
+  if( md == MAX){
 
 		// compute raw deviance residuals
-    	vec dr = fam->dev_resids(y, work->mu, weights_);
+  	vec dr = fam->dev_resids(y, work->mu, weights_);
 
-    	// transform and store residuals
-    	fit.setDevResids( dr, y, work->mu);
-    }
+  	// transform and store residuals
+  	fit.setDevResids( dr, y, work->mu);
+  }
 
-    if( md >= MOST ){
-    	fit.setFittedValues( work->mu );
-    }
+  if( md >= MOST ){
+  	fit.setFittedValues( work->mu );
+  }
 
-		// free work if allocated in this function
-    if( alloc_local) delete work;
+	// free work if allocated in this function
+  if( alloc_local) delete work;
 
 	return ModelFitGLM(fit, family, i);
 }

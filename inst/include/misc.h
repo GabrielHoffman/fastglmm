@@ -26,6 +26,21 @@ inline sp_mat scaleEachCol(const sp_mat &X, const vec &w){
   return( M );
 }
 
+// for each row, scale by w
+inline mat scaleEachRow(const mat &X, const vec &w){
+  return w.t() % X.each_row();  
+}
+
+// for each row, scale by w
+inline sp_mat scaleEachRow(const sp_mat &X, const vec &w){
+
+  sp_mat M = sp_mat(X);
+  for(size_t i=0; i<X.n_cols; i++){
+    M.col(i) *= w[i];
+  }
+  return( M );
+}
+
 
 // scale by w and s
 template <typename T> 
