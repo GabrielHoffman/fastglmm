@@ -12,6 +12,8 @@
 #include "fastglmm.h"
 #include "exportToR_fastlmm.h"
 #include "nb_theta.h"
+#include "glmmFitFeatures.h"
+#include "glmmFitResponses.h"
 
 using namespace Rcpp; 
 using namespace arma;
@@ -308,62 +310,5 @@ List fastglmm_ms( const arma::vec &y,
 
   return toList(fit);
 }
-
-
-// [[Rcpp::export]]
-void test_time_m(const arma::mat &U, 
-                const arma::vec &s,
-                const arma::vec &weights){
-
-  spectralDecomp<mat> dcmp;
-  mat Z = scaleEachRow(U, sqrt(s));
-  vec s2;
-  mat U2;
-
-  // for(int i=0; i<300; i++){    
-  //   // s2 = (weights.t() * Z).t();
-  //   mat Z = scaleEachRow(U, sqrt(s));
-  // }
-
-  for(int i=0; i<300; i++){    
-    U2 = scaleRowsCols(Z, (weights), s);
-  }
-}
-
-
-
-// [[Rcpp::export]]
-void test_time_s(const arma::sp_mat &U, 
-                const arma::vec &s,
-                const arma::vec &weights){
-
-  spectralDecomp<sp_mat> dcmp;
-  sp_mat Z = scaleEachRow(U, sqrt(s));
-  vec s2;
-  sp_mat U2;  
-  
-  for(int i=0; i<300; i++){    
-    U2 = scaleRowsCols(Z, (weights), s);
-  }
-
-  //   s2 = (weights.t() * Z).t();
-  // // sp_mat a = sp_mat(arma::diagmat(weights));
-  // sp_mat a(weights.n_elem, weights.n_elem);
-  // a.diag() = weights;
-  // a.brief_print();
-  // // sp_mat b = sp_mat(arma::diagmat(s2));
-  // sp_mat b(s2.n_elem, s2.n_elem);
-  // b.diag() = s2;
-
-  // for(int i=0; i<300; i++){    
-  //   U2 = a * Z * b;
-  // }
-}
-
-
-
-
-
-
 
 

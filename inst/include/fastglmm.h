@@ -16,5 +16,8 @@
 #include "ModelFit.h"
 #include "lmmFitResponses.h"
 #include "lmmFitFeatures.h"
+#include "glmmFitResponses.h"
+#include "glmmFitFeatures.h"
+
 
 #endif

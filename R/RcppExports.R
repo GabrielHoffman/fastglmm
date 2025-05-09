@@ -45,11 +45,3 @@
     .Call('_fastglmm_fastglmm_ms', PACKAGE = 'fastglmm', y, X, U, s, weights, offset, family, delta, left, right, tol, nthreads)
 }
 
-test_time_m <- function(U, s, weights) {
-    invisible(.Call('_fastglmm_test_time_m', PACKAGE = 'fastglmm', U, s, weights))
-}
-
-test_time_s <- function(U, s, weights) {
-    invisible(.Call('_fastglmm_test_time_s', PACKAGE = 'fastglmm', U, s, weights))
-}
-

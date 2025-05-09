@@ -1,6 +1,7 @@
-#ifndef LMM_FIT_FEATURES_H_
-#define LMM_FIT_FEATURES_H_
+#ifndef GLMM_FIT_FEATURES_H_
+#define GLMM_FIT_FEATURES_H_
 
+#include "fastglmm_fit.h"
 #include "spectralDecomp.h"
 
 using namespace arma;
@@ -14,34 +15,36 @@ namespace fastglmmLib {
 // T2 X
 // T3 Z
 template <typename T1, typename T2, typename T3> 
-class lmmFitFeatures {
+class glmmFitFeatures {
 
     public:
-    lmmFitFeatures( const T1 &Y, 
+    glmmFitFeatures( const T1 &y, 
                     const T2 &X, 
+                    const string &family, 
                     const T3 &U,
                     const vec &s,
-                    const vec &weights,
-                    const double &delta,
+                    const vec &weights = {},
+                    const vec &offset = {},
+                    const double &delta = -1,
                     const double &left = -10,
                     const double &right = 10,
                     const double &tol = 1e-5,
+                    const double &tol_eta = 1e-5,
                     const int &nthreads = 1,
-                    const ModelDetail md = LOW,
-                    const bool REML = false);
+                    const ModelDetail md = LOW);
 
-    ModelFitLMMList eval(const T2 &X_add_,
+    ModelFitGLMMList eval(const T2 &X_add_,
                         const vector<string> &ids);
 
     private:
-    T1 Y; 
+    T1 y; 
     T2 X_shared;  
+    string family;
     T3 U;
-    vec s, weights;
-    double delta, left, right, tol;
+    vec s, weights, offset;
+    double delta, left, right, tol, tol_eta;
     int nthreads;
     ModelDetail md;
-    bool REML;
     spectralDecomp<T3> dcmp;
 };
 
@@ -49,21 +52,23 @@ class lmmFitFeatures {
 
 // constructor
 template <typename T1, typename T2, typename T3> 
-lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
-                            const T1 &Y, 
+glmmFitFeatures<T1, T2, T3>::glmmFitFeatures(
+                            const T1 &y, 
                             const T2 &X, 
+                            const string &family, 
                             const T3 &U,
                             const vec &s,
-                            const vec &weights,     
+                            const vec &weights, 
+                            const vec &offset,    
                             const double &delta,
                             const double &left,
                             const double &right,
                             const double &tol,
+                            const double &tol_eta,
                             const int &nthreads,
-                            const ModelDetail md,
-                            const bool REML) :
-    Y(Y), X_shared(X), weights(weights),
-    delta(delta), left(left), right(right), tol(tol), nthreads(nthreads), md(md), REML(REML)
+                            const ModelDetail md) :
+    y(y), X_shared(X), family(family), weights(weights), offset(offset),
+    delta(delta), left(left), right(right), tol(tol), tol_eta(tol_eta), nthreads(nthreads), md(md)
     {
 
     dcmp.initWithEigenDecomp(U, s, weights);
@@ -71,17 +76,15 @@ lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
 
 
 
-// NOTE: Do not use Rcpp in parallel section
-// "C stack usage is too close to the limit"
 template <typename T1, typename T2, typename T3> 
-ModelFitLMMList 
-  lmmFitFeatures<T1, T2, T3>::eval( const T2 &X_add_,
+ModelFitGLMMList 
+  glmmFitFeatures<T1, T2, T3>::eval( const T2 &X_add_,
                                     const vector<string> &ids){
 
     int n_tests = X_add_.n_cols;
 
     // store results
-    ModelFitLMMList result(n_tests, ModelFitLMM());
+    ModelFitGLMMList result(n_tests, ModelFitGLMM());
 
     // Parallel part using Thread Building Blocks
     tbb::task_arena limited_arena(nthreads);
@@ -100,13 +103,7 @@ ModelFitLMMList
 
             // fits full model each time,
             // for speed, need to save Y, X, scaled by U and s
-            fastlmm fit = fastlmm(Y, X_combined, dcmp.get_vectors(), dcmp.get_values(), weights, md, REML);
-
-            if( delta > 0 ){
-                fit.eval_delta( delta ); 
-            }else{
-                fit.estimate_delta( left, right, tol );
-            }
+            fastglmm fit = fastglmm(y, X_combined, dcmp.get_vectors(), dcmp.get_values(), weights, offset, family, md, tol, tol_eta);
 
             result.at(j) = fit.get_result();
             result.at(j).ID = ids[j];
@@ -117,18 +114,8 @@ ModelFitLMMList
 }
 
 
-// fastlmm
-// Yw = Y_all.col(i) * Weights.col(i),
-// Xw = X_orig * Weights.col(i),
-// [U, s] = indicator_decomp( Z , Weights.col(i))
-// Yu = U_.t() * Yw;
-// Xu = U_.t() * Xw;
-// cp_X_low = Xw.t() * Xw - Xu.t() * Xu;
-// cp_X_low_Y_low = Xw.t() * Yw - Xu.t() * Yu;
-// inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 
-}
-
+} // end namespace
 
 
 
