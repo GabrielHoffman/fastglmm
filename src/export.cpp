@@ -273,13 +273,14 @@ List fastglmm_mm( const arma::vec &y,
                   const double &left,
                   const double &right,
                   const double &tol,
+                  const double &tol_eta,
+                  const int &maxit,
                   const int &nthreads){
 
   ModelDetail md = MAX;
-  double tol_eta = 1e-4;
 
   // initialize
-  fastglmm fit = fastglmm<vec,mat,mat>(y, X, U, s, weights, offset, family, md, tol, tol_eta, true);
+  fastglmm fit = fastglmm<vec,mat,mat>(y, X, U, s, weights, offset, family, md, tol, tol_eta, maxit, true);
 
   return toList(fit);
 }
@@ -300,13 +301,14 @@ List fastglmm_ms( const arma::vec &y,
                   const double &left,
                   const double &right,
                   const double &tol,
+                  const double &tol_eta,
+                  const int &maxit,
                   const int &nthreads){
 
   ModelDetail md = MAX;
-  double tol_eta = 1e-4;
 
   // initialize
-  fastglmm fit = fastglmm<vec,mat,sp_mat>(y, X, U, s, weights, offset, family, md, tol, tol_eta, true);
+  fastglmm fit = fastglmm<vec,mat,sp_mat>(y, X, U, s, weights, offset, family, md, tol, tol_eta, maxit, true);
 
   return toList(fit);
 }
