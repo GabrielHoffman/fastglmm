@@ -6,7 +6,7 @@ test_heritability = function(){
 
 	# q()
 	# R
-	library(fastlmm)
+	library(fastglmm)
 	library(lme4)
 	sleepstudy = rbind(sleepstudy, sleepstudy)
 	sleepstudy = rbind(sleepstudy, sleepstudy)
@@ -17,9 +17,9 @@ test_heritability = function(){
 
 	fit <- fastlmm(Reaction ~ Days +  (1 | Subject), sleepstudy)
 
-	fastlmm:::heritability(fit, "info")
+	fastglmm:::heritability(fit, "info")
 
-	fastlmm:::heritability(fit, "perm", 1000)
+	fastglmm:::heritability(fit, "perm", 1000)
 
 
 

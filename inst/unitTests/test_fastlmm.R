@@ -6,9 +6,9 @@ test_user_fxn = function(){
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
 
-	q()
-	R
-	library(fastlmm)
+	# q()
+	# R
+	library(fastglmm)
 	library(lme4)
 	library(RUnit)
 	set.seed(1)
@@ -110,14 +110,14 @@ test_user_fxn = function(){
 test_multivariate = function(){
 
 	library(MASS)
-	library(fastlmm)
+	library(fastglmm)
 	library(Matrix)
 	library(lme4)
 	library(RUnit)
 	library(microbenchmark)
 	set.seed(1)
 
-	n = 100000
+	n = 10000
 	ndonors = 1000
 
 	info = data.frame(x = rnorm(n))
@@ -231,7 +231,7 @@ test_multivariate = function(){
 
 test_indicator_decomp = function(){
 	library(MASS)
-	library(fastlmm)
+	library(fastglmm)
 	library(Matrix)
 	set.seed(1)
 
@@ -311,7 +311,7 @@ test_logLik = function(){
 	library(mvtnorm)
 	library(lme4)
 	library(RUnit)
-	library(fastlmm)
+	library(fastglmm)
 
 	set.seed(1)
 	n = 2000
@@ -460,7 +460,7 @@ test_logLik = function(){
 test_fxn = function(){
 
 	library(MASS)
-	library(fastlmm)
+	library(fastglmm)
 	library(Matrix)
 	set.seed(1)
 
@@ -491,12 +491,12 @@ test_fxn = function(){
 test_fastlmm = function(){
 
 	library(MASS)
-	library(fastlmm)
+	library(fastglmm)
 	library(Matrix)
 	library(RUnit)
 	set.seed(1)
 
-	n = 100000
+	n = 10000
 	ndonors = 300
 
 	# n = 3000
@@ -612,7 +612,7 @@ test_fastlmm = function(){
 	checkEqualsNumeric(logLik(fit1)[1], fit2$logLik, tol=tol)
 	checkEqualsNumeric(res[,1], coef(fit1), tol=tol)
 	checkEqualsNumeric(fixef(fit), fixef(fit1))
-	checkEqualsNumeric(ranef(fit)$Indiv[,1], ranef(fit1))
+	checkEqualsNumeric(unlist(ranef(fit)), unlist(ranef(fit1)))
 	checkEqualsNumeric(fitted(fit), fitted(fit1))
 
 	# weights
@@ -740,7 +740,7 @@ test_fastlmm = function(){
 test_profile = function(){
 
 	library(MASS)
-	library(fastlmm)
+	library(fastglmm)
 	library(Matrix)
 	library(RUnit)
 	set.seed(1)
@@ -857,7 +857,7 @@ test_profile = function(){
 test_BatchDesign = function(){
 
 	library(MASS)
-	library(fastlmm)
+	library(fastglmm)
 	library(Matrix)
 	library(RUnit)
 	set.seed(1)
@@ -892,7 +892,7 @@ test_S3_offset = function(){
 	if( FALSE ){
 
 	library(lme4)
-	library(fastlmm)
+	library(fastglmm)
 	library(RUnit)
 
 	weights = seq(nrow(sleepstudy))

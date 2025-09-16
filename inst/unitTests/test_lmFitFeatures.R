@@ -2,7 +2,7 @@
 
 # test_lmFitResponses = function(){
 
-# 	library(fastlmm)
+# 	library(fastglmm)
 # 	library(RUnit)
 
 # 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
@@ -55,7 +55,7 @@
 
 # test_lmFitFeatures = function(){
 
-# 	library(fastlmm)
+# 	library(fastglmm)
 # 	library(RUnit)
 
 # 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
