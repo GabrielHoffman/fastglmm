@@ -18,11 +18,33 @@
 #' summary(refitModel(fit, delta=1000))
 #
 #' @export
-#' @keywords internal
-refitModel = function(fit, delta){
-	fastlmm.fit(fit$y, 
-		X = fit$design, 
-		Z = fit$Z, 
-		weights = fit$weights, 
-		delta = delta)
+refitModel <- function(fit, delta){
+  if (is(fit$U, "sparseMatrix")) {
+    fxn <- .fastlmm_vms
+  } else {
+    fxn <- .fastlmm_vmm
+  }
+
+  REML <- FALSE
+
+  res <- fxn(
+      y = fit$y,
+      X = fit$design,
+      U = fit$U,
+      s = fit$s,
+      weights = weights(fit),
+      REML = REML,
+      delta = delta,
+      left = 1, 
+      right = 1, 
+      tol = 1e-4, 
+      nthreads = 1)
+
+  os = 1
+  res <- as.fastlmm(res, design = fit$design, offset = os, method = ifelse(REML, "REML", "ML"))
+  res$U <- fit$U
+  res$s <- fit$s
+  res$formula <- formula(fit)
+
+  res
 }

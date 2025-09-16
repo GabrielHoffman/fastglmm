@@ -18,284 +18,289 @@
 \DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <regex>}}
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{misc_8h}{misc.h}}"{}}}
 \DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{keyword}{using\ namespace\ }arma;}
+\DoxyCodeLine{00017\ \textcolor{keyword}{using\ namespace\ }arma;\ \ \ }
 \DoxyCodeLine{00018\ \textcolor{keyword}{using\ namespace\ }std;}
 \DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \textcolor{comment}{//\ namespace\ fastlmmLib\ \{}}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classtestclass_ad81f5055627fdde05acd9537bcbaae58}{testclass}}\ \{}
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classtestclass_ad81f5055627fdde05acd9537bcbaae58}{testclass}}();}
-\DoxyCodeLine{00025\ \};}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_g_l_m_family_a0593af8716460adfce45b2febb26f637}{GLMFamily}}\ \{}
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{public}:\ }
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_g_l_m_family_a0593af8716460adfce45b2febb26f637}{GLMFamily}}()\ \{\}}
-\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_g_l_m_family_a250fedbe1bd85ec52fa6d3c3512e97a3}{\string~GLMFamily}}()\ =\ 0;}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{virtual}\ vec\ \mbox{\hyperlink{class_g_l_m_family_ac32e584620b1212694e5ffbbdddc88ee}{link}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\ \textcolor{keyword}{const}\ =\ 0;}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{virtual}\ vec\ \mbox{\hyperlink{class_g_l_m_family_ab962ad824e97d1ca47f8ce6a9b09d685}{linkinv}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\ \textcolor{keyword}{const}\ =\ 0;}
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{virtual}\ vec\ \mbox{\hyperlink{class_g_l_m_family_aedebf46fa9bab1f1322e87f2c56e045e}{mu\_eta}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\ \textcolor{keyword}{const}\ =\ 0;}
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{virtual}\ vec\ \mbox{\hyperlink{class_g_l_m_family_a176cc28223defa4cf0148ee95ce4f3a9}{variance}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\ \textcolor{keyword}{const}\ =\ 0;}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//\ compute\ deviance\ redisuals\ as\ in\ gaussian()\$dev.resids}}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ But\ also\ need\ to\ transform\ as\ in\ residuals.glm():\ }}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ in\ ModelFit::setDevResids()}}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{virtual}\ vec\ \mbox{\hyperlink{class_g_l_m_family_af4860375bc5d27062d28b8ee67e62775}{dev\_resids}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&mu,\ \textcolor{keyword}{const}\ vec\ \&weights)\ \textcolor{keyword}{const}\ =\ 0;}
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{virtual}\ vec\ \mbox{\hyperlink{class_g_l_m_family_a20a84714728416b7f24c1cf37c0ab284}{initialize}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights)\ \textcolor{keyword}{const}\ =\ 0;\ \ }
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_g_l_m_family_a796870786feca3b48b430bf5cf29c0bf}{estimateDispersion}}()\ \textcolor{keyword}{const}\ =\ 0;}
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_g_l_m_family_a6de4f01576515cb200cce91a1d9934c3}{family}}()\ \textcolor{keyword}{const}\ =\ 0;\ \ \ \ }
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_g_l_m_family_ac257168190b2027747d34cc8eb53e6a3}{isCountModel}}()\ \textcolor{keyword}{const}\ =\ 0;}
-\DoxyCodeLine{00046\ \};}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_gaussian_identity_af889b1cf631f8b7d1544b0053a41ee53}{GaussianIdentity}}\ :}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_g_l_m_family_a0593af8716460adfce45b2febb26f637}{GLMFamily}}\ \{}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacefastglmm_lib}{fastglmmLib}}\ \{}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a6b5d01f18dc7248eaca84f884c5acb2d}{GLMFamily}}\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{public}:\ }
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a6b5d01f18dc7248eaca84f884c5acb2d}{GLMFamily}}()\ \{\}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_aec7af9e7f65724a14151970ac668c744}{\string~GLMFamily}}()\ \{\};}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{virtual}\ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_abdac30bd63d5dd9cf083b0398dc9c900}{link}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ vec(1);\}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{virtual}\ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a9acd51759f4f38f4e016c942fcf0c705}{linkinv}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ vec(1);\}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{virtual}\ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a35a2e95547ca6acaeb3d3ecf66ce6862}{mu\_eta}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ vec(1);\}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{virtual}\ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_ac7e49ea977ff10ffc2e43f4049540012}{variance}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ vec(1);\}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ compute\ deviance\ redisuals\ as\ in\ gaussian()\$dev.resids}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//\ But\ also\ need\ to\ transform\ as\ in\ residuals.glm():\ }}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{comment}{//\ in\ ModelFit::setDevResids()}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{virtual}\ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a4e1d52aee5cac0836975abadd70f4c79}{dev\_resids}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&mu,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ vec(1);\}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{virtual}\ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a71543a18ea1bb888c6c534040c8b3ddb}{initialize}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ vec(1);\}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a4c73987023f2455a09554b6ac0706b30}{estimateDispersion}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a79a2541edba7f7bd7ac4fa01e61480e9}{family}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}GLMFamily"{}};\};\ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a79121b147ccde65983b33e0750f997a8}{isCountModel}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a9473ad52a2bc0f68268680723d95296a}{setOverdispersion}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ value)\{\}}
+\DoxyCodeLine{00049\ \};}
 \DoxyCodeLine{00050\ }
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{class_gaussian_identity_af889b1cf631f8b7d1544b0053a41ee53}{GaussianIdentity}}()\ \{\}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_a05f05c080c7783f79a3f3c8c0064bb3f}{GaussianIdentity}}\ :}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a6b5d01f18dc7248eaca84f884c5acb2d}{GLMFamily}}\ \{}
 \DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{class_gaussian_identity_a8986f83fa29a38d403f757f7d0a0d667}{\string~GaussianIdentity}}()\textcolor{keyword}{\ override\ }\{\}}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ vec\ \mbox{\hyperlink{class_gaussian_identity_ac2d37bafb40a48dc61aa2feca3c8a37f}{link}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mu;}
-\DoxyCodeLine{00058\ \ \ \ \ \}}
-\DoxyCodeLine{00059\ \ \ \ \ vec\ \mbox{\hyperlink{class_gaussian_identity_a0cb90a2657433277a3c8436826183aac}{linkinv}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ eta;}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_a05f05c080c7783f79a3f3c8c0064bb3f}{GaussianIdentity}}()\ \{\}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_a0022f83ddeb0719e1d8b83d56346a7a2}{\string~GaussianIdentity}}()\ \{\}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_a84fda1b6419897ab0a2a66ce68926f16}{link}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mu;}
 \DoxyCodeLine{00061\ \ \ \ \ \}}
-\DoxyCodeLine{00062\ \ \ \ \ vec\ \mbox{\hyperlink{class_gaussian_identity_a169ce90bb6a774a617faa8921db2ca87}{mu\_eta}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vec(eta.n\_elem,\ fill::ones);}
+\DoxyCodeLine{00062\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_a9306d4e7d30f46836fc1fb12b02ff4a1}{linkinv}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ eta;}
 \DoxyCodeLine{00064\ \ \ \ \ \}}
-\DoxyCodeLine{00065\ \ \ \ \ vec\ \mbox{\hyperlink{class_gaussian_identity_a5bd740f18fb165c1951e09dd81fec9e8}{variance}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vec(mu.n\_elem,\ fill::ones);}
+\DoxyCodeLine{00065\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_a69ac74921b10a5cdebfd220bdfad3984}{mu\_eta}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vec(eta.n\_elem,\ fill::ones);}
 \DoxyCodeLine{00067\ \ \ \ \ \}}
-\DoxyCodeLine{00068\ \ \ \ \ vec\ \mbox{\hyperlink{class_gaussian_identity_aca09c83b9c92eab2a84e1a3b030a2121}{dev\_resids}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&mu,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ wt\ *\ ((y\ -\/\ mu)\string^2)}}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ weights\ \%\ pow(y-\/mu,2);\ \ \ }
-\DoxyCodeLine{00071\ \ \ \ \ \}}
-\DoxyCodeLine{00072\ \ \ \ \ vec\ \mbox{\hyperlink{class_gaussian_identity_aab03791f383465d53329dcf2257ef5a1}{initialize}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ y;}
+\DoxyCodeLine{00068\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_a829180f64b2715543082c9a3f19c8666}{variance}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vec(mu.n\_elem,\ fill::ones);}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_a415c91224c2949358603bf1d90c4da24}{dev\_resids}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&mu,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ wt\ *\ ((y\ -\/\ mu)\string^2)}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ weights\ \%\ pow(y-\/mu,2);\ \ \ }
 \DoxyCodeLine{00074\ \ \ \ \ \}}
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_gaussian_identity_a004a2bbc40ebdab93ec419a86909ff32}{estimateDispersion}}()\textcolor{keyword}{\ const\ override\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_gaussian_identity_abc90e200366a3be56eb47acdbc6d42eb}{family}}()\textcolor{keyword}{\ const\ override\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}GaussianIdentity"{}};\}}
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_gaussian_identity_a1fbed210a7df43d4e8e628cc54c24ca8}{isCountModel}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
-\DoxyCodeLine{00078\ \};}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_binomial_logit_a91494a2fbd887c6f9417b546d4d47eea}{BinomialLogit}}\ :}
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_g_l_m_family_a0593af8716460adfce45b2febb26f637}{GLMFamily}}\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_a70a039f8d85e0c1e65525de99dc3a6fd}{initialize}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ y;}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_a6496cb19bb1f3e41d78d126e0d9db9d6}{estimateDispersion}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_ab8610615812a35f7023707107df48e5e}{family}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}GaussianIdentity"{}};\}}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_a4c27ab86d5510800ffb51e6b431aaef5}{isCountModel}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00081\ \};}
 \DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{class_binomial_logit_a91494a2fbd887c6f9417b546d4d47eea}{BinomialLogit}}()\ \{\}}
+\DoxyCodeLine{00083\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_ac0089b143646ff87efb876646b306d16}{BinomialLogit}}\ :}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a6b5d01f18dc7248eaca84f884c5acb2d}{GLMFamily}}\ \{}
 \DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{class_binomial_logit_a9bd64da26f7c7acedac65e541dc40d10}{\string~BinomialLogit}}()\textcolor{keyword}{\ override\ }\{\}}
-\DoxyCodeLine{00087\ }
-\DoxyCodeLine{00088\ \ \ \ \ vec\ \mbox{\hyperlink{class_binomial_logit_adc1feb251849970707feaf2b55b027ac}{link}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ log(mu\ /\ (1-\/mu));}
-\DoxyCodeLine{00090\ \ \ \ \ \}}
-\DoxyCodeLine{00091\ \ \ \ \ vec\ \mbox{\hyperlink{class_binomial_logit_aed4c133ddac4a9cd1a06be91b647c5a7}{linkinv}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1.0\ /\ (1.0\ +\ exp(-\/1.0*eta));}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00087\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_ac0089b143646ff87efb876646b306d16}{BinomialLogit}}()\ \{\}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_ad0e859a5736342fa7d197e8014ab73a4}{\string~BinomialLogit}}()\ \{\}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_a582bab0a6becf177691fe34bd59dc2a7}{link}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ log(mu\ /\ (1-\/mu));}
 \DoxyCodeLine{00093\ \ \ \ \ \}}
-\DoxyCodeLine{00094\ \ \ \ \ vec\ \mbox{\hyperlink{class_binomial_logit_ad313e0e2794c727aaf1c6a8260cadd5f}{mu\_eta}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ vec\ v\ =\ exp(-\/1.0*eta);}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v\ /\ pow(\ 1.0\ +\ v,\ 2);}
-\DoxyCodeLine{00097\ \ \ \ \ \}}
-\DoxyCodeLine{00098\ \ \ \ \ vec\ \mbox{\hyperlink{class_binomial_logit_a3f0b4b5ee3ff2b92072e9cc2a6a2529a}{variance}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mu\ \%\ (1.0\ -\/\ mu);}
-\DoxyCodeLine{00100\ \ \ \ \ \}\ \ \ }
-\DoxyCodeLine{00101\ \ \ \ \ vec\ \mbox{\hyperlink{class_binomial_logit_a86446b450c983c3b8aa7799cd2eddcb0}{dev\_resids}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&mu,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00102\ }
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2\ *\ rwt[i]\ *\ (y\_log\_y(yi,\ mui)\ +\ y\_log\_y(1\ -\/\ yi,\ 1\ -\/\ mui));}}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 2.0\ *\ weights\ \%\ (y\_log\_y(y,\ mu)\ +\ y\_log\_y(1.0\ -\/\ y,\ 1.0\ -\/\ mu));}
-\DoxyCodeLine{00105\ \ \ \ \ \}}
-\DoxyCodeLine{00106\ \ \ \ \ vec\ \mbox{\hyperlink{class_binomial_logit_aab16fa04870519d36e69ffb82f07fd81}{initialize}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (weights\ \%\ y\ +\ 0.5)/(weights\ +\ 1.0);}
+\DoxyCodeLine{00094\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_a2e33ddc25a925b4e7a1eff515c2b4348}{linkinv}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1.0\ /\ (1.0\ +\ exp(-\/1.0*eta));}
+\DoxyCodeLine{00096\ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_a367559cc1e3788f7519ccdbfe74b7077}{mu\_eta}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ vec\ v\ =\ exp(-\/1.0*eta);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v\ /\ pow(\ 1.0\ +\ v,\ 2);}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00101\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_a47ff7d35b0d775f44e1ae59fd17451a6}{variance}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mu\ \%\ (1.0\ -\/\ mu);}
+\DoxyCodeLine{00103\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00104\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_a731ae7fdb80fd9bb26581740516d85a9}{dev\_resids}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&mu,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2\ *\ rwt[i]\ *\ (y\_log\_y(yi,\ mui)\ +\ y\_log\_y(1\ -\/\ yi,\ 1\ -\/\ mui));}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 2.0\ *\ weights\ \%\ (y\_log\_y(y,\ mu)\ +\ y\_log\_y(1.0\ -\/\ y,\ 1.0\ -\/\ mu));}
 \DoxyCodeLine{00108\ \ \ \ \ \}}
-\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_binomial_logit_aad1487d8a64dc1730b797c1841001f86}{estimateDispersion}}()\textcolor{keyword}{\ const\ override\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\}}
-\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_binomial_logit_a47bd15a975891f19fa419e67a851fcaa}{family}}()\textcolor{keyword}{\ const\ override\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}BinomialLogit"{}};\}}
-\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_binomial_logit_af39864375a656d8b5e35e84b522bdd2f}{isCountModel}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
-\DoxyCodeLine{00112\ \};}
-\DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ }
-\DoxyCodeLine{00115\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_quasibinomial_logit}{QuasibinomialLogit}}\ :}
-\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_binomial_logit_a91494a2fbd887c6f9417b546d4d47eea}{BinomialLogit}}\ \{}
-\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{bool}\ estimateDispersion()\textcolor{keyword}{\ const\ override\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{string}\ family()\textcolor{keyword}{\ const\ override\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}QuasibinomialLogit"{}};\}}
-\DoxyCodeLine{00119\ \};}
-\DoxyCodeLine{00120\ }
-\DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_binomial_probit_af8df5edfdb710619bb5e4b92490a59aa}{BinomialProbit}}\ :}
-\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_g_l_m_family_a0593af8716460adfce45b2febb26f637}{GLMFamily}}\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_a5f5f7275287d10c8c18bbf5b6a6e6999}{initialize}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (weights\ \%\ y\ +\ 0.5)/(weights\ +\ 1.0);}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_ad0c104186f604e8ac76bec553387fdfb}{estimateDispersion}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\}}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_abd01c7f26edcf1a3e2807e5d9587a456}{family}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}BinomialLogit"{}};\}}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_a5bd1bff88de763ccbd3f833218c43ebb}{isCountModel}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00115\ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_quasibinomial_logit}{QuasibinomialLogit}}\ :}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_ac0089b143646ff87efb876646b306d16}{BinomialLogit}}\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_ad0c104186f604e8ac76bec553387fdfb}{estimateDispersion}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_abd01c7f26edcf1a3e2807e5d9587a456}{family}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}QuasibinomialLogit"{}};\}}
+\DoxyCodeLine{00122\ \};}
+\DoxyCodeLine{00123\ }
 \DoxyCodeLine{00124\ }
-\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{class_binomial_probit_af8df5edfdb710619bb5e4b92490a59aa}{BinomialProbit}}()\{\}}
+\DoxyCodeLine{00125\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit_a4d2a1c545851ddbf36c88a4ba823d79f}{BinomialProbit}}\ :}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a6b5d01f18dc7248eaca84f884c5acb2d}{GLMFamily}}\ \{}
 \DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \ \ \ \ \mbox{\hyperlink{class_binomial_probit_a4a247b93c7a2b9c927c0beb93841fa76}{\string~BinomialProbit}}()\textcolor{keyword}{\ override\ }\{\}}
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \ \ \ \ vec\ \mbox{\hyperlink{class_binomial_probit_aac842e58b1626c77589e43446a39c6b1}{link}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ qnorm(mu)}}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ qnorm(mu);}
-\DoxyCodeLine{00133\ \ \ \ \ \}}
-\DoxyCodeLine{00134\ \ \ \ \ vec\ \mbox{\hyperlink{class_binomial_probit_a751ec405957e4b5658592d2cf791d6b0}{linkinv}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ override\ }\{\ }
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pnorm(eta)}}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ normcdf(\ pmin(pmax(eta,\ -\/thresh),\ thresh)\ );}
-\DoxyCodeLine{00137\ \ \ \ \ \}}
-\DoxyCodeLine{00138\ \ \ \ \ vec\ \mbox{\hyperlink{class_binomial_probit_aace4e50ab56f3aca3ec101af71132cb4}{mu\_eta}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pmax(dnorm(eta),\ .Machine\$double.eps)}}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pmax(normpdf(eta),\ tol);}
-\DoxyCodeLine{00141\ \ \ \ \ \}}
-\DoxyCodeLine{00142\ \ \ \ \ vec\ \mbox{\hyperlink{class_binomial_probit_a94023fe0dc124565933ec2ae5b9f5f7d}{variance}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mu\ \%\ (1.0\ -\/\ mu);}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00129\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit_a4d2a1c545851ddbf36c88a4ba823d79f}{BinomialProbit}}()\{\}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit_a3a7b2baa6a3051226ad5baaad4ce1511}{\string~BinomialProbit}}()\ \{\}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit_abedb2cf55a8c77fabc4af56557495153}{link}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ qnorm(mu)}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ qnorm(mu);}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit_a0eb345d182f9535b671c6a8e88bd85c0}{linkinv}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ }\{\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \textcolor{comment}{//\ pnorm(eta)}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ normcdf(\ pmin(pmax(eta,\ -\/thresh),\ thresh)\ );}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit_a06a672eb4b890e8f885e8afb70c4237b}{mu\_eta}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pmax(dnorm(eta),\ .Machine\$double.eps)}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pmax(normpdf(eta),\ tol);}
 \DoxyCodeLine{00144\ \ \ \ \ \}}
-\DoxyCodeLine{00145\ \ \ \ \ vec\ \mbox{\hyperlink{class_binomial_probit_ac54a28c82173ffc0319e75eac5097424}{dev\_resids}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&mu,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2\ *\ rwt[i]\ *\ (y\_log\_y(yi,\ mui)\ +\ y\_log\_y(1\ -\/\ yi,\ 1\ -\/\ mui));}}
-\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 2.0\ *\ weights\ \%\ (y\_log\_y(y,\ mu)\ +\ y\_log\_y(1\ -\/\ y,\ 1\ -\/\ mu));}
-\DoxyCodeLine{00149\ \ \ \ \ \}}
-\DoxyCodeLine{00150\ \ \ \ \ vec\ \mbox{\hyperlink{class_binomial_probit_afc298d28ba387922841501b18b580aa2}{initialize}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (weights\ \%\ y\ +\ 0.5)/(weights\ +\ 1.0);}
+\DoxyCodeLine{00145\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit_a3c710ce8089b372948ad4af26385ee92}{variance}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mu\ \%\ (1.0\ -\/\ mu);}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit_a6b531ba7bf80db65f67d53253bb5f806}{dev\_resids}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&mu,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2\ *\ rwt[i]\ *\ (y\_log\_y(yi,\ mui)\ +\ y\_log\_y(1\ -\/\ yi,\ 1\ -\/\ mui));}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 2.0\ *\ weights\ \%\ (y\_log\_y(y,\ mu)\ +\ y\_log\_y(1\ -\/\ y,\ 1\ -\/\ mu));}
 \DoxyCodeLine{00152\ \ \ \ \ \}}
-\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_binomial_probit_ace7bb6c614cf2df0cb093d64d5413b22}{estimateDispersion}}()\textcolor{keyword}{\ const\ override\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\}}
-\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_binomial_probit_a68d7549a65af62c4d333f31f61b127d2}{family}}()\textcolor{keyword}{\ const\ override\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}BinomialProbit"{}};\}}
-\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_binomial_probit_aa93587103bc7109e4cdd58ff11f14002}{isCountModel}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
-\DoxyCodeLine{00156\ }
-\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{double}\ tol\ =\ 2.220446e-\/16;}
-\DoxyCodeLine{00159\ \ \ \ \ \textcolor{comment}{//\ double\ thresh\ =\ -\/1.0\ *\ R::qnorm(\ tol,\ 0.0,\ 1.0,\ 1,\ 0\ );}}
-\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{double}\ thresh\ =\ 8.125891;\ \textcolor{comment}{//\ -\/1*qnorm(.Machine\$double.eps)}}
-\DoxyCodeLine{00161\ \};}
-\DoxyCodeLine{00162\ }
-\DoxyCodeLine{00163\ }
-\DoxyCodeLine{00164\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_poisson_log_a14fb03fac61fc4ffd7db701de59ead11}{PoissonLog}}\ :}
-\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_g_l_m_family_a0593af8716460adfce45b2febb26f637}{GLMFamily}}\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit_acdbbccca2c3e47124ad93e7fc456d542}{initialize}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (weights\ \%\ y\ +\ 0.5)/(weights\ +\ 1.0);}
+\DoxyCodeLine{00155\ \ \ \ \ \}}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit_a42f5ea438150ba4e7a2fded8c35e3a93}{estimateDispersion}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\}}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit_aebdaac27d13490e4b661b72f68481e49}{family}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}BinomialProbit"{}};\}}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit_a9b3b6fed182f7637085436c4eecf62b1}{isCountModel}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{double}\ tol\ =\ 2.220446e-\/16;}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{comment}{//\ double\ thresh\ =\ -\/1.0\ *\ R::qnorm(\ tol,\ 0.0,\ 1.0,\ 1,\ 0\ );}}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{double}\ thresh\ =\ 8.125891;\ \textcolor{comment}{//\ -\/1*qnorm(.Machine\$double.eps)}}
+\DoxyCodeLine{00164\ \};}
+\DoxyCodeLine{00165\ }
 \DoxyCodeLine{00166\ }
-\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00168\ \ \ \ \ \mbox{\hyperlink{class_poisson_log_a14fb03fac61fc4ffd7db701de59ead11}{PoissonLog}}()\{\}}
+\DoxyCodeLine{00167\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_ad0a190b55ae6ddd71841e1ffaa683384}{PoissonLog}}\ :}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a6b5d01f18dc7248eaca84f884c5acb2d}{GLMFamily}}\ \{}
 \DoxyCodeLine{00169\ }
-\DoxyCodeLine{00170\ \ \ \ \ \mbox{\hyperlink{class_poisson_log_a08a50a4646e2d74bb27cc00c05e33229}{\string~PoissonLog}}()\textcolor{keyword}{\ override\ }\{\}}
-\DoxyCodeLine{00171\ }
-\DoxyCodeLine{00172\ \ \ \ \ vec\ \mbox{\hyperlink{class_poisson_log_a0864e2a072f0473e5054771f2f801414}{link}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ log(mu);}
-\DoxyCodeLine{00174\ \ \ \ \ \}}
-\DoxyCodeLine{00175\ \ \ \ \ vec\ \mbox{\hyperlink{class_poisson_log_acad907a23f105f28e1ab8c39785d386e}{linkinv}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ override\ }\{\ }
-\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pmax(exp(eta),\ .Machine\$double.eps)}}
-\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pmax(exp(eta),\ tol);}
-\DoxyCodeLine{00178\ \ \ \ \ \}}
-\DoxyCodeLine{00179\ \ \ \ \ vec\ \mbox{\hyperlink{class_poisson_log_a8bf48da160c0682829b38cb6db917c44}{mu\_eta}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pmax(exp(eta),\ .Machine\$double.eps)}}
-\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pmax(exp(eta),\ tol);}
-\DoxyCodeLine{00182\ \ \ \ \ \}}
-\DoxyCodeLine{00183\ \ \ \ \ vec\ \mbox{\hyperlink{class_poisson_log_a3d261141a71a1dffab21994eafc0246c}{variance}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mu;}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00171\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_ad0a190b55ae6ddd71841e1ffaa683384}{PoissonLog}}()\{\}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_adaa06f0047b79df8f816d05ff6bb8203}{\string~PoissonLog}}()\ \{\}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_a9e87dcd644c0b69e3ccdb6747c196957}{link}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ log(mu);}
+\DoxyCodeLine{00177\ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_ada108e59909308afafad28475876fb09}{linkinv}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ }\{\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \textcolor{comment}{//\ pmax(exp(eta),\ .Machine\$double.eps)}}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pmax(exp(eta),\ tol);}
+\DoxyCodeLine{00181\ \ \ \ \ \}}
+\DoxyCodeLine{00182\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_a9760c0a2c7308594799ecd0e3a280c7a}{mu\_eta}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \textcolor{comment}{//\ pmax(exp(eta),\ .Machine\$double.eps)}}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pmax(exp(eta),\ tol);}
 \DoxyCodeLine{00185\ \ \ \ \ \}}
-\DoxyCodeLine{00186\ \ \ \ \ vec\ \mbox{\hyperlink{class_poisson_log_af41e5632efec1e044b438997de6861a1}{dev\_resids}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&mu,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ r\ <-\/\ mu\ *\ wt}}
-\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ p\ <-\/\ which(y\ >\ 0)}}
-\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ r[p]\ <-\/\ (wt\ *\ (y\ *\ log(y/mu)\ -\/\ (y\ -\/\ mu)))[p]}}
-\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2\ *\ r}}
-\DoxyCodeLine{00191\ }
-\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ vec\ res\ =\ mu\ \%\ weights;}
-\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ uvec\ idx\ =\ find(y\ >\ 0.0);}
-\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ vec\ tmp\ =\ (weights\ \%\ (y\ \%\ log(y/mu)\ -\/\ (y\ -\/\ mu)));}
-\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ res.elem(idx)\ =\ tmp.elem(idx);}
-\DoxyCodeLine{00196\ }
-\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 2.0\ *\ res;}
-\DoxyCodeLine{00198\ \ \ \ \ \}}
-\DoxyCodeLine{00199\ \ \ \ \ vec\ \mbox{\hyperlink{class_poisson_log_a89668602dd4ee38b1b1c63379a7bee39}{initialize}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ y\ +\ 0.1;}
+\DoxyCodeLine{00186\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_a3aeabecf250dc29c2e278d17bfb49d44}{variance}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mu;}
+\DoxyCodeLine{00188\ \ \ \ \ \}}
+\DoxyCodeLine{00189\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_a827f0649aa3b64b9624cb879b2748838}{dev\_resids}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&mu,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ r\ <-\/\ mu\ *\ wt}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \textcolor{comment}{//\ p\ <-\/\ which(y\ >\ 0)}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \textcolor{comment}{//\ r[p]\ <-\/\ (wt\ *\ (y\ *\ log(y/mu)\ -\/\ (y\ -\/\ mu)))[p]}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \textcolor{comment}{//\ 2\ *\ r}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ vec\ res\ =\ mu\ \%\ weights;}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ uvec\ idx\ =\ find(y\ >\ 0.0);}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ vec\ tmp\ =\ (weights\ \%\ (y\ \%\ log(y/mu)\ -\/\ (y\ -\/\ mu)));}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ res.elem(idx)\ =\ tmp.elem(idx);}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 2.0\ *\ res;}
 \DoxyCodeLine{00201\ \ \ \ \ \}}
-\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_poisson_log_a5f6fd556644cd7af44d849146aaa57a6}{estimateDispersion}}()\textcolor{keyword}{\ const\ override\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\}}
-\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_poisson_log_a90742bde94dd68561afa2db040065b6a}{family}}()\textcolor{keyword}{\ const\ override\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}PoissonLog"{}};\}}
-\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_poisson_log_ad9512eec468d8ee7a5b8fe6d8a22996f}{isCountModel}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}}
-\DoxyCodeLine{00205\ }
-\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{double}\ tol\ =\ 2.220446e-\/16;}
-\DoxyCodeLine{00208\ \};}
-\DoxyCodeLine{00209\ }
-\DoxyCodeLine{00210\ }
-\DoxyCodeLine{00211\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_quasipoisson_log}{QuasipoissonLog}}\ :}
-\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_poisson_log_a14fb03fac61fc4ffd7db701de59ead11}{PoissonLog}}\ \{}
-\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordtype}{bool}\ estimateDispersion()\textcolor{keyword}{\ const\ override\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
-\DoxyCodeLine{00214\ \};}
-\DoxyCodeLine{00215\ }
-\DoxyCodeLine{00216\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_n_b_a18c5b4bb79a762485da1fd0c8f8cacac}{NB}}\ :}
-\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_g_l_m_family_a0593af8716460adfce45b2febb26f637}{GLMFamily}}\ \{}
+\DoxyCodeLine{00202\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_a3a6ac11dfe9324a9b2bca408fc55e477}{initialize}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ y\ +\ 0.1;}
+\DoxyCodeLine{00204\ \ \ \ \ \}}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_a1573f7cec17f820beee5aff6526920e0}{estimateDispersion}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\}}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_ada3e519454549bb071bdc39232aa2e2f}{family}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}PoissonLog"{}};\}}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_a894531ded653fbe810b1a1482014c18f}{isCountModel}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordtype}{double}\ tol\ =\ 2.220446e-\/16;}
+\DoxyCodeLine{00211\ \};}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_quasipoisson_log}{QuasipoissonLog}}\ :}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_ad0a190b55ae6ddd71841e1ffaa683384}{PoissonLog}}\ \{}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_a1573f7cec17f820beee5aff6526920e0}{estimateDispersion}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00217\ \};}
 \DoxyCodeLine{00218\ }
-\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00220\ \ \ \ \ \mbox{\hyperlink{class_n_b_a18c5b4bb79a762485da1fd0c8f8cacac}{NB}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{class_n_b_ac7e26425d13a45b2cc6a08967834541b}{theta}})\ :\ }
-\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_n_b_ac7e26425d13a45b2cc6a08967834541b}{theta}}(\mbox{\hyperlink{class_n_b_ac7e26425d13a45b2cc6a08967834541b}{theta}})\ \{\}}
-\DoxyCodeLine{00222\ }
-\DoxyCodeLine{00223\ \ \ \ \ \mbox{\hyperlink{class_n_b_ae0d6a9574f6ca35e6bbc45c174ce8784}{\string~NB}}()\textcolor{keyword}{\ override\ }\{\}}
+\DoxyCodeLine{00219\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_n_b_a1d7bfac44cbefbc3d9ef8de5230f84ad}{NB}}\ :}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastglmm_lib_1_1_g_l_m_family_a6b5d01f18dc7248eaca84f884c5acb2d}{GLMFamily}}\ \{}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keyword}{public}:\ }
+\DoxyCodeLine{00223\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_a1d7bfac44cbefbc3d9ef8de5230f84ad}{NB}}()\ \{\}}
 \DoxyCodeLine{00224\ }
-\DoxyCodeLine{00225\ \ \ \ \ vec\ \mbox{\hyperlink{class_n_b_a7d5096b7372e6066c95cad1252429cca}{link}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ log(mu);}
-\DoxyCodeLine{00227\ \ \ \ \ \}}
-\DoxyCodeLine{00228\ \ \ \ \ vec\ \mbox{\hyperlink{class_n_b_a98ca4a73ee14fdc6fb267885d48e2e9d}{linkinv}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ override\ }\{\ }
-\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pmax(exp(eta),\ .Machine\$double.eps)}}
-\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pmax(exp(eta),\ tol);}
-\DoxyCodeLine{00231\ \ \ \ \ \}}
-\DoxyCodeLine{00232\ \ \ \ \ vec\ \mbox{\hyperlink{class_n_b_a963dce894ccd3e589b33ea0e80463ece}{mu\_eta}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pmax(exp(eta),\ .Machine\$double.eps)}}
-\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pmax(exp(eta),\ tol);}
-\DoxyCodeLine{00235\ \ \ \ \ \}}
-\DoxyCodeLine{00236\ \ \ \ \ vec\ \mbox{\hyperlink{class_n_b_ab486073adc69e53e991bed9e849b0040}{variance}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mu\ +\ pow(mu,\ 2)\ /\ \mbox{\hyperlink{class_n_b_ac7e26425d13a45b2cc6a08967834541b}{theta}};}
-\DoxyCodeLine{00238\ \ \ \ \ \}}
-\DoxyCodeLine{00239\ \ \ \ \ vec\ \mbox{\hyperlink{class_n_b_abfc39d79cedd449c84fc13db3fc8aed8}{dev\_resids}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&mu,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2\ *\ wt\ *\ (y\ *\ log(pmax(1,\ y)/mu)\ -\/\ (y\ +\ .Theta)\ *\ log((y\ +\ .Theta)/(mu\ +\ .Theta)))}}
-\DoxyCodeLine{00241\ }
-\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 2.0\ *\ weights\ \%\ (y\ \%\ log(pmax(y,\ 1.0)/mu)\ -\/\ (y\ +\ \mbox{\hyperlink{class_n_b_ac7e26425d13a45b2cc6a08967834541b}{theta}})\ \%\ log((y\ +\ \mbox{\hyperlink{class_n_b_ac7e26425d13a45b2cc6a08967834541b}{theta}})/(mu\ +\ \mbox{\hyperlink{class_n_b_ac7e26425d13a45b2cc6a08967834541b}{theta}})));}
+\DoxyCodeLine{00225\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_a45dbca593710b5482b7270ed46364280}{NB}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_n_b_aaf708e8ecebca3cc2a94eeff810506ea}{theta}})\ :\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_aaf708e8ecebca3cc2a94eeff810506ea}{theta}}(\mbox{\hyperlink{classfastglmm_lib_1_1_n_b_aaf708e8ecebca3cc2a94eeff810506ea}{theta}})\ \{\}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_a9bab75f7377374677a604356b763c41a}{\string~NB}}()\ \{\}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_a76834adcbfbdc5dfa0fc5995748f9b86}{link}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ log(mu);}
+\DoxyCodeLine{00232\ \ \ \ \ \}}
+\DoxyCodeLine{00233\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_ad6d05f8f37fa7981f3d02eab6fa087d4}{linkinv}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ }\{\ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \textcolor{comment}{//\ pmax(exp(eta),\ .Machine\$double.eps)}}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pmax(exp(eta),\ tol);}
+\DoxyCodeLine{00236\ \ \ \ \ \}}
+\DoxyCodeLine{00237\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_aea3f901d76c69dc5c8e7bef93d232226}{mu\_eta}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \textcolor{comment}{//\ pmax(exp(eta),\ .Machine\$double.eps)}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pmax(exp(eta),\ tol);}
+\DoxyCodeLine{00240\ \ \ \ \ \}}
+\DoxyCodeLine{00241\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_a3b0b0eda95b1231a0f0a1d3139cd253c}{variance}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mu\ +\ pow(mu,\ 2)\ /\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_aaf708e8ecebca3cc2a94eeff810506ea}{theta}};}
 \DoxyCodeLine{00243\ \ \ \ \ \}}
-\DoxyCodeLine{00244\ \ \ \ \ vec\ \mbox{\hyperlink{class_n_b_aac3fe9af596d8f7a8f2ecd30a1df686b}{initialize}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ y\ +\ (y\ ==\ 0)/6}}
-\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ y\ +\ accu(y\ ==\ 0)\ /\ 6.0;}
-\DoxyCodeLine{00247\ \ \ \ \ \}}
-\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_n_b_aaa25f0e6fcbacf547a82cf80e911ea96}{estimateDispersion}}()\textcolor{keyword}{\ const\ override\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
-\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{class_n_b_ad055fbf10626ed1df2990535906b2e4a}{family}}()\textcolor{keyword}{\ const\ override\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}NB"{}};\}}
-\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_n_b_a9632353b22e548cd225c70be238c19f8}{isCountModel}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}}
-\DoxyCodeLine{00251\ }
-\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_n_b_ac7e26425d13a45b2cc6a08967834541b}{theta}};}
-\DoxyCodeLine{00253\ }
-\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordtype}{double}\ tol\ =\ 2.220446e-\/16;}
+\DoxyCodeLine{00244\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_ac545aa71975f26ac221c7d18a53da898}{dev\_resids}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&mu,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2\ *\ wt\ *\ (y\ *\ log(pmax(1,\ y)/mu)\ -\/\ (y\ +\ .Theta)\ *\ log((y\ +\ .Theta)/(mu\ +\ .Theta)))}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 2.0\ *\ weights\ \%\ (y\ \%\ log(pmax(y,\ 1.0)/mu)\ -\/\ (y\ +\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_aaf708e8ecebca3cc2a94eeff810506ea}{theta}})\ \%\ log((y\ +\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_aaf708e8ecebca3cc2a94eeff810506ea}{theta}})/(mu\ +\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_aaf708e8ecebca3cc2a94eeff810506ea}{theta}})));}
+\DoxyCodeLine{00248\ \ \ \ \ \}}
+\DoxyCodeLine{00249\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_a2601a02f24f2a852b35014bc8396d67d}{initialize}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ y\ +\ (y\ ==\ 0)/6}}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ y\ +\ accu(y\ ==\ 0)\ /\ 6.0;}
+\DoxyCodeLine{00252\ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_a8b16ade9b068015dc706206f8897e9ea}{estimateDispersion}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_a79d44cd7a95fd1536a8f208ea6de4fb3}{family}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}NB"{}};\}}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_ae7c5ab86ecf966dfaf333bdb2227f4dd}{isCountModel}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}}
 \DoxyCodeLine{00256\ }
-\DoxyCodeLine{00257\ \};}
-\DoxyCodeLine{00258\ }
-\DoxyCodeLine{00259\ }
-\DoxyCodeLine{00260\ \ }
-\DoxyCodeLine{00264\ \textcolor{keyword}{static}\ shared\_ptr<GLMFamily>\ getGLMFamily(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&family)\{}
-\DoxyCodeLine{00265\ \ \ \ \ }
-\DoxyCodeLine{00266\ \ \ \ \ shared\_ptr<GLMFamily>\ fam;}
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_a50e33bef13ea15805dfde05b1c7d5445}{setOverdispersion}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&value)\{}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_aaf708e8ecebca3cc2a94eeff810506ea}{theta}}\ =\ value;}
+\DoxyCodeLine{00259\ \ \ \ \ \}}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_aaf708e8ecebca3cc2a94eeff810506ea}{theta}}\ =\ std::numeric\_limits<double>::quiet\_NaN();}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keywordtype}{double}\ tol\ =\ 2.220446e-\/16;}
+\DoxyCodeLine{00265\ \};}
+\DoxyCodeLine{00266\ }
 \DoxyCodeLine{00267\ }
-\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}gaussian"{}}\ ||\ family\ ==\ \textcolor{stringliteral}{"{}gaussian/identity"{}}\ )\{}
-\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_gaussian_identity}{GaussianIdentity}}());}
-\DoxyCodeLine{00270\ \ \ \ \ \}}
-\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}binomial/logit"{}}\ )\{}
-\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_binomial_logit}{BinomialLogit}}());}
-\DoxyCodeLine{00273\ \ \ \ \ \}}
-\DoxyCodeLine{00274\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}binomial/probit"{}}\ )\{}
-\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_binomial_probit}{BinomialProbit}}());}
-\DoxyCodeLine{00276\ \ \ \ \ \}}
-\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}poisson/log"{}}\ )\{}
-\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_poisson_log}{PoissonLog}}());}
-\DoxyCodeLine{00279\ \ \ \ \ \}}
-\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}quasibinomial/logit"{}}\ )\{}
-\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_quasibinomial_logit}{QuasibinomialLogit}}());}
-\DoxyCodeLine{00282\ \ \ \ \ \}}
-\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}quasipoisson/log"{}}\ )\{}
-\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_quasipoisson_log}{QuasipoissonLog}}());}
-\DoxyCodeLine{00285\ \ \ \ \ \}}
-\DoxyCodeLine{00286\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ regex\_search(\ family,\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}))\ )\{}
-\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ theta\_str\ =\ regex\_replace(\ family,\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}),\ \textcolor{stringliteral}{"{}"{}});}
-\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ theta\ =\ atof(theta\_str.c\_str());}
-\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_n_b}{NB}}(theta));}
-\DoxyCodeLine{00290\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ invalid\_argument(\ \textcolor{stringliteral}{"{}Invalid\ GLM\ family:\ "{}}\ +\ family\ );}
-\DoxyCodeLine{00292\ \ \ \ \ \}}
-\DoxyCodeLine{00293\ }
-\DoxyCodeLine{00294\ \ \ \ \ \textcolor{keywordflow}{return}\ fam;}
-\DoxyCodeLine{00295\ \}}
-\DoxyCodeLine{00296\ }
-\DoxyCodeLine{00297\ }
-\DoxyCodeLine{00298\ \textcolor{comment}{//\ \}}}
-\DoxyCodeLine{00299\ }
-\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00268\ \ }
+\DoxyCodeLine{00272\ \textcolor{keyword}{static}\ shared\_ptr<GLMFamily>\ getGLMFamily(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&family)\{}
+\DoxyCodeLine{00273\ \ \ \ \ }
+\DoxyCodeLine{00274\ \ \ \ \ shared\_ptr<GLMFamily>\ fam;}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}gaussian"{}}\ ||\ family\ ==\ \textcolor{stringliteral}{"{}gaussian/identity"{}}\ )\{}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity}{GaussianIdentity}}());}
+\DoxyCodeLine{00278\ \ \ \ \ \}}
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}binomial/logit"{}}\ )\{}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ BinomialLogit());}
+\DoxyCodeLine{00281\ \ \ \ \ \}}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}binomial/probit"{}}\ )\{}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit}{BinomialProbit}}());}
+\DoxyCodeLine{00284\ \ \ \ \ \}}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}poisson/log"{}}\ )\{}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \mbox{\hyperlink{classfastglmm_lib_1_1_poisson_log}{PoissonLog}}());}
+\DoxyCodeLine{00287\ \ \ \ \ \}}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}quasibinomial/logit"{}}\ )\{}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \mbox{\hyperlink{classfastglmm_lib_1_1_quasibinomial_logit}{QuasibinomialLogit}}());}
+\DoxyCodeLine{00290\ \ \ \ \ \}}
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}quasipoisson/log"{}}\ )\{}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \mbox{\hyperlink{classfastglmm_lib_1_1_quasipoisson_log}{QuasipoissonLog}}());}
+\DoxyCodeLine{00293\ \ \ \ \ \}}
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}nb"{}}\ )\{}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b}{NB}}());}
+\DoxyCodeLine{00296\ \ \ \ \ \}}
+\DoxyCodeLine{00297\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ regex\_search(\ family,\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}))\ )\{}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ theta\_str\ =\ regex\_replace(\ family,\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}),\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ theta\ =\ atof(theta\_str.c\_str());}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b}{NB}}(theta));}
+\DoxyCodeLine{00301\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ invalid\_argument(\ \textcolor{stringliteral}{"{}Invalid\ GLM\ family:\ "{}}\ +\ family\ );}
+\DoxyCodeLine{00303\ \ \ \ \ \}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{keywordflow}{return}\ fam;}
+\DoxyCodeLine{00306\ \}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

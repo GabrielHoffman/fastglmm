@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['update_5fresponse_0',['update_response',['../classfastlmm_lib_1_1fastlmm.html#a8592e6fd56acb55e5ac7be634492fef2',1,'fastlmmLib::fastlmm::update_response(const T1 &amp;Y_, const vec &amp;weights_)'],['../classfastlmm_lib_1_1fastlmm.html#a6213986fba5377ae3389da3145882623',1,'fastlmmLib::fastlmm::update_response(const T1 &amp;Y_, const vec &amp;weights_, const mat &amp;Yu_)']]],
-  ['update_5fx_1',['update_X',['../classfastlmm_lib_1_1fastlmm.html#a628de2756ac8b51724b336e96d985aa4',1,'fastlmmLib::fastlmm']]],
-  ['update_5fy_2',['update_Y',['../classfastlmm_lib_1_1fastlmm.html#a7ea6e8756163cf657d16a083dc752d89',1,'fastlmmLib::fastlmm']]]
+  ['variance_0',['variance',['../classfastglmm_lib_1_1_g_l_m_family.html#ac7e49ea977ff10ffc2e43f4049540012',1,'fastglmmLib::GLMFamily::variance()'],['../classfastglmm_lib_1_1_gaussian_identity.html#a829180f64b2715543082c9a3f19c8666',1,'fastglmmLib::GaussianIdentity::variance()'],['../classfastglmm_lib_1_1_binomial_logit.html#a47ff7d35b0d775f44e1ae59fd17451a6',1,'fastglmmLib::BinomialLogit::variance()'],['../classfastglmm_lib_1_1_binomial_probit.html#a3c710ce8089b372948ad4af26385ee92',1,'fastglmmLib::BinomialProbit::variance()'],['../classfastglmm_lib_1_1_poisson_log.html#a3aeabecf250dc29c2e278d17bfb49d44',1,'fastglmmLib::PoissonLog::variance()'],['../classfastglmm_lib_1_1_n_b.html#a3b0b0eda95b1231a0f0a1d3139cd253c',1,'fastglmmLib::NB::variance()']]]
 ];

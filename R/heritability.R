@@ -27,13 +27,13 @@ pchibarsq <- function (p, df = 1, mix = 0.5, lower.tail = TRUE, log.p = FALSE) {
 #' 
 #' @details For \code{method == "information"}, the profile log-likelihood is evaluted with respect to hsq.  The standard error is obtained from the information matrix based on the Hessian evaluated at the MLE of hsq. The p-value is then computed from this estimated standard error using a normal approximation.  This approach can perform well for large sample sizes, by performs poorly for moderate sample sizes.
 #' 
-#' For \code{method == "permutation"}, 
+#' For \code{method == "permutation"},  ....
 
 #' @references
 #' Abney, M. (2015). Permutation testing in the presence of polygenic variation. Genetic epidemiology, 39(4), 249-258. \url{https://doi.org/10.1002/gepi.21893}
 #' 
 #' @importFrom numDeriv hessian
-
+#' @export
 heritability <- function(fit, method = c("information", "permutation"), nperms = 100) {
 
   warning("In progress")
@@ -41,14 +41,16 @@ heritability <- function(fit, method = c("information", "permutation"), nperms =
   method <- match.arg(method)
 
   # estimate of hsq given delta
-  hsq_hat <- 1 - 1 / (1 + 1 / fit$delta)
+  # hsq_hat <- 1 - 1 / (1 + 1 / fit$delta)
+  hsq_hat <- 1 / (fit$delta + 1)
   # with(fit, sig_g / (sig_g + sig_e))
 
   if (method == "information") {
     Yu <- crossprod(fit$U, fit$y)
     Xu <- crossprod(fit$U, fit$design)
     f <- function(hsq) {
-      delta <- 1 / (1 / hsq - 1)
+      # delta <- 1 / (1 / hsq - 1)
+      delta <- hsq / (1 - hsq)
       -1 * ll_R(delta, fit$y, fit$design, Yu, Xu, fit$U, fit$s)
     }
 
@@ -67,29 +69,30 @@ heritability <- function(fit, method = c("information", "permutation"), nperms =
     se_hsq <- sqrt(1 / infor)
 
     stat <- hsq_hat / se_hsq
-    p.value = pchisq(stat^2, 1, lower.tail=FALSE)
+    p.value <- pchisq(stat^2, 1, lower.tail=FALSE)
 
     res <- data.frame(hsq = hsq_hat, se = se_hsq, p.value)
 
   } else if (method == "permutation") {
 
-    fit_null = refitModel(fit, delta = 1e-9)
-    residValues = residuals(fit_null)
+    fit_null <- refitModel(fit, delta = 1e-9)
+    residValues <- residuals(fit_null)
 
-    # Use residuals instead here
+    # Use residuals instead here??
     Y_mat <- lapply(seq(nperms), function(i) {
       sample(fit$y, length(fit$y), replace = TRUE)
       # r <- sample(residValues, length(residValues), replace = TRUE)
       # r + predict(fit)
     })
     Y_mat <- do.call(cbind, Y_mat)
-    colnames(Y_mat) = paste0("perm_", seq(nperms))
+    colnames(Y_mat) <- paste0("perm_", seq(nperms))
 
     # Run as batch
     fitList <- fastlmm.fit(Y_mat, fit$design, Z = fit$Z)
 
     h_sq_null <- sapply(fitList, function(fit) {
-      1 - 1 / (1 + 1 / fit$delta)
+      # 1 - 1 / (1 + 1 / fit$delta)
+      1 / (fit$delta + 1)
     })
 
     # Approximate null distribution with beta

@@ -65,18 +65,18 @@ fastglmm.nb = function (formula, data, weights, maxit = 100, tol = .Machine$doub
 
  		# estimate overdispersion
 		theta = nb_theta(y = y.orig, 
-			 	mu = fitted(fit), 
-			 	n = sum(weights),
-			 	weights = weights, 
-			 	left = -5,
-			 	right = 20,
-			 	tol = .Machine$double.eps^0.25)
+						 	mu = fitted(fit), 
+						 	n = sum(weights),
+						 	weights = weights, 
+						 	left = -5,
+						 	right = 20,
+						 	tol = .Machine$double.eps^0.25)
 
 		ll_prev = logLik(fit)
 
 		# estimate NB model with dispersion fixed
 		fit <- fastglmm_R(formula, 
-				data = data, 
+						data = data, 
 	        	weights = weights,
 	        	family = negative.binomial(theta),
 	        	init.fit = fit, 

@@ -14,47 +14,78 @@
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ \_EXPORT\_TO\_R\_FASTLMM\_}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ \_EXPORT\_TO\_R\_FASTLMM\_}}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{fastlmm_lib_8h}{fastlmmLib.h}}"{}}}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{using\ namespace\ }Rcpp;\ }
-\DoxyCodeLine{00016\ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespacefastlmm_lib}{fastlmmLib}};}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{comment}{//\ Depends\ on\ Rcpp::List,\ so\ define\ outside\ of\ class}}
-\DoxyCodeLine{00019\ \textcolor{keyword}{const}\ List\ \mbox{\hyperlink{export_to_r__fastlmm_8h_afd61edcac6899b7f0727d2802927cc00}{toList}}(\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m}{ModelFitLMM}}\ \&res)\{}
-\DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \ \ \textcolor{keywordflow}{return}\ List::create(\ }
-\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}logLik"{}})\ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a05198ec1af2b95e6d5ab8f7aa7269511}{logLik}},\ }
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}coefficients"{}})\ =\ res.\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a4d4c2c94cdbb4ad26c282d78facf8cc1}{coef}},}
-\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}se"{}})\ \ \ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a16a3d02ce26ec980d4f069991a5a23cd}{se}},}
-\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}vcov"{}})\ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_a7f02d66030601dbe1c806c0463f7c6d6}{vcov}},\ }
-\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}weights"{}})\ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a6c0000ffb7d39c14c8af4e6fa840c061}{weights}},}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}delta"{}})\ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_ac2e7ad9fba5a6c76681a00355a3053e8}{delta}},}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}sigSq\_g"{}})\ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a2e35baf06eaf3047f5a1bd08e12932bb}{sigSq\_g}},}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}sigSq\_e"{}})\ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_afde186ab9b5c21afa17bc8f0a74e4e5d}{sigSq\_e}},}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}ru"{}})\ \ \ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4bb7344a3a0363d6f4ed8fd1f15b1a3d}{ru}},}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}y"{}})\ \ \ \ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_a4b575f0e3f671ad9e2f26dfd7af157b2}{y}},}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}iter"{}})\ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m_acb559b08f5078fd5aefd55c903e7c11a}{iter}});}
-\DoxyCodeLine{00033\ \}}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>}
-\DoxyCodeLine{00036\ \textcolor{keyword}{const}\ List\ \mbox{\hyperlink{export_to_r__fastlmm_8h_afd61edcac6899b7f0727d2802927cc00}{toList}}(\mbox{\hyperlink{classfastlmm_lib_1_1fastlmm}{fastlmm<T1,\ T2,\ T3>}}\ \&\ fit)\{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{using\ namespace\ }Rcpp;\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespacefastglmm_lib}{fastglmmLib}};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ Depends\ on\ Rcpp::List,\ so\ define\ outside\ of\ class}}
+\DoxyCodeLine{00017\ \textcolor{keyword}{const}\ List\ \mbox{\hyperlink{export_to_r__fastlmm_8h_afd61edcac6899b7f0727d2802927cc00}{toList}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m}{ModelFitLMM}}\ \&res)\{}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \textcolor{keywordflow}{return}\ List::create(\ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}logLik"{}})\ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}},\ }
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}coefficients"{}})\ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}se"{}})\ \ \ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}vcov"{}})\ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}},\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}weights"{}})\ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}},}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}delta"{}})\ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}},}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}sigSq\_g"{}})\ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}},}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}sigSq\_e"{}})\ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}ru"{}})\ \ \ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}},}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}y"{}})\ \ \ \ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}},}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}iter"{}})\ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}});}
+\DoxyCodeLine{00031\ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>}
+\DoxyCodeLine{00034\ \textcolor{keyword}{const}\ List\ \mbox{\hyperlink{export_to_r__fastlmm_8h_afd61edcac6899b7f0727d2802927cc00}{toList}}(\mbox{\hyperlink{classfastglmm_lib_1_1fastlmm}{fastlmm<T1,\ T2,\ T3>}}\ \&\ fit)\{}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m}{ModelFitLMM}}\ res\ =\ fit.\mbox{\hyperlink{classfastglmm_lib_1_1fastlmm_aa88244198dd312f89eba93aed5ad95aa}{get\_result}}();}
 \DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m}{ModelFitLMM}}\ a\ =\ fit.\mbox{\hyperlink{classfastlmm_lib_1_1fastlmm_ac53aa123da973e68c5123717110f561d}{get\_result}}();}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{export_to_r__fastlmm_8h_afd61edcac6899b7f0727d2802927cc00}{toList}}(\ a);}
-\DoxyCodeLine{00041\ \}}
-\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{export_to_r__fastlmm_8h_afd61edcac6899b7f0727d2802927cc00}{toList}}(\ res\ );}
+\DoxyCodeLine{00039\ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ List\ \mbox{\hyperlink{export_to_r__fastlmm_8h_afd61edcac6899b7f0727d2802927cc00}{toList}}(\ \textcolor{keyword}{const}\ vector<ModelFitLMM>\ \&resList)\{}
+\DoxyCodeLine{00042\ \ \ List\ L\ =\ List::create();}
 \DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ List\ \mbox{\hyperlink{export_to_r__fastlmm_8h_afd61edcac6899b7f0727d2802927cc00}{toList}}(\ \textcolor{keyword}{const}\ vector<ModelFitLMM>\ \&resList)\{}
-\DoxyCodeLine{00045\ \ \ List\ L\ =\ List::create();}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<resList.size();\ i++)\{}
-\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{classfastlmm_lib_1_1_model_fit_l_m_m}{ModelFitLMM}}\ a\ =\ resList.at(i);}
-\DoxyCodeLine{00049\ \ \ \ \ L.push\_back(\ \mbox{\hyperlink{export_to_r__fastlmm_8h_afd61edcac6899b7f0727d2802927cc00}{toList}}(a)\ );}
-\DoxyCodeLine{00050\ \ \ \}}
-\DoxyCodeLine{00051\ \ \ \textcolor{keywordflow}{return}\ L;}
-\DoxyCodeLine{00052\ \}}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<resList.size();\ i++)\{}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m}{ModelFitLMM}}\ res\ =\ resList.at(i);}
+\DoxyCodeLine{00046\ \ \ \ \ L.push\_back(\ \mbox{\hyperlink{export_to_r__fastlmm_8h_afd61edcac6899b7f0727d2802927cc00}{toList}}(\ res\ )\ );}
+\DoxyCodeLine{00047\ \ \ \}}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordflow}{return}\ L;}
+\DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ Depends\ on\ Rcpp::List,\ so\ define\ outside\ of\ class}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{const}\ List\ \mbox{\hyperlink{export_to_r__fastlmm_8h_afd61edcac6899b7f0727d2802927cc00}{toList}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m}{ModelFitGLMM}}\ \&res)\{}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ List\ lst\ =\ List::create(\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}logLik"{}})\ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}},\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}coefficients"{}})\ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}se"{}})\ \ \ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}vcov"{}})\ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}},\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}weights"{}})\ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}},}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}delta"{}})\ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}},}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}sigSq\_g"{}})\ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}},}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}sigSq\_e"{}})\ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}ru"{}})\ \ \ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}},}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}y"{}})\ \ \ \ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}},}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}iter"{}})\ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}},}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Named(\textcolor{stringliteral}{"{}s"{}})\ \ \ \ \ \ \ \ \ \ \ \ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a4223e26b226fe20ac4c42b744ecbb2fe}{s}});}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{comment}{//\ Set\ U\ as\ either\ full\ or\ sparse\ matrix}}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordflow}{if}(\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a805d2f43d5b3ca0ad2ea5a8c928acf46}{isSet\_U}}\ )\ lst[\textcolor{stringliteral}{"{}U"{}}]\ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a7c46ea37999b499d13297de0071b8444}{U}};}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordflow}{if}(\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_af71355f40bf5611761eea41a2687474a}{isSet\_Usp}}\ )\ lst[\textcolor{stringliteral}{"{}U"{}}]\ =\ res.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aab739147184fd0f6b836c8ef5d930523}{Usp}};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordflow}{return}\ lst;}
+\DoxyCodeLine{00075\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>}
+\DoxyCodeLine{00078\ \textcolor{keyword}{const}\ List\ \mbox{\hyperlink{export_to_r__fastlmm_8h_afd61edcac6899b7f0727d2802927cc00}{toList}}(\mbox{\hyperlink{classfastglmm_lib_1_1fastglmm}{fastglmm<T1,\ T2,\ T3>}}\ \&\ fit)\{}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m}{ModelFitGLMM}}\ res\ =\ fit.\mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a3cfc852df4bdf93a5805e0b0c7466209}{get\_result}}();}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{export_to_r__fastlmm_8h_afd61edcac6899b7f0727d2802927cc00}{toList}}(\ res\ );}
+\DoxyCodeLine{00083\ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

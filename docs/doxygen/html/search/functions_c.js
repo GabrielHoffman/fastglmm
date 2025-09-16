@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['poissonlog_0',['PoissonLog',['../class_poisson_log.html#a14fb03fac61fc4ffd7db701de59ead11',1,'PoissonLog']]],
-  ['predict_1',['predict',['../classfastlmm_lib_1_1fastlmm.html#a2822998cf0a0f3cd958523e731f5db6d',1,'fastlmmLib::fastlmm']]]
+  ['r_5finit_5ffastglmm_0',['R_init_fastglmm',['../_rcpp_exports_8cpp.html#a95ff4b825d1b8f017361e3556e0d57bc',1,'RcppExports.cpp']]],
+  ['residuals_1',['residuals',['../classfastglmm_lib_1_1fastlmm.html#a4c23fd36dd495d027db4a9752c4a2adb',1,'fastglmmLib::fastlmm']]]
 ];

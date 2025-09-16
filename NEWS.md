@@ -1,6 +1,11 @@
 
 
 
+# fastglmm 0.3.1
+ - Sept 16, 2025
+ - add and check generics
+ - additional testing
+
 # fastglmm 0.3.0
  - May 6, 2025
  - rename

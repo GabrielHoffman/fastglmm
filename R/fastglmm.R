@@ -4,11 +4,6 @@
 # as in https://github.com/jaredhuling/fastglm/blob/9a04daa4a99761fee4fc87ecdb100a530f96b161/R/fit_glm.R#L199
 
 
-#' @importFrom stats family gaussian
-#' @export
-family.fastglmm = function(object,...){
-    object$family
-}
 
 
 # Given a formula with response, random effect, and offset
@@ -36,17 +31,17 @@ process_formula = function(formula, data){
 	offvars <- as.character(attr(Terms, "variables"))[offt + 1L]
 
 	# if offset is the only term, make intercept explicit
-    tf <- drop.terms(Terms, offt, keep.response = TRUE)
-    tl <- attr(tf,"term.labels")
-    if( length(tl) == 0) tl <- "1"
-    formula2 = reformulate(tl, response = form_fixed[[2L]],
-                        intercept = attr(tf, "intercept"),
-                        env = environment(form_fixed))
+  tf <- drop.terms(Terms, offt, keep.response = TRUE)
+  tl <- attr(tf,"term.labels")
+  if( length(tl) == 0) tl <- "1"
+  formula2 = reformulate(tl, response = form_fixed[[2L]],
+                      intercept = attr(tf, "intercept"),
+                      env = environment(form_fixed))
 
-    # add back random effects
-    form_no_offset <- update(formula2, paste('. ~ . +', str_rnd_only))
+  # add back random effects
+  form_no_offset <- update(formula2, paste('. ~ . +', str_rnd_only))
 
-    list( form_fixed = form_fixed, form_no_offset = form_no_offset)
+  list( form_fixed = form_fixed, form_no_offset = form_no_offset)
 }
 
 
@@ -73,17 +68,17 @@ process_formula = function(formula, data){
 #' 
 #' # GLMM via Laplace approximation
 #' fit = glmer(y ~ trt + I(week > 2) + (1 | ID),
-#'				family = binomial(), data = bacteria)
+#'		family = binomial(), data = bacteria)
 #' coef(summary(fit))
 #' 
 #' # GLMM via PQL
 #' fit = glmmPQL(y ~ trt + I(week > 2), random = ~ 1 | ID,
-#' 				family = binomial, data = bacteria, verbose = FALSE)
+#'		family = binomial, data = bacteria, verbose = FALSE)
 #' coef(summary(fit))
 #' 
 #' # GLMM via PQL
 #' fit = fastglmm_R(y ~ trt + I(week > 2) + (1 | ID),
-#'				family = binomial(), data = bacteria)
+#'		family = binomial(), data = bacteria)
 #' coef(summary(fit))
 #
 #' @import stats 
@@ -92,23 +87,23 @@ process_formula = function(formula, data){
 #' @export
 fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-5, tol.eta = .Machine$double.eps^0.5, init.fit = NULL, init = c("lm", "glm"), nthreads = 6){
 
-    mc <- match.call()
-    init <- match.arg(init)
+  mc <- match.call()
+  init <- match.arg(init)
 	
 	## family
-    if(is.character(family))
-        family <- get(family, mode = "function", envir = parent.frame())
-    if(is.function(family)) family <- family()
-    if(is.null(family$family)) {
+  if(is.character(family))
+      family <- get(family, mode = "function", envir = parent.frame())
+  if(is.function(family)) family <- family()
+  if(is.null(family$family)) {
 		print(family)
 		stop("'family' not recognized")
-    }
-    if( !is.null(init.fit) && ! is(init.fit, "fastglmm") ){
-    	stop("init.fit must be fastglmm object")
-    }
-    if( maxit < 1 ){
-    	stop("maxit must be >= 1")
-    }
+  }
+  if( !is.null(init.fit) && ! is(init.fit, "fastglmm") ){
+  	stop("init.fit must be fastglmm object")
+  }
+  if( maxit < 1 ){
+  	stop("maxit must be >= 1")
+  }
 
 	if( family$family != "poisson" ){
 		# glm() handles categorical responses for binomial family
@@ -118,8 +113,8 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
 	# decompose formula
 	fres = process_formula( formula, data)
 	form_fixed = fres$form_fixed
-    # update reponse
-    form_mod <- update(fres$form_no_offset, zz ~ .)
+  # update reponse
+  form_mod <- update(fres$form_no_offset, zz ~ .)
 
 	if( is.null(weights)) weights <- rep(1, nrow(data))
 
@@ -127,21 +122,21 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
 	if ( ! is.null(init.fit) ){
 		# using previous fastglmm PQL fit
 		mf <- model.frame(form_fixed, data)
-    	offset <- model.offset(mf)
-    	if( is.null(offset) ) offset <- 0
-    	# process response thru glm
-    	suppressWarnings(fit <- glm(form_fixed, family = family, data = data, control=list(maxit=1)))
+  	offset <- model.offset(mf)
+  	if( is.null(offset) ) offset <- 0
+  	# process response thru glm
+  	suppressWarnings(fit <- glm(form_fixed, family = family, data = data, control=list(maxit=1)))
 		# y.orig <- model.response(mf)
-    	y.orig <- fit$y
+  	y.orig <- fit$y
 		eta.init <- family$linkfun(fitted(init.fit)) + offset
 
 	}else if( init == "glm" ){
 		# very slow
 		data$weights <- weights
 		fit <- glm(form_fixed, family = family, data = data, weights = weights)
-    	y.orig <- fit$y
-    	offset <- fit$offset
-    	if( is.null(offset) ) offset <- 0
+  	y.orig <- fit$y
+  	offset <- fit$offset
+  	if( is.null(offset) ) offset <- 0
 		# eta.init = family$linkfun(fitted(fit))
 		eta.init = fit$linear.predictors
 	}else{
@@ -152,7 +147,7 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
 		form <- update(form_fixed, log(.+1e-4) ~ .)
 		fit <- lm(form, data = data) # weights
 		mf <- model.frame(nobars(formula), data)
-    	offset <- model.offset(mf)
+  	offset <- model.offset(mf)
 		y.orig <- model.response(mf)
 		eta.init <- fitted(fit)
 	}
@@ -169,64 +164,66 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
 		w <- rep(1, nrow(data))
 	}   
 
-    # strictness tolerance of fastlmm() increases with each PQL iteration
-    tol.vary = 10^seq(-1, log10(tol), length.out=round(maxit/10))
-    tol.vary = c(tol.vary, rep(tol, maxit - length(tol.vary)))
-    tol.vary[] = tol
+  # strictness tolerance of fastlmm() increases with each PQL iteration
+  tol.vary = 10^seq(-1, log10(tol), length.out=round(maxit/10))
+  tol.vary = c(tol.vary, rep(tol, maxit - length(tol.vary)))
+  tol.vary[] = tol
 
-    for (i in seq_len(maxit)) {
+  for (i in seq_len(maxit)) {
 
-        # compute linear predictor
-        # if change compared to previous is small, break   
-        if( i == 1){
-        	# for glm()
-	        eta <- eta.init + offset  
-        }else{
-          	# for fastlmm()
-          	etaold <- eta
-	        eta <- fitted(fit) + offset  
-	        if (sum((eta - etaold)^2) < tol.eta){ 
-	            break          
-	        }
-	    }
+    # compute linear predictor
+    # if change compared to previous is small, break   
+    if( i == 1){
+    	# for glm()
+      eta <- eta.init + offset  
+    }else{
+    	# for fastlmm()
+    	etaold <- eta
+      eta <- fitted(fit) + offset  
+      if (sum((eta - etaold)^2) < tol.eta){ 
+          break          
+      }
+  	}
 
 		# compute updated response and weights 
-        mu <- family$linkinv(eta)
-        mu.eta.val <- family$mu.eta(eta)
-        zz <- eta + (y.orig - mu)/mu.eta.val - offset
-        data$zz <- zz
-        wz <- w * mu.eta.val^2/family$variance(mu)
-        wz <- wz / mean(wz)
+	  mu <- family$linkinv(eta)
+	  mu.eta.val <- family$mu.eta(eta)
+	  zz <- eta + (y.orig - mu)/mu.eta.val - offset
+	  data$zz <- zz
+	  wz <- w * mu.eta.val^2/family$variance(mu)
+	  wz <- wz / mean(wz)
 
-        # fit model
-        if( i == 1 ){
-        	# run first time
-	        fit <- fastlmm(form_mod, data, 
-	        	weights = wz, 
-	        	delta = delta,
-	        	delta.range = delta.range, 
-	        	tol = tol.vary[i])
-	    }else{
-	        # workhorse after initial fastlmm() fit
-	    	fit <- fastlmm.fit(
-		    	Y = data$zz, 
-		    	X = fit$design, 
-		    	Z = fit$Z, 
-		    	weights = wz,
-	        	delta = delta,
-		        delta.range = delta.range, 
-		        tol = tol.vary[i])
-	    }	   
-    }
+	  # fit model
+	  if( i == 1 ){
+  	# run first time
+    fit <- fastlmm(form_mod, data, 
+    	weights = wz, 
+    	delta = delta,
+    	delta.range = delta.range, 
+    	tol = tol.vary[i])
+    }else{
+        # workhorse after initial fastlmm() fit
+    	fit <- fastlmm.fit(
+	    	Y = data$zz, 
+	    	X = fit$design, 
+	    	Z = fit$Z, 
+	    	weights = wz,
+        	delta = delta,
+	        delta.range = delta.range, 
+	        tol = tol.vary[i])
+    }	  
 
-    fit$response = y.orig
-    fit$family <- family
-    fit$method <- "PQL"
-    fit$iter.pql <- i
-    class(fit) <- c("fastglmm", class(fit))
+  	fit$formula <- formula 
+  }
 
-   	attr(fit, "call") <- mc
-    fit
+  fit$response = y.orig
+  fit$family <- family
+  fit$method <- "PQL"
+  fit$iter.pql <- i
+  class(fit) <- c("fastglmm", class(fit))
+
+ 	attr(fit, "call") <- mc
+  fit
 } 
 
 
@@ -252,17 +249,17 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
 #' 
 #' # GLMM via Laplace approximation
 #' fit = glmer(y ~ trt + I(week > 2) + (1 | ID),
-#'				family = binomial(), data = bacteria)
+#'		family = binomial(), data = bacteria)
 #' coef(summary(fit))
 #' 
 #' # GLMM via PQL
 #' fit = glmmPQL(y ~ trt + I(week > 2), random = ~ 1 | ID,
-#' 				family = binomial, data = bacteria, verbose = FALSE)
+#'		family = binomial, data = bacteria, verbose = FALSE)
 #' coef(summary(fit))
 #' 
 #' # GLMM via PQL
 #' fit = fastglmm(y ~ trt + I(week > 2) + (1 | ID),
-#'				family = binomial(), data = bacteria)
+#'		family = binomial(), data = bacteria)
 #' coef(summary(fit))
 #
 #' @import stats 
@@ -299,7 +296,7 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 	
 	## family
   if(is.character(family))
-      family <- get(family, mode = "function", envir = parent.frame())
+		family <- get(family, mode = "function", envir = parent.frame())
   if(is.function(family)) family <- family()
   if(is.null(family$family)) {
 		print(family)
@@ -368,19 +365,24 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 						weights = weights, 
 						offset = offset, 
 						family = getFamilyString(family), 
-						delta = -1, 
+						delta = ifelse(is.null(delta), -1, delta), 
 		        left = delta.range[1],
 		        right = delta.range[2],
 						tol = tol, 
+						tol_eta = tol.eta,
+						maxit = maxit,
 						nthreads = nthreads)
 
 	colnames(fit$U) <- colnames(dcmp$vectors)
+	fit$s <- c(fit$s)
 
 	# format output
 	fit <- as.fastlmm(fit, design = design, offset = offset, method = "PQL")
 
+  fit$response = y
 	fit$family <- family
 	fit$iter.pql <- fit$niter
+	fit$formula <- formula
 	class(fit) <- c("fastglmm", "fastlmm")
 
 	attr(fit, "call") <- mc

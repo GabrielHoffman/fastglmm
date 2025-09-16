@@ -114,6 +114,8 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
     nthreads = nthreads
   )
 
+  fit$formula <- formula
+  
   # return model fit
   attr(fit, "call") <- mc
 

@@ -53,16 +53,16 @@ library(lme4)
 
 # GLMM via Laplace approximation
 fit = glmer(y ~ trt + I(week > 2) + (1 | ID),
-			family = binomial(), data = bacteria)
+	family = binomial(), data = bacteria)
 coef(summary(fit))
 
 # GLMM via PQL
 fit = glmmPQL(y ~ trt + I(week > 2), random = ~ 1 | ID,
-				family = binomial, data = bacteria, verbose = FALSE)
+	family = binomial, data = bacteria, verbose = FALSE)
 coef(summary(fit))
 
 # GLMM via PQL
 fit = fastglmm_R(y ~ trt + I(week > 2) + (1 | ID),
-			family = binomial(), data = bacteria)
+	family = binomial(), data = bacteria)
 coef(summary(fit))
 }

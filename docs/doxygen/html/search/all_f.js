@@ -1,15 +1,19 @@
 var searchData=
 [
-  ['scaleeachcol_0',['scaleEachCol',['../misc_8h.html#a0045cd455dd233e9e16362f826b46bfb',1,'scaleEachCol(const mat &amp;X, const vec &amp;w):&#160;misc.h'],['../misc_8h.html#a22e1b21e8ed9c35826aee032cf93ad89',1,'scaleEachCol(const sp_mat &amp;X, const vec &amp;w):&#160;misc.h']]],
-  ['scalerowscols_1',['scaleRowsCols',['../misc_8h.html#aff616cc0cfc16600b8f55bf7b77f455e',1,'misc.h']]],
-  ['score_5ftest_2',['score_test',['../classfastlmm_lib_1_1fastlmm.html#ae59e2c8e11dde35f8364a488281a78cc',1,'fastlmmLib::fastlmm']]],
-  ['se_3',['se',['../classfastlmm_lib_1_1_model_fit.html#a16a3d02ce26ec980d4f069991a5a23cd',1,'fastlmmLib::ModelFit']]],
-  ['setdevresids_4',['setDevResids',['../classfastlmm_lib_1_1_model_fit.html#a964785637cccea91d87f843a6fa4b94e',1,'fastlmmLib::ModelFit']]],
-  ['setfittedvalues_5',['setFittedValues',['../classfastlmm_lib_1_1_model_fit.html#ae6f108a680e1b29f6d6107c716aa82f1',1,'fastlmmLib::ModelFit']]],
-  ['sigsq_5fe_6',['sigSq_e',['../classfastlmm_lib_1_1_model_fit_l_m_m.html#afde186ab9b5c21afa17bc8f0a74e4e5d',1,'fastlmmLib::ModelFitLMM']]],
-  ['sigsq_5fg_7',['sigSq_g',['../classfastlmm_lib_1_1_model_fit_l_m_m.html#a2e35baf06eaf3047f5a1bd08e12932bb',1,'fastlmmLib::ModelFitLMM']]],
-  ['spectraldecomp_8',['spectralDecomp',['../classfastlmm_lib_1_1spectral_decomp.html',1,'fastlmmLib::spectralDecomp&lt; T &gt;'],['../classfastlmm_lib_1_1spectral_decomp.html#ad6e9102eaff691c54b8c71938b6a260c',1,'fastlmmLib::spectralDecomp::spectralDecomp()']]],
-  ['spectraldecomp_2eh_9',['spectralDecomp.h',['../spectral_decomp_8h.html',1,'']]],
-  ['spectraldecomp_3c_20t3_20_3e_10',['spectralDecomp&lt; T3 &gt;',['../classfastlmm_lib_1_1spectral_decomp.html',1,'fastlmmLib']]],
-  ['success_11',['success',['../classfastlmm_lib_1_1_model_fit.html#a4e9a17b15a2e6619805db5973dd9aa27',1,'fastlmmLib::ModelFit']]]
+  ['s_0',['s',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a4223e26b226fe20ac4c42b744ecbb2fe',1,'fastglmmLib::ModelFitLMM']]],
+  ['scaleeachcol_1',['scaleEachCol',['../misc_8h.html#a0045cd455dd233e9e16362f826b46bfb',1,'scaleEachCol(const mat &amp;X, const vec &amp;w):&#160;misc.h'],['../misc_8h.html#a22e1b21e8ed9c35826aee032cf93ad89',1,'scaleEachCol(const sp_mat &amp;X, const vec &amp;w):&#160;misc.h']]],
+  ['scaleeachrow_2',['scaleEachRow',['../misc_8h.html#a613b4d5d3153ad82d4e3beed8060d305',1,'scaleEachRow(const mat &amp;X, const vec &amp;w):&#160;misc.h'],['../misc_8h.html#a3d7decd57c293381f38da94eb00331aa',1,'scaleEachRow(const sp_mat &amp;X, const vec &amp;w):&#160;misc.h']]],
+  ['scalerowscols_3',['scaleRowsCols',['../misc_8h.html#aff616cc0cfc16600b8f55bf7b77f455e',1,'misc.h']]],
+  ['score_5ftest_4',['score_test',['../classfastglmm_lib_1_1fastlmm.html#a51d70d82801f954d2645a68f4f7c33b2',1,'fastglmmLib::fastlmm']]],
+  ['se_5',['se',['../classfastglmm_lib_1_1_model_fit.html#a7ddb48d6044cc0ce1eece44f2ac871c3',1,'fastglmmLib::ModelFit']]],
+  ['setdevresids_6',['setDevResids',['../classfastglmm_lib_1_1_model_fit.html#acf09755e6709bfeddcb1175803c7a62e',1,'fastglmmLib::ModelFit']]],
+  ['setfittedvalues_7',['setFittedValues',['../classfastglmm_lib_1_1_model_fit.html#a247f397b059a669e4f3d49e28fedc56c',1,'fastglmmLib::ModelFit']]],
+  ['setoverdispersion_8',['setOverdispersion',['../classfastglmm_lib_1_1_g_l_m_family.html#a9473ad52a2bc0f68268680723d95296a',1,'fastglmmLib::GLMFamily::setOverdispersion()'],['../classfastglmm_lib_1_1_n_b.html#a50e33bef13ea15805dfde05b1c7d5445',1,'fastglmmLib::NB::setOverdispersion()']]],
+  ['setus_9',['setUS',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a4e209280dfba2195d8e82bd4d939c794',1,'fastglmmLib::ModelFitLMM::setUS(const mat &amp;U_, const vec &amp;s_)'],['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a59e9d57b4d60e1a4f2a9f8f16ba51295',1,'fastglmmLib::ModelFitLMM::setUS(const sp_mat &amp;U_, const vec &amp;s_)']]],
+  ['sigsq_5fe_10',['sigSq_e',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a97f68ea3a8db2c89f59c0627e7dde6bc',1,'fastglmmLib::ModelFitLMM']]],
+  ['sigsq_5fg_11',['sigSq_g',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a2bbf91ed1ba23151b4e19c01ac39a8a6',1,'fastglmmLib::ModelFitLMM']]],
+  ['spectraldecomp_12',['spectralDecomp',['../classfastglmm_lib_1_1spectral_decomp.html',1,'fastglmmLib::spectralDecomp&lt; T &gt;'],['../classfastglmm_lib_1_1spectral_decomp.html#aca8fc34a15eed8ce138eba906f782652',1,'fastglmmLib::spectralDecomp::spectralDecomp()']]],
+  ['spectraldecomp_2eh_13',['spectralDecomp.h',['../spectral_decomp_8h.html',1,'']]],
+  ['spectraldecomp_3c_20t3_20_3e_14',['spectralDecomp&lt; T3 &gt;',['../classfastglmm_lib_1_1spectral_decomp.html',1,'fastglmmLib']]],
+  ['success_15',['success',['../classfastglmm_lib_1_1_model_fit.html#a48fe22cee7b61700696febcc638a6339',1,'fastglmmLib::ModelFit']]]
 ];

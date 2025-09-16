@@ -1,17 +1,72 @@
 
-url: http://GabrielHoffman.github.io/fastglmm
+url: http://gabrielhoffman.github.io/fastglmm
 
 authors:
-  "Gabriel Hoffman":
+  Gabriel Hoffman:
     href: http://gabrielhoffman.github.io
 
 template:
   bootstrap: 5
+  math-rendering: katex
   bootswatch: flatly
-
+  
+  params:
+    docsearch:
+      api_key: dedcc260e9d3743bc634e728855cdbaf
+      index_name: fastglmm 
+      
 search:
   exclude: ['news/index.html']
 
-  
+
+
+reference:
+- title: Core functions
+  contents:
+  - "fastlmm"
+  - "fastglmm"
+  - "fastglmm.nb"
+
+- title: Other
+  contents:
+  - "as.fastlmm"
+  - "getFamilyString"
+  - "heritability"
+  - "indicator_decomp"
+  - "preprocess_indicator" 
+  - "fastlmm.fit"
+  - "nb_theta"
+  - "refitModel"
+
+- title: Generics
+  contents:
+  - "anova.fastlmm"
+  - "coef.fastlmm"
+  - "cooks.distance.fastlmm"
+  - "deviance.fastlmm"
+  - "df.residual.fastlmm"
+  - "edf"
+  - "family.fastlmm"
+  - "fitted.fastlmm"
+  - "fixef.fastlmm"
+  - "hatvalues.fastlmm"
+  - "linearHypothesis.fastlmm"
+  - "logLik.fastlmm"
+  - "nobs.fastlmm"
+  - "plot.fastlmm"
+  - "predict.fastlmm"
+  - "print.fastlmm"
+  - "ranef.fastlmm"
+  - "residuals.fastlmm"
+  - "rstudent.fastlmm"
+  - "sigma.fastlmm"
+  - "summary.fastlmm"
+  - "terms.fastlmm"
+  - "vcov.fastlmm"
+
+- title: Pure R Implementations
+  contents:
+  - "fastlmm_R"
+  - "fastglmm_R"
 
 

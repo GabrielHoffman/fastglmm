@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['least_0',['LEAST',['../namespacefastlmm_lib.html#a861ff55786eb7d3a33d5b2f2d155ee2baa5ab4305a7fe3d32b0a55977703a2c35',1,'fastlmmLib']]],
-  ['low_1',['LOW',['../namespacefastlmm_lib.html#a861ff55786eb7d3a33d5b2f2d155ee2ba1c6e03f5316284c1a6930c536ffa1122',1,'fastlmmLib']]]
+  ['least_0',['LEAST',['../namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba',1,'fastglmmLib']]],
+  ['low_1',['LOW',['../namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0',1,'fastglmmLib']]]
 ];

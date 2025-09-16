@@ -1,10 +1,11 @@
 \doxysection{src/export.cpp File Reference}
 \hypertarget{export_8cpp}{}\label{export_8cpp}\index{src/export.cpp@{src/export.cpp}}
 {\ttfamily \#include $<$Rcpp\+Armadillo.\+h$>$}\newline
-{\ttfamily \#include "{}fastlmm\+Lib.\+h"{}}\newline
+{\ttfamily \#include "{}fastglmm.\+h"{}}\newline
 {\ttfamily \#include "{}export\+To\+R\+\_\+fastlmm.\+h"{}}\newline
 {\ttfamily \#include "{}nb\+\_\+theta.\+h"{}}\newline
-{\ttfamily \#include "{}glm\+\_\+family.\+h"{}}\newline
+{\ttfamily \#include "{}glmm\+Fit\+Features.\+h"{}}\newline
+{\ttfamily \#include "{}glmm\+Fit\+Responses.\+h"{}}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -27,15 +28,25 @@ List \mbox{\hyperlink{export_8cpp_a7466285b0e8b9f309e6ca6c14ac96f55}{fastlmm\+\_
 double \mbox{\hyperlink{export_8cpp_ab7062d9f2ba0c976843ef3b71b4df85d}{nb\+\_\+theta}} (const Numeric\+Vector \&y, const Numeric\+Vector \&mu, const double \&n, const Numeric\+Vector \&weights, const double \&left=-\/5, const double \&right=20, const double \&tol=1e-\/5)
 \item 
 List \mbox{\hyperlink{export_8cpp_ac12d8a0a56bb2a2b9d8910979061c62b}{fastglmm\+\_\+mm}} (const arma\+::vec \&y, const arma\+::mat \&X, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const arma\+::vec \&offset, const std\+::string \&family, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
+\item 
+List \mbox{\hyperlink{export_8cpp_a25ebcde30f5c01bbb5d2493117f28adb}{fastglmm\+\_\+ms}} (const arma\+::vec \&y, const arma\+::mat \&X, const arma\+::sp\+\_\+mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const arma\+::vec \&offset, const std\+::string \&family, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
 \end{DoxyCompactItemize}
 
 
+\label{doc-func-members}
+\Hypertarget{export_8cpp_doc-func-members}
 \doxysubsection{Function Documentation}
 \Hypertarget{export_8cpp_ac12d8a0a56bb2a2b9d8910979061c62b}\index{export.cpp@{export.cpp}!fastglmm\_mm@{fastglmm\_mm}}
 \index{fastglmm\_mm@{fastglmm\_mm}!export.cpp@{export.cpp}}
 \doxysubsubsection{\texorpdfstring{fastglmm\_mm()}{fastglmm\_mm()}}
 {\footnotesize\ttfamily \label{export_8cpp_ac12d8a0a56bb2a2b9d8910979061c62b} 
 List fastglmm\+\_\+mm (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const arma\+::vec \&}]{offset}{, }\item[{const std\+::string \&}]{family}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a25ebcde30f5c01bbb5d2493117f28adb}\index{export.cpp@{export.cpp}!fastglmm\_ms@{fastglmm\_ms}}
+\index{fastglmm\_ms@{fastglmm\_ms}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{fastglmm\_ms()}{fastglmm\_ms()}}
+{\footnotesize\ttfamily \label{export_8cpp_a25ebcde30f5c01bbb5d2493117f28adb} 
+List fastglmm\+\_\+ms (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const arma\+::vec \&}]{offset}{, }\item[{const std\+::string \&}]{family}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
 
 \Hypertarget{export_8cpp_a950804aeeaa9447a87700776b125e051}\index{export.cpp@{export.cpp}!fastlmm\_mmm@{fastlmm\_mmm}}
 \index{fastlmm\_mmm@{fastlmm\_mmm}!export.cpp@{export.cpp}}

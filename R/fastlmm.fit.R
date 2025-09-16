@@ -49,7 +49,7 @@ as.fastlmm <- function(x, design, offset, method) {
   x$rank <- ncol(x$design)
 
   # adapt this to be rdf from H
-  x$df.residual <- nrow(x$design) - ncol(x$design)
+  x$df.residual <- df.residual(x)
   x$method <- method
 
   class(x) <- "fastlmm"
@@ -64,8 +64,6 @@ print.fastlmmList <- function(x, ...) {
   cat("Responses:\n")
   coolcat("names(%d): %s\n", names(x))
 }
-
-
 
 
 
@@ -136,34 +134,24 @@ fastlmm.fit <- function(Y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank
     dcmp <- indicator_decomp(Z, c(weights), rank)
 
     if (is(Z, "sparseMatrix")) {
-      res <- .fastlmm_vms(
-        y = Y,
-        X = X,
-        U = dcmp$vectors,
-        s = dcmp$values,
-        weights = weights,
-        REML = REML,
-        delta = delta,
-        left = delta.range[1],
-        right = delta.range[2],
-        tol = tol,
-        nthreads = nthreads
-      )
+      fxn <- .fastlmm_vms
     } else {
-      res <- .fastlmm_vmm(
-        y = Y,
-        X = X,
-        U = dcmp$vectors,
-        s = dcmp$values,
-        weights = weights,
-        REML = REML,
-        delta = delta,
-        left = delta.range[1],
-        right = delta.range[2],
-        tol = tol,
-        nthreads = nthreads
-      )
+      fxn <- .fastlmm_vmm
     }
+
+    res <- fxn(
+      y = Y,
+      X = X,
+      U = dcmp$vectors,
+      s = dcmp$values,
+      weights = weights,
+      REML = REML,
+      delta = delta,
+      left = delta.range[1],
+      right = delta.range[2],
+      tol = tol,
+      nthreads = nthreads
+    )  
 
     res <- as.fastlmm(res, design = X, offset = offset, method = ifelse(REML, "REML", "ML"))
 
@@ -182,32 +170,23 @@ fastlmm.fit <- function(Y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank
     }
 
     if (is(Z, "sparseMatrix")) {
-      res <- .fastlmm_mms(
-        Y = Y,
-        ids = colnames(Y),
-        X = X,
-        Z = Z,
-        Weights = weights,
-        REML = REML,
-        left = delta.range[1],
-        right = delta.range[2],
-        tol = tol,
-        nthreads = nthreads
-      )
+      fxn <- .fastlmm_mms
     } else {
-      res <- .fastlmm_mmm(
-        Y = Y,
-        ids = colnames(Y),
-        X = X,
-        Z = Z,
-        Weights = weights,
-        REML = REML,
-        left = delta.range[1],
-        right = delta.range[2],
-        tol = tol,
-        nthreads = nthreads
-      )
+      fxn <- .fastlmm_mmm
     }
+
+    res <- fxn(
+      Y = Y,
+      ids = colnames(Y),
+      X = X,
+      Z = Z,
+      Weights = weights,
+      REML = REML,
+      left = delta.range[1],
+      right = delta.range[2],
+      tol = tol,
+      nthreads = nthreads
+    )
 
     # convert each entry to an fastlmm object
     res <- lapply(res, as.fastlmm, design = X, offset = offset, method = ifelse(REML, "REML", "ML"))

@@ -28,7 +28,6 @@ var menudata={children:[
 {text:"Namespace List",url:"namespaces.html"},
 {text:"Namespace Members",url:"namespacemembers.html",children:[
 {text:"All",url:"namespacemembers.html"},
-{text:"Functions",url:"namespacemembers_func.html"},
 {text:"Typedefs",url:"namespacemembers_type.html"},
 {text:"Enumerations",url:"namespacemembers_enum.html"},
 {text:"Enumerator",url:"namespacemembers_eval.html"}]}]},
@@ -75,7 +74,6 @@ var menudata={children:[
 {text:"p",url:"functions_func.html#index_p"},
 {text:"r",url:"functions_func.html#index_r"},
 {text:"s",url:"functions_func.html#index_s"},
-{text:"t",url:"functions_func.html#index_t"},
 {text:"u",url:"functions_func.html#index_u"},
 {text:"v",url:"functions_func.html#index_v"},
 {text:"~",url:"functions_func.html#index__7E"}]},
@@ -95,6 +93,7 @@ var menudata={children:[
 {text:"r",url:"functions_vars.html#index_r"},
 {text:"s",url:"functions_vars.html#index_s"},
 {text:"t",url:"functions_vars.html#index_t"},
+{text:"u",url:"functions_vars.html#index_u"},
 {text:"v",url:"functions_vars.html#index_v"},
 {text:"w",url:"functions_vars.html#index_w"},
 {text:"x",url:"functions_vars.html#index_x"},
@@ -115,7 +114,6 @@ var menudata={children:[
 {text:"t",url:"globals.html#index_t"}]},
 {text:"Functions",url:"globals_func.html",children:[
 {text:"_",url:"globals_func.html#index__5F"},
-{text:"c",url:"globals_func.html#index_c"},
 {text:"f",url:"globals_func.html#index_f"},
 {text:"i",url:"globals_func.html#index_i"},
 {text:"l",url:"globals_func.html#index_l"},

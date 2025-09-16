@@ -26,4 +26,3 @@ summary(fit)
 
 summary(refitModel(fit, delta=1000))
 }
-\keyword{internal}
