@@ -123,8 +123,8 @@ ModelFitLMMList
 // [U, s] = indicator_decomp( Z , Weights.col(i))
 // Yu = U_.t() * Yw;
 // Xu = U_.t() * Xw;
-// cp_X_low = Xw.t() * Xw - Xu.t() * Xu;
-// cp_X_low_Y_low = Xw.t() * Yw - Xu.t() * Yu;
+// Gamma_XX = Xw.t() * Xw - Xu.t() * Xu;
+// Gamma_XY = Xw.t() * Yw - Xu.t() * Yu;
 // inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 
 }

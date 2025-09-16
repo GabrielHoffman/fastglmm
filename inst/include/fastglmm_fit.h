@@ -40,16 +40,17 @@ class fastglmm {
 	fastglmm(){};
 
 	fastglmm(	const T1 &y, 
-            const T2 &X, 
-            const T3 &U, 
-            const vec &s,
-            const vec &weights,
-            const vec &offset,
+						const T2 &X, 
+						const T3 &U, 
+						const vec &s,
+						const vec &weights,
+						const vec &offset,
 						const string &family, 
-            const ModelDetail md = LOW, 
-           	const double &tol = 1e-4,
-            const double &tol_eta = 1e-4,
-            const bool &returnUS = false);
+						const ModelDetail md = LOW, 
+						const double &tol = 1e-4,
+						const double &tol_eta = 1e-4,
+						const int &maxit = 100,
+						const bool &returnUS = false);
 
 	// extract results
   ModelFitGLMM get_result();
@@ -64,17 +65,18 @@ class fastglmm {
 
 template <typename T1, typename T2, typename T3> 
 fastglmm<T1, T2, T3>::fastglmm(
-									const T1 &y, 
-			            const T2 &X, 
-			            const T3 &U, 
-			            const vec &s,
-			            const vec &weights,
-            			const vec &offset,
-									const string &family, 
-			            const ModelDetail md, 
-			            const double &tol,
-			            const double &tol_eta,
-			            const bool &returnUS):
+							const T1 &y, 
+							const T2 &X, 
+							const T3 &U, 
+							const vec &s,
+							const vec &weights,
+							const vec &offset,
+							const string &family, 
+							const ModelDetail md, 
+							const double &tol,
+							const double &tol_eta,
+							const int &maxit,
+							const bool &returnUS):
 							family(family), returnUS(returnUS) {
 
 	shared_ptr<GLMFamily> fam = getGLMFamily( family );
@@ -101,7 +103,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 	double theta;
 
 	// PQL iterations
-	for(niter_pql=0; niter_pql<100; niter_pql++){
+	for(niter_pql=0; niter_pql<maxit; niter_pql++){
 
 		// if Negative Binomial with unspecified theta
 		if( estimateTheta ){

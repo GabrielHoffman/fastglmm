@@ -54,7 +54,7 @@ class fastlmm {
             const ModelDetail md = LOW,
             const bool REML = false);
 
-    // constructor, precompute Yu, Xu, cp_X_low, cp_X_low_Y_low
+    // constructor, precompute Yu, Xu, Gamma_XX, Gamma_XY
     fastlmm(const T1 &Y_, 
             const T2 &X_,
             const T3 &U_, 
@@ -62,8 +62,8 @@ class fastlmm {
             const vec &weights_,
             const vec &Yu_, 
             const mat &Xu_,
-            const mat &cp_X_low_, 
-            const mat &cp_X_low_Y_low_,
+            const mat &Gamma_XX_, 
+            const mat &Gamma_XY_,
             const ModelDetail md = LOW,
             const bool REML = false);
 
@@ -141,14 +141,14 @@ class fastlmm {
     vec get_y(){ return Y;}
 
   private:
-    vec wSq;
+    vec wsqrt;
     T1 Y;
     T2 X;
     T3 U;
     vec s, weights;
     T1 Yu;
     T2 Xu;
-    mat cp_X_low, cp_X_low_Y_low;
+    mat Gamma_XX, Gamma_XY;
     vec inv_s_delta;
     mat inv_s_delta_Xu;
     mat QXX, QXY;
@@ -170,17 +170,18 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
         const vec &weights_,
         const ModelDetail md,
         const bool REML):   
-  wSq(sqrt(weights_)),
-  Y(Y_ % wSq),
-  X(scaleEachCol(X_, wSq)),
+  wsqrt(sqrt(weights_)),
+  Y(Y_ % wsqrt),
+  X(scaleEachCol(X_, wsqrt)),
   U(U_),
   s(s_),
   weights(weights_),
-  md(md), REML(REML) {
+  md(md), 
+  REML(REML) {
   Yu = U_.t() * Y;
   Xu = U_.t() * X;
-  cp_X_low = X.t() * X - Xu.t() * Xu;
-  cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
+  Gamma_XX = X.t() * X - Xu.t() * Xu;
+  Gamma_XY = X.t() * Y - Xu.t() * Yu; 
   inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 } 
 
@@ -198,21 +199,22 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
         const mat &Xu_,
         const ModelDetail md,
         const bool REML):   
-  wSq(sqrt(weights_)),
-  Y(Y_ % wSq),
-  X(scaleEachCol(X_, wSq)),
+  wsqrt(sqrt(weights_)),
+  Y(Y_ % wsqrt),
+  X(scaleEachCol(X_, wsqrt)),
   U(U_),
   s(s_),
   weights(weights_),
-  md(md), REML(REML) {
+  md(md), 
+  REML(REML) {
   Yu = Yu_;
   Xu = Xu_;
-  cp_X_low = X.t() * X - Xu.t() * Xu;
-  cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu; 
+  Gamma_XX = X.t() * X - Xu.t() * Xu;
+  Gamma_XY = X.t() * Y - Xu.t() * Yu; 
   inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 } 
 
-// constructor, precompute Yu, Xu, cp_X_low, cp_X_low_Y_low
+// constructor, precompute Yu, Xu, Gamma_XX, Gamma_XY
 template <typename T1, typename T2, typename T3> 
 fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_, 
                             const T2 &X_,
@@ -221,21 +223,22 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
                             const vec &weights_,
                             const vec &Yu_, 
                             const mat &Xu_,
-                            const mat &cp_X_low_, 
-                            const mat &cp_X_low_Y_low_,
+                            const mat &Gamma_XX_, 
+                            const mat &Gamma_XY_,
                             const ModelDetail md,
                             const bool REML):   
-  wSq(sqrt(weights_)),
-  Y(Y_ % wSq),
-  X(scaleEachCol(X_, wSq)),
+  wsqrt(sqrt(weights_)),
+  Y(Y_ % wsqrt),
+  X(scaleEachCol(X_, wsqrt)),
   U(U_),
   s(s_),
   weights(weights_),
-  md(md), REML(REML) {
+  md(md), 
+  REML(REML) {
   Yu = Yu_;
   Xu = Xu_;
-  cp_X_low = cp_X_low_;
-  cp_X_low_Y_low = cp_X_low_Y_low_;
+  Gamma_XX = Gamma_XX_;
+  Gamma_XY = Gamma_XY_;
   inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 } 
 
@@ -250,7 +253,7 @@ fastlmm<T1, T2, T3>::fastlmm( const T2 &X_,
   U = U_;
   s = s_;
   Xu = U_.t() * X_;
-  cp_X_low = X.t() * X - Xu.t() * Xu;
+  Gamma_XX = X.t() * X - Xu.t() * Xu;
   inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 }
 
@@ -309,11 +312,11 @@ double fastlmm<T1, T2, T3>::ll(const double &delta ) {
   // inv_s_delta_Xu   <- inv_s_delta * Xu
   inv_s_delta_Xu = scaleEachCol(Xu, inv_s_delta);
 
-  // QXX = crossprod(Xu, inv_s_delta_Xu) + cp_X_low / delta
-  QXX = Xu.t() * inv_s_delta_Xu + cp_X_low / delta;
+  // QXX = crossprod(Xu, inv_s_delta_Xu) + Gamma_XX / delta
+  QXX = Xu.t() * inv_s_delta_Xu + Gamma_XX / delta;
 
-  // QXY = crossprod(Xu, inv_s_delta_Yu) + cp_X_low_Y_low / delta
-  QXY = Xu.t() * (inv_s_delta % Yu) + cp_X_low_Y_low / delta;
+  // QXY = crossprod(Xu, inv_s_delta_Yu) + Gamma_XY / delta
+  QXY = Xu.t() * (inv_s_delta % Yu) + Gamma_XY / delta;
 
   // beta <<- solve( QXX, QXY)
   beta = solve(QXX, QXY, solve_opts::likely_sympd);
@@ -425,7 +428,7 @@ void fastlmm<T1, T2, T3>::update_response(const T1 &Y_,
   this->weights = weights_;
   this->Y = Y_;
   this->Yu = Yu_;  
-  this->cp_X_low_Y_low = X.t() * Y - Xu.t() * Yu;
+  this->Gamma_XY = X.t() * Y - Xu.t() * Yu;
 }
 
  
