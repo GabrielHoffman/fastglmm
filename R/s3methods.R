@@ -50,6 +50,53 @@ anova.fastlmm <- function(object,...){
                   class = c("anova", "data.frame"))
 }
 
+#' ANOVA Tables
+#' 
+#' ANOVA Tables
+#' 
+#' @param object fitted model of class \code{fastlmm}
+#' @param ... other args, not used
+#' 
+#' @importFrom dplyr bind_rows mutate `%>%`
+#' @importFrom tibble column_to_rownames
+#' @export
+anova.fastglmm <- function(object,...){
+
+  # Assign each coef to a contrast
+  asgn <- attr(object$design, "assign")
+
+  # Names of effects
+  nmeffects <- attr(terms(object), "term.labels")[unique(asgn)]
+
+  if( attr(terms(object),"intercept") == 1){
+    nmeffects <- c("(Intercept)", nmeffects)
+  }
+
+  # Numerator degrees of freedom
+  df <- lengths(split(asgn, asgn))
+
+  df1 <- df2 <- NULL
+
+  res = lapply(seq(0, max(asgn)), function(i){
+
+    # create contrast matrix with 1's for this component
+    L = rep(0, length(asgn))
+    L[which(asgn == i)] = 1
+
+    stat <- (L %*% coef(object)) %*% solve(L %*% vcov(object) %*% L) %*% (L %*% coef(object))
+
+    # for comparison
+    data.frame(id = nmeffects[i+1], 
+      df = sum(L), 
+      Chisq = stat)
+    }) %>%
+    bind_rows %>%
+    column_to_rownames("id") %>%
+    mutate('Pr(>Chisq)' = pchisq(Chisq, df, lower.tail=FALSE))
+
+  structure(res, heading = "Analysis of Variance Table",
+                  class = c("anova", "data.frame"))
+}
 
 
 

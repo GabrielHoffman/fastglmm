@@ -2,6 +2,7 @@
 
 
 test_generics = function(){
+
   library(tidyverse)
   library(RUnit)
   library(lme4)
@@ -22,8 +23,6 @@ test_generics = function(){
   setdiff(target, implemented)
 
 
-
-
   f_check_generics = function(fit1, fit2){
 
     # check df.residual
@@ -36,16 +35,30 @@ test_generics = function(){
 
       cat(fx, "\n")
 
-      # run on fastlmm fit
-      res1 = get(fx)( fit1 )
+      if( fx == "linearHypothesis"){
 
-      # run on lmer fit
-      res2 = get(fx)( fit2 )
+        # run on fastlmm fit
+        res1 = get(fx)( fit1, "Days")
+
+        # run on lmer fit
+        res2 = get(fx)( fit2, "Days")
+
+      }else{
+        # run on fastlmm fit
+        res1 = get(fx)( fit1 )
+
+        # run on lmer fit
+        res2 = get(fx)( fit2 )
+      }
 
       if( fx %in% c("family")){
         checkEquals( res1, res2 )
       }else if( fx %in% c("formula")){
         identical(res1, res2)
+      }else if( fx %in% c("anova")){
+        checkEqualsNumeric(anova(fit1)$F[-1], anova(fit2)$`F value`, tol=1e-6)
+      }else if( fx %in% c("linearHypothesis")){
+        checkEqualsNumeric(res1$Chisq, res2$Chisq, tol=1e-6)
       }else if( fx %in% c("terms")){
         ids = intersect(names(attributes(res1)), names(attributes(res2)))
         checkEquals(attributes(res1)[ids], attributes(res2)[ids])
@@ -60,6 +73,7 @@ test_generics = function(){
       }
     }
   }
+
 
 
   # Weighted LMM

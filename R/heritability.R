@@ -36,8 +36,6 @@ pchibarsq <- function (p, df = 1, mix = 0.5, lower.tail = TRUE, log.p = FALSE) {
 #' @export
 heritability <- function(fit, method = c("information", "permutation"), nperms = 100) {
 
-  warning("In progress")
-
   method <- match.arg(method)
 
   # estimate of hsq given delta

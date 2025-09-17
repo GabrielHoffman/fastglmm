@@ -7,6 +7,10 @@ Fitting linear mixed model on large-scale datasets can be very computationally e
 
 
 
+```r
+devtools::install_github("GabrielHoffman/fastglmm")
+```
+
 ### See header-only C++ library [documentation](doxygen/html/index.html)
 
 ## Implmentation details
