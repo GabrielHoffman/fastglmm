@@ -14,3 +14,12 @@
 \description{
 Cook's Distance Metric
 }
+\examples{
+library(MASS)
+
+# GLMM via PQL
+fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
+   family = binomial(), data = bacteria)
+
+cooks.distance(fit)[1:3]
+}

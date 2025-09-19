@@ -2,9 +2,12 @@
 % Please edit documentation in R/s3methods.R
 \name{anova.fastlmm}
 \alias{anova.fastlmm}
+\alias{anova.fastglmm}
 \title{ANOVA Tables}
 \usage{
 \method{anova}{fastlmm}(object, ...)
+
+\method{anova}{fastglmm}(object, ...)
 }
 \arguments{
 \item{object}{fitted model of class \code{fastlmm}}
@@ -13,4 +16,13 @@
 }
 \description{
 ANOVA Tables
+}
+\examples{
+library(MASS)
+
+# GLMM via PQL
+fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
+   family = binomial(), data = bacteria)
+
+anova(fit)
 }

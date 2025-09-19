@@ -14,3 +14,12 @@
 \description{
 Extract the modes of the random effects
 }
+\examples{
+library(MASS)
+
+# GLMM via PQL
+fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
+   family = binomial(), data = bacteria)
+
+ranef(fit)
+}

@@ -27,7 +27,8 @@ const List toList(ModelFitLMM &res){
                 Named("sigSq_e")      = res.sigSq_e,
                 Named("ru")           = res.ru,
                 Named("y")            = res.y,
-                Named("iter")         = res.iter);
+                Named("iter")         = res.iter,
+                Named("w.mean")       = res.w_mean);
 }
 
 template <typename T1, typename T2, typename T3>
@@ -64,7 +65,9 @@ const List toList(ModelFitGLMM &res){
                 Named("sigSq_e")      = res.sigSq_e,
                 Named("ru")           = res.ru,
                 Named("y")            = res.y,
+                Named("family")       = res.family,
                 Named("iter")         = res.iter,
+                Named("w.mean")       = res.w_mean,
                 Named("s")            = res.s);
 
   // Set U as either full or sparse matrix

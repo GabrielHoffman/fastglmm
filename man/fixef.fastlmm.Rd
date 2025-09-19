@@ -2,7 +2,7 @@
 % Please edit documentation in R/s3methods.R
 \name{fixef.fastlmm}
 \alias{fixef.fastlmm}
-\title{Extract fixed-effects estimates}
+\title{Extract Fixed Effects}
 \usage{
 \method{fixef}{fastlmm}(object, ...)
 }
@@ -12,5 +12,14 @@
 \item{...}{other args, not used}
 }
 \description{
-Extract fixed-effects estimates
+Extract Fixed Effects
+}
+\examples{
+library(MASS)
+
+# GLMM via PQL
+fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
+   family = binomial(), data = bacteria)
+
+fixef(fit)
 }

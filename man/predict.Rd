@@ -5,19 +5,28 @@
 \alias{predict.fastglmm}
 \title{Model Predictions}
 \usage{
-\method{predict}{fastlmm}(object, newdata = NULL, ...)
+\method{predict}{fastlmm}(object, newdata = NULL, type = c("response", "terms"), ...)
 
-\method{predict}{fastglmm}(object, newdata = NULL, type = c("link", "response"), ...)
+\method{predict}{fastglmm}(object, newdata = NULL, type = c("link", "response", "terms"), ...)
 }
 \arguments{
 \item{object}{fitted model of class \code{fastlmm}}
 
 \item{newdata}{optionally, a data frame in which to look for variables with which to predict.  If omitted, the fitted  predictors are used.}
 
-\item{...}{other args, not used}
+\item{type}{the type of prediction required.  The default is on the scale of the linear predictors; the alternative \code{"response"} is on the scale of the response variable.  Thus for a default  binomial model the default predictions are of log-odds (probabilities on logit scale) and \code{type = "response"} gives the predicted probabilities. \code{type = "terms"} computes the linear predict for each model term}
 
-\item{type}{the type of prediction required.  The default is on the scale of the linear predictors; the alternative \code{"response"} is on the scale of the response variable.  Thus for a default  binomial model the default predictions are of log-odds (probabilities on logit scale) and \code{type = "response"} gives the predicted probabilities.}
+\item{...}{other args, not used}
 }
 \description{
 Model Predictions
+}
+\examples{
+library(MASS)
+
+# GLMM via PQL
+fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
+   family = binomial(), data = bacteria)
+
+predict(fit)[1:3]
 }

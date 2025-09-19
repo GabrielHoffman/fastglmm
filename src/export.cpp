@@ -288,7 +288,7 @@ List fastglmm_mm( const arma::vec &y,
 
 // y = vec
 // X = mat
-// U = mat
+// U = sp_mat
 // [[Rcpp::export(".fastglmm_ms")]]
 List fastglmm_ms( const arma::vec &y, 
                   const arma::mat &X,  

@@ -7,12 +7,10 @@
 fastglmm.nb(
   formula,
   data,
-  weights,
+  weights = NULL,
   maxit = 100,
   tol = .Machine$double.eps^0.5,
   tol.eta = .Machine$double.eps^0.5,
-  init.fit = NULL,
-  init = c("lm", "glm"),
   nthreads = 6
 )
 }
@@ -28,10 +26,6 @@ fastglmm.nb(
 \item{tol}{convergence criterion for the 1D search of the delta space}
 
 \item{tol.eta}{convergence criterion \code{eta} in the PQL iteration}
-
-\item{init.fit}{\code{fastglmm} object to initialize parameters}
-
-\item{init}{\code{c("lm", "glm")} method to initialize \code{eta} values}
 
 \item{nthreads}{number of threads}
 }

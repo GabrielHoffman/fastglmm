@@ -195,12 +195,12 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
 
 	  # fit model
 	  if( i == 1 ){
-  	# run first time
-    fit <- fastlmm(form_mod, data, 
-    	weights = wz, 
-    	delta = delta,
-    	delta.range = delta.range, 
-    	tol = tol.vary[i])
+	  	# run first time
+	    fit <- fastlmm(form_mod, data, 
+	    	weights = wz, 
+	    	delta = delta,
+	    	delta.range = delta.range, 
+	    	tol = tol.vary[i])
     }else{
         # workhorse after initial fastlmm() fit
     	fit <- fastlmm.fit(
@@ -208,9 +208,9 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
 	    	X = fit$design, 
 	    	Z = fit$Z, 
 	    	weights = wz,
-        	delta = delta,
-	        delta.range = delta.range, 
-	        tol = tol.vary[i])
+      	delta = delta,
+        delta.range = delta.range, 
+        tol = tol.vary[i])
     }	  
 
   	fit$formula <- formula 
@@ -380,7 +380,14 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 	fit <- as.fastlmm(fit, design = design, offset = offset, method = "PQL")
 
   fit$response = y
-	fit$family <- family
+
+  if( grepl("^nb:", fit$family) ){
+  	# convert NB string to negative.binomial(theta)
+		fit$family <- stringToNbFamily( fit$family )
+	}else{
+		fit$family <- family
+	}
+
 	fit$iter.pql <- fit$niter
 	fit$formula <- formula
 	class(fit) <- c("fastglmm", "fastlmm")

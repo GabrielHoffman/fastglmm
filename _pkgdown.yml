@@ -27,6 +27,10 @@ reference:
   - "fastglmm"
   - "fastglmm.nb"
 
+- title: Example Data
+  contents:
+  - "PsychAD"
+
 - title: Other
   contents:
   - "as.fastlmm"
@@ -41,11 +45,13 @@ reference:
 - title: Generics
   contents:
   - "anova.fastlmm"
+  - "anova.fastglmm"
   - "coef.fastlmm"
   - "cooks.distance.fastlmm"
   - "deviance.fastlmm"
   - "df.residual.fastlmm"
   - "edf"
+  - "extractAIC.fastlmm"
   - "family.fastlmm"
   - "fitted.fastlmm"
   - "fixef.fastlmm"
@@ -55,7 +61,6 @@ reference:
   - "nobs.fastlmm"
   - "plot.fastlmm"
   - "predict.fastlmm"
-  - "print.fastlmm"
   - "ranef.fastlmm"
   - "residuals.fastlmm"
   - "rstudent.fastlmm"
@@ -68,5 +73,6 @@ reference:
   contents:
   - "fastlmm_R"
   - "fastglmm_R"
+  - "fastglmm_R.nb"
 
 

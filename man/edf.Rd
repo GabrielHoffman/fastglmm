@@ -14,3 +14,12 @@ edf(object, ...)
 \description{
 Effective Degrees-of-Freedom of Model Fit
 }
+\examples{
+library(MASS)
+
+# GLMM via PQL
+fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
+   family = binomial(), data = bacteria)
+
+edf(fit)
+}

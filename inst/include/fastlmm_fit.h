@@ -446,6 +446,7 @@ ModelFitLMM fastlmm<T1, T2, T3>::get_result(
                       get_sigSq_g(),
                       get_sigSq_e(),
                       get_iter(),
+                      1.0,
                       get_beta());
 
   // res.dispersion = get_sigSq_e();

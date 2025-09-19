@@ -104,6 +104,9 @@ fastlmm.fit <- function(Y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank
   if (!is.matrix(Y)) {
     Y <- as.matrix(Y)
   }
+  if( ! is.numeric(Y) ){
+    stop("Response must be numeric")
+  }
   if (is.null(weights)) {
     weights <- matrix(1, nrow(Y), ncol(Y))
   }

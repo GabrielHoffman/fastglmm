@@ -60,6 +60,7 @@ class fastglmm {
   string family;
   bool returnUS;
   int niter_pql;
+  double w_mean; 
 
 };
 
@@ -136,7 +137,8 @@ fastglmm<T1, T2, T3>::fastglmm(
 		work->w = pow(work->gprime,2) % (weights / fam->variance( work->mu ));
 
 		// wz <- wz / mean(wz)
-		work->w = work->w / mean(work->w);
+		w_mean = mean(work->w);
+		work->w = work->w / w_mean;
 
 		// recompute U and s since work->w changed
 		dcmp.initWithIndicator(Z, work->w);
@@ -150,6 +152,11 @@ fastglmm<T1, T2, T3>::fastglmm(
 		iter_in += fit.get_iter();
 	}
 
+	if( estimateTheta ){
+		// update family to include estimated theta
+		this->family = "nb:" + to_string(theta);
+	}
+
 	delete work;
 }
 
@@ -159,6 +166,7 @@ template <typename T1, typename T2, typename T3>
 ModelFitGLMM fastglmm<T1, T2, T3>::get_result(){
 
 	ModelFitLMM res1 = fit.get_result(returnUS);
+	res1.set_w_mean( w_mean );
 
 	return ModelFitGLMM(res1, family, niter_pql);
 }

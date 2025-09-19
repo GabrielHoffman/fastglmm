@@ -42,9 +42,9 @@ getFamilyString = function( family ){
   }
 
   # possible outputs from this function
-  validOutputs = c('gaussian/identity', "poisson/log", "quasipoisson/log", "quasibinomial/logit", "quasibinomial/probit", "binomial/logit", "binomial/probit", "nb")
+  validOutputs <- c('gaussian/identity', "poisson/log", "quasipoisson/log", "quasibinomial/logit", "quasibinomial/probit", "binomial/logit", "binomial/probit", "nb")
 
-  pttrn = paste0("^(", paste(validOutputs, collapse="|"), ')')
+  pttrn <- paste0("^(", paste(validOutputs, collapse="|"), ')')
 
   if( all(is.character(family)) && all(grepl(pttrn, family)) ){
     return(family)
@@ -63,16 +63,25 @@ getFamilyString = function( family ){
     stop("'family' not recognized")
   }
   # get string as family/link
-  res = with(family, paste(family, link, sep='/'))
+  res <- with(family, paste(family, link, sep='/'))
 
   # replace "^Negative Binomial(theta)/log$" with
   # nb:theta
-  pattern = "^Negative Binomial\\((\\S+)\\)/log$"
+  pattern <- "^Negative Binomial\\((\\S+)\\)/log$"
   if( grepl(pattern, res) ){
-    res = paste0("nb:", gsub(pattern, "\\1", res))
+    res <- paste0("nb:", gsub(pattern, "\\1", res))
     if( res == "nb:NA" ){
-      res = "nb"
+      res <- "nb"
     }
   }
   return(res)
 }
+
+#' @importFrom MASS negative.binomial
+stringToNbFamily <- function(txt){
+
+  theta <- as.numeric(unlist(strsplit(txt, ":"))[[2]])
+  negative.binomial(theta)
+}
+
+

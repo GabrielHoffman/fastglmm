@@ -51,36 +51,63 @@ class ModelFit {
 	ModelFit() {}
 
 	// LEAST
-	ModelFit( const bool & success, const vec &coef) : 
+	ModelFit( const bool & success, 
+            const vec &coef) : 
 		success(success), coef(coef) {}
 
 	// LOW
-	ModelFit( const bool & success, const vec &coef, const vec &se, const double & dispersion, const double &rdf) : 
+	ModelFit( const bool & success, 
+            const vec &coef, 
+            const vec &se, 
+            const double & dispersion, 
+            const double &rdf) : 
 		success(success), coef(coef), se(se), dispersion(dispersion), rdf(rdf) {
 
 		init();
 	}
 
 	// LOW with scalar coef and se
-	ModelFit( const bool & success, const double &coef, const double &se, const double & dispersion, const double &rdf): 
+	ModelFit( const bool & success, 
+            const double &coef, 
+            const double &se, 
+            const double & dispersion, 
+            const double &rdf): 
 		success(success), coef(vec(1, fill::value(coef))), se(vec(1, fill::value(se))), dispersion(dispersion), rdf(rdf) {}
 
 	// MEDIUM
-	ModelFit( const bool & success, const vec &coef, const vec &se, const double & dispersion, const double &rdf, const mat & vcov) :
+	ModelFit( const bool & success, 
+            const vec &coef, 
+            const vec &se, 
+            const double & dispersion, 
+            const double &rdf, 
+            const mat & vcov) :
 		success(success), coef(coef), se(se), dispersion(dispersion), rdf(rdf), vcov(vcov) {
 
 		init();
 	}
 
 	// HIGH
-	ModelFit( const bool & success, const vec &coef, const vec &se, const double & dispersion, const double &rdf, const mat & vcov, const vec &residuals) : 
+	ModelFit( const bool & success, 
+            const vec &coef, 
+            const vec &se, 
+            const double & dispersion, 
+            const double &rdf, 
+            const mat & vcov, 
+            const vec &residuals) : 
 		success(success), coef(coef), se(se), dispersion(dispersion), rdf(rdf), vcov(vcov), residuals(residuals) {
 
 		init();
 	}
 
 	// MOST
-	ModelFit( const bool & success, const vec &coef, const vec &se, const double & dispersion, const double &rdf, const mat & vcov, const vec &residuals, const vec &hatvalues) : 
+	ModelFit( const bool & success, 
+            const vec &coef, 
+            const vec &se, const 
+            double & dispersion, 
+            const double &rdf, 
+            const mat & vcov, 
+            const vec &residuals, 
+            const vec &hatvalues) : 
 		success(success), coef(coef), se(se), dispersion(dispersion), rdf(rdf), vcov(vcov), residuals(residuals), hatvalues(hatvalues) {
 
 		init();
@@ -161,7 +188,8 @@ class ModelFitLMM : public ModelFit {
   double logLik;
   vec weights, ru, y;
   double delta, sigSq_g, sigSq_e;
-  int iter;
+  int iter;  
+  double w_mean; // Store mean of weights before scaling
 
   bool isSet_U = false;
   bool isSet_Usp = false;
@@ -181,9 +209,10 @@ class ModelFitLMM : public ModelFit {
               const double &sigSq_g,
               const double &sigSq_e,
               const int &iter, 
+              const double &w_mean,
               const vec &coef) : 
     ModelFit( success, coef),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter), w_mean(w_mean)
     {} 
 
   // LOW
@@ -196,11 +225,12 @@ class ModelFitLMM : public ModelFit {
               const double &sigSq_g,
               const double &sigSq_e,
               const int &iter, 
+              const double &w_mean,
               const vec &coef, 
               const vec &se, 
               const double &rdf) : 
     ModelFit( success, coef, se, sigSq_e, rdf),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter), w_mean(w_mean)
     {} 
   
   // MEDIUM
@@ -213,12 +243,13 @@ class ModelFitLMM : public ModelFit {
               const double &sigSq_g,
               const double &sigSq_e,
               const int &iter, 
+              const double &w_mean,
               const vec &coef, 
               const vec &se, 
               const double &rdf, 
               const mat & vcov) : 
     ModelFit( success, coef, se, sigSq_e, rdf, vcov),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter) 
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter), w_mean(w_mean) 
     {} 
 
   // HIGH
@@ -231,13 +262,14 @@ class ModelFitLMM : public ModelFit {
               const double &sigSq_g,
               const double &sigSq_e,
               const int &iter, 
+              const double &w_mean,
               const vec &coef, 
               const vec &se, 
               const double &rdf, 
               const mat & vcov, 
               const vec &residuals) : 
     ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter), w_mean(w_mean)
     {}   
 
   // MOST
@@ -250,6 +282,7 @@ class ModelFitLMM : public ModelFit {
               const double &sigSq_g,
               const double &sigSq_e,
               const int &iter, 
+              const double &w_mean,
               const vec &coef, 
               const vec &se, 
               const double &rdf, 
@@ -257,7 +290,7 @@ class ModelFitLMM : public ModelFit {
               const vec &residuals, 
               const vec &hatvalues) : 
     ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals, hatvalues),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter), w_mean(w_mean)
     {}   
 
     void setUS(const mat &U_, const vec &s_){
@@ -270,6 +303,10 @@ class ModelFitLMM : public ModelFit {
       Usp = U_;
       s = s_;
       isSet_Usp = true;
+    }
+
+    void set_w_mean( const double &value){
+      w_mean = value;
     }
 };
 
