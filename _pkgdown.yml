@@ -41,6 +41,10 @@ reference:
   - "fastlmm.fit"
   - "nb_theta"
   - "refitModel"
+  - "varpart"
+  - "dispersion"
+  - "varianceTerms"
+  - "negative.binomial"
 
 - title: Generics
   contents:
