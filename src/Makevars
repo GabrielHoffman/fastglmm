@@ -7,4 +7,4 @@ RCPP_PRL_LIB = -L$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e \
 PKG_CXXFLAGS = -I../inst/include/ -DARMA_64BIT_WORD=1 
 #-DRCPP_PARALLEL_USE_TBB=1 
 
-PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(shell ${R_HOME}/bin/Rscript -e "RcppParallel::RcppParallelLibs()") $(RCPP_PRL_LIB)
+PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(shell ${R_HOME}/bin/Rscript -e "RcppParallel::RcppParallelLibs()") $(RCPP_PRL_LIB) -ltbb
