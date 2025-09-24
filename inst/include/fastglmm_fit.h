@@ -50,7 +50,14 @@ class fastglmm {
 						const double &tol = 1e-4,
 						const double &tol_eta = 1e-4,
 						const int &maxit = 100,
+						const double &delta = -1,
+						const double &left = -10,
+						const double &right = 10,
 						const bool &returnUS = false);
+
+	const vec residuals(); // Pearson
+	const vec fitted();
+	const vec devianceResiduals();
 
 	// extract results
   ModelFitGLMM get_result();
@@ -61,7 +68,9 @@ class fastglmm {
   bool returnUS;
   int niter_pql;
   double w_mean; 
-
+  ModelDetail md;
+  vec y, weights, mu; 
+	shared_ptr<GLMFamily> fam;
 };
 
 template <typename T1, typename T2, typename T3> 
@@ -77,10 +86,13 @@ fastglmm<T1, T2, T3>::fastglmm(
 							const double &tol,
 							const double &tol_eta,
 							const int &maxit,
+							const double &delta,
+							const double &left,
+							const double &right,
 							const bool &returnUS):
-							family(family), returnUS(returnUS) {
+							y(y), weights(weights), family(family), returnUS(returnUS), md(md) {
 
-	shared_ptr<GLMFamily> fam = getGLMFamily( family );
+	fam = getGLMFamily( family );
 
 	// if Negative Binomial with unspecified theta
 	// estimate theta, and initialize with Poisson GLM
@@ -145,7 +157,12 @@ fastglmm<T1, T2, T3>::fastglmm(
 
 		// fit fastlmm
 		fit = fastlmm(work->z, X, dcmp.get_vectors(), dcmp.get_values(), work->w, MAX);
-		fit.estimate_delta(-10, 10, tol);	
+
+		if( delta > 0 ){
+      fit.eval_delta( delta ); 
+    }else{
+			fit.estimate_delta(left, right, tol);	
+		}
 
 		// TODO
 		// 1) narrow delta search over time?
@@ -157,8 +174,49 @@ fastglmm<T1, T2, T3>::fastglmm(
 		this->family = "nb:" + to_string(theta);
 	}
 
+	// save value
+  mu = work->mu;
+
 	delete work;
 }
+
+
+
+template <typename T1, typename T2, typename T3> 
+const vec fastglmm<T1, T2, T3>::residuals(){
+
+	// (y - mu) * sqrt(wts)/sqrt(fam$variance(mu))
+	return (y - mu) % sqrt(weights) / sqrt(fam->variance(mu));
+}
+
+
+template <typename T1, typename T2, typename T3> 
+const vec fastglmm<T1, T2, T3>::fitted(){
+
+	return fam->linkinv( fit.fitted() );
+}
+
+
+
+template <typename T1, typename T2, typename T3> 
+const vec fastglmm<T1, T2, T3>::devianceResiduals(){
+
+	// transform from residuals.glm
+	// d.res <- sqrt(pmax((object$family$dev.resids)(y, mu, 
+  //     wts), 0))
+  // ifelse(y > mu, d.res, -d.res)
+
+	// compute raw deviance residuals
+	vec dr = fam->dev_resids(y, mu, weights);
+
+	vec drMod = sqrt(pmax(dr, 0));
+	uvec idx = find(y <= mu);
+	drMod.elem(idx) = -1.0*drMod.elem(idx);
+
+	return drMod;
+}
+
+
 
 
 
@@ -168,8 +226,19 @@ ModelFitGLMM fastglmm<T1, T2, T3>::get_result(){
 	ModelFitLMM res1 = fit.get_result(returnUS);
 	res1.set_w_mean( w_mean );
 
-	return ModelFitGLMM(res1, family, niter_pql);
+	ModelFitGLMM mf(res1, family, niter_pql);
+
+  if( md == MAX ){
+		mf.devianceResiduals = devianceResiduals();
+  }
+
+  if( md >= HIGH ){
+		mf.residuals = residuals();
+  }
+
+	return mf;
 }
+
 
 } // end namespace
 #endif

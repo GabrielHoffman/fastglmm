@@ -200,7 +200,7 @@ df.residual.fastlmm <- function(object, ...){
   X <- with(object, sqrt(c(weights)) * design)
 
   # sum(h1)
-  h1.sum <- object$delta*with(object, sum(1/(s+delta)) + (n-k) / delta)
+  h1.sum <- with(object, delta*sum(1/(s+delta))) + (n-k)
 
   # sum(h2)
   A <- with(object, X / delta - U %*% ((s/(delta*s + delta^2)) * crossprod(U, X)))
@@ -302,14 +302,14 @@ hatvalues.fastlmm <- function(model, ...){
   X <- with(model, sqrt(c(weights)) * design)
   Usq <- model$U^2
 
-  h1 <- model$delta*with(model, Usq %*% (1/(s+delta)) + (1 - rowSums(Usq)) / delta)
+  h1 <- model$delta*with(model, Usq %*% (1/(s+delta))) + (1 - rowSums(Usq))
 
   A <- with(model, X / delta - U %*% ((s/(delta*s + delta^2)) * crossprod(U, X)))
   D <- solve(crossprod(A, X))
   h2 <- model$delta * rowSums(A * (A %*% D))
 
   # hatvalues
-  1 - h1 + h2
+  1 - as.numeric(h1) + h2
 }
 
 

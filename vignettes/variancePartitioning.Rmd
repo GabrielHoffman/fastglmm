@@ -117,17 +117,19 @@ varpart(fit)
 attr(df, "varFrac")
 ```
 
+# Fixed intercept for Z, now fix 
+# true variance fractions for non-normal
+
 
 ```{r poisson}
 
 
-df <- sim_data(n = 1e5, 
+df <- sim_data(n = 1e6, 
               beta = c(1,2), 
               sigSq_g = 1,
-              signal_frac = .8, 
               rho = .7, 
-              n_random = 200,
-              intercept = 0,
+              n_random = 500,
+              intercept = -3,
               "poisson")
 
 hist(df$y)
@@ -139,6 +141,40 @@ attr(df, "varFrac")
 
 
 it = glmmTMB(y ~ X1 + X2 + (1|z), df, family=poisson())
+
+
+# No variance component
+df <- sim_data(n = 1e6, 
+              beta = c(1,.2), 
+              sigSq_g = 1e-5,
+              rho = .7, 
+              n_random = 500,
+              intercept = 2,
+              "poisson")
+
+hist(df$y)
+
+fit <- fastglmm(y ~ X1 + X2 + (1|z), df, family=poisson())
+
+varpart(fit)
+attr(df, "varFrac")
+
+median(df$y)
+
+
+fit1 = glm(y ~ X1 + X2, df, family=poisson())
+varpart(fit1)
+
+
+# HOW DOES RSQ COMPARE????
+rsq::rsq(fit1, type="v")
+
+
+
+
+w = 1/(df$y + .1)
+fit1 = lm(log(y + .1) ~ X1 + X2, df, weights=w / mean(w))
+varpart(fit1)
 
 
 

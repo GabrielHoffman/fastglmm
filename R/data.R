@@ -13,3 +13,5 @@
 #' }
 #' @source \url{https://diseaseneurogenomics.github.io/dreamlet/index.html}
 "PsychAD"  
+
+#' @importFrom RcppParallel RcppParallelLibs

@@ -3,11 +3,14 @@
 \name{family.fastlmm}
 \alias{family.fastlmm}
 \alias{family.fastglmm}
+\alias{family.glmmPQL}
 \title{Extract Model Family}
 \usage{
 \method{family}{fastlmm}(object, ...)
 
 \method{family}{fastglmm}(object, ...)
+
+\method{family}{glmmPQL}(object, ...)
 }
 \arguments{
 \item{object}{fitted model of class \code{fastlmm}}

@@ -85,7 +85,7 @@ process_formula = function(formula, data){
 #' @importFrom lme4 nobars
 #' @importFrom methods is
 #' @export
-fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-5, tol.eta = .Machine$double.eps^0.5, init.fit = NULL, init = c("lm", "glm"), nthreads = 6){
+fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-5, tol.eta = 1e-7, init.fit = NULL, init = c("lm", "glm"), nthreads = 6){
 
   mc <- match.call()
   init <- match.arg(init)
@@ -266,7 +266,7 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
 #' @importFrom lme4 nobars
 #' @importFrom methods is
 #' @export
-fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-5, tol.eta = .Machine$double.eps^0.5, nthreads = 6){
+fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-5, tol.eta = 1e-7, nthreads = 6){
 
 	mc <- match.call()
 
@@ -388,6 +388,7 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 		fit$family <- family
 	}
 
+	fit$prior.weights <- weights
 	fit$iter.pql <- fit$niter
 	fit$formula <- formula
 	class(fit) <- c("fastglmm", "fastlmm")

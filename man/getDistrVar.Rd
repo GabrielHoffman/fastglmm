@@ -4,7 +4,7 @@
 \alias{getDistrVar}
 \title{Distributional Variance}
 \usage{
-getDistrVar(fit, method = c("lognormal", "trigamma"))
+getDistrVar(fit, method = c("trigamma", "lognormal"))
 }
 \arguments{
 \item{fit}{model fit}

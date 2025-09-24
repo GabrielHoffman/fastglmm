@@ -135,15 +135,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ab50ce3572ebd528fb9ee3aafb9592e8f" id="r_ab50ce3572ebd528fb9ee3aafb9592e8f"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab50ce3572ebd528fb9ee3aafb9592e8f">_fastglmm_fastlmm_mss</a> (SEXP YSEXP, SEXP idsSEXP, SEXP XSEXP, SEXP ZSEXP, SEXP WeightsSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP nthreadsSEXP, SEXP REMLSEXP)</td></tr>
 <tr class="memitem:a7fd3d775968b589d6f1d159316481ec2" id="r_a7fd3d775968b589d6f1d159316481ec2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7fd3d775968b589d6f1d159316481ec2">nb_theta</a> (const NumericVector &amp;y, const NumericVector &amp;mu, const double &amp;n, const NumericVector &amp;weights, const double &amp;left, const double &amp;right, const double &amp;tol)</td></tr>
 <tr class="memitem:a3a171047cb532dd43b13890cc7dc653f" id="r_a3a171047cb532dd43b13890cc7dc653f"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a171047cb532dd43b13890cc7dc653f">_fastglmm_nb_theta</a> (SEXP ySEXP, SEXP muSEXP, SEXP nSEXP, SEXP weightsSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP)</td></tr>
-<tr class="memitem:ac12d8a0a56bb2a2b9d8910979061c62b" id="r_ac12d8a0a56bb2a2b9d8910979061c62b"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac12d8a0a56bb2a2b9d8910979061c62b">fastglmm_mm</a> (const arma::vec &amp;y, const arma::mat &amp;X, const arma::mat &amp;U, const arma::vec &amp;s, const arma::vec &amp;weights, const arma::vec &amp;offset, const std::string &amp;family, const double &amp;delta, const double &amp;left, const double &amp;right, const double &amp;tol, const int &amp;nthreads)</td></tr>
-<tr class="memitem:a8085e89a98c72af0cd5d79d5a56755f6" id="r_a8085e89a98c72af0cd5d79d5a56755f6"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8085e89a98c72af0cd5d79d5a56755f6">_fastglmm_fastglmm_mm</a> (SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP nthreadsSEXP)</td></tr>
-<tr class="memitem:a25ebcde30f5c01bbb5d2493117f28adb" id="r_a25ebcde30f5c01bbb5d2493117f28adb"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25ebcde30f5c01bbb5d2493117f28adb">fastglmm_ms</a> (const arma::vec &amp;y, const arma::mat &amp;X, const arma::sp_mat &amp;U, const arma::vec &amp;s, const arma::vec &amp;weights, const arma::vec &amp;offset, const std::string &amp;family, const double &amp;delta, const double &amp;left, const double &amp;right, const double &amp;tol, const int &amp;nthreads)</td></tr>
-<tr class="memitem:a3f3feb2c11ec6d217bab14c1545ce8b2" id="r_a3f3feb2c11ec6d217bab14c1545ce8b2"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f3feb2c11ec6d217bab14c1545ce8b2">_fastglmm_fastglmm_ms</a> (SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP nthreadsSEXP)</td></tr>
+<tr class="memitem:a879c2d2beeefd62eb28854091ff19c33" id="r_a879c2d2beeefd62eb28854091ff19c33"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a879c2d2beeefd62eb28854091ff19c33">fastglmm_mm</a> (const arma::vec &amp;y, const arma::mat &amp;X, const arma::mat &amp;U, const arma::vec &amp;s, const arma::vec &amp;weights, const arma::vec &amp;offset, const std::string &amp;family, const double &amp;delta, const double &amp;left, const double &amp;right, const double &amp;tol, const double &amp;tol_eta, const int &amp;maxit, const int &amp;nthreads)</td></tr>
+<tr class="memitem:adfd29b5f68b341b6c2bbe34d34425106" id="r_adfd29b5f68b341b6c2bbe34d34425106"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adfd29b5f68b341b6c2bbe34d34425106">_fastglmm_fastglmm_mm</a> (SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP tol_etaSEXP, SEXP maxitSEXP, SEXP nthreadsSEXP)</td></tr>
+<tr class="memitem:a466a804ecdd92e22bb3f633a46fd4f86" id="r_a466a804ecdd92e22bb3f633a46fd4f86"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a466a804ecdd92e22bb3f633a46fd4f86">fastglmm_ms</a> (const arma::vec &amp;y, const arma::mat &amp;X, const arma::sp_mat &amp;U, const arma::vec &amp;s, const arma::vec &amp;weights, const arma::vec &amp;offset, const std::string &amp;family, const double &amp;delta, const double &amp;left, const double &amp;right, const double &amp;tol, const double &amp;tol_eta, const int &amp;maxit, const int &amp;nthreads)</td></tr>
+<tr class="memitem:a62cfb7f94bf1defad0a2a6e882ac5c0d" id="r_a62cfb7f94bf1defad0a2a6e882ac5c0d"><td class="memItemLeft" align="right" valign="top">RcppExport SEXP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62cfb7f94bf1defad0a2a6e882ac5c0d">_fastglmm_fastglmm_ms</a> (SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP tol_etaSEXP, SEXP maxitSEXP, SEXP nthreadsSEXP)</td></tr>
 <tr class="memitem:a95ff4b825d1b8f017361e3556e0d57bc" id="r_a95ff4b825d1b8f017361e3556e0d57bc"><td class="memItemLeft" align="right" valign="top">RcppExport void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95ff4b825d1b8f017361e3556e0d57bc">R_init_fastglmm</a> (DllInfo *dll)</td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a8085e89a98c72af0cd5d79d5a56755f6" name="a8085e89a98c72af0cd5d79d5a56755f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8085e89a98c72af0cd5d79d5a56755f6">&#9670;&#160;</a></span>_fastglmm_fastglmm_mm()</h2>
+<a id="adfd29b5f68b341b6c2bbe34d34425106" name="adfd29b5f68b341b6c2bbe34d34425106"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfd29b5f68b341b6c2bbe34d34425106">&#9670;&#160;</a></span>_fastglmm_fastglmm_mm()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -206,6 +206,16 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>tol_etaSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>maxitSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>nthreadsSEXP</em></span>&#160;)</td>
         </tr>
       </table>
@@ -213,8 +223,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a3f3feb2c11ec6d217bab14c1545ce8b2" name="a3f3feb2c11ec6d217bab14c1545ce8b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f3feb2c11ec6d217bab14c1545ce8b2">&#9670;&#160;</a></span>_fastglmm_fastglmm_ms()</h2>
+<a id="a62cfb7f94bf1defad0a2a6e882ac5c0d" name="a62cfb7f94bf1defad0a2a6e882ac5c0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62cfb7f94bf1defad0a2a6e882ac5c0d">&#9670;&#160;</a></span>_fastglmm_fastglmm_ms()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -273,6 +283,16 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>tolSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>tol_etaSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>maxitSEXP</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -853,8 +873,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac12d8a0a56bb2a2b9d8910979061c62b" name="ac12d8a0a56bb2a2b9d8910979061c62b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac12d8a0a56bb2a2b9d8910979061c62b">&#9670;&#160;</a></span>fastglmm_mm()</h2>
+<a id="a879c2d2beeefd62eb28854091ff19c33" name="a879c2d2beeefd62eb28854091ff19c33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a879c2d2beeefd62eb28854091ff19c33">&#9670;&#160;</a></span>fastglmm_mm()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -917,6 +937,16 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>tol_eta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>maxit</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>nthreads</em></span>&#160;)</td>
         </tr>
       </table>
@@ -924,8 +954,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a25ebcde30f5c01bbb5d2493117f28adb" name="a25ebcde30f5c01bbb5d2493117f28adb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25ebcde30f5c01bbb5d2493117f28adb">&#9670;&#160;</a></span>fastglmm_ms()</h2>
+<a id="a466a804ecdd92e22bb3f633a46fd4f86" name="a466a804ecdd92e22bb3f633a46fd4f86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a466a804ecdd92e22bb3f633a46fd4f86">&#9670;&#160;</a></span>fastglmm_ms()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -984,6 +1014,16 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>tol</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>tol_eta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>maxit</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

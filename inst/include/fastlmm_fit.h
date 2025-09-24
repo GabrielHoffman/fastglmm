@@ -98,16 +98,11 @@ class fastlmm {
       return sqrt(diagvec(get_vcov()));
     }
 
-    // how to combine X and K?
-    // to create diagonals of hat matrix?
-    const double get_edf(); // defined before
-    const double get_rdf(){
-      return r.n_rows - X.n_cols;
-    } // based on Hastie, et al
+    const double get_rdf();
+
     const vec hatvalues(); // diag of hat matrix
-    const vec residuals();
+    const vec residuals(); // Pearson
     const vec fitted();
-    // df = sum(s[seq_len(rank)]/(s[seq_len(rank)]+delta))
 
     // Best linear unbiased predictor of random effect
     // same as ranef() in R
@@ -257,14 +252,60 @@ fastlmm<T1, T2, T3>::fastlmm( const T2 &X_,
   inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 }
 
+
+
+
+template <typename T1, typename T2, typename T3> 
+const double fastlmm<T1, T2, T3>::get_rdf(){
+
+  int n = Y.n_elem;
+  int k = s.n_elem;
+
+  // X is already scaled
+  // sum(h1)
+  // h1.sum <- with(object, delta*sum(1/(s+delta))) + (n-k)
+  double h1_sum = delta_hat*(sum(1/(s+delta_hat)) + (n-k) / delta_hat);
+
+  // sum(h2)
+  // A <- with(object, X / delta - U %*% ((s/(delta*s + delta^2)) * crossprod(U, X)))
+  // D <- solve(crossprod(A, X))
+  // h2.sum <- object$delta * sum(A * (A %*% D))
+  vec w = (s/(delta_hat*s + pow(delta_hat,2)));
+  mat A = mat(X / delta_hat - U * scaleEachCol( Xu, w));
+  mat D_A_t = solve(mat(A.t() * X), A.t());
+  double h2_sum = delta_hat * arma::accu(A % D_A_t.t());
+
+  return h1_sum - h2_sum;
+}
+
+
 template <typename T1, typename T2, typename T3> 
 const vec fastlmm<T1, T2, T3>::hatvalues(){
-  vec h(Y.n_elem, fill::ones);
-  return h;
+
+  int n = Y.n_elem;
+  int k = s.n_elem;
+
+  // Usq <- model$U^2
+  T3 Usq = square(U);
+
+  // h1 <- model$delta*with(model, Usq %*% (1/(s+delta))) + (1 - rowSums(Usq))
+  vec h1 = delta_hat * Usq * (1/(s+delta_hat)) + (1 - sum(Usq, 1));
+
+  // A <- with(model, X / delta - U %*% ((s/(delta*s + delta^2)) * crossprod(U, X)))
+  // D <- solve(crossprod(A, X))
+  // h2 <- model$delta * rowSums(A * (A %*% D))
+  vec w = (s/(delta_hat*s + pow(delta_hat,2)));
+  mat A = mat(X / delta_hat - U * scaleEachCol( Xu, w));
+  mat D_A_t = solve(mat(A.t() * X), A.t());
+  vec h2 = delta_hat * sum(A % D_A_t.t(), 1);
+
+  // hatvalues
+  return 1 - h1 + h2;
 }
 
 template <typename T1, typename T2, typename T3> 
 const vec fastlmm<T1, T2, T3>::residuals(){
+
   return (Y / sqrt(weights)) - fitted();
 }
 
@@ -297,9 +338,6 @@ const vec fastlmm<T1, T2, T3>::blup(){
 
   return (sqrt(s) % ru) / (s + delta_hat);
 }
-
-
-
 
 template <typename T1, typename T2, typename T3>  
 double fastlmm<T1, T2, T3>::ll(const double &delta ) { 
@@ -455,7 +493,8 @@ ModelFitLMM fastlmm<T1, T2, T3>::get_result(
   mat V = get_vcov();
 
   switch( md ){
-    case MAX: 
+    case MAX:       
+      res.hatvalues = hatvalues();
     case MOST:
       res.hatvalues = hatvalues(); 
     case HIGH: 

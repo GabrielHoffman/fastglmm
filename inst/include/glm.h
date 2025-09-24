@@ -26,7 +26,6 @@ namespace fastglmmLib {
 /** Check that response is valid for given family
  */ 
 static void checkResponse(const vec &y, const string &family){
-//const shared_ptr<GLMFamily> fam){
 	
 	shared_ptr<GLMFamily> fam = getGLMFamily( family );
 
