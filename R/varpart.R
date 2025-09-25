@@ -28,19 +28,19 @@ getDistrVar <- function(fit, method=c("trigamma", "lognormal")) {
   famID2 <- gsub("^(.+):.*", "\\1", famID)
 
   if( famID2 %in% c("poisson/log", "quasipoisson/log", "nb")){
-    if( is(fit, "glmmTMB") ){
-      if( ! '(Intercept)' %in% names(fixef(fit)$cond) ){
-        stop("Intercept term is required for variance partitioning analysis of a Poisson model")
-      }
 
-      beta_0 = as.numeric(fixef(fit)$cond['(Intercept)'])
-    }else{
-      if( ! '(Intercept)' %in% names(coef(fit)) ){
-        stop("Intercept term is required for variance partitioning analysis of a Poisson model")
-      }
-
-      beta_0 <- as.numeric(coef(fit)['(Intercept)'])
+    if( ! '(Intercept)' %in% names(coef(fit)) ){
+      stop("Intercept term is required for variance partitioning analysis of a Poisson model")
     }
+
+    # refit model with only intecept term and random effect
+    fit_null <- refitModel(fit, interceptOnly=TRUE)
+
+    # mean term based on Eqn 5.8 of Nakagawa, et al. 2017.
+    # Uses both intercept and variance component
+    # follows approach of insight:::.variance_distributional
+    lambda <- with(fit_null, exp(coefficients + 0.5*sigSq_g))
+    lambda <- as.numeric(lambda)
   }
 
   distVar <- switch( famID2, 
@@ -54,8 +54,8 @@ getDistrVar <- function(fit, method=c("trigamma", "lognormal")) {
     },
     "poisson/log" = {
       switch(method,
-        "lognormal" = log(1 + 1 / exp(beta_0)),
-        "trigamma" = trigamma(exp(beta_0)))
+        "lognormal" = log(1 + 1 / lambda),
+        "trigamma" = trigamma(lambda))
     },
     "binomial/logit" = (pi^2) / 3,
     "binomial/probit" = 1,
@@ -64,8 +64,8 @@ getDistrVar <- function(fit, method=c("trigamma", "lognormal")) {
       omega <- summary(fit)$dispersion
 
       switch(method,
-        "lognormal" = log(1 + omega / exp(beta_0)),
-        "trigamma" = trigamma(exp(beta_0) / omega))
+        "lognormal" = log(1 + omega / lambda),
+        "trigamma" = trigamma(lambda / omega))
     },
     "quasibinomial/logit" = stop("Link not supported"),
     "quasibinomial/probit" = stop("Link not supported"),
@@ -73,8 +73,8 @@ getDistrVar <- function(fit, method=c("trigamma", "lognormal")) {
       theta <- as.numeric(gsub("^(.+):(.*)$", "\\2", famID))
 
       switch(method,
-        "lognormal" = log(1 + 1 / exp(beta_0) + 1 / theta),
-        "trigamma" = trigamma(1/(exp(-beta_0) + 1/theta)))
+        "lognormal" = log(1 + 1 / lambda + 1 / theta),
+        "trigamma" = trigamma(1/(1/lambda + 1/theta)))
     })
 
   if (is.null(distVar)) {
@@ -140,8 +140,13 @@ varianceTerms.fastlmm <- function(object){
 #' 
 #' Compute fraction of variation attributable to each variable in regression model.  Also interpretable as the intra-class correlation after correcting for all other variables in the model.
 #' 
-#' @param fit model fit 
+#' @param fit model fit   
 #' 
+#' @references
+#' Nakagawa, Johnson, Schielzeth. 2017.  The coefficient of determination R2 and intra-class correlation coefficient from generalized linear mixed-effects models revisited and expanded. J. R. Soc. Interface 14: 20170213. \doi{10.1098/rsif.2017.0213}
+#'
+#' Nakagawa, Shinichi, and Holger Schielzeth. "A general and simple method for obtaining R2 from generalized linear mixed‐effects models." Methods in ecology and evolution 4, no. 2 (2013): 133-142. \doi{10.1111/j.2041-210x.2012.00261.x}
+#
 #' @importFrom matrixStats colVars
 #' @export
 varpart = function(fit){
@@ -150,7 +155,8 @@ varpart = function(fit){
   if( is(fit, "fastglmm") || is.null(weights(fit)) ){
     wsqrt <- 1
   }else{
-    wsqrt <- c(sqrt(weights(fit) / mean(weights(fit))))
+    w <- weights(fit)
+    wsqrt <- c(sqrt(w) / mean(sqrt(w)))
   }
 
   # signal_var <- weightedVar(predict(fit), weights(fit))

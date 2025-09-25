@@ -4,12 +4,16 @@
 \alias{refitModel}
 \title{Refit fastlmm model with new delta}
 \usage{
-refitModel(fit, delta)
+refitModel(fit, delta = NULL, interceptOnly = FALSE, fixedNBtheta = FALSE)
 }
 \arguments{
-\item{fit}{model fit of class \code{fastlmm}}
+\item{fit}{model fit of class \code{fastlmm} or \code{fastglmm}}
 
 \item{delta}{new value for delta}
+
+\item{interceptOnly}{if \code{TRUE}, only retain the intercept from the fixed effect design matrix}
+
+\item{fixedNBtheta}{if \code{FALSE}, low theta in NB model to be re-estimated too}
 }
 \description{
 Refit fastlmm model with new delta value

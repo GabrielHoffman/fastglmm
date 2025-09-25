@@ -108,9 +108,6 @@ test_generics = function(){
   fit3 <- fastglmm(form, sleepstudy, weights = w)
   f_check_generics(fit1, fit3, exclude = "anova")
 
-
-
-
 }
 
 

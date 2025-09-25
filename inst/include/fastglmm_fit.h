@@ -110,7 +110,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 
 	// Initialize eta
 	// just need a rough starting value
-	ModelFitGLM fit_init = GLM(X, y, this->family, md, weights, offset, work, {}, 1e-2, 3);
+	ModelFitGLM fit_init = GLM(X, y, this->family, LEAST, weights, offset, work, {}, 1e-2, 3);
 
 	int iter_in = 0;
 	double theta;
@@ -131,6 +131,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 			eta_old = work->eta;
 			work->eta = fit.fitted() + offset;
 
+			// convergence criteria based on norm of eta change
 			if( norm(work->eta - eta_old) < tol_eta){
 				break;
 			}
@@ -156,7 +157,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 		dcmp.initWithIndicator(Z, work->w);
 
 		// fit fastlmm
-		fit = fastlmm(work->z, X, dcmp.get_vectors(), dcmp.get_values(), work->w, MAX);
+		fit = fastlmm(work->z, X, dcmp.get_vectors(), dcmp.get_values(), work->w, LEAST);
 
 		if( delta > 0 ){
       fit.eval_delta( delta ); 
@@ -164,9 +165,20 @@ fastglmm<T1, T2, T3>::fastglmm(
 			fit.estimate_delta(left, right, tol);	
 		}
 
-		// TODO
-		// 1) narrow delta search over time?
+		// increment interation count
 		iter_in += fit.get_iter();
+	}
+
+	// Final fit with ModelDetail md
+	if( md > LEAST ){		
+		// fit fastlmm
+		fit = fastlmm(work->z, X, dcmp.get_vectors(), dcmp.get_values(), work->w, md);
+
+		if( delta > 0 ){
+      fit.eval_delta( delta ); 
+    }else{
+			fit.estimate_delta(left, right, tol);	
+		}
 	}
 
 	if( estimateTheta ){
