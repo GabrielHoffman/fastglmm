@@ -43,7 +43,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">refitModel</span><span class="op">(</span><span class="va">fit</span>, delta <span class="op">=</span> <span class="cn">NULL</span>, interceptOnly <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">refitModel</span><span class="op">(</span><span class="va">fit</span>, delta <span class="op">=</span> <span class="cn">NULL</span>, interceptOnly <span class="op">=</span> <span class="cn">FALSE</span>, fixedNBtheta <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -60,6 +60,10 @@
 
 <dt id="arg-interceptonly">interceptOnly<a class="anchor" aria-label="anchor" href="#arg-interceptonly"></a></dt>
 <dd><p>if <code>TRUE</code>, only retain the intercept from the fixed effect design matrix</p></dd>
+
+
+<dt id="arg-fixednbtheta">fixedNBtheta<a class="anchor" aria-label="anchor" href="#arg-fixednbtheta"></a></dt>
+<dd><p>if <code>FALSE</code>, low theta in NB model to be re-estimated too</p></dd>
 
 </dl></div>
     <div class="section level2">

@@ -225,7 +225,7 @@ $(function() {
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="comment">// Initialize eta</span></div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="comment">// just need a rough starting value</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <a class="code hl_class" href="classfastglmm_lib_1_1_model_fit_g_l_m.html">ModelFitGLM</a> fit_init = GLM(X, y, this-&gt;family, md, weights, offset, work, {}, 1e-2, 3);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <a class="code hl_class" href="classfastglmm_lib_1_1_model_fit_g_l_m.html">ModelFitGLM</a> fit_init = GLM(X, y, this-&gt;family, <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba">LEAST</a>, weights, offset, work, {}, 1e-2, 3);</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordtype">int</span> iter_in = 0;</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordtype">double</span> theta;</div>
@@ -246,127 +246,139 @@ $(function() {
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            eta_old = work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ae6f190589dd2057e57ef167d53b81604">eta</a>;</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ae6f190589dd2057e57ef167d53b81604">eta</a> = fit.fitted() + offset;</div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            <span class="keywordflow">if</span>( norm(work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ae6f190589dd2057e57ef167d53b81604">eta</a> - eta_old) &lt; tol_eta){</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            }</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        }</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="comment">// mu &lt;- family$linkinv(eta)</span></div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#af2b7c761786c5fd0db62f11c99f5db9e">mu</a> = fam-&gt;linkinv( work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ae6f190589dd2057e57ef167d53b81604">eta</a> );</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="comment">// mu.eta.val &lt;- family$mu.eta(eta)</span></div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#aca19672bd88aaabfe3de21da752a0b15">gprime</a> = fam-&gt;mu_eta( work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ae6f190589dd2057e57ef167d53b81604">eta</a> );</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="comment">// zz &lt;- eta + (y.orig - mu)/mu.eta.val - offset</span></div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ad2cd7f50570a2734edae6e0986db3b07">z</a> = (work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ae6f190589dd2057e57ef167d53b81604">eta</a> - offset) + (y - work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#af2b7c761786c5fd0db62f11c99f5db9e">mu</a>) / work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#aca19672bd88aaabfe3de21da752a0b15">gprime</a>;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="comment">// wz &lt;- w * mu.eta.val^2/family$variance(mu)</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a> = pow(work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#aca19672bd88aaabfe3de21da752a0b15">gprime</a>,2) % (weights / fam-&gt;variance( work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#af2b7c761786c5fd0db62f11c99f5db9e">mu</a> ));</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        <span class="comment">// wz &lt;- wz / mean(wz)</span></div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        w_mean = mean(work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a>);</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a> = work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a> / w_mean;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="comment">// recompute U and s since work-&gt;w changed</span></div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        dcmp.<a class="code hl_function" href="classfastglmm_lib_1_1spectral_decomp.html#abfe2b322d296ef8fd943ff713a0d9084">initWithIndicator</a>(Z, work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a>);</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <span class="comment">// fit fastlmm</span></div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        fit = <a class="code hl_class" href="classfastglmm_lib_1_1fastlmm.html">fastlmm</a>(work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ad2cd7f50570a2734edae6e0986db3b07">z</a>, X, dcmp.<a class="code hl_function" href="classfastglmm_lib_1_1spectral_decomp.html#a5b5fe436f78ab39270dd6a25bc6efd50">get_vectors</a>(), dcmp.<a class="code hl_function" href="classfastglmm_lib_1_1spectral_decomp.html#aaeec1385dff15d5031c53e1a5200f92f">get_values</a>(), work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a>, <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ab9cd19e431dfc975f4ae5904e3ffb375">MAX</a>);</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <span class="keywordflow">if</span>( delta &gt; 0 ){</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>      fit.eval_delta( delta ); </div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    }<span class="keywordflow">else</span>{</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            fit.estimate_delta(left, right, tol);   </div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        }</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="comment">// TODO</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="comment">// 1) narrow delta search over time?</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            <span class="comment">// convergence criteria based on norm of eta change</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <span class="keywordflow">if</span>( norm(work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ae6f190589dd2057e57ef167d53b81604">eta</a> - eta_old) &lt; tol_eta){</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            }</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        }</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="comment">// mu &lt;- family$linkinv(eta)</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#af2b7c761786c5fd0db62f11c99f5db9e">mu</a> = fam-&gt;linkinv( work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ae6f190589dd2057e57ef167d53b81604">eta</a> );</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="comment">// mu.eta.val &lt;- family$mu.eta(eta)</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#aca19672bd88aaabfe3de21da752a0b15">gprime</a> = fam-&gt;mu_eta( work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ae6f190589dd2057e57ef167d53b81604">eta</a> );</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="comment">// zz &lt;- eta + (y.orig - mu)/mu.eta.val - offset</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ad2cd7f50570a2734edae6e0986db3b07">z</a> = (work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ae6f190589dd2057e57ef167d53b81604">eta</a> - offset) + (y - work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#af2b7c761786c5fd0db62f11c99f5db9e">mu</a>) / work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#aca19672bd88aaabfe3de21da752a0b15">gprime</a>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="comment">// wz &lt;- w * mu.eta.val^2/family$variance(mu)</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a> = pow(work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#aca19672bd88aaabfe3de21da752a0b15">gprime</a>,2) % (weights / fam-&gt;variance( work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#af2b7c761786c5fd0db62f11c99f5db9e">mu</a> ));</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        <span class="comment">// wz &lt;- wz / mean(wz)</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        w_mean = mean(work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a>);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a> = work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a> / w_mean;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="comment">// recompute U and s since work-&gt;w changed</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        dcmp.<a class="code hl_function" href="classfastglmm_lib_1_1spectral_decomp.html#abfe2b322d296ef8fd943ff713a0d9084">initWithIndicator</a>(Z, work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a>);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="comment">// fit fastlmm</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        fit = <a class="code hl_class" href="classfastglmm_lib_1_1fastlmm.html">fastlmm</a>(work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ad2cd7f50570a2734edae6e0986db3b07">z</a>, X, dcmp.<a class="code hl_function" href="classfastglmm_lib_1_1spectral_decomp.html#a5b5fe436f78ab39270dd6a25bc6efd50">get_vectors</a>(), dcmp.<a class="code hl_function" href="classfastglmm_lib_1_1spectral_decomp.html#aaeec1385dff15d5031c53e1a5200f92f">get_values</a>(), work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a>, <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba">LEAST</a>);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <span class="keywordflow">if</span>( delta &gt; 0 ){</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>      fit.eval_delta( delta ); </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    }<span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            fit.estimate_delta(left, right, tol);   </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        }</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="comment">// increment interation count</span></div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        iter_in += fit.get_iter();</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    }</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keywordflow">if</span>( estimateTheta ){</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="comment">// update family to include estimated theta</span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        this-&gt;family = <span class="stringliteral">&quot;nb:&quot;</span> + to_string(theta);</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    }</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="comment">// Final fit with ModelDetail md</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keywordflow">if</span>( md &gt; <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba">LEAST</a> ){      </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="comment">// fit fastlmm</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        fit = <a class="code hl_class" href="classfastglmm_lib_1_1fastlmm.html">fastlmm</a>(work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ad2cd7f50570a2734edae6e0986db3b07">z</a>, X, dcmp.<a class="code hl_function" href="classfastglmm_lib_1_1spectral_decomp.html#a5b5fe436f78ab39270dd6a25bc6efd50">get_vectors</a>(), dcmp.<a class="code hl_function" href="classfastglmm_lib_1_1spectral_decomp.html#aaeec1385dff15d5031c53e1a5200f92f">get_values</a>(), work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a>, md);</div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="comment">// save value</span></div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>  mu = work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#af2b7c761786c5fd0db62f11c99f5db9e">mu</a>;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="keyword">delete</span> work;</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>}</div>
-</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <span class="keywordflow">if</span>( delta &gt; 0 ){</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>      fit.eval_delta( delta ); </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    }<span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>            fit.estimate_delta(left, right, tol);   </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        }</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    }</div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2, <span class="keyword">typename</span> T3&gt; </div>
-<div class="foldopen" id="foldopen00186" data-start="{" data-end="}">
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="classfastglmm_lib_1_1fastglmm.html#ae312a6a0452c8097e263387210275451">  186</a></span><span class="keyword">const</span> vec <a class="code hl_function" href="classfastglmm_lib_1_1fastglmm.html#ae312a6a0452c8097e263387210275451">fastglmm&lt;T1, T2, T3&gt;::residuals</a>(){</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="comment">// (y - mu) * sqrt(wts)/sqrt(fam$variance(mu))</span></div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="keywordflow">return</span> (y - mu) % sqrt(weights) / sqrt(fam-&gt;variance(mu));</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>}</div>
-</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keywordflow">if</span>( estimateTheta ){</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="comment">// update family to include estimated theta</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        this-&gt;family = <span class="stringliteral">&quot;nb:&quot;</span> + to_string(theta);</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    }</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="comment">// save value</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>  mu = work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#af2b7c761786c5fd0db62f11c99f5db9e">mu</a>;</div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2, <span class="keyword">typename</span> T3&gt; </div>
-<div class="foldopen" id="foldopen00194" data-start="{" data-end="}">
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="classfastglmm_lib_1_1fastglmm.html#a82ae5304ae2c5f793dccf546bbdffe00">  194</a></span><span class="keyword">const</span> vec <a class="code hl_function" href="classfastglmm_lib_1_1fastglmm.html#a82ae5304ae2c5f793dccf546bbdffe00">fastglmm&lt;T1, T2, T3&gt;::fitted</a>(){</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keyword">delete</span> work;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>}</div>
+</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keywordflow">return</span> fam-&gt;linkinv( fit.fitted() );</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>}</div>
-</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2, <span class="keyword">typename</span> T3&gt; </div>
+<div class="foldopen" id="foldopen00198" data-start="{" data-end="}">
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="classfastglmm_lib_1_1fastglmm.html#ae312a6a0452c8097e263387210275451">  198</a></span><span class="keyword">const</span> vec <a class="code hl_function" href="classfastglmm_lib_1_1fastglmm.html#ae312a6a0452c8097e263387210275451">fastglmm&lt;T1, T2, T3&gt;::residuals</a>(){</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2, <span class="keyword">typename</span> T3&gt; </div>
-<div class="foldopen" id="foldopen00202" data-start="{" data-end="}">
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="classfastglmm_lib_1_1fastglmm.html#a7490d79ba70ea450b33a66d17c062666">  202</a></span><span class="keyword">const</span> vec <a class="code hl_function" href="classfastglmm_lib_1_1fastglmm.html#a7490d79ba70ea450b33a66d17c062666">fastglmm&lt;T1, T2, T3&gt;::devianceResiduals</a>(){</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="comment">// (y - mu) * sqrt(wts)/sqrt(fam$variance(mu))</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keywordflow">return</span> (y - mu) % sqrt(weights) / sqrt(fam-&gt;variance(mu));</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>}</div>
+</div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="comment">// transform from residuals.glm</span></div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="comment">// d.res &lt;- sqrt(pmax((object$family$dev.resids)(y, mu, </span></div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>  <span class="comment">//     wts), 0))</span></div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>  <span class="comment">// ifelse(y &gt; mu, d.res, -d.res)</span></div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="comment">// compute raw deviance residuals</span></div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    vec dr = fam-&gt;dev_resids(y, mu, weights);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2, <span class="keyword">typename</span> T3&gt; </div>
+<div class="foldopen" id="foldopen00206" data-start="{" data-end="}">
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="classfastglmm_lib_1_1fastglmm.html#a82ae5304ae2c5f793dccf546bbdffe00">  206</a></span><span class="keyword">const</span> vec <a class="code hl_function" href="classfastglmm_lib_1_1fastglmm.html#a82ae5304ae2c5f793dccf546bbdffe00">fastglmm&lt;T1, T2, T3&gt;::fitted</a>(){</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <span class="keywordflow">return</span> fam-&gt;linkinv( fit.fitted() );</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>}</div>
+</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
 <div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    vec drMod = sqrt(pmax(dr, 0));</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    uvec idx = find(y &lt;= mu);</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    drMod.elem(idx) = -1.0*drMod.elem(idx);</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2, <span class="keyword">typename</span> T3&gt; </div>
+<div class="foldopen" id="foldopen00214" data-start="{" data-end="}">
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="classfastglmm_lib_1_1fastglmm.html#a7490d79ba70ea450b33a66d17c062666">  214</a></span><span class="keyword">const</span> vec <a class="code hl_function" href="classfastglmm_lib_1_1fastglmm.html#a7490d79ba70ea450b33a66d17c062666">fastglmm&lt;T1, T2, T3&gt;::devianceResiduals</a>(){</div>
 <div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keywordflow">return</span> drMod;</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>}</div>
-</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="comment">// transform from residuals.glm</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <span class="comment">// d.res &lt;- sqrt(pmax((object$family$dev.resids)(y, mu, </span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>  <span class="comment">//     wts), 0))</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>  <span class="comment">// ifelse(y &gt; mu, d.res, -d.res)</span></div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2, <span class="keyword">typename</span> T3&gt; </div>
-<div class="foldopen" id="foldopen00224" data-start="{" data-end="}">
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="classfastglmm_lib_1_1fastglmm.html#a3cfc852df4bdf93a5805e0b0c7466209">  224</a></span><a class="code hl_class" href="classfastglmm_lib_1_1_model_fit_g_l_m_m.html">ModelFitGLMM</a> <a class="code hl_function" href="classfastglmm_lib_1_1fastglmm.html#a3cfc852df4bdf93a5805e0b0c7466209">fastglmm&lt;T1, T2, T3&gt;::get_result</a>(){</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <a class="code hl_class" href="classfastglmm_lib_1_1_model_fit_l_m_m.html">ModelFitLMM</a> res1 = fit.get_result(returnUS);</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    res1.<a class="code hl_function" href="classfastglmm_lib_1_1_model_fit_l_m_m.html#a11b4c0d37ab16509143ff2cd5cd053e8">set_w_mean</a>( w_mean );</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <a class="code hl_class" href="classfastglmm_lib_1_1_model_fit_g_l_m_m.html">ModelFitGLMM</a> mf(res1, family, niter_pql);</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="comment">// compute raw deviance residuals</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    vec dr = fam-&gt;dev_resids(y, mu, weights);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    vec drMod = sqrt(pmax(dr, 0));</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    uvec idx = find(y &lt;= mu);</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    drMod.elem(idx) = -1.0*drMod.elem(idx);</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordflow">return</span> drMod;</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>}</div>
+</div>
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>  <span class="keywordflow">if</span>( md == <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ab9cd19e431dfc975f4ae5904e3ffb375">MAX</a> ){</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        mf.<a class="code hl_variable" href="classfastglmm_lib_1_1_model_fit.html#a36747d1197e07f51c8e779c879377cdb">devianceResiduals</a> = <a class="code hl_function" href="classfastglmm_lib_1_1fastglmm.html#a7490d79ba70ea450b33a66d17c062666">devianceResiduals</a>();</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>  }</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>  <span class="keywordflow">if</span>( md &gt;= <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2aa987f00d03050fb355d8d246a2c4d4e1">HIGH</a> ){</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        mf.<a class="code hl_variable" href="classfastglmm_lib_1_1_model_fit.html#a2d6e59e0f7fab81d35e413ff3f7c863d">residuals</a> = <a class="code hl_function" href="classfastglmm_lib_1_1fastglmm.html#ae312a6a0452c8097e263387210275451">residuals</a>();</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>  }</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keywordflow">return</span> mf;</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>}</div>
-</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2, <span class="keyword">typename</span> T3&gt; </div>
+<div class="foldopen" id="foldopen00236" data-start="{" data-end="}">
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno"><a class="line" href="classfastglmm_lib_1_1fastglmm.html#a3cfc852df4bdf93a5805e0b0c7466209">  236</a></span><a class="code hl_class" href="classfastglmm_lib_1_1_model_fit_g_l_m_m.html">ModelFitGLMM</a> <a class="code hl_function" href="classfastglmm_lib_1_1fastglmm.html#a3cfc852df4bdf93a5805e0b0c7466209">fastglmm&lt;T1, T2, T3&gt;::get_result</a>(){</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <a class="code hl_class" href="classfastglmm_lib_1_1_model_fit_l_m_m.html">ModelFitLMM</a> res1 = fit.get_result(returnUS);</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    res1.<a class="code hl_function" href="classfastglmm_lib_1_1_model_fit_l_m_m.html#a11b4c0d37ab16509143ff2cd5cd053e8">set_w_mean</a>( w_mean );</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <a class="code hl_class" href="classfastglmm_lib_1_1_model_fit_g_l_m_m.html">ModelFitGLMM</a> mf(res1, family, niter_pql);</div>
 <div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>} <span class="comment">// end namespace</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>  <span class="keywordflow">if</span>( md == <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ab9cd19e431dfc975f4ae5904e3ffb375">MAX</a> ){</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        mf.<a class="code hl_variable" href="classfastglmm_lib_1_1_model_fit.html#a36747d1197e07f51c8e779c879377cdb">devianceResiduals</a> = <a class="code hl_function" href="classfastglmm_lib_1_1fastglmm.html#a7490d79ba70ea450b33a66d17c062666">devianceResiduals</a>();</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>  }</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>  <span class="keywordflow">if</span>( md &gt;= <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2aa987f00d03050fb355d8d246a2c4d4e1">HIGH</a> ){</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        mf.<a class="code hl_variable" href="classfastglmm_lib_1_1_model_fit.html#a2d6e59e0f7fab81d35e413ff3f7c863d">residuals</a> = <a class="code hl_function" href="classfastglmm_lib_1_1fastglmm.html#ae312a6a0452c8097e263387210275451">residuals</a>();</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>  }</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="keywordflow">return</span> mf;</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>}</div>
 </div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>} <span class="comment">// end namespace</span></div>
+</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="a_model_fit_8h_html"><div class="ttname"><a href="_model_fit_8h.html">ModelFit.h</a></div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_g_l_m_html"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit_g_l_m.html">fastglmmLib::ModelFitGLM</a></div><div class="ttdef"><b>Definition</b> ModelFit.h:150</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_g_l_m_m_html"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit_g_l_m_m.html">fastglmmLib::ModelFitGLMM</a></div><div class="ttdef"><b>Definition</b> ModelFit.h:314</div></div>
@@ -374,11 +386,11 @@ $(function() {
 <div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_html_a36747d1197e07f51c8e779c879377cdb"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit.html#a36747d1197e07f51c8e779c879377cdb">fastglmmLib::ModelFit::devianceResiduals</a></div><div class="ttdeci">vec devianceResiduals</div><div class="ttdef"><b>Definition</b> ModelFit.h:49</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_l_m_m_html"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit_l_m_m.html">fastglmmLib::ModelFitLMM</a></div><div class="ttdef"><b>Definition</b> ModelFit.h:185</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_l_m_m_html_a11b4c0d37ab16509143ff2cd5cd053e8"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit_l_m_m.html#a11b4c0d37ab16509143ff2cd5cd053e8">fastglmmLib::ModelFitLMM::set_w_mean</a></div><div class="ttdeci">void set_w_mean(const double &amp;value)</div><div class="ttdef"><b>Definition</b> ModelFit.h:308</div></div>
-<div class="ttc" id="aclassfastglmm_lib_1_1fastglmm_html_a3cfc852df4bdf93a5805e0b0c7466209"><div class="ttname"><a href="classfastglmm_lib_1_1fastglmm.html#a3cfc852df4bdf93a5805e0b0c7466209">fastglmmLib::fastglmm::get_result</a></div><div class="ttdeci">ModelFitGLMM get_result()</div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:224</div></div>
+<div class="ttc" id="aclassfastglmm_lib_1_1fastglmm_html_a3cfc852df4bdf93a5805e0b0c7466209"><div class="ttname"><a href="classfastglmm_lib_1_1fastglmm.html#a3cfc852df4bdf93a5805e0b0c7466209">fastglmmLib::fastglmm::get_result</a></div><div class="ttdeci">ModelFitGLMM get_result()</div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:236</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1fastglmm_html_a53aff4890d4d14e44f36a10f32be3e7f"><div class="ttname"><a href="classfastglmm_lib_1_1fastglmm.html#a53aff4890d4d14e44f36a10f32be3e7f">fastglmmLib::fastglmm::fastglmm</a></div><div class="ttdeci">fastglmm()</div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:40</div></div>
-<div class="ttc" id="aclassfastglmm_lib_1_1fastglmm_html_a7490d79ba70ea450b33a66d17c062666"><div class="ttname"><a href="classfastglmm_lib_1_1fastglmm.html#a7490d79ba70ea450b33a66d17c062666">fastglmmLib::fastglmm::devianceResiduals</a></div><div class="ttdeci">const vec devianceResiduals()</div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:202</div></div>
-<div class="ttc" id="aclassfastglmm_lib_1_1fastglmm_html_a82ae5304ae2c5f793dccf546bbdffe00"><div class="ttname"><a href="classfastglmm_lib_1_1fastglmm.html#a82ae5304ae2c5f793dccf546bbdffe00">fastglmmLib::fastglmm::fitted</a></div><div class="ttdeci">const vec fitted()</div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:194</div></div>
-<div class="ttc" id="aclassfastglmm_lib_1_1fastglmm_html_ae312a6a0452c8097e263387210275451"><div class="ttname"><a href="classfastglmm_lib_1_1fastglmm.html#ae312a6a0452c8097e263387210275451">fastglmmLib::fastglmm::residuals</a></div><div class="ttdeci">const vec residuals()</div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:186</div></div>
+<div class="ttc" id="aclassfastglmm_lib_1_1fastglmm_html_a7490d79ba70ea450b33a66d17c062666"><div class="ttname"><a href="classfastglmm_lib_1_1fastglmm.html#a7490d79ba70ea450b33a66d17c062666">fastglmmLib::fastglmm::devianceResiduals</a></div><div class="ttdeci">const vec devianceResiduals()</div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:214</div></div>
+<div class="ttc" id="aclassfastglmm_lib_1_1fastglmm_html_a82ae5304ae2c5f793dccf546bbdffe00"><div class="ttname"><a href="classfastglmm_lib_1_1fastglmm.html#a82ae5304ae2c5f793dccf546bbdffe00">fastglmmLib::fastglmm::fitted</a></div><div class="ttdeci">const vec fitted()</div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:206</div></div>
+<div class="ttc" id="aclassfastglmm_lib_1_1fastglmm_html_ae312a6a0452c8097e263387210275451"><div class="ttname"><a href="classfastglmm_lib_1_1fastglmm.html#ae312a6a0452c8097e263387210275451">fastglmmLib::fastglmm::residuals</a></div><div class="ttdeci">const vec residuals()</div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:198</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1fastlmm_html"><div class="ttname"><a href="classfastglmm_lib_1_1fastlmm.html">fastglmmLib::fastlmm</a></div><div class="ttdef"><b>Definition</b> fastlmm_fit.h:32</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1spectral_decomp_html"><div class="ttname"><a href="classfastglmm_lib_1_1spectral_decomp.html">fastglmmLib::spectralDecomp</a></div><div class="ttdef"><b>Definition</b> spectralDecomp.h:19</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1spectral_decomp_html_a5b5fe436f78ab39270dd6a25bc6efd50"><div class="ttname"><a href="classfastglmm_lib_1_1spectral_decomp.html#a5b5fe436f78ab39270dd6a25bc6efd50">fastglmmLib::spectralDecomp::get_vectors</a></div><div class="ttdeci">T get_vectors()</div><div class="ttdef"><b>Definition</b> spectralDecomp.h:33</div></div>
@@ -390,6 +402,7 @@ $(function() {
 <div class="ttc" id="amisc_8h_html_a613b4d5d3153ad82d4e3beed8060d305"><div class="ttname"><a href="misc_8h.html#a613b4d5d3153ad82d4e3beed8060d305">scaleEachRow</a></div><div class="ttdeci">mat scaleEachRow(const mat &amp;X, const vec &amp;w)</div><div class="ttdef"><b>Definition</b> misc.h:30</div></div>
 <div class="ttc" id="anamespacefastglmm_lib_html"><div class="ttname"><a href="namespacefastglmm_lib.html">fastglmmLib</a></div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:29</div></div>
 <div class="ttc" id="anamespacefastglmm_lib_html_a7cbb450b70991b1d13a57f8200c131f2"><div class="ttname"><a href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2">fastglmmLib::ModelDetail</a></div><div class="ttdeci">ModelDetail</div><div class="ttdef"><b>Definition</b> ModelFit.h:26</div></div>
+<div class="ttc" id="anamespacefastglmm_lib_html_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba"><div class="ttname"><a href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba">fastglmmLib::LEAST</a></div><div class="ttdeci">@ LEAST</div><div class="ttdef"><b>Definition</b> ModelFit.h:27</div></div>
 <div class="ttc" id="anamespacefastglmm_lib_html_a7cbb450b70991b1d13a57f8200c131f2aa987f00d03050fb355d8d246a2c4d4e1"><div class="ttname"><a href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2aa987f00d03050fb355d8d246a2c4d4e1">fastglmmLib::HIGH</a></div><div class="ttdeci">@ HIGH</div><div class="ttdef"><b>Definition</b> ModelFit.h:30</div></div>
 <div class="ttc" id="anamespacefastglmm_lib_html_a7cbb450b70991b1d13a57f8200c131f2ab9cd19e431dfc975f4ae5904e3ffb375"><div class="ttname"><a href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ab9cd19e431dfc975f4ae5904e3ffb375">fastglmmLib::MAX</a></div><div class="ttdeci">@ MAX</div><div class="ttdef"><b>Definition</b> ModelFit.h:32</div></div>
 <div class="ttc" id="anamespacefastglmm_lib_html_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0"><div class="ttname"><a href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0">fastglmmLib::LOW</a></div><div class="ttdeci">@ LOW</div><div class="ttdef"><b>Definition</b> ModelFit.h:28</div></div>
