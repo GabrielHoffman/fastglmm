@@ -4,13 +4,18 @@
 \alias{varpart}
 \title{Variance Partitioning Analysis}
 \usage{
-varpart(fit)
+varpart(fit, distr.method = c("trigamma", "lognormal"))
 }
 \arguments{
 \item{fit}{model fit}
+
+\item{distr.method}{use either the \code{"lognormal"} or \code{"trigamma"} formulas from Nakagawa, et al. (2017)}
 }
 \description{
-Compute fraction of variation attributable to each variable in regression model.  Also interpretable as the intra-class correlation after correcting for all other variables in the model.
+Compute fraction of variance attributable to each variable in regression model.  Also interpretable as the intra-class correlation after correcting for all other variables in the model. Works for models fit with \code{glm()} and \code{fastglmm()}
+}
+\details{
+The coefficient of determination (i.e. R^2) is 1 - [Residuals fraction].  This matches \code{performance::r2_nakagawa()} and \code{performance::r2_mckelvey()}, except these use the \code{"lognormal"} method.
 }
 \references{
 Nakagawa, Johnson, Schielzeth. 2017.  The coefficient of determination R2 and intra-class correlation coefficient from generalized linear mixed-effects models revisited and expanded. J. R. Soc. Interface 14: 20170213. \doi{10.1098/rsif.2017.0213}
