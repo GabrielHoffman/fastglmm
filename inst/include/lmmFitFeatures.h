@@ -25,13 +25,13 @@ class lmmFitFeatures {
                   const double &delta,
                   const double &left = -10,
                   const double &right = 10,
-                  const double &tol = 1e-5,
+                  const double &tol = 1e-6,
                   const int &nthreads = 1,
                   const ModelDetail md = LOW,
                   const bool REML = false);
 
   ModelFitLMMList eval(const T2 &X_add_,
-                      const vector<string> &ids);
+                        const vector<string> &ids);
 
   private:
   T1 Y; 
@@ -62,11 +62,19 @@ lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
                             const int &nthreads,
                             const ModelDetail md,
                             const bool REML) :
-  Y(Y), X_shared(X), weights(weights),
-  delta(delta), left(left), right(right), tol(tol), nthreads(nthreads), md(md), REML(REML)
+  Y(Y), 
+  X_shared(X), 
+  weights(weights),
+  delta(delta), 
+  left(left), 
+  right(right), 
+  tol(tol), 
+  nthreads(nthreads), 
+  md(md), 
+  REML(REML)
   {
 
-  dcmp.initWithEigenDecomp(U, s, weights);
+  dcmp.initWithEigenDecomp(U, s);
 }
 
 

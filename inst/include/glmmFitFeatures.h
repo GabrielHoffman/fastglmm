@@ -18,23 +18,25 @@ template <typename T1, typename T2, typename T3>
 class glmmFitFeatures {
 
   public:
-  glmmFitFeatures( const T1 &y, 
-                  const T2 &X, 
-                  const string &family, 
-                  const T3 &U,
-                  const vec &s,
-                  const vec &weights = {},
-                  const vec &offset = {},
-                  const double &delta = -1,
-                  const double &left = -10,
-                  const double &right = 10,
-                  const double &tol = 1e-5,
-                  const double &tol_eta = 1e-5,
-                  const int &nthreads = 1,
-                  const ModelDetail md = LOW);
+  glmmFitFeatures( 
+    const T1 &y, 
+    const T2 &X, 
+    const string &family, 
+    const T3 &U,
+    const vec &s,
+    const vec &weights = {},
+    const vec &offset = {},
+    const double &delta = -1,
+    const double &left = -10,
+    const double &right = 10,
+    const double &tol = 1e-5,
+    const double &tol_eta = 1e-7,
+    const int &nthreads = 1,
+    const ModelDetail md = LOW);
 
-  ModelFitGLMMList eval(const T2 &X_add_,
-                      const vector<string> &ids);
+  ModelFitGLMMList eval(
+    const T2 &X_add_,
+    const vector<string> &ids);
 
   private:
   T1 y; 
@@ -53,25 +55,35 @@ class glmmFitFeatures {
 // constructor
 template <typename T1, typename T2, typename T3> 
 glmmFitFeatures<T1, T2, T3>::glmmFitFeatures(
-                      const T1 &y, 
-                      const T2 &X, 
-                      const string &family, 
-                      const T3 &U,
-                      const vec &s,
-                      const vec &weights, 
-                      const vec &offset,    
-                      const double &delta,
-                      const double &left,
-                      const double &right,
-                      const double &tol,
-                      const double &tol_eta,
-                      const int &nthreads,
-                      const ModelDetail md) :
-  y(y), X_shared(X), family(family), weights(weights), offset(offset),
-  delta(delta), left(left), right(right), tol(tol), tol_eta(tol_eta), nthreads(nthreads), md(md)
+  const T1 &y, 
+  const T2 &X, 
+  const string &family, 
+  const T3 &U,
+  const vec &s,
+  const vec &weights, 
+  const vec &offset,    
+  const double &delta,
+  const double &left,
+  const double &right,
+  const double &tol,
+  const double &tol_eta,
+  const int &nthreads,
+  const ModelDetail md) :
+    y(y),
+    X_shared(X), 
+    family(family), 
+    weights(weights), 
+    offset(offset),
+    delta(delta), 
+    left(left), 
+    right(right), 
+    tol(tol), 
+    tol_eta(tol_eta),
+    nthreads(nthreads), 
+    md(md)
   {
 
-  dcmp.initWithEigenDecomp(U, s, weights);
+  dcmp.initWithEigenDecomp(U, s);//, weights);
 }
 
 

@@ -19,24 +19,24 @@ namespace fastglmmLib {
 template <typename T1, typename T2, typename T3> 
 class glmmFitResponses {
 
-    public:
-    glmmFitResponses(
-      const T2 &X, 
-      const T3 &U,
-      const vec &s,
-      const vec &weights = {}, 
-      const vec &offset = {}, 
-      const double &left = -10,
-      const double &right = 10,
-      const double &tol = 1e-5,
-      const double &tol_eta = 1e-5,
-      const int &nthreads = 1,
-      const ModelDetail md = LOW);
+  public:
+  glmmFitResponses(
+    const T2 &X, 
+    const T3 &U,
+    const vec &s,
+    const vec &weights = {}, 
+    const vec &offset = {}, 
+    const double &left = -10,
+    const double &right = 10,
+    const double &tol = 1e-5,
+    const double &tol_eta = 1e-7,
+    const int &nthreads = 1,
+    const ModelDetail md = LOW);
 
   ModelFitGLMMList eval(
-      const T1 &Y,
-      const vector<string> &ids,
-      const vector<string> &family);
+    const T1 &Y,
+    const vector<string> &ids,
+    const vector<string> &family);
 
   private:
   T2 X;  

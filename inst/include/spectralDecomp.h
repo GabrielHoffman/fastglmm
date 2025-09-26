@@ -55,20 +55,22 @@ void spectralDecomp<T>::initWithEigenDecomp( const T &U, const vec &s){
 	this->s = s;
 }
 
-// Initialize with U and s from eigen decomp, and weights
-template <typename T> 
-void spectralDecomp<T>::initWithEigenDecomp( const T &U, const vec &s, const vec &weights){
+// Sept 25, 2025
+// Doesn't work
+// // Initialize with U and s from eigen decomp, and weights
+// template <typename T> 
+// void spectralDecomp<T>::initWithEigenDecomp( const T &U, const vec &s, const vec &weights){
 
-	Rcpp::Rcout << "Reweighting not applied" << std::endl;
-	scaleRowsCols(U, sqrt(weights), 1 / sqrt(s));
+// 	Rcpp::Rcout << "Reweighting not applied" << std::endl;
+// 	scaleRowsCols(U, sqrt(weights), 1 / sqrt(s));
 
-	// SVD after applying weights
-	// mat Q, R;
-	// qr(Q, R, scaleCols(U_, s_));
+// 	// SVD after applying weights
+// 	// mat Q, R;
+// 	// qr(Q, R, scaleCols(U_, s_));
 
-	this->U = U;
-	this->s = s;
-}
+// 	this->U = U;
+// 	this->s = s;
+// }
 
 
 

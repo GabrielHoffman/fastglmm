@@ -25,7 +25,7 @@ class lmmFitResponses {
                   const T3 &Z,
                   const double &left = -10,
                   const double &right = 10,
-                  const double &tol = 1e-5,
+                  const double &tol = 1e-6,
                   const int &nthreads = 1,
                   const ModelDetail md = LOW,
                   const bool REML = false);

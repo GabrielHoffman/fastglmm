@@ -16,7 +16,6 @@ Suggests:
 	RUnit
 Imports: 
 	Rcpp (>= 1.0.12),
-	RcppParallel,	
 	Matrix,
 	MASS,
 	car,
