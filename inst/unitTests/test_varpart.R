@@ -32,6 +32,7 @@ test_varpart = function(){
   df$y.poisson = rpois(n, exp(eta))
 
   # Poisson model
+  ###############
   fam = poisson()
   fit.tmb = glmmTMB(y.poisson ~ X1 + X2 + (1|z), df, family=fam)
   fit.null = glmmTMB(y.poisson ~ (1|z), df, family=fam)
@@ -49,8 +50,15 @@ test_varpart = function(){
                   res2['Residuals'], 
                   tol = 1e-1)
 
+  # Compare GLM with GLMM with zero variance component
+  df$z.perm = factor(sample(seq(2), n, replace=TRUE))
+  fit = fastglmm(y.poisson ~ X1 + X2 + (1|z.perm), df, family=fam)
+  fit2 = glm(y.poisson ~ X1 + X2, df, family=fam)
+
+  checkEqualsNumeric( varpart(fit)[-3], varpart(fit2), tol=1e-3)
 
   # NB model
+  ##########
   df$y.nb = rnegbin(n, exp(eta), 5)
   fam = negative.binomial(NA)
   fit.tmb = glmmTMB(y.nb ~ X1 + X2 + (1|z), df, family=nbinom2)
@@ -68,8 +76,17 @@ test_varpart = function(){
                   res2['Residuals'], 
                   tol = 1e-1)
 
+  # Compare GLM with GLMM with zero variance component
+  fam = negative.binomial(10)
+  df$z.perm = factor(sample(seq(2), n, replace=TRUE))
+  fit = fastglmm(y.nb ~ X1 + X2 + (1|z.perm), df, family=fam)
+  fit2 = glm(y.nb ~ X1 + X2, df, family=fam)
+
+  checkEqualsNumeric( varpart(fit)[-3], varpart(fit2), tol=1e-3)
+
 
   # logit
+  ########
   df$y = rbinom(n, 1, plogis(eta))
   fam = binomial("logit")
   fit.tmb = glmmTMB(y ~ X1 + X2 + (1|z), df, family=fam)
@@ -87,8 +104,15 @@ test_varpart = function(){
                   res2['Residuals'], 
                   tol = 1e-1)
 
+  # Compare GLM with GLMM with zero variance component
+  df$z.perm = factor(sample(seq(2), n, replace=TRUE))
+  fit = fastglmm(y ~ X1 + X2 + (1|z.perm), df, family=fam)
+  fit2 = glm(y ~ X1 + X2, df, family=fam)
+
+  checkEqualsNumeric( varpart(fit)[-3], varpart(fit2), tol=1e-3)
 
   # continuous beta
+  #################
   df$y = plogis(eta + rnorm(n))
   fam = binomial()
   fit.tmb = glmmTMB(y ~ X1 + X2 + (1|z), df, family=fam)
@@ -106,4 +130,39 @@ test_varpart = function(){
                   res2['Residuals'], 
                   tol = 1e-1)
 
+  # Compare GLM with GLMM with zero variance component
+  df$z.perm = factor(sample(seq(2), n, replace=TRUE))
+  fit = fastglmm(y ~ X1 + X2 + (1|z.perm), df, family=fam)
+  fit2 = glm(y ~ X1 + X2, df, family=fam)
+
+  checkEqualsNumeric( varpart(fit)[-3], varpart(fit2), tol=1e-3)
+
+  # Compare GLM with GLMM with zero variance component
+  df$z.perm = factor(sample(seq(2), n, replace=TRUE))
+  fam = gaussian()
+  fit = fastglmm(y ~ X1 + X2 + (1|z.perm), df, family=fam)
+  fit2 = glm(y ~ X1 + X2, df, family=fam)
+
+  checkEqualsNumeric( varpart(fit)[-3], varpart(fit2), tol=1e-3)
+
+  # Compare lm(), glm() and r.squared
+  w = seq(nrow(df))^2
+  # w = w / mean(w)
+  fit = lm(y ~ X1 + X2, data=df, weights=w)
+  v1 = summary(fit)$r.squared
+  v2 = 1 - varpart(fit)[3]
+
+  fit2 = glm(y ~ X1 + X2, data=df, weights=w)
+  v3 = 1 - varpart(fit2)[3]
+
+  checkEqualsNumeric(v1, v2, tol = 1e-3)
+  checkEqualsNumeric(v1, v3, tol = 1e-3)
 }
+
+
+
+
+
+
+
+
