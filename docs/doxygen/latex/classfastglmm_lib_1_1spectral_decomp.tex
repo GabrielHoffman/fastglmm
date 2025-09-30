@@ -4,72 +4,165 @@
 
 {\ttfamily \#include $<$spectral\+Decomp.\+h$>$}
 
+Inheritance diagram for fastglmm\+Lib\+::spectral\+Decomp\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classfastglmm_lib_1_1spectral_decomp}
+\end{center}
+\end{figure}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aca8fc34a15eed8ce138eba906f782652}{spectral\+Decomp}} ()
 \item 
-void \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_abfe2b322d296ef8fd943ff713a0d9084}{init\+With\+Indicator}} (const T \&Z, const vec \&weights)
+\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a2752e6b1635b70f416e864ac0ac4db26}{spectral\+Decomp}} (const T \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}, const vec \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}})
 \item 
-void \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a113bac4dc217dee13bed14c580ba2d86}{init\+With\+Eigen\+Decomp}} (const T \&U, const vec \&s)
+\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a55edd229fca505ead60936ea32c951e8}{spectral\+Decomp}} (const T \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}})
 \item 
-void \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ad6a1b87ece8ccf0341a79f1d261fd297}{init\+With\+Eigen\+Decomp}} (const T \&U, const vec \&s, const vec \&weights)
+\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a4ccf6f36e4375e84995dd49f37a390a3}{spectral\+Decomp}} (const \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectral\+Decomp}} \&other)
 \item 
-T \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a5b5fe436f78ab39270dd6a25bc6efd50}{get\+\_\+vectors}} ()
+void \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ad19694a80881a83cd85ba8572b29eb88}{reweight}} (const vec \&weights)
 \item 
-vec \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aaeec1385dff15d5031c53e1a5200f92f}{get\+\_\+values}} ()
+T \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a8b214832bc06e80357dc598029770a0d}{get\+\_\+vectors}} () const
+\item 
+vec \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_afc7b7500f7c8269056d8f0680dcb954a}{get\+\_\+values}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+T \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}
+\item 
+T \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}}
+\item 
+T \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a6f2bdd0d1342ee6c0f43410f3b164c34}{Zw}}
+\item 
+mat \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aed9d121652e56143c3791e83adaa1369}{V}}
+\item 
+vec \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}}
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class fastglmm\+Lib\+::spectral\+Decomp$<$ T $>$}
+Class storing matrix Z, its squared singular values (s) and the left singular vectors (U). Z can be mat or sp\+\_\+mat. spectral\+Decomp.\+reweight(w) uses a general method that applies to all (i.\+e. sparse, dense, discrete, continous) Z matrices. If Z is sparse, a faster method can be applied using the spectral\+Decomp\+Discrete class. 
 
 \label{doc-constructors}
 \Hypertarget{classfastglmm_lib_1_1spectral_decomp_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{classfastglmm_lib_1_1spectral_decomp_aca8fc34a15eed8ce138eba906f782652}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!spectralDecomp@{spectralDecomp}}
 \index{spectralDecomp@{spectralDecomp}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
-\doxysubsubsection{\texorpdfstring{spectralDecomp()}{spectralDecomp()}}
+\doxysubsubsection{\texorpdfstring{spectralDecomp()}{spectralDecomp()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
 {\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_aca8fc34a15eed8ce138eba906f782652} 
 template$<$typename T$>$ \\
 \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::spectral\+Decomp (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_a2752e6b1635b70f416e864ac0ac4db26}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!spectralDecomp@{spectralDecomp}}
+\index{spectralDecomp@{spectralDecomp}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{spectralDecomp()}{spectralDecomp()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_a2752e6b1635b70f416e864ac0ac4db26} 
+template$<$typename T$>$ \\
+\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::spectral\+Decomp (\begin{DoxyParamCaption}\item[{const T \&}]{U}{, }\item[{const vec \&}]{s}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor 
+\begin{DoxyParams}{Parameters}
+{\em U} & left singular vectors \\
+\hline
+{\em s} & squared singular values \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_a55edd229fca505ead60936ea32c951e8}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!spectralDecomp@{spectralDecomp}}
+\index{spectralDecomp@{spectralDecomp}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{spectralDecomp()}{spectralDecomp()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_a55edd229fca505ead60936ea32c951e8} 
+template$<$typename T$>$ \\
+\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::spectral\+Decomp (\begin{DoxyParamCaption}\item[{const T \&}]{Z}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor 
+\begin{DoxyParams}{Parameters}
+{\em Z} & Random effects design matrix \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_a4ccf6f36e4375e84995dd49f37a390a3}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!spectralDecomp@{spectralDecomp}}
+\index{spectralDecomp@{spectralDecomp}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{spectralDecomp()}{spectralDecomp()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_a4ccf6f36e4375e84995dd49f37a390a3} 
+template$<$typename T$>$ \\
+\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::spectral\+Decomp (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectral\+Decomp}}$<$ T $>$ \&}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 \label{doc-func-members}
 \Hypertarget{classfastglmm_lib_1_1spectral_decomp_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classfastglmm_lib_1_1spectral_decomp_aaeec1385dff15d5031c53e1a5200f92f}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!get\_values@{get\_values}}
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_afc7b7500f7c8269056d8f0680dcb954a}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!get\_values@{get\_values}}
 \index{get\_values@{get\_values}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{get\_values()}{get\_values()}}
-{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_aaeec1385dff15d5031c53e1a5200f92f} 
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_afc7b7500f7c8269056d8f0680dcb954a} 
 template$<$typename T$>$ \\
-vec \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::get\+\_\+values (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+vec \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::get\+\_\+values (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\Hypertarget{classfastglmm_lib_1_1spectral_decomp_a5b5fe436f78ab39270dd6a25bc6efd50}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!get\_vectors@{get\_vectors}}
+Accessor, returns squared singular values \Hypertarget{classfastglmm_lib_1_1spectral_decomp_a8b214832bc06e80357dc598029770a0d}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!get\_vectors@{get\_vectors}}
 \index{get\_vectors@{get\_vectors}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{get\_vectors()}{get\_vectors()}}
-{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_a5b5fe436f78ab39270dd6a25bc6efd50} 
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_a8b214832bc06e80357dc598029770a0d} 
 template$<$typename T$>$ \\
-T \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::get\+\_\+vectors (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+T \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::get\+\_\+vectors (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\Hypertarget{classfastglmm_lib_1_1spectral_decomp_a113bac4dc217dee13bed14c580ba2d86}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!initWithEigenDecomp@{initWithEigenDecomp}}
-\index{initWithEigenDecomp@{initWithEigenDecomp}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
-\doxysubsubsection{\texorpdfstring{initWithEigenDecomp()}{initWithEigenDecomp()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_a113bac4dc217dee13bed14c580ba2d86} 
+Accessor, returns left singular vectors \Hypertarget{classfastglmm_lib_1_1spectral_decomp_ad19694a80881a83cd85ba8572b29eb88}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!reweight@{reweight}}
+\index{reweight@{reweight}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{reweight()}{reweight()}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_ad19694a80881a83cd85ba8572b29eb88} 
 template$<$typename T$>$ \\
-void \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::init\+With\+Eigen\+Decomp (\begin{DoxyParamCaption}\item[{const T \&}]{U}{, }\item[{const vec \&}]{s}{}\end{DoxyParamCaption})}
+void \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::reweight (\begin{DoxyParamCaption}\item[{const vec \&}]{weights}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\Hypertarget{classfastglmm_lib_1_1spectral_decomp_ad6a1b87ece8ccf0341a79f1d261fd297}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!initWithEigenDecomp@{initWithEigenDecomp}}
-\index{initWithEigenDecomp@{initWithEigenDecomp}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
-\doxysubsubsection{\texorpdfstring{initWithEigenDecomp()}{initWithEigenDecomp()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_ad6a1b87ece8ccf0341a79f1d261fd297} 
-template$<$typename T$>$ \\
-void \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::init\+With\+Eigen\+Decomp (\begin{DoxyParamCaption}\item[{const T \&}]{U}{, }\item[{const vec \&}]{s}{, }\item[{const vec \&}]{weights}{}\end{DoxyParamCaption})}
+Compute spectral decomp of weighted Z. Uses general method that applies to all (i.\+e. sparse, dense, discrete, continous) Z matrices. ~\newline
 
-\Hypertarget{classfastglmm_lib_1_1spectral_decomp_abfe2b322d296ef8fd943ff713a0d9084}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!initWithIndicator@{initWithIndicator}}
-\index{initWithIndicator@{initWithIndicator}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
-\doxysubsubsection{\texorpdfstring{initWithIndicator()}{initWithIndicator()}}
-{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_abfe2b322d296ef8fd943ff713a0d9084} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em weights} & row weights \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-variable-members}
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!s@{s}}
+\index{s@{s}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{s}{s}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf} 
 template$<$typename T$>$ \\
-void \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::init\+With\+Indicator (\begin{DoxyParamCaption}\item[{const T \&}]{Z}{, }\item[{const vec \&}]{weights}{}\end{DoxyParamCaption})}
+vec \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::s\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!U@{U}}
+\index{U@{U}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{U}{U}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529} 
+template$<$typename T$>$ \\
+T \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::U\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_aed9d121652e56143c3791e83adaa1369}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!V@{V}}
+\index{V@{V}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{V}{V}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_aed9d121652e56143c3791e83adaa1369} 
+template$<$typename T$>$ \\
+mat \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::V\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!Z@{Z}}
+\index{Z@{Z}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Z}{Z}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09} 
+template$<$typename T$>$ \\
+T \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::Z\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_a6f2bdd0d1342ee6c0f43410f3b164c34}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!Zw@{Zw}}
+\index{Zw@{Zw}!fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Zw}{Zw}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_a6f2bdd0d1342ee6c0f43410f3b164c34} 
+template$<$typename T$>$ \\
+T \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp}}$<$ T $>$\+::\+Zw\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 

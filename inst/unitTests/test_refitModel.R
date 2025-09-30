@@ -2,6 +2,10 @@
 
 test_refitModel = function(){
   
+
+  q()
+  R
+
   library(fastglmm)
   library(lme4)
   library(MASS)
@@ -43,19 +47,19 @@ test_refitModel = function(){
   ##########
 
   # MLE of delta
-  fit = fastglmm(y ~ trt + I(week > 2) + (1 | ID),
+  fit1 = fastglmm(y ~ trt + I(week > 2) + (1 | ID),
          family = binomial(), data = bacteria)
-  fit2 <- refitModel(fit)
+  fit2 <- refitModel(fit1)
 
-  sapply( names(fit), function(x){
+  sapply( names(fit1), function(x){
     cat(x, "\n")
-    checkEquals(fit[[x]], fit2[[x]])
+    checkEquals(fit1[[x]], fit2[[x]])
     })
 
   # fixed delta
   fit1 <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
          family = binomial(), data = bacteria, delta=1)
-  fit2 <- refitModel(fit, delta=1)
+  fit2 <- refitModel(fit1, delta=1)
 
   sapply( names(fit)[-1], function(x){
     cat(x, "\n")
@@ -65,7 +69,7 @@ test_refitModel = function(){
   # interceptOnly
   fit1 <- fastglmm(y ~ (1 | ID),
          family = binomial(), data = bacteria)
-  fit2 <- refitModel(fit, interceptOnly=TRUE)
+  fit2 <- refitModel(fit1, interceptOnly=TRUE)
 
   sapply( names(fit)[-1], function(x){
     cat(x, "\n")

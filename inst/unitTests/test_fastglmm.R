@@ -274,13 +274,13 @@ test_fastglmm = function(){
 	coef(summary(fit1))
 	fit1$iter.pql
 
-	fit1a = fastglmm_R( y ~ x + (1|Indiv), data, family = poisson(), init="glm")
-	coef(summary(fit1a))
-	fit1a$iter.pql
+	# fit1a = fastglmm_R( y ~ x + (1|Indiv), data, family = poisson(), init="glm")
+	# coef(summary(fit1a))
+	# fit1a$iter.pql
 
-	fit1b = fastglmm_R( y ~ x + (1|Indiv), data, family = poisson(), init="glm")
-	coef(summary(fit1b))
-	fit1b$iter.pql
+	# fit1b = fastglmm_R( y ~ x + (1|Indiv), data, family = poisson(), init="glm")
+	# coef(summary(fit1b))
+	# fit1b$iter.pql
 
 	fit2 = glmmPQL( y ~ x, random = ~ 1|Indiv, data, family = poisson(), niter=100)
 	coef(summary(fit2))

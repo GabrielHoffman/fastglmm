@@ -45,21 +45,34 @@ class spectralDecomp {
     // Copy constructor
     spectralDecomp(const spectralDecomp& other): 
       U(other.U),
+      s(other.s),
       Z(other.Z),
       Zw(other.Zw),
-      V(other.V),
-      s(other.s)
+      V(other.V)
     {}
 
     /** Compute spectral decomp of weighted Z. Uses general method that applies to all (i.e. sparse, dense, discrete, continous) Z matrices.  
      * 
      * @param weights row weights
+     * @param sort should singular values and vectors be sorted
     */ 
-    void reweight( const vec &weights){
+    void reweight( const vec &weights, const bool &sort = true){
       Rcpp::Rcout << "reweight spectralDecomp..." << std::endl;
       Zw = scaleEachCol(this->Z, sqrt(weights)); 
       eig_sym( this->s, V, mat(Zw.t() * Zw) );
       this->U = scaleEachRow(Zw * V, 1 / sqrt(this->s));
+
+      if( sort ){
+        // reorder by decreasing eigen-value
+        uvec idx = sort_index(this->s, "descend");
+        this->s = this->s(idx);
+        this->U = this->U.cols(idx);
+      }
+
+      mat(Zw.t() * Zw).print("crossprod:");
+      mat(U).print("U:");
+      s.print("s:");
+      mat(this->Z).print("Z:");
     }
 
     /** Accessor, returns left singular vectors */
@@ -73,9 +86,10 @@ class spectralDecomp {
     }
 
   protected:
-    T U, Z, Zw;
-    mat V;
+    T U;
     vec s;
+    T Z, Zw;
+    mat V;
 };
 
 /** Special case of spectralDecomp when Z is categorical
@@ -86,7 +100,12 @@ class spectralDecompCategorical:
   public:
 
   spectralDecompCategorical(const T &U, const vec &s) :
-    spectralDecomp<T>(U, s) {}
+    spectralDecomp<T>(U, s) {
+
+    Rcpp::Rcout << "spectralDecompCategorical..."  << std::endl;
+    mat(U).print("U:");
+    mat(this->Z).print("Z:");
+  }
 
   spectralDecompCategorical(const T &Z){
     this->Z = Z;
@@ -94,11 +113,18 @@ class spectralDecompCategorical:
     reweight(ones );
    }
 
-  void reweight( const vec &weights){
+  void reweight( const vec &weights, const bool &sort = true){
     Rcpp::Rcout << "reweight spectralDecompCategorical..." << std::endl;
     // SVD of new weighted Z
     this->s = (weights.t() * this->Z).t();
     this->U = scaleRowsCols(this->Z, sqrt(weights), 1 / sqrt(this->s));
+
+    if( sort ){
+      // reorder by decreasing eigen-value
+      uvec idx = sort_index(this->s, "descend");
+      this->s = this->s(idx);
+      this->U = this->U.cols(idx);
+    }
   }
 };
 

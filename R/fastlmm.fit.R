@@ -57,21 +57,11 @@ as.fastlmm <- function(x, design, offset, method) {
 }
 
 
-#' @export
-print.fastlmmList <- function(x, ...) {
-  cat("\nCall:\n", paste(deparse(attr(x, "call")), sep = "\n", collapse = "\n"), "\n\n", sep = "")
-
-  cat("Responses:\n")
-  coolcat("names(%d): %s\n", names(x))
-}
-
-
-
 #' Fitter Function for Linear Mixed Model
 #'
 #' Prepare data for model fitting with a call to Rcpp code
 #'
-#' @param Y response vector, or matrix with responses as _columns_
+#' @param y response vector
 #' @param X design matrix
 #' @param Z sparse matrix of indicators for random effect
 #' @param offset offset
@@ -90,7 +80,7 @@ print.fastlmmList <- function(x, ...) {
 # other args: sig_a_fixed = FALSE
 #' @importFrom methods is
 #' @export
-fastlmm.fit <- function(Y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank = ncol(Z), weights = NULL, delta.range = c(-10, 10), tol = 1e-6, nthreads = 6) {
+fastlmm.fit <- function(y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank = ncol(Z), weights = NULL, delta.range = c(-10, 10), tol = 1e-6, nthreads = 6) {
 
   if (delta.range[1] >= delta.range[2]) {
     stop("delta.range are not valid")
@@ -101,20 +91,14 @@ fastlmm.fit <- function(Y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank
   delta.range <- as.numeric(delta.range)
 
   # add data checks here
-  if (!is.matrix(Y)) {
-    Y <- as.matrix(Y)
-  }
-  if( ! is.numeric(Y) ){
+  if( ! is.numeric(y) ){
     stop("Response must be numeric")
   }
   if (is.null(weights)) {
-    weights <- matrix(1, nrow(Y), ncol(Y))
+    weights <- rep(1, length(y))
   }
-  if (!is.matrix(weights)) {
-    weights <- as.matrix(weights)
-  }
-
-  if (nrow(Y) != nrow(X)) {
+ 
+  if (length(y) != nrow(X)) {
     stop("dimension of Y and X do not match")
   }
 
@@ -122,80 +106,43 @@ fastlmm.fit <- function(Y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank
   # by setting to -1 for C++ call
   delta <- ifelse(is.null(delta), -1, delta)
 
-  if (!identical(dim(Y), dim(weights))) {
+  if (!identical(length(y), length(weights))) {
     stop("Dimension of Y and weights must be the same")
   }
 
   if (!is.null(offset)) {
     offset <- as.matrix(offset)
-    Y <- Y - offset
+    y <- y - offset
   }
 
-  # if 1 response
-  if (ncol(Y) == 1) {
-    # apply weights
-    dcmp <- indicator_decomp(Z, c(weights), rank)
+  # apply weights
+  dcmp <- indicator_decomp(Z, rank = rank, sort=FALSE)
 
-    if (is(Z, "sparseMatrix")) {
-      fxn <- .fastlmm_vms
-    } else {
-      fxn <- .fastlmm_vmm
-    }
-
-    res <- fxn(
-      y = Y,
-      X = X,
-      U = dcmp$vectors,
-      s = dcmp$values,
-      weights = weights,
-      REML = REML,
-      delta = delta,
-      left = delta.range[1],
-      right = delta.range[2],
-      tol = tol,
-      nthreads = nthreads
-    )  
-
-    res <- as.fastlmm(res, design = X, offset = offset, method = ifelse(REML, "REML", "ML"))
-
-    # include indicator matrix and its decomposition
-    # Does this need to stay in?
-    res$Z <- Z
-    res$U <- dcmp$vectors
-    res$s <- dcmp$values
+  if (is(Z, "sparseMatrix")) {
+    fxn <- .fastlmm_ms
   } else {
-    if (length(weights) == nrow(Y)) {
-      weights <- matrix(weights, nrow = nrow(Y), ncol = ncol(Y))
-    }
-
-    if( is.null(colnames(Y)) ){
-      colnames(Y) = paste0("response_", seq(ncol(Y)))
-    }
-
-    if (is(Z, "sparseMatrix")) {
-      fxn <- .fastlmm_mms
-    } else {
-      fxn <- .fastlmm_mmm
-    }
-
-    res <- fxn(
-      Y = Y,
-      ids = colnames(Y),
-      X = X,
-      Z = Z,
-      Weights = weights,
-      REML = REML,
-      left = delta.range[1],
-      right = delta.range[2],
-      tol = tol,
-      nthreads = nthreads
-    )
-
-    # convert each entry to an fastlmm object
-    res <- lapply(res, as.fastlmm, design = X, offset = offset, method = ifelse(REML, "REML", "ML"))
-    names(res) <- colnames(Y)
-    class(res) <- "fastlmmList"
+    fxn <- .fastlmm_mm
   }
+
+  res <- fxn(
+    y = y,
+    X = X,
+    U = dcmp$vectors,
+    s = dcmp$values,
+    weights = weights,
+    REML = REML,
+    delta = delta,
+    left = delta.range[1],
+    right = delta.range[2],
+    tol = tol,
+    nthreads = nthreads
+  )  
+
+  res <- as.fastlmm(res, design = X, offset = offset, method = ifelse(REML, "REML", "ML"))
+
+  res$Z <- Z
+  res$U <- dcmp$vectors
+  res$s <- dcmp$values
 
   res
 }

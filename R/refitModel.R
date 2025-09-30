@@ -42,14 +42,10 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
 
   if( is(fit, "fastglmm") ){
 
-    # reconstruct original Z
-    dcmp <- list(vectors = fit$U, values = fit$s)
-    Z <- reconstruct_indicator( dcmp, c(fit$weights))
-
     # decomp of original Z
-    dcmp2 <- indicator_decomp(Z)
+    dcmp <- indicator_decomp(fit$Z)
 
-    fxn <- ifelse( is(dcmp2$vectors, "sparseMatrix"),
+    fxn <- ifelse( is(dcmp$vectors, "sparseMatrix"),
               .fastglmm_ms, .fastglmm_mm )
 
     fam <- getFamilyString(family(fit))
@@ -60,8 +56,8 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
 
     res <- fxn(y = fit$response, 
               X = design, 
-              U = dcmp2$vectors,
-              s = dcmp2$values,
+              U = dcmp$vectors,
+              s = dcmp$values,
               weights = fit$prior.weights, 
               offset = fit$offset, 
               family = fam, 
@@ -73,8 +69,9 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
               maxit = 100,
               nthreads = 1)
 
-    colnames(res$U) <- colnames(dcmp2$vectors)
+    colnames(res$U) <- colnames(dcmp$vectors)
     res$s <- c(res$s)
+    res$Z <- fit$Z
 
     # format output
     res <- as.fastlmm(res, design = design, offset = fit$offset, method = "PQL")
@@ -96,7 +93,7 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
   }else if( is(fit, "fastlmm") ){
 
     fxn <- ifelse( is(fit$U, "sparseMatrix"),
-              .fastlmm_vms, .fastlmm_vmm )
+              .fastlmm_ms, .fastlmm_mm )
 
     REML <- FALSE
 

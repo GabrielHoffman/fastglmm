@@ -105,7 +105,6 @@ ModelFitGLMMList
     T1 y;
     vec w;
     uvec idx;
-    spectralDecomp<T3> dcmp_local(dcmp);
 
     // iterate through responses 
     for (int j = r.begin(); j != r.end(); ++j) { 
@@ -117,9 +116,7 @@ ModelFitGLMMList
       y.elem(idx).zeros();
       w.elem(idx).zeros();
 
-      dcmp_local.reweight(w);
-
-      fastglmm fit = fastglmm<vec, T2, T3>(y, X_clean, dcmp_local, w, offset, family[j], md, tol, tol_eta);
+      fastglmm fit = fastglmm<vec, T2, T3>(y, X_clean, dcmp, w, offset, family[j], md, tol, tol_eta);
 
       result.at(j) = fit.get_result();
       result.at(j).ID = ids[j];

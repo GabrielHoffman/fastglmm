@@ -136,8 +136,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a13dc738ef551f153b4c89cc212c699d5" id="r_a13dc738ef551f153b4c89cc212c699d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13dc738ef551f153b4c89cc212c699d5">ModelFit</a> (const bool &amp;<a class="el" href="#a48fe22cee7b61700696febcc638a6339">success</a>, const vec &amp;<a class="el" href="#a16b2eba98289e6bcde50efaea15705cb">coef</a>, const vec &amp;<a class="el" href="#a7ddb48d6044cc0ce1eece44f2ac871c3">se</a>, const double &amp;<a class="el" href="#ad98009175c5351f81b7f5ad49b572b3f">dispersion</a>, const double &amp;<a class="el" href="#a2c3704281b2ab5fcd244a4cc4da67386">rdf</a>, const mat &amp;<a class="el" href="#a6c3ed52bee7cd14f7736f8a6f9717e65">vcov</a>)</td></tr>
 <tr class="memitem:abf0a7199fe7515f960dabceab7088ee5" id="r_abf0a7199fe7515f960dabceab7088ee5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf0a7199fe7515f960dabceab7088ee5">ModelFit</a> (const bool &amp;<a class="el" href="#a48fe22cee7b61700696febcc638a6339">success</a>, const vec &amp;<a class="el" href="#a16b2eba98289e6bcde50efaea15705cb">coef</a>, const vec &amp;<a class="el" href="#a7ddb48d6044cc0ce1eece44f2ac871c3">se</a>, const double &amp;<a class="el" href="#ad98009175c5351f81b7f5ad49b572b3f">dispersion</a>, const double &amp;<a class="el" href="#a2c3704281b2ab5fcd244a4cc4da67386">rdf</a>, const mat &amp;<a class="el" href="#a6c3ed52bee7cd14f7736f8a6f9717e65">vcov</a>, const vec &amp;<a class="el" href="#a2d6e59e0f7fab81d35e413ff3f7c863d">residuals</a>)</td></tr>
 <tr class="memitem:a39dd543e3503689724f8db9acae67e88" id="r_a39dd543e3503689724f8db9acae67e88"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a39dd543e3503689724f8db9acae67e88">ModelFit</a> (const bool &amp;<a class="el" href="#a48fe22cee7b61700696febcc638a6339">success</a>, const vec &amp;<a class="el" href="#a16b2eba98289e6bcde50efaea15705cb">coef</a>, const vec &amp;<a class="el" href="#a7ddb48d6044cc0ce1eece44f2ac871c3">se</a>, const double &amp;<a class="el" href="#ad98009175c5351f81b7f5ad49b572b3f">dispersion</a>, const double &amp;<a class="el" href="#a2c3704281b2ab5fcd244a4cc4da67386">rdf</a>, const mat &amp;<a class="el" href="#a6c3ed52bee7cd14f7736f8a6f9717e65">vcov</a>, const vec &amp;<a class="el" href="#a2d6e59e0f7fab81d35e413ff3f7c863d">residuals</a>, const vec &amp;<a class="el" href="#ae7e1abdc7b2918fe78d74f96b2ed56d5">hatvalues</a>)</td></tr>
-<tr class="memitem:acf09755e6709bfeddcb1175803c7a62e" id="r_acf09755e6709bfeddcb1175803c7a62e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf09755e6709bfeddcb1175803c7a62e">setDevResids</a> (const vec &amp;dr, const vec &amp;y, const vec &amp;<a class="el" href="#a849b524901e393e766bbba5b03e4f74c">mu</a>)</td></tr>
-<tr class="memitem:a247f397b059a669e4f3d49e28fedc56c" id="r_a247f397b059a669e4f3d49e28fedc56c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a247f397b059a669e4f3d49e28fedc56c">setFittedValues</a> (const vec &amp;mu_in)</td></tr>
+<tr class="memitem:a2c32c0309653f0b97df2d3826a19fe0f" id="r_a2c32c0309653f0b97df2d3826a19fe0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c32c0309653f0b97df2d3826a19fe0f">setDevResids</a> (const vec &amp;dr, const vec &amp;y, const vec &amp;<a class="el" href="#a849b524901e393e766bbba5b03e4f74c">mu</a>, const vec w={})</td></tr>
+<tr class="memitem:ab6f4ddcc7e1ffde1f7257680dc93065a" id="r_ab6f4ddcc7e1ffde1f7257680dc93065a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6f4ddcc7e1ffde1f7257680dc93065a">setFittedValues</a> (const vec &amp;mu_in, const vec w={})</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -461,8 +461,8 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="acf09755e6709bfeddcb1175803c7a62e" name="acf09755e6709bfeddcb1175803c7a62e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf09755e6709bfeddcb1175803c7a62e">&#9670;&#160;</a></span>setDevResids()</h2>
+<a id="a2c32c0309653f0b97df2d3826a19fe0f" name="a2c32c0309653f0b97df2d3826a19fe0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c32c0309653f0b97df2d3826a19fe0f">&#9670;&#160;</a></span>setDevResids()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -483,7 +483,12 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>mu</em></span>&#160;)</td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>mu</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec</td>          <td class="paramname"><span class="paramname"><em>w</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -495,8 +500,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a247f397b059a669e4f3d49e28fedc56c" name="a247f397b059a669e4f3d49e28fedc56c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a247f397b059a669e4f3d49e28fedc56c">&#9670;&#160;</a></span>setFittedValues()</h2>
+<a id="ab6f4ddcc7e1ffde1f7257680dc93065a" name="ab6f4ddcc7e1ffde1f7257680dc93065a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6f4ddcc7e1ffde1f7257680dc93065a">&#9670;&#160;</a></span>setFittedValues()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -507,8 +512,12 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">void fastglmmLib::ModelFit::setFittedValues </td>
           <td>(</td>
-          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>mu_in</em></span></td><td>)</td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>mu_in</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const vec</td>          <td class="paramname"><span class="paramname"><em>w</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>

@@ -63,14 +63,14 @@ class fastglmm {
 
   private:
   fastlmm<T1,T2,T3> fit;
+  vec y, weights, mu; 
+	spectralDecomp<T3> dcmp;
   string family;
   bool returnUS;
   int niter_pql;
   double w_mean; 
   ModelDetail md;
-  vec y, weights, mu; 
 	shared_ptr<GLMFamily> fam;
-	spectralDecomp<T3> dcmp;
 };
 
 template <typename T1, typename T2, typename T3> 
@@ -90,11 +90,11 @@ fastglmm<T1, T2, T3>::fastglmm(
 	const double &right,
 	const bool &returnUS):
 	y(y), 
-	dcmp(dcmp),
 	weights(weights), 
+	dcmp(dcmp), 
 	family(family), 
 	returnUS(returnUS),
-	md(md) 
+	md(md)
 	{
 
 	fam = getGLMFamily( family );

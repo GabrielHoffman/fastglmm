@@ -18,70 +18,84 @@
 \DoxyCodeLine{00014\ \textcolor{keyword}{using\ namespace\ }arma;}
 \DoxyCodeLine{00015\ }
 \DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacefastglmm_lib}{fastglmmLib}}\ \{}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aca8fc34a15eed8ce138eba906f782652}{spectralDecomp}}\ \{}
-\DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aca8fc34a15eed8ce138eba906f782652}{spectralDecomp}}()\{\};}
+\DoxyCodeLine{00017\ \ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aca8fc34a15eed8ce138eba906f782652}{spectralDecomp}}\ \{}
 \DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//\ Initialize\ with\ indicator\ matrix\ Z;}}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_abfe2b322d296ef8fd943ff713a0d9084}{initWithIndicator}}(\ \textcolor{keyword}{const}\ T\ \&Z,\ \textcolor{keyword}{const}\ vec\ \&weights);}
+\DoxyCodeLine{00024\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aca8fc34a15eed8ce138eba906f782652}{spectralDecomp}}()\ \{\};}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ Initialize\ with\ U\ and\ s\ from\ eigen\ decomp}}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a113bac4dc217dee13bed14c580ba2d86}{initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U,\ \textcolor{keyword}{const}\ vec\ \&s);}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//\ Initialize\ with\ U\ and\ s\ from\ eigen\ decomp,\ and\ weights}}
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a113bac4dc217dee13bed14c580ba2d86}{initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U,\ \textcolor{keyword}{const}\ vec\ \&s,\ \textcolor{keyword}{const}\ vec\ \&weights);}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ T\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a5b5fe436f78ab39270dd6a25bc6efd50}{get\_vectors}}()\{\textcolor{keywordflow}{return}\ U;\}}
-\DoxyCodeLine{00034\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aaeec1385dff15d5031c53e1a5200f92f}{get\_values}}()\{\textcolor{keywordflow}{return}\ s;\}}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00037\ \ \ \ T\ U;}
-\DoxyCodeLine{00038\ \ \ \ vec\ s;}
-\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a2752e6b1635b70f416e864ac0ac4db26}{spectralDecomp}}(\textcolor{keyword}{const}\ T\ \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}})\ :\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}(\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}}(\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}}(\mbox{\hyperlink{misc_8h_a613b4d5d3153ad82d4e3beed8060d305}{scaleEachRow}}(\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}},\ sqrt(\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}})))\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \{\}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a55edd229fca505ead60936ea32c951e8}{spectralDecomp}}(\ \textcolor{keyword}{const}\ T\ \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}}\ )\ :\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}}(\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}})\ \{}
 \DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \textcolor{comment}{//\ Initialize\ with\ indicator\ matrix}}
-\DoxyCodeLine{00042\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_abfe2b322d296ef8fd943ff713a0d9084}{spectralDecomp<T>::initWithIndicator}}(\ \textcolor{keyword}{const}\ T\ \&Z,\ \textcolor{keyword}{const}\ vec\ \&weights)\{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ vec\ one(\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}}.n\_rows,\ fill::ones);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ad19694a80881a83cd85ba8572b29eb88}{reweight}}(one);}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
 \DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ s\ =\ (weights.t()\ *\ Z).t();}
-\DoxyCodeLine{00046\ \ \ \ \ U\ =\ \mbox{\hyperlink{misc_8h_aff616cc0cfc16600b8f55bf7b77f455e}{scaleRowsCols}}(Z,\ sqrt(weights),\ 1\ /\ sqrt(s));}
-\DoxyCodeLine{00047\ \}}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \textcolor{comment}{//\ Initialize\ with\ U\ and\ s\ from\ eigen\ decomp}}
-\DoxyCodeLine{00051\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a113bac4dc217dee13bed14c580ba2d86}{spectralDecomp<T>::initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U,\ \textcolor{keyword}{const}\ vec\ \&s)\{}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \ \ \ \ this-\/>U\ =\ U;}
-\DoxyCodeLine{00055\ \ \ \ \ this-\/>s\ =\ s;}
-\DoxyCodeLine{00056\ \}}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \textcolor{comment}{//\ Initialize\ with\ U\ and\ s\ from\ eigen\ decomp,\ and\ weights}}
-\DoxyCodeLine{00059\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00060\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a113bac4dc217dee13bed14c580ba2d86}{spectralDecomp<T>::initWithEigenDecomp}}(\ \textcolor{keyword}{const}\ T\ \&U,\ \textcolor{keyword}{const}\ vec\ \&s,\ \textcolor{keyword}{const}\ vec\ \&weights)\{}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}Reweighting\ not\ applied"{}}\ <<\ std::endl;}
-\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{misc_8h_aff616cc0cfc16600b8f55bf7b77f455e}{scaleRowsCols}}(U,\ sqrt(weights),\ 1\ /\ sqrt(s));}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//\ Copy\ constructor}}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a4ccf6f36e4375e84995dd49f37a390a3}{spectralDecomp}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aca8fc34a15eed8ce138eba906f782652}{spectralDecomp}}\&\ other):\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}(other.\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}),}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}}(other.\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}}),}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a6f2bdd0d1342ee6c0f43410f3b164c34}{Zw}}(other.\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a6f2bdd0d1342ee6c0f43410f3b164c34}{Zw}}),}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aed9d121652e56143c3791e83adaa1369}{V}}(other.\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aed9d121652e56143c3791e83adaa1369}{V}}),}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}}(other.\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}})}
+\DoxyCodeLine{00052\ \ \ \ \ \{\}}
+\DoxyCodeLine{00053\ \ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ad19694a80881a83cd85ba8572b29eb88}{reweight}}(\ \textcolor{keyword}{const}\ vec\ \&weights)\{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}reweight\ spectralDecomp..."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a6f2bdd0d1342ee6c0f43410f3b164c34}{Zw}}\ =\ \mbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(this-\/>\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}},\ sqrt(weights));\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ eig\_sym(\ this-\/>\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}},\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aed9d121652e56143c3791e83adaa1369}{V}},\ mat(\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a6f2bdd0d1342ee6c0f43410f3b164c34}{Zw}}.t()\ *\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a6f2bdd0d1342ee6c0f43410f3b164c34}{Zw}})\ );}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}\ =\ \mbox{\hyperlink{misc_8h_a613b4d5d3153ad82d4e3beed8060d305}{scaleEachRow}}(\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a6f2bdd0d1342ee6c0f43410f3b164c34}{Zw}}\ *\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aed9d121652e56143c3791e83adaa1369}{V}},\ 1\ /\ sqrt(this-\/>\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}}));}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
 \DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{//\ SVD\ after\ applying\ weights}}
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ mat\ Q,\ R;}}
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ qr(Q,\ R,\ scaleCols(U\_,\ s\_));}}
-\DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \ \ \ \ this-\/>U\ =\ U;}
-\DoxyCodeLine{00070\ \ \ \ \ this-\/>s\ =\ s;}
-\DoxyCodeLine{00071\ \}}
-\DoxyCodeLine{00072\ }
-\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00066\ \ \ \ \ T\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a8b214832bc06e80357dc598029770a0d}{get\_vectors}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}};}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00071\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_afc7b7500f7c8269056d8f0680dcb954a}{get\_values}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}};}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
 \DoxyCodeLine{00074\ }
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \}}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00076\ \ \ \ \ T\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}},\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}},\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a6f2bdd0d1342ee6c0f43410f3b164c34}{Zw}};}
+\DoxyCodeLine{00077\ \ \ \ \ mat\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aed9d121652e56143c3791e83adaa1369}{V}};}
+\DoxyCodeLine{00078\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}};}
+\DoxyCodeLine{00079\ \};}
+\DoxyCodeLine{00080\ \ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_categorical_a8f3a0a50ffbb92a1c6b3438733430a29}{spectralDecompCategorical}}:}
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aca8fc34a15eed8ce138eba906f782652}{spectralDecomp}}<T>\ \{}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_categorical_a8f3a0a50ffbb92a1c6b3438733430a29}{spectralDecompCategorical}}(\textcolor{keyword}{const}\ T\ \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}})\ :}
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aca8fc34a15eed8ce138eba906f782652}{spectralDecomp}}<T>(\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}},\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}})\ \{\}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_categorical_a3ea3a83b1cb21c2711d76863c202a7ae}{spectralDecompCategorical}}(\textcolor{keyword}{const}\ T\ \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}})\{}
+\DoxyCodeLine{00092\ \ \ \ \ this-\/>Z\ =\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}};}
+\DoxyCodeLine{00093\ \ \ \ \ vec\ ones(\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}}.n\_rows,\ fill::ones);}
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_categorical_a993d98870220089c3aea5d2f9112a6fb}{reweight}}(ones\ );}
+\DoxyCodeLine{00095\ \ \ \ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_categorical_a993d98870220089c3aea5d2f9112a6fb}{reweight}}(\ \textcolor{keyword}{const}\ vec\ \&weights)\{}
+\DoxyCodeLine{00098\ \ \ \ \ Rcpp::Rcout\ <<\ \textcolor{stringliteral}{"{}reweight\ spectralDecompCategorical..."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{comment}{//\ SVD\ of\ new\ weighted\ Z}}
+\DoxyCodeLine{00100\ \ \ \ \ this-\/>\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}}\ =\ (weights.t()\ *\ this-\/>\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}}).t();}
+\DoxyCodeLine{00101\ \ \ \ \ this-\/>\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}\ =\ \mbox{\hyperlink{misc_8h_aff616cc0cfc16600b8f55bf7b77f455e}{scaleRowsCols}}(this-\/>\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}},\ sqrt(weights),\ 1\ /\ sqrt(this-\/>\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}}));}
+\DoxyCodeLine{00102\ \ \ \}}
+\DoxyCodeLine{00103\ \};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

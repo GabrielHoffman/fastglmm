@@ -151,6 +151,7 @@ class fastlmm {
     double logLik, sigSq_g, delta_hat;
     int iter = 0;
     int n_active; // sample size with non-zero weight
+    spectralDecomp<T3> dcmp;
 };
 
 
@@ -165,11 +166,15 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
   wsqrt(sqrt(weights_)),
   Y(Y_ % wsqrt),
   X(scaleEachCol(X_, wsqrt)),
-  U(dcmp.get_vectors()),
-  s(dcmp.get_values()),
   weights(weights_),
   md(md), 
-  REML(REML) {
+  REML(REML),
+  dcmp(dcmp) {
+
+  this->dcmp.reweight(weights);
+  U = this->dcmp.get_vectors();
+  s = this->dcmp.get_values();
+
   n_active = accu(weights != 0.0);
   Yu = U.t() * Y;
   Xu = U.t() * X;
@@ -194,11 +199,15 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
   wsqrt(sqrt(weights_)),
   Y(Y_ % wsqrt),
   X(scaleEachCol(X_, wsqrt)),
-  U(dcmp.get_vectors()),
-  s(dcmp.get_values()),
+  dcmp(dcmp),
   weights(weights_),
   md(md), 
   REML(REML) {
+
+  this->dcmp.reweight(weights);
+  U = this->dcmp.get_vectors();
+  s = this->dcmp.get_values();
+
   n_active = accu(weights != 0.0);
   Yu = Yu_;
   Xu = Xu_;
@@ -222,11 +231,14 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
   wsqrt(sqrt(weights_)),
   Y(Y_ % wsqrt),
   X(scaleEachCol(X_, wsqrt)),
-  U(dcmp.get_vectors()),
-  s(dcmp.get_values()),
+  dcmp(dcmp),
   weights(weights_),
   md(md), 
   REML(REML) {
+
+  this->dcmp.reweight(weights);
+  U = this->dcmp.get_vectors();
+  s = this->dcmp.get_values();
 
   n_active = accu(weights != 0.0);
   Yu = Yu_;
@@ -243,10 +255,14 @@ fastlmm<T1, T2, T3>::fastlmm( const T2 &X_,
                               const ModelDetail md,
                               const bool REML): 
   X(X_),
-  U(dcmp.get_vectors()),
-  s(dcmp.get_values()),
+  dcmp(dcmp),
   md(md), 
   REML(REML) { 
+
+  this->dcmp.reweight(weights);
+  U = this->dcmp.get_vectors();
+  s = this->dcmp.get_values();
+
   Xu = U.t() * X;
   Gamma_XX = X.t() * X - Xu.t() * Xu;
   inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
@@ -282,8 +298,8 @@ const double fastlmm<T1, T2, T3>::get_rdf(){
 template <typename T1, typename T2, typename T3> 
 const vec fastlmm<T1, T2, T3>::hatvalues(){
 
-  int n = n_active;
-  int k = s.n_elem;
+  // int n = n_active;
+  // int k = s.n_elem;
 
   // Usq <- model$U^2
   T3 Usq = square(U);

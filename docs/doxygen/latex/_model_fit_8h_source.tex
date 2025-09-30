@@ -116,249 +116,263 @@
 \DoxyCodeLine{00114\ \ \ \ \ \}}
 \DoxyCodeLine{00115\ }
 \DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ MAX}}
-\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_acf09755e6709bfeddcb1175803c7a62e}{setDevResids}}(\ \textcolor{keyword}{const}\ vec\ \&dr,\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a849b524901e393e766bbba5b03e4f74c}{mu}})\{}
-\DoxyCodeLine{00118\ }
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ transform\ from\ residuals.glm}}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ d.res\ <-\/\ sqrt(pmax((object\$family\$dev.resids)(y,\ mu,\ }}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ wts),\ 0))}}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ifelse(y\ >\ mu,\ d.res,\ -\/d.res)}}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a36747d1197e07f51c8e779c879377cdb}{devianceResiduals}}\ =\ sqrt(pmax(dr,\ 0));}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ uvec\ idx\ =\ find(y\ <=\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a849b524901e393e766bbba5b03e4f74c}{mu}});}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a36747d1197e07f51c8e779c879377cdb}{devianceResiduals}}.elem(idx)\ =\ -\/1.0*\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a36747d1197e07f51c8e779c879377cdb}{devianceResiduals}}.elem(idx);}
-\DoxyCodeLine{00126\ \ \ \ \ \}\ \ \ }
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a247f397b059a669e4f3d49e28fedc56c}{setFittedValues}}(\ \textcolor{keyword}{const}\ vec\ \&mu\_in)\{}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a849b524901e393e766bbba5b03e4f74c}{mu}}\ =\ mu\_in;}
-\DoxyCodeLine{00130\ \ \ \ \ \}}
-\DoxyCodeLine{00131\ }
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{void}\ init()\{}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ model\ didn't\ succeed,\ set\ values\ to\ nan}}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}}\ )\{}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}}.fill(datum::nan);}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}.fill(datum::nan);}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ vcov\ is\ empty,\ set\ to\ be\ se.n\_elem\ x\ se.n\_elem}}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ with\ elements\ nan}}
-\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}.n\_elem\ ==\ 0)\{}
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}\ =\ mat(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}}.n\_elem,\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}}.n\_elem);}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}.fill(datum::nan);}
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00146\ \ \ \ \ \}}
-\DoxyCodeLine{00147\ \};}
-\DoxyCodeLine{00148\ }
-\DoxyCodeLine{00149\ }
-\DoxyCodeLine{00150\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7bab615b7fd566efcf685a54e6ff2182}{ModelFitGLM}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}\ \{}
-\DoxyCodeLine{00151\ }
-\DoxyCodeLine{00152\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00153\ }
-\DoxyCodeLine{00154\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7bab615b7fd566efcf685a54e6ff2182}{ModelFitGLM}}()\ \{\}}
-\DoxyCodeLine{00155\ }
-\DoxyCodeLine{00156\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_afbc0585f0f9bb8f13d71e458991c7d0b}{ModelFitGLM}}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}\ \&gmf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a385eb82cba33be3a5a7ddee5e349436e}{family}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7ba4fd9ceb9d2f6198a64cbdd3f61ea4}{niter}}\ )\ :}
-\DoxyCodeLine{00157\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(gmf),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a385eb82cba33be3a5a7ddee5e349436e}{family}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a385eb82cba33be3a5a7ddee5e349436e}{family}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7ba4fd9ceb9d2f6198a64cbdd3f61ea4}{niter}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7ba4fd9ceb9d2f6198a64cbdd3f61ea4}{niter}})\ \{}
-\DoxyCodeLine{00158\ }
-\DoxyCodeLine{00159\ \ \ \ \ \textcolor{comment}{//\ extract\ theta\ values\ from\ "{}nb:theta"{}}}
-\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{if}(\ regex\_search(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a385eb82cba33be3a5a7ddee5e349436e}{family}},\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}))\ )\{}
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ theta\_str\ =\ regex\_replace(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a385eb82cba33be3a5a7ddee5e349436e}{family}},\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}),\ \textcolor{stringliteral}{"{}"{}});}
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_aca8fdf7d8051629b86c9270e80c92022}{theta}}\ =\ atof(theta\_str.c\_str());}
-\DoxyCodeLine{00163\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00164\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_aca8fdf7d8051629b86c9270e80c92022}{theta}}\ =\ datum::nan;}
-\DoxyCodeLine{00165\ \ \ \ \ \}}
-\DoxyCodeLine{00166\ }
-\DoxyCodeLine{00167\ \ \ \ \ \textcolor{comment}{//\ Account\ for\ loss\ of\ degrees\ of\ freedom\ when\ predicted\ counts\ are\ zero\ in\ a\ count\ model}}
-\DoxyCodeLine{00168\ \ \ \ \ \ \ \textcolor{comment}{//\ https://doi.org/10.1515/sagmb-\/2017-\/0010}}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ family\ is\ Poisson,\ quasipoisson\ or\ nb}}
-\DoxyCodeLine{00170\ \ \ \ \ \textcolor{comment}{//\ Compute\ number\ of\ entries\ were\ predicted\ values\ are\ }}
-\DoxyCodeLine{00171\ \ \ \ \ \textcolor{comment}{//\ effectively\ zero\ counts}}
-\DoxyCodeLine{00172\ \ \ \ \ shared\_ptr<GLMFamily>\ fam\ =\ getGLMFamily(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a385eb82cba33be3a5a7ddee5e349436e}{family}}\ );}
-\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordflow}{if}(\ fam-\/>isCountModel()\ )\{}
-\DoxyCodeLine{00174\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a733a089f91858abffd62e1fd5d9241d1}{nZeroPrediction}}\ =\ sum(gmf.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a849b524901e393e766bbba5b03e4f74c}{mu}}\ <\ 1e-\/4);}
-\DoxyCodeLine{00175\ \ \ \ \ \}}
-\DoxyCodeLine{00176\ \ \ \}}
-\DoxyCodeLine{00177\ }
-\DoxyCodeLine{00178\ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a385eb82cba33be3a5a7ddee5e349436e}{family}}\ =\ \textcolor{stringliteral}{"{}"{}};}
-\DoxyCodeLine{00179\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_aca8fdf7d8051629b86c9270e80c92022}{theta}}\ =\ datum::nan;}
-\DoxyCodeLine{00180\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_aa3f9a3bd84b4f2066a33bb9c8ad3f4ce}{mu\_mean}}\ =\ datum::nan;}
-\DoxyCodeLine{00181\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7ba4fd9ceb9d2f6198a64cbdd3f61ea4}{niter}}\ =\ 0;}
-\DoxyCodeLine{00182\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a733a089f91858abffd62e1fd5d9241d1}{nZeroPrediction}}\ =\ 0;}
-\DoxyCodeLine{00183\ \};}
-\DoxyCodeLine{00184\ }
-\DoxyCodeLine{00185\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acf4e7e484cf01a1863f5532fa758f4e6}{ModelFitLMM}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}\ \{\ \ \ \ \ \ }
-\DoxyCodeLine{00186\ \ \ \textcolor{keyword}{public}:\ \ }
-\DoxyCodeLine{00187\ \ \ \textcolor{comment}{//\ additional\ information\ needed\ beyond\ ModelFit}}
-\DoxyCodeLine{00188\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}};}
-\DoxyCodeLine{00189\ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}};}
-\DoxyCodeLine{00190\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}};}
-\DoxyCodeLine{00191\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}};\ \ }
-\DoxyCodeLine{00192\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}};\ \textcolor{comment}{//\ Store\ mean\ of\ weights\ before\ scaling}}
-\DoxyCodeLine{00193\ }
-\DoxyCodeLine{00194\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a805d2f43d5b3ca0ad2ea5a8c928acf46}{isSet\_U}}\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00195\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_af71355f40bf5611761eea41a2687474a}{isSet\_Usp}}\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00196\ \ \ mat\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a7c46ea37999b499d13297de0071b8444}{U}};}
-\DoxyCodeLine{00197\ \ \ sp\_mat\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aab739147184fd0f6b836c8ef5d930523}{Usp}};\ }
-\DoxyCodeLine{00198\ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a4223e26b226fe20ac4c42b744ecbb2fe}{s}};\ \ }
-\DoxyCodeLine{00199\ }
-\DoxyCodeLine{00200\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acf4e7e484cf01a1863f5532fa758f4e6}{ModelFitLMM}}()\{\}}
-\DoxyCodeLine{00201\ }
-\DoxyCodeLine{00202\ \ \ \ \textcolor{comment}{//\ LEAST}}
-\DoxyCodeLine{00203\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a82c224ac80f80f406a12184ea8b801b6}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ }
-\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}},}
-\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}},}
-\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}},}
-\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}},}
-\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}},}
-\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}},}
-\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},}
-\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}},\ }
-\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}},}
-\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}})\ :\ }
-\DoxyCodeLine{00214\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}}),}
-\DoxyCodeLine{00215\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}})}
-\DoxyCodeLine{00216\ \ \ \ \ \{\}\ }
-\DoxyCodeLine{00217\ }
-\DoxyCodeLine{00218\ \ \ \textcolor{comment}{//\ LOW}}
-\DoxyCodeLine{00219\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a488cb806ca95afe1dc79a353d0b739b3}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ }
-\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}},}
-\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}},}
-\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}},}
-\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}},}
-\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}},}
-\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}},}
-\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},}
-\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}},\ }
-\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}},}
-\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ }
-\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ }
-\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}})\ :\ }
-\DoxyCodeLine{00232\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}}),}
-\DoxyCodeLine{00233\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}})}
-\DoxyCodeLine{00234\ \ \ \ \ \{\}\ }
-\DoxyCodeLine{00235\ \ \ }
-\DoxyCodeLine{00236\ \ \ \textcolor{comment}{//\ MEDIUM}}
-\DoxyCodeLine{00237\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a5a19c5aecf8317a2b17831ab63ca258a}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ }
-\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}},}
-\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}},}
-\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}},}
-\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}},}
-\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}},}
-\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}},}
-\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},}
-\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}},\ }
-\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}},}
-\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ }
-\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ }
-\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}},\ }
-\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}})\ :\ }
-\DoxyCodeLine{00251\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}),}
-\DoxyCodeLine{00252\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}})\ }
-\DoxyCodeLine{00253\ \ \ \ \ \{\}\ }
-\DoxyCodeLine{00254\ }
-\DoxyCodeLine{00255\ \ \ \textcolor{comment}{//\ HIGH}}
-\DoxyCodeLine{00256\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a6e6d1fe14bfd6d889608473dce5948f5}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ }
-\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}},}
-\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}},}
-\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}},}
-\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}},}
-\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}},}
-\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}},}
-\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},}
-\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}},\ }
-\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}},}
-\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ }
-\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ }
-\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}},\ }
-\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}},\ }
-\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2d6e59e0f7fab81d35e413ff3f7c863d}{residuals}})\ :\ }
-\DoxyCodeLine{00271\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2d6e59e0f7fab81d35e413ff3f7c863d}{residuals}}),}
-\DoxyCodeLine{00272\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}})}
-\DoxyCodeLine{00273\ \ \ \ \ \{\}\ \ \ }
-\DoxyCodeLine{00274\ }
-\DoxyCodeLine{00275\ \ \ \textcolor{comment}{//\ MOST}}
-\DoxyCodeLine{00276\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97158be3144c5fd4c0fa5ca40cb5d7b0}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ }
-\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}},}
-\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}},}
-\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}},}
-\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}},}
-\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}},}
-\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}},}
-\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},}
-\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}},\ }
-\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}},}
-\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ }
-\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ }
-\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}},\ }
-\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}},\ }
-\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2d6e59e0f7fab81d35e413ff3f7c863d}{residuals}},\ }
-\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_ae7e1abdc7b2918fe78d74f96b2ed56d5}{hatvalues}})\ :\ }
-\DoxyCodeLine{00292\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2d6e59e0f7fab81d35e413ff3f7c863d}{residuals}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_ae7e1abdc7b2918fe78d74f96b2ed56d5}{hatvalues}}),}
-\DoxyCodeLine{00293\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}})}
-\DoxyCodeLine{00294\ \ \ \ \ \{\}\ \ \ }
-\DoxyCodeLine{00295\ }
-\DoxyCodeLine{00296\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a4e209280dfba2195d8e82bd4d939c794}{setUS}}(\textcolor{keyword}{const}\ mat\ \&U\_,\ \textcolor{keyword}{const}\ vec\ \&s\_)\{}
-\DoxyCodeLine{00297\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a7c46ea37999b499d13297de0071b8444}{U}}\ =\ U\_;}
-\DoxyCodeLine{00298\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a4223e26b226fe20ac4c42b744ecbb2fe}{s}}\ =\ s\_;}
-\DoxyCodeLine{00299\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a805d2f43d5b3ca0ad2ea5a8c928acf46}{isSet\_U}}\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00300\ \ \ \ \ \}}
-\DoxyCodeLine{00301\ }
-\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a59e9d57b4d60e1a4f2a9f8f16ba51295}{setUS}}(\textcolor{keyword}{const}\ sp\_mat\ \&U\_,\ \textcolor{keyword}{const}\ vec\ \&s\_)\{}
-\DoxyCodeLine{00303\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aab739147184fd0f6b836c8ef5d930523}{Usp}}\ =\ U\_;}
-\DoxyCodeLine{00304\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a4223e26b226fe20ac4c42b744ecbb2fe}{s}}\ =\ s\_;}
-\DoxyCodeLine{00305\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_af71355f40bf5611761eea41a2687474a}{isSet\_Usp}}\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00306\ \ \ \ \ \}}
-\DoxyCodeLine{00307\ }
-\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a11b4c0d37ab16509143ff2cd5cd053e8}{set\_w\_mean}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&value)\{}
-\DoxyCodeLine{00309\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}}\ =\ value;}
-\DoxyCodeLine{00310\ \ \ \ \ \}}
-\DoxyCodeLine{00311\ \};}
-\DoxyCodeLine{00312\ }
-\DoxyCodeLine{00313\ }
-\DoxyCodeLine{00314\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a6ca8878ca1f03419edcee6f092eaf342}{ModelFitGLMM}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acf4e7e484cf01a1863f5532fa758f4e6}{ModelFitLMM}}\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c32c0309653f0b97df2d3826a19fe0f}{setDevResids}}(\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&dr,\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&y,\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a849b524901e393e766bbba5b03e4f74c}{mu}},}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{const}\ vec\ w\ =\ \{\})\{}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{comment}{//\ transform\ from\ residuals.glm}}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{comment}{//\ d.res\ <-\/\ sqrt(pmax((object\$family\$dev.resids)(y,\ mu,\ }}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ wts),\ 0))}}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{comment}{//\ ifelse(y\ >\ mu,\ d.res,\ -\/d.res)}}
+\DoxyCodeLine{00127\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a36747d1197e07f51c8e779c879377cdb}{devianceResiduals}}\ =\ sqrt(pmax(dr,\ 0));}
+\DoxyCodeLine{00128\ \ \ \ \ uvec\ idx\ =\ find(y\ <=\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a849b524901e393e766bbba5b03e4f74c}{mu}});}
+\DoxyCodeLine{00129\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a36747d1197e07f51c8e779c879377cdb}{devianceResiduals}}.elem(idx)\ =\ -\/1.0*\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a36747d1197e07f51c8e779c879377cdb}{devianceResiduals}}.elem(idx);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ w.is\_empty()\ )\{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ weight\ is\ zero,\ set\ element\ to\ NAN}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a36747d1197e07f51c8e779c879377cdb}{devianceResiduals}}.elem(find(w\ ==\ 0.0)).fill(datum::nan);}
+\DoxyCodeLine{00134\ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_ab6f4ddcc7e1ffde1f7257680dc93065a}{setFittedValues}}(\ \textcolor{keyword}{const}\ vec\ \&mu\_in,\ \textcolor{keyword}{const}\ vec\ w\ =\ \{\})\{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a849b524901e393e766bbba5b03e4f74c}{mu}}\ =\ mu\_in;}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ w.is\_empty()\ )\{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ weight\ is\ zero,\ set\ element\ to\ NAN}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a849b524901e393e766bbba5b03e4f74c}{mu}}.elem(find(w\ ==\ 0.0)).fill(datum::nan);}
+\DoxyCodeLine{00143\ \ \ \ \ \}}
+\DoxyCodeLine{00144\ \ \ \ \ \}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{void}\ init()\{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ model\ didn't\ succeed,\ set\ values\ to\ nan}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}}\ )\{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}}.fill(datum::nan);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}.fill(datum::nan);}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ vcov\ is\ empty,\ set\ to\ be\ se.n\_elem\ x\ se.n\_elem}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ with\ elements\ nan}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}.n\_elem\ ==\ 0)\{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}\ =\ mat(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}}.n\_elem,\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}}.n\_elem);}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}.fill(datum::nan);}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \};}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7bab615b7fd566efcf685a54e6ff2182}{ModelFitGLM}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}\ \{}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7bab615b7fd566efcf685a54e6ff2182}{ModelFitGLM}}()\ \{\}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_afbc0585f0f9bb8f13d71e458991c7d0b}{ModelFitGLM}}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}\ \&gmf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a385eb82cba33be3a5a7ddee5e349436e}{family}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7ba4fd9ceb9d2f6198a64cbdd3f61ea4}{niter}}\ )\ :}
+\DoxyCodeLine{00171\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(gmf),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a385eb82cba33be3a5a7ddee5e349436e}{family}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a385eb82cba33be3a5a7ddee5e349436e}{family}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7ba4fd9ceb9d2f6198a64cbdd3f61ea4}{niter}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7ba4fd9ceb9d2f6198a64cbdd3f61ea4}{niter}})\ \{}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{comment}{//\ extract\ theta\ values\ from\ "{}nb:theta"{}}}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordflow}{if}(\ regex\_search(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a385eb82cba33be3a5a7ddee5e349436e}{family}},\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}))\ )\{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ theta\_str\ =\ regex\_replace(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a385eb82cba33be3a5a7ddee5e349436e}{family}},\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}),\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_aca8fdf7d8051629b86c9270e80c92022}{theta}}\ =\ atof(theta\_str.c\_str());}
+\DoxyCodeLine{00177\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_aca8fdf7d8051629b86c9270e80c92022}{theta}}\ =\ datum::nan;}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{comment}{//\ Account\ for\ loss\ of\ degrees\ of\ freedom\ when\ predicted\ counts\ are\ zero\ in\ a\ count\ model}}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \textcolor{comment}{//\ https://doi.org/10.1515/sagmb-\/2017-\/0010}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ family\ is\ Poisson,\ quasipoisson\ or\ nb}}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{comment}{//\ Compute\ number\ of\ entries\ were\ predicted\ values\ are\ }}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{comment}{//\ effectively\ zero\ counts}}
+\DoxyCodeLine{00186\ \ \ \ \ shared\_ptr<GLMFamily>\ fam\ =\ getGLMFamily(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a385eb82cba33be3a5a7ddee5e349436e}{family}}\ );}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordflow}{if}(\ fam-\/>isCountModel()\ )\{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a733a089f91858abffd62e1fd5d9241d1}{nZeroPrediction}}\ =\ sum(gmf.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a849b524901e393e766bbba5b03e4f74c}{mu}}\ <\ 1e-\/4);}
+\DoxyCodeLine{00189\ \ \ \ \ \}}
+\DoxyCodeLine{00190\ \ \ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a385eb82cba33be3a5a7ddee5e349436e}{family}}\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_aca8fdf7d8051629b86c9270e80c92022}{theta}}\ =\ datum::nan;}
+\DoxyCodeLine{00194\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_aa3f9a3bd84b4f2066a33bb9c8ad3f4ce}{mu\_mean}}\ =\ datum::nan;}
+\DoxyCodeLine{00195\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7ba4fd9ceb9d2f6198a64cbdd3f61ea4}{niter}}\ =\ 0;}
+\DoxyCodeLine{00196\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a733a089f91858abffd62e1fd5d9241d1}{nZeroPrediction}}\ =\ 0;}
+\DoxyCodeLine{00197\ \};}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acf4e7e484cf01a1863f5532fa758f4e6}{ModelFitLMM}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}\ \{\ \ \ \ \ \ }
+\DoxyCodeLine{00200\ \ \ \textcolor{keyword}{public}:\ \ }
+\DoxyCodeLine{00201\ \ \ \textcolor{comment}{//\ additional\ information\ needed\ beyond\ ModelFit}}
+\DoxyCodeLine{00202\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}};}
+\DoxyCodeLine{00203\ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}};}
+\DoxyCodeLine{00204\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}};}
+\DoxyCodeLine{00205\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}};\ \ }
+\DoxyCodeLine{00206\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}};\ \textcolor{comment}{//\ Store\ mean\ of\ weights\ before\ scaling}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a805d2f43d5b3ca0ad2ea5a8c928acf46}{isSet\_U}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00209\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_af71355f40bf5611761eea41a2687474a}{isSet\_Usp}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00210\ \ \ mat\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a7c46ea37999b499d13297de0071b8444}{U}};}
+\DoxyCodeLine{00211\ \ \ sp\_mat\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aab739147184fd0f6b836c8ef5d930523}{Usp}};\ }
+\DoxyCodeLine{00212\ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a4223e26b226fe20ac4c42b744ecbb2fe}{s}};\ \ }
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acf4e7e484cf01a1863f5532fa758f4e6}{ModelFitLMM}}()\{\}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \textcolor{comment}{//\ LEAST}}
+\DoxyCodeLine{00217\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a82c224ac80f80f406a12184ea8b801b6}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ }
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}},}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}},}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}},}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}},}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}},}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}},}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}},\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}},}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}})\ :\ }
+\DoxyCodeLine{00228\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}}),}
+\DoxyCodeLine{00229\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}})}
+\DoxyCodeLine{00230\ \ \ \ \ \{\}\ }
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \textcolor{comment}{//\ LOW}}
+\DoxyCodeLine{00233\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a488cb806ca95afe1dc79a353d0b739b3}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}},}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}},}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}},}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}},}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}},}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}},}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}},\ }
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}},}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ }
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ }
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}})\ :\ }
+\DoxyCodeLine{00246\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}}),}
+\DoxyCodeLine{00247\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}})}
+\DoxyCodeLine{00248\ \ \ \ \ \{\}\ }
+\DoxyCodeLine{00249\ \ \ }
+\DoxyCodeLine{00250\ \ \ \textcolor{comment}{//\ MEDIUM}}
+\DoxyCodeLine{00251\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a5a19c5aecf8317a2b17831ab63ca258a}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ }
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}},}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}},}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}},}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}},}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}},}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}},}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}},\ }
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}},}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ }
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ }
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}},\ }
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}})\ :\ }
+\DoxyCodeLine{00265\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}),}
+\DoxyCodeLine{00266\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}})\ }
+\DoxyCodeLine{00267\ \ \ \ \ \{\}\ }
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \textcolor{comment}{//\ HIGH}}
+\DoxyCodeLine{00270\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a6e6d1fe14bfd6d889608473dce5948f5}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ }
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}},}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}},}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}},}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}},}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}},}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}},}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}},\ }
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}},}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ }
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ }
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}},\ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}},\ }
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2d6e59e0f7fab81d35e413ff3f7c863d}{residuals}})\ :\ }
+\DoxyCodeLine{00285\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2d6e59e0f7fab81d35e413ff3f7c863d}{residuals}}),}
+\DoxyCodeLine{00286\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}})}
+\DoxyCodeLine{00287\ \ \ \ \ \{\}\ \ \ }
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \textcolor{comment}{//\ MOST}}
+\DoxyCodeLine{00290\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97158be3144c5fd4c0fa5ca40cb5d7b0}{ModelFitLMM}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ }
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}},}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}},}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}},}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}},}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}},}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}},}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}},\ }
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}},}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ }
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ }
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}},\ }
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}},\ }
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2d6e59e0f7fab81d35e413ff3f7c863d}{residuals}},\ }
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_ae7e1abdc7b2918fe78d74f96b2ed56d5}{hatvalues}})\ :\ }
+\DoxyCodeLine{00306\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2d6e59e0f7fab81d35e413ff3f7c863d}{residuals}},\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_ae7e1abdc7b2918fe78d74f96b2ed56d5}{hatvalues}}),}
+\DoxyCodeLine{00307\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a217bd7cc4cfb822e92cc0e990607033a}{logLik}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_ab34987e31ab1b81c060b53a5eb1ab859}{weights}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a26571524a40d01861291d366798c6a29}{ru}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a52de38278d89427192225dea05f6effe}{y}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aaad7993e6ca713a62362f59f7a9cacf5}{delta}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a2bbf91ed1ba23151b4e19c01ac39a8a6}{sigSq\_g}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a97f68ea3a8db2c89f59c0627e7dde6bc}{sigSq\_e}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}})}
+\DoxyCodeLine{00308\ \ \ \ \ \{\}\ \ \ }
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a4e209280dfba2195d8e82bd4d939c794}{setUS}}(\textcolor{keyword}{const}\ mat\ \&U\_,\ \textcolor{keyword}{const}\ vec\ \&s\_)\{}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a7c46ea37999b499d13297de0071b8444}{U}}\ =\ U\_;}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a4223e26b226fe20ac4c42b744ecbb2fe}{s}}\ =\ s\_;}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a805d2f43d5b3ca0ad2ea5a8c928acf46}{isSet\_U}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00314\ \ \ \ \ \}}
 \DoxyCodeLine{00315\ }
-\DoxyCodeLine{00316\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00317\ }
-\DoxyCodeLine{00318\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a6ca8878ca1f03419edcee6f092eaf342}{ModelFitGLMM}}()\ \{\}}
-\DoxyCodeLine{00319\ }
-\DoxyCodeLine{00320\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a2b6887f1b997885b5f614d58e1b7ee46}{ModelFitGLMM}}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acf4e7e484cf01a1863f5532fa758f4e6}{ModelFitLMM}}\ \&gmf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a412515ad360913888152ee8fc159c484}{family}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}\ )\ :}
-\DoxyCodeLine{00321\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acf4e7e484cf01a1863f5532fa758f4e6}{ModelFitLMM}}(gmf),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a412515ad360913888152ee8fc159c484}{family}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a412515ad360913888152ee8fc159c484}{family}})\ \{}
-\DoxyCodeLine{00322\ }
-\DoxyCodeLine{00323\ \ \ \ \ this-\/>iter\ =\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}};}
-\DoxyCodeLine{00324\ \ \ \ \ }
-\DoxyCodeLine{00325\ \ \ \ \ \textcolor{comment}{//\ extract\ theta\ values\ from\ "{}nb:theta"{}}}
-\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keywordflow}{if}(\ regex\_search(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a412515ad360913888152ee8fc159c484}{family}},\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}))\ )\{}
-\DoxyCodeLine{00327\ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ theta\_str\ =\ regex\_replace(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a412515ad360913888152ee8fc159c484}{family}},\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}),\ \textcolor{stringliteral}{"{}"{}});}
-\DoxyCodeLine{00328\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a3e55bd05241927e06b74cdefa5ec88c0}{theta}}\ =\ atof(theta\_str.c\_str());}
-\DoxyCodeLine{00329\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00330\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a3e55bd05241927e06b74cdefa5ec88c0}{theta}}\ =\ datum::nan;}
-\DoxyCodeLine{00331\ \ \ \ \ \}}
-\DoxyCodeLine{00332\ }
-\DoxyCodeLine{00333\ \ \ \ \ \textcolor{comment}{//\ Account\ for\ loss\ of\ degrees\ of\ freedom\ when\ predicted\ counts\ are\ zero\ in\ a\ count\ model}}
-\DoxyCodeLine{00334\ \ \ \ \ \ \ \textcolor{comment}{//\ https://doi.org/10.1515/sagmb-\/2017-\/0010}}
-\DoxyCodeLine{00335\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ family\ is\ Poisson,\ quasipoisson\ or\ nb}}
-\DoxyCodeLine{00336\ \ \ \ \ \textcolor{comment}{//\ Compute\ number\ of\ entries\ were\ predicted\ values\ are\ }}
-\DoxyCodeLine{00337\ \ \ \ \ \textcolor{comment}{//\ effectively\ zero\ counts}}
-\DoxyCodeLine{00338\ \ \ \ \ shared\_ptr<GLMFamily>\ fam\ =\ getGLMFamily(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a412515ad360913888152ee8fc159c484}{family}}\ );}
-\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordflow}{if}(\ fam-\/>isCountModel()\ )\{}
-\DoxyCodeLine{00340\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a8bd675f00c29e3360da820ff775b7d88}{nZeroPrediction}}\ =\ sum(gmf.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a849b524901e393e766bbba5b03e4f74c}{mu}}\ <\ 1e-\/4);}
-\DoxyCodeLine{00341\ \ \ \ \ \}}
-\DoxyCodeLine{00342\ \ \ \}}
-\DoxyCodeLine{00343\ }
-\DoxyCodeLine{00344\ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a412515ad360913888152ee8fc159c484}{family}}\ =\ \textcolor{stringliteral}{"{}"{}};}
-\DoxyCodeLine{00345\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a3e55bd05241927e06b74cdefa5ec88c0}{theta}}\ =\ datum::nan;}
-\DoxyCodeLine{00346\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a0cd9f08c7585c670ca73980e1c3d9a41}{mu\_mean}}\ =\ datum::nan;}
-\DoxyCodeLine{00347\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a8bd675f00c29e3360da820ff775b7d88}{nZeroPrediction}}\ =\ 0;}
-\DoxyCodeLine{00348\ \};}
-\DoxyCodeLine{00349\ }
-\DoxyCodeLine{00350\ }
-\DoxyCodeLine{00351\ \textcolor{keyword}{typedef}\ vector<ModelFit>\ \mbox{\hyperlink{namespacefastglmm_lib_abe7eeaa6ccb8f0b33c2d18c1ee39701d}{ModelFitList}};}
-\DoxyCodeLine{00352\ \textcolor{keyword}{typedef}\ vector<ModelFitGLM>\ \mbox{\hyperlink{namespacefastglmm_lib_ab5362fc8877a16829bbb048bd132ae96}{ModelFitGLMList}};}
-\DoxyCodeLine{00353\ \textcolor{keyword}{typedef}\ vector<ModelFitLMM>\ \mbox{\hyperlink{namespacefastglmm_lib_a5de96faceae4ff7f2dcf162504ae9272}{ModelFitLMMList}};}
-\DoxyCodeLine{00354\ \textcolor{keyword}{typedef}\ vector<ModelFitGLMM>\ \mbox{\hyperlink{namespacefastglmm_lib_aa845d99c94d3583204551aea51dad721}{ModelFitGLMMList}};}
-\DoxyCodeLine{00355\ }
-\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a59e9d57b4d60e1a4f2a9f8f16ba51295}{setUS}}(\textcolor{keyword}{const}\ sp\_mat\ \&U\_,\ \textcolor{keyword}{const}\ vec\ \&s\_)\{}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_aab739147184fd0f6b836c8ef5d930523}{Usp}}\ =\ U\_;}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a4223e26b226fe20ac4c42b744ecbb2fe}{s}}\ =\ s\_;}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_af71355f40bf5611761eea41a2687474a}{isSet\_Usp}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00320\ \ \ \ \ \}}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a11b4c0d37ab16509143ff2cd5cd053e8}{set\_w\_mean}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&value)\{}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a0c834ffc86b2edfa64d8c8985e216fd8}{w\_mean}}\ =\ value;}
+\DoxyCodeLine{00324\ \ \ \ \ \}}
+\DoxyCodeLine{00325\ \};}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a6ca8878ca1f03419edcee6f092eaf342}{ModelFitGLMM}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acf4e7e484cf01a1863f5532fa758f4e6}{ModelFitLMM}}\ \{}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a6ca8878ca1f03419edcee6f092eaf342}{ModelFitGLMM}}()\ \{\}}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a2b6887f1b997885b5f614d58e1b7ee46}{ModelFitGLMM}}(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acf4e7e484cf01a1863f5532fa758f4e6}{ModelFitLMM}}\ \&gmf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a412515ad360913888152ee8fc159c484}{family}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}}\ )\ :}
+\DoxyCodeLine{00335\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acf4e7e484cf01a1863f5532fa758f4e6}{ModelFitLMM}}(gmf),\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a412515ad360913888152ee8fc159c484}{family}}(\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a412515ad360913888152ee8fc159c484}{family}})\ \{}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \ \ \ \ this-\/>iter\ =\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_acbdb4ace675798c824147067bb68d31d}{iter}};}
+\DoxyCodeLine{00338\ \ \ \ \ }
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{comment}{//\ extract\ theta\ values\ from\ "{}nb:theta"{}}}
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{keywordflow}{if}(\ regex\_search(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a412515ad360913888152ee8fc159c484}{family}},\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}))\ )\{}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ theta\_str\ =\ regex\_replace(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a412515ad360913888152ee8fc159c484}{family}},\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}),\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a3e55bd05241927e06b74cdefa5ec88c0}{theta}}\ =\ atof(theta\_str.c\_str());}
+\DoxyCodeLine{00343\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a3e55bd05241927e06b74cdefa5ec88c0}{theta}}\ =\ datum::nan;}
+\DoxyCodeLine{00345\ \ \ \ \ \}}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{comment}{//\ Account\ for\ loss\ of\ degrees\ of\ freedom\ when\ predicted\ counts\ are\ zero\ in\ a\ count\ model}}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \textcolor{comment}{//\ https://doi.org/10.1515/sagmb-\/2017-\/0010}}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ family\ is\ Poisson,\ quasipoisson\ or\ nb}}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{comment}{//\ Compute\ number\ of\ entries\ were\ predicted\ values\ are\ }}
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{comment}{//\ effectively\ zero\ counts}}
+\DoxyCodeLine{00352\ \ \ \ \ shared\_ptr<GLMFamily>\ fam\ =\ getGLMFamily(\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a412515ad360913888152ee8fc159c484}{family}}\ );}
+\DoxyCodeLine{00353\ \ \ \ \ \textcolor{keywordflow}{if}(\ fam-\/>isCountModel()\ )\{}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a8bd675f00c29e3360da820ff775b7d88}{nZeroPrediction}}\ =\ sum(gmf.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a849b524901e393e766bbba5b03e4f74c}{mu}}\ <\ 1e-\/4);}
+\DoxyCodeLine{00355\ \ \ \ \ \}}
+\DoxyCodeLine{00356\ \ \ \}}
 \DoxyCodeLine{00357\ }
-\DoxyCodeLine{00358\ \}}
-\DoxyCodeLine{00359\ }
-\DoxyCodeLine{00360\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00358\ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a412515ad360913888152ee8fc159c484}{family}}\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00359\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a3e55bd05241927e06b74cdefa5ec88c0}{theta}}\ =\ datum::nan;}
+\DoxyCodeLine{00360\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a0cd9f08c7585c670ca73980e1c3d9a41}{mu\_mean}}\ =\ datum::nan;}
+\DoxyCodeLine{00361\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a8bd675f00c29e3360da820ff775b7d88}{nZeroPrediction}}\ =\ 0;}
+\DoxyCodeLine{00362\ \};}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \textcolor{keyword}{typedef}\ vector<ModelFit>\ \mbox{\hyperlink{namespacefastglmm_lib_abe7eeaa6ccb8f0b33c2d18c1ee39701d}{ModelFitList}};}
+\DoxyCodeLine{00366\ \textcolor{keyword}{typedef}\ vector<ModelFitGLM>\ \mbox{\hyperlink{namespacefastglmm_lib_ab5362fc8877a16829bbb048bd132ae96}{ModelFitGLMList}};}
+\DoxyCodeLine{00367\ \textcolor{keyword}{typedef}\ vector<ModelFitLMM>\ \mbox{\hyperlink{namespacefastglmm_lib_a5de96faceae4ff7f2dcf162504ae9272}{ModelFitLMMList}};}
+\DoxyCodeLine{00368\ \textcolor{keyword}{typedef}\ vector<ModelFitGLMM>\ \mbox{\hyperlink{namespacefastglmm_lib_aa845d99c94d3583204551aea51dad721}{ModelFitGLMMList}};}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

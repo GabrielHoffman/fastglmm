@@ -101,7 +101,6 @@ ModelFitLMMList
     T1 y;
     vec w;
     uvec idx;
-    spectralDecomp<T3> dcmp_local(dcmp);
 
     // iterate through responses 
     for (int j = r.begin(); j != r.end(); ++j) { 
@@ -113,9 +112,7 @@ ModelFitLMMList
       y.elem(idx).zeros();
       w.elem(idx).zeros();
 
-      dcmp_local.reweight(w);
-
-      fastlmm fit = fastlmm<T1, T2, T3>(y, X_clean, dcmp_local, w, md, REML);
+      fastlmm fit = fastlmm<T1, T2, T3>(y, X_clean, dcmp, w, md, REML);
 
       fit.estimate_delta( left, right, tol );
 

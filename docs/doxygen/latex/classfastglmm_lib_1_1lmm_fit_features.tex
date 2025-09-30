@@ -7,7 +7,7 @@
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classfastglmm_lib_1_1lmm_fit_features_ad6f11ee19c443864b92a0b410faa4582}{lmm\+Fit\+Features}} (const T1 \&Y, const T2 \&X, const T3 \&U, const vec \&s, const vec \&weights, const double \&delta, const double \&left=-\/10, const double \&right=10, const double \&tol=1e-\/5, const int \&nthreads=1, const \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{Model\+Detail}} md=\mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}}, const bool REML=false)
+\mbox{\hyperlink{classfastglmm_lib_1_1lmm_fit_features_a37f4feb9366b90f192ab0333ee5b550c}{lmm\+Fit\+Features}} (const T1 \&Y, const T2 \&X, const \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectral\+Decomp}}$<$ T3 $>$ \&dcmp, const vec \&weights, const double \&delta, const double \&left=-\/10, const double \&right=10, const double \&tol=1e-\/6, const int \&nthreads=1, const \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{Model\+Detail}} md=\mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}}, const bool REML=false)
 \item 
 \mbox{\hyperlink{namespacefastglmm_lib_a5de96faceae4ff7f2dcf162504ae9272}{Model\+Fit\+LMMList}} \mbox{\hyperlink{classfastglmm_lib_1_1lmm_fit_features_a94f255900d73e584eaf95ddc9bf91391}{eval}} (const T2 \&X\+\_\+add\+\_\+, const vector$<$ string $>$ \&ids)
 \end{DoxyCompactItemize}
@@ -16,12 +16,12 @@
 \label{doc-constructors}
 \Hypertarget{classfastglmm_lib_1_1lmm_fit_features_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{classfastglmm_lib_1_1lmm_fit_features_ad6f11ee19c443864b92a0b410faa4582}\index{fastglmmLib::lmmFitFeatures$<$ T1, T2, T3 $>$@{fastglmmLib::lmmFitFeatures$<$ T1, T2, T3 $>$}!lmmFitFeatures@{lmmFitFeatures}}
+\Hypertarget{classfastglmm_lib_1_1lmm_fit_features_a37f4feb9366b90f192ab0333ee5b550c}\index{fastglmmLib::lmmFitFeatures$<$ T1, T2, T3 $>$@{fastglmmLib::lmmFitFeatures$<$ T1, T2, T3 $>$}!lmmFitFeatures@{lmmFitFeatures}}
 \index{lmmFitFeatures@{lmmFitFeatures}!fastglmmLib::lmmFitFeatures$<$ T1, T2, T3 $>$@{fastglmmLib::lmmFitFeatures$<$ T1, T2, T3 $>$}}
 \doxysubsubsection{\texorpdfstring{lmmFitFeatures()}{lmmFitFeatures()}}
-{\footnotesize\ttfamily \label{classfastglmm_lib_1_1lmm_fit_features_ad6f11ee19c443864b92a0b410faa4582} 
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1lmm_fit_features_a37f4feb9366b90f192ab0333ee5b550c} 
 template$<$typename T1, typename T2, typename T3$>$ \\
-\mbox{\hyperlink{classfastglmm_lib_1_1lmm_fit_features}{fastglmm\+Lib\+::lmm\+Fit\+Features}}$<$ T1, T2, T3 $>$\mbox{\hyperlink{classfastglmm_lib_1_1lmm_fit_features}{\+::lmm\+Fit\+Features}} (\begin{DoxyParamCaption}\item[{const T1 \&}]{Y}{, }\item[{const T2 \&}]{X}{, }\item[{const T3 \&}]{U}{, }\item[{const vec \&}]{s}{, }\item[{const vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{ = {\ttfamily -\/10}, }\item[{const double \&}]{right}{ = {\ttfamily 10}, }\item[{const double \&}]{tol}{ = {\ttfamily 1e-\/5}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 1}, }\item[{const \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{Model\+Detail}}}]{md}{ = {\ttfamily \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}}}, }\item[{const bool}]{REML}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+\mbox{\hyperlink{classfastglmm_lib_1_1lmm_fit_features}{fastglmm\+Lib\+::lmm\+Fit\+Features}}$<$ T1, T2, T3 $>$\mbox{\hyperlink{classfastglmm_lib_1_1lmm_fit_features}{\+::lmm\+Fit\+Features}} (\begin{DoxyParamCaption}\item[{const T1 \&}]{Y}{, }\item[{const T2 \&}]{X}{, }\item[{const \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectral\+Decomp}}$<$ T3 $>$ \&}]{dcmp}{, }\item[{const vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{ = {\ttfamily -\/10}, }\item[{const double \&}]{right}{ = {\ttfamily 10}, }\item[{const double \&}]{tol}{ = {\ttfamily 1e-\/6}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 1}, }\item[{const \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{Model\+Detail}}}]{md}{ = {\ttfamily \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}}}, }\item[{const bool}]{REML}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
 
 

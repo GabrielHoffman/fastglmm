@@ -5,7 +5,7 @@
 \title{Fitter Function for Linear Mixed Model}
 \usage{
 fastlmm.fit(
-  Y,
+  y,
   X,
   Z,
   offset = NULL,
@@ -19,7 +19,7 @@ fastlmm.fit(
 )
 }
 \arguments{
-\item{Y}{response vector, or matrix with responses as _columns_}
+\item{y}{response vector}
 
 \item{X}{design matrix}
 
