@@ -58,6 +58,10 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
     stop("Only one variable can be used in the random effect")
   }
 
+  # drop rows with any NA values in active variables
+  data_sub <- data[,colnames(data) %in% all.vars(formula)]
+  data <- data[rowSums(is.na(data_sub)) == 0, colnames(data_sub)]
+
   # formula with only fixed effects
   form.fixed <- nobars(formula)
 

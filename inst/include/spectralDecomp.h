@@ -15,62 +15,92 @@ using namespace arma;
 
 namespace fastglmmLib {
 
+/**
+ * Class storing matrix Z, its squared singular values (s) and the left singular vectors (U). Z can be mat or sp_mat.  spectralDecomp.reweight(w) uses a general method that applies to all (i.e. sparse, dense, discrete, continous) Z matrices.  If Z is sparse, a faster method can be applied using the spectralDecompDiscrete class.  
+ */ 
 template <typename T> 
 class spectralDecomp {
 
   public:
-  	spectralDecomp(){};
+    spectralDecomp() {};
 
-  	// Initialize with indicator matrix Z;
-    void initWithIndicator( const T &Z, const vec &weights);
+    /** Constructor 
+     * @param U left singular vectors
+     * @param s squared singular values
+     */
+    spectralDecomp(const T &U, const vec &s) : 
+      U(U), s(s), Z(scaleEachRow(U, sqrt(s))) 
+      {}
 
-    // Initialize with U and s from eigen decomp
-    void initWithEigenDecomp( const T &U, const vec &s);
+    /** Constructor 
+     * @param Z Random effects design matrix
+     */
+    spectralDecomp( const T &Z ) : 
+      Z(Z) {
 
-    // Initialize with U and s from eigen decomp, and weights
-    void initWithEigenDecomp( const T &U, const vec &s, const vec &weights);
+      vec one(Z.n_rows, fill::ones);
+      reweight(one);
+    }
 
-    T get_vectors(){return U;}
-    vec get_values(){return s;}
+    // Copy constructor
+    spectralDecomp(const spectralDecomp& other): 
+      U(other.U),
+      Z(other.Z),
+      Zw(other.Zw),
+      V(other.V),
+      s(other.s)
+    {}
 
-  private:
-   T U;
-   vec s;
+    /** Compute spectral decomp of weighted Z. Uses general method that applies to all (i.e. sparse, dense, discrete, continous) Z matrices.  
+     * 
+     * @param weights row weights
+    */ 
+    void reweight( const vec &weights){
+      Rcpp::Rcout << "reweight spectralDecomp..." << std::endl;
+      Zw = scaleEachCol(this->Z, sqrt(weights)); 
+      eig_sym( this->s, V, mat(Zw.t() * Zw) );
+      this->U = scaleEachRow(Zw * V, 1 / sqrt(this->s));
+    }
+
+    /** Accessor, returns left singular vectors */
+    T get_vectors() const {
+      return U;
+    }
+
+    /** Accessor, returns squared singular values */
+    vec get_values() const {
+      return s;
+    }
+
+  protected:
+    T U, Z, Zw;
+    mat V;
+    vec s;
 };
 
-// Initialize with indicator matrix
+/** Special case of spectralDecomp when Z is categorical
+ */ 
 template <typename T> 
-void spectralDecomp<T>::initWithIndicator( const T &Z, const vec &weights){
+class spectralDecompCategorical:
+  public spectralDecomp<T> {
+  public:
 
-	s = (weights.t() * Z).t();
-	U = scaleRowsCols(Z, sqrt(weights), 1 / sqrt(s));
-}
+  spectralDecompCategorical(const T &U, const vec &s) :
+    spectralDecomp<T>(U, s) {}
 
+  spectralDecompCategorical(const T &Z){
+    this->Z = Z;
+    vec ones(Z.n_rows, fill::ones);
+    reweight(ones );
+   }
 
-// Initialize with U and s from eigen decomp
-template <typename T> 
-void spectralDecomp<T>::initWithEigenDecomp( const T &U, const vec &s){
-
-	this->U = U;
-	this->s = s;
-}
-
-// Sept 25, 2025
-// Doesn't work
-// // Initialize with U and s from eigen decomp, and weights
-// template <typename T> 
-// void spectralDecomp<T>::initWithEigenDecomp( const T &U, const vec &s, const vec &weights){
-
-// 	Rcpp::Rcout << "Reweighting not applied" << std::endl;
-// 	scaleRowsCols(U, sqrt(weights), 1 / sqrt(s));
-
-// 	// SVD after applying weights
-// 	// mat Q, R;
-// 	// qr(Q, R, scaleCols(U_, s_));
-
-// 	this->U = U;
-// 	this->s = s;
-// }
+  void reweight( const vec &weights){
+    Rcpp::Rcout << "reweight spectralDecompCategorical..." << std::endl;
+    // SVD of new weighted Z
+    this->s = (weights.t() * this->Z).t();
+    this->U = scaleRowsCols(this->Z, sqrt(weights), 1 / sqrt(this->s));
+  }
+};
 
 
 

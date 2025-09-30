@@ -21,6 +21,7 @@ using namespace arma;
 #include "local_min.h"
 #include "misc.h"
 #include "ModelFit.h"
+#include "spectralDecomp.h"
 
 namespace fastglmmLib {
 
@@ -37,8 +38,7 @@ class fastlmm {
 
     fastlmm(const T1 &Y_, 
             const T2 &X_, 
-            const T3 &U_, 
-            const vec &s_,
+            const spectralDecomp<T3> &dcmp,
             const vec &weights_,
             const ModelDetail md = LOW,
             const bool REML = false);
@@ -46,8 +46,7 @@ class fastlmm {
     // constructor, precompute Yu, Xu
     fastlmm(const T1 &Y_, 
             const T2 &X_, 
-            const T3 &U_, 
-            const vec &s_,
+            const spectralDecomp<T3> &dcmp,
             const vec &weights_,
             const vec &Yu_, 
             const mat &Xu_,
@@ -57,8 +56,7 @@ class fastlmm {
     // constructor, precompute Yu, Xu, Gamma_XX, Gamma_XY
     fastlmm(const T1 &Y_, 
             const T2 &X_,
-            const T3 &U_, 
-            const vec &s_,
+            const spectralDecomp<T3> &dcmp,
             const vec &weights_,
             const vec &Yu_, 
             const mat &Xu_,
@@ -69,8 +67,7 @@ class fastlmm {
 
     // constructor without response
     fastlmm(const T2 &X_, 
-            const T3 &U_, 
-            const vec &s_,
+            const spectralDecomp<T3> &dcmp,
             const ModelDetail md = LOW,
             const bool REML = false);
 
@@ -153,6 +150,7 @@ class fastlmm {
     bool REML;
     double logLik, sigSq_g, delta_hat;
     int iter = 0;
+    int n_active; // sample size with non-zero weight
 };
 
 
@@ -160,21 +158,21 @@ class fastlmm {
 template <typename T1, typename T2, typename T3> 
 fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_, 
         const T2 &X_, 
-        const T3 &U_, 
-        const vec &s_,
+        const spectralDecomp<T3> &dcmp,
         const vec &weights_,
         const ModelDetail md,
         const bool REML):   
   wsqrt(sqrt(weights_)),
   Y(Y_ % wsqrt),
   X(scaleEachCol(X_, wsqrt)),
-  U(U_),
-  s(s_),
+  U(dcmp.get_vectors()),
+  s(dcmp.get_values()),
   weights(weights_),
   md(md), 
   REML(REML) {
-  Yu = U_.t() * Y;
-  Xu = U_.t() * X;
+  n_active = accu(weights != 0.0);
+  Yu = U.t() * Y;
+  Xu = U.t() * X;
   Gamma_XX = X.t() * X - Xu.t() * Xu;
   Gamma_XY = X.t() * Y - Xu.t() * Yu; 
   inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
@@ -187,8 +185,7 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
 template <typename T1, typename T2, typename T3> 
 fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_, 
         const T2 &X_, 
-        const T3 &U_, 
-        const vec &s_,
+        const spectralDecomp<T3> &dcmp,
         const vec &weights_,
         const vec &Yu_, 
         const mat &Xu_,
@@ -197,11 +194,12 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
   wsqrt(sqrt(weights_)),
   Y(Y_ % wsqrt),
   X(scaleEachCol(X_, wsqrt)),
-  U(U_),
-  s(s_),
+  U(dcmp.get_vectors()),
+  s(dcmp.get_values()),
   weights(weights_),
   md(md), 
   REML(REML) {
+  n_active = accu(weights != 0.0);
   Yu = Yu_;
   Xu = Xu_;
   Gamma_XX = X.t() * X - Xu.t() * Xu;
@@ -213,8 +211,7 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
 template <typename T1, typename T2, typename T3> 
 fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_, 
                             const T2 &X_,
-                            const T3 &U_, 
-                            const vec &s_,
+                            const spectralDecomp<T3> &dcmp,
                             const vec &weights_,
                             const vec &Yu_, 
                             const mat &Xu_,
@@ -225,11 +222,13 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
   wsqrt(sqrt(weights_)),
   Y(Y_ % wsqrt),
   X(scaleEachCol(X_, wsqrt)),
-  U(U_),
-  s(s_),
+  U(dcmp.get_vectors()),
+  s(dcmp.get_values()),
   weights(weights_),
   md(md), 
   REML(REML) {
+
+  n_active = accu(weights != 0.0);
   Yu = Yu_;
   Xu = Xu_;
   Gamma_XX = Gamma_XX_;
@@ -240,14 +239,15 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
 
 template <typename T1, typename T2, typename T3> 
 fastlmm<T1, T2, T3>::fastlmm( const T2 &X_, 
-                              const T3 &U_, 
-                              const vec &s_,
+                              const spectralDecomp<T3> &dcmp,
                               const ModelDetail md,
-                              const bool REML): md(md), REML(REML) {
-  X = X_;
-  U = U_;
-  s = s_;
-  Xu = U_.t() * X_;
+                              const bool REML): 
+  X(X_),
+  U(dcmp.get_vectors()),
+  s(dcmp.get_values()),
+  md(md), 
+  REML(REML) { 
+  Xu = U.t() * X;
   Gamma_XX = X.t() * X - Xu.t() * Xu;
   inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 }
@@ -258,7 +258,7 @@ fastlmm<T1, T2, T3>::fastlmm( const T2 &X_,
 template <typename T1, typename T2, typename T3> 
 const double fastlmm<T1, T2, T3>::get_rdf(){
 
-  int n = Y.n_elem;
+  int n = n_active;
   int k = s.n_elem;
 
   // X is already scaled
@@ -282,7 +282,7 @@ const double fastlmm<T1, T2, T3>::get_rdf(){
 template <typename T1, typename T2, typename T3> 
 const vec fastlmm<T1, T2, T3>::hatvalues(){
 
-  int n = Y.n_elem;
+  int n = n_active;
   int k = s.n_elem;
 
   // Usq <- model$U^2
@@ -342,7 +342,7 @@ const vec fastlmm<T1, T2, T3>::blup(){
 template <typename T1, typename T2, typename T3>  
 double fastlmm<T1, T2, T3>::ll(const double &delta ) { 
 
-  double n = X.n_rows;
+  double n = n_active;
   double rank = Xu.n_rows;
 
   inv_s_delta = 1 / (s+delta);
@@ -433,7 +433,9 @@ void fastlmm<T1, T2, T3>::estimate_delta( const double &left, const double &righ
   logLik = -1*local_min(leftIn, rightIn, tol, &F, res, iter);
 
   // augment with value this is constant for varying delta's
-  logLik += sum(log(weights))/2.0;
+  // weights with zero value, give Inf log values
+  // so use omit_nonfinite
+  logLik += sum(omit_nonfinite(log(weights)))/2.0;
 
   delta_hat = exp(res);
 }
@@ -462,7 +464,7 @@ void fastlmm<T1, T2, T3>::update_response(const T1 &Y_,
   // Need to save X, U, s unmodified so it
   // can be weighted later
 
-
+  n_active = accu(weights_ != 0.0);
   this->weights = weights_;
   this->Y = Y_;
   this->Yu = Yu_;  

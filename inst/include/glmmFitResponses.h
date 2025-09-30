@@ -22,8 +22,7 @@ class glmmFitResponses {
   public:
   glmmFitResponses(
     const T2 &X, 
-    const T3 &U,
-    const vec &s,
+    const spectralDecomp<T3> &dcmp,
     const vec &weights = {}, 
     const vec &offset = {}, 
     const double &left = -10,
@@ -40,11 +39,14 @@ class glmmFitResponses {
 
   private:
   T2 X;  
-  T3 U;
-  vec s, weights, offset;
+  spectralDecomp<T3> dcmp;
+  vec weights, offset;
   double left, right, tol, tol_eta;
   int nthreads;
   ModelDetail md;
+
+  uvec idx_drop;
+  T2 X_clean;
 };
 
 
@@ -53,8 +55,7 @@ class glmmFitResponses {
 template <typename T1, typename T2, typename T3> 
 glmmFitResponses<T1, T2, T3>::glmmFitResponses(
       const T2 &X, 
-      const T3 &U,
-      const vec &s,
+      const spectralDecomp<T3> &dcmp,
       const vec &weights, 
       const vec &offset, 
       const double &left,
@@ -64,8 +65,7 @@ glmmFitResponses<T1, T2, T3>::glmmFitResponses(
       const int &nthreads,
       const ModelDetail md):
   X(X), 
-  U(U),
-  s(s),
+  dcmp(dcmp),
   weights(weights),
   offset(offset),
   left(left),
@@ -74,6 +74,11 @@ glmmFitResponses<T1, T2, T3>::glmmFitResponses(
   tol_eta(tol_eta),
   nthreads(nthreads),
   md(md) {
+
+  // find rows in X with NAN values
+  idx_drop = rows_with_nan(X);  
+  X_clean = X;
+  rows_to_zero(X_clean, idx_drop);
 }
 
 
@@ -97,12 +102,24 @@ ModelFitGLMMList
 
     disable_parallel_blas();
 
+    T1 y;
+    vec w;
+    uvec idx;
+    spectralDecomp<T3> dcmp_local(dcmp);
+
     // iterate through responses 
     for (int j = r.begin(); j != r.end(); ++j) { 
 
-      vec y = Y.col(j);
+      y = Y.col(j);
+      w = weights;
 
-      fastglmm fit = fastglmm<vec, T2, T3>(y, X, U, s, weights, offset, family[j], md, tol, tol_eta);
+      idx = unique(join_cols(find_nan(y), idx_drop));
+      y.elem(idx).zeros();
+      w.elem(idx).zeros();
+
+      dcmp_local.reweight(w);
+
+      fastglmm fit = fastglmm<vec, T2, T3>(y, X_clean, dcmp_local, w, offset, family[j], md, tol, tol_eta);
 
       result.at(j) = fit.get_result();
       result.at(j).ID = ids[j];

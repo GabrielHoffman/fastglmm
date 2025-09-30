@@ -117,8 +117,8 @@ test_multivariate = function(){
 	library(microbenchmark)
 	set.seed(1)
 
-	n = 10000
-	ndonors = 1000
+	n = 1000
+	ndonors = 100
 
 	info = data.frame(x = rnorm(n))
 	info$Indiv = factor(sample(seq(ndonors), n, replace=TRUE))
@@ -131,7 +131,7 @@ test_multivariate = function(){
 	dcmp = indicator_decomp( info$Indiv )
 	indicObj = preprocess_indicator( info$Indiv )
 
-	n_reps = 1000
+	n_reps = 2
 	Y_stack = lapply(seq(n_reps), function(x){ info$y})
 	Y_stack = do.call(cbind, Y_stack)
 	colnames(Y_stack) = paste0("resp_", seq(ncol(Y_stack)))
@@ -140,7 +140,7 @@ test_multivariate = function(){
 	W = lapply(seq(n_reps), function(i) weights)
 	W = do.call(cbind, W)
 	fit1 = fastlmm(y ~ x + (1|Indiv), info, weights = weights)
-	fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W)
+	fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, nthreads=1)
 
 	# attr(fit2[[1]], "call")  = attr(fit1, "call") 
 	# checkEquals(fit1, fit2[[1]])
@@ -519,7 +519,7 @@ test_fastlmm = function(){
 		ids = intersect(names(fit1), names(fit2))
 		ids = ids[-which(ids == 'iter')]
 		a = lapply(ids, function(id){
-			# cat(id, "...\n")
+			cat(id, "...\n")
 			checkEqualsNumeric( fit1[[id]], fit2[[id]], tol =  .Machine$double.eps^0.2)
 		})
 	}

@@ -67,6 +67,72 @@ template <>
 inline bool isSpMatrix( const sp_mat &t) { return true; } 
 
 
+// Given matrix, set entries in rows idx to zero
+static void rows_to_zero( mat &X, const uvec &idx ){
+  X.rows(idx).zeros();
+}
+
+static void rows_to_zero( sp_mat &X, const uvec &idx ){
+
+  for(auto j: idx ){
+    for (auto  it = X.begin_row(j); it != X.end_row(j); ++it) {
+      *it = 0.0;
+    }
+  }
+  X.clean(0.0);
+}
+
+
+// Return indices (0-based) of rows that contain at least one NaN
+static uvec rows_with_nan(const mat& M) {
+  std::vector<uword> nan_rows;
+
+  for (uword i = 0; i < M.n_rows; ++i) {
+    bool has_nan = false;
+
+    // iterate over elements in row i
+    for (mat::const_row_iterator it = M.begin_row(i);
+         it != M.end_row(i); ++it) {
+      if (std::isnan(*it)) {
+        has_nan = true;
+        break;  // no need to check rest of row
+      }
+    }
+
+    if (has_nan){
+      nan_rows.push_back(i);
+    }
+  }
+
+  return conv_to<uvec>::from(nan_rows);
+}
+
+
+// Return indices (0-based) of rows in sp_mat containing NaN
+static uvec rows_with_nan(const sp_mat& M) {
+
+  std::vector<uword> nan_rows;
+
+  for (uword i = 0; i < M.n_rows; ++i) {
+    bool has_nan = false;
+
+    // iterate over stored elements in row i
+    for (sp_mat::const_row_iterator it = M.begin_row(i);
+    it != M.end_row(i); ++it){
+      if (std::isnan(*it)) {
+        has_nan = true;
+        break;  // stop once a NaN is found
+      }
+    }
+
+    if (has_nan)
+      nan_rows.push_back(i);
+    }
+
+  return conv_to<uvec>::from(nan_rows);
+}
+
+
 // template <typename T>
 // const T& min(const T& a, const T& b) {
 //     return (a < b) ? a : b;
@@ -149,6 +215,8 @@ static void disable_parallel_blas(){
   omp_set_max_active_levels(0);
   #endif
 }
+
+
 
 
 #endif

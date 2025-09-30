@@ -42,8 +42,10 @@ List fastlmm_vmm( const arma::vec &y,
 
   ModelDetail md = MAX;
 
+  spectralDecomp dcmp(U, s);
+
   // initialize
-  fastlmm fit = fastlmm(y, X, U, s, weights, md, REML);
+  fastlmm fit = fastlmm(y, X, dcmp, weights, md, REML);
 
   if( delta > 0 ){
     fit.eval_delta( delta ); 
@@ -69,8 +71,10 @@ List fastlmm_vms( const arma::vec &y,
 
   ModelDetail md = MAX;
 
+  spectralDecompCategorical dcmp(U, s);
+
   // initialize
-  fastlmm fit = fastlmm(y, X, U, s, weights, md, REML);
+  fastlmm fit = fastlmm(y, X, dcmp, weights, md, REML);
 
   if( delta > 0 ){
     fit.eval_delta( delta ); 
@@ -98,8 +102,10 @@ List fastlmm_vsm( const arma::vec &y,
 
   ModelDetail md = MAX;
 
+  spectralDecomp dcmp(U, s);
+
   // initialize
-  fastlmm fit = fastlmm(y, X, U, s, weights, md, REML);
+  fastlmm fit = fastlmm(y, X, dcmp, weights, md, REML);
 
   if( delta > 0 ){
     fit.eval_delta( delta ); 
@@ -125,8 +131,10 @@ List fastlmm_vss( const arma::vec &y,
 
   ModelDetail md = MAX;
 
+  spectralDecompCategorical dcmp(U, s);
+
   // initialize
-  fastlmm fit = fastlmm(y, X, U, s, weights, md, REML);
+  fastlmm fit = fastlmm(y, X, dcmp, weights, md, REML);
 
   if( delta > 0 ){
     fit.eval_delta( delta ); 
@@ -158,9 +166,11 @@ List fastlmm_mmm(   const arma::mat &Y,
 
   ModelDetail md = MAX;
 
+  spectralDecomp dcmp(Z);
+
   // initialize
   lmmFitResponses fit = 
-    lmmFitResponses<mat, mat, mat>(X, Z, left, right, tol, nthreads, md, REML);
+    lmmFitResponses<mat, mat, mat>(X, dcmp, left, right, tol, nthreads, md, REML);
 
   // evaluate each response
   vector<ModelFitLMM> res = fit.eval(Y, ids, Weights);
@@ -184,9 +194,11 @@ List fastlmm_msm(   const arma::mat &Y,
 
   ModelDetail md = MAX;
 
+  spectralDecomp dcmp(Z);
+
   // initialize
   lmmFitResponses fit = 
-    lmmFitResponses<mat, sp_mat, mat>(X, Z, left, right, tol, nthreads, md, REML);
+    lmmFitResponses<mat, sp_mat, mat>(X, dcmp, left, right, tol, nthreads, md, REML);
 
   // evaluate each response
   vector<ModelFitLMM> res = fit.eval(Y, ids, Weights);
@@ -208,9 +220,11 @@ List fastlmm_mms(   const arma::mat &Y,
 
   ModelDetail md = MAX;
 
+  spectralDecompCategorical dcmp(Z);
+
   // initialize
   lmmFitResponses fit = 
-    lmmFitResponses<mat, mat, sp_mat>(X, Z, left, right, tol, nthreads, md, REML);
+    lmmFitResponses<mat, mat, sp_mat>(X, dcmp, left, right, tol, nthreads, md, REML);
 
   // evaluate each response
   vector<ModelFitLMM> res = fit.eval(Y, ids, Weights);
@@ -234,9 +248,11 @@ List fastlmm_mss(   const arma::mat &Y,
 
   ModelDetail md = MAX;
 
+  spectralDecompCategorical dcmp(Z);
+
   // initialize
   lmmFitResponses fit = 
-    lmmFitResponses<mat, sp_mat, sp_mat>(X, Z, left, right, tol, nthreads, md, REML);
+    lmmFitResponses<mat, sp_mat, sp_mat>(X, dcmp, left, right, tol, nthreads, md, REML);
 
   // evaluate each response
   vector<ModelFitLMM> res = fit.eval(Y, ids, Weights);
@@ -279,8 +295,10 @@ List fastglmm_mm( const arma::vec &y,
 
   ModelDetail md = MAX;
 
+  spectralDecomp dcmp(U, s);
+
   // initialize
-  fastglmm fit = fastglmm<vec,mat,mat>(y, X, U, s, weights, offset, family, md, tol, tol_eta, maxit, delta, left, right, true);
+  fastglmm fit = fastglmm<vec,mat,mat>(y, X, dcmp, weights, offset, family, md, tol, tol_eta, maxit, delta, left, right, true);
 
   return toList(fit);
 }
@@ -307,8 +325,10 @@ List fastglmm_ms( const arma::vec &y,
 
   ModelDetail md = MAX;
 
+  spectralDecompCategorical dcmp(U, s);
+
   // initialize
-  fastglmm fit = fastglmm<vec,mat,sp_mat>(y, X, U, s, weights, offset, family, md, tol, tol_eta, maxit, delta, left, right, true);
+  fastglmm fit = fastglmm<vec,mat,sp_mat>(y, X, dcmp, weights, offset, family, md, tol, tol_eta, maxit, delta, left, right, true);
 
   return toList(fit);
 }

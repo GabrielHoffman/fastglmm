@@ -114,19 +114,33 @@ class ModelFit {
 	}
 
 	// MAX
-	void setDevResids( const vec &dr, const vec &y, const vec &mu){
+	void setDevResids( 
+    const vec &dr, 
+    const vec &y, 
+    const vec &mu,
+    const vec w = {}){
 
-    	// transform from residuals.glm
-    	// d.res <- sqrt(pmax((object$family$dev.resids)(y, mu, 
-        //     wts), 0))
-        // ifelse(y > mu, d.res, -d.res)
-    	devianceResiduals = sqrt(pmax(dr, 0));
-    	uvec idx = find(y <= mu);
-    	devianceResiduals.elem(idx) = -1.0*devianceResiduals.elem(idx);
+  	// transform from residuals.glm
+  	// d.res <- sqrt(pmax((object$family$dev.resids)(y, mu, 
+    //     wts), 0))
+    // ifelse(y > mu, d.res, -d.res)
+  	devianceResiduals = sqrt(pmax(dr, 0));
+  	uvec idx = find(y <= mu);
+  	devianceResiduals.elem(idx) = -1.0*devianceResiduals.elem(idx);
+
+    if( ! w.is_empty() ){
+      // if weight is zero, set element to NAN
+      devianceResiduals.elem(find(w == 0.0)).fill(datum::nan);
+    }
 	}	
 
-	void setFittedValues( const vec &mu_in){
+	void setFittedValues( const vec &mu_in, const vec w = {}){
 		mu = mu_in;
+
+    if( ! w.is_empty() ){
+      // if weight is zero, set element to NAN
+      mu.elem(find(w == 0.0)).fill(datum::nan);
+    }
 	}
 
 	private:

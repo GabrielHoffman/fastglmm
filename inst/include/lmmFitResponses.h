@@ -22,7 +22,7 @@ class lmmFitResponses {
 
   public:
   lmmFitResponses(const T2 &X, 
-                  const T3 &Z,
+                  const spectralDecomp<T3> &dcmp,
                   const double &left = -10,
                   const double &right = 10,
                   const double &tol = 1e-6,
@@ -42,6 +42,10 @@ class lmmFitResponses {
   int nthreads;
   ModelDetail md;
   bool REML;
+
+  uvec idx_drop;
+  T2 X_clean;
+  spectralDecomp<T3> dcmp;
 };
 
 
@@ -50,7 +54,7 @@ class lmmFitResponses {
 template <typename T1, typename T2, typename T3> 
 lmmFitResponses<T1, T2, T3>::lmmFitResponses(
                             const T2 &X, 
-                            const T3 &Z,
+                            const spectralDecomp<T3> &dcmp,
                             const double &left,
                             const double &right,
                             const double &tol,
@@ -58,13 +62,18 @@ lmmFitResponses<T1, T2, T3>::lmmFitResponses(
                             const ModelDetail md,
                             const bool REML):
   X(X), 
-  Z(Z),
+  dcmp(dcmp),
   left(left),
   right(right),
   tol(tol),
   nthreads(nthreads),
   md(md),
   REML(REML) {
+
+  // find rows in X with NAN values
+  idx_drop = rows_with_nan( X );  
+  X_clean = X;
+  rows_to_zero(X_clean, idx_drop);
 }
 
 
@@ -88,16 +97,25 @@ ModelFitLMMList
 
     disable_parallel_blas();
 
+    // local workspace for thread
+    T1 y;
+    vec w;
+    uvec idx;
+    spectralDecomp<T3> dcmp_local(dcmp);
+
     // iterate through responses 
     for (int j = r.begin(); j != r.end(); ++j) { 
 
-      T1 y = Y.col(j);
-      vec w = Weights.col(j);
+      y = Y.col(j);
+      w = Weights.col(j);
 
-      spectralDecomp<T3> dcmp;
-      dcmp.initWithIndicator(Z, w);
+      idx = unique(join_cols(find_nan(y), idx_drop));
+      y.elem(idx).zeros();
+      w.elem(idx).zeros();
 
-      fastlmm fit = fastlmm<T1, T2, T3>(y, X, dcmp.get_vectors(), dcmp.get_values(), w, md, REML);
+      dcmp_local.reweight(w);
+
+      fastlmm fit = fastlmm<T1, T2, T3>(y, X_clean, dcmp_local, w, md, REML);
 
       fit.estimate_delta( left, right, tol );
 
@@ -109,16 +127,6 @@ ModelFitLMMList
   return result;
 }
 
-
-// fastlmm
-// Yw = Y_all.col(i) * Weights.col(i),
-// Xw = X_orig * Weights.col(i),
-// [U, s] = indicator_decomp( Z , Weights.col(i))
-// Yu = U_.t() * Yw;
-// Xu = U_.t() * Xw;
-// Gamma_XX = Xw.t() * Xw - Xu.t() * Xu;
-// Gamma_XY = Xw.t() * Yw - Xu.t() * Yu;
-// inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 
 }
 

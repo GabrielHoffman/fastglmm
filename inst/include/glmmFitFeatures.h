@@ -22,8 +22,7 @@ class glmmFitFeatures {
     const T1 &y, 
     const T2 &X, 
     const string &family, 
-    const T3 &U,
-    const vec &s,
+    const spectralDecomp<T3> &dcmp,
     const vec &weights = {},
     const vec &offset = {},
     const double &delta = -1,
@@ -58,8 +57,7 @@ glmmFitFeatures<T1, T2, T3>::glmmFitFeatures(
   const T1 &y, 
   const T2 &X, 
   const string &family, 
-  const T3 &U,
-  const vec &s,
+  const spectralDecomp<T3> &dcmp,
   const vec &weights, 
   const vec &offset,    
   const double &delta,
@@ -72,6 +70,7 @@ glmmFitFeatures<T1, T2, T3>::glmmFitFeatures(
     y(y),
     X_shared(X), 
     family(family), 
+    dcmp(dcmp),
     weights(weights), 
     offset(offset),
     delta(delta), 
@@ -81,10 +80,7 @@ glmmFitFeatures<T1, T2, T3>::glmmFitFeatures(
     tol_eta(tol_eta),
     nthreads(nthreads), 
     md(md)
-  {
-
-  dcmp.initWithEigenDecomp(U, s);//, weights);
-}
+  {}
 
 
 
@@ -115,7 +111,7 @@ glmmFitFeatures<T1, T2, T3>::eval( const T2 &X_add_,
 
       // fits full model each time,
       // for speed, need to save Y, X, scaled by U and s
-      fastglmm fit = fastglmm(y, X_combined, dcmp.get_vectors(), dcmp.get_values(), weights, offset, family, md, tol, tol_eta);
+      fastglmm fit = fastglmm(y, X_combined, dcmp, weights, offset, family, md, tol, tol_eta);
 
       result.at(j) = fit.get_result();
       result.at(j).ID = ids[j];

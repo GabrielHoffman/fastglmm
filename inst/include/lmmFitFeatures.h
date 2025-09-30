@@ -19,8 +19,7 @@ class lmmFitFeatures {
   public:
   lmmFitFeatures( const T1 &Y, 
                   const T2 &X, 
-                  const T3 &U,
-                  const vec &s,
+                  const spectralDecomp<T3> &dcmp,
                   const vec &weights,
                   const double &delta,
                   const double &left = -10,
@@ -52,8 +51,7 @@ template <typename T1, typename T2, typename T3>
 lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
                             const T1 &Y, 
                             const T2 &X, 
-                            const T3 &U,
-                            const vec &s,
+                            const spectralDecomp<T3> &dcmp,
                             const vec &weights,     
                             const double &delta,
                             const double &left,
@@ -64,6 +62,7 @@ lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
                             const bool REML) :
   Y(Y), 
   X_shared(X), 
+  dcmp(dcmp),
   weights(weights),
   delta(delta), 
   left(left), 
@@ -73,8 +72,6 @@ lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
   md(md), 
   REML(REML)
   {
-
-  dcmp.initWithEigenDecomp(U, s);
 }
 
 
@@ -108,7 +105,7 @@ ModelFitLMMList
 
       // fits full model each time,
       // for speed, need to save Y, X, scaled by U and s
-      fastlmm fit = fastlmm(Y, X_combined, dcmp.get_vectors(), dcmp.get_values(), weights, md, REML);
+      fastlmm fit = fastlmm(Y, X_combined, dcmp, weights, md, REML);
 
       if( delta > 0 ){
           fit.eval_delta( delta ); 
@@ -123,17 +120,6 @@ ModelFitLMMList
 
   return result;
 }
-
-
-// fastlmm
-// Yw = Y_all.col(i) * Weights.col(i),
-// Xw = X_orig * Weights.col(i),
-// [U, s] = indicator_decomp( Z , Weights.col(i))
-// Yu = U_.t() * Yw;
-// Xu = U_.t() * Xw;
-// Gamma_XX = Xw.t() * Xw - Xu.t() * Xu;
-// Gamma_XY = Xw.t() * Yw - Xu.t() * Yu;
-// inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
 
 }
 

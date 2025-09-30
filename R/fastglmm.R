@@ -307,8 +307,12 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
   }
 
 	# decompose formula
-	fres = process_formula( formula, data)
-	form_fixed = fres$form_fixed
+	fres <- process_formula( formula, data)
+	form_fixed <- fres$form_fixed
+
+	# drop rows with any NA values in active variables
+	data_sub <- data[,colnames(data) %in% all.vars(formula)]
+	data <- data[rowSums(is.na(data_sub)) == 0, colnames(data_sub)]
 
   # if all columns of response are in the data matrix
   # for vector response, or cbind(v1, v2)

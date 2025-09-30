@@ -41,14 +41,13 @@ class fastglmm {
 
 	fastglmm(	const T1 &y, 
 						const T2 &X, 
-						const T3 &U, 
-						const vec &s,
+						const spectralDecomp<T3> &dcmp,
 						const vec &weights,
 						const vec &offset,
 						const string &family, 
 						const ModelDetail md = LOW, 
-						const double &tol = 1e-4,
-						const double &tol_eta = 1e-4,
+						const double &tol = 1e-5,
+						const double &tol_eta = 1e-7,
 						const int &maxit = 100,
 						const double &delta = -1,
 						const double &left = -10,
@@ -71,26 +70,32 @@ class fastglmm {
   ModelDetail md;
   vec y, weights, mu; 
 	shared_ptr<GLMFamily> fam;
+	spectralDecomp<T3> dcmp;
 };
 
 template <typename T1, typename T2, typename T3> 
 fastglmm<T1, T2, T3>::fastglmm(
-							const T1 &y, 
-							const T2 &X, 
-							const T3 &U, 
-							const vec &s,
-							const vec &weights,
-							const vec &offset,
-							const string &family, 
-							const ModelDetail md, 
-							const double &tol,
-							const double &tol_eta,
-							const int &maxit,
-							const double &delta,
-							const double &left,
-							const double &right,
-							const bool &returnUS):
-							y(y), weights(weights), family(family), returnUS(returnUS), md(md) {
+	const T1 &y, 
+	const T2 &X, 
+	const spectralDecomp<T3> &dcmp,
+	const vec &weights,
+	const vec &offset,
+	const string &family, 
+	const ModelDetail md, 
+	const double &tol,
+	const double &tol_eta,
+	const int &maxit,
+	const double &delta,
+	const double &left,
+	const double &right,
+	const bool &returnUS):
+	y(y), 
+	dcmp(dcmp),
+	weights(weights), 
+	family(family), 
+	returnUS(returnUS),
+	md(md) 
+	{
 
 	fam = getGLMFamily( family );
 
@@ -104,9 +109,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 	checkResponse(y, this->family);
 
 	GLMWork *work = new GLMWork();
-	spectralDecomp<T3> dcmp;
 	vec eta_old;
-	T3 Z = scaleEachRow(U, sqrt(s));
 
 	// Initialize eta
 	// just need a rough starting value
@@ -114,6 +117,8 @@ fastglmm<T1, T2, T3>::fastglmm(
 
 	int iter_in = 0;
 	double theta;
+	uvec idx_drop = find(weights == 0.0);
+	double n_active = weights.n_elem - idx_drop.n_elem;
 
 	// PQL iterations
 	for(niter_pql=0; niter_pql<maxit; niter_pql++){
@@ -137,6 +142,9 @@ fastglmm<T1, T2, T3>::fastglmm(
 			}
 		}
 
+		// entries with zero weights have NAN value
+		work->eta.elem( idx_drop ).zeros();
+
 		// mu <- family$linkinv(eta)
 		work->mu = fam->linkinv( work->eta );
 
@@ -150,14 +158,14 @@ fastglmm<T1, T2, T3>::fastglmm(
 		work->w = pow(work->gprime,2) % (weights / fam->variance( work->mu ));
 
 		// wz <- wz / mean(wz)
-		w_mean = mean(work->w);
+		w_mean = sum(work->w) / n_active;
 		work->w = work->w / w_mean;
 
 		// recompute U and s since work->w changed
-		dcmp.initWithIndicator(Z, work->w);
+		this->dcmp.reweight(work->w);
 
 		// fit fastlmm
-		fit = fastlmm(work->z, X, dcmp.get_vectors(), dcmp.get_values(), work->w, LEAST);
+		fit = fastlmm(work->z, X, this->dcmp, work->w, LEAST);
 
 		if( delta > 0 ){
       fit.eval_delta( delta ); 
@@ -172,7 +180,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 	// Final fit with ModelDetail md
 	if( md > LEAST ){		
 		// fit fastlmm
-		fit = fastlmm(work->z, X, dcmp.get_vectors(), dcmp.get_values(), work->w, md);
+		fit = fastlmm(work->z, X, this->dcmp, work->w, md);
 
 		if( delta > 0 ){
       fit.eval_delta( delta ); 
@@ -186,8 +194,8 @@ fastglmm<T1, T2, T3>::fastglmm(
 		this->family = "nb:" + to_string(theta);
 	}
 
-	// save value
-  mu = work->mu;
+	// save GLM mu for use later
+  mu = this->fitted();
 
 	delete work;
 }
@@ -197,7 +205,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 template <typename T1, typename T2, typename T3> 
 const vec fastglmm<T1, T2, T3>::residuals(){
 
-	// (y - mu) * sqrt(wts)/sqrt(fam$variance(mu))
+	// (y - mu) * sqrt(wts) / sqrt(fam$variance(mu))
 	return (y - mu) % sqrt(weights) / sqrt(fam->variance(mu));
 }
 
