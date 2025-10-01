@@ -21,7 +21,7 @@ test_heritability = function(){
 
 	fastglmm:::heritability(fit, "perm", 1000)
 
-
-
-
 }
+
+
+

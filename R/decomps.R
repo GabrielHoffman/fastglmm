@@ -117,11 +117,14 @@ reconstruct_indicator = function( dcmp, weights = NULL ){
     weights <- rep(1, nrow(dcmp$vectors))
   }
 
-  Z <- with(dcmp, Diagonal(length(weights), 1/sqrt(weights)) %*% vectors %*% Diagonal(length(values), sqrt(values)) )
+  Z <- with(dcmp, Diagonal(length(weights), 1/sqrt(weights)) %*% vectors %*% Diagonal(length(values), sqrt(values)))
 
   colnames(Z) <- colnames(dcmp$vectors)
 
   Z
 }
+
+
+
 
 

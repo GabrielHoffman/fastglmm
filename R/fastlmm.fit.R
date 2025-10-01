@@ -75,7 +75,7 @@ as.fastlmm <- function(x, design, offset, method) {
 #
 #' @details Fit a linear mixed model with a single variance component.
 #'
-#' @return fill in
+#' @return \code{U} and \code{s} values are from the SVD of weighted Z
 #'
 # other args: sig_a_fixed = FALSE
 #' @importFrom methods is
@@ -130,6 +130,7 @@ fastlmm.fit <- function(y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank
     U = dcmp$vectors,
     s = dcmp$values,
     weights = weights,
+    dcmpMethod = "categorical",
     REML = REML,
     delta = delta,
     left = delta.range[1],
@@ -138,11 +139,12 @@ fastlmm.fit <- function(y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank
     nthreads = nthreads
   )  
 
-  res <- as.fastlmm(res, design = X, offset = offset, method = ifelse(REML, "REML", "ML"))
+  res <- as.fastlmm(res, 
+          design = X,
+          offset = offset, 
+          method = ifelse(REML, "REML", "ML"))
 
   res$Z <- Z
-  res$U <- dcmp$vectors
-  res$s <- dcmp$values
 
   res
 }

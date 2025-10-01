@@ -5,6 +5,8 @@ var searchData=
   ['iscountmodel_2',['isCountModel',['../classfastglmm_lib_1_1_g_l_m_family.html#a79121b147ccde65983b33e0750f997a8',1,'fastglmmLib::GLMFamily::isCountModel()'],['../classfastglmm_lib_1_1_gaussian_identity.html#a4c27ab86d5510800ffb51e6b431aaef5',1,'fastglmmLib::GaussianIdentity::isCountModel()'],['../classfastglmm_lib_1_1_binomial_logit.html#a5bd1bff88de763ccbd3f833218c43ebb',1,'fastglmmLib::BinomialLogit::isCountModel()'],['../classfastglmm_lib_1_1_binomial_probit.html#a9b3b6fed182f7637085436c4eecf62b1',1,'fastglmmLib::BinomialProbit::isCountModel()'],['../classfastglmm_lib_1_1_poisson_log.html#a894531ded653fbe810b1a1482014c18f',1,'fastglmmLib::PoissonLog::isCountModel()'],['../classfastglmm_lib_1_1_n_b.html#ae7c5ab86ecf966dfaf333bdb2227f4dd',1,'fastglmmLib::NB::isCountModel()']]],
   ['isset_5fu_3',['isSet_U',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a805d2f43d5b3ca0ad2ea5a8c928acf46',1,'fastglmmLib::ModelFitLMM']]],
   ['isset_5fusp_4',['isSet_Usp',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#af71355f40bf5611761eea41a2687474a',1,'fastglmmLib::ModelFitLMM']]],
-  ['isspmatrix_5',['isSpMatrix',['../misc_8h.html#a7f27bd5a55dc69659fbe6d20e0c6c4c4',1,'isSpMatrix(const T &amp;t):&#160;misc.h'],['../misc_8h.html#a9d27785e3a7cdc10d7d63f8c2d5e3a4d',1,'isSpMatrix(const sp_mat &amp;t):&#160;misc.h']]],
-  ['iter_6',['iter',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#acbdb4ace675798c824147067bb68d31d',1,'fastglmmLib::ModelFitLMM']]]
+  ['isset_5fv_5',['isSet_V',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#ab6951b462618f5b2b921c969bd670d1d',1,'fastglmmLib::ModelFitLMM']]],
+  ['isset_5fvsp_6',['isSet_Vsp',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a96bfcf7fd31ee0834cea56282fc6294a',1,'fastglmmLib::ModelFitLMM']]],
+  ['isspmatrix_7',['isSpMatrix',['../misc_8h.html#a7f27bd5a55dc69659fbe6d20e0c6c4c4',1,'isSpMatrix(const T &amp;t):&#160;misc.h'],['../misc_8h.html#a9d27785e3a7cdc10d7d63f8c2d5e3a4d',1,'isSpMatrix(const sp_mat &amp;t):&#160;misc.h']]],
+  ['iter_8',['iter',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#acbdb4ace675798c824147067bb68d31d',1,'fastglmmLib::ModelFitLMM']]]
 ];

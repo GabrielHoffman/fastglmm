@@ -188,6 +188,7 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 						weights = weights, 
 						offset = offset, 
 						family = getFamilyString(family), 
+						dcmpMethod = "categorical",
 						delta = ifelse(is.null(delta), -1, delta), 
 		        left = delta.range[1],
 		        right = delta.range[2],
@@ -196,7 +197,6 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 						maxit = maxit,
 						nthreads = nthreads)
 
-	colnames(fit$U) <- colnames(dcmp$vectors)
 	fit$s <- c(fit$s)
 	fit$Z <- Z
 

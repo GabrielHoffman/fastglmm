@@ -16,7 +16,7 @@ using namespace fastglmmLib;
 // Depends on Rcpp::List, so define outside of class
 const List toList(ModelFitLMM &res){
 
-  return List::create( 
+  List lst = List::create( 
                 Named("logLik")       = res.logLik, 
                 Named("coefficients") = res.coef,
                 Named("se")           = res.se,
@@ -28,13 +28,24 @@ const List toList(ModelFitLMM &res){
                 Named("ru")           = res.ru,
                 Named("y")            = res.y,
                 Named("iter")         = res.iter,
-                Named("w.mean")       = res.w_mean);
+                Named("w.mean")       = res.w_mean,
+                Named("s")            = res.s);
+
+  // Set U as either full or sparse matrix
+  if( res.isSet_U ) lst["U"] = res.U;
+  if( res.isSet_Usp ) lst["U"] = res.Usp;
+
+  // Set V as either full or sparse matrix
+  if( res.isSet_V ) lst["V"] = res.V;
+  if( res.isSet_Vsp ) lst["V"] = res.Vsp;
+
+  return lst;
 }
 
 template <typename T1, typename T2, typename T3>
 const List toList(fastlmm<T1, T2, T3> & fit){
 
-  ModelFitLMM res = fit.get_result();
+  ModelFitLMM res = fit.get_result( true );
 
   return toList( res );
 }
@@ -73,6 +84,10 @@ const List toList(ModelFitGLMM &res){
   // Set U as either full or sparse matrix
   if( res.isSet_U ) lst["U"] = res.U;
   if( res.isSet_Usp ) lst["U"] = res.Usp;
+
+  // Set V as either full or sparse matrix
+  if( res.isSet_V ) lst["V"] = res.V;
+  if( res.isSet_Vsp ) lst["V"] = res.Vsp;
 
   return lst;
 }

@@ -142,25 +142,10 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
     wz <- w * mu.eta.val^2/family$variance(mu)
     wz <- wz / mean(wz)
 
-    # browser()
-    # fit model
-    # if( i == 1 ){
-      # run first time
-      fit <- fastlmm(form_mod, data, 
-        weights = wz, 
-        delta = delta,
-        delta.range = delta.range)
-    # }else{
-    #   # workhorse after initial fastlmm() fit
-    #   fit <- fastlmm.fit(
-    #     y = data$zz, 
-    #     X = fit$design, 
-    #     Z = fit$Z, 
-    #     weights = wz,
-    #     delta = delta,
-    #     delta.range = delta.range, 
-    #     tol = tol.vary[i])
-    # }   
+    fit <- fastlmm(form_mod, data, 
+      weights = wz, 
+      delta = delta,
+      delta.range = delta.range)  
 
     fit$formula <- formula 
   }

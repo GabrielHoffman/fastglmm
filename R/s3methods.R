@@ -377,13 +377,13 @@ edf.fastlmm <- function(object, ...){
 #
 #' @rdname fitted
 #' @importFrom stats fitted
+#' @importFrom Matrix crossprod
 #' @export
 fitted.fastlmm <- function(object, ...) {
-  # v <- object$Z %*% ranef.fastlmm(object) + object$design %*% coef(object)
-
-  a <- object$U %*% (sqrt(object$s) * ranef(object)[[1]])
-  v <- a / sqrt(object$weights) + object$design %*% coef(object)
-  v <- as.numeric(v)
+    
+  blp = ranef(object)[[1]]
+  a <- with(object, U %*% (sqrt(s) * crossprod(V, blp)))
+  v <- as.matrix(a) / sqrt(object$weights) + object$design %*% coef(object)
 
   if (!is.null(object$offset)) {
     v <- v + object$offset
@@ -704,14 +704,22 @@ rstudent.fastlmm <- function(model, ...) {
 #' @export
 ranef.fastlmm <- function(object, ...) {
 
-  # original, uses Z
-  # Zw <- c(sqrt(object$weights)) * object$Z
-  # A <- crossprod(object$U, Zw)
-  # b <- object$ru / (object$s + object$delta)
-  # v <- crossprod(A, b)
-  # as.matrix(v)
+  # get name of random effect
+  id.ranef <- findbars(formula(object))
 
-  U <- s <- weights <- ru <- delta <- NULL
+  if( length(id.ranef) > 1){
+    stop("Only 1 random effect is supported")
+  }
+  id.ranef <- all.vars(id.ranef[[1]])
+
+  weights <- U <- s <- ru <- delta <- NULL
+
+  # Uses Z
+  Zw <- with( object, sqrt(c(weights)) * Z)
+  A <- crossprod(object$U, Zw)
+  b <- with(object, ru / (s + delta))
+  v <- as.matrix(crossprod(A, b))
+  rownames(v) <- colnames(object$Z)
 
   # Use U and s, but not Z
   # since Z = U diag(sqrt(s))
@@ -721,20 +729,13 @@ ranef.fastlmm <- function(object, ...) {
   # v <- crossprod(A, b)
   # rownames(v) <- colnames(object$Z)
   # as.matrix(v)
-
-  # get name of random effect
-  id.ranef <- findbars(formula(object))
-
-  if( length(id.ranef) > 1){
-    stop("Only 1 random effect is supported")
-  }
-  id.ranef <- all.vars(id.ranef[[1]])
-
+  
+  # NEEDS to use V for ordering columns
   # since U^T U is identity if the GRM is full rank
-  v <- with(object, sqrt(s)*ru / (s + delta))
-  rownames(v) <- colnames(object$U)
+  # v <- with(object, sqrt(s)*ru / (s + delta))
+
   lst = list()
-  lst[[id.ranef]] <- as.matrix(v)
+  lst[[id.ranef]] <- v
   lst
 }
 

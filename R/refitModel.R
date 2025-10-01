@@ -61,6 +61,7 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
               weights = fit$prior.weights, 
               offset = fit$offset, 
               family = fam, 
+              dcmpMethod = "categorical",
               delta = ifelse(is.null(delta), -1, delta), 
               left = -10,
               right = 10,
@@ -69,7 +70,6 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
               maxit = 100,
               nthreads = 1)
 
-    colnames(res$U) <- colnames(dcmp$vectors)
     res$s <- c(res$s)
     res$Z <- fit$Z
 
@@ -103,6 +103,7 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
         U = fit$U,
         s = fit$s,
         weights = weights(fit),
+        dcmpMethod = "categorical",
         REML = REML,
         delta = ifelse(is.null(delta), -1, delta),
         left = -10, 

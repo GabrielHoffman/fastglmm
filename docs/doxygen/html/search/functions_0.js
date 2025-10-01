@@ -1,14 +1,10 @@
 var searchData=
 [
-  ['_5ffastglmm_5ffastglmm_5fmm_0',['_fastglmm_fastglmm_mm',['../_rcpp_exports_8cpp.html#adfd29b5f68b341b6c2bbe34d34425106',1,'RcppExports.cpp']]],
-  ['_5ffastglmm_5ffastglmm_5fms_1',['_fastglmm_fastglmm_ms',['../_rcpp_exports_8cpp.html#a62cfb7f94bf1defad0a2a6e882ac5c0d',1,'RcppExports.cpp']]],
-  ['_5ffastglmm_5ffastlmm_5fmmm_2',['_fastglmm_fastlmm_mmm',['../_rcpp_exports_8cpp.html#aa99563257b63c6de434a2eb9b305cf86',1,'RcppExports.cpp']]],
-  ['_5ffastglmm_5ffastlmm_5fmms_3',['_fastglmm_fastlmm_mms',['../_rcpp_exports_8cpp.html#ae04b00805b0e73a1dc8dffe5f9130dc5',1,'RcppExports.cpp']]],
-  ['_5ffastglmm_5ffastlmm_5fmsm_4',['_fastglmm_fastlmm_msm',['../_rcpp_exports_8cpp.html#ac80bceb3421ba095db495a2f75c11267',1,'RcppExports.cpp']]],
-  ['_5ffastglmm_5ffastlmm_5fmss_5',['_fastglmm_fastlmm_mss',['../_rcpp_exports_8cpp.html#ab50ce3572ebd528fb9ee3aafb9592e8f',1,'RcppExports.cpp']]],
-  ['_5ffastglmm_5ffastlmm_5fvmm_6',['_fastglmm_fastlmm_vmm',['../_rcpp_exports_8cpp.html#abf74ab7041474403a67f89622c7cc144',1,'RcppExports.cpp']]],
-  ['_5ffastglmm_5ffastlmm_5fvms_7',['_fastglmm_fastlmm_vms',['../_rcpp_exports_8cpp.html#ad87681dc4ff7e0816d4cfcbdeabfc6fb',1,'RcppExports.cpp']]],
-  ['_5ffastglmm_5ffastlmm_5fvsm_8',['_fastglmm_fastlmm_vsm',['../_rcpp_exports_8cpp.html#ad07064c8d28036689eb7f549d4e75ab4',1,'RcppExports.cpp']]],
-  ['_5ffastglmm_5ffastlmm_5fvss_9',['_fastglmm_fastlmm_vss',['../_rcpp_exports_8cpp.html#add74744c95caac7c9207067f956466e6',1,'RcppExports.cpp']]],
-  ['_5ffastglmm_5fnb_5ftheta_10',['_fastglmm_nb_theta',['../_rcpp_exports_8cpp.html#a3a171047cb532dd43b13890cc7dc653f',1,'RcppExports.cpp']]]
+  ['_5ffastglmm_5ffastglmm_5fmm_0',['_fastglmm_fastglmm_mm',['../_rcpp_exports_8cpp.html#a3c0a955d01cc3917bda461b5061fd020',1,'RcppExports.cpp']]],
+  ['_5ffastglmm_5ffastglmm_5fms_1',['_fastglmm_fastglmm_ms',['../_rcpp_exports_8cpp.html#a1d78e331912be58be01dad32d3191e56',1,'RcppExports.cpp']]],
+  ['_5ffastglmm_5ffastlmm_5fmm_2',['_fastglmm_fastlmm_mm',['../_rcpp_exports_8cpp.html#a83e97c28026c7983b3404217913d06c2',1,'RcppExports.cpp']]],
+  ['_5ffastglmm_5ffastlmm_5fms_3',['_fastglmm_fastlmm_ms',['../_rcpp_exports_8cpp.html#ab7d77339a8c91b7a2a84d5e4177ea7db',1,'RcppExports.cpp']]],
+  ['_5ffastglmm_5ffastlmm_5fsm_4',['_fastglmm_fastlmm_sm',['../_rcpp_exports_8cpp.html#a3eea52b482593289434ce9655aa44f56',1,'RcppExports.cpp']]],
+  ['_5ffastglmm_5ffastlmm_5fss_5',['_fastglmm_fastlmm_ss',['../_rcpp_exports_8cpp.html#a0d75036c86bf81b504c97c1636ec2597',1,'RcppExports.cpp']]],
+  ['_5ffastglmm_5fnb_5ftheta_6',['_fastglmm_nb_theta',['../_rcpp_exports_8cpp.html#a3a171047cb532dd43b13890cc7dc653f',1,'RcppExports.cpp']]]
 ];

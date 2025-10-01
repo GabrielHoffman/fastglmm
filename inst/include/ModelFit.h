@@ -207,8 +207,10 @@ class ModelFitLMM : public ModelFit {
 
   bool isSet_U = false;
   bool isSet_Usp = false;
-  mat U;
-  sp_mat Usp; 
+  bool isSet_V = false;
+  bool isSet_Vsp = false;
+  mat U, V;
+  sp_mat Usp, Vsp; 
   vec s;  
 
   ModelFitLMM(){}
@@ -307,16 +309,36 @@ class ModelFitLMM : public ModelFit {
     logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter), w_mean(w_mean)
     {}   
 
-    void setUS(const mat &U_, const vec &s_){
+    void setUS(const mat &U_, const vec &s_, const mat &V_){
       U = U_;
+      V = V_;
       s = s_;
       isSet_U = true;
+      isSet_V = true;
     }
 
-    void setUS(const sp_mat &U_, const vec &s_){
+    void setUS(const sp_mat &U_, const vec &s_, const mat &V_){
       Usp = U_;
+      V = V_;
       s = s_;
       isSet_Usp = true;
+      isSet_V = true;
+    }
+
+    void setUS(const mat &U_, const vec &s_, const sp_mat &V_){
+      U = U_;
+      Vsp = V_;
+      s = s_;
+      isSet_U = true;
+      isSet_Vsp = true;
+    }
+
+    void setUS(const sp_mat &U_, const vec &s_, const sp_mat &V_){
+      Usp = U_;
+      Vsp = V_;
+      s = s_;
+      isSet_Usp = true;
+      isSet_Vsp = true;
     }
 
     void set_w_mean( const double &value){

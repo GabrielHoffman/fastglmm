@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['high_0',['HIGH',['../namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2aa987f00d03050fb355d8d246a2c4d4e1',1,'fastglmmLib']]]
+  ['categorical_0',['CATEGORICAL',['../namespacefastglmm_lib.html#a2ecab82e2cb1387aa8d81e200b406a14a46ea8901c2d62c4681cea6fb50d54e6c',1,'fastglmmLib']]]
 ];

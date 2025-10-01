@@ -73,20 +73,17 @@ heritability <- function(fit, method = c("information", "permutation"), nperms =
 
   } else if (method == "permutation") {
 
-    fit_null <- refitModel(fit, delta = 1e-9)
+    fit_null <- refitModel(fit, delta = 1e-4)
     residValues <- residuals(fit_null)
 
     # Use residuals instead here??
-    Y_mat <- lapply(seq(nperms), function(i) {
-      sample(fit$y, length(fit$y), replace = TRUE)
+    fitList <- lapply(seq(nperms), function(i) {
+      y.perm <- sample(fit$y, length(fit$y), replace = TRUE)
       # r <- sample(residValues, length(residValues), replace = TRUE)
       # r + predict(fit)
-    })
-    Y_mat <- do.call(cbind, Y_mat)
-    colnames(Y_mat) <- paste0("perm_", seq(nperms))
 
-    # Run as batch
-    fitList <- fastlmm.fit(Y_mat, fit$design, Z = fit$Z)
+      fastlmm.fit(y.perm, fit$design, Z = fit$Z)
+    })
 
     h_sq_null <- sapply(fitList, function(fit) {
       # 1 - 1 / (1 + 1 / fit$delta)

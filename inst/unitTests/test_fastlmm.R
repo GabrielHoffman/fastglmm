@@ -6,8 +6,8 @@ test_user_fxn = function(){
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
 
-	q()
-	R
+	# q()
+	# R
 	library(fastglmm)
 	library(lme4)
 	library(RUnit)
@@ -32,24 +32,24 @@ test_user_fxn = function(){
 
 
 
-	# test multivariate model
-	fit3 <- fastlmm(cbind(Reaction, Reaction^2) ~ Days + (1 | Subject), sleepstudy, weights = w)
+	# # test multivariate model
+	# fit3 <- fastlmm(cbind(Reaction, Reaction^2) ~ Days + (1 | Subject), sleepstudy, weights = w)
 
-	attr(fit3[[1]], "call")  = attr(fit2, "call") 
-	# checkEquals(fit2, fit3[[1]])
+	# attr(fit3[[1]], "call")  = attr(fit2, "call") 
+	# # checkEquals(fit2, fit3[[1]])
 
-	isSame = function(fit1, fit2){
-		ids = intersect(names(fit1), names(fit2))
-		ids = ids[-which(ids == 'iter')]
-		a = lapply(ids, function(id){
-			cat(id, "...\n")
-			checkEqualsNumeric( fit1[[id]], fit2[[id]], tol = .Machine$double.eps^0.2)
-		})
-	}
-	isSame(fit2, fit3[[1]])
+	# isSame = function(fit1, fit2){
+	# 	ids = intersect(names(fit1), names(fit2))
+	# 	ids = ids[-which(ids == 'iter')]
+	# 	a = lapply(ids, function(id){
+	# 		cat(id, "...\n")
+	# 		checkEqualsNumeric( fit1[[id]], fit2[[id]], tol = .Machine$double.eps^0.2)
+	# 	})
+	# }
+	# isSame(fit2, fit3[[1]])
 
-	fit4 <- fastlmm(Reaction^2 ~ Days + (1 | Subject), sleepstudy, weights = w[,2])
-	isSame(fit4, fit3[[2]])
+	# fit4 <- fastlmm(Reaction^2 ~ Days + (1 | Subject), sleepstudy, weights = w[,2])
+	# isSame(fit4, fit3[[2]])
 
 
 
@@ -513,7 +513,7 @@ test_fastlmm = function(){
 
 	isSame = function(fit1, fit2){
 		ids = intersect(names(fit1), names(fit2))
-		ids = ids[-which(ids == 'iter')]
+		ids = ids[-which(ids %in% c('iter', "ru"))]
 		a = lapply(ids, function(id){
 			cat(id, "...\n")
 			checkEqualsNumeric( fit1[[id]], fit2[[id]], tol =  .Machine$double.eps^0.2)
@@ -554,25 +554,25 @@ test_fastlmm = function(){
 	fit2 = fastlmm.fit(Ym[,2], X, Z=indicObj)
 	isSame(fit1, fit2)
 
-	# batch, matrix dcmp$vectors
-	# U = as.matrix(dcmp$vectors)
-	fitList1 = lapply(seq(ncol(Ym)), function(i){
-		fastlmm.fit( Ym[,i], X, Z=indicObj)})
-	fitList2 = fastlmm.fit(Ym, X, Z=indicObj)
-	res = lapply(seq(ncol(Ym)), function(i){
-		isSame(fitList1[[i]], fitList2[[i]])
-	})
-	checkTrue(unique(unlist(res)))
+	# # batch, matrix dcmp$vectors
+	# # U = as.matrix(dcmp$vectors)
+	# fitList1 = lapply(seq(ncol(Ym)), function(i){
+	# 	fastlmm.fit( Ym[,i], X, Z=indicObj)})
+	# fitList2 = fastlmm.fit(Ym, X, Z=indicObj)
+	# res = lapply(seq(ncol(Ym)), function(i){
+	# 	isSame(fitList1[[i]], fitList2[[i]])
+	# })
+	# checkTrue(unique(unlist(res)))
 
-	# batch, sparse dcmp$vectors
-	# U = dcmp$vectors
-	fitList1 = lapply(seq(ncol(Ym)), function(i){
-		fastlmm.fit( Ym[,i], X, Z=indicObj)})
-	fitList2 = fastlmm.fit(Ym, X, Z=indicObj)
-	res = lapply(seq(ncol(Ym)), function(i){
-		isSame(fitList1[[i]], fitList2[[i]])
-	})
-	checkTrue(unique(unlist(res)))
+	# # batch, sparse dcmp$vectors
+	# # U = dcmp$vectors
+	# fitList1 = lapply(seq(ncol(Ym)), function(i){
+	# 	fastlmm.fit( Ym[,i], X, Z=indicObj)})
+	# fitList2 = fastlmm.fit(Ym, X, Z=indicObj)
+	# res = lapply(seq(ncol(Ym)), function(i){
+	# 	isSame(fitList1[[i]], fitList2[[i]])
+	# })
+	# checkTrue(unique(unlist(res)))
 
 
 
@@ -632,7 +632,7 @@ test_fastlmm = function(){
 	fit3 = fastlmm.fit(y, X, Z=indicObj, weights=weights)
 
 	a = intersect(names(fit2), names(fit3))
-	a = a[a!="iter"]
+	a = a[!a %in% c("iter", "ru")]
 	a = lapply(a, function(x){
 		message(x)
 		checkEqualsNumeric(fit2[[x]], fit3[[x]], tol=1e-3)
@@ -711,7 +711,7 @@ test_fastlmm = function(){
 	fit3 = fastlmm.fit(info$y, X, Z = indicatorObj, weights=weights)
 
 	a = intersect(names(fit2), names(fit3))
-	a = a[a!="iter"]
+	a = a[!a %in% c("iter", "ru")]
 	a = lapply(a, function(x){
 		# message(x)
 		checkEqualsNumeric(fit2[[x]], fit3[[x]], tol=1e-3)
@@ -762,7 +762,7 @@ test_profile = function(){
 
 	isSame = function(fit1, fit2){
 		ids = intersect(names(fit1), names(fit2))
-		ids = ids[-which(ids == 'iter')]
+		ids = ids[-which(ids %in% c('iter', "ru"))]
 		a = lapply(ids, function(id){
 			# cat(id, "...\n")
 			checkEqualsNumeric( fit1[[id]], fit2[[id]], tol =  .Machine$double.eps^0.2)

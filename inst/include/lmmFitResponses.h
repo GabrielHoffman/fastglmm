@@ -38,6 +38,7 @@ class lmmFitResponses {
   private:
   T2 X;  
   T3 Z;
+  spectralDecomp<T3> dcmp;
   double left, right, tol;
   int nthreads;
   ModelDetail md;
@@ -45,7 +46,6 @@ class lmmFitResponses {
 
   uvec idx_drop;
   T2 X_clean;
-  spectralDecomp<T3> dcmp;
 };
 
 

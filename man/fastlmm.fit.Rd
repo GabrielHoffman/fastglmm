@@ -42,7 +42,7 @@ fastlmm.fit(
 \item{nthreads}{number of threads}
 }
 \value{
-fill in
+\code{U} and \code{s} values are from the SVD of weighted Z
 }
 \description{
 Prepare data for model fitting with a call to Rcpp code

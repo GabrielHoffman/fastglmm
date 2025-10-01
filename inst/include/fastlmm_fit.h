@@ -172,8 +172,8 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
   dcmp(dcmp) {
 
   this->dcmp.reweight(weights);
-  U = this->dcmp.get_vectors();
-  s = this->dcmp.get_values();
+  U = this->dcmp.get_U();
+  s = this->dcmp.get_s();
 
   n_active = accu(weights != 0.0);
   Yu = U.t() * Y;
@@ -205,8 +205,8 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
   REML(REML) {
 
   this->dcmp.reweight(weights);
-  U = this->dcmp.get_vectors();
-  s = this->dcmp.get_values();
+  U = this->dcmp.get_U();
+  s = this->dcmp.get_s();
 
   n_active = accu(weights != 0.0);
   Yu = Yu_;
@@ -237,8 +237,8 @@ fastlmm<T1, T2, T3>::fastlmm(const T1 &Y_,
   REML(REML) {
 
   this->dcmp.reweight(weights);
-  U = this->dcmp.get_vectors();
-  s = this->dcmp.get_values();
+  U = this->dcmp.get_U();
+  s = this->dcmp.get_s();
 
   n_active = accu(weights != 0.0);
   Yu = Yu_;
@@ -260,8 +260,8 @@ fastlmm<T1, T2, T3>::fastlmm( const T2 &X_,
   REML(REML) { 
 
   this->dcmp.reweight(weights);
-  U = this->dcmp.get_vectors();
-  s = this->dcmp.get_values();
+  U = this->dcmp.get_U();
+  s = this->dcmp.get_s();
 
   Xu = U.t() * X;
   Gamma_XX = X.t() * X - Xu.t() * Xu;
@@ -529,7 +529,15 @@ ModelFitLMM fastlmm<T1, T2, T3>::get_result(
   // if returnUS
   // return U and s 
   if( returnUS ){
-    res.setUS(U, s);
+    switch( dcmp.get_type() ){
+      case GENERAL:
+        res.setUS(U, s, dcmp.get_V());
+        break;
+      case CATEGORICAL:
+        // V is identity
+        res.setUS(U, s, eye<sp_mat>(U.n_cols, U.n_cols));
+        break;
+    };
   }
 
   return res;

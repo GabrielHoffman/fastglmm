@@ -3,8 +3,8 @@
 test_refitModel = function(){
   
 
-  q()
-  R
+  # q()
+  # R
 
   library(fastglmm)
   library(lme4)

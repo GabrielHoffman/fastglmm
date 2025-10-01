@@ -298,11 +298,11 @@ test_fastglmm = function(){
 	fit3 = glmer( y ~ (1|Indiv), data, family = poisson())
 
 	
-	fit1$sigSq_g / (fit1$sigSq_g + fit1$sigSq_e)
-	fit1$sigSq_e / (fit1$sigSq_g + fit1$sigSq_e)
+	# fit1$sigSq_g / (fit1$sigSq_g + fit1$sigSq_e)
+	# fit1$sigSq_e / (fit1$sigSq_g + fit1$sigSq_e)
 	# calcVarPart(fit3)
 
-	checkEqualsNumeric( unlist(ranef(fit1)), unlist(ranef(fit2) ), tol=1e-6)
+	checkEqualsNumeric( unlist(ranef(fit1)), unlist(ranef(fit2)), tol=1e-6)
 	checkEqualsNumeric( unlist(ranef(fit1)), unlist(ranef(fit3)), tol=1e-2)
 
 

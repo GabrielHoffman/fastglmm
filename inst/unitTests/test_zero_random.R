@@ -2,6 +2,7 @@
 
 
 test_zero_random = function(){
+  
   library(fastglmm)
   library(MASS)
   library(RUnit)

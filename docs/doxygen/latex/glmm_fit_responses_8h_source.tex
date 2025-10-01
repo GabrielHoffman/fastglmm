@@ -109,34 +109,31 @@
 \DoxyCodeLine{00105\ \ \ \ \ T1\ y;}
 \DoxyCodeLine{00106\ \ \ \ \ vec\ w;}
 \DoxyCodeLine{00107\ \ \ \ \ uvec\ idx;}
-\DoxyCodeLine{00108\ \ \ \ \ spectralDecomp<T3>\ dcmp\_local(dcmp);}
-\DoxyCodeLine{00109\ }
-\DoxyCodeLine{00110\ \ \ \ \ \textcolor{comment}{//\ iterate\ through\ responses\ }}
-\DoxyCodeLine{00111\ \ \ \ \ for\ (int\ j\ =\ r.begin();\ j\ !=\ r.end();\ ++j)\ \{\ }
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \ \ \ \ y\ =\ Y.col(j);}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ w\ =\ weights;}
-\DoxyCodeLine{00115\ }
-\DoxyCodeLine{00116\ \ \ \ \ \ \ idx\ =\ unique(join\_cols(find\_nan(y),\ idx\_drop));}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ y.elem(idx).zeros();}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ w.elem(idx).zeros();}
-\DoxyCodeLine{00119\ }
-\DoxyCodeLine{00120\ \ \ \ \ \ \ dcmp\_local.reweight(w);}
-\DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \ \ \ \ \ \ fastglmm\ fit\ =\ fastglmm<vec,\ T2,\ T3>(y,\ X\_clean,\ dcmp\_local,\ w,\ offset,\ family[j],\ md,\ tol,\ tol\_eta);}
-\DoxyCodeLine{00123\ }
-\DoxyCodeLine{00124\ \ \ \ \ \ \ result.at(j)\ =\ fit.get\_result();}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ result.at(j).ID\ =\ ids[j];}
-\DoxyCodeLine{00126\ \ \ \ \ \}}
-\DoxyCodeLine{00127\ \ \ \});\ \});}
-\DoxyCodeLine{00128\ \ \ }
-\DoxyCodeLine{00129\ \ \ \textcolor{keywordflow}{return}\ result;}
-\DoxyCodeLine{00130\ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{comment}{//\ iterate\ through\ responses\ }}
+\DoxyCodeLine{00110\ \ \ \ \ for\ (int\ j\ =\ r.begin();\ j\ !=\ r.end();\ ++j)\ \{\ }
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ y\ =\ Y.col(j);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ w\ =\ weights;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ idx\ =\ unique(join\_cols(find\_nan(y),\ idx\_drop));}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ y.elem(idx).zeros();}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ w.elem(idx).zeros();}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ fastglmm\ fit\ =\ fastglmm<vec,\ T2,\ T3>(y,\ X\_clean,\ dcmp,\ w,\ offset,\ family[j],\ md,\ tol,\ tol\_eta);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ result.at(j)\ =\ fit.get\_result();}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ result.at(j).ID\ =\ ids[j];}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \});\ \});}
+\DoxyCodeLine{00125\ \ \ }
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00127\ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \}\ \textcolor{comment}{//\ end\ namespace}}
 \DoxyCodeLine{00131\ }
 \DoxyCodeLine{00132\ }
-\DoxyCodeLine{00133\ \}\ \textcolor{comment}{//\ end\ namespace}}
-\DoxyCodeLine{00134\ }
-\DoxyCodeLine{00135\ }
-\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

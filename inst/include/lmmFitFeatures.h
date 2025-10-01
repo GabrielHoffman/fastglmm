@@ -36,12 +36,12 @@ class lmmFitFeatures {
   T1 Y; 
   T2 X_shared;  
   T3 U;
+  spectralDecomp<T3> dcmp;
   vec s, weights;
   double delta, left, right, tol;
   int nthreads;
   ModelDetail md;
   bool REML;
-  spectralDecomp<T3> dcmp;
 };
 
 

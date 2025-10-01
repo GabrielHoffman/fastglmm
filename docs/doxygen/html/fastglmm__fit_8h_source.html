@@ -176,14 +176,14 @@ $(function() {
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <a class="code hl_class" href="classfastglmm_lib_1_1fastlmm.html">fastlmm&lt;T1,T2,T3&gt;</a> fit;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <span class="keywordtype">string</span> family;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="keywordtype">bool</span> returnUS;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="keywordtype">int</span> niter_pql;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordtype">double</span> w_mean; </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <a class="code hl_enumeration" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2">ModelDetail</a> md;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  vec y, weights, mu; </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    shared_ptr&lt;GLMFamily&gt; fam;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_class" href="classfastglmm_lib_1_1spectral_decomp.html">spectralDecomp&lt;T3&gt;</a> dcmp;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  vec y, weights, mu; </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <a class="code hl_class" href="classfastglmm_lib_1_1spectral_decomp.html">spectralDecomp&lt;T3&gt;</a> dcmp;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="keywordtype">string</span> family;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordtype">bool</span> returnUS;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keywordtype">int</span> niter_pql;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keywordtype">double</span> w_mean; </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <a class="code hl_enumeration" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2">ModelDetail</a> md;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    shared_ptr&lt;GLMFamily&gt; fam;</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>};</div>
 </div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
@@ -205,11 +205,11 @@ $(function() {
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;right,</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;returnUS):</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    y(y), </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    dcmp(dcmp),</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    weights(weights), </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    weights(weights), </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    dcmp(dcmp), </div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    family(family), </div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    returnUS(returnUS),</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    md(md) </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    md(md)</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    {</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    fam = getGLMFamily( family );</div>
@@ -277,7 +277,7 @@ $(function() {
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a> = work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a> / w_mean;</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <span class="comment">// recompute U and s since work-&gt;w changed</span></div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        this-&gt;dcmp.<a class="code hl_function" href="classfastglmm_lib_1_1spectral_decomp.html#ad19694a80881a83cd85ba8572b29eb88">reweight</a>(work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a>);</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        this-&gt;dcmp.<a class="code hl_function" href="classfastglmm_lib_1_1spectral_decomp.html#a147f7b2391dfc9a0c3677d39c07b0aa6">reweight</a>(work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a>);</div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="comment">// fit fastlmm</span></div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        fit = <a class="code hl_class" href="classfastglmm_lib_1_1fastlmm.html">fastlmm</a>(work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ad2cd7f50570a2734edae6e0986db3b07">z</a>, X, this-&gt;dcmp, work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a>, <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba">LEAST</a>);</div>
@@ -389,19 +389,19 @@ $(function() {
 <div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="a_model_fit_8h_html"><div class="ttname"><a href="_model_fit_8h.html">ModelFit.h</a></div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_g_l_m_html"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit_g_l_m.html">fastglmmLib::ModelFitGLM</a></div><div class="ttdef"><b>Definition</b> ModelFit.h:164</div></div>
-<div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_g_l_m_m_html"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit_g_l_m_m.html">fastglmmLib::ModelFitGLMM</a></div><div class="ttdef"><b>Definition</b> ModelFit.h:328</div></div>
+<div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_g_l_m_m_html"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit_g_l_m_m.html">fastglmmLib::ModelFitGLMM</a></div><div class="ttdef"><b>Definition</b> ModelFit.h:350</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_html_a2d6e59e0f7fab81d35e413ff3f7c863d"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit.html#a2d6e59e0f7fab81d35e413ff3f7c863d">fastglmmLib::ModelFit::residuals</a></div><div class="ttdeci">vec residuals</div><div class="ttdef"><b>Definition</b> ModelFit.h:46</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_html_a36747d1197e07f51c8e779c879377cdb"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit.html#a36747d1197e07f51c8e779c879377cdb">fastglmmLib::ModelFit::devianceResiduals</a></div><div class="ttdeci">vec devianceResiduals</div><div class="ttdef"><b>Definition</b> ModelFit.h:49</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_l_m_m_html"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit_l_m_m.html">fastglmmLib::ModelFitLMM</a></div><div class="ttdef"><b>Definition</b> ModelFit.h:199</div></div>
-<div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_l_m_m_html_a11b4c0d37ab16509143ff2cd5cd053e8"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit_l_m_m.html#a11b4c0d37ab16509143ff2cd5cd053e8">fastglmmLib::ModelFitLMM::set_w_mean</a></div><div class="ttdeci">void set_w_mean(const double &amp;value)</div><div class="ttdef"><b>Definition</b> ModelFit.h:322</div></div>
+<div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_l_m_m_html_a11b4c0d37ab16509143ff2cd5cd053e8"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit_l_m_m.html#a11b4c0d37ab16509143ff2cd5cd053e8">fastglmmLib::ModelFitLMM::set_w_mean</a></div><div class="ttdeci">void set_w_mean(const double &amp;value)</div><div class="ttdef"><b>Definition</b> ModelFit.h:344</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1fastglmm_html_a3cfc852df4bdf93a5805e0b0c7466209"><div class="ttname"><a href="classfastglmm_lib_1_1fastglmm.html#a3cfc852df4bdf93a5805e0b0c7466209">fastglmmLib::fastglmm::get_result</a></div><div class="ttdeci">ModelFitGLMM get_result()</div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:244</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1fastglmm_html_a53aff4890d4d14e44f36a10f32be3e7f"><div class="ttname"><a href="classfastglmm_lib_1_1fastglmm.html#a53aff4890d4d14e44f36a10f32be3e7f">fastglmmLib::fastglmm::fastglmm</a></div><div class="ttdeci">fastglmm()</div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:40</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1fastglmm_html_a7490d79ba70ea450b33a66d17c062666"><div class="ttname"><a href="classfastglmm_lib_1_1fastglmm.html#a7490d79ba70ea450b33a66d17c062666">fastglmmLib::fastglmm::devianceResiduals</a></div><div class="ttdeci">const vec devianceResiduals()</div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:222</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1fastglmm_html_a82ae5304ae2c5f793dccf546bbdffe00"><div class="ttname"><a href="classfastglmm_lib_1_1fastglmm.html#a82ae5304ae2c5f793dccf546bbdffe00">fastglmmLib::fastglmm::fitted</a></div><div class="ttdeci">const vec fitted()</div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:214</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1fastglmm_html_ae312a6a0452c8097e263387210275451"><div class="ttname"><a href="classfastglmm_lib_1_1fastglmm.html#ae312a6a0452c8097e263387210275451">fastglmmLib::fastglmm::residuals</a></div><div class="ttdeci">const vec residuals()</div><div class="ttdef"><b>Definition</b> fastglmm_fit.h:206</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1fastlmm_html"><div class="ttname"><a href="classfastglmm_lib_1_1fastlmm.html">fastglmmLib::fastlmm</a></div><div class="ttdef"><b>Definition</b> fastlmm_fit.h:33</div></div>
-<div class="ttc" id="aclassfastglmm_lib_1_1spectral_decomp_html"><div class="ttname"><a href="classfastglmm_lib_1_1spectral_decomp.html">fastglmmLib::spectralDecomp</a></div><div class="ttdef"><b>Definition</b> spectralDecomp.h:22</div></div>
-<div class="ttc" id="aclassfastglmm_lib_1_1spectral_decomp_html_ad19694a80881a83cd85ba8572b29eb88"><div class="ttname"><a href="classfastglmm_lib_1_1spectral_decomp.html#ad19694a80881a83cd85ba8572b29eb88">fastglmmLib::spectralDecomp::reweight</a></div><div class="ttdeci">void reweight(const vec &amp;weights)</div><div class="ttdef"><b>Definition</b> spectralDecomp.h:58</div></div>
+<div class="ttc" id="aclassfastglmm_lib_1_1spectral_decomp_html"><div class="ttname"><a href="classfastglmm_lib_1_1spectral_decomp.html">fastglmmLib::spectralDecomp</a></div><div class="ttdef"><b>Definition</b> spectralDecomp.h:29</div></div>
+<div class="ttc" id="aclassfastglmm_lib_1_1spectral_decomp_html_a147f7b2391dfc9a0c3677d39c07b0aa6"><div class="ttname"><a href="classfastglmm_lib_1_1spectral_decomp.html#a147f7b2391dfc9a0c3677d39c07b0aa6">fastglmmLib::spectralDecomp::reweight</a></div><div class="ttdeci">void reweight(const vec &amp;weights, const bool &amp;sort=false)</div><div class="ttdef"><b>Definition</b> spectralDecomp.h:76</div></div>
 <div class="ttc" id="afastlmm__fit_8h_html"><div class="ttname"><a href="fastlmm__fit_8h.html">fastlmm_fit.h</a></div></div>
 <div class="ttc" id="aglm_8h_html"><div class="ttname"><a href="glm_8h.html">glm.h</a></div></div>
 <div class="ttc" id="aglm__family_8h_html"><div class="ttname"><a href="glm__family_8h.html">glm_family.h</a></div></div>

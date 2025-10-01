@@ -41,12 +41,12 @@ class glmmFitFeatures {
   T1 y; 
   T2 X_shared;  
   string family;
+  spectralDecomp<T3> dcmp;
   T3 U;
   vec s, weights, offset;
   double delta, left, right, tol, tol_eta;
   int nthreads;
   ModelDetail md;
-  spectralDecomp<T3> dcmp;
 };
 
 
