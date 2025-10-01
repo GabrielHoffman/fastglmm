@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['weights_0',['weights',['../classfastlmm_lib_1_1_model_fit_l_m_m.html#a6c0000ffb7d39c14c8af4e6fa840c061',1,'fastlmmLib::ModelFitLMM::weights'],['../structnb_data.html#a6bce5c498b3959a767ecfef9fcde716a',1,'nbData::weights']]],
-  ['wsqrt_1',['wsqrt',['../structfastlmm_lib_1_1_g_l_m_work.html#aa87a351792bff2db41f1713c27bee811',1,'fastlmmLib::GLMWork']]]
+  ['v_0',['V',['../structfastglmm_lib_1_1_l_m_work.html#a71a654e7de4a76f6a5191654b9e118b5',1,'fastglmmLib::LMWork::V'],['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a47db2201e17df892e83c32e8810be0f8',1,'fastglmmLib::ModelFitLMM::V'],['../classfastglmm_lib_1_1spectral_decomp.html#aed9d121652e56143c3791e83adaa1369',1,'fastglmmLib::spectralDecomp::V']]],
+  ['vcov_1',['vcov',['../classfastglmm_lib_1_1_model_fit.html#a6c3ed52bee7cd14f7736f8a6f9717e65',1,'fastglmmLib::ModelFit']]],
+  ['vsp_2',['Vsp',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a28d33afe0776378060242781fb8d4b0f',1,'fastglmmLib::ModelFitLMM']]]
 ];

@@ -1,0 +1,17 @@
+#' Gene expession of PTPRG in microglia in 60k cells
+#'
+#' A dataset containing gene expression of PTPRG in 60k microglia cells from the PsychAD Consortium from 299 subjects.  Of these, 149 subjects have Alzheimer's disease, and 150 are neurotypical controls.  
+#'
+#' @format A data frame with 60481 rows (i.e. cells) and 6 variables:
+#' \describe{
+#'   \item{SubID}{subject identifer}
+#'   \item{Sex}{Sex}
+#'   \item{Dx}{Diagnosis: AD or Control}
+#'   \item{Age}{subject age}
+#'   \item{PTPRG}{number of RNA-seq counts for this gene}
+#'   \item{libSize}{total number of RNA-seq reads for this cell}
+#' }
+#' @source \url{https://diseaseneurogenomics.github.io/dreamlet/index.html}
+"PsychAD"  
+
+# @importFrom RcppParallel RcppParallelLibs

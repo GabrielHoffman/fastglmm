@@ -39,7 +39,7 @@ fastlmm_R(
 \item{rank}{number of of principal components used}
 }
 \value{
-summary statistics for model fit, and hypothesis testing using X_test_lst, if available
+summary statistics for model fit, and hypothesis testing
 }
 \description{
 Fit linear mixed model using SVD of covariance to scale to large sample sizes.

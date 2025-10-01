@@ -24,7 +24,7 @@
 #include <RcppParallel.h>
 
 #include "misc.h"
-// #include "ModelFit.h"
+#include "ModelFit.h"
 
 using namespace arma;
 using namespace std;
@@ -51,19 +51,26 @@ struct LMWork {
 / adapted from https://github.com/RcppCore/RcppArmadillo/blob/master/src/fastLm.cpp
 / https://genomicsclass.github.io/book/pages/qr_and_regression.html
 */
-static ModelFit lm(const arma::mat& X, const arma::colvec& y, const ModelDetail md = LOW, const double &rdf_offset = 0, LMWork *work = nullptr, const bool estimateDispersion = true, const bool scaleByDispersion = true) {
+static ModelFit lm(
+	const arma::mat& X,
+	const arma::colvec& y, 
+	const ModelDetail md = LOW, 
+	const double &rdf_offset = 0, 
+	LMWork *work = nullptr, 
+	const bool estimateDispersion = true, 
+	const bool scaleByDispersion = true) {
 
 	int n = X.n_rows, k = X.n_cols;
 
 	// allocate work, if not already alloc'd
-    bool alloc_local = false;
-    if( work == nullptr ){
-    	alloc_local = true;
-        work = new LMWork();
-    }
+  bool alloc_local = false;
+  if( work == nullptr ){
+  	alloc_local = true;
+      work = new LMWork();
+  }
 
-    // QR decomp
-    // success0 indicates QR was successful and R is valid
+  // QR decomp
+  // success0 indicates QR was successful and R is valid
 	bool success0 = qr_econ(work->Q, work->R, X);
 
 	// test if X is full rank
@@ -73,7 +80,7 @@ static ModelFit lm(const arma::mat& X, const arma::colvec& y, const ModelDetail 
 		success0 = false;
 	}
 
-    vec beta;
+  vec beta;
 	bool success1 = false;
 
 	// if QR succeed, compute beta
@@ -85,7 +92,7 @@ static ModelFit lm(const arma::mat& X, const arma::colvec& y, const ModelDetail 
 	// set beta to NaN
 	if( ! success0 || ! success1){
 		beta = vec (work->R.n_cols);
-        beta.fill(datum::nan);
+    beta.fill(datum::nan);
 	}
 
 	// if md != LEAST, compute residuals
@@ -97,63 +104,63 @@ static ModelFit lm(const arma::mat& X, const arma::colvec& y, const ModelDetail 
 
 		if( success1 ){
 			// only compute inverse if solve() above succeeded
-		    // V = solve(t(R)*R)
-		    success2 = inv_sympd(work->V, trans(work->R)*work->R);
+	    // V = solve(t(R)*R)
+	    success2 = inv_sympd(work->V, trans(work->R)*work->R);
 		}else{
 			success2 = false;
 		}
 
-	    // residuals
+    // residuals
 		work->residuals = y - X*beta;
 
-	    // for linear regression
-	    if( estimateDispersion ){
-		    // std.errors of coefficients
+    // for linear regression
+    if( estimateDispersion ){
+	    // std.errors of coefficients
 			dispersion = dot(work->residuals, work->residuals) / rdf; 
 		}else{
-		    // for GLM, don't scale by residual variance
+	    // for GLM, don't scale by residual variance
 			dispersion = 1.0;
 		}
 
-	    if( success0 && success1 && success2 ){
-		    stderr = sqrt(dispersion * diagvec(work->V));
-	    }else{
-	        stderr = vec(k, fill::value(datum::nan));
-	        beta.fill(datum::nan);
-	    }
+    if( success0 && success1 && success2 ){
+	    stderr = sqrt(dispersion * diagvec(work->V));
+    }else{
+      stderr = vec(k, fill::value(datum::nan));
+      beta.fill(datum::nan);
+    }
 	}
    
 	bool success = success0 && success1 && success2;
 
-   	// return results with specified level of detail
+ 	// return results with specified level of detail
 	ModelFit fit;
-    switch( md ){
-	    case LEAST:
-		fit = ModelFit( success, beta );
-		break;
+  switch( md ){
+    case LEAST:
+			fit = ModelFit( success, beta );
+			break;
 
-	    case LOW:
-		fit = ModelFit( success, beta, stderr, dispersion, rdf);
-		break;
+	  case LOW:
+			fit = ModelFit( success, beta, stderr, dispersion, rdf);
+			break;
 
 		case MEDIUM:
-		fit = ModelFit( success, beta, stderr, dispersion, rdf, work->V * dispersion);
-		break;
+			fit = ModelFit( success, beta, stderr, dispersion, rdf, work->V * dispersion);
+			break;
 
 		case HIGH:
-		fit = ModelFit( success, beta, stderr, dispersion, rdf, work->V * dispersion, work->residuals);
-		break;
+			fit = ModelFit( success, beta, stderr, dispersion, rdf, work->V * dispersion, work->residuals);
+			break;
 
 		case MOST:
 		case MAX: 
-		vec hatvalues = diagvec(work->Q * trans(work->Q));
-		fit = ModelFit( success, beta, stderr, dispersion, rdf, work->V * dispersion, work->residuals, hatvalues);
-		fit.setFittedValues( X*beta );
-		break;
+			vec hatvalues = diagvec(work->Q * trans(work->Q));
+			fit = ModelFit( success, beta, stderr, dispersion, rdf, work->V * dispersion, work->residuals, hatvalues);
+			fit.setFittedValues( X*beta );
+			break;
 	}
 
 	// free work if allocated in this function
-    if( alloc_local) delete work;
+  if( alloc_local) delete work;
 
 	return fit;
 }
@@ -191,12 +198,12 @@ static tuple<vec, T> preprojection(const vec &y, const mat &X_design, const T &X
 	mat Q, R;
 	qr_econ(Q, R, X_design_wsqrt);
 
-    // back solve
+  // back solve
 	vec beta = solve(R, trans(Q) * y_wsqrt);
 	vec y_proj = y_wsqrt - X_design_wsqrt * beta;
 
-    // back solve
-    // use constructor T() to subtract matricies of the same type
+  // back solve
+  // use constructor T() to subtract matricies of the same type
 	mat gamma = solve(R, trans(Q) * X_features_wsqrt);
 	T X_proj;
 
@@ -289,10 +296,10 @@ static ModelFit wlm(const arma::mat& X, const arma::colvec& y, const arma::colve
 		fit = lm( X.each_col() % wsqrt, y % wsqrt, md, rdf_offset, work );
 
 		if( md >= HIGH){
-            // Rescale residuals by weights afterward
-            //  since input X and y are scaled before lm()
-            fit.residuals /= wsqrt;
-        }
+	    // Rescale residuals by weights afterward
+	    //  since input X and y are scaled before lm()
+	    fit.residuals /= wsqrt;
+    }
 	}
 
 	return fit;
@@ -402,10 +409,10 @@ static ModelFitList lmFitFeatures_preproj(const arma::vec &y, const T1 &X_design
 			fit.ID = ids[j];
 
 			if( md >= HIGH){
-	            // Rescale residuals by weights afterward
-	            //  since input X and y are scaled before lm()
-	            fit.residuals /= wsqrt;
-	        }
+          // Rescale residuals by weights afterward
+          //  since input X and y are scaled before lm()
+          fit.residuals /= wsqrt;
+      }
 
 			// save result to list
 			fitList.at(j) =  fit;
@@ -460,43 +467,63 @@ static ModelFitList lmFitFeatures(const arma::vec &y, const T1 &X_design, const 
  * 
  * Since the weights vary for each response, each model is computed separately without recycling precomputed values
 */
-static ModelFitList lmFitResponses(const arma::mat &Y, const arma::mat &X, const vector<string> &ids, const arma::mat &Weights, const ModelDetail md = LOW, const int &nthreads = 1){
+static ModelFitList lmFitResponses(
+	const arma::mat &Y, 
+	const arma::mat &X, 
+	const vector<string> &ids, 
+	const arma::mat &Weights, 
+	const ModelDetail md = LOW, 
+	const int &nthreads = 1){
 
     ModelFitList fitList(Y.n_cols, ModelFit());
 
+    // find rows in X with NAN values
+	 	uvec idx_x = rows_with_nan(X);  
+	 	uvec idx_y = rows_with_nan(Y); 
+	 	uvec idx = unique(join_cols(idx_x, idx_y));	
+	 	mat X_clean(X);
+	 	X_clean.rows(idx_x).zeros();
+
     arma::mat Wsqrt = sqrt(Weights);
+    Wsqrt.rows(idx).zeros();
     arma::mat Yw = Y % Wsqrt;
+    Yw.rows(idx_y).zeros();
+
+  	// Reduce residual degrees of freedom by the number of 
+  	// 	entries with zero weights
+    int rdf_offset = idx.n_elem;
 
     // Parallel part using Thread Building Blocks
-	tbb::task_arena limited_arena(nthreads);
-	limited_arena.execute([&] {
-	tbb::parallel_for(
+		tbb::task_arena limited_arena(nthreads);
+		limited_arena.execute([&] {
+		tbb::parallel_for(
 		tbb::blocked_range<int>(0, Y.n_cols, 100), 
 		[&](const tbb::blocked_range<int>& r){ 
 
-		disable_parallel_blas();
+			disable_parallel_blas();
  
-        for (int j = r.begin(); j != r.end(); ++j) {    
+      for (int j = r.begin(); j != r.end(); ++j) {    
 
 		    // linear regression        
 		    // ModelFit fit = wlm(X, Y.col(j), Weights.col(j));
-		    ModelFit fit = lm(X.each_col() % Wsqrt.col(j), Yw.col(j), md);
+		    ModelFit fit = lm(X_clean.each_col() % Wsqrt.col(j), 
+		    									Yw.col(j), md, rdf_offset);
 
-			fit.ID = ids[j];
+				fit.ID = ids[j];
 
-			if( md >= HIGH){
-		        // Rescale residuals by weights afterward
-		        //  since input X and y are scaled before lm()
-		        fit.residuals /= Wsqrt.col(j);
-		        fit.mu /= Wsqrt.col(j);
-			}
+				if( md >= HIGH){
+	        // Rescale residuals by weights afterward
+	        //  since input X and y are scaled before lm()
+	        fit.residuals /= Wsqrt.col(j);
+	        fit.mu /= Wsqrt.col(j);
+				}
 
 		    // save result to list
 		    fitList.at(j) =  fit;
-		}
-	}); }); 
+			}
+		}); }); 
 
-    return fitList;
+	return fitList;
 }
 
 }

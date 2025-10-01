@@ -1,0 +1,195 @@
+---
+title: "Variance Partitioning Analysis"
+subtitle: 'Examples'
+author: "Developed by [Gabriel Hoffman](http://gabrielhoffman.github.io/)"
+date: "Run on `r format(Sys.time())`"
+documentclass: article
+vignette: >
+  %\VignetteIndexEntry{Variance Partitioning Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\usepackage[utf8]{inputenc}
+---
+
+
+
+<!---
+
+cd /Users/gabrielhoffman/workspace/repos/fastglmm/vignettes
+
+# rm -rf variancePartitioning_cache/
+
+rmarkdown::render("variancePartitioning.Rmd")
+
+--->
+
+
+<style>
+body {
+text-align: justify}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  error = FALSE,
+  tidy = FALSE,
+  dev = c("png"),
+  cache = TRUE
+)
+```
+
+```{r load}
+library(fastglmm)
+library(mvtnorm)
+library(MASS)
+library(glmmTMB)
+```
+
+# Simulation for Gaussian regression
+```{r gaussian}
+sim_data <- function(n, beta, sigSq_g, rho, n_random, intercept, link, signal_frac = NULL, theta=NULL){
+
+  # Create fixed covariates with given correlation rho
+  Sigma <- matrix(c(1,rho,rho,1), 2)
+  X <- scale(rmvnorm(n, c(0,0), Sigma))
+
+  # random effecdt with n_random levels
+  z <- factor(sample(seq(n_random), n, replace=TRUE))
+
+  # Sparse design matrix for random effects
+  df <- data.frame(X, z)
+  Z <- sparse.model.matrix(~ 0 + z, df)
+
+  # Simulate random effect
+  alpha <- rnorm(ncol(Z), 0, sd=sqrt(sigSq_g))
+
+  # linear predictor based on interceptm, fixed & random effects
+  eta <- intercept + as.matrix(X %*% beta + Z %*% alpha)
+
+  # noise in Gaussian model
+  sigSq_e <- (1-signal_frac)/signal_frac * var(eta)[1]
+
+  # Simulate response
+  df$y <- switch(link, 
+    "gaussian" = eta + rnorm(n, 0, sd = sqrt(sigSq_e)),
+    "poisson" = rpois(n, exp(eta)),
+    "logistic" = rbinom(n, 1, prob=plogis(eta)),
+    "nb" = rnegbin(n, exp(eta), theta = theta))
+
+  # Unexplained variance for each model
+  sigSq_noise <- switch(link, 
+    "gaussian" = sigSq_e,
+    "poisson" =  trigamma(exp(intercept)),
+    "logistic" = pi^2 / 3,
+    "nb" = trigamma(1/(1/exp(intercept) + 1/theta)))
+
+  # variance components
+  # varTotal = 
+  # vc = c(beta^2, sigSq_g, sigSq_noise)
+
+  signal_frac = var(eta)[1] / (var(eta)[1] + sigSq_noise)
+
+  a = c(beta^2, sigSq_g)
+  vc = c(signal_frac * a/sum(a), 1 - signal_frac)
+
+  attr(df, "varFrac") = vc / sum(vc)
+  df
+}
+
+
+df <- sim_data(n = 1e6, 
+              beta = c(1,2), 
+              sigSq_g = 2,
+              rho = .7, 
+              n_random = 1000,
+              intercept = 3,
+              "gaussian",
+              signal_frac = .8)
+
+
+fit <- fastlmm(y ~ X1 + X2 + (1|z), df)
+
+varpart(fit)
+attr(df, "varFrac")
+```
+
+# Fixed intercept for Z, now fix 
+# true variance fractions for non-normal
+
+
+```{r poisson}
+
+
+df <- sim_data(n = 1e6, 
+              beta = c(1,2), 
+              sigSq_g = 1,
+              rho = .7, 
+              n_random = 500,
+              intercept = -3,
+              "poisson")
+
+hist(df$y)
+
+fit <- fastglmm(y ~ X1 + X2 + (1|z), df, family=poisson())
+
+varpart(fit)
+attr(df, "varFrac")
+
+
+it = glmmTMB(y ~ X1 + X2 + (1|z), df, family=poisson())
+
+
+# No variance component
+df <- sim_data(n = 1e6, 
+              beta = c(1,.2), 
+              sigSq_g = 1e-5,
+              rho = .7, 
+              n_random = 500,
+              intercept = 2,
+              "poisson")
+
+hist(df$y)
+
+fit <- fastglmm(y ~ X1 + X2 + (1|z), df, family=poisson())
+
+varpart(fit)
+attr(df, "varFrac")
+
+median(df$y)
+
+
+fit1 = glm(y ~ X1 + X2, df, family=poisson())
+varpart(fit1)
+
+
+# HOW DOES RSQ COMPARE????
+rsq::rsq(fit1, type="v")
+
+
+
+
+w = 1/(df$y + .1)
+fit1 = lm(log(y + .1) ~ X1 + X2, df, weights=w / mean(w))
+varpart(fit1)
+
+
+
+```
+
+
+
+
+# Application to PsychAD dataset
+```{r psychAD}
+data(PsychAD)
+
+form = PTPRG ~ Dx + Age + Sex + offset(log(libSize)) + (1|SubID)
+
+fit <- fastglmm.nb(form, PsychAD)
+
+varpart(fit)
+```

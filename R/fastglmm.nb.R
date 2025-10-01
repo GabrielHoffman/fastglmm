@@ -3,9 +3,7 @@
 # Sept 11, 2024
 # expand checks of fastglmm.nb
 
-rel_diff = function(a,b){
-	abs(a - b) / max(abs(a), abs(b))
-}
+
 
 #' Fit negative binomial mixed model via PQL
 #' 
@@ -17,8 +15,6 @@ rel_diff = function(a,b){
 #' @param maxit max number of NB iterations
 #' @param tol convergence criterion for the 1D search of the delta space
 #' @param tol.eta convergence criterion \code{eta} in the PQL iteration
-#' @param init.fit \code{fastglmm} object to initialize parameters
-#' @param init \code{c("lm", "glm")} method to initialize \code{eta} values
 #' @param nthreads number of threads
 #'
 #' @examples
@@ -42,55 +38,18 @@ rel_diff = function(a,b){
 #
 #' @importFrom MASS negative.binomial
 #' @export
-fastglmm.nb = function (formula, data, weights, maxit = 100, tol = .Machine$double.eps^0.5, tol.eta = .Machine$double.eps^0.5, init.fit = NULL, init = c("lm", "glm"), nthreads = 6){
+fastglmm.nb = function (formula, data, weights = NULL, maxit = 100, tol = .Machine$double.eps^0.5, tol.eta = .Machine$double.eps^0.5, nthreads = 6){
 
-	if( missing(weights) ){
-		weights = rep(1, nrow(data))
-	}
-
-	# fit poisson model
-	fit = fastglmm(formula, 
+	fastglmm(formula, 
 				data = data, 
-				weights = weights, 
-				family = poisson(),
-				init.fit = init.fit,
-				init = init, 
-				nthreads = nthreads, 
-				tol = tol)
-
-	# get original counts response
-	y.orig = as.numeric(fit$response)
-
-	for(i in seq(maxit)){
-
- 		# estimate overdispersion
-		theta = nb_theta(y = y.orig, 
-			 	mu = fitted(fit), 
-			 	n = sum(weights),
-			 	weights = weights, 
-			 	left = -5,
-			 	right = 20,
-			 	tol = .Machine$double.eps^0.25)
-
-		ll_prev = logLik(fit)
-
-		# estimate NB model with dispersion fixed
-		fit <- fastglmm(formula, 
-				data = data, 
-	        	weights = weights,
-	        	family = negative.binomial(theta),
-	        	init.fit = fit, 
-	        	nthreads = nthreads, 
-	        	tol = tol, 
-	        	tol.eta = tol.eta)
-
-		# stopping criteria
-		if( rel_diff(ll_prev[1], logLik(fit)[1]) < 1e-6) break
-	}
-
-	fit$iter.nb = i
-	fit
+				weights = weights,
+				maxit = maxit,
+				family = negative.binomial(NA),
+				tol = tol,
+				tol.eta = tol.eta,
+				nthreads = nthreads)
 }
+
 
 
 

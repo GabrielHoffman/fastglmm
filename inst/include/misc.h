@@ -26,6 +26,21 @@ inline sp_mat scaleEachCol(const sp_mat &X, const vec &w){
   return( M );
 }
 
+// for each row, scale by w
+inline mat scaleEachRow(const mat &X, const vec &w){
+  return w.t() % X.each_row();  
+}
+
+// for each row, scale by w
+inline sp_mat scaleEachRow(const sp_mat &X, const vec &w){
+
+  sp_mat M = sp_mat(X);
+  for(size_t i=0; i<X.n_cols; i++){
+    M.col(i) *= w[i];
+  }
+  return( M );
+}
+
 
 // scale by w and s
 template <typename T> 
@@ -50,6 +65,72 @@ inline bool isSpMatrix(const T &t) { return false;  }
  // but for sp_mat returns true
 template <>
 inline bool isSpMatrix( const sp_mat &t) { return true; } 
+
+
+// Given matrix, set entries in rows idx to zero
+static void rows_to_zero( mat &X, const uvec &idx ){
+  X.rows(idx).zeros();
+}
+
+static void rows_to_zero( sp_mat &X, const uvec &idx ){
+
+  for(auto j: idx ){
+    for (auto  it = X.begin_row(j); it != X.end_row(j); ++it) {
+      *it = 0.0;
+    }
+  }
+  X.clean(0.0);
+}
+
+
+// Return indices (0-based) of rows that contain at least one NaN
+static uvec rows_with_nan(const mat& M) {
+  std::vector<uword> nan_rows;
+
+  for (uword i = 0; i < M.n_rows; ++i) {
+    bool has_nan = false;
+
+    // iterate over elements in row i
+    for (mat::const_row_iterator it = M.begin_row(i);
+         it != M.end_row(i); ++it) {
+      if (std::isnan(*it)) {
+        has_nan = true;
+        break;  // no need to check rest of row
+      }
+    }
+
+    if (has_nan){
+      nan_rows.push_back(i);
+    }
+  }
+
+  return conv_to<uvec>::from(nan_rows);
+}
+
+
+// Return indices (0-based) of rows in sp_mat containing NaN
+static uvec rows_with_nan(const sp_mat& M) {
+
+  std::vector<uword> nan_rows;
+
+  for (uword i = 0; i < M.n_rows; ++i) {
+    bool has_nan = false;
+
+    // iterate over stored elements in row i
+    for (sp_mat::const_row_iterator it = M.begin_row(i);
+    it != M.end_row(i); ++it){
+      if (std::isnan(*it)) {
+        has_nan = true;
+        break;  // stop once a NaN is found
+      }
+    }
+
+    if (has_nan)
+      nan_rows.push_back(i);
+    }
+
+  return conv_to<uvec>::from(nan_rows);
+}
 
 
 // template <typename T>
@@ -134,6 +215,8 @@ static void disable_parallel_blas(){
   omp_set_max_active_levels(0);
   #endif
 }
+
+
 
 
 #endif

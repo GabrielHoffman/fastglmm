@@ -1,169 +1,123 @@
 \doxysection{src/\+Rcpp\+Exports.cpp File Reference}
 \hypertarget{_rcpp_exports_8cpp}{}\label{_rcpp_exports_8cpp}\index{src/RcppExports.cpp@{src/RcppExports.cpp}}
-{\ttfamily \#include "{}../inst/include/fastlmm.\+h"{}}\newline
+{\ttfamily \#include "{}../inst/include/fastglmm.\+h"{}}\newline
 {\ttfamily \#include $<$Rcpp\+Armadillo.\+h$>$}\newline
 {\ttfamily \#include $<$Rcpp.\+h$>$}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-List \mbox{\hyperlink{_rcpp_exports_8cpp_acd2f0b63f15b12ce0c7d337d7ffd37e6}{fastlmm\+\_\+vmm}} (const arma\+::vec \&y, const arma\+::mat \&X, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML)
+List \mbox{\hyperlink{_rcpp_exports_8cpp_ae2e82b95e81b805bdde8a0502875fa33}{fastlmm\+\_\+mm}} (const arma\+::vec \&y, const arma\+::mat \&X, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const std\+::string \&dcmp\+Method, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML)
 \item 
-Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a110819c929bc08d1abff4fa84873f74a}{\+\_\+fastlmm\+\_\+fastlmm\+\_\+vmm}} (SEXP y\+SEXP, SEXP XSEXP, SEXP USEXP, SEXP s\+SEXP, SEXP weights\+SEXP, SEXP delta\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP nthreads\+SEXP, SEXP REMLSEXP)
+Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a83e97c28026c7983b3404217913d06c2}{\+\_\+fastglmm\+\_\+fastlmm\+\_\+mm}} (SEXP y\+SEXP, SEXP XSEXP, SEXP USEXP, SEXP s\+SEXP, SEXP weights\+SEXP, SEXP dcmp\+Method\+SEXP, SEXP delta\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP nthreads\+SEXP, SEXP REMLSEXP)
 \item 
-List \mbox{\hyperlink{_rcpp_exports_8cpp_ade91851ecbd81a5138e8254ebdc835b5}{fastlmm\+\_\+vms}} (const arma\+::vec \&y, const arma\+::mat \&X, const arma\+::sp\+\_\+mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML)
+List \mbox{\hyperlink{_rcpp_exports_8cpp_a8bdb8cb814d9e4d0992db88eb490b7d9}{fastlmm\+\_\+ms}} (const arma\+::vec \&y, const arma\+::mat \&X, const arma\+::sp\+\_\+mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const std\+::string \&dcmp\+Method, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML)
 \item 
-Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a3f8cd82030f46b6b6def43aaef502f46}{\+\_\+fastlmm\+\_\+fastlmm\+\_\+vms}} (SEXP y\+SEXP, SEXP XSEXP, SEXP USEXP, SEXP s\+SEXP, SEXP weights\+SEXP, SEXP delta\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP nthreads\+SEXP, SEXP REMLSEXP)
+Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_ab7d77339a8c91b7a2a84d5e4177ea7db}{\+\_\+fastglmm\+\_\+fastlmm\+\_\+ms}} (SEXP y\+SEXP, SEXP XSEXP, SEXP USEXP, SEXP s\+SEXP, SEXP weights\+SEXP, SEXP dcmp\+Method\+SEXP, SEXP delta\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP nthreads\+SEXP, SEXP REMLSEXP)
 \item 
-List \mbox{\hyperlink{_rcpp_exports_8cpp_adec4c1439c1c3abb077916436b482d6a}{fastlmm\+\_\+vsm}} (const arma\+::vec \&y, const arma\+::sp\+\_\+mat \&X, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML)
+List \mbox{\hyperlink{_rcpp_exports_8cpp_af7e4dd997265f18b998508e0e74a8653}{fastlmm\+\_\+sm}} (const arma\+::vec \&y, const arma\+::sp\+\_\+mat \&X, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const std\+::string \&dcmp\+Method, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML)
 \item 
-Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a571fa143b219d85da8a60a60fbaa502a}{\+\_\+fastlmm\+\_\+fastlmm\+\_\+vsm}} (SEXP y\+SEXP, SEXP XSEXP, SEXP USEXP, SEXP s\+SEXP, SEXP weights\+SEXP, SEXP delta\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP nthreads\+SEXP, SEXP REMLSEXP)
+Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a3eea52b482593289434ce9655aa44f56}{\+\_\+fastglmm\+\_\+fastlmm\+\_\+sm}} (SEXP y\+SEXP, SEXP XSEXP, SEXP USEXP, SEXP s\+SEXP, SEXP weights\+SEXP, SEXP dcmp\+Method\+SEXP, SEXP delta\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP nthreads\+SEXP, SEXP REMLSEXP)
 \item 
-List \mbox{\hyperlink{_rcpp_exports_8cpp_a2f9c4d846a69370b108f66cf0d5509df}{fastlmm\+\_\+vss}} (const arma\+::vec \&y, const arma\+::sp\+\_\+mat \&X, const arma\+::sp\+\_\+mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML)
+List \mbox{\hyperlink{_rcpp_exports_8cpp_a4504b1741c9ddaae56b5a6348d14fae3}{fastlmm\+\_\+ss}} (const arma\+::vec \&y, const arma\+::sp\+\_\+mat \&X, const arma\+::sp\+\_\+mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const std\+::string \&dcmp\+Method, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML)
 \item 
-Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a1c1ea81841867e79dfb2b04a9756f642}{\+\_\+fastlmm\+\_\+fastlmm\+\_\+vss}} (SEXP y\+SEXP, SEXP XSEXP, SEXP USEXP, SEXP s\+SEXP, SEXP weights\+SEXP, SEXP delta\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP nthreads\+SEXP, SEXP REMLSEXP)
-\item 
-List \mbox{\hyperlink{_rcpp_exports_8cpp_adbc6faffbc93e41551fbac99b321b3a8}{fastlmm\+\_\+mmm}} (const arma\+::mat \&Y, const std\+::vector$<$ std\+::string $>$ ids, const arma\+::mat \&X, const arma\+::mat \&Z, const arma\+::mat \&Weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML)
-\item 
-Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a7998dc7b8e1cfbd46a1f417a37e2f4d1}{\+\_\+fastlmm\+\_\+fastlmm\+\_\+mmm}} (SEXP YSEXP, SEXP ids\+SEXP, SEXP XSEXP, SEXP ZSEXP, SEXP Weights\+SEXP, SEXP delta\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP nthreads\+SEXP, SEXP REMLSEXP)
-\item 
-List \mbox{\hyperlink{_rcpp_exports_8cpp_a64a5cd97f4781faf6c13769f4542ae65}{fastlmm\+\_\+msm}} (const arma\+::mat \&Y, const std\+::vector$<$ std\+::string $>$ ids, const arma\+::sp\+\_\+mat \&X, const arma\+::mat \&Z, const arma\+::mat \&Weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML)
-\item 
-Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a4cb17f51073c1766f98fc000954d1904}{\+\_\+fastlmm\+\_\+fastlmm\+\_\+msm}} (SEXP YSEXP, SEXP ids\+SEXP, SEXP XSEXP, SEXP ZSEXP, SEXP Weights\+SEXP, SEXP delta\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP nthreads\+SEXP, SEXP REMLSEXP)
-\item 
-List \mbox{\hyperlink{_rcpp_exports_8cpp_a8232e8a23f82189e1286d98a163e7492}{fastlmm\+\_\+mms}} (const arma\+::mat \&Y, const std\+::vector$<$ std\+::string $>$ ids, const arma\+::mat \&X, const arma\+::sp\+\_\+mat \&Z, const arma\+::mat \&Weights, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML)
-\item 
-Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a2309400c8ce728fcd3d06fc5dd372e48}{\+\_\+fastlmm\+\_\+fastlmm\+\_\+mms}} (SEXP YSEXP, SEXP ids\+SEXP, SEXP XSEXP, SEXP ZSEXP, SEXP Weights\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP nthreads\+SEXP, SEXP REMLSEXP)
-\item 
-List \mbox{\hyperlink{_rcpp_exports_8cpp_ad4015a74a80692cc22e3e7f2804532b8}{fastlmm\+\_\+mss}} (const arma\+::mat \&Y, const std\+::vector$<$ std\+::string $>$ ids, const arma\+::sp\+\_\+mat \&X, const arma\+::sp\+\_\+mat \&Z, const arma\+::mat \&Weights, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads, const bool REML)
-\item 
-Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a992ac7195e4c3b8b92ef49ef3b1d5648}{\+\_\+fastlmm\+\_\+fastlmm\+\_\+mss}} (SEXP YSEXP, SEXP ids\+SEXP, SEXP XSEXP, SEXP ZSEXP, SEXP Weights\+SEXP, SEXP delta\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP nthreads\+SEXP, SEXP REMLSEXP)
+Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a0d75036c86bf81b504c97c1636ec2597}{\+\_\+fastglmm\+\_\+fastlmm\+\_\+ss}} (SEXP y\+SEXP, SEXP XSEXP, SEXP USEXP, SEXP s\+SEXP, SEXP weights\+SEXP, SEXP dcmp\+Method\+SEXP, SEXP delta\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP nthreads\+SEXP, SEXP REMLSEXP)
 \item 
 double \mbox{\hyperlink{_rcpp_exports_8cpp_a7fd3d775968b589d6f1d159316481ec2}{nb\+\_\+theta}} (const Numeric\+Vector \&y, const Numeric\+Vector \&mu, const double \&n, const Numeric\+Vector \&weights, const double \&left, const double \&right, const double \&tol)
 \item 
-Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a9d18104ec3b818e04b779315beb9715b}{\+\_\+fastlmm\+\_\+nb\+\_\+theta}} (SEXP y\+SEXP, SEXP mu\+SEXP, SEXP n\+SEXP, SEXP weights\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP)
+Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a3a171047cb532dd43b13890cc7dc653f}{\+\_\+fastglmm\+\_\+nb\+\_\+theta}} (SEXP y\+SEXP, SEXP mu\+SEXP, SEXP n\+SEXP, SEXP weights\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP)
 \item 
-List \mbox{\hyperlink{_rcpp_exports_8cpp_ac12d8a0a56bb2a2b9d8910979061c62b}{fastglmm\+\_\+mm}} (const arma\+::vec \&y, const arma\+::mat \&X, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const arma\+::vec \&offset, const std\+::string \&family, const double \&delta, const double \&left, const double \&right, const double \&tol, const int \&nthreads)
+List \mbox{\hyperlink{_rcpp_exports_8cpp_acd6d5d0b4f7c1b2af841faa00fa8d695}{fastglmm\+\_\+mm}} (const arma\+::vec \&y, const arma\+::mat \&X, const arma\+::mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const arma\+::vec \&offset, const std\+::string \&family, const std\+::string \&dcmp\+Method, const double \&delta, const double \&left, const double \&right, const double \&tol, const double \&tol\+\_\+eta, const int \&maxit, const int \&nthreads)
 \item 
-Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_ae9616e5055cc240c7e4f18232d2cc8ae}{\+\_\+fastlmm\+\_\+fastglmm\+\_\+mm}} (SEXP y\+SEXP, SEXP XSEXP, SEXP USEXP, SEXP s\+SEXP, SEXP weights\+SEXP, SEXP offset\+SEXP, SEXP family\+SEXP, SEXP delta\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP nthreads\+SEXP)
+Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a3c0a955d01cc3917bda461b5061fd020}{\+\_\+fastglmm\+\_\+fastglmm\+\_\+mm}} (SEXP y\+SEXP, SEXP XSEXP, SEXP USEXP, SEXP s\+SEXP, SEXP weights\+SEXP, SEXP offset\+SEXP, SEXP family\+SEXP, SEXP dcmp\+Method\+SEXP, SEXP delta\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP tol\+\_\+eta\+SEXP, SEXP maxit\+SEXP, SEXP nthreads\+SEXP)
 \item 
-Rcpp\+Export void \mbox{\hyperlink{_rcpp_exports_8cpp_a225f9b735e1ddf6b0b1b8f5b091e0322}{R\+\_\+init\+\_\+fastlmm}} (Dll\+Info \texorpdfstring{$\ast$}{*}dll)
+List \mbox{\hyperlink{_rcpp_exports_8cpp_aa491ca96995d4a55ddbcf4ebc13d6c61}{fastglmm\+\_\+ms}} (const arma\+::vec \&y, const arma\+::mat \&X, const arma\+::sp\+\_\+mat \&U, const arma\+::vec \&s, const arma\+::vec \&weights, const arma\+::vec \&offset, const std\+::string \&family, const std\+::string \&dcmp\+Method, const double \&delta, const double \&left, const double \&right, const double \&tol, const double \&tol\+\_\+eta, const int \&maxit, const int \&nthreads)
+\item 
+Rcpp\+Export SEXP \mbox{\hyperlink{_rcpp_exports_8cpp_a1d78e331912be58be01dad32d3191e56}{\+\_\+fastglmm\+\_\+fastglmm\+\_\+ms}} (SEXP y\+SEXP, SEXP XSEXP, SEXP USEXP, SEXP s\+SEXP, SEXP weights\+SEXP, SEXP offset\+SEXP, SEXP family\+SEXP, SEXP dcmp\+Method\+SEXP, SEXP delta\+SEXP, SEXP left\+SEXP, SEXP right\+SEXP, SEXP tol\+SEXP, SEXP tol\+\_\+eta\+SEXP, SEXP maxit\+SEXP, SEXP nthreads\+SEXP)
+\item 
+Rcpp\+Export void \mbox{\hyperlink{_rcpp_exports_8cpp_a95ff4b825d1b8f017361e3556e0d57bc}{R\+\_\+init\+\_\+fastglmm}} (Dll\+Info \texorpdfstring{$\ast$}{*}dll)
 \end{DoxyCompactItemize}
 
 
+\label{doc-func-members}
+\Hypertarget{_rcpp_exports_8cpp_doc-func-members}
 \doxysubsection{Function Documentation}
-\Hypertarget{_rcpp_exports_8cpp_ae9616e5055cc240c7e4f18232d2cc8ae}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastlmm\_fastglmm\_mm@{\_fastlmm\_fastglmm\_mm}}
-\index{\_fastlmm\_fastglmm\_mm@{\_fastlmm\_fastglmm\_mm}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{\_fastlmm\_fastglmm\_mm()}{\_fastlmm\_fastglmm\_mm()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_ae9616e5055cc240c7e4f18232d2cc8ae} 
-Rcpp\+Export SEXP \+\_\+fastlmm\+\_\+fastglmm\+\_\+mm (\begin{DoxyParamCaption}\item[{SEXP}]{y\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{USEXP}{, }\item[{SEXP}]{s\+SEXP}{, }\item[{SEXP}]{weights\+SEXP}{, }\item[{SEXP}]{offset\+SEXP}{, }\item[{SEXP}]{family\+SEXP}{, }\item[{SEXP}]{delta\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{}\end{DoxyParamCaption})}
+\Hypertarget{_rcpp_exports_8cpp_a3c0a955d01cc3917bda461b5061fd020}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastglmm\_fastglmm\_mm@{\_fastglmm\_fastglmm\_mm}}
+\index{\_fastglmm\_fastglmm\_mm@{\_fastglmm\_fastglmm\_mm}!RcppExports.cpp@{RcppExports.cpp}}
+\doxysubsubsection{\texorpdfstring{\_fastglmm\_fastglmm\_mm()}{\_fastglmm\_fastglmm\_mm()}}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a3c0a955d01cc3917bda461b5061fd020} 
+Rcpp\+Export SEXP \+\_\+fastglmm\+\_\+fastglmm\+\_\+mm (\begin{DoxyParamCaption}\item[{SEXP}]{y\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{USEXP}{, }\item[{SEXP}]{s\+SEXP}{, }\item[{SEXP}]{weights\+SEXP}{, }\item[{SEXP}]{offset\+SEXP}{, }\item[{SEXP}]{family\+SEXP}{, }\item[{SEXP}]{dcmp\+Method\+SEXP}{, }\item[{SEXP}]{delta\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{tol\+\_\+eta\+SEXP}{, }\item[{SEXP}]{maxit\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_a7998dc7b8e1cfbd46a1f417a37e2f4d1}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastlmm\_fastlmm\_mmm@{\_fastlmm\_fastlmm\_mmm}}
-\index{\_fastlmm\_fastlmm\_mmm@{\_fastlmm\_fastlmm\_mmm}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{\_fastlmm\_fastlmm\_mmm()}{\_fastlmm\_fastlmm\_mmm()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a7998dc7b8e1cfbd46a1f417a37e2f4d1} 
-Rcpp\+Export SEXP \+\_\+fastlmm\+\_\+fastlmm\+\_\+mmm (\begin{DoxyParamCaption}\item[{SEXP}]{YSEXP}{, }\item[{SEXP}]{ids\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{ZSEXP}{, }\item[{SEXP}]{Weights\+SEXP}{, }\item[{SEXP}]{delta\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{, }\item[{SEXP}]{REMLSEXP}{}\end{DoxyParamCaption})}
+\Hypertarget{_rcpp_exports_8cpp_a1d78e331912be58be01dad32d3191e56}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastglmm\_fastglmm\_ms@{\_fastglmm\_fastglmm\_ms}}
+\index{\_fastglmm\_fastglmm\_ms@{\_fastglmm\_fastglmm\_ms}!RcppExports.cpp@{RcppExports.cpp}}
+\doxysubsubsection{\texorpdfstring{\_fastglmm\_fastglmm\_ms()}{\_fastglmm\_fastglmm\_ms()}}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a1d78e331912be58be01dad32d3191e56} 
+Rcpp\+Export SEXP \+\_\+fastglmm\+\_\+fastglmm\+\_\+ms (\begin{DoxyParamCaption}\item[{SEXP}]{y\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{USEXP}{, }\item[{SEXP}]{s\+SEXP}{, }\item[{SEXP}]{weights\+SEXP}{, }\item[{SEXP}]{offset\+SEXP}{, }\item[{SEXP}]{family\+SEXP}{, }\item[{SEXP}]{dcmp\+Method\+SEXP}{, }\item[{SEXP}]{delta\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{tol\+\_\+eta\+SEXP}{, }\item[{SEXP}]{maxit\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_a2309400c8ce728fcd3d06fc5dd372e48}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastlmm\_fastlmm\_mms@{\_fastlmm\_fastlmm\_mms}}
-\index{\_fastlmm\_fastlmm\_mms@{\_fastlmm\_fastlmm\_mms}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{\_fastlmm\_fastlmm\_mms()}{\_fastlmm\_fastlmm\_mms()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a2309400c8ce728fcd3d06fc5dd372e48} 
-Rcpp\+Export SEXP \+\_\+fastlmm\+\_\+fastlmm\+\_\+mms (\begin{DoxyParamCaption}\item[{SEXP}]{YSEXP}{, }\item[{SEXP}]{ids\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{ZSEXP}{, }\item[{SEXP}]{Weights\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{, }\item[{SEXP}]{REMLSEXP}{}\end{DoxyParamCaption})}
+\Hypertarget{_rcpp_exports_8cpp_a83e97c28026c7983b3404217913d06c2}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastglmm\_fastlmm\_mm@{\_fastglmm\_fastlmm\_mm}}
+\index{\_fastglmm\_fastlmm\_mm@{\_fastglmm\_fastlmm\_mm}!RcppExports.cpp@{RcppExports.cpp}}
+\doxysubsubsection{\texorpdfstring{\_fastglmm\_fastlmm\_mm()}{\_fastglmm\_fastlmm\_mm()}}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a83e97c28026c7983b3404217913d06c2} 
+Rcpp\+Export SEXP \+\_\+fastglmm\+\_\+fastlmm\+\_\+mm (\begin{DoxyParamCaption}\item[{SEXP}]{y\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{USEXP}{, }\item[{SEXP}]{s\+SEXP}{, }\item[{SEXP}]{weights\+SEXP}{, }\item[{SEXP}]{dcmp\+Method\+SEXP}{, }\item[{SEXP}]{delta\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{, }\item[{SEXP}]{REMLSEXP}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_a4cb17f51073c1766f98fc000954d1904}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastlmm\_fastlmm\_msm@{\_fastlmm\_fastlmm\_msm}}
-\index{\_fastlmm\_fastlmm\_msm@{\_fastlmm\_fastlmm\_msm}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{\_fastlmm\_fastlmm\_msm()}{\_fastlmm\_fastlmm\_msm()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a4cb17f51073c1766f98fc000954d1904} 
-Rcpp\+Export SEXP \+\_\+fastlmm\+\_\+fastlmm\+\_\+msm (\begin{DoxyParamCaption}\item[{SEXP}]{YSEXP}{, }\item[{SEXP}]{ids\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{ZSEXP}{, }\item[{SEXP}]{Weights\+SEXP}{, }\item[{SEXP}]{delta\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{, }\item[{SEXP}]{REMLSEXP}{}\end{DoxyParamCaption})}
+\Hypertarget{_rcpp_exports_8cpp_ab7d77339a8c91b7a2a84d5e4177ea7db}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastglmm\_fastlmm\_ms@{\_fastglmm\_fastlmm\_ms}}
+\index{\_fastglmm\_fastlmm\_ms@{\_fastglmm\_fastlmm\_ms}!RcppExports.cpp@{RcppExports.cpp}}
+\doxysubsubsection{\texorpdfstring{\_fastglmm\_fastlmm\_ms()}{\_fastglmm\_fastlmm\_ms()}}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_ab7d77339a8c91b7a2a84d5e4177ea7db} 
+Rcpp\+Export SEXP \+\_\+fastglmm\+\_\+fastlmm\+\_\+ms (\begin{DoxyParamCaption}\item[{SEXP}]{y\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{USEXP}{, }\item[{SEXP}]{s\+SEXP}{, }\item[{SEXP}]{weights\+SEXP}{, }\item[{SEXP}]{dcmp\+Method\+SEXP}{, }\item[{SEXP}]{delta\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{, }\item[{SEXP}]{REMLSEXP}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_a992ac7195e4c3b8b92ef49ef3b1d5648}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastlmm\_fastlmm\_mss@{\_fastlmm\_fastlmm\_mss}}
-\index{\_fastlmm\_fastlmm\_mss@{\_fastlmm\_fastlmm\_mss}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{\_fastlmm\_fastlmm\_mss()}{\_fastlmm\_fastlmm\_mss()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a992ac7195e4c3b8b92ef49ef3b1d5648} 
-Rcpp\+Export SEXP \+\_\+fastlmm\+\_\+fastlmm\+\_\+mss (\begin{DoxyParamCaption}\item[{SEXP}]{YSEXP}{, }\item[{SEXP}]{ids\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{ZSEXP}{, }\item[{SEXP}]{Weights\+SEXP}{, }\item[{SEXP}]{delta\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{, }\item[{SEXP}]{REMLSEXP}{}\end{DoxyParamCaption})}
+\Hypertarget{_rcpp_exports_8cpp_a3eea52b482593289434ce9655aa44f56}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastglmm\_fastlmm\_sm@{\_fastglmm\_fastlmm\_sm}}
+\index{\_fastglmm\_fastlmm\_sm@{\_fastglmm\_fastlmm\_sm}!RcppExports.cpp@{RcppExports.cpp}}
+\doxysubsubsection{\texorpdfstring{\_fastglmm\_fastlmm\_sm()}{\_fastglmm\_fastlmm\_sm()}}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a3eea52b482593289434ce9655aa44f56} 
+Rcpp\+Export SEXP \+\_\+fastglmm\+\_\+fastlmm\+\_\+sm (\begin{DoxyParamCaption}\item[{SEXP}]{y\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{USEXP}{, }\item[{SEXP}]{s\+SEXP}{, }\item[{SEXP}]{weights\+SEXP}{, }\item[{SEXP}]{dcmp\+Method\+SEXP}{, }\item[{SEXP}]{delta\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{, }\item[{SEXP}]{REMLSEXP}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_a110819c929bc08d1abff4fa84873f74a}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastlmm\_fastlmm\_vmm@{\_fastlmm\_fastlmm\_vmm}}
-\index{\_fastlmm\_fastlmm\_vmm@{\_fastlmm\_fastlmm\_vmm}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{\_fastlmm\_fastlmm\_vmm()}{\_fastlmm\_fastlmm\_vmm()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a110819c929bc08d1abff4fa84873f74a} 
-Rcpp\+Export SEXP \+\_\+fastlmm\+\_\+fastlmm\+\_\+vmm (\begin{DoxyParamCaption}\item[{SEXP}]{y\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{USEXP}{, }\item[{SEXP}]{s\+SEXP}{, }\item[{SEXP}]{weights\+SEXP}{, }\item[{SEXP}]{delta\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{, }\item[{SEXP}]{REMLSEXP}{}\end{DoxyParamCaption})}
+\Hypertarget{_rcpp_exports_8cpp_a0d75036c86bf81b504c97c1636ec2597}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastglmm\_fastlmm\_ss@{\_fastglmm\_fastlmm\_ss}}
+\index{\_fastglmm\_fastlmm\_ss@{\_fastglmm\_fastlmm\_ss}!RcppExports.cpp@{RcppExports.cpp}}
+\doxysubsubsection{\texorpdfstring{\_fastglmm\_fastlmm\_ss()}{\_fastglmm\_fastlmm\_ss()}}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a0d75036c86bf81b504c97c1636ec2597} 
+Rcpp\+Export SEXP \+\_\+fastglmm\+\_\+fastlmm\+\_\+ss (\begin{DoxyParamCaption}\item[{SEXP}]{y\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{USEXP}{, }\item[{SEXP}]{s\+SEXP}{, }\item[{SEXP}]{weights\+SEXP}{, }\item[{SEXP}]{dcmp\+Method\+SEXP}{, }\item[{SEXP}]{delta\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{, }\item[{SEXP}]{REMLSEXP}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_a3f8cd82030f46b6b6def43aaef502f46}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastlmm\_fastlmm\_vms@{\_fastlmm\_fastlmm\_vms}}
-\index{\_fastlmm\_fastlmm\_vms@{\_fastlmm\_fastlmm\_vms}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{\_fastlmm\_fastlmm\_vms()}{\_fastlmm\_fastlmm\_vms()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a3f8cd82030f46b6b6def43aaef502f46} 
-Rcpp\+Export SEXP \+\_\+fastlmm\+\_\+fastlmm\+\_\+vms (\begin{DoxyParamCaption}\item[{SEXP}]{y\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{USEXP}{, }\item[{SEXP}]{s\+SEXP}{, }\item[{SEXP}]{weights\+SEXP}{, }\item[{SEXP}]{delta\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{, }\item[{SEXP}]{REMLSEXP}{}\end{DoxyParamCaption})}
+\Hypertarget{_rcpp_exports_8cpp_a3a171047cb532dd43b13890cc7dc653f}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastglmm\_nb\_theta@{\_fastglmm\_nb\_theta}}
+\index{\_fastglmm\_nb\_theta@{\_fastglmm\_nb\_theta}!RcppExports.cpp@{RcppExports.cpp}}
+\doxysubsubsection{\texorpdfstring{\_fastglmm\_nb\_theta()}{\_fastglmm\_nb\_theta()}}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a3a171047cb532dd43b13890cc7dc653f} 
+Rcpp\+Export SEXP \+\_\+fastglmm\+\_\+nb\+\_\+theta (\begin{DoxyParamCaption}\item[{SEXP}]{y\+SEXP}{, }\item[{SEXP}]{mu\+SEXP}{, }\item[{SEXP}]{n\+SEXP}{, }\item[{SEXP}]{weights\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_a571fa143b219d85da8a60a60fbaa502a}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastlmm\_fastlmm\_vsm@{\_fastlmm\_fastlmm\_vsm}}
-\index{\_fastlmm\_fastlmm\_vsm@{\_fastlmm\_fastlmm\_vsm}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{\_fastlmm\_fastlmm\_vsm()}{\_fastlmm\_fastlmm\_vsm()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a571fa143b219d85da8a60a60fbaa502a} 
-Rcpp\+Export SEXP \+\_\+fastlmm\+\_\+fastlmm\+\_\+vsm (\begin{DoxyParamCaption}\item[{SEXP}]{y\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{USEXP}{, }\item[{SEXP}]{s\+SEXP}{, }\item[{SEXP}]{weights\+SEXP}{, }\item[{SEXP}]{delta\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{, }\item[{SEXP}]{REMLSEXP}{}\end{DoxyParamCaption})}
-
-\Hypertarget{_rcpp_exports_8cpp_a1c1ea81841867e79dfb2b04a9756f642}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastlmm\_fastlmm\_vss@{\_fastlmm\_fastlmm\_vss}}
-\index{\_fastlmm\_fastlmm\_vss@{\_fastlmm\_fastlmm\_vss}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{\_fastlmm\_fastlmm\_vss()}{\_fastlmm\_fastlmm\_vss()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a1c1ea81841867e79dfb2b04a9756f642} 
-Rcpp\+Export SEXP \+\_\+fastlmm\+\_\+fastlmm\+\_\+vss (\begin{DoxyParamCaption}\item[{SEXP}]{y\+SEXP}{, }\item[{SEXP}]{XSEXP}{, }\item[{SEXP}]{USEXP}{, }\item[{SEXP}]{s\+SEXP}{, }\item[{SEXP}]{weights\+SEXP}{, }\item[{SEXP}]{delta\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{, }\item[{SEXP}]{nthreads\+SEXP}{, }\item[{SEXP}]{REMLSEXP}{}\end{DoxyParamCaption})}
-
-\Hypertarget{_rcpp_exports_8cpp_a9d18104ec3b818e04b779315beb9715b}\index{RcppExports.cpp@{RcppExports.cpp}!\_fastlmm\_nb\_theta@{\_fastlmm\_nb\_theta}}
-\index{\_fastlmm\_nb\_theta@{\_fastlmm\_nb\_theta}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{\_fastlmm\_nb\_theta()}{\_fastlmm\_nb\_theta()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a9d18104ec3b818e04b779315beb9715b} 
-Rcpp\+Export SEXP \+\_\+fastlmm\+\_\+nb\+\_\+theta (\begin{DoxyParamCaption}\item[{SEXP}]{y\+SEXP}{, }\item[{SEXP}]{mu\+SEXP}{, }\item[{SEXP}]{n\+SEXP}{, }\item[{SEXP}]{weights\+SEXP}{, }\item[{SEXP}]{left\+SEXP}{, }\item[{SEXP}]{right\+SEXP}{, }\item[{SEXP}]{tol\+SEXP}{}\end{DoxyParamCaption})}
-
-\Hypertarget{_rcpp_exports_8cpp_ac12d8a0a56bb2a2b9d8910979061c62b}\index{RcppExports.cpp@{RcppExports.cpp}!fastglmm\_mm@{fastglmm\_mm}}
+\Hypertarget{_rcpp_exports_8cpp_acd6d5d0b4f7c1b2af841faa00fa8d695}\index{RcppExports.cpp@{RcppExports.cpp}!fastglmm\_mm@{fastglmm\_mm}}
 \index{fastglmm\_mm@{fastglmm\_mm}!RcppExports.cpp@{RcppExports.cpp}}
 \doxysubsubsection{\texorpdfstring{fastglmm\_mm()}{fastglmm\_mm()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_ac12d8a0a56bb2a2b9d8910979061c62b} 
-List fastglmm\+\_\+mm (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const arma\+::vec \&}]{offset}{, }\item[{const std\+::string \&}]{family}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_acd6d5d0b4f7c1b2af841faa00fa8d695} 
+List fastglmm\+\_\+mm (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const arma\+::vec \&}]{offset}{, }\item[{const std\+::string \&}]{family}{, }\item[{const std\+::string \&}]{dcmp\+Method}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const double \&}]{tol\+\_\+eta}{, }\item[{const int \&}]{maxit}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_adbc6faffbc93e41551fbac99b321b3a8}\index{RcppExports.cpp@{RcppExports.cpp}!fastlmm\_mmm@{fastlmm\_mmm}}
-\index{fastlmm\_mmm@{fastlmm\_mmm}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{fastlmm\_mmm()}{fastlmm\_mmm()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_adbc6faffbc93e41551fbac99b321b3a8} 
-List fastlmm\+\_\+mmm (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const std\+::vector$<$ std\+::string $>$}]{ids}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::mat \&}]{Z}{, }\item[{const arma\+::mat \&}]{Weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{}\end{DoxyParamCaption})}
+\Hypertarget{_rcpp_exports_8cpp_aa491ca96995d4a55ddbcf4ebc13d6c61}\index{RcppExports.cpp@{RcppExports.cpp}!fastglmm\_ms@{fastglmm\_ms}}
+\index{fastglmm\_ms@{fastglmm\_ms}!RcppExports.cpp@{RcppExports.cpp}}
+\doxysubsubsection{\texorpdfstring{fastglmm\_ms()}{fastglmm\_ms()}}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_aa491ca96995d4a55ddbcf4ebc13d6c61} 
+List fastglmm\+\_\+ms (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const arma\+::vec \&}]{offset}{, }\item[{const std\+::string \&}]{family}{, }\item[{const std\+::string \&}]{dcmp\+Method}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const double \&}]{tol\+\_\+eta}{, }\item[{const int \&}]{maxit}{, }\item[{const int \&}]{nthreads}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_a8232e8a23f82189e1286d98a163e7492}\index{RcppExports.cpp@{RcppExports.cpp}!fastlmm\_mms@{fastlmm\_mms}}
-\index{fastlmm\_mms@{fastlmm\_mms}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{fastlmm\_mms()}{fastlmm\_mms()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a8232e8a23f82189e1286d98a163e7492} 
-List fastlmm\+\_\+mms (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const std\+::vector$<$ std\+::string $>$}]{ids}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{Z}{, }\item[{const arma\+::mat \&}]{Weights}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{}\end{DoxyParamCaption})}
+\Hypertarget{_rcpp_exports_8cpp_ae2e82b95e81b805bdde8a0502875fa33}\index{RcppExports.cpp@{RcppExports.cpp}!fastlmm\_mm@{fastlmm\_mm}}
+\index{fastlmm\_mm@{fastlmm\_mm}!RcppExports.cpp@{RcppExports.cpp}}
+\doxysubsubsection{\texorpdfstring{fastlmm\_mm()}{fastlmm\_mm()}}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_ae2e82b95e81b805bdde8a0502875fa33} 
+List fastlmm\+\_\+mm (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const std\+::string \&}]{dcmp\+Method}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_a64a5cd97f4781faf6c13769f4542ae65}\index{RcppExports.cpp@{RcppExports.cpp}!fastlmm\_msm@{fastlmm\_msm}}
-\index{fastlmm\_msm@{fastlmm\_msm}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{fastlmm\_msm()}{fastlmm\_msm()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a64a5cd97f4781faf6c13769f4542ae65} 
-List fastlmm\+\_\+msm (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const std\+::vector$<$ std\+::string $>$}]{ids}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::mat \&}]{Z}{, }\item[{const arma\+::mat \&}]{Weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{}\end{DoxyParamCaption})}
+\Hypertarget{_rcpp_exports_8cpp_a8bdb8cb814d9e4d0992db88eb490b7d9}\index{RcppExports.cpp@{RcppExports.cpp}!fastlmm\_ms@{fastlmm\_ms}}
+\index{fastlmm\_ms@{fastlmm\_ms}!RcppExports.cpp@{RcppExports.cpp}}
+\doxysubsubsection{\texorpdfstring{fastlmm\_ms()}{fastlmm\_ms()}}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a8bdb8cb814d9e4d0992db88eb490b7d9} 
+List fastlmm\+\_\+ms (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const std\+::string \&}]{dcmp\+Method}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_ad4015a74a80692cc22e3e7f2804532b8}\index{RcppExports.cpp@{RcppExports.cpp}!fastlmm\_mss@{fastlmm\_mss}}
-\index{fastlmm\_mss@{fastlmm\_mss}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{fastlmm\_mss()}{fastlmm\_mss()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_ad4015a74a80692cc22e3e7f2804532b8} 
-List fastlmm\+\_\+mss (\begin{DoxyParamCaption}\item[{const arma\+::mat \&}]{Y}{, }\item[{const std\+::vector$<$ std\+::string $>$}]{ids}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{Z}{, }\item[{const arma\+::mat \&}]{Weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{}\end{DoxyParamCaption})}
+\Hypertarget{_rcpp_exports_8cpp_af7e4dd997265f18b998508e0e74a8653}\index{RcppExports.cpp@{RcppExports.cpp}!fastlmm\_sm@{fastlmm\_sm}}
+\index{fastlmm\_sm@{fastlmm\_sm}!RcppExports.cpp@{RcppExports.cpp}}
+\doxysubsubsection{\texorpdfstring{fastlmm\_sm()}{fastlmm\_sm()}}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_af7e4dd997265f18b998508e0e74a8653} 
+List fastlmm\+\_\+sm (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const std\+::string \&}]{dcmp\+Method}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_acd2f0b63f15b12ce0c7d337d7ffd37e6}\index{RcppExports.cpp@{RcppExports.cpp}!fastlmm\_vmm@{fastlmm\_vmm}}
-\index{fastlmm\_vmm@{fastlmm\_vmm}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{fastlmm\_vmm()}{fastlmm\_vmm()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_acd2f0b63f15b12ce0c7d337d7ffd37e6} 
-List fastlmm\+\_\+vmm (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{}\end{DoxyParamCaption})}
-
-\Hypertarget{_rcpp_exports_8cpp_ade91851ecbd81a5138e8254ebdc835b5}\index{RcppExports.cpp@{RcppExports.cpp}!fastlmm\_vms@{fastlmm\_vms}}
-\index{fastlmm\_vms@{fastlmm\_vms}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{fastlmm\_vms()}{fastlmm\_vms()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_ade91851ecbd81a5138e8254ebdc835b5} 
-List fastlmm\+\_\+vms (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{}\end{DoxyParamCaption})}
-
-\Hypertarget{_rcpp_exports_8cpp_adec4c1439c1c3abb077916436b482d6a}\index{RcppExports.cpp@{RcppExports.cpp}!fastlmm\_vsm@{fastlmm\_vsm}}
-\index{fastlmm\_vsm@{fastlmm\_vsm}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{fastlmm\_vsm()}{fastlmm\_vsm()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_adec4c1439c1c3abb077916436b482d6a} 
-List fastlmm\+\_\+vsm (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{}\end{DoxyParamCaption})}
-
-\Hypertarget{_rcpp_exports_8cpp_a2f9c4d846a69370b108f66cf0d5509df}\index{RcppExports.cpp@{RcppExports.cpp}!fastlmm\_vss@{fastlmm\_vss}}
-\index{fastlmm\_vss@{fastlmm\_vss}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{fastlmm\_vss()}{fastlmm\_vss()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a2f9c4d846a69370b108f66cf0d5509df} 
-List fastlmm\+\_\+vss (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{}\end{DoxyParamCaption})}
+\Hypertarget{_rcpp_exports_8cpp_a4504b1741c9ddaae56b5a6348d14fae3}\index{RcppExports.cpp@{RcppExports.cpp}!fastlmm\_ss@{fastlmm\_ss}}
+\index{fastlmm\_ss@{fastlmm\_ss}!RcppExports.cpp@{RcppExports.cpp}}
+\doxysubsubsection{\texorpdfstring{fastlmm\_ss()}{fastlmm\_ss()}}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a4504b1741c9ddaae56b5a6348d14fae3} 
+List fastlmm\+\_\+ss (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{, }\item[{const arma\+::sp\+\_\+mat \&}]{X}{, }\item[{const arma\+::sp\+\_\+mat \&}]{U}{, }\item[{const arma\+::vec \&}]{s}{, }\item[{const arma\+::vec \&}]{weights}{, }\item[{const std\+::string \&}]{dcmp\+Method}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{}\end{DoxyParamCaption})}
 
 \Hypertarget{_rcpp_exports_8cpp_a7fd3d775968b589d6f1d159316481ec2}\index{RcppExports.cpp@{RcppExports.cpp}!nb\_theta@{nb\_theta}}
 \index{nb\_theta@{nb\_theta}!RcppExports.cpp@{RcppExports.cpp}}
@@ -171,9 +125,9 @@ List fastlmm\+\_\+vss (\begin{DoxyParamCaption}\item[{const arma\+::vec \&}]{y}{
 {\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a7fd3d775968b589d6f1d159316481ec2} 
 double nb\+\_\+theta (\begin{DoxyParamCaption}\item[{const Numeric\+Vector \&}]{y}{, }\item[{const Numeric\+Vector \&}]{mu}{, }\item[{const double \&}]{n}{, }\item[{const Numeric\+Vector \&}]{weights}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{}\end{DoxyParamCaption})}
 
-\Hypertarget{_rcpp_exports_8cpp_a225f9b735e1ddf6b0b1b8f5b091e0322}\index{RcppExports.cpp@{RcppExports.cpp}!R\_init\_fastlmm@{R\_init\_fastlmm}}
-\index{R\_init\_fastlmm@{R\_init\_fastlmm}!RcppExports.cpp@{RcppExports.cpp}}
-\doxysubsubsection{\texorpdfstring{R\_init\_fastlmm()}{R\_init\_fastlmm()}}
-{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a225f9b735e1ddf6b0b1b8f5b091e0322} 
-Rcpp\+Export void R\+\_\+init\+\_\+fastlmm (\begin{DoxyParamCaption}\item[{Dll\+Info \texorpdfstring{$\ast$}{*}}]{dll}{}\end{DoxyParamCaption})}
+\Hypertarget{_rcpp_exports_8cpp_a95ff4b825d1b8f017361e3556e0d57bc}\index{RcppExports.cpp@{RcppExports.cpp}!R\_init\_fastglmm@{R\_init\_fastglmm}}
+\index{R\_init\_fastglmm@{R\_init\_fastglmm}!RcppExports.cpp@{RcppExports.cpp}}
+\doxysubsubsection{\texorpdfstring{R\_init\_fastglmm()}{R\_init\_fastglmm()}}
+{\footnotesize\ttfamily \label{_rcpp_exports_8cpp_a95ff4b825d1b8f017361e3556e0d57bc} 
+Rcpp\+Export void R\+\_\+init\+\_\+fastglmm (\begin{DoxyParamCaption}\item[{Dll\+Info \texorpdfstring{$\ast$}{*}}]{dll}{}\end{DoxyParamCaption})}
 

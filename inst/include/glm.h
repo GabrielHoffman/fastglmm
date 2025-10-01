@@ -13,6 +13,8 @@
 // [[Rcpp::depends(RcppParallel)]]	
 #include <RcppParallel.h>
 
+#include <iostream>
+
 // #include "ModelFit.h"
 #include "linearRegression.h"
 #include "nb_theta.h"
@@ -26,18 +28,17 @@ namespace fastglmmLib {
 /** Check that response is valid for given family
  */ 
 static void checkResponse(const vec &y, const string &family){
-//const shared_ptr<GLMFamily> fam){
 	
 	shared_ptr<GLMFamily> fam = getGLMFamily( family );
 
-	// unique sorted values
-	vec res = unique(y);
+	// Keep unique sorted values that are not NAN
+	vec res = unique(omit_nan(y));
 
 	string famStr = fam->family();
 
 	if( famStr == "BinomialLogit" || famStr == "BinomialProbit" ){
 		// valid for binary logistic regression
-		bool valid_binary = (res.n_elem == 2 && res[0] == 0 && res[1] == 1);
+		bool valid_binary = (res.n_elem == 2 && (res[0] == 0 && res[1] == 1));
 
 		// valid for binomial with logit/probit link
 		bool valid_beta = (res[0] >= 0 && res[res.n_elem-1] <= 1);
@@ -62,7 +63,7 @@ static void checkResponse(const vec &y, const string &family){
 /** Workspace for GLM 
  */ 
 struct GLMWork : LMWork {	
-	vec eta, mu, gprime, z, wsqrt;
+	vec eta, mu, gprime, z, wsqrt, w;
     GLMWork() {}
 };
 
@@ -125,25 +126,24 @@ static ModelFitGLM GLM(
 		if( i == 0 && betaInit.is_empty() ){			
 			// initialize mu, essential for Poisson
 			// faster convergence than initializing beta to zero
-			work->mu = fam->initialize(y, weights_);
+			work->mu 	= fam->initialize(y, weights_);
 			work->eta = fam->link(work->mu) ;
 		}else{
 	    	// linear predictor
 			work->eta = X * fit.coef + offset_;
-			work->mu = fam->linkinv( work->eta );
+			work->mu 	= fam->linkinv( work->eta );
 		}
+  	work->gprime= fam->mu_eta( work->eta );
+  	work->z  		= (work->eta - offset_) + (y - work->mu) / work->gprime;
+  	work->wsqrt = work->gprime % sqrt(weights_ / fam->variance( work->mu ));
 
-    	work->gprime= fam->mu_eta( work->eta );
-    	work->z  	= (work->eta - offset_) + (y - work->mu) / work->gprime;
-    	work->wsqrt = work->gprime % sqrt(weights_ / fam->variance( work->mu ));
+  	vec beta_prev(fit.coef);
 
-    	vec beta_prev(fit.coef);
+  	// Solve least squares system to get beta
+  	fit = lm(scaleEachCol(X, work->wsqrt), work->z % work->wsqrt, LEAST, 0, work);
 
-    	// Solve least squares system to get beta
-    	fit = lm(scaleEachCol(X, work->wsqrt), work->z % work->wsqrt, LEAST, 0, work);
-
-    	// if model is singular
-    	if( ! fit.success ) break;
+  	// if model is singular
+  	if( ! fit.success ) break;
 
 		// stopping criterion
 		if( i > 0 && norm(fit.coef - beta_prev) < epsilon ) break;
@@ -154,26 +154,34 @@ static ModelFitGLM GLM(
 	work->eta = X * fit.coef + offset_;
 	work->mu = fam->linkinv( work->eta );
 
-    // Solve least squares system, 
-    // estimate other parameters based on ModelDetail
-    // Estimate dispersion if needed
-    fit = lm(scaleEachCol(X, work->wsqrt), work->z % work->wsqrt, md, 0, work, fam->estimateDispersion());
+  // Solve least squares system, 
+  // estimate other parameters based on ModelDetail
+  // Estimate dispersion if needed
+  // Reduce residual degrees of freedom by the number of 
+  // 	entries with zero weights
+  double rdf_offset = sum(work->wsqrt == 0);
+  fit = lm(scaleEachCol(X, work->wsqrt), work->z % work->wsqrt, md, rdf_offset, work, fam->estimateDispersion());
 
-    if( md == MAX){
+  if( md == MAX){
 
 		// compute raw deviance residuals
-    	vec dr = fam->dev_resids(y, work->mu, weights_);
+  	vec dr = fam->dev_resids(y, work->mu, weights_);
 
-    	// transform and store residuals
-    	fit.setDevResids( dr, y, work->mu);
-    }
+  	// transform and store residuals
+  	fit.setDevResids( dr, y, work->mu, weights_);
+  }
 
-    if( md >= MOST ){
-    	fit.setFittedValues( work->mu );
-    }
+  if( md >= MOST ){
+  	fit.setFittedValues( work->mu, weights_ );
+  }
 
-		// free work if allocated in this function
-    if( alloc_local) delete work;
+  if( md >= HIGH ){
+	  // if weight is zero, set residuals to NAN
+  	fit.residuals.elem(find(work->wsqrt == 0)).fill(datum::nan);
+  }
+
+	// free work if allocated in this function
+  if( alloc_local) delete work;
 
 	return ModelFitGLM(fit, family, i);
 }
@@ -200,18 +208,19 @@ static ModelFitGLM GLM(
   * @param epsilon_nb stopping criteria for norm between coefficient estimates compare to the previous iteration in estimating theta
  * @param maxit_nb max iterations for estimating theta
  */  
-static ModelFitGLM GLM_NB(	const mat& X, 
-					const colvec& y, 
-					const ModelDetail md = LOW, 
-					const vec &weights = {}, 
-					const vec &offset = {}, 
-					const bool &doCoxReid = true, 
-					GLMWork *work = nullptr, 
-					const vec &betaInit = {}, 
-					const double &epsilon = 1e-8, 
-					const double &maxit = 25, 
-					const double &epsilon_nb = 1e-4, 
-					const double &maxit_nb = 5){
+static ModelFitGLM GLM_NB(	
+	const mat& X, 
+	const colvec& y, 
+	const ModelDetail md = LOW, 
+	const vec &weights = {}, 
+	const vec &offset = {}, 
+	const bool &doCoxReid = true, 
+	GLMWork *work = nullptr, 
+	const vec &betaInit = {}, 
+	const double &epsilon = 1e-8, 
+	const double &maxit = 25, 
+	const double &epsilon_nb = 1e-4, 
+	const double &maxit_nb = 5){
 
 	// allocate work, if not already alloc'd
   bool alloc_local = false;
@@ -291,22 +300,23 @@ static ModelFitGLM GLM_NB(	const mat& X,
  * @param epsilon_nb tolerance for negative binomial
  * @param maxit_nb max iterations for negative binomial
 */
-static ModelFitGLMList glmFitFeatures(	const arma::vec &y, 
-								const arma::mat &X_design, 
-								const arma::mat &X_features, 
-								const vector<string> &ids,  
-								string family, 
-								arma::vec weights = {}, 
-								const vec &offset = {}, 
-								const ModelDetail md = LOW, 
-								const bool &doCoxReid = true, 
-								const bool &shareTheta = false, 
-								const bool &fastApprox = false,
-								const int &nthreads = 1, 
-								const double &epsilon = 1e-8, 
-								const double &maxit = 25, 
-								const double &epsilon_nb = 1e-4,
-								const double &maxit_nb = 5){
+static ModelFitGLMList glmFitFeatures(	
+	const arma::vec &y, 
+	const arma::mat &X_design, 
+	const arma::mat &X_features, 
+	const vector<string> &ids,  
+	string family, 
+	arma::vec weights = {}, 
+	const vec &offset = {}, 
+	const ModelDetail md = LOW, 
+	const bool &doCoxReid = true, 
+	const bool &shareTheta = false, 
+	const bool &fastApprox = false,
+	const int &nthreads = 1, 
+	const double &epsilon = 1e-8, 
+	const double &maxit = 25, 
+	const double &epsilon_nb = 1e-4,
+	const double &maxit_nb = 5){
 
   // standardize weights
   if( ! weights.is_empty() ){
@@ -330,39 +340,39 @@ static ModelFitGLMList glmFitFeatures(	const arma::vec &y,
   	fitInit = GLM(X_design, y, family, LEAST, weights, offset, work, {}, epsilon, maxit);
   }
 
-    // get working response
-    vec workingResponse(work->z);
-    vec workingWeights(pow(work->wsqrt, 2));
-    workingWeights = workingWeights / mean(workingWeights);
-    delete work;
+  // get working response
+  vec workingResponse(work->z);
+  vec workingWeights(pow(work->wsqrt, 2));
+  workingWeights = workingWeights / mean(workingWeights);
+  delete work;
 
 	ModelFitGLMList fitList(X_features.n_cols, ModelFitGLM());
 
-    if( fastApprox ){
+  if( fastApprox ){
 
-	  	// Pre-projection on working response
-	  	// when test of X_features is truely under the null,
-	  	// approximation is very good
-			ModelFitList mfl = lmFitFeatures_preproj(workingResponse, X_design, X_features, ids, workingWeights, md, nthreads);
+  	// Pre-projection on working response
+  	// when test of X_features is truely under the null,
+  	// approximation is very good
+		ModelFitList mfl = lmFitFeatures_preproj(workingResponse, X_design, X_features, ids, workingWeights, md, nthreads);
 
-			for(int i=0; i<mfl.size(); i++){
-				fitList.at(i) = ModelFitGLM(mfl[i], family, 1);
-			}
-    }else{
-		
-    	// Full fit of each model
+		for(int i=0; i<mfl.size(); i++){
+			fitList.at(i) = ModelFitGLM(mfl[i], family, 1);
+		}
+  }else{
+	
+  	// Full fit of each model
 
-	    // set betaInit to [fitInit.coef,0]
-	    vec betaInit(fitInit.coef);
-	    betaInit.resize(betaInit.n_elem + 1);
-	    betaInit[betaInit.n_elem] = 0;
-	    
-			// Parallel part using Thread Building Blocks
-			tbb::task_arena limited_arena(nthreads);
-			limited_arena.execute([&] {
-			tbb::parallel_for(
-				tbb::blocked_range<int>(0, X_features.n_cols, 100), 
-				[&](const tbb::blocked_range<int>& r){ 
+    // set betaInit to [fitInit.coef,0]
+    vec betaInit(fitInit.coef);
+    betaInit.resize(betaInit.n_elem + 1);
+    betaInit[betaInit.n_elem] = 0;
+    
+		// Parallel part using Thread Building Blocks
+		tbb::task_arena limited_arena(nthreads);
+		limited_arena.execute([&] {
+		tbb::parallel_for(
+			tbb::blocked_range<int>(0, X_features.n_cols, 100), 
+			[&](const tbb::blocked_range<int>& r){ 
 
 			disable_parallel_blas();
 
@@ -374,17 +384,17 @@ static ModelFitGLMList glmFitFeatures(	const arma::vec &y,
 			GLMWork *work = new GLMWork();
 
 			// iterate through features 
-    	for (int j = r.begin(); j != r.end(); ++j) {  
+	  	for (int j = r.begin(); j != r.end(); ++j) {  
 				// Create design matrix with intercept as first column
 				X.col(n_covs) = X_features.col(j);
 
 				// GLM regression		
 				ModelFitGLM fit;
-	        	if( family == "nb" ){
-		        	fit = GLM_NB(X, y, md, weights, offset, doCoxReid, work, betaInit, epsilon, maxit, epsilon_nb, maxit_nb);
-	        	}else{
-		        	fit = GLM(X, y, family, md, weights, offset, work, betaInit, epsilon, maxit);
-		        }
+	      	if( family == "nb" ){
+	        	fit = GLM_NB(X, y, md, weights, offset, doCoxReid, work, betaInit, epsilon, maxit, epsilon_nb, maxit_nb);
+	      	}else{
+	        	fit = GLM(X, y, family, md, weights, offset, work, betaInit, epsilon, maxit);
+	        }
 
 		    // Save feature ID
 				fit.ID = ids[j];
@@ -392,6 +402,7 @@ static ModelFitGLMList glmFitFeatures(	const arma::vec &y,
 				// save result to list
 				fitList.at(j) =  fit;
 			}  
+
 			delete work;
 		}); }); 
 	}
@@ -422,27 +433,33 @@ static ModelFitGLMList glmFitFeatures(	const arma::vec &y,
  * 
  * Since the weights vary for each response, each model is computed separately without recycling precomputed values
 */
-static ModelFitGLMList glmFitResponses(const arma::mat &Y, 
-								const arma::mat &X, 
-								const vector<string> &ids, 
-								const vector<string> &family, 
-								const arma::vec weights = {}, 
-								const vec &offset = {}, 
-								const ModelDetail md = LOW, 
-								const bool &doCoxReid = true, 
-								const int &nthreads = 1, 
-								const double &epsilon = 1e-8, 
-								const double &maxit = 25, 
-								const double &epsilon_nb = 1e-4,
-								const double & maxit_nb = 5){
+static ModelFitGLMList glmFitResponses(
+	const arma::mat &Y, 
+	const arma::mat &X, 
+	const vector<string> &ids, 
+	const vector<string> &family, 
+	const arma::vec weights = {}, 
+	const vec &offset = {}, 
+	const ModelDetail md = LOW, 
+	const bool &doCoxReid = true, 
+	const int &nthreads = 1, 
+	const double &epsilon = 1e-8, 
+	const double &maxit = 25, 
+	const double &epsilon_nb = 1e-4,
+	const double & maxit_nb = 5){
 
   // standardize weights
-  vec w = weights;
-  if( ! w.is_empty() ){
-  	w = w / mean(w);
+  vec w_norm = weights;
+  if( ! w_norm.is_empty() ){
+  	w_norm = w_norm / mean(w_norm);
   }
 
   ModelFitGLMList fitList(Y.n_cols, ModelFitGLM());
+
+  // find rows in X with NAN values
+ 	uvec idx_drop = rows_with_nan(X);  
+ 	mat X_clean(X);
+ 	X_clean.rows(idx_drop).zeros();
 
 	// Parallel part using Thread Building Blocks
 	tbb::task_arena limited_arena(nthreads);
@@ -453,31 +470,41 @@ static ModelFitGLMList glmFitResponses(const arma::mat &Y,
 
 		disable_parallel_blas();
 
-    	// local workspace 
+  	// local workspace 
 		GLMWork *work = new GLMWork();
+		vec y, w;
+		uvec idx;
 
-        // iterate through responses 
-	    for (int j = r.begin(); j != r.end(); ++j) {    	
+    // iterate through responses 
+    for (int j = r.begin(); j != r.end(); ++j) {  
 
-        	// GLM regression   
-        	ModelFitGLM fit;
-        	if( family[j] == "nb" ){
-	        	fit = GLM_NB(X, Y.col(j), md, w, offset, doCoxReid, work, {}, epsilon, maxit, epsilon_nb, maxit_nb);
-        	}else{
-	        	fit = GLM(X, Y.col(j), family[j], md, w, offset, work, {}, epsilon, maxit);
-	        }
+    	// identify samples with NAN entries
+    	// set values and weights to zero
+    	y = Y.col(j);	
+    	w = w_norm;
+    	idx = unique(join_cols(find_nan(y), idx_drop));
+    	y.elem(idx).zeros();
+			w.elem(idx).zeros();
+
+    	// GLM regression   
+    	ModelFitGLM fit;
+    	if( family[j] == "nb" ){
+      	fit = GLM_NB(X_clean, y, md, w, offset, doCoxReid, work, {}, epsilon, maxit, epsilon_nb, maxit_nb);
+    	}else{
+      	fit = GLM(X_clean, y, family[j], md, w, offset, work, {}, epsilon, maxit);
+      }
 
 	    // Save feature ID
 			fit.ID = ids[j];
 
 			// return mean of mu for jth response
 			fit.mu_mean = mean(work->mu);
-			
-          // save result to list
-          fitList.at(j) = fit;
-        }  
-        delete work;
-		}); });
+		
+      // save result to list
+      fitList.at(j) = fit;
+    }  
+    delete work;
+	}); });
 
   return fitList;
 }
@@ -501,19 +528,20 @@ static ModelFitGLMList glmFitResponses(const arma::mat &Y,
  * 
  * Since the weights vary for each response, each model is computed separately without recycling precomputed values
 */
-static ModelFitGLMList glmFitResponses(const arma::mat &Y, 
-								const arma::mat &X, 
-								const vector<string> &ids, 
-								const string &family, 
-								const arma::vec &weights = {}, 
-								const vec &offset = {}, 
-								const ModelDetail md = LOW, 
-								const bool &doCoxReid = true, 
-								const int &nthreads = 1, 
-								const double &epsilon = 1e-8, 
-								const double &maxit = 25, 
-								const double &epsilon_nb = 1e-4, 
-								const double & maxit_nb = 5){
+static ModelFitGLMList glmFitResponses(
+	const arma::mat &Y, 
+	const arma::mat &X, 
+	const vector<string> &ids, 
+	const string &family, 
+	const arma::vec &weights = {}, 
+	const vec &offset = {}, 
+	const ModelDetail md = LOW, 
+	const bool &doCoxReid = true, 
+	const int &nthreads = 1, 
+	const double &epsilon = 1e-8, 
+	const double &maxit = 25, 
+	const double &epsilon_nb = 1e-4, 
+	const double & maxit_nb = 5){
 
 	// all responses analyzed with same family value
 	vector<string> famVec(Y.n_cols, family);

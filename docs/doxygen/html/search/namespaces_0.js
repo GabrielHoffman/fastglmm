@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fastlmmlib_0',['fastlmmLib',['../namespacefastlmm_lib.html',1,'']]]
+  ['fastglmmlib_0',['fastglmmLib',['../namespacefastglmm_lib.html',1,'']]]
 ];

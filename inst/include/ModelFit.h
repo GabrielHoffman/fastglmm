@@ -25,11 +25,11 @@ namespace fastglmmLib {
 // Specify level of model detail to return from regression fit
 typedef enum {
 	LEAST,  // just beta
-    LOW, 	// baseline parameters: beta, se, dispersion, rdf
-    MEDIUM, // vcov
-    HIGH,   // pearson residuals
-    MOST,   // hatvalues, fitted.values
-    MAX     // deviance residuals
+  LOW, 	// baseline parameters: beta, se, dispersion, rdf
+  MEDIUM, // vcov
+  HIGH,   // pearson residuals
+  MOST,   // hatvalues, fitted.values
+  MAX     // deviance residuals
 } ModelDetail;
 
 /** Store results from fitting linear regression model
@@ -51,55 +51,96 @@ class ModelFit {
 	ModelFit() {}
 
 	// LEAST
-	ModelFit( const bool & success, const vec &coef) : 
+	ModelFit( const bool & success, 
+            const vec &coef) : 
 		success(success), coef(coef) {}
 
 	// LOW
-	ModelFit( const bool & success, const vec &coef, const vec &se, const double & dispersion, const double &rdf) : 
+	ModelFit( const bool & success, 
+            const vec &coef, 
+            const vec &se, 
+            const double & dispersion, 
+            const double &rdf) : 
 		success(success), coef(coef), se(se), dispersion(dispersion), rdf(rdf) {
 
 		init();
 	}
 
 	// LOW with scalar coef and se
-	ModelFit( const bool & success, const double &coef, const double &se, const double & dispersion, const double &rdf): 
+	ModelFit( const bool & success, 
+            const double &coef, 
+            const double &se, 
+            const double & dispersion, 
+            const double &rdf): 
 		success(success), coef(vec(1, fill::value(coef))), se(vec(1, fill::value(se))), dispersion(dispersion), rdf(rdf) {}
 
 	// MEDIUM
-	ModelFit( const bool & success, const vec &coef, const vec &se, const double & dispersion, const double &rdf, const mat & vcov) :
+	ModelFit( const bool & success, 
+            const vec &coef, 
+            const vec &se, 
+            const double & dispersion, 
+            const double &rdf, 
+            const mat & vcov) :
 		success(success), coef(coef), se(se), dispersion(dispersion), rdf(rdf), vcov(vcov) {
 
 		init();
 	}
 
 	// HIGH
-	ModelFit( const bool & success, const vec &coef, const vec &se, const double & dispersion, const double &rdf, const mat & vcov, const vec &residuals) : 
+	ModelFit( const bool & success, 
+            const vec &coef, 
+            const vec &se, 
+            const double & dispersion, 
+            const double &rdf, 
+            const mat & vcov, 
+            const vec &residuals) : 
 		success(success), coef(coef), se(se), dispersion(dispersion), rdf(rdf), vcov(vcov), residuals(residuals) {
 
 		init();
 	}
 
 	// MOST
-	ModelFit( const bool & success, const vec &coef, const vec &se, const double & dispersion, const double &rdf, const mat & vcov, const vec &residuals, const vec &hatvalues) : 
+	ModelFit( const bool & success, 
+            const vec &coef, 
+            const vec &se, const 
+            double & dispersion, 
+            const double &rdf, 
+            const mat & vcov, 
+            const vec &residuals, 
+            const vec &hatvalues) : 
 		success(success), coef(coef), se(se), dispersion(dispersion), rdf(rdf), vcov(vcov), residuals(residuals), hatvalues(hatvalues) {
 
 		init();
 	}
 
 	// MAX
-	void setDevResids( const vec &dr, const vec &y, const vec &mu){
+	void setDevResids( 
+    const vec &dr, 
+    const vec &y, 
+    const vec &mu,
+    const vec w = {}){
 
-    	// transform from residuals.glm
-    	// d.res <- sqrt(pmax((object$family$dev.resids)(y, mu, 
-        //     wts), 0))
-        // ifelse(y > mu, d.res, -d.res)
-    	devianceResiduals = sqrt(pmax(dr, 0));
-    	uvec idx = find(y <= mu);
-    	devianceResiduals.elem(idx) = -1.0*devianceResiduals.elem(idx);
+  	// transform from residuals.glm
+  	// d.res <- sqrt(pmax((object$family$dev.resids)(y, mu, 
+    //     wts), 0))
+    // ifelse(y > mu, d.res, -d.res)
+  	devianceResiduals = sqrt(pmax(dr, 0));
+  	uvec idx = find(y <= mu);
+  	devianceResiduals.elem(idx) = -1.0*devianceResiduals.elem(idx);
+
+    if( ! w.is_empty() ){
+      // if weight is zero, set element to NAN
+      devianceResiduals.elem(find(w == 0.0)).fill(datum::nan);
+    }
 	}	
 
-	void setFittedValues( const vec &mu_in){
+	void setFittedValues( const vec &mu_in, const vec w = {}){
 		mu = mu_in;
+
+    if( ! w.is_empty() ){
+      // if weight is zero, set element to NAN
+      mu.elem(find(w == 0.0)).fill(datum::nan);
+    }
 	}
 
 	private:
@@ -161,7 +202,16 @@ class ModelFitLMM : public ModelFit {
   double logLik;
   vec weights, ru, y;
   double delta, sigSq_g, sigSq_e;
-  int iter;
+  int iter;  
+  double w_mean; // Store mean of weights before scaling
+
+  bool isSet_U = false;
+  bool isSet_Usp = false;
+  bool isSet_V = false;
+  bool isSet_Vsp = false;
+  mat U, V;
+  sp_mat Usp, Vsp; 
+  vec s;  
 
   ModelFitLMM(){}
 
@@ -175,9 +225,10 @@ class ModelFitLMM : public ModelFit {
               const double &sigSq_g,
               const double &sigSq_e,
               const int &iter, 
+              const double &w_mean,
               const vec &coef) : 
     ModelFit( success, coef),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter), w_mean(w_mean)
     {} 
 
   // LOW
@@ -190,11 +241,12 @@ class ModelFitLMM : public ModelFit {
               const double &sigSq_g,
               const double &sigSq_e,
               const int &iter, 
+              const double &w_mean,
               const vec &coef, 
               const vec &se, 
               const double &rdf) : 
     ModelFit( success, coef, se, sigSq_e, rdf),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter), w_mean(w_mean)
     {} 
   
   // MEDIUM
@@ -207,12 +259,13 @@ class ModelFitLMM : public ModelFit {
               const double &sigSq_g,
               const double &sigSq_e,
               const int &iter, 
+              const double &w_mean,
               const vec &coef, 
               const vec &se, 
               const double &rdf, 
               const mat & vcov) : 
     ModelFit( success, coef, se, sigSq_e, rdf, vcov),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter) 
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter), w_mean(w_mean) 
     {} 
 
   // HIGH
@@ -225,13 +278,14 @@ class ModelFitLMM : public ModelFit {
               const double &sigSq_g,
               const double &sigSq_e,
               const int &iter, 
+              const double &w_mean,
               const vec &coef, 
               const vec &se, 
               const double &rdf, 
               const mat & vcov, 
               const vec &residuals) : 
     ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter), w_mean(w_mean)
     {}   
 
   // MOST
@@ -244,6 +298,7 @@ class ModelFitLMM : public ModelFit {
               const double &sigSq_g,
               const double &sigSq_e,
               const int &iter, 
+              const double &w_mean,
               const vec &coef, 
               const vec &se, 
               const double &rdf, 
@@ -251,8 +306,44 @@ class ModelFitLMM : public ModelFit {
               const vec &residuals, 
               const vec &hatvalues) : 
     ModelFit( success, coef, se, sigSq_e, rdf, vcov, residuals, hatvalues),
-    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter)
+    logLik(logLik), weights(weights), ru(ru), y(y), delta(delta), sigSq_g(sigSq_g), sigSq_e(sigSq_e), iter(iter), w_mean(w_mean)
     {}   
+
+    void setUS(const mat &U_, const vec &s_, const mat &V_){
+      U = U_;
+      V = V_;
+      s = s_;
+      isSet_U = true;
+      isSet_V = true;
+    }
+
+    void setUS(const sp_mat &U_, const vec &s_, const mat &V_){
+      Usp = U_;
+      V = V_;
+      s = s_;
+      isSet_Usp = true;
+      isSet_V = true;
+    }
+
+    void setUS(const mat &U_, const vec &s_, const sp_mat &V_){
+      U = U_;
+      Vsp = V_;
+      s = s_;
+      isSet_U = true;
+      isSet_Vsp = true;
+    }
+
+    void setUS(const sp_mat &U_, const vec &s_, const sp_mat &V_){
+      Usp = U_;
+      Vsp = V_;
+      s = s_;
+      isSet_Usp = true;
+      isSet_Vsp = true;
+    }
+
+    void set_w_mean( const double &value){
+      w_mean = value;
+    }
 };
 
 
@@ -262,9 +353,11 @@ class ModelFitGLMM : public ModelFitLMM {
 
   ModelFitGLMM() {}
 
-  ModelFitGLMM( ModelFitLMM &gmf, const string &family, const int &niter ) :
-    ModelFitLMM(gmf), family(family), niter(niter) {
+  ModelFitGLMM( ModelFitLMM &gmf, const string &family, const int &iter ) :
+    ModelFitLMM(gmf), family(family) {
 
+    this->iter = iter;
+    
     // extract theta values from "nb:theta"
     if( regex_search( family, regex("^nb:")) ){
       string theta_str = regex_replace( family, regex("^nb:"), "");
@@ -287,7 +380,6 @@ class ModelFitGLMM : public ModelFitLMM {
   string family = "";
   double theta = datum::nan;
   double mu_mean = datum::nan;
-  int niter = 0;
   double nZeroPrediction = 0;
 };
 

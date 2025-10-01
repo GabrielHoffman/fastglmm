@@ -1,0 +1,93 @@
+\doxysection{fastglmm\+Lib\+::spectral\+Decomp\+Categorical\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classfastglmm_lib_1_1spectral_decomp_categorical}{}\label{classfastglmm_lib_1_1spectral_decomp_categorical}\index{fastglmmLib::spectralDecompCategorical$<$ T $>$@{fastglmmLib::spectralDecompCategorical$<$ T $>$}}
+
+
+{\ttfamily \#include $<$spectral\+Decomp.\+h$>$}
+
+Inheritance diagram for fastglmm\+Lib\+::spectral\+Decomp\+Categorical\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classfastglmm_lib_1_1spectral_decomp_categorical}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_categorical_a8f3a0a50ffbb92a1c6b3438733430a29}{spectral\+Decomp\+Categorical}} (const T \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}, const vec \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}})
+\item 
+\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_categorical_a3ea3a83b1cb21c2711d76863c202a7ae}{spectral\+Decomp\+Categorical}} (const T \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}})
+\item 
+void \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_categorical_a993d98870220089c3aea5d2f9112a6fb}{reweight}} (const vec \&weights)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aca8fc34a15eed8ce138eba906f782652}{spectral\+Decomp}} ()
+\item 
+\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a2752e6b1635b70f416e864ac0ac4db26}{spectral\+Decomp}} (const T \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}, const vec \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}})
+\item 
+\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a55edd229fca505ead60936ea32c951e8}{spectral\+Decomp}} (const T \&\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}})
+\item 
+\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a4ccf6f36e4375e84995dd49f37a390a3}{spectral\+Decomp}} (const \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectral\+Decomp}} \&other)
+\item 
+void \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ad19694a80881a83cd85ba8572b29eb88}{reweight}} (const vec \&weights)
+\item 
+T \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a8b214832bc06e80357dc598029770a0d}{get\+\_\+vectors}} () const
+\item 
+vec \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_afc7b7500f7c8269056d8f0680dcb954a}{get\+\_\+values}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{fastglmm\+Lib\+::spectral\+Decomp$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+T \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}
+\item 
+T \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}}
+\item 
+T \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a6f2bdd0d1342ee6c0f43410f3b164c34}{Zw}}
+\item 
+mat \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aed9d121652e56143c3791e83adaa1369}{V}}
+\item 
+vec \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class fastglmm\+Lib\+::spectral\+Decomp\+Categorical$<$ T $>$}
+Special case of \doxylink{classfastglmm_lib_1_1spectral_decomp}{spectral\+Decomp} when Z is categorical 
+
+\label{doc-constructors}
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_categorical_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_categorical_a8f3a0a50ffbb92a1c6b3438733430a29}\index{fastglmmLib::spectralDecompCategorical$<$ T $>$@{fastglmmLib::spectralDecompCategorical$<$ T $>$}!spectralDecompCategorical@{spectralDecompCategorical}}
+\index{spectralDecompCategorical@{spectralDecompCategorical}!fastglmmLib::spectralDecompCategorical$<$ T $>$@{fastglmmLib::spectralDecompCategorical$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{spectralDecompCategorical()}{spectralDecompCategorical()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_categorical_a8f3a0a50ffbb92a1c6b3438733430a29} 
+template$<$typename T$>$ \\
+\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_categorical}{fastglmm\+Lib\+::spectral\+Decomp\+Categorical}}$<$ T $>$\+::spectral\+Decomp\+Categorical (\begin{DoxyParamCaption}\item[{const T \&}]{U}{, }\item[{const vec \&}]{s}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_categorical_a3ea3a83b1cb21c2711d76863c202a7ae}\index{fastglmmLib::spectralDecompCategorical$<$ T $>$@{fastglmmLib::spectralDecompCategorical$<$ T $>$}!spectralDecompCategorical@{spectralDecompCategorical}}
+\index{spectralDecompCategorical@{spectralDecompCategorical}!fastglmmLib::spectralDecompCategorical$<$ T $>$@{fastglmmLib::spectralDecompCategorical$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{spectralDecompCategorical()}{spectralDecompCategorical()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_categorical_a3ea3a83b1cb21c2711d76863c202a7ae} 
+template$<$typename T$>$ \\
+\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_categorical}{fastglmm\+Lib\+::spectral\+Decomp\+Categorical}}$<$ T $>$\+::spectral\+Decomp\+Categorical (\begin{DoxyParamCaption}\item[{const T \&}]{Z}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_categorical_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classfastglmm_lib_1_1spectral_decomp_categorical_a993d98870220089c3aea5d2f9112a6fb}\index{fastglmmLib::spectralDecompCategorical$<$ T $>$@{fastglmmLib::spectralDecompCategorical$<$ T $>$}!reweight@{reweight}}
+\index{reweight@{reweight}!fastglmmLib::spectralDecompCategorical$<$ T $>$@{fastglmmLib::spectralDecompCategorical$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{reweight()}{reweight()}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1spectral_decomp_categorical_a993d98870220089c3aea5d2f9112a6fb} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_categorical}{fastglmm\+Lib\+::spectral\+Decomp\+Categorical}}$<$ T $>$\+::reweight (\begin{DoxyParamCaption}\item[{const vec \&}]{weights}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/\mbox{\hyperlink{spectral_decomp_8h}{spectral\+Decomp.\+h}}\end{DoxyCompactItemize}

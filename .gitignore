@@ -1,0 +1,5 @@
+*.o
+*.so
+inst/doxygen/html
+inst/doxygen/latex
+inst/test_*

@@ -50,7 +50,8 @@ indicator_decomp <- function(x, weights = NULL, rank = NULL, sort = FALSE) {
 
   # Compute eigen values and vectors
   evalues <- as.numeric(weights %*% Z)
-  D <- Diagonal(length(evalues), 1 / sqrt(evalues))
+  names(evalues) <- colnames(Z)
+  D <- Diagonal(length(evalues), 1 / sqrt(evalues), names=TRUE)
   vectors <- (Z * sqrt(weights)) %*% D
 
   if (sort) {
@@ -89,3 +90,41 @@ preprocess_indicator <- function(x) {
 
   Z.mod
 }
+
+
+#' Reconstruct indicator matrix from eigen decomp
+#'
+#' Reconstruct indicator matrix from eigen decomp
+#'
+#' @param dcmp eigen decomp from \code{indicator_decomp()}
+#' @param weights vector of weights with a value for each sample.  If ommited, weights are set to 1.
+#'
+#' @examples
+#' ID <- factor(sample(LETTERS[1:4], 100, replace=TRUE))
+#' w <- seq(length(ID))
+#' Z <- preprocess_indicator(ID)
+#' dcmp <- indicator_decomp(ID, w)
+#' 
+#' Z_recon <- reconstruct_indicator( dcmp, w)
+#' 
+#' range(Z_recon - Z)
+#
+#' @export
+#' @keywords internal
+reconstruct_indicator = function( dcmp, weights = NULL ){
+
+  if( is.null(weights) ){
+    weights <- rep(1, nrow(dcmp$vectors))
+  }
+
+  Z <- with(dcmp, Diagonal(length(weights), 1/sqrt(weights)) %*% vectors %*% Diagonal(length(values), sqrt(values)))
+
+  colnames(Z) <- colnames(dcmp$vectors)
+
+  Z
+}
+
+
+
+
+

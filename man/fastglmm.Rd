@@ -12,10 +12,8 @@ fastglmm(
   delta = NULL,
   delta.range = c(-10, 10),
   maxit = 100,
-  tol = .Machine$double.eps^0.5,
-  tol.eta = .Machine$double.eps^0.5,
-  init.fit = NULL,
-  init = c("lm", "glm"),
+  tol = 1e-05,
+  tol.eta = 1e-07,
   nthreads = 6
 )
 }
@@ -38,10 +36,6 @@ fastglmm(
 
 \item{tol.eta}{convergence criterion \code{eta} in the PQL iteration}
 
-\item{init.fit}{\code{fastglmm} object to initialize parameters}
-
-\item{init}{\code{c("lm", "glm")} method to initialize \code{eta} values}
-
 \item{nthreads}{number of threads}
 }
 \description{
@@ -55,16 +49,16 @@ library(lme4)
 
 # GLMM via Laplace approximation
 fit = glmer(y ~ trt + I(week > 2) + (1 | ID),
-			family = binomial(), data = bacteria)
+	family = binomial(), data = bacteria)
 coef(summary(fit))
 
 # GLMM via PQL
 fit = glmmPQL(y ~ trt + I(week > 2), random = ~ 1 | ID,
-				family = binomial, data = bacteria, verbose = FALSE)
+	family = binomial, data = bacteria, verbose = FALSE)
 coef(summary(fit))
 
 # GLMM via PQL
 fit = fastglmm(y ~ trt + I(week > 2) + (1 | ID),
-			family = binomial(), data = bacteria)
+	family = binomial(), data = bacteria)
 coef(summary(fit))
 }

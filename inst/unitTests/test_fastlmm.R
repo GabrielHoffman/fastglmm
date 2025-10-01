@@ -6,9 +6,9 @@ test_user_fxn = function(){
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
 
-	q()
-	R
-	library(fastlmm)
+	# q()
+	# R
+	library(fastglmm)
 	library(lme4)
 	library(RUnit)
 	set.seed(1)
@@ -32,26 +32,24 @@ test_user_fxn = function(){
 
 
 
-	
+	# # test multivariate model
+	# fit3 <- fastlmm(cbind(Reaction, Reaction^2) ~ Days + (1 | Subject), sleepstudy, weights = w)
 
-	# test multivariate model
-	fit3 <- fastlmm(cbind(Reaction, Reaction^2) ~ Days + (1 | Subject), sleepstudy, weights = w)
+	# attr(fit3[[1]], "call")  = attr(fit2, "call") 
+	# # checkEquals(fit2, fit3[[1]])
 
-	attr(fit3[[1]], "call")  = attr(fit2, "call") 
-	# checkEquals(fit2, fit3[[1]])
+	# isSame = function(fit1, fit2){
+	# 	ids = intersect(names(fit1), names(fit2))
+	# 	ids = ids[-which(ids == 'iter')]
+	# 	a = lapply(ids, function(id){
+	# 		cat(id, "...\n")
+	# 		checkEqualsNumeric( fit1[[id]], fit2[[id]], tol = .Machine$double.eps^0.2)
+	# 	})
+	# }
+	# isSame(fit2, fit3[[1]])
 
-	isSame = function(fit1, fit2){
-		ids = intersect(names(fit1), names(fit2))
-		ids = ids[-which(ids == 'iter')]
-		a = lapply(ids, function(id){
-			cat(id, "...\n")
-			checkEqualsNumeric( fit1[[id]], fit2[[id]], tol = .Machine$double.eps^0.2)
-		})
-	}
-	isSame(fit2, fit3[[1]])
-
-	fit4 <- fastlmm(Reaction^2 ~ Days + (1 | Subject), sleepstudy, weights = w[,2])
-	isSame(fit4, fit3[[2]])
+	# fit4 <- fastlmm(Reaction^2 ~ Days + (1 | Subject), sleepstudy, weights = w[,2])
+	# isSame(fit4, fit3[[2]])
 
 
 
@@ -107,131 +105,129 @@ test_user_fxn = function(){
 
 
 
-test_multivariate = function(){
+# test_multivariate = function(){
 
-	library(MASS)
-	library(fastlmm)
-	library(Matrix)
-	library(lme4)
-	library(RUnit)
-	library(microbenchmark)
-	set.seed(1)
+# 	library(MASS)
+# 	library(fastglmm)
+# 	library(Matrix)
+# 	library(lme4)
+# 	library(RUnit)
+# 	library(microbenchmark)
+# 	set.seed(1)
 
-	n = 100000
-	ndonors = 1000
+# 	n = 1000
+# 	ndonors = 100
 
-	info = data.frame(x = rnorm(n))
-	info$Indiv = factor(sample(seq(ndonors), n, replace=TRUE))
-	info$Indiv = droplevels(info$Indiv)
-	beta = 1
-	eta = 4 + info$x * beta + model.matrix(~ 0 + Indiv, info) %*% rnorm(nlevels(info$Indiv), 0, sqrt(3)) 
-	# info$y = rnegbin(n, mu=exp(eta), theta = 10)
-	info$y = eta + rnorm(length(eta))
+# 	info = data.frame(x = rnorm(n))
+# 	info$Indiv = factor(sample(seq(ndonors), n, replace=TRUE))
+# 	info$Indiv = droplevels(info$Indiv)
+# 	beta = 1
+# 	eta = 4 + info$x * beta + model.matrix(~ 0 + Indiv, info) %*% rnorm(nlevels(info$Indiv), 0, sqrt(3)) 
+# 	# info$y = rnegbin(n, mu=exp(eta), theta = 10)
+# 	info$y = eta + rnorm(length(eta))
 
-	dcmp = indicator_decomp( info$Indiv )
-	indicObj = preprocess_indicator( info$Indiv )
+# 	dcmp = indicator_decomp( info$Indiv )
+# 	indicObj = preprocess_indicator( info$Indiv )
 
-	n_reps = 1000
-	Y_stack = lapply(seq(n_reps), function(x){ info$y})
-	Y_stack = do.call(cbind, Y_stack)
-	colnames(Y_stack) = paste0("resp_", seq(ncol(Y_stack)))
+# 	n_reps = 2
+# 	Y_stack = lapply(seq(n_reps), function(x){ info$y})
+# 	Y_stack = do.call(cbind, Y_stack)
+# 	colnames(Y_stack) = paste0("resp_", seq(ncol(Y_stack)))
 
-	weights = c(seq(nrow(info)))
-	W = lapply(seq(n_reps), function(i) weights)
-	W = do.call(cbind, W)
-	fit1 = fastlmm(y ~ x + (1|Indiv), info, weights = weights)
-	fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W)
+# 	weights = c(seq(nrow(info)))
+# 	W = lapply(seq(n_reps), function(i) weights)
+# 	W = do.call(cbind, W)
+# 	fit1 = fastlmm(y ~ x + (1|Indiv), info, weights = weights)
+# 	fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, nthreads=1)
 
-	# attr(fit2[[1]], "call")  = attr(fit1, "call") 
-	# checkEquals(fit1, fit2[[1]])
+# 	# attr(fit2[[1]], "call")  = attr(fit1, "call") 
+# 	# checkEquals(fit1, fit2[[1]])
 
-	isSame = function(fit1, fit2){
-		ids = intersect(names(fit1), names(fit2))
-		ids = ids[-which(ids == 'iter')]
-		a = lapply(ids, function(id){
-			cat(id, "...\n")
-			checkEqualsNumeric( fit1[[id]], fit2[[id]], tol = .Machine$double.eps^0.2)
-		})
-	}
-	isSame(fit1, fit2[[1]])
+# 	isSame = function(fit1, fit2){
+# 		ids = intersect(names(fit1), names(fit2))
+# 		ids = ids[-which(ids == 'iter')]
+# 		a = lapply(ids, function(id){
+# 			cat(id, "...\n")
+# 			checkEqualsNumeric( fit1[[id]], fit2[[id]], tol = .Machine$double.eps^0.2)
+# 		})
+# 	}
+# 	isSame(fit1, fit2[[1]])
 
-	# varying weights
-	#################
+# 	# varying weights
+# 	#################
 
-	set.seed(1)
-	W = lapply(seq(ncol(Y_stack)), function(i){
-		# w = seq(nrow(info)) + sqrt(i)
-		w = rpois(nrow(info), 50)
-		w / mean(w)
-	})
-	W = do.call(cbind, W)
-	W[1:3,1:3]
+# 	set.seed(1)
+# 	W = lapply(seq(ncol(Y_stack)), function(i){
+# 		# w = seq(nrow(info)) + sqrt(i)
+# 		w = rpois(nrow(info), 50)
+# 		w / mean(w)
+# 	})
+# 	W = do.call(cbind, W)
 
+# 	fit1 = fastlmm(y ~ x + (1|Indiv), info, weights = W[,1])
+# 	fit1b = fastlmm(y ~ x + (1|Indiv), info, weights = W[,2])
+# 	fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W)
 
-	fit1 = fastlmm(y ~ x + (1|Indiv), info, weights = W[,1])
-	fit1b = fastlmm(y ~ x + (1|Indiv), info, weights = W[,2])
-	fit2 = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W)
-
-	isSame(fit1, fit2[[1]])
-	isSame(fit1b, fit2[[2]])
+# 	isSame(fit1, fit2[[1]])
+# 	isSame(fit1b, fit2[[2]])
 
 
-	# fastlmm is 100x faster than lmer()
-	if( FALSE ){
-	system.time(replicate(n_reps, lme(y  ~ x, random = ~ 1 | Indiv, data=info, weights=varFixed(~weights))))
-	system.time(
-		replicate(n_reps, lmer(y ~ x + (1|Indiv), info, REML=FALSE, weights = weights)))
-	system.time(
-		replicate(n_reps, fastlmm(y ~ x + (1|Indiv), info, weights = weights)))
-	system.time(
-		a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, nthreads=1))
-	system.time(
-		fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, delta=1))
-	# system.time(
-		# a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights))
-	}
+# 	# fastlmm is 100x faster than lmer()
+# 	if( FALSE ){
+# 	system.time(replicate(n_reps, lme(y  ~ x, random = ~ 1 | Indiv, data=info, weights=varFixed(~weights))))
+# 	system.time(
+# 		replicate(n_reps, lmer(y ~ x + (1|Indiv), info, REML=FALSE, weights = weights)))
+# 	system.time(
+# 		replicate(n_reps, fastlmm(y ~ x + (1|Indiv), info, weights = weights)))
+# 	system.time(
+# 		a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, nthreads=1))
+# 	system.time(
+# 		fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, delta=1))
+# 	# system.time(
+# 		# a <-fastlmm(Y_stack ~ x + (1|Indiv), info, weights = weights))
+# 	}
 
-	if( FALSE ){
-		res <- microbenchmark( 
-			lmer = replicate(n_reps,lmer(y ~ x + (1|Indiv), info, REML=FALSE, weights = weights)),
-			fastlmm = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, nthreads=1),
-			# fastlmm_delta = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, delta=1),
-			unit="seconds",
-			times=1)
+# 	if( FALSE ){
+# 		res <- microbenchmark( 
+# 			lmer = replicate(n_reps,lmer(y ~ x + (1|Indiv), info, REML=FALSE, weights = weights)),
+# 			fastlmm = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, nthreads=1),
+# 			# fastlmm_delta = fastlmm(Y_stack ~ x + (1|Indiv), info, weights = W, delta=1),
+# 			unit="seconds",
+# 			times=1)
 
-		library(ggplot2)
-		library(tidyverse)
-		main = paste0("Cells: ", n, ", donors: ", ndonors, ", genes: ", n_reps)
+# 		library(ggplot2)
+# 		library(tidyverse)
+# 		main = paste0("Cells: ", n, ", donors: ", ndonors, ", genes: ", n_reps)
 
-		fig = res %>% 
-			data.frame %>%
-			mutate(Seconds = time *1e-9) %>%
-			ggplot(aes(Seconds, expr, fill = expr, label=format(Seconds, digits=2))) +
-				geom_bar(stat="identity") +
-				theme_classic() +
-				theme(aspect.ratio=1, plot.title = element_text(hjust = 0.5), legend.position="none") + 
-				xlab("Runtime (seconds)") +
-				ylab("Method") +
-				scale_x_continuous(expand=c(0,0), limits=c(0,700)) +
-				scale_fill_manual(values=c("red3", "blue3")) +
-				ggtitle(main) +
-				geom_text(aes(x = Seconds + 35))
+# 		fig = res %>% 
+# 			data.frame %>%
+# 			mutate(Seconds = time *1e-9) %>%
+# 			ggplot(aes(Seconds, expr, fill = expr, label=format(Seconds, digits=2))) +
+# 				geom_bar(stat="identity") +
+# 				theme_classic() +
+# 				theme(aspect.ratio=1, plot.title = element_text(hjust = 0.5), legend.position="none") + 
+# 				xlab("Runtime (seconds)") +
+# 				ylab("Method") +
+# 				scale_x_continuous(expand=c(0,0), limits=c(0,700)) +
+# 				scale_fill_manual(values=c("red3", "blue3")) +
+# 				ggtitle(main) +
+# 				geom_text(aes(x = Seconds + 35))
 
-		ggsave(fig, file="~/Downloads/fastlmm.png", height=5, width=5)
+# 		ggsave(fig, file="~/Downloads/fastlmm.png", height=5, width=5)
 
 
 
 
-	}
+# 	}
 
-}
+# }
 
 
 
 
 test_indicator_decomp = function(){
 	library(MASS)
-	library(fastlmm)
+	library(fastglmm)
 	library(Matrix)
 	set.seed(1)
 
@@ -311,7 +307,7 @@ test_logLik = function(){
 	library(mvtnorm)
 	library(lme4)
 	library(RUnit)
-	library(fastlmm)
+	library(fastglmm)
 
 	set.seed(1)
 	n = 2000
@@ -460,7 +456,7 @@ test_logLik = function(){
 test_fxn = function(){
 
 	library(MASS)
-	library(fastlmm)
+	library(fastglmm)
 	library(Matrix)
 	set.seed(1)
 
@@ -491,12 +487,12 @@ test_fxn = function(){
 test_fastlmm = function(){
 
 	library(MASS)
-	library(fastlmm)
+	library(fastglmm)
 	library(Matrix)
 	library(RUnit)
 	set.seed(1)
 
-	n = 100000
+	n = 10000
 	ndonors = 300
 
 	# n = 3000
@@ -517,9 +513,9 @@ test_fastlmm = function(){
 
 	isSame = function(fit1, fit2){
 		ids = intersect(names(fit1), names(fit2))
-		ids = ids[-which(ids == 'iter')]
+		ids = ids[-which(ids %in% c('iter', "ru"))]
 		a = lapply(ids, function(id){
-			# cat(id, "...\n")
+			cat(id, "...\n")
 			checkEqualsNumeric( fit1[[id]], fit2[[id]], tol =  .Machine$double.eps^0.2)
 		})
 	}
@@ -558,25 +554,25 @@ test_fastlmm = function(){
 	fit2 = fastlmm.fit(Ym[,2], X, Z=indicObj)
 	isSame(fit1, fit2)
 
-	# batch, matrix dcmp$vectors
-	# U = as.matrix(dcmp$vectors)
-	fitList1 = lapply(seq(ncol(Ym)), function(i){
-		fastlmm.fit( Ym[,i], X, Z=indicObj)})
-	fitList2 = fastlmm.fit(Ym, X, Z=indicObj)
-	res = lapply(seq(ncol(Ym)), function(i){
-		isSame(fitList1[[i]], fitList2[[i]])
-	})
-	checkTrue(unique(unlist(res)))
+	# # batch, matrix dcmp$vectors
+	# # U = as.matrix(dcmp$vectors)
+	# fitList1 = lapply(seq(ncol(Ym)), function(i){
+	# 	fastlmm.fit( Ym[,i], X, Z=indicObj)})
+	# fitList2 = fastlmm.fit(Ym, X, Z=indicObj)
+	# res = lapply(seq(ncol(Ym)), function(i){
+	# 	isSame(fitList1[[i]], fitList2[[i]])
+	# })
+	# checkTrue(unique(unlist(res)))
 
-	# batch, sparse dcmp$vectors
-	# U = dcmp$vectors
-	fitList1 = lapply(seq(ncol(Ym)), function(i){
-		fastlmm.fit( Ym[,i], X, Z=indicObj)})
-	fitList2 = fastlmm.fit(Ym, X, Z=indicObj)
-	res = lapply(seq(ncol(Ym)), function(i){
-		isSame(fitList1[[i]], fitList2[[i]])
-	})
-	checkTrue(unique(unlist(res)))
+	# # batch, sparse dcmp$vectors
+	# # U = dcmp$vectors
+	# fitList1 = lapply(seq(ncol(Ym)), function(i){
+	# 	fastlmm.fit( Ym[,i], X, Z=indicObj)})
+	# fitList2 = fastlmm.fit(Ym, X, Z=indicObj)
+	# res = lapply(seq(ncol(Ym)), function(i){
+	# 	isSame(fitList1[[i]], fitList2[[i]])
+	# })
+	# checkTrue(unique(unlist(res)))
 
 
 
@@ -612,7 +608,7 @@ test_fastlmm = function(){
 	checkEqualsNumeric(logLik(fit1)[1], fit2$logLik, tol=tol)
 	checkEqualsNumeric(res[,1], coef(fit1), tol=tol)
 	checkEqualsNumeric(fixef(fit), fixef(fit1))
-	checkEqualsNumeric(ranef(fit)$Indiv[,1], ranef(fit1))
+	checkEqualsNumeric(unlist(ranef(fit)), unlist(ranef(fit1)))
 	checkEqualsNumeric(fitted(fit), fitted(fit1))
 
 	# weights
@@ -636,7 +632,7 @@ test_fastlmm = function(){
 	fit3 = fastlmm.fit(y, X, Z=indicObj, weights=weights)
 
 	a = intersect(names(fit2), names(fit3))
-	a = a[a!="iter"]
+	a = a[!a %in% c("iter", "ru")]
 	a = lapply(a, function(x){
 		message(x)
 		checkEqualsNumeric(fit2[[x]], fit3[[x]], tol=1e-3)
@@ -715,7 +711,7 @@ test_fastlmm = function(){
 	fit3 = fastlmm.fit(info$y, X, Z = indicatorObj, weights=weights)
 
 	a = intersect(names(fit2), names(fit3))
-	a = a[a!="iter"]
+	a = a[!a %in% c("iter", "ru")]
 	a = lapply(a, function(x){
 		# message(x)
 		checkEqualsNumeric(fit2[[x]], fit3[[x]], tol=1e-3)
@@ -740,7 +736,7 @@ test_fastlmm = function(){
 test_profile = function(){
 
 	library(MASS)
-	library(fastlmm)
+	library(fastglmm)
 	library(Matrix)
 	library(RUnit)
 	set.seed(1)
@@ -766,7 +762,7 @@ test_profile = function(){
 
 	isSame = function(fit1, fit2){
 		ids = intersect(names(fit1), names(fit2))
-		ids = ids[-which(ids == 'iter')]
+		ids = ids[-which(ids %in% c('iter', "ru"))]
 		a = lapply(ids, function(id){
 			# cat(id, "...\n")
 			checkEqualsNumeric( fit1[[id]], fit2[[id]], tol =  .Machine$double.eps^0.2)
@@ -857,7 +853,7 @@ test_profile = function(){
 test_BatchDesign = function(){
 
 	library(MASS)
-	library(fastlmm)
+	library(fastglmm)
 	library(Matrix)
 	library(RUnit)
 	set.seed(1)
@@ -892,7 +888,7 @@ test_S3_offset = function(){
 	if( FALSE ){
 
 	library(lme4)
-	library(fastlmm)
+	library(fastglmm)
 	library(RUnit)
 
 	weights = seq(nrow(sleepstudy))

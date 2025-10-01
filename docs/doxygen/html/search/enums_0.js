@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['modeldetail_0',['ModelDetail',['../namespacefastlmm_lib.html#a861ff55786eb7d3a33d5b2f2d155ee2b',1,'fastlmmLib']]]
+  ['modeldetail_0',['ModelDetail',['../namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2',1,'fastglmmLib']]]
 ];

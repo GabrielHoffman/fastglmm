@@ -58,6 +58,10 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
     stop("Only one variable can be used in the random effect")
   }
 
+  # drop rows with any NA values in active variables
+  data_sub <- data[,colnames(data) %in% all.vars(formula)]
+  data <- data[rowSums(is.na(data_sub)) == 0, colnames(data_sub)]
+
   # formula with only fixed effects
   form.fixed <- nobars(formula)
 
@@ -70,13 +74,13 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
   # this uses the standard R processing for formulas
   if (all(respVar %in% colnames(data))) {
     # extract data
-    # *very* low when reponse is a large matrix
+    # *very* slow when reponse is a large matrix
     mf <- model.frame(form.fixed, data, drop.unused.levels = TRUE)
     X <- model.matrix(mf, data)
-    Y <- model.response(mf)
+    y <- model.response(mf)
     offset <- model.offset(mf)
   } else {
-    # if Y is a matrix in the parent environment
+    # if y is a matrix in the parent environment
     # get matrix directly from parent
 
     form2 <- update(form.fixed, NULL ~ .)
@@ -88,7 +92,7 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
 
     mf <- model.frame(form2, data, drop.unused.levels = TRUE)
     X <- model.matrix(mf, data)
-    Y <- eval.parent(parse(text = respVar))
+    y <- eval.parent(parse(text = respVar))
     offset <- model.offset(mf)
   }
 
@@ -101,7 +105,7 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
 
   # fit model
   fit <- fastlmm.fit(
-    Y = Y,
+    y = y,
     X = X,
     Z = Z,
     offset = offset,
@@ -114,6 +118,8 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
     nthreads = nthreads
   )
 
+  fit$formula <- formula
+  
   # return model fit
   attr(fit, "call") <- mc
 
