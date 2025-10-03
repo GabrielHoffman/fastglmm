@@ -1,4 +1,33 @@
 
+
+# Class definitions
+###################
+
+#' fastlmm
+#'
+#' Stores results of fastlmm model fit
+#'
+#' @name fastlmm-class
+#' @rdname fastlmm
+#' @exportClass fastlmm
+#' @return none
+#' @keywords internal
+setClass("fastlmm", contains="list")
+
+
+#' fastglmm
+#'
+#' Stores results of fastglmm model fit
+#'
+#' @name fastglmm-class
+#' @rdname fastglmm
+#' @exportClass fastglmm
+#' @return none
+#' @keywords internal
+setClass("fastglmm", contains="fastlmm")
+
+
+
 #' ANOVA Tables
 #' 
 #' ANOVA Tables

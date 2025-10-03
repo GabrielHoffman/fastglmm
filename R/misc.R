@@ -55,3 +55,24 @@ coolcat = function (fmt, vals = character(), exdent = 2, collapse=', ', ...) {
 concatItem = function(x, nms, collapse=", "){
     coolcat(paste0(x, "(%d): %s\n"), nms, collapse=collapse)
 }
+
+#' Is fit a count model
+#'
+#' Is fit a count model
+#'
+#' @param fit model fit
+#'
+#' @return TRUE for poisson, quasipoisson or NB models
+#'
+#' @export
+#' @keywords internal 
+isCountModel = function(fit){
+
+  # get family identifier
+  famID <- getFamilyString(family(fit))
+
+  # remove theta in nb:theta
+  famID2 <- gsub("^(.+):.*", "\\1", famID)
+
+  famID2 %in% c("poisson/log", "quasipoisson/log", "nb")
+}

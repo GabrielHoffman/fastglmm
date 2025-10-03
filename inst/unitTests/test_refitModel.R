@@ -100,14 +100,56 @@ test_refitModel = function(){
   fit_null = fastglmm(y.nb ~ (1|z), df,family=fam)
   fit_null2 = refitModel(fit, interceptOnly=TRUE)
 
-  summary(fit_null)
-  summary(fit_null2)
+  # summary(fit_null)
+  # summary(fit_null2)
 
   sapply( names(fit_null)[-1], function(x){
     cat(x, "\n")
     checkEquals(fit_null[[x]], fit_null2[[x]])
     })
 
+  # Include offset term
+  #####################
 
+  eta = as.matrix(X %*% beta + Z %*% alpha) 
+  df$y.nb = rnegbin(n, exp(eta), 10)
 
+  df$off = rpois(nrow(df), df$y.nb)
+  form = y.nb ~ X1 + X2 + (1|z) + offset(log(off+1))
+  fit = fastglmm(form, df, family=fam)
+  
+  # null model
+  form = y.nb ~ (1|z) + offset(log(off+1))
+  fit_null = fastglmm(form, df,family=fam)
+  fit_null2 = refitModel(fit, interceptOnly=TRUE)
+
+  # summary(fit_null)
+  # summary(fit_null2)
+
+  ids = names(fit_null)
+  ids = ids[!ids %in% c("formula")]
+  sapply( ids, function(x){
+    cat(x, "\n")
+    checkEquals(fit_null[[x]], fit_null2[[x]])
+    })
+
+  fit_null$formula
+  fit_null2$formula
+
+  # Compare to GLM with offset
+  ############################
+
+  # set sigSq_g to zero
+  form = y.nb ~ (1|z) + offset(log(off+1))
+  fam = negative.binomial(10)
+  fit = fastglmm(form, df, family=fam, delta=1e8)
+
+  # GLM 
+  form = y.nb ~ offset(log(off+1))
+  fit.glm = glm(form, df, family=fam)
+  
+  a = fastglmm:::getLambda(fit, delta = 1e8, fixedNBtheta=TRUE)
+  b = fastglmm:::getLambda(fit.glm)
+
+  checkEqualsNumeric(a,b, tol=1e-6)
 }

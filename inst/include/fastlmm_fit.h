@@ -505,6 +505,8 @@ ModelFitLMM fastlmm<T1, T2, T3>::get_result(
                       1.0,
                       get_beta());
 
+  res.varFitted = var(fitted());
+
   // res.dispersion = get_sigSq_e();
 
   // set additional values based on ModelDetail md

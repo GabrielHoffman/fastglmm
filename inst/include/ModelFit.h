@@ -25,7 +25,7 @@ namespace fastglmmLib {
 // Specify level of model detail to return from regression fit
 typedef enum {
 	LEAST,  // just beta
-  LOW, 	// baseline parameters: beta, se, dispersion, rdf
+  LOW, 	  // baseline parameters: beta, se, dispersion, rdf
   MEDIUM, // vcov
   HIGH,   // pearson residuals
   MOST,   // hatvalues, fitted.values
@@ -47,6 +47,7 @@ class ModelFit {
 	vec hatvalues;
 	vec mu;
 	vec devianceResiduals;
+  double varFitted = datum::nan;
 
 	ModelFit() {}
 

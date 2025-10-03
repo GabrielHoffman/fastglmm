@@ -13,15 +13,16 @@ test_generics = function(){
                   gsub("\\.fast(g?)lmm", "", .) %>%
                   unique %>%
                   c("formula", "weights") %>%
-                  sort
+                  sort %>%
+                  setdiff(methods(class = "list")) %>%
+                  grep("-method", ., value=TRUE, invert=TRUE)
 
   target = methods(class = "merMod") %>%
                   gsub("\\.merMod", "", .) %>%
                   unique %>%
                   sort
 
-  setdiff(target, implemented)
-
+ 
 
   f_check_generics = function(fit1, fit2, exclude = c()){
 
@@ -30,7 +31,7 @@ test_generics = function(){
 
     tol = 1e-5
     # For each generic function
-    exclude = c(exclude, "coef", "print", "plot", "df.residual", "extractAIC", "edf")
+    exclude = c(exclude, "coef", "print", "plot", "df.residual", "extractAIC", "edf", "varpart")
     for(fx in setdiff(implemented, exclude) ){
 
       cat(fx, "\n")

@@ -2,20 +2,46 @@
 % Please edit documentation in R/varpart.R
 \name{varpart}
 \alias{varpart}
+\alias{varpart,fastlmm-method}
+\alias{varpart,fastglmm-method}
+\alias{varpart,glm-method}
+\alias{varpart,lm-method}
+\alias{varpart,merMod-method}
 \title{Variance Partitioning Analysis}
 \usage{
-varpart(fit, distr.method = c("trigamma", "lognormal"))
+varpart(fit, ..., distr.method = c("trigamma", "lognormal"))
+
+\S4method{varpart}{fastlmm}(fit, ..., distr.method = c("trigamma", "lognormal"))
+
+\S4method{varpart}{fastglmm}(fit, ..., distr.method = c("trigamma", "lognormal"))
+
+\S4method{varpart}{glm}(fit, ..., distr.method = c("trigamma", "lognormal"))
+
+\S4method{varpart}{lm}(fit, ..., distr.method = c("trigamma", "lognormal"))
+
+\S4method{varpart}{merMod}(fit, ..., distr.method = c("trigamma", "lognormal"))
 }
 \arguments{
 \item{fit}{model fit}
 
+\item{...}{other arguments, not used here}
+
 \item{distr.method}{use either the \code{"lognormal"} or \code{"trigamma"} formulas from Nakagawa, et al. (2017)}
 }
 \description{
-Compute fraction of variance attributable to each variable in regression model.  Also interpretable as the intra-class correlation after correcting for all other variables in the model. Works for models fit with \code{glm()} and \code{fastglmm()}
+Compute fraction of variance attributable to each variable in regression model.  Also interpretable as the intra-class correlation after correcting for all other variables in the model.
 }
 \details{
 The coefficient of determination (i.e. R^2) is 1 - [Residuals fraction].  This matches \code{performance::r2_nakagawa()} and \code{performance::r2_mckelvey()}, except these use the \code{"lognormal"} method.
+}
+\examples{
+library(MASS)
+library(lme4)
+
+fit = fastglmm(y ~ trt + I(week > 2) + (1 | ID),
+  family = binomial(), data = bacteria)
+
+varpart(fit)
 }
 \references{
 Nakagawa, Johnson, Schielzeth. 2017.  The coefficient of determination R2 and intra-class correlation coefficient from generalized linear mixed-effects models revisited and expanded. J. R. Soc. Interface 14: 20170213. \doi{10.1098/rsif.2017.0213}

@@ -255,7 +255,7 @@ ModelFitGLMM fastglmm<T1, T2, T3>::get_result(){
   if( md >= HIGH ){
 		mf.residuals = residuals();
   }
-
+  
 	return mf;
 }
 

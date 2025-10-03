@@ -2,21 +2,21 @@
 % Please edit documentation in R/varpart.R
 \name{varianceTerms}
 \alias{varianceTerms}
-\alias{varianceTerms.lm}
-\alias{varianceTerms.glm}
-\alias{varianceTerms.merMod}
-\alias{varianceTerms.fastlmm}
+\alias{varianceTerms,lm-method}
+\alias{varianceTerms,glm-method}
+\alias{varianceTerms,merMod-method}
+\alias{varianceTerms,fastlmm-method}
 \title{Return array with variance component estimates}
 \usage{
-varianceTerms(object)
+varianceTerms(object, ...)
 
-\method{varianceTerms}{lm}(object)
+\S4method{varianceTerms}{lm}(object, ...)
 
-\method{varianceTerms}{glm}(object)
+\S4method{varianceTerms}{glm}(object, ...)
 
-\method{varianceTerms}{merMod}(object)
+\S4method{varianceTerms}{merMod}(object, ...)
 
-\method{varianceTerms}{fastlmm}(object)
+\S4method{varianceTerms}{fastlmm}(object, ...)
 }
 \arguments{
 \item{object}{model fit}
