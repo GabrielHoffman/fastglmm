@@ -22,9 +22,8 @@ namespace fastglmmLib {
 class CleanData {
 
   public:
-    mat Y_clean, X_clean, W_clean;
 
-  CleanData( const mat &Y, const mat &X, const mat &Weights )
+  CleanData( const mat &Y, const mat &X, const mat &Weights ) :
     Y_clean(Y),
     X_clean(X),
     W_clean(Weights)  {
@@ -56,7 +55,7 @@ class CleanData {
   }
 
   private:
-  mat Y_clean, X_clean, Wsqrt;
+  mat Y_clean, X_clean, W_clean;
 };
 
 }

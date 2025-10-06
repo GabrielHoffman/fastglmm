@@ -24,6 +24,7 @@
 #include <RcppParallel.h>
 
 #include "misc.h"
+#include "CleanData.h"
 #include "ModelFit.h"
 
 using namespace arma;
@@ -511,53 +512,47 @@ static ModelFitList lmFitResponses(
 	const ModelDetail md = LOW, 
 	const int &nthreads = 1){
 
-    ModelFitList fitList(Y.n_cols, ModelFit());
+  ModelFitList fitList(Y.n_cols, ModelFit());
 
-    // find rows in X with NAN values
-	 	uvec idx_x = rows_with_nan(X);  
-	 	uvec idx_y = rows_with_nan(Y); 
-	 	uvec idx = unique(join_cols(idx_x, idx_y));	
-	 	mat X_clean(X);
-	 	X_clean.rows(idx_x).zeros();
+  CleanData data(Y, X, Weights);
 
-    arma::mat Wsqrt = sqrt(Weights);
-    Wsqrt.rows(idx).zeros();
-    arma::mat Yw = Y % Wsqrt;
-    Yw.rows(idx_y).zeros();
+  mat X_clean = data.get_X();
+  mat Wsqrt = sqrt(data.get_W());
+  mat Yw = data.get_Y() % Wsqrt;
 
-  	// Reduce residual degrees of freedom by the number of 
-  	// 	entries with zero weights
-    int rdf_offset = idx.n_elem;
+  // Parallel part using Thread Building Blocks
+	tbb::task_arena limited_arena(nthreads);
+	limited_arena.execute([&] {
+	tbb::parallel_for(
+	tbb::blocked_range<int>(0, Y.n_cols, 100), 
+	[&](const tbb::blocked_range<int>& r){ 
 
-    // Parallel part using Thread Building Blocks
-		tbb::task_arena limited_arena(nthreads);
-		limited_arena.execute([&] {
-		tbb::parallel_for(
-		tbb::blocked_range<int>(0, Y.n_cols, 100), 
-		[&](const tbb::blocked_range<int>& r){ 
+		disable_parallel_blas();
 
-			disable_parallel_blas();
- 
-      for (int j = r.begin(); j != r.end(); ++j) {    
+    for (int j = r.begin(); j != r.end(); ++j) {    
 
-		    // linear regression        
-		    // ModelFit fit = wlm(X, Y.col(j), Weights.col(j));
-		    ModelFit fit = lm(X_clean.each_col() % Wsqrt.col(j), 
-		    									Yw.col(j), md, rdf_offset);
+			// Reduce residual degrees of freedom by the number of 
+			// 	entries with zero weights
+		  int rdf_offset = count_nan(Wsqrt.col(j));
 
-				fit.ID = ids[j];
+	    // linear regression        
+	    // ModelFit fit = wlm(X, Y.col(j), Weights.col(j));
+	    ModelFit fit = lm(X_clean.each_col() % Wsqrt.col(j), 
+	    									Yw.col(j), md, rdf_offset);
 
-				if( md >= HIGH){
-	        // Rescale residuals by weights afterward
-	        //  since input X and y are scaled before lm()
-	        fit.residuals /= Wsqrt.col(j);
-	        fit.mu /= Wsqrt.col(j);
-				}
+			fit.ID = ids[j];
 
-		    // save result to list
-		    fitList.at(j) =  fit;
+			if( md >= HIGH){
+        // Rescale residuals by weights afterward
+        //  since input X and y are scaled before lm()
+        fit.residuals /= Wsqrt.col(j);
+        fit.mu /= Wsqrt.col(j);
 			}
-		}); }); 
+
+	    // save result to list
+	    fitList.at(j) =  fit;
+		}
+	}); }); 
 
 	return fitList;
 }

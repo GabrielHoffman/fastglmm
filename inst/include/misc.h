@@ -216,6 +216,26 @@ static void disable_parallel_blas(){
   #endif
 }
 
+// For NAN entries in Y, set matching entry in W to zero
+static void match_NAN_zeros( const mat &Y, mat &W){
+  for (arma::uword r = 0; r < Y.n_rows; ++r) {
+    for (arma::uword c = 0; c < Y.n_cols; ++c) {
+      if (std::isnan(Y(r, c))) {
+        W(r, c) = 0.0;
+      }
+    }
+  }
+}
+
+static int count_nan( const vec &v){
+  int nan_count = 0;
+  for (arma::uword i = 0; i < v.n_elem; ++i) {
+    if (std::isnan(v(i))) {
+      nan_count++;
+    }
+  }
+  return nan_count;
+}
 
 
 
