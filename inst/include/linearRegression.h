@@ -174,7 +174,11 @@ static ModelFit lm(
  * 
 */
 template <typename T>
-static tuple<vec, T> preprojection(const vec &y, const mat &X_design, const T &X_features, const vec &weights = {}){
+static tuple<vec, T> preprojection(
+	const vec &y, 
+	const mat &X_design, 
+	const T &X_features, 
+	const vec &weights = {}){
 
 	// naive calculation
 	// vec y_proj = y - X_design * inv(trans(X_design) * X_design) * trans(X_design) * y;
@@ -226,7 +230,11 @@ static tuple<vec, T> preprojection(const vec &y, const mat &X_design, const T &X
  * @param weights sample-level weights
 */
 template <typename T>
-static tuple<vec, T> preprojection(const vec &y, const sp_mat &X_design, const T &X_features, const vec &weights = {}){
+static tuple<vec, T> preprojection(
+	const vec &y, 
+	const sp_mat &X_design, 
+	const T &X_features, 
+	const vec &weights = {}){
 
 	// naive calculation
 	// vec y_proj = y - X_design * inv(trans(X_design) * X_design) * trans(X_design) * y;
@@ -285,7 +293,13 @@ static tuple<vec, T> preprojection(const vec &y, const sp_mat &X_design, const T
  * 
  Scale y and X by sqrt(w / mean(w)) and then call lm()
 */
-static ModelFit wlm(const arma::mat& X, const arma::colvec& y, const arma::colvec& w = {}, const ModelDetail md = LOW, const double &rdf_offset = 0, LMWork *work = nullptr) {
+static ModelFit wlm(
+	const arma::mat& X, 
+	const arma::colvec& y, 
+	const arma::colvec& w = {}, 
+	const ModelDetail md = LOW, 
+	const double &rdf_offset = 0, 
+	LMWork *work = nullptr) {
 
 	ModelFit fit;
 
@@ -316,7 +330,14 @@ static ModelFit wlm(const arma::mat& X, const arma::colvec& y, const arma::colve
  * @param nthreads number of threads.  Each model is fit in serial, analysis is parallelized across features
  * 
 */
-static vector<ModelFit> lmFitFeatures_standard(const arma::vec &y, const arma::mat &X_design, const arma::mat &X_features, const vector<string> &ids, const arma::vec &weights = {}, const ModelDetail md = LOW, const int &nthreads = 1){
+static vector<ModelFit> lmFitFeatures_standard(
+	const arma::vec &y, 
+	const arma::mat &X_design, 
+	const arma::mat &X_features, 
+	const vector<string> &ids, 
+	const arma::vec &weights = {}, 
+	const ModelDetail md = LOW, 
+	const int &nthreads = 1){
 
 	int n_covs = X_design.n_cols;
 
@@ -340,7 +361,7 @@ static vector<ModelFit> lmFitFeatures_standard(const arma::vec &y, const arma::m
 		LMWork *work = new LMWork();
 
 		// iterate through responses 
-	    for (int j = r.begin(); j != r.end(); ++j) {    	
+	  for (int j = r.begin(); j != r.end(); ++j) {    	
 
 			// Create design matrix with intercept as first column
 			X.col(n_covs) = X_features.col(j);
@@ -372,7 +393,14 @@ static vector<ModelFit> lmFitFeatures_standard(const arma::vec &y, const arma::m
  * 
 */
 template <typename T1, typename T2>
-static ModelFitList lmFitFeatures_preproj(const arma::vec &y, const T1 &X_design, const T2 &X_features, const vector<string> &ids, const arma::vec &weights = {}, const ModelDetail md = LOW, const int &nthreads = 1){
+static ModelFitList lmFitFeatures_preproj(
+	const arma::vec &y, 
+	const T1 &X_design, 
+	const T2 &X_features, 
+	const vector<string> &ids, 
+	const arma::vec &weights = {}, 
+	const ModelDetail md = LOW, 
+	const int &nthreads = 1){
 	
 	if( X_features.n_cols == 0){
 		throw invalid_argument("X_features has 0 columns");
@@ -436,7 +464,15 @@ static ModelFitList lmFitFeatures_preproj(const arma::vec &y, const T1 &X_design
  * 
 */
 template <typename T1, typename T2>
-static ModelFitList lmFitFeatures(const arma::vec &y, const T1 &X_design, const T2 &X_features, const vector<string> &ids, const arma::vec &weights = {}, const ModelDetail md = LOW, const bool &preprojection = true, const int &nthreads = 1){
+static ModelFitList lmFitFeatures(
+	const arma::vec &y, 
+	const T1 &X_design, 
+	const T2 &X_features, 
+	const vector<string> &ids,
+	const arma::vec &weights = {}, 
+	const ModelDetail md = LOW, 
+	const bool &preprojection = true, 
+	const int &nthreads = 1){
 
 	ModelFitList fitList;
 

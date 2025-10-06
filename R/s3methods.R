@@ -1040,8 +1040,6 @@ residuals.fastglmm <- function(object, type = c("deviance" , "pearson", "working
 
 
 
-# Compute dispersion of GLM
-# adapted from summary.glm()
 #' Overdispersion parameter
 #'
 #' Overdispersion parameter
@@ -1049,7 +1047,15 @@ residuals.fastglmm <- function(object, type = c("deviance" , "pearson", "working
 #' @param object model fit 
 #' 
 #' @export
-dispersion <- function(object){
+setGeneric("dispersion", function(object) {
+  standardGeneric("dispersion")
+})
+
+
+#' @rdname varianceTerms
+#' @export
+setMethod("dispersion", signature("fastlmm"), 
+  function(object) {
 
   df.r <- df.residual(object)
   fam <- family(object)
@@ -1072,7 +1078,7 @@ dispersion <- function(object){
   }
 
   disp
-}
+})
 
 
 

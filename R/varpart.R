@@ -58,7 +58,7 @@ getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal")) {
     "binomial/probit" = 1,
     "quasipoisson/log" =  {
 
-      omega <- summary(fit)$dispersion
+      omega <- dispersion(fit)
 
       switch(method,
         "lognormal" = log(1 + omega / lambda),
