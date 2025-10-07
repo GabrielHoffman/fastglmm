@@ -2,9 +2,12 @@
 % Please edit documentation in R/s3methods.R
 \name{dispersion}
 \alias{dispersion}
+\alias{dispersion,fastlmm-method}
 \title{Overdispersion parameter}
 \usage{
 dispersion(object)
+
+\S4method{dispersion}{fastlmm}(object)
 }
 \arguments{
 \item{object}{model fit}

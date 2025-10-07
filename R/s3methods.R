@@ -1052,7 +1052,7 @@ setGeneric("dispersion", function(object) {
 })
 
 
-#' @rdname varianceTerms
+#' @rdname dispersion
 #' @export
 setMethod("dispersion", signature("fastlmm"), 
   function(object) {
