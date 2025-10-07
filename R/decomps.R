@@ -38,7 +38,7 @@
 #' @seealso \code{preprocess_indicator()}
 #' @export
 indicator_decomp <- function(x, weights = NULL, rank = NULL, sort = FALSE) {
-  if (is.factor(x)) {
+  if (is.factor(x) || is.character(x) ) {
     Z <- preprocess_indicator(x)
   } else if (is(x, "sparseMatrix")) {
     Z <- x
@@ -83,7 +83,12 @@ indicator_decomp <- function(x, weights = NULL, rank = NULL, sort = FALSE) {
 #' @importFrom Matrix fac2sparse
 #' @export
 preprocess_indicator <- function(x) {
-  stopifnot(is.factor(x))
+  
+  stopifnot(is.factor(x) || is.character(x))
+
+  if( ! is.factor(x) ){
+    x <- as.factor(x)
+  }
 
   x <- droplevels(x)
   Z.mod <- t(fac2sparse(x))

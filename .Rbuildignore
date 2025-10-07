@@ -4,3 +4,4 @@ _pkgdown.yml
 ^vignettes/Makefile$
 ^inst/doxygen$
 o$
+_cache$

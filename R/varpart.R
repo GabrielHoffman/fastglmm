@@ -104,12 +104,21 @@ get_mean_weights = function(fit){
 }
 
 
+#' Estimate baseline rate from count model
+#' 
+#' Estimate baseline rate from count model
+#' 
+#' @param fit model fit
+#' @param ... other args
+#'
 #' @keywords internal
+#' @rdname getLambda
 #' @export
 setGeneric("getLambda", function(fit,...) {
   standardGeneric("getLambda")
 })
 
+#' @rdname getLambda
 #' @export
 setMethod("getLambda", signature(fit = "fastlmm"), 
   function(fit,...) {
@@ -132,6 +141,7 @@ setMethod("getLambda", signature(fit = "fastlmm"),
 })
 
 
+#' @rdname getLambda
 #' @export
 setMethod("getLambda", signature("glm"), 
   function(fit,...) {
@@ -150,6 +160,15 @@ setMethod("getLambda", signature("glm"),
 })
 
 
+
+#' Estimate baseline rate from count model
+#' 
+#' Estimate baseline rate from count model
+#' 
+#' @param fit_null model fit of null
+#' @param ... other args
+#'
+#' @rdname getLambda
 #' @keywords internal
 #' @export
 setGeneric("getLambdaFromNull", function(fit_null,...) {

@@ -26,12 +26,12 @@ Imports:
 	stats,
 	methods
 Depends:
-	R (>= 4.0.0),
+	R (>= 4.1.0),
 	lme4
 Encoding: UTF-8
 LinkingTo: 
 	Rcpp, 
-	RcppArmadillo,
+	RcppArmadillo (>= 15.0.2.2),
 	RcppParallel
 SystemRequirements: 
 	GNU make, 
