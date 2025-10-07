@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['variance_0',['variance',['../classfastglmm_lib_1_1_g_l_m_family.html#ac7e49ea977ff10ffc2e43f4049540012',1,'fastglmmLib::GLMFamily::variance()'],['../classfastglmm_lib_1_1_gaussian_identity.html#a829180f64b2715543082c9a3f19c8666',1,'fastglmmLib::GaussianIdentity::variance()'],['../classfastglmm_lib_1_1_binomial_logit.html#a47ff7d35b0d775f44e1ae59fd17451a6',1,'fastglmmLib::BinomialLogit::variance()'],['../classfastglmm_lib_1_1_binomial_probit.html#a3c710ce8089b372948ad4af26385ee92',1,'fastglmmLib::BinomialProbit::variance()'],['../classfastglmm_lib_1_1_poisson_log.html#a3aeabecf250dc29c2e278d17bfb49d44',1,'fastglmmLib::PoissonLog::variance()'],['../classfastglmm_lib_1_1_n_b.html#a3b0b0eda95b1231a0f0a1d3139cd253c',1,'fastglmmLib::NB::variance()']]]
+  ['update_0',['update',['../class_progress_bar.html#a2554aade8f291928e3089ad7b46a016e',1,'ProgressBar']]],
+  ['update_5fresponse_1',['update_response',['../classfastglmm_lib_1_1fastlmm.html#ada1f677dd0fcac48e0abf54450ac4178',1,'fastglmmLib::fastlmm::update_response(const T1 &amp;Y_, const vec &amp;weights_)'],['../classfastglmm_lib_1_1fastlmm.html#aa37016ccbfeefecd0eae004ca693da99',1,'fastglmmLib::fastlmm::update_response(const T1 &amp;Y_, const vec &amp;weights_, const mat &amp;Yu_)']]],
+  ['update_5fx_2',['update_X',['../classfastglmm_lib_1_1fastlmm.html#a74d364e9ab504d64c086f4c3546b0d89',1,'fastglmmLib::fastlmm']]],
+  ['update_5fy_3',['update_Y',['../classfastglmm_lib_1_1fastlmm.html#a6e35df0bf8846fe6bb725b8073c8f02f',1,'fastglmmLib::fastlmm']]]
 ];

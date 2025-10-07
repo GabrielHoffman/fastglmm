@@ -1,5 +1,8 @@
 
 
+# fastglmm 0.3.2
+ - Oct 7, 2025
+ - add checks and compatibility with BatchRegression
 
 # fastglmm 0.3.1
  - Sept 16, 2025

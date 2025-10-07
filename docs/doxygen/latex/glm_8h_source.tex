@@ -55,7 +55,7 @@
 \DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\ \textcolor{stringliteral}{"{}Invalid\ response\ for\ poisson/nb,\ must\ be\ non-\/negative"{}}\ );}
 \DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00055\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ famStr\ ==\ \textcolor{stringliteral}{"{}QuasibinomialLogit"{}}\ )\{}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ res[0]\ <=\ 0\ ||\ res[res.n\_elem-\/1]\ >=1\ )\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ res[0]\ <\ 0\ ||\ res[res.n\_elem-\/1]\ >=1\ )\{}
 \DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ logic\_error(\ \textcolor{stringliteral}{"{}Invalid\ response\ for\ quasi-\/binomial,\ must\ be\ between\ 0\ and\ 1"{}}\ );}
 \DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00059\ \ \ \ \ \}}

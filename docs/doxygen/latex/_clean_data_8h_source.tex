@@ -1,0 +1,67 @@
+\doxysection{Clean\+Data.\+h}
+\hypertarget{_clean_data_8h_source}{}\label{_clean_data_8h_source}\index{inst/include/CleanData.h@{inst/include/CleanData.h}}
+\mbox{\hyperlink{_clean_data_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/***************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ CleanData.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ @author\ \ Gabriel\ Hoffman}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ @email\ \ \ gabriel.hoffman@mssm.edu}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ @brief\ \ \ Clean\ data\ with\ NAN\ values}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2025\ Gabriel\ Hoffman}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ **************************************************************/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ CLEAN\_DATA\_H\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ CLEAN\_DATA\_H\_}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{misc_8h}{misc.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{using\ namespace\ }arma;}
+\DoxyCodeLine{00015\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacefastglmm_lib}{fastglmmLib}}\ \{}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfastglmm_lib_1_1_clean_data_a9892799cd982985a94c90a8e893d2116}{CleanData}}\ \{}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_clean_data_a9892799cd982985a94c90a8e893d2116}{CleanData}}(\ \textcolor{keyword}{const}\ mat\ \&Y,\ \textcolor{keyword}{const}\ mat\ \&X,\ \textcolor{keyword}{const}\ mat\ \&Weights\ )\ :}
+\DoxyCodeLine{00027\ \ \ \ \ Y\_clean(Y),}
+\DoxyCodeLine{00028\ \ \ \ \ X\_clean(X),}
+\DoxyCodeLine{00029\ \ \ \ \ W\_clean(Weights)\ \ \{}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//\ find\ rows\ in\ X\ with\ NAN\ values}}
+\DoxyCodeLine{00032\ \ \ \ \ uvec\ idx\_x\ =\ rows\_with\_nan(X);\ \ }
+\DoxyCodeLine{00033\ \ \ \ \ X\_clean.rows(idx\_x).zeros();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{comment}{//\ Row\ rows\ in\ X\ with\ missing\ data,\ }}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//\ set\ rows\ in\ Weights\ to\ zero}}
+\DoxyCodeLine{00037\ \ \ \ \ W\_clean.rows(idx\_x).zeros();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ for\ indieces\ in\ Y\ with\ missing\ data}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ set\ indices\ in\ Weights\ and\ Y\ to\ zero}}
+\DoxyCodeLine{00041\ \ \ \ \ match\_NAN\_zeros(Y\_clean,\ W\_clean);}
+\DoxyCodeLine{00042\ \ \ \ \ match\_NAN\_zeros(Y\_clean,\ Y\_clean);}
+\DoxyCodeLine{00043\ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ mat\ \mbox{\hyperlink{classfastglmm_lib_1_1_clean_data_a6dc133384a57ef4deace7efee9edb81f}{get\_Y}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{return}\ Y\_clean;}
+\DoxyCodeLine{00047\ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ mat\ \mbox{\hyperlink{classfastglmm_lib_1_1_clean_data_a59ed3ac2031e56c208fb58dc3a409de1}{get\_W}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{return}\ W\_clean;}
+\DoxyCodeLine{00051\ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ mat\ \mbox{\hyperlink{classfastglmm_lib_1_1_clean_data_ae4b2a55c30462ba96309752fbe4a9761}{get\_X}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{return}\ X\_clean;}
+\DoxyCodeLine{00055\ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00058\ \ \ mat\ Y\_clean,\ X\_clean,\ W\_clean;}
+\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

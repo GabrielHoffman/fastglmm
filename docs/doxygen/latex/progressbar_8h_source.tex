@@ -1,0 +1,77 @@
+\doxysection{progressbar.\+h}
+\hypertarget{progressbar_8h_source}{}\label{progressbar_8h_source}\index{inst/include/progressbar.h@{inst/include/progressbar.h}}
+\mbox{\hyperlink{progressbar_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ \_PROGRESS\_BAR\_}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ \_PROGRESS\_BAR\_}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <thread>}\ \textcolor{comment}{//\ For\ std::this\_thread::sleep\_for}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_progress_bar_a0d3b3c0a0136b35b612938abd8657342}{ProgressBar}}\ \{}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \mbox{\hyperlink{class_progress_bar_a0d3b3c0a0136b35b612938abd8657342}{ProgressBar}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&total\ ):}
+\DoxyCodeLine{00016\ \ \ \ \ total(total)\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ startTime\ =\ std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{00018\ \ \ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \textcolor{comment}{//\ Update\ with\ number\ of\ completed\ tasks\ and\ out-\/stream}}
+\DoxyCodeLine{00021\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_progress_bar_a2554aade8f291928e3089ad7b46a016e}{update}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&progress,\ ostream\ \&strm);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00024\ \ \ std::chrono::high\_resolution\_clock::time\_point\ startTime;}
+\DoxyCodeLine{00025\ \ \ \textcolor{keywordtype}{int}\ total;}
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{int}\ barWidth\ =\ 50;\ \textcolor{comment}{//\ Width\ of\ the\ progress\ bar\ in\ characters}}
+\DoxyCodeLine{00027\ \};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_progress_bar_a2554aade8f291928e3089ad7b46a016e}{ProgressBar::update}}(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&progress,\ ostream\ \&strm)\{}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \textcolor{comment}{//\ Calculate\ progress\ percentage}}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{double}\ percentage\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(progress)\ /\ total;}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{int}\ filledWidth\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(barWidth\ *\ percentage);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \textcolor{comment}{//\ Print\ the\ bar}}
+\DoxyCodeLine{00037\ \ \ strm\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)r["{}};\ \textcolor{comment}{//\ \(\backslash\)r\ returns\ cursor\ to\ beginning\ of\ line}}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ filledWidth;\ ++i)\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ strm\ <<\ \textcolor{stringliteral}{"{}="{}};}
+\DoxyCodeLine{00040\ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ filledWidth;\ i\ <\ barWidth;\ ++i)\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ strm\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00043\ \ \ \}}
+\DoxyCodeLine{00044\ \ \ strm\ <<\ \textcolor{stringliteral}{"{}]\ "{}}\ <<\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(percentage\ *\ 100.0)\ <<\ \textcolor{stringliteral}{"{}\%"{}};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordflow}{if}(\ progress\ >\ 0\ )\{}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{//\ Calculate\ ETA}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{auto}\ currentTime\ =\ std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{auto}\ elapsedTime\ =\ std::chrono::duration\_cast<std::chrono::seconds>(currentTime\ -\/\ startTime).count();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{int}\ minutes,\ seconds;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{if}(\ progress\ ==\ total)\{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ minutes\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(elapsedTime\ /\ 60);}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ seconds\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(elapsedTime)\ \%\ 60;}
+\DoxyCodeLine{00056\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ estimatedTotalTime\ =\ (elapsedTime\ /\ percentage);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ etaSeconds\ =\ estimatedTotalTime\ -\/\ elapsedTime;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ minutes\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(etaSeconds\ /\ 60);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ seconds\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(etaSeconds)\ \%\ 60;}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ strm\ <<\ \textcolor{stringliteral}{"{}\ ETA:\ "{}}\ <<\ minutes\ <<\ \textcolor{stringliteral}{"{}m\ "{}}\ <<\ seconds\ <<\ \textcolor{stringliteral}{"{}s"{}};}
+\DoxyCodeLine{00064\ \ \ \ \ strm\ <<\ std::flush;\ \textcolor{comment}{//\ Ensure\ immediate\ output}}
+\DoxyCodeLine{00065\ \ \ \}}
+\DoxyCodeLine{00066\ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

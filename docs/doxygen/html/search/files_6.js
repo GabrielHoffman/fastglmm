@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rcppexports_2ecpp_0',['RcppExports.cpp',['../_rcpp_exports_8cpp.html',1,'']]]
+  ['nb_5ftheta_2eh_0',['nb_theta.h',['../nb__theta_8h.html',1,'']]]
 ];
