@@ -220,9 +220,29 @@
 \DoxyCodeLine{00216\ \textcolor{preprocessor}{\ \ \#endif}}
 \DoxyCodeLine{00217\ \}}
 \DoxyCodeLine{00218\ }
-\DoxyCodeLine{00219\ }
-\DoxyCodeLine{00220\ }
-\DoxyCodeLine{00221\ }
-\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00219\ \textcolor{comment}{//\ For\ NAN\ entries\ in\ Y,\ set\ matching\ entry\ in\ W\ to\ zero}}
+\DoxyCodeLine{00220\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ match\_NAN\_zeros(\ \textcolor{keyword}{const}\ mat\ \&Y,\ mat\ \&W)\{}
+\DoxyCodeLine{00221\ \ \ \textcolor{keywordflow}{for}\ (arma::uword\ r\ =\ 0;\ r\ <\ Y.n\_rows;\ ++r)\ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordflow}{for}\ (arma::uword\ c\ =\ 0;\ c\ <\ Y.n\_cols;\ ++c)\ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(Y(r,\ c)))\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ W(r,\ c)\ =\ 0.0;}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \}}
+\DoxyCodeLine{00227\ \ \ \}}
+\DoxyCodeLine{00228\ \}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ count\_nan(\ \textcolor{keyword}{const}\ vec\ \&v)\{}
+\DoxyCodeLine{00231\ \ \ \textcolor{keywordtype}{int}\ nan\_count\ =\ 0;}
+\DoxyCodeLine{00232\ \ \ \textcolor{keywordflow}{for}\ (arma::uword\ i\ =\ 0;\ i\ <\ v.n\_elem;\ ++i)\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(v(i)))\ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ nan\_count++;}
+\DoxyCodeLine{00235\ \ \ \ \ \}}
+\DoxyCodeLine{00236\ \ \ \}}
+\DoxyCodeLine{00237\ \ \ \textcolor{keywordflow}{return}\ nan\_count;}
+\DoxyCodeLine{00238\ \}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

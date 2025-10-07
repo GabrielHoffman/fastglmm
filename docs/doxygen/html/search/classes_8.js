@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['spectraldecomp_0',['spectralDecomp',['../classfastglmm_lib_1_1spectral_decomp.html',1,'fastglmmLib']]],
-  ['spectraldecomp_3c_20t3_20_3e_1',['spectralDecomp&lt; T3 &gt;',['../classfastglmm_lib_1_1spectral_decomp.html',1,'fastglmmLib']]]
+  ['quasibinomiallogit_0',['QuasibinomialLogit',['../classfastglmm_lib_1_1_quasibinomial_logit.html',1,'fastglmmLib']]],
+  ['quasipoissonlog_1',['QuasipoissonLog',['../classfastglmm_lib_1_1_quasipoisson_log.html',1,'fastglmmLib']]]
 ];

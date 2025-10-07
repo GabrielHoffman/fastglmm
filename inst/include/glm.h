@@ -53,7 +53,7 @@ static void checkResponse(const vec &y, const string &family){
 			throw logic_error( "Invalid response for poisson/nb, must be non-negative" );
 		}
 	}else if( famStr == "QuasibinomialLogit" ){
-		if( res[0] <= 0 || res[res.n_elem-1] >=1 ){
+		if( res[0] < 0 || res[res.n_elem-1] >=1 ){
 			throw logic_error( "Invalid response for quasi-binomial, must be between 0 and 1" );
 		}
 	}
