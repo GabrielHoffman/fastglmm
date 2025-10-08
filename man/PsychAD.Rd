@@ -24,4 +24,19 @@ PsychAD
 \description{
 A dataset containing gene expression of PTPRG in 60k microglia cells from the PsychAD Consortium from 299 subjects.  Of these, 149 subjects have Alzheimer's disease, and 150 are neurotypical controls.
 }
+\examples{
+data(PsychAD)
+
+# model formula
+form <- PTPRG ~ Dx + Age + Sex + offset(log(libSize)) + (1|SubID)
+
+# fit negative binomial mixed model
+fam <- negative.binomial(NA)
+fit <- fastglmm(form, PsychAD, family=fam)
+
+summary(fit)
+
+# Variance partitioning analysis
+varpart(fit)
+}
 \keyword{datasets}

@@ -13,6 +13,7 @@ VignetteBuilder: knitr
 Suggests: 
 	knitr,
 	rmarkdown,
+	mediation,
 	RUnit
 Imports: 
 	Rcpp (>= 1.0.12),

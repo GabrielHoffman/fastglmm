@@ -214,7 +214,8 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 
 	fit$prior.weights <- weights
 	fit$iter.pql <- fit$niter
-	fit$formula <- formula
+	fit$formula <- formula	
+  fit$data <- data
 	class(fit) <- c("fastglmm", "fastlmm")
 
 	attr(fit, "call") <- mc

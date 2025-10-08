@@ -73,6 +73,44 @@
     <p><a href="https://diseaseneurogenomics.github.io/dreamlet/index.html" class="external-link">https://diseaseneurogenomics.github.io/dreamlet/index.html</a></p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">PsychAD</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># model formula</span></span></span>
+<span class="r-in"><span><span class="va">form</span> <span class="op">&lt;-</span> <span class="va">PTPRG</span> <span class="op">~</span> <span class="va">Dx</span> <span class="op">+</span> <span class="va">Age</span> <span class="op">+</span> <span class="va">Sex</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/offset.html" class="external-link">offset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">libSize</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">SubID</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># fit negative binomial mixed model</span></span></span>
+<span class="r-in"><span><span class="va">fam</span> <span class="op">&lt;-</span> <span class="fu"><a href="negative.binomial.html">negative.binomial</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="fastglmm.html">fastglmm</a></span><span class="op">(</span><span class="va">form</span>, <span class="va">PsychAD</span>, family<span class="op">=</span><span class="va">fam</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Generlized linear mixed model fit by PQL ['fastglmm']</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Family: Negative Binomial(0.2443)  ( log )</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Formula: PTPRG ~ Dx + Age + Sex + offset(log(libSize)) + (1 | SubID)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) -8.577763   0.369235 -23.231   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DxAD         1.102771   0.087264  12.637   &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Age         -0.007261   0.004480  -1.621    0.105    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SexMale     -0.103264   0.089892  -1.149    0.251    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual df: 60227.2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Variance components:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   sigSq_g: 0.481</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   sigSq_e: 8.178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   delta:   17</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Variance partitioning analysis</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="varpart.html">varpart</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Dx          Age          Sex        SubID    Residuals </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.0133012726 0.0002195293 0.0001159424 0.0210471707 0.9653160849 </span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
