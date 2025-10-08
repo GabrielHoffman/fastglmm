@@ -12,3 +12,4 @@ getLink(family)
 \description{
 Get link function given family
 }
+\keyword{internal}

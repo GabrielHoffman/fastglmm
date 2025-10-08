@@ -7,14 +7,28 @@
 #' @param seed random seed
 #' @param ... other args, not used
 #'
-#' @rdname simulate-methods
-#' @aliases simulate,modelFits,modelFits-method
+#' @examples
+#' library(MASS)
+#' 
+#' # GLMM via PQL
+#' fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
+#'    family = binomial(), data = bacteria)
+#' 
+#' y.sim <- simulate(fit, 2)
+#' head(y.sim)
+#
+#' @rdname simulate
 #' @export
-setMethod(
-  "simulate", signature(object = "fastlmm"),
-  function(object, nsim = 1, seed=NULL,...){
+simulate.fastlmm <- function(object, nsim = 1, seed=NULL,...){
   simulateResponses(object, nsim, seed,...)
-})
+}
+
+# setMethod(
+#   "simulate", signature(object = "fastlmm"),
+#   function(object, nsim = 1, seed=NULL,...){
+#   simulateResponses(object, nsim, seed,...)
+# })
+
 
 
 #' Simulate responses
@@ -43,9 +57,24 @@ simulateResponses = function(object, nsim = 1, seed=NULL,...){
   }
 
   # get matrix of fitted values in response space
-  mu = fitted(object)
+  mu <- fitted(object)
 
-  switch( getFamilyString(family(object)), 
+  if( !is.matrix(mu) ){
+    mu <- matrix(mu, ncol=1)
+  }
+  if( is.null(colnames(mu)) ){    
+    colnames(mu) <- seq(ncol(mu))
+  }
+
+  fam <- getFamilyString(family(object))
+
+  # handle nb case
+  if( grepl("^nb:", fam) ){
+    object$theta <- as.numeric(strsplit(fam, ":")[[1]][2])
+    fam <- "nb"
+  }
+
+  switch( fam, 
     "gaussian/identity" = {
       Y <- lapply(seq(nsim), function(i){
         E <- rnorm(length(mu), 0, sd=sigma(object))

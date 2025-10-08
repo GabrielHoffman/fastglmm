@@ -5,6 +5,7 @@
 #' 
 #' @param family family function
 #' 
+#' @keywords internal
 #' @importFrom stats qnorm
 #' @export
 getLink = function(family){
@@ -26,6 +27,7 @@ getLink = function(family){
 #' 
 #' @param family family function
 #' 
+#' @keywords internal
 #' @importFrom stats pnorm
 #' @export
 getLinkInv = function(family){

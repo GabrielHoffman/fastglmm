@@ -96,11 +96,6 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
     offset <- model.offset(mf)
   }
 
-  # decomposition of random effect variable
-  if (!is.factor(data[[vs]])) {
-    stop("Random effect variable must be a factor")
-  }
-
   Z <- preprocess_indicator(data[[vs]])
 
   # fit model
@@ -119,6 +114,7 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
   )
 
   fit$formula <- formula
+  fit$data <- data
   
   # return model fit
   attr(fit, "call") <- mc

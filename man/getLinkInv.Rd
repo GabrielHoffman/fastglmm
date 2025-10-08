@@ -12,3 +12,4 @@ getLinkInv(family)
 \description{
 Get inverse link function given family
 }
+\keyword{internal}

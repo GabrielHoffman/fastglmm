@@ -12,6 +12,19 @@
 #'   \item{libSize}{total number of RNA-seq reads for this cell}
 #' }
 #' @source \url{https://diseaseneurogenomics.github.io/dreamlet/index.html}
+#' 
+#' @examples
+#' data(PsychAD)
+#' 
+#' # model formula
+#' form <- PTPRG ~ Dx + Age + Sex + offset(log(libSize)) + (1|SubID)
+#' 
+#' # fit negative binomial mixed model
+#' fam <- negative.binomial(NA)
+#' fit <- fastglmm(form, PsychAD, family=fam)
+#' 
+#' summary(fit)
+#' 
+#' # Variance partitioning analysis
+#' varpart(fit)
 "PsychAD"  
-
-# @importFrom RcppParallel RcppParallelLibs
