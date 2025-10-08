@@ -121,5 +121,7 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
     stop("Model type not supported")
   }
 
+  res$data <- fit$data
+
   res
 }

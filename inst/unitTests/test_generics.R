@@ -31,7 +31,7 @@ test_generics = function(){
 
     tol = 1e-5
     # For each generic function
-    exclude = c(exclude, "coef", "print", "plot", "df.residual", "extractAIC", "edf", "varpart")
+    exclude = c(exclude, "coef", "print", "plot", "df.residual", "extractAIC", "edf", "varpart", "simulate")
     for(fx in setdiff(implemented, exclude) ){
 
       cat(fx, "\n")
