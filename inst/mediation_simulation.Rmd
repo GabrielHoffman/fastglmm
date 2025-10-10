@@ -1,0 +1,417 @@
+---
+title: "Mediation analysis with fastglmm"
+subtitle: 'Simulation study'
+author: "Developed by [Gabriel Hoffman](http://gabrielhoffman.github.io/)"
+date: "Run on `r format(Sys.time())`"
+documentclass: article
+vignette: >
+  %\VignetteIndexEntry{Mediation analysis with fastglmm}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\usepackage[utf8]{inputenc}
+---
+
+
+
+<!---
+
+rmarkdown::render("mediation_simulation.Rmd")
+
+--->
+
+
+<style>
+body {
+text-align: justify}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  error = FALSE,
+  tidy = FALSE,
+  dev = c("png"),
+  cache = TRUE
+)
+```
+
+```{r load, cache=FALSE}
+library(mediation)
+library(fastglmm)
+library(parallel)
+library(PRROC)
+library(ggplot2)
+```
+
+
+# Gaussian
+```{r sim}
+# Model
+# x = a*z + noise
+# y = b*x + c_prime*z + noise
+
+# ADE is c_prime
+# ACME is a*b
+
+a = 3
+b = 1
+c_prime = -1
+sig_x = 3
+sig_y = 2
+
+n <- 100
+n_sims = 100
+
+res = mclapply(seq(n_sims), function(i){
+
+  c_prime.sim = ifelse(i < n_sims / 2, c_prime, 0)
+
+  data <- data.frame(z = rnorm(n))
+  data$x <- with(data, a*z + rnorm(n,0,sig_x))
+  data$y <- with(data, b*x + c_prime.sim*z + rnorm(n,0,sig_y))
+  data$letter <- sample(LETTERS[1:2], n, replace=TRUE)
+
+  fit1 <- glm(x ~ z, data=data)
+  fit2 <- glm(y ~ x + z, data=data)
+
+  res <- mediation:::mediate(fit1, fit2, treat="z", mediator="x")
+
+  df <- summary(res)
+
+  data.frame(i = i, 
+            c_prime = c_prime.sim,
+            ADE.hat = df$z.avg, 
+            ADE.p = df$z.avg.p)
+}, mc.cores=6)
+res = do.call(rbind, res)
+
+idx = res$c_prime == 0
+fg = -log10(res$ADE.p[!idx] + 1e-20)
+bg = -log10(res$ADE.p[idx]+ 1e-20)
+pr <- pr.curve(scores.class0 = fg, scores.class1 = bg, curve=T)
+plot(pr)
+
+ pr$auc.davis.goadrich
+```
+
+# Poisson
+```{r sim.poisson}
+# Model
+# x = a*z + noise
+# y = b*x + c_prime*z + noise
+
+# ADE is c_prime
+# ACME is a*b
+
+mu.x = 2
+mu.y = 3
+a = 1
+b = 1
+c_prime = -1
+sig_x = .1
+sig_y = .1
+
+n <- 2000
+n_sims = 100
+
+res = mclapply(seq(n_sims), function(i){
+
+  c_prime.sim = ifelse(i < n_sims / 2, c_prime, 0)
+
+  data <- data.frame(z = rnorm(n))
+
+  data$eta.x <- with(data, mu.x + a*z)
+  data$x <- with(data, eta.x + rnorm(n,0,sig_x))
+  # data$x <- with(data, rpois(n, exp(eta.x)))
+
+  data$eta.y <- with(data, mu.y + b*x + c_prime.sim*z)
+  # data$y <- with(data, eta.y + rnorm(n,0,sig_y))
+  data$y <- with(data, rpois(n, exp(eta.y)))
+
+  data$letter <- sample(LETTERS[1:2], n, replace=TRUE)
+
+  fit1 <- fastglmm(x ~ z + (1|letter), data=data)
+  fit2 <- fastglmm(y ~ x + z + (1|letter), data=data, family=poisson())
+  # fit2 <- fastlmm(log(y) ~ x + z + (1|letter), data=data)
+
+  df <- fastglmm::mediate(fit1, fit2, treat="z", mediator="x",)
+
+
+  fit1 <- glm(x ~ z, data=data)
+  fit2 <- glm(y ~ x + z, data=data, family=poisson())
+
+
+
+
+
+  data.frame(i = i, 
+            c_prime = c_prime.sim,
+            ADE.hat = df$Estimate[2], 
+            ADE.p = df$p.value[2])
+}, mc.cores=8)
+res = do.call(rbind, res)
+
+idx = res$c_prime == 0
+fg = -log10(res$ADE.p[!idx] + 1e-20)
+bg = -log10(res$ADE.p[idx]+ 1e-20)
+pr <- pr.curve(scores.class0 = fg, scores.class1 = bg, curve=T)
+plot(pr)
+
+plot(res$c_prime, res$ADE.hat)
+```
+
+
+```{r sim2}
+
+
+n = 2000
+mu.x = 3
+mu.y = 4
+a = 2
+b = 1
+c_prime = 1
+sig_x = 4
+sig_y = .1
+
+c_prime.sim = c_prime
+
+data <- data.frame(z = rnorm(n))
+
+data$eta.x <- with(data, mu.x + a*z)
+data$x.l <- data$eta.x + rnorm(n,0,sig_x)
+data$x <- rpois(n, exp(data$x.l))
+
+data$y.l <- with(data, log(mu.y + b*exp(x.l) + c_prime.sim*z))
+data$y <- rpois(n, exp(data$y.l))
+
+fit1 <- glm(x ~ z, data=data, family=poisson())
+data$x.g <- log(data$x+1)
+fit2 <- glm(y ~ x.g + z, data=data, family=poisson())
+
+coef(fit2)
+```
+
+
+
+```{r sim3}
+library(parallel)
+library(PRROC)
+
+n = 2000
+mu.x = 4
+mu.y = 4
+a = .01
+b = .01
+c_prime = .3
+sig_x = 1
+sig_y = .1
+
+n_sims = 10000
+
+res = mclapply(seq(n_sims), function(i){
+
+  b.in = ifelse(i <= n_sims / 2, b, 0)
+
+  # simulate data
+  data <- data.frame(z = rnorm(n))
+  data$eta.x <- mu.x + with(data, a*z)  + rnorm(n,0,sig_x)
+  data$x <- rpois(n, exp(data$eta.x))
+  data$eta.y = with(data, b.in*eta.x + c_prime*z)
+  data$y <- rpois(n, exp(data$eta.y + mu.y))
+
+  res <- twoStageGLM("z", "x", "y", poisson(), poisson(), data)
+
+
+  # fit.m = glm(x ~ z, data, family=poisson())
+  # fit.y = glm(y ~ x + z, data, family=poisson())
+  # res.med = mediation::mediate(fit.m, fit.y, treat="z", mediator="x")
+
+  df = res$coef
+  # df$mediate.p = res.med$d0.p
+  df$b.true = b.in
+  df$ME.true = a*b.in
+  df
+
+}, mc.cores=8)
+res = do.call(rbind, res)
+
+idx = res$b.true == 0
+fg = -log10(res$ME.p[!idx])
+bg = -log10(res$ME.p[idx])
+pr <- pr.curve(scores.class0 = fg, scores.class1 = bg, curve=T)
+plot(pr)
+
+
+
+
+
+
+hist(res$ME.p[idx])
+
+boxplot(ME ~ ME.true, res)
+
+
+```
+
+
+
+library(sadists)
+
+mu = c(2, 1)
+sig = c(1, 2)
+
+x1 <- rnorm(1e6, mu[1], sig[1])
+x2 <- rnorm(1e6, mu[2], sig[2])
+x  <- x1*x2
+d  <- density(x)
+plot(d,lwd=2)
+
+z  <- par('usr')
+dn <- dnorm(d$x, mean=mean(x), sd=sd(x))
+z  <- seq(z[1],z[2],length.out=length(dn))
+lines(z, dn, col=2, lwd=2)
+
+d2 = dprodnormal(d$x, mu, sig)
+lines(z, d2, col=3, lwd=2, lty=2)
+
+legend('topright', legend=c('Estimated density', 'Normal distribution', "dprodnormal"), lwd=2, lty=c(1,1, 2),col=c(1,2, 3))
+
+
+plot(ecdf(x), lwd=2)
+xval = seq(-40, 40, by=.01)
+
+d2 = pprodnormal(xval, mu, sig)
+lines(xval, d2, col=3, lwd=2, lty=2)
+
+y = sapply(xval, function(v){
+  pprodnormalMeeker(v, mu[1], mu[2], sig[1], sig[2], lower.tail=TRUE)$p
+  })
+lines(xval, y, col=2, lwd=2, lty=2)
+
+
+
+
+plot(data$eta.x, predict(fit1))
+
+summary(glm.nb(x ~ z, data=data))
+
+
+model.m = fit1
+model.y = fit2
+
+treat = "z"
+mediator = "x"
+
+
+treatmeant <- "z"
+mediator <- "x"
+outcome <- "y"
+covariates <- "1"
+family.mediator <- poisson()
+family.outcome <- poisson()
+
+
+res <- two_stage_glm("z", "x", "y", poisson(), poisson(), data)
+res$coef
+
+
+res.sim = lapply( seq(200), function(i){
+
+  # simuations
+  # eta.x = model.matrix(res$fit.mediator) %*% coef(res$fit.mediator) + rnorm(nrow(data), 0, sd=sig_x)
+  # # sd(residuals(res$fit.mediator, "work"))
+  # x.sim = rpois(nrow(data), exp(eta.x))
+
+  # cor(log(x.sim + .25), data$z)
+
+  # res$fit.outcome$data$x = eta.x 
+  # y.sim = simulate(res$fit.outcome)[,1]
+
+  # data.sim = data.frame(z = data$z,
+  #                       x = x.sim,
+  #                       y = y.sim)
+
+  # data.sim = data.frame(cbind(data.sim, data[,all.vars(covariates),drop=FALSE]))
+
+  data.sim = data.frame(z = data$z)
+  a.hat = res$coef$a
+  mu.x.hat = coef(res$fit.mediator)["(Intercept)"]
+  data.sim$eta.x <- with(data.sim, a.hat*z) + rnorm(n,0, sig_x)
+  data.sim$x <- rpois(n, exp(data.sim$eta.x + mu.x.hat))
+
+  b.hat = res$coef$b
+  c_prime.hat = res$coef$DE
+  mu.y.hat = coef(res$fit.outcome)["(Intercept)"]
+  data.sim$eta.y = with(data.sim, b*eta.x + c_prime.sim*z)
+  data.sim$y <- rpois(n, exp(data.sim$eta.y + mu.y.hat))
+
+  res2 = two_stage_glm("z", "x", "y", poisson(), poisson(), data.sim)
+  res2$coef
+
+
+})
+res.sim = do.call("rbind", res.sim)
+
+colMeans(res.sim)
+apply(res.sim, 2, sd)
+
+mean(abs(res.sim$b))
+
+
+# In simulations, g(x) and z are _strongly_ correlated
+
+# USE simulation code:
+
+data$eta.x <- with(data, a*z)  + rnorm(n,0,sig_x)
+data$x <- rpois(n, exp(data$eta.x + mu.x))
+
+data$eta.y = with(data, mu.y + b*eta.x + c_prime.sim*z)
+data$y <- rpois(n, exp(data$eta.y))
+
+
+
+<!---
+
+
+
+rmarkdown::render("mediation_simulation.Rmd")
+
+
+
+--->
+
+
+
+
+
+
+<!---
+
+  fit2 <- glm(y.obs ~ x + z, data=data, family=poisson())
+  fit3 <- lm(log(y.obs) ~ x + z, data=data)
+
+
+  plot(rowMeans(log(simulate(fit2, 1000))), 
+      rowMeans(simulate(fit3, 1000)))
+
+  plot(rowSds(log(as.matrix(simulate(fit2, 1000)))), 
+      rowSds(as.matrix(simulate(fit3, 1000))))
+
+
+
+  fit1 <- glm(x ~ z, data=data)
+  fit2 <- glm(y.obs ~ x + z, data=data, family=poisson())
+  res <- mediation:::mediate(fit1, fit2, treat="z", mediator="x")
+  summary(res)
+
+  mean(c(res$z0, res$z1))
+
+
+--->
+
+
+
+
