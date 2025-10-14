@@ -242,6 +242,9 @@
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/fixef.fastlmm.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/getDistrVar.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/getFamilyString.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/fastglmm/reference/getLambda.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/fastglmm/reference/getLink.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/fastglmm/reference/getLinkInv.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/hatvalues.fastlmm.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/heritability.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/index.html</loc></url>
@@ -256,6 +259,8 @@
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/lmFitResponses.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/logLik.fastlmm.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/lostDf.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/fastglmm/reference/mediate.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/fastglmm/reference/mediateResult.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/nb_theta.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/negative.binomial.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/nobs.fastlmm.html</loc></url>
@@ -271,6 +276,8 @@
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/residuals.fastlmm.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/rstudent.fastlmm.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/sigma.fastlmm.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/fastglmm/reference/simulate.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/fastglmm/reference/simulateResponses.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/summary.fastlmm.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/terms.fastlmm.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/varianceTerms.html</loc></url>

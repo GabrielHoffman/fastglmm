@@ -45,7 +45,6 @@ reference:
   - "dispersion"
   - "varianceTerms"
   - "negative.binomial"
-  - "mediate"
 
 - title: Generics
   contents:
@@ -70,7 +69,7 @@ reference:
   - "residuals.fastlmm"
   - "rstudent.fastlmm"
   - "sigma.fastlmm"
-  - "simulate,fastlmm-method"
+  - "simulate.fastlmm"
   - "summary.fastlmm"
   - "terms.fastlmm"
   - "vcov.fastlmm"

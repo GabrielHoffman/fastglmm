@@ -144,7 +144,7 @@ class fastlmm {
     vec inv_s_delta;
     mat inv_s_delta_Xu;
     mat QXX, QXY;
-    mat beta;
+    vec beta;
     vec r, ru;
     ModelDetail md;
     bool REML;
@@ -373,7 +373,12 @@ double fastlmm<T1, T2, T3>::ll(const double &delta ) {
   QXY = Xu.t() * (inv_s_delta % Yu) + Gamma_XY / delta;
 
   // beta <<- solve( QXX, QXY)
-  beta = solve(QXX, QXY, solve_opts::likely_sympd);
+  // beta = solve(QXX, QXY, solve_opts::likely_sympd);
+  int status = solve(beta, QXX, QXY, solve_opts::likely_sympd);
+
+  if( ! status ){
+    throw std::runtime_error("Cannot evalute fastlmm logLik: system is singular");
+  }
 
   // # Eval sig_g
   // ru <- Yu - Xu %*% beta
