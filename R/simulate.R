@@ -19,15 +19,16 @@
 #
 #' @rdname simulate
 #' @export
-simulate.fastlmm <- function(object, nsim = 1, seed=NULL,...){
-  simulateResponses(object, nsim, seed,...)
-}
-
 # setMethod(
 #   "simulate", signature(object = "fastlmm"),
 #   function(object, nsim = 1, seed=NULL,...){
 #   simulateResponses(object, nsim, seed,...)
 # })
+simulate.fastlmm <- function(object, nsim = 1, seed=NULL,...){
+  simulateResponses(object, nsim, seed,...)
+}
+
+
 
 
 
