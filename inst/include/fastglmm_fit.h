@@ -71,6 +71,7 @@ class fastglmm {
   double w_mean; 
   ModelDetail md;
 	shared_ptr<GLMFamily> fam;
+	bool isValid = true;
 };
 
 template <typename T1, typename T2, typename T3> 
@@ -164,6 +165,15 @@ fastglmm<T1, T2, T3>::fastglmm(
 		// recompute U and s since work->w changed
 		this->dcmp.reweight(work->w);
 
+		// if model has nan values in z, it can't be fit
+		// so set beta values to nan 
+		// and set isValid to false
+		if( work->z.has_nan() ){
+			fit.set_model_failure();
+			isValid = false;
+			break;
+		}
+
 		// fit fastlmm
 		fit = fastlmm(work->z, X, this->dcmp, work->w, LEAST);
 
@@ -178,7 +188,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 	}
 
 	// Final fit with ModelDetail md
-	if( md > LEAST ){		
+	if( isValid && (md > LEAST) ){		
 		// fit fastlmm
 		fit = fastlmm(work->z, X, this->dcmp, work->w, md);
 
@@ -245,6 +255,27 @@ ModelFitGLMM fastglmm<T1, T2, T3>::get_result(){
 
 	ModelFitLMM res1 = fit.get_result(returnUS);
 	res1.set_w_mean( w_mean );
+
+	// if model is not valid, it failed before final calculations
+	// so set values to NAN matching ModelDetail
+	if( ! isValid ){
+		int p = fit.get_beta().n_elem;
+		switch( md ){
+	    case MAX:       
+	      // res1.hatvalues = hatvalues();
+	    case MOST:
+	      res1.hatvalues.fill(datum::nan); 
+	    case HIGH: 
+	      res1.residuals.fill(datum::nan);
+	    case MEDIUM: 
+				res1.vcov = mat(p, p, fill::value(datum::nan));
+	    case LOW: 
+				res1.se = vec(p, fill::value(datum::nan));
+				res1.rdf = datum::nan;
+	    case LEAST: 
+	      break;
+		}
+	}
 
 	ModelFitGLMM mf(res1, family, niter_pql);
 
