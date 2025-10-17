@@ -1,5 +1,9 @@
 
 
+# fastglmm 0.3.3
+ - Oct 17, 2025
+ - when model fit fails return NaN values
+
 # fastglmm 0.3.2
  - Oct 7, 2025
  - add checks and compatibility with BatchRegression

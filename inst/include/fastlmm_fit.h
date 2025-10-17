@@ -97,6 +97,11 @@ class fastlmm {
 
     const double get_rdf();
 
+    // if model fails, set beta to nan
+    void set_model_failure(){ 
+      beta.fill(datum::nan);
+    }
+
     const vec hatvalues(); // diag of hat matrix
     const vec residuals(); // Pearson
     const vec fitted();
@@ -377,7 +382,7 @@ double fastlmm<T1, T2, T3>::ll(const double &delta ) {
   int status = solve(beta, QXX, QXY, solve_opts::likely_sympd);
 
   if( ! status ){
-    throw std::runtime_error("Cannot evalute fastlmm logLik: system is singular");
+    throw std::runtime_error("Cannot evalute fastlmm logLik: system is singular: " + to_string(delta));
   }
 
   // # Eval sig_g
@@ -519,7 +524,7 @@ ModelFitLMM fastlmm<T1, T2, T3>::get_result(
 
   switch( md ){
     case MAX:       
-      res.hatvalues = hatvalues();
+      // res.hatvalues = hatvalues();
     case MOST:
       res.hatvalues = hatvalues(); 
     case HIGH: 
