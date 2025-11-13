@@ -62,8 +62,8 @@
                         <h4 data-toc-skip class="author">Developed by <a href="http://gabrielhoffman.github.io/" class="external-link">Gabriel Hoffman</a>
 </h4>
             
-            <h4 data-toc-skip class="date">Run on 2025-11-12
-20:47:53</h4>
+            <h4 data-toc-skip class="date">Run on 2025-11-13
+10:44:22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/GabrielHoffman/fastlmm/blob/HEAD/vignettes/nbmm.Rmd" class="external-link"><code>vignettes/nbmm.Rmd</code></a></small>
       <div class="d-none name"><code>nbmm.Rmd</code></div>
@@ -89,7 +89,7 @@ generation of large-scale datasets of millions of cells from hundreds or
 thousands of samples <a href="https://doi.org/10.1038/s41586-024-08338-4" class="external-link">(Rood, et al.,
 2024)</a>. In differential expression analysis, the goal is to identify
 genes whose expression is associated with a variable of interest. Single
-cell transcriptomics produces counts for each cell and each observed
+cell transcriptomics produces counts for each gene and each observed
 cell.</p>
 <p>To be concrete, consider counts from the gene PTPRG from 249 subjects
 measured across 60k microglia cells where an average of 202 cells were
@@ -100,7 +100,7 @@ for this gene, <code>libSize</code> is the total counts for each cell,
 <code>Dx</code> is Alzheimer’s disease status, <code>Age</code> and
 <code>Sex</code> indicate subject age and sex, and <code>SubID</code>
 indicates which subject each observed cell is from. Here we use a
-negative binomial mixed model (NBMM) to test of the counts of the PTPRG
+negative binomial mixed model (NBMM) to test if the counts of the PTPRG
 gene are associated with Alzheimer’s disease status after accounting for
 the total number of counts for each cell. Age and sex are included as
 covariates and subject is a random effect to account for the repeated
