@@ -1,4 +1,4 @@
-#' Simulate responses
+#' Simulate Responses
 #' 
 #' Simulate responses from model fit
 #' 
@@ -32,7 +32,7 @@ simulate.fastlmm <- function(object, nsim = 1, seed=NULL,...){
 
 
 
-#' Simulate responses
+#' Simulate Responses
 #' 
 #' Simulate responses from model fit
 #' 

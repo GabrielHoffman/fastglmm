@@ -16,7 +16,7 @@ A data frame with 60481 rows (i.e. cells) and 6 variables:
 }
 }
 \source{
-\url{https://diseaseneurogenomics.github.io/dreamlet/index.html}
+\url{https://doi.org/10.1101/2023.03.17.533005}, \url{https://diseaseneurogenomics.github.io/dreamlet/index.html}
 }
 \usage{
 PsychAD

@@ -1,0 +1,81 @@
+---
+title: "Negative Binomial Mixed Model"
+subtitle: 'Example analysis'
+author: "Developed by [Gabriel Hoffman](http://gabrielhoffman.github.io/)"
+date: "Run on `r format(Sys.time())`"
+documentclass: article
+vignette: >
+  %\VignetteIndexEntry{Negative Binomial Mixed Model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\usepackage[utf8]{inputenc}
+---
+
+
+
+<!---
+
+cd /Users/gabrielhoffman/workspace/repos/fastglmm/vignettes
+
+# rm -rf variancePartitioning_cache/
+
+rmarkdown::render("nbmm.Rmd")
+
+--->
+
+
+<style>
+body {
+text-align: justify}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  error = FALSE,
+  tidy = FALSE,
+  dev = c("png"),
+  cache = TRUE
+)
+```
+
+Recent advances in single cell transcriptomics have enabled generation of large-scale datasets of millions of cells from hundreds or thousands of samples [(Rood, et al., 2024)](https://doi.org/10.1038/s41586-024-08338-4).  In differential expression analysis, the goal is to identify genes whose expression is associated with a variable of interest.  Single cell transcriptomics produces counts for each cell and each observed cell.  
+
+To be concrete, consider counts from the gene PTPRG from 249 subjects measured across 60k microglia cells where an average of 202 cells were observed per subject [(Hoffman, et al, 2025)]( https://doi.org/10.1101/2023.03.17.533005).  Consider the dataset `PsychAD` storing observed cells as rows where column `PTPRG` is the number of counts for this gene, `libSize` is the total counts for each cell, `Dx` is Alzheimer's disease status, `Age` and `Sex` indicate subject age and sex, and `SubID` indicates which subject each observed cell is from.  Here we use a negative binomial mixed model (NBMM) to test of the counts of the PTPRG gene are associated with Alzheimer's disease status after accounting for the total number of counts for each cell.  Age and sex are included as covariates and subject is a random effect to account for the repeated measures design. We use the familiar formula syntax, set `log(libSize)` to be an `offset` term, and use the `fastglmm.nb()` function:
+
+# Fit NBMM
+```{r nbmm}
+library(fastglmm)
+
+data(PsychAD)
+
+form <- PTPRG ~ offset(log(libSize)) + Dx + Age + Sex + (1|SubID)
+fit <- fastglmm.nb(form, PsychAD)
+
+fit
+```
+
+
+# Hypothesis testing
+```{r summary}
+summary(fit)
+```
+
+The PTPRG gene has increased expression in subjects with Alzheimer's disease compared with controls with log fold change $1.10277$  and a p-value $< 2\times 10^{-16}$.
+The count data shows high overdispersion with $\theta = 0.2443$, where $\theta = \infty$ is equivalent to a Poisson distribution with no overdispersion.
+
+# Variance partitioning analysis
+```{r varpart}
+varpart(fit)
+```
+Variance partitioning analysis quantifies the contribution of each variable to the observed variance in PTPRG expression.  Alzheimer's disease status explains 1.33% of observed expression variation, variation across subjects explains 2.1%, with sex and age making a smaller contribution.  The residual variance explains the remaining 96.5% and captures both the variance not captured by these variables in the model and measurement error due to finite counts. 
+
+#### Session info
+<details>
+```{r sessionInfo}
+sessionInfo()
+```
+</details>

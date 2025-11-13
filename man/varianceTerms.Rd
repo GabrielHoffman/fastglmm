@@ -6,7 +6,7 @@
 \alias{varianceTerms,glm-method}
 \alias{varianceTerms,merMod-method}
 \alias{varianceTerms,fastlmm-method}
-\title{Return array with variance component estimates}
+\title{Array of variance component estimates}
 \usage{
 varianceTerms(object, ...)
 
@@ -24,5 +24,5 @@ varianceTerms(object, ...)
 \item{...}{other args}
 }
 \description{
-Return array with variance component estimates
+Array of variance component estimates
 }

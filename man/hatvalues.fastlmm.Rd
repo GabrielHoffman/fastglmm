@@ -12,7 +12,7 @@
 \item{...}{other args, not used}
 }
 \description{
-Return Diagonals of Hat Matrix
+Return diagonals of the hat matrix
 }
 \examples{
 library(MASS)

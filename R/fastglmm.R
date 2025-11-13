@@ -46,7 +46,7 @@ process_formula = function(formula, data){
 
 
 
-#' Fit generalized linear mixed model via PQL
+#' Fit Generalized Linear Mixed Model via PQL
 #' 
 #' Fit generalized linear mixed model (GLMM) with a single random effect using penalized quasi-likelihood (PQL)
 #' 

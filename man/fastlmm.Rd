@@ -4,7 +4,7 @@
 \name{fastlmm}
 \alias{fastlmm}
 \alias{fastlmm-class}
-\title{Fast Linear Mixed Model with 1 random effect}
+\title{Fast Linear Mixed Model with 1 Random eEffect}
 \usage{
 fastlmm(
   formula,

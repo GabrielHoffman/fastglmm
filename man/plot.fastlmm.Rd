@@ -2,7 +2,7 @@
 % Please edit documentation in R/s3methods.R
 \name{plot.fastlmm}
 \alias{plot.fastlmm}
-\title{Diagnostic Plots for \code{fastlmm} Fits}
+\title{Diagnostic Plots for Model Fits}
 \usage{
 \method{plot}{fastlmm}(x, form = resid(x, type = "pearson") ~ fitted(x), ...)
 }
@@ -14,7 +14,7 @@
 \item{...}{other args, not used}
 }
 \description{
-Diagnostic Plots for \code{fastlmm} Fits
+Diagnostic plots for \code{fastlmm} Fits
 }
 \examples{
 library(MASS)

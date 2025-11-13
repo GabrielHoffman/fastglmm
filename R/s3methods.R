@@ -207,7 +207,7 @@ deviance.fastlmm <- function(object, ...) {
 
 #' Residual Degrees-of-Freedom
 #' 
-#' Residual Degrees-of-Freedom
+#' Residual degrees-of-freedom is the trace of the residual hat matrix
 #'
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used
@@ -308,7 +308,7 @@ family.glmmPQL <- function(object,...){
 
 #' Return Diagonals of Hat Matrix
 #' 
-#' Return Diagonals of Hat Matrix
+#' Return diagonals of the hat matrix
 #'
 #' @param model fitted model of class \code{fastlmm}
 #' @param ... other args, not used
@@ -344,7 +344,7 @@ hatvalues.fastlmm <- function(model, ...){
 
 #' Effective Degrees-of-Freedom of Model Fit
 #' 
-#' Effective Degrees-of-Freedom of Model Fit
+#' Effective degrees-of-freedom of model fit is the trace of the hat matrix mapping from observed to predicted response
 #'
 #' @param object fitted model 
 #' @param ... other args, not used
@@ -505,7 +505,7 @@ logLik.fastlmm <- function(object, ...) {
 #' 
 #' Specifies the information required to fit a Negative Binomial generalized linear model, with known \code{theta} parameter.  
 #'
-#' @param theta The known value of the additional parameter, \code{theta}
+#' @param theta The known value of the additional parameter, \code{theta}. If set to \code{NA}, \code{fastglmm()} will estimate the parameter from the data
 #' @param link The link function, as a character string, name or one-element character vector specifying one of \code{log}, \code{sqrt} or \code{identity}, or an object of class \code{"link-glm"}.
 #'
 #' @export 
@@ -538,9 +538,9 @@ nobs.fastlmm <- function(object, ...) {
 }
 
 
-#' Diagnostic Plots for \code{fastlmm} Fits
+#' Diagnostic Plots for Model Fits
 #' 
-#' Diagnostic Plots for \code{fastlmm} Fits
+#' Diagnostic plots for \code{fastlmm} Fits
 #' 
 #' @param x fitted model of class \code{fastlmm}
 #' @param form formula to plot
@@ -709,9 +709,9 @@ rstudent.fastlmm <- function(model, ...) {
 
 
 
-#' Extract the modes of the random effects
+#' Extract the modes of the random effect
 #'
-#' Extract the modes of the random effects
+#' Extract the conditional modes of the random effect from the model fit
 #'
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used
@@ -835,7 +835,7 @@ print.summary.fastlmm <- function(
   if (x$method %in% c("ML", "REML")) {
     cat("Linear mixed model fit by", x$method, "['fastlmm']\n")
   } else {
-    cat("Generlized linear mixed model fit by", x$method, "['fastglmm']\n")
+    cat("Generalized linear mixed model fit by", x$method, "['fastglmm']\n")
     .prt.family( x$family )
   }
 
@@ -866,9 +866,9 @@ print.summary.fastlmm <- function(
 }
 
 
-#' Object Summaries
+#' Object Summaries and Hypothesis Testing
 #'
-#' Object Summaries
+#' Object summaries and hypothesis testing of fixed effects
 #' 
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used

@@ -4,7 +4,7 @@
 \name{fastglmm}
 \alias{fastglmm}
 \alias{fastglmm-class}
-\title{Fit generalized linear mixed model via PQL}
+\title{Fit Generalized Linear Mixed Model via PQL}
 \usage{
 fastglmm(
   formula,

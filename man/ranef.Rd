@@ -2,7 +2,7 @@
 % Please edit documentation in R/s3methods.R
 \name{ranef.fastlmm}
 \alias{ranef.fastlmm}
-\title{Extract the modes of the random effects}
+\title{Extract the modes of the random effect}
 \usage{
 \method{ranef}{fastlmm}(object, ...)
 }
@@ -12,7 +12,7 @@
 \item{...}{other args, not used}
 }
 \description{
-Extract the modes of the random effects
+Extract the conditional modes of the random effect from the model fit
 }
 \examples{
 library(MASS)

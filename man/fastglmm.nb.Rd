@@ -2,7 +2,7 @@
 % Please edit documentation in R/fastglmm.nb.R
 \name{fastglmm.nb}
 \alias{fastglmm.nb}
-\title{Fit negative binomial mixed model via PQL}
+\title{Fit Negative Binomial Mixed Model via PQL}
 \usage{
 fastglmm.nb(
   formula,

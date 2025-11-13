@@ -2,7 +2,7 @@
 % Please edit documentation in R/s3methods.R
 \name{summary.fastlmm}
 \alias{summary.fastlmm}
-\title{Object Summaries}
+\title{Object Summaries and Hypothesis Testing}
 \usage{
 \method{summary}{fastlmm}(object, ...)
 }
@@ -12,5 +12,5 @@
 \item{...}{other args, not used}
 }
 \description{
-Object Summaries
+Object summaries and hypothesis testing of fixed effects
 }

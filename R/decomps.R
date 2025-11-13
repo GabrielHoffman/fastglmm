@@ -79,7 +79,7 @@ indicator_decomp <- function(x, weights = NULL, rank = NULL, sort = FALSE) {
 #'
 #' @param x a \code{factor}
 #'
-#' @return sparse indicator with levels as columns
+#' @return sparse indicator matrix with levels as columns
 #' @importFrom Matrix fac2sparse
 #' @export
 preprocess_indicator <- function(x) {

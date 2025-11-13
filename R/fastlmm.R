@@ -1,4 +1,4 @@
-#' Fast Linear Mixed Model with 1 random effect
+#' Fast Linear Mixed Model with 1 Random eEffect
 #'
 #' Fit a linear mixed-effects model with 1 random effect with REML or maximum likelihood using the very fast algorithm and implementation
 #'

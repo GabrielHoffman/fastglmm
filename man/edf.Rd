@@ -12,7 +12,7 @@ edf(object, ...)
 \item{...}{other args, not used}
 }
 \description{
-Effective Degrees-of-Freedom of Model Fit
+Effective degrees-of-freedom of model fit is the trace of the hat matrix mapping from observed to predicted response
 }
 \examples{
 library(MASS)

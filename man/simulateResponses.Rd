@@ -2,7 +2,7 @@
 % Please edit documentation in R/simulate.R
 \name{simulateResponses}
 \alias{simulateResponses}
-\title{Simulate responses}
+\title{Simulate Responses}
 \usage{
 simulateResponses(object, nsim = 1, seed = NULL, ...)
 }

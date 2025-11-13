@@ -1,0 +1,195 @@
+  
+
+## Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on \>1 Million Samples
+
+Fitting linear mixed models (LMMs) and generalized linear mixed models
+(GLMMs) on large-scale datasets can be very computationally expensive.
+The **fastglmm** package provides a very fast method for fitting LMMs
+and GLMMs with a single random effect. This can be 10-1000x faster than
+other methods for large datasets.
+
+The **fastglmm** package is designed to be intuitive for users of other
+mixed model software such as
+[lme4](https://cran.r-project.org/web/packages/lme4/index.html), and
+uses familar mixed model syntax and R generics. Since **fastglmm** is
+designed for large datasets and GLMMs in mind, it uses maximum
+likelihood rather than REML to fit LMMs.
+
+### Example Usage
+
+As an introduction, consider fitting a LMM to the `sleepstudy` data
+distributed with `lme4`. The model syntax and parameter estimates are
+the same as using `lme4::lmer(..., REML=FALSE)`.
+
+``` r
+
+library(fastglmm)
+fit <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy)
+
+fit
+#> 
+#> Call:
+#> fastlmm(formula = Reaction ~ Days + (1 | Subject), data = sleepstudy)
+#> 
+#> Coefficients:
+#> (Intercept)         Days  
+#>      251.41        10.47  
+#> 
+
+summary(fit)
+#> Linear mixed model fit by ML ['fastlmm']
+#>  Formula: Reaction ~ Days + (1 | Subject)
+#> 
+#> Coefficients:
+#>             Estimate Std. Error t value Pr(>|t|)    
+#> (Intercept) 251.4051     9.5062   26.45   <2e-16 ***
+#> Days         10.4673     0.8017   13.06   <2e-16 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Residual df: 162.2 
+#> 
+#> Variance components:
+#>   sigSq_g: 1297
+#>   sigSq_e: 954.5
+#>   delta:   0.736
+```
+
+### Installation
+
+``` r
+
+devtools::install_github("GabrielHoffman/fastglmm")
+```
+
+## Implementation details
+
+- Analysis of a given response or features is performed on a single
+  thread. Analysis is parallelized across responses/features using
+  oneAPI Threading Building Blocks
+  ([oneTBB](https://uxlfoundation.github.io/oneTBB/))
+- Linear algebra is performed with
+  [Armadillo](https://arma.sourceforge.net)
+- Use of dense and sparse matricies is supported at the C++ level using
+  templates
+- Interface between R and C++ is implemented in
+  [Rcpp](https://www.rcpp.org) and also depends on
+  [RcppArmadillo](https://cran.r-project.org/web/packages/RcppArmadillo/)
+  and
+  [RcppParallel](https://cran.r-project.org/web/packages/RcppParallel/)
+- Implemented in C++17
+
+### See header-only C++ library [documentation](http://gabrielhoffman.github.io/fastglmm/doxygen/html/index.md)
+
+# Package index
+
+## Core functions
+
+- [`fastlmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.md)
+  : Fast Linear Mixed Model with 1 Random eEffect
+- [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
+  : Fit Generalized Linear Mixed Model via PQL
+- [`fastglmm.nb()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.nb.md)
+  : Fit Negative Binomial Mixed Model via PQL
+
+## Example Data
+
+- [`PsychAD`](http://gabrielhoffman.github.io/fastglmm/reference/PsychAD.md)
+  : Gene expession of PTPRG in microglia in 60k cells
+
+## Generics
+
+- [`anova(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/anova.md)
+  [`anova(`*`<fastglmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/anova.md)
+  : ANOVA Tables
+- [`coef(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/coef.fastlmm.md)
+  : Extract Model Coefficients
+- [`cooks.distance(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/cooks.distance.fastlmm.md)
+  : Cook's Distance Metric
+- [`deviance(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/deviance.fastlmm.md)
+  : Model Deviance
+- [`df.residual(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/df.residual.fastlmm.md)
+  : Residual Degrees-of-Freedom
+- [`edf()`](http://gabrielhoffman.github.io/fastglmm/reference/edf.md) :
+  Effective Degrees-of-Freedom of Model Fit
+- [`extractAIC(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/extractAIC.fastlmm.md)
+  : Extract AIC from a Fitted Model
+- [`family(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/family.md)
+  [`family(`*`<fastglmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/family.md)
+  [`family(`*`<glmmPQL>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/family.md)
+  : Extract Model Family
+- [`fitted(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/fitted.md)
+  [`fitted(`*`<fastglmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/fitted.md)
+  : Extract Model Fitted Values
+- [`fixef(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/fixef.fastlmm.md)
+  : Extract Fixed Effects
+- [`hatvalues(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/hatvalues.fastlmm.md)
+  : Return Diagonals of Hat Matrix
+- [`linearHypothesis()`](http://gabrielhoffman.github.io/fastglmm/reference/linearHypothesis.md)
+  : Test Linear Hypothesis
+- [`logLik(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/logLik.fastlmm.md)
+  : Extract Log-Likelihood
+- [`nobs(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/nobs.fastlmm.md)
+  : Extract the Number of Observations from a Fit
+- [`plot(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/plot.fastlmm.md)
+  : Diagnostic Plots for Model Fits
+- [`predict(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/predict.md)
+  [`predict(`*`<fastglmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/predict.md)
+  : Model Predictions
+- [`ranef(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/ranef.md)
+  : Extract the modes of the random effect
+- [`residuals(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/residuals.fastlmm.md)
+  : Extract Model Residuals
+- [`rstudent(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/rstudent.fastlmm.md)
+  : Extract Studentized Residuals
+- [`sigma(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/sigma.fastlmm.md)
+  : Extract Residual Standard Deviation
+- [`simulate(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/simulate.md)
+  : Simulate Responses
+- [`summary(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/summary.fastlmm.md)
+  : Object Summaries and Hypothesis Testing
+- [`terms(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/terms.fastlmm.md)
+  : Model Terms
+- [`varpart()`](http://gabrielhoffman.github.io/fastglmm/reference/varpart.md)
+  : Variance Partitioning Analysis
+- [`vcov(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/vcov.fastlmm.md)
+  : Calculate Variance-Covariance Matrix for a Fitted Model Object
+
+## Other
+
+- [`as.fastlmm()`](http://gabrielhoffman.github.io/fastglmm/reference/as.fastlmm.md)
+  : Convert list to fastlmm class
+- [`getFamilyString()`](http://gabrielhoffman.github.io/fastglmm/reference/getFamilyString.md)
+  : Convert GLM family to string
+- [`indicator_decomp()`](http://gabrielhoffman.github.io/fastglmm/reference/indicator_decomp.md)
+  : Spectral decomposition of factor indicator matrix
+- [`preprocess_indicator()`](http://gabrielhoffman.github.io/fastglmm/reference/preprocess_indicator.md)
+  : Create sparse indicator matrix
+- [`fastlmm.fit()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.fit.md)
+  : Fitter Function for Linear Mixed Model
+- [`nb_theta()`](http://gabrielhoffman.github.io/fastglmm/reference/nb_theta.md)
+  : Estimate theta of the Negative Binomial
+- [`refitModel()`](http://gabrielhoffman.github.io/fastglmm/reference/refitModel.md)
+  : Refit fastlmm model with new delta
+- [`dispersion()`](http://gabrielhoffman.github.io/fastglmm/reference/dispersion.md)
+  : Overdispersion parameter
+- [`varianceTerms()`](http://gabrielhoffman.github.io/fastglmm/reference/varianceTerms.md)
+  : Array of variance component estimates
+- [`negative.binomial()`](http://gabrielhoffman.github.io/fastglmm/reference/negative.binomial.md)
+  : Family function for Negative Binomial GLMs
+
+## Pure R Implementations (for intuition only)
+
+- [`fastlmm_R()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm_R.md)
+  : Fit linear mixed model using SVD of covariance
+- [`fastglmm_R()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm_R.md)
+  : Fit generalized linear mixed model via PQL
+- [`fastglmm_R.nb()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm_R.nb.md)
+  : Fit negative binomial mixed model via PQL
+
+# Articles
+
+### All vignettes
+
+- [Negative Binomial Mixed
+  Model](http://gabrielhoffman.github.io/fastglmm/articles/nbmm.md):

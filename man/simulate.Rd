@@ -2,7 +2,7 @@
 % Please edit documentation in R/simulate.R
 \name{simulate.fastlmm}
 \alias{simulate.fastlmm}
-\title{Simulate responses}
+\title{Simulate Responses}
 \usage{
 \method{simulate}{fastlmm}(object, nsim = 1, seed = NULL, ...)
 }

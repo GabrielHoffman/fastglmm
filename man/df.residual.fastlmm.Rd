@@ -12,7 +12,7 @@
 \item{...}{other args, not used}
 }
 \description{
-Residual Degrees-of-Freedom
+Residual degrees-of-freedom is the trace of the residual hat matrix
 }
 \examples{
 library(MASS)

@@ -18,7 +18,7 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/variancePartitioning.html">Variance Partitioning Analysis</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/nbmm.html">Negative Binomial Mixed Model</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -40,8 +40,7 @@
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -51,26 +50,27 @@
           <code><a href="fastlmm.html">fastlmm()</a></code>
 
         </dt>
-        <dd>Fast Linear Mixed Model with 1 random effect</dd>
-      </dl><dl><dt>
+        <dd>Fast Linear Mixed Model with 1 Random eEffect</dd>
+
+        <dt>
 
           <code><a href="fastglmm.html">fastglmm()</a></code>
 
         </dt>
-        <dd>Fit generalized linear mixed model via PQL</dd>
-      </dl><dl><dt>
+        <dd>Fit Generalized Linear Mixed Model via PQL</dd>
+
+        <dt>
 
           <code><a href="fastglmm.nb.html">fastglmm.nb()</a></code>
 
         </dt>
-        <dd>Fit negative binomial mixed model via PQL</dd>
+        <dd>Fit Negative Binomial Mixed Model via PQL</dd>
       </dl></div><div class="section level2">
       <h2 id="example-data">Example Data<a class="anchor" aria-label="anchor" href="#example-data"></a></h2>
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -82,95 +82,11 @@
         </dt>
         <dd>Gene expession of PTPRG in microglia in 60k cells</dd>
       </dl></div><div class="section level2">
-      <h2 id="other">Other<a class="anchor" aria-label="anchor" href="#other"></a></h2>
-
-
-
-
-    </div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="as.fastlmm.html">as.fastlmm()</a></code>
-
-        </dt>
-        <dd>Convert list to fastlmm class</dd>
-      </dl><dl><dt>
-
-          <code><a href="getFamilyString.html">getFamilyString()</a></code>
-
-        </dt>
-        <dd>Convert GLM family to string</dd>
-      </dl><dl><dt>
-
-          <code><a href="heritability.html">heritability()</a></code>
-
-        </dt>
-        <dd>Hypothesis test for heritability</dd>
-      </dl><dl><dt>
-
-          <code><a href="indicator_decomp.html">indicator_decomp()</a></code>
-
-        </dt>
-        <dd>Spectral decomposition of factor indicator matrix</dd>
-      </dl><dl><dt>
-
-          <code><a href="preprocess_indicator.html">preprocess_indicator()</a></code>
-
-        </dt>
-        <dd>Create sparse indicator matrix</dd>
-      </dl><dl><dt>
-
-          <code><a href="fastlmm.fit.html">fastlmm.fit()</a></code>
-
-        </dt>
-        <dd>Fitter Function for Linear Mixed Model</dd>
-      </dl><dl><dt>
-
-          <code><a href="nb_theta.html">nb_theta()</a></code>
-
-        </dt>
-        <dd>Estimate theta of the Negative Binomial</dd>
-      </dl><dl><dt>
-
-          <code><a href="refitModel.html">refitModel()</a></code>
-
-        </dt>
-        <dd>Refit fastlmm model with new delta</dd>
-      </dl><dl><dt>
-
-          <code><a href="varpart.html">varpart()</a></code>
-
-        </dt>
-        <dd>Variance Partitioning Analysis</dd>
-      </dl><dl><dt>
-
-          <code><a href="dispersion.html">dispersion()</a></code>
-
-        </dt>
-        <dd>Overdispersion parameter</dd>
-      </dl><dl><dt>
-
-          <code><a href="varianceTerms.html">varianceTerms()</a></code>
-
-        </dt>
-        <dd>Return array with variance component estimates</dd>
-      </dl><dl><dt>
-
-          <code><a href="negative.binomial.html">negative.binomial()</a></code>
-
-        </dt>
-        <dd>Family function for Negative Binomial GLMs</dd>
-      </dl></div><div class="section level2">
       <h2 id="generics">Generics<a class="anchor" aria-label="anchor" href="#generics"></a></h2>
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -181,151 +97,259 @@
 
         </dt>
         <dd>ANOVA Tables</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="coef.fastlmm.html">coef(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Extract Model Coefficients</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="cooks.distance.fastlmm.html">cooks.distance(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Cook's Distance Metric</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="deviance.fastlmm.html">deviance(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Model Deviance</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="df.residual.fastlmm.html">df.residual(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Residual Degrees-of-Freedom</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="edf.html">edf()</a></code>
 
         </dt>
         <dd>Effective Degrees-of-Freedom of Model Fit</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extractAIC.fastlmm.html">extractAIC(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Extract AIC from a Fitted Model</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="family.html">family(<i>&lt;fastlmm&gt;</i>)</a></code> <code><a href="family.html">family(<i>&lt;fastglmm&gt;</i>)</a></code> <code><a href="family.html">family(<i>&lt;glmmPQL&gt;</i>)</a></code>
 
         </dt>
         <dd>Extract Model Family</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="fitted.html">fitted(<i>&lt;fastlmm&gt;</i>)</a></code> <code><a href="fitted.html">fitted(<i>&lt;fastglmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Extract Model Fitted Values</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="fixef.fastlmm.html">fixef(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Extract Fixed Effects</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="hatvalues.fastlmm.html">hatvalues(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Return Diagonals of Hat Matrix</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="linearHypothesis.html">linearHypothesis()</a></code>
 
         </dt>
         <dd>Test Linear Hypothesis</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="logLik.fastlmm.html">logLik(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Extract Log-Likelihood</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="nobs.fastlmm.html">nobs(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Extract the Number of Observations from a Fit</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="plot.fastlmm.html">plot(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
-        <dd>Diagnostic Plots for <code>fastlmm</code> Fits</dd>
-      </dl><dl><dt>
+        <dd>Diagnostic Plots for Model Fits</dd>
+
+        <dt>
 
           <code><a href="predict.html">predict(<i>&lt;fastlmm&gt;</i>)</a></code> <code><a href="predict.html">predict(<i>&lt;fastglmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Model Predictions</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="ranef.html">ranef(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
-        <dd>Extract the modes of the random effects</dd>
-      </dl><dl><dt>
+        <dd>Extract the modes of the random effect</dd>
+
+        <dt>
 
           <code><a href="residuals.fastlmm.html">residuals(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Extract Model Residuals</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="rstudent.fastlmm.html">rstudent(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Extract Studentized Residuals</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sigma.fastlmm.html">sigma(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Extract Residual Standard Deviation</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="simulate.html">simulate(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
-        <dd>Simulate responses</dd>
-      </dl><dl><dt>
+        <dd>Simulate Responses</dd>
+
+        <dt>
 
           <code><a href="summary.fastlmm.html">summary(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
-        <dd>Object Summaries</dd>
-      </dl><dl><dt>
+        <dd>Object Summaries and Hypothesis Testing</dd>
+
+        <dt>
 
           <code><a href="terms.fastlmm.html">terms(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Model Terms</dd>
-      </dl><dl><dt>
+
+        <dt>
+
+          <code><a href="varpart.html">varpart()</a></code>
+
+        </dt>
+        <dd>Variance Partitioning Analysis</dd>
+
+        <dt>
 
           <code><a href="vcov.fastlmm.html">vcov(<i>&lt;fastlmm&gt;</i>)</a></code>
 
         </dt>
         <dd>Calculate Variance-Covariance Matrix for a Fitted Model Object</dd>
       </dl></div><div class="section level2">
-      <h2 id="pure-r-implementations">Pure R Implementations<a class="anchor" aria-label="anchor" href="#pure-r-implementations"></a></h2>
+      <h2 id="other">Other<a class="anchor" aria-label="anchor" href="#other"></a></h2>
+
+
+
+      <dl></dl></div><div class="section level2">
 
 
 
 
-    </div><div class="section level2">
+      <dl><dt>
+
+          <code><a href="as.fastlmm.html">as.fastlmm()</a></code>
+
+        </dt>
+        <dd>Convert list to fastlmm class</dd>
+
+        <dt>
+
+          <code><a href="getFamilyString.html">getFamilyString()</a></code>
+
+        </dt>
+        <dd>Convert GLM family to string</dd>
+
+        <dt>
+
+          <code><a href="indicator_decomp.html">indicator_decomp()</a></code>
+
+        </dt>
+        <dd>Spectral decomposition of factor indicator matrix</dd>
+
+        <dt>
+
+          <code><a href="preprocess_indicator.html">preprocess_indicator()</a></code>
+
+        </dt>
+        <dd>Create sparse indicator matrix</dd>
+
+        <dt>
+
+          <code><a href="fastlmm.fit.html">fastlmm.fit()</a></code>
+
+        </dt>
+        <dd>Fitter Function for Linear Mixed Model</dd>
+
+        <dt>
+
+          <code><a href="nb_theta.html">nb_theta()</a></code>
+
+        </dt>
+        <dd>Estimate theta of the Negative Binomial</dd>
+
+        <dt>
+
+          <code><a href="refitModel.html">refitModel()</a></code>
+
+        </dt>
+        <dd>Refit fastlmm model with new delta</dd>
+
+        <dt>
+
+          <code><a href="dispersion.html">dispersion()</a></code>
+
+        </dt>
+        <dd>Overdispersion parameter</dd>
+
+        <dt>
+
+          <code><a href="varianceTerms.html">varianceTerms()</a></code>
+
+        </dt>
+        <dd>Array of variance component estimates</dd>
+
+        <dt>
+
+          <code><a href="negative.binomial.html">negative.binomial()</a></code>
+
+        </dt>
+        <dd>Family function for Negative Binomial GLMs</dd>
+      </dl></div><div class="section level2">
+      <h2 id="pure-r-implementations-for-intuition-only-">Pure R Implementations (for intuition only)<a class="anchor" aria-label="anchor" href="#pure-r-implementations-for-intuition-only-"></a></h2>
+
+
+
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -336,13 +360,15 @@
 
         </dt>
         <dd>Fit linear mixed model using SVD of covariance</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="fastglmm_R.html">fastglmm_R()</a></code>
 
         </dt>
         <dd>Fit generalized linear mixed model via PQL</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="fastglmm_R.nb.html">fastglmm_R.nb()</a></code>
 
@@ -358,7 +384,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
