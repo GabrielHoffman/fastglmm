@@ -10,7 +10,7 @@ preprocess_indicator(x)
 \item{x}{a \code{factor}}
 }
 \value{
-sparse indicator with levels as columns
+sparse indicator matrix with levels as columns
 }
 \description{
 Create sparse indicator matrix from factor

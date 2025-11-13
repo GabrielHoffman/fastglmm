@@ -3,6 +3,7 @@
 # fastglmm 0.3.3
  - Oct 17, 2025
  - when model fit fails return NaN values
+ - Update docs
 
 # fastglmm 0.3.2
  - Oct 7, 2025

@@ -12,7 +12,7 @@
 #' @param right right boundary for estimating theta on a log scale
 #' @param tol tolerance of optimization
 #'  
-#' @details Estimate overdispersion parameter for negative binomial distribution using univariate optimization with Brent's method.  For very large datasets, this can be much faster than the Newton-Raphson method used by \code{MASS::theta.ml()}.  This is faster since the \code{lgamma()} function used in the likelihood is faster than the \code{digamma()} and \code{trigamma()} functions used in teh score and information steps.  Also, the univariate optimization is performed on \code{log(theta)}, while the Newton-Raphson approach is performed on the original scale of \code{theta}.
+#' @details Estimate overdispersion parameter for negative binomial distribution using univariate optimization with Brent's method.  For very large datasets, this can be much faster than the Newton-Raphson method used by \code{MASS::theta.ml()}.  This is faster since the \code{lgamma()} function used in the likelihood is faster than the \code{digamma()} and \code{trigamma()} functions used in the score and information steps.  Also, the univariate optimization is performed on \code{log(theta)}, while the Newton-Raphson approach is performed on the original scale of \code{theta}.
 #' 
 #' @examples
 #' library(MASS)

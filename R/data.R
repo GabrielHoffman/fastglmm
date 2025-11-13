@@ -11,7 +11,7 @@
 #'   \item{PTPRG}{number of RNA-seq counts for this gene}
 #'   \item{libSize}{total number of RNA-seq reads for this cell}
 #' }
-#' @source \url{https://diseaseneurogenomics.github.io/dreamlet/index.html}
+#' @source \url{https://doi.org/10.1101/2023.03.17.533005}, \url{https://diseaseneurogenomics.github.io/dreamlet/index.html}
 #' 
 #' @examples
 #' data(PsychAD)

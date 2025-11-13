@@ -31,21 +31,6 @@ reference:
   contents:
   - "PsychAD"
 
-- title: Other
-  contents:
-  - "as.fastlmm"
-  - "getFamilyString"
-  - "heritability"
-  - "indicator_decomp"
-  - "preprocess_indicator" 
-  - "fastlmm.fit"
-  - "nb_theta"
-  - "refitModel"
-  - "varpart"
-  - "dispersion"
-  - "varianceTerms"
-  - "negative.binomial"
-
 - title: Generics
   contents:
   - "anova.fastlmm"
@@ -72,9 +57,23 @@ reference:
   - "simulate.fastlmm"
   - "summary.fastlmm"
   - "terms.fastlmm"
+  - "varpart"
   - "vcov.fastlmm"
 
-- title: Pure R Implementations
+- title: Other
+  contents:
+  - "as.fastlmm"
+  - "getFamilyString"
+  - "indicator_decomp"
+  - "preprocess_indicator" 
+  - "fastlmm.fit"
+  - "nb_theta"
+  - "refitModel"
+  - "dispersion"
+  - "varianceTerms"
+  - "negative.binomial"
+
+- title: Pure R Implementations (for intuition only)
   contents:
   - "fastlmm_R"
   - "fastglmm_R"

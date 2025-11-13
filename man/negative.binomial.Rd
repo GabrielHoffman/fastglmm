@@ -7,7 +7,7 @@
 negative.binomial(theta = stop("'theta' must be specified"), link = "log")
 }
 \arguments{
-\item{theta}{The known value of the additional parameter, \code{theta}}
+\item{theta}{The known value of the additional parameter, \code{theta}. If set to \code{NA}, \code{fastglmm()} will estimate the parameter from the data}
 
 \item{link}{The link function, as a character string, name or one-element character vector specifying one of \code{log}, \code{sqrt} or \code{identity}, or an object of class \code{"link-glm"}.}
 }

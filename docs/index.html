@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Efficient Fit of Generalized Linear Mixed Model with a Single Random Effect on &gt;1 Million Samples • fastglmm</title>
+<title>Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on &gt;1 Million Samples • fastglmm</title>
 <!-- katex math --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script><script src="katex-auto.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Efficient Fit of Generalized Linear Mixed Model with a Single Random Effect on &gt;1 Million Samples">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on &gt;1 Million Samples">
 <meta name="description" content="Fitting linear mixed model on large-scale datasets can be very computationally expensive. Here, we provide a very fast method for fitting linear mixed models with a single random effect. This can be 10-100x faster than other methods for large datasets.">
 <meta property="og:description" content="Fitting linear mixed model on large-scale datasets can be very computationally expensive. Here, we provide a very fast method for fitting linear mixed models with a single random effect. This can be 10-100x faster than other methods for large datasets.">
 </head>
@@ -36,7 +36,7 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/variancePartitioning.html">Variance Partitioning Analysis</a></li>
+<li><a class="dropdown-item" href="articles/nbmm.html">Negative Binomial Mixed Model</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -55,29 +55,75 @@
 <div class="row">
   <main id="main" class="col-md-9"><p><br></p>
 <div class="section level2">
-<h2 id="efficient-fit-of-linear-mixed-model-with-a-single-random-effect-on-1-million-samples">Efficient Fit of Linear Mixed Model with a Single Random Effect on &gt;1 Million Samples<a class="anchor" aria-label="anchor" href="#efficient-fit-of-linear-mixed-model-with-a-single-random-effect-on-1-million-samples"></a>
+<h2 id="efficiently-fit-generalized-linear-mixed-model-with-a-single-random-effect-on-1-million-samples">Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on &gt;1 Million Samples<a class="anchor" aria-label="anchor" href="#efficiently-fit-generalized-linear-mixed-model-with-a-single-random-effect-on-1-million-samples"></a>
 </h2>
-<p>Fitting linear mixed model on large-scale datasets can be very computationally expensive. Here, we provide a very fast method for fitting linear mixed models with a single random effect. This can be 10-100x faster than other methods for large datasets.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"GabrielHoffman/fastglmm"</span><span class="op">)</span></span></code></pre></div>
+<style>
+  body {
+    text-align: justify;
+  }
+</style>
+<p>Fitting linear mixed models (LMMs) and generalized linear mixed models (GLMMs) on large-scale datasets can be very computationally expensive. The <strong>fastglmm</strong> package provides a very fast method for fitting LMMs and GLMMs with a single random effect. This can be 10-1000x faster than other methods for large datasets.</p>
+<p>The <strong>fastglmm</strong> package is designed to be intuitive for users of other mixed model software such as <a href="https://cran.r-project.org/web/packages/lme4/index.html" class="external-link">lme4</a>, and uses familar mixed model syntax and R generics. Since <strong>fastglmm</strong> is designed for large datasets and GLMMs in mind, it uses maximum likelihood rather than REML to fit LMMs.</p>
 <div class="section level3">
-<h3 id="see-header-only-c-library-documentation">See header-only C++ library <a href="doxygen/html/index.html">documentation</a>
-<a class="anchor" aria-label="anchor" href="#see-header-only-c-library-documentation"></a>
+<h3 id="example-usage">Example Usage<a class="anchor" aria-label="anchor" href="#example-usage"></a>
 </h3>
+<p>As an introduction, consider fitting a LMM to the <code>sleepstudy</code> data distributed with <code>lme4</code>. The model syntax and parameter estimates are the same as using <code>lme4::lmer(..., REML=FALSE)</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GabrielHoffman/fastlmm" class="external-link">fastglmm</a></span><span class="op">)</span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fastlmm.html">fastlmm</a></span><span class="op">(</span><span class="va">Reaction</span> <span class="op">~</span> <span class="va">Days</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, <span class="va">sleepstudy</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fit</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; fastlmm(formula = Reaction ~ Days + (1 | Subject), data = sleepstudy)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)         Days  </span></span>
+<span><span class="co">#&gt;      251.41        10.47  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Linear mixed model fit by ML ['fastlmm']</span></span>
+<span><span class="co">#&gt;  Formula: Reaction ~ Days + (1 | Subject)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">#&gt; (Intercept) 251.4051     9.5062   26.45   &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt; Days         10.4673     0.8017   13.06   &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residual df: 162.2 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Variance components:</span></span>
+<span><span class="co">#&gt;   sigSq_g: 1297</span></span>
+<span><span class="co">#&gt;   sigSq_e: 954.5</span></span>
+<span><span class="co">#&gt;   delta:   0.736</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h3>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"GabrielHoffman/fastglmm"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="implmentation-details">Implmentation details<a class="anchor" aria-label="anchor" href="#implmentation-details"></a>
+<h2 id="implementation-details">Implementation details<a class="anchor" aria-label="anchor" href="#implementation-details"></a>
 </h2>
 <ul>
 <li>Analysis of a given response or features is performed on a single thread. Analysis is parallelized across responses/features using oneAPI Threading Building Blocks (<a href="https://uxlfoundation.github.io/oneTBB/" class="external-link">oneTBB</a>)</li>
 <li>Linear algebra is performed with <a href="https://arma.sourceforge.net" class="external-link">Armadillo</a>
 </li>
-<li>Use of dense and sparse matricies is supported at the C++ level uses C++ templates</li>
+<li>Use of dense and sparse matricies is supported at the C++ level using templates</li>
 <li>Interface between R and C++ is implemented in <a href="https://www.rcpp.org" class="external-link">Rcpp</a> and also depends on <a href="https://cran.r-project.org/web/packages/RcppArmadillo/" class="external-link">RcppArmadillo</a> and <a href="https://cran.r-project.org/web/packages/RcppParallel/" class="external-link">RcppParallel</a>
 </li>
 <li>Implemented in C++17</li>
 </ul>
+<div class="section level3">
+<h3 id="see-header-only-c-library-documentation">See header-only C++ library <a href="doxygen/html/index.html">documentation</a>
+<a class="anchor" aria-label="anchor" href="#see-header-only-c-library-documentation"></a>
+</h3>
+</div>
 </div>
 
   </main><aside class="col-md-3"><div class="links">
@@ -122,7 +168,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

@@ -5,7 +5,7 @@
 
 
 
-#' Fit negative binomial mixed model via PQL
+#' Fit Negative Binomial Mixed Model via PQL
 #' 
 #' Fit negative binomial mixed model (GLMM) with a single random effect using penalized quasi-likelihood (PQL)
 #' 

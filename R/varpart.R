@@ -177,9 +177,9 @@ setGeneric("getLambdaFromNull", function(fit_null,...) {
 
 
 
-#' Return array with variance component estimates
+#' Array of variance component estimates
 #' 
-#' Return array with variance component estimates
+#' Array of variance component estimates
 #' 
 #' @param object model fit
 #' @param ... other args
