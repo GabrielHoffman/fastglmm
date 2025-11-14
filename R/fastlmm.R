@@ -27,9 +27,9 @@
 #' @details Hoffman (2013), Lippert, et al. (2011) 
 #'
 #' @references
-#' Hoffman, G. E. (2013). Correcting for population structure and kinship using the linear mixed model: theory and extensions. PloS one, 8(10), e75707. \url{https://doi.org/10.1371/journal.pone.0075707}
+#' Hoffman, G. E. (2013). Correcting for population structure and kinship using the linear mixed model: theory and extensions. PloS one, 8(10), e75707. \doi{10.1371/journal.pone.0075707}
 #' 
-#' Lippert, C., Listgarten, J., Liu, Y., Kadie, C. M., Davidson, R. I., & Heckerman, D. (2011). FaST linear mixed models for genome-wide association studies. Nature methods, 8(10), 833-835. \url{https://www.nature.com/articles/nmeth.1681}
+#' Lippert, C., Listgarten, J., Liu, Y., Kadie, C. M., Davidson, R. I., & Heckerman, D. (2011). FaST linear mixed models for genome-wide association studies. Nature methods, 8(10), 833-835. \doi{10.1038/nmeth.1681}
 #'
 # other args
 # verbose = 0L, subset, weights = NULL, na.action, offset, contrasts = NULL

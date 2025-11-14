@@ -11,7 +11,7 @@
 
 Fitting linear mixed models (LMMs) and generalized linear mixed models (GLMMs) on large-scale datasets can be very computationally expensive.  The **fastglmm** package provides a very fast method for fitting LMMs and GLMMs with a single random effect.  This can be 10-1000x faster than other methods for large datasets.
 
-The **fastglmm** package is designed to be intuitive for users of other mixed model software such as [lme4](https://cran.r-project.org/web/packages/lme4/index.html), and uses familar mixed model syntax and R generics.  Since **fastglmm** is designed for large datasets and GLMMs in mind, it uses maximum likelihood rather than REML to fit LMMs. 
+The **fastglmm** package is designed to be intuitive for users of other mixed model software such as [lme4](https://cran.r-project.org/package=lme4), and uses familar mixed model syntax and R generics.  Since **fastglmm** is designed for large datasets and GLMMs in mind, it uses maximum likelihood rather than REML to fit LMMs. 
 
 ### Example Usage
 As an introduction, consider fitting a LMM to the `sleepstudy` data distributed with `lme4`.  The model syntax and parameter estimates are the same as using `lme4::lmer(..., REML=FALSE)`. 
@@ -61,7 +61,7 @@ devtools::install_github("GabrielHoffman/fastglmm")
 - Analysis of a given response or features is performed on a single thread.  Analysis is parallelized across responses/features using oneAPI Threading Building Blocks ([oneTBB](https://uxlfoundation.github.io/oneTBB/))
 - Linear algebra is performed with [Armadillo](https://arma.sourceforge.net)
 - Use of dense and sparse matricies is supported at the C++ level using templates
-- Interface between R and C++ is implemented in [Rcpp](https://www.rcpp.org) and also depends on [RcppArmadillo](https://cran.r-project.org/web/packages/RcppArmadillo/) and [RcppParallel](https://cran.r-project.org/web/packages/RcppParallel/)
+- Interface between R and C++ is implemented in [Rcpp](https://www.rcpp.org) and also depends on [RcppArmadillo](https://cran.r-project.org/package=RcppArmadillo) and [RcppParallel](https://cran.r-project.org/package=RcppParallel)
 - Implemented in C++17
 
 ### See header-only C++ library [documentation](doxygen/html/index.html)

@@ -30,7 +30,7 @@
 # #' For \code{method == "permutation"},  ....
 
 # #' @references
-# #' Abney, M. (2015). Permutation testing in the presence of polygenic variation. Genetic epidemiology, 39(4), 249-258. \url{https://doi.org/10.1002/gepi.21893}
+# #' Abney, M. (2015). Permutation testing in the presence of polygenic variation. Genetic epidemiology, 39(4), 249-258. \doi{10.1002/gepi.21893}
 # #' 
 # #' @importFrom numDeriv hessian
 # #' @export
