@@ -4,6 +4,7 @@
 \alias{getLambda}
 \alias{getLambda,fastlmm-method}
 \alias{getLambda,glm-method}
+\alias{getLambda,negbin-method}
 \alias{getLambdaFromNull}
 \title{Estimate baseline rate from count model}
 \usage{
@@ -12,6 +13,8 @@ getLambda(fit, ...)
 \S4method{getLambda}{fastlmm}(fit, ...)
 
 \S4method{getLambda}{glm}(fit, ...)
+
+\S4method{getLambda}{negbin}(fit, ...)
 
 getLambdaFromNull(fit_null, ...)
 }

@@ -4,6 +4,7 @@
 \alias{varianceTerms}
 \alias{varianceTerms,lm-method}
 \alias{varianceTerms,glm-method}
+\alias{varianceTerms,negbin-method}
 \alias{varianceTerms,merMod-method}
 \alias{varianceTerms,fastlmm-method}
 \title{Array of variance component estimates}
@@ -13,6 +14,8 @@ varianceTerms(object, ...)
 \S4method{varianceTerms}{lm}(object, ...)
 
 \S4method{varianceTerms}{glm}(object, ...)
+
+\S4method{varianceTerms}{negbin}(object, ...)
 
 \S4method{varianceTerms}{merMod}(object, ...)
 
