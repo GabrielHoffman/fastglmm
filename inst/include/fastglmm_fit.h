@@ -69,6 +69,7 @@ class fastglmm {
   bool returnUS;
   int niter_pql;
   double w_mean; 
+  double mu_mean = datum::nan;
   ModelDetail md;
 	shared_ptr<GLMFamily> fam;
 	bool isValid = true;
@@ -207,6 +208,8 @@ fastglmm<T1, T2, T3>::fastglmm(
 	// save GLM mu for use later
   mu = this->fitted();
 
+	mu_mean = mean(work->mu);
+
 	delete work;
 }
 
@@ -278,6 +281,8 @@ ModelFitGLMM fastglmm<T1, T2, T3>::get_result(){
 	}
 
 	ModelFitGLMM mf(res1, family, niter_pql);
+
+	mf.mu_mean = mu_mean;
 
   if( md == MAX ){
 		mf.devianceResiduals = devianceResiduals();

@@ -71,8 +71,57 @@ isCountModel = function(fit){
   # get family identifier
   famID <- getFamilyString(family(fit))
 
-  # remove theta in nb:theta
-  famID2 <- gsub("^(.+):.*", "\\1", famID)
-
-  famID2 %in% c("poisson/log", "quasipoisson/log", "nb")
+  isNB(fit) || famID %in% c("poisson/log", "quasipoisson/log")
 }
+
+#' Is fit a negative binomial model
+#'
+#' Is fit a negative binomial model
+#'
+#' @param fit model fit
+#'
+#' @return TRUE for NB models
+#'
+#' @export
+#' @keywords internal 
+isNB <- function( fit ){
+
+  famID <- getFamilyString(family(fit))
+  famID2 <- gsub("^(.+):.*", "\\1", famID)
+  return( famID2 == "nb" )
+}
+
+#' Get theta from NB model
+#'
+#' Get theta from NB model
+#'
+#' @param fit model fit
+#'
+#' @return theta for NB models, else NA
+#'
+#' @export
+#' @keywords internal 
+getTheta <- function( fit ){
+  theta <- NA
+  if( isNB(fit) ){
+    if( ! is.null(fit$theta) ){
+      theta <- fit$theta
+    }else{
+      famID <- getFamilyString(family(fit))
+      theta <- as.numeric(gsub("^(.+):(.*)$", "\\2", famID))
+    }
+  }
+
+  theta
+}
+
+
+#' Class negbin
+#'
+#' Define negbin class here to avoid warnings
+#'
+#' @exportClass negbin
+#' @keywords internal 
+setClass("negbin")
+
+

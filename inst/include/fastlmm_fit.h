@@ -89,7 +89,7 @@ class fastlmm {
     const int get_iter(){ return this->iter;}
     const double get_delta(){ return this->delta_hat;}
     const mat get_vcov(){
-      return inv_sympd(this->QXX) * this->sigSq_g;
+      return this->sigSq_g * inv_sympd(this->QXX, inv_opts::allow_approx) ;
     }
     const mat get_beta_se(){
       return sqrt(diagvec(get_vcov()));
@@ -293,7 +293,8 @@ const double fastlmm<T1, T2, T3>::get_rdf(){
   // h2.sum <- object$delta * sum(A * (A %*% D))
   vec w = (s/(delta_hat*s + pow(delta_hat,2)));
   mat A = mat(X / delta_hat - U * scaleEachCol( Xu, w));
-  mat D_A_t = solve(mat(A.t() * X), A.t());
+  mat D_A_t = solve(mat(A.t() * X), A.t(), 
+    solve_opts::allow_ugly);
   double h2_sum = delta_hat * arma::accu(A % D_A_t.t());
 
   return h1_sum - h2_sum;
@@ -317,7 +318,8 @@ const vec fastlmm<T1, T2, T3>::hatvalues(){
   // h2 <- model$delta * rowSums(A * (A %*% D))
   vec w = (s/(delta_hat*s + pow(delta_hat,2)));
   mat A = mat(X / delta_hat - U * scaleEachCol( Xu, w));
-  mat D_A_t = solve(mat(A.t() * X), A.t());
+  mat D_A_t = solve(mat(A.t() * X), A.t(),
+    solve_opts::allow_ugly);
   vec h2 = delta_hat * sum(A % D_A_t.t(), 1);
 
   // hatvalues
@@ -379,10 +381,14 @@ double fastlmm<T1, T2, T3>::ll(const double &delta ) {
 
   // beta <<- solve( QXX, QXY)
   // beta = solve(QXX, QXY, solve_opts::likely_sympd);
-  int status = solve(beta, QXX, QXY, solve_opts::likely_sympd);
+  int status = solve(beta, QXX, QXY, 
+    solve_opts::likely_sympd + arma::solve_opts::no_approx);
 
+  // if model failed
   if( ! status ){
-    throw std::runtime_error("Cannot evalute fastlmm logLik: system is singular: " + to_string(delta));
+    // set beta to NAN
+    beta.set_size(QXX.n_rows);
+    beta.fill(datum::nan);
   }
 
   // # Eval sig_g

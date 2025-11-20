@@ -30,12 +30,14 @@
 nb_theta = function(y, mu, n, weights, left=-10, right=20, tol = .Machine$double.eps^0.25){
 
 	if( missing(weights) ){
-		weights = rep(1, length(y))
+		weights <- rep(1, length(y))
 	}
 
 	if( missing(n) ){
-		n = sum(weights)
+		n <- sum(weights)
 	}
 
 	.nb_theta(y, mu, n, weights, left, right, tol)
 }
+
+
