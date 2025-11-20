@@ -68,11 +68,7 @@ getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal")) {
     "quasibinomial/probit" = stop("Link not supported"),
     "nb" = {
 
-      if( famID == "nb" ){
-        theta <- fit_null$theta
-      }else{
-        theta <- as.numeric(gsub("^(.+):(.*)$", "\\2", famID))
-      }
+      theta <- getTheta( fit )
 
       switch(method,
         "lognormal" = log(1 + 1 / lambda + 1 / theta),
@@ -147,7 +143,7 @@ setMethod("getLambda", signature("glm"),
   function(fit,...) {
 
   # refit model with only intercept and offset
-  fit_null = update(fit, . ~ 1, 
+  fit_null <- update(fit, . ~ 1, 
                 offset = fit$offset,
                 data = fit$data,
                 family = fit$family)
@@ -158,6 +154,40 @@ setMethod("getLambda", signature("glm"),
 
   exp(as.numeric(mu))
 })
+
+#' @rdname getLambda
+#' @export
+setMethod("getLambda", signature("negbin"), 
+  function(fit,...) {
+
+  # glm.nb doesn't support offset as arg, or in update()
+  # must be in formula
+  # so create new formula and run new glm.nb()
+  i <- attr(fit$terms, "response")
+  resp <- deparse(attr(fit$terms,"variables")[[i+1]])
+  form <- as.formula(paste(resp, "~ 0"))
+
+  if( ! is.null(fit$offset) ){
+    form <- update(form, . ~ offset(os)) 
+    fit$model$os <- fit$offset
+  }else{
+    form <- update(form, . ~ 1)
+  }
+
+  # refit model with only intercept and offset
+  fit_null <- glm.nb(form, 
+                data = fit$model, 
+                etastart = fit$linear.predictors,
+                weights = fit$prior.weights)
+
+  # mean term, including offset
+  mu <- coef(fit_null) + 
+          ifelse(is.null(fit_null$offset), 0, mean(fit_null$offset))
+
+  exp(as.numeric(mu))
+})
+
+
 
 
 
@@ -207,6 +237,13 @@ setMethod("varianceTerms", signature("glm"),
 })
 
 #' @rdname varianceTerms
+#' @export
+setMethod("varianceTerms", signature("negbin"), 
+  function(object,...) {
+  NULL
+})
+
+#' @rdname varianceTerms
 #' @importFrom lme4 VarCorr
 #' @export
 setMethod("varianceTerms", signature("merMod"), 
@@ -251,7 +288,7 @@ setMethod("varianceTerms", signature("fastlmm"),
 #' @references
 #' Nakagawa, Johnson, Schielzeth. 2017.  The coefficient of determination R2 and intra-class correlation coefficient from generalized linear mixed-effects models revisited and expanded. J. R. Soc. Interface 14: 20170213. \doi{10.1098/rsif.2017.0213}
 #'
-#' Nakagawa, Shinichi, and Holger Schielzeth. "A general and simple method for obtaining R2 from generalized linear mixed‐effects models." Methods in ecology and evolution 4, no. 2 (2013): 133-142. \doi{10.1111/j.2041-210x.2012.00261.x}
+#' Nakagawa, and Schielzeth. "A general and simple method for obtaining R2 from generalized linear mixed‐effects models." Methods in ecology and evolution 4, no. 2 (2013): 133-142. \doi{10.1111/j.2041-210x.2012.00261.x}
 #
 #' @examples
 #' library(MASS)
@@ -295,6 +332,15 @@ setMethod("varpart", signature("glm"),
 
 #' @rdname varpart
 #' @export
+setMethod("varpart", signature("negbin"), 
+  function(fit, ..., distr.method = c("trigamma", "lognormal")){
+  
+  .varpart(fit = fit, distr.method = distr.method)
+})
+
+
+#' @rdname varpart
+#' @export
 setMethod("varpart", signature("lm"), 
   function(fit, ..., distr.method = c("trigamma", "lognormal")){
   
@@ -309,13 +355,18 @@ setMethod("varpart", signature("merMod"),
   .varpart(fit = fit, distr.method = distr.method)
 })
 
+
 .varpart = function(fit, distr.method = c("trigamma", "lognormal")){
 
   distr.method <- match.arg(distr.method)
   signal_var <- var(predict(fit)) 
-  resid_var <- getDistrVar( fit, method = distr.method ) 
-  total_var <- signal_var + resid_var
-  eta_var <- colVars(predict(fit, type="terms")) 
+  distr_var <- getDistrVar( fit, method = distr.method ) 
+  total_var <- signal_var + distr_var
+  eta_var <- colVars(predict(fit, type="terms"))
+
+  if( length(eta_var) == 0 ){
+    stop("glm.nb with only no variables not supported")
+  }
 
   # remove intercept since variance is zero
   eta_var <- eta_var[names(eta_var) != "(Intercept)"]
@@ -325,10 +376,22 @@ setMethod("varpart", signature("merMod"),
 
   frac_signal <- as.numeric(signal_var / total_var)
 
-  c(eta_var / sum(eta_var) * frac_signal, 
-    Residuals = resid_var / total_var)
-}
+  # if family is Negative Binomial
+  if( isNB(fit) ){
+    resid_var <- trigamma( getTheta(fit) )
+    count_var <- distr_var - resid_var
 
+    res <- c(eta_var / sum(eta_var) * frac_signal,
+      CountNoise = count_var / total_var,
+      Residuals = resid_var / total_var)
+
+  }else{
+    res <- c(eta_var / sum(eta_var) * frac_signal, 
+      Residuals = distr_var / total_var)
+  }
+
+  res 
+}
 
 
 
