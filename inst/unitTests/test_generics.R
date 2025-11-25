@@ -24,12 +24,11 @@ test_generics = function(){
 
  
 
-  f_check_generics = function(fit1, fit2, exclude = c()){
+  f_check_generics = function(fit1, fit2, exclude = c(), tol = 1e-5){
 
     # check df.residual
     checkEqualsNumeric( n - df.residual(fit1), sum(hatvalues(fit1)))
-
-    tol = 1e-5
+    
     # For each generic function
     exclude = c(exclude, "coef", "print", "plot", "df.residual", "extractAIC", "edf", "varpart", "simulate")
     for(fx in setdiff(implemented, exclude) ){
@@ -59,7 +58,7 @@ test_generics = function(){
       }else if( fx %in% c("anova")){
         checkEqualsNumeric(anova(fit1)$F[-1], anova(fit2)$`F value`, tol=1e-6)
       }else if( fx %in% c("linearHypothesis")){
-        checkEqualsNumeric(res1$Chisq, res2$Chisq, tol=1e-6)
+        checkEqualsNumeric(res1$Chisq, res2$Chisq, tol=tol)
       }else if( fx %in% c("terms")){
         ids = intersect(names(attributes(res1)), names(attributes(res2)))
         checkEquals(attributes(res1)[ids], attributes(res2)[ids])
@@ -107,7 +106,7 @@ test_generics = function(){
   f_check_generics(fit1, fit2)
 
   fit3 <- fastglmm(form, sleepstudy, weights = w)
-  f_check_generics(fit1, fit3, exclude = "anova")
+  f_check_generics(fit1, fit3, exclude = "anova", tol=1e-3)
 
 }
 

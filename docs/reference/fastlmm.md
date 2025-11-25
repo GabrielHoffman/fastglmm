@@ -1,4 +1,4 @@
-# Fast Linear Mixed Model with 1 Random eEffect
+# Fast Linear Mixed Model with 1 Random Effect
 
 Fit a linear mixed-effects model with 1 random effect with REML or
 maximum likelihood using the very fast algorithm and implementation
@@ -75,12 +75,13 @@ Hoffman (2013), Lippert, et al. (2011)
 
 Hoffman, G. E. (2013). Correcting for population structure and kinship
 using the linear mixed model: theory and extensions. PloS one, 8(10),
-e75707. <https://doi.org/10.1371/journal.pone.0075707>
+e75707.
+[doi:10.1371/journal.pone.0075707](https://doi.org/10.1371/journal.pone.0075707)
 
 Lippert, C., Listgarten, J., Liu, Y., Kadie, C. M., Davidson, R. I., &
 Heckerman, D. (2011). FaST linear mixed models for genome-wide
 association studies. Nature methods, 8(10), 833-835.
-<https://www.nature.com/articles/nmeth.1681>
+[doi:10.1038/nmeth.1681](https://doi.org/10.1038/nmeth.1681)
 
 ## See also
 

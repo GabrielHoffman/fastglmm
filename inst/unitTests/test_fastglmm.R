@@ -164,7 +164,7 @@ test_predict_fitted = function(){
 
 	dd$y <- rnbinom(nrow(dd), mu = mu, size = 5)
 
-	fit2 <- fastglmm.nb(y ~ f1*f2 + (1|g), data=dd)
+	fit2 <- fastglmm.nb(y ~ f1*f2 + (1|g), data=dd, doCoxReid=FALSE)
 	fit1 <- glmer.nb(y ~ f1*f2 + (1|g), data=dd)
 
 	a = gsub("Negative Binomial\\((\\S+)\\)", "\\1", family(fit2)$family)
@@ -184,7 +184,7 @@ test_predict_fitted = function(){
 	checkEqualsNumeric( coef(summary(fit1))[,2], 
 						coef(summary(fit2))[,2], tol=1e-2 )
 	checkEqualsNumeric( coef(summary(fit1))[,2], 
-						coef(summary(fit3))[,2], tol=1e-2 )
+						coef(summary(fit3))[,2], tol=5e-2 )
 
 	checkEqualsNumeric( fitted(fit1), fitted(fit2), tol=1e-3 )
 	checkEqualsNumeric( fitted(fit1), exp(fitted(fit3)), tol=1e-3 )
@@ -302,11 +302,11 @@ test_fastglmm = function(){
 	# fit1$sigSq_e / (fit1$sigSq_g + fit1$sigSq_e)
 	# calcVarPart(fit3)
 
-	checkEqualsNumeric( unlist(ranef(fit1)), unlist(ranef(fit2)), tol=1e-6)
+	checkEqualsNumeric( unlist(ranef(fit1)), unlist(ranef(fit2)), tol=1e-3)
 	checkEqualsNumeric( unlist(ranef(fit1)), unlist(ranef(fit3)), tol=1e-2)
 
 
-	checkEqualsNumeric( predict(fit1), predict(fit2), tol=1e-7 )
+	checkEqualsNumeric( predict(fit1), predict(fit2), tol=1e-5 )
 	checkEqualsNumeric( predict(fit1, type="resp"), 
 						predict(fit2, type="resp"), 
 						tol=1e-6 )
@@ -315,8 +315,8 @@ test_fastglmm = function(){
 
 	# checkEqualsNumeric( fixef(fit1), fixef(fit2) )
 	checkEqualsNumeric( fixef(fit1), fixef(fit3), tol=1e-3 )
-	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=1e-4  )
-	checkEqualsNumeric( coef(summary(fit1))[,1:3], coef(summary(fit2))[,c(1,2,4)], tol=1e-4 )
+	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=1e-1  )
+	checkEqualsNumeric( coef(summary(fit1))[,1:3], coef(summary(fit2))[,c(1,2,4)], tol=1e-2 )
 
 	fit1$sigSq_g
 	fit1$sigSq_e
@@ -338,15 +338,15 @@ test_fastglmm = function(){
 	fit1$sigSq_e / (fit1$sigSq_g + fit1$sigSq_e)
 	# calcVarPart(fit3)
 
-	checkEqualsNumeric( unlist(ranef(fit1)), unlist(ranef(fit2)), tol=1e-6)
+	checkEqualsNumeric( unlist(ranef(fit1)), unlist(ranef(fit2)), tol=1e-5)
 	checkEqualsNumeric( unlist(ranef(fit1)), unlist(ranef(fit3)), tol=1e-2)
 
 
-	checkEqualsNumeric( fitted(fit1), exp(fitted(fit2)), tol=1e-6 )
+	checkEqualsNumeric( fitted(fit1), exp(fitted(fit2)), tol=1e-5 )
 	# checkEqualsNumeric( fixef(fit1), fixef(fit2) )
 	checkEqualsNumeric( fixef(fit1), fixef(fit3), tol=1e-3 )
-	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=1e-4  )
-	checkEqualsNumeric( coef(summary(fit1))[,1:3], coef(summary(fit2))[,c(1,2,4)], tol=1e-4 )
+	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=1e-3  )
+	checkEqualsNumeric( coef(summary(fit1))[,1:3], coef(summary(fit2))[,c(1,2,4)], tol=1e-3 )
 
 	fit1$sigSq_g
 	fit1$sigSq_e

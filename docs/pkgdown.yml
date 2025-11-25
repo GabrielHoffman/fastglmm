@@ -3,7 +3,7 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   nbmm: nbmm.html
-last_built: 2025-11-13T01:47Z
+last_built: 2025-11-24T21:10Z
 urls:
   reference: http://gabrielhoffman.github.io/fastglmm/reference
   article: http://gabrielhoffman.github.io/fastglmm/articles

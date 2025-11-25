@@ -155,6 +155,7 @@ setMethod("getLambda", signature("glm"),
   exp(as.numeric(mu))
 })
 
+#' @importFrom MASS glm.nb
 #' @rdname getLambda
 #' @export
 setMethod("getLambda", signature("negbin"), 

@@ -1,5 +1,17 @@
 # Changelog
 
+## fastglmm 0.3.4
+
+- Nov 24, 2025
+- update
+  [`varpart()`](http://gabrielhoffman.github.io/fastglmm/reference/varpart.md)
+  for NB models
+- [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
+  and [`glm.nb()`](https://rdrr.io/pkg/MASS/man/glm.nb.html)
+- handle singular models for NB fit
+- add Cox-Reid option for NB models
+- looser convergence criteria for GLMM
+
 ## fastglmm 0.3.3
 
 - Oct 17, 2025

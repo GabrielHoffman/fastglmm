@@ -21,11 +21,11 @@
     .Call('_fastglmm_nb_theta', PACKAGE = 'fastglmm', y, mu, n, weights, left, right, tol)
 }
 
-.fastglmm_mm <- function(y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, nthreads) {
-    .Call('_fastglmm_fastglmm_mm', PACKAGE = 'fastglmm', y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, nthreads)
+.fastglmm_mm <- function(y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, nthreads, doCoxReid = TRUE) {
+    .Call('_fastglmm_fastglmm_mm', PACKAGE = 'fastglmm', y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, nthreads, doCoxReid)
 }
 
-.fastglmm_ms <- function(y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, nthreads) {
-    .Call('_fastglmm_fastglmm_ms', PACKAGE = 'fastglmm', y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, nthreads)
+.fastglmm_ms <- function(y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, nthreads, doCoxReid = TRUE) {
+    .Call('_fastglmm_fastglmm_ms', PACKAGE = 'fastglmm', y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, nthreads, doCoxReid)
 }
 

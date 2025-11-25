@@ -65,9 +65,10 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
               delta = ifelse(is.null(delta), -1, delta), 
               left = -10,
               right = 10,
-              tol = 1e-5, 
-              tol_eta = 1e-7,
+              tol = 1e-3, 
+              tol_eta = 1e-3,
               maxit = 100,
+              doCoxReid = fit$doCoxReid,
               nthreads = 1)
 
     res$s <- c(res$s)
@@ -77,6 +78,7 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
     res <- as.fastlmm(res, design = design, offset = fit$offset, method = "PQL")
 
     res$response <- fit$response
+    res$doCoxReid <- fit$doCoxReid
 
     if( grepl("^nb:", res$family) ){
       # convert NB string to negative.binomial(theta)

@@ -246,11 +246,13 @@
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/getLambda.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/getLink.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/getLinkInv.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/fastglmm/reference/getTheta.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/hatvalues.fastlmm.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/heritability.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/index.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/indicator_decomp.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/isCountModel.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/fastglmm/reference/isNB.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/linearHypothesis.fastlmm.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/linearHypothesis.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/lmFitFeatures,ANY,ANY,matrix-method.html</loc></url>
@@ -264,6 +266,7 @@
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/mediateResult.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/nb_theta.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/negative.binomial.html</loc></url>
+<url><loc>http://gabrielhoffman.github.io/fastglmm/reference/negbin-class.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/nobs.fastlmm.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/plot.fastlmm.html</loc></url>
 <url><loc>http://gabrielhoffman.github.io/fastglmm/reference/predict.html</loc></url>

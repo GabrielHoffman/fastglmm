@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fastglmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,7 +23,7 @@
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/GabrielHoffman/fastlmm/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/GabrielHoffman/fastglmm/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -33,7 +33,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Extract the modes of the random effect</h1>
-      <small class="dont-index">Source: <a href="https://github.com/GabrielHoffman/fastlmm/blob/HEAD/R/s3methods.R" class="external-link"><code>R/s3methods.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/GabrielHoffman/fastglmm/blob/HEAD/R/s3methods.R" class="external-link"><code>R/s3methods.R</code></a></small>
       <div class="d-none name"><code>ranef.Rd</code></div>
     </div>
 
@@ -71,56 +71,56 @@
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/nlme/man/random.effects.html" class="external-link">ranef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ID</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X01  0.63630635</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X02 -0.40285737</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X03  1.39767540</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X04  0.78329105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X05  0.78329105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X06  1.19084344</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X07 -1.66757030</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X08 -0.61212738</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X09  0.78329105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X10  0.63102128</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X11  0.78329105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X12 -0.55426161</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X13  0.78329105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X14 -1.31428594</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X15  1.39767540</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X16 -0.08969771</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X17 -0.61212738</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X18 -1.28360485</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X19 -1.50873729</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X20  0.95133469</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X21  0.78329105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Y01  0.78329105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Y02 -2.25537682</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Y03 -0.93329805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Y04 -1.86910736</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Y05 -2.49550627</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Y06  0.63630635</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Y07 -0.55426161</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Y08 -0.16207994</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Y09  0.75463966</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Y10  0.26186709</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Y11  0.78329105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Y12  0.63102128</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Y13 -1.86910736</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Y14  0.44670457</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z01  0.90545216</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z02  0.78329105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z03  1.13560955</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z05 -1.50873729</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z06 -1.06774849</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z07 -0.55426161</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z09  0.95133469</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z10  0.78329105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z11  1.39767540</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z14 -0.08969771</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z15  1.13434749</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z19  1.13560955</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z20 -1.00094867</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z24 -0.93329805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z26 -0.08969771</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X01  0.63621469</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X02 -0.40298133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X03  1.39761822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X04  0.78319180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X05  0.78319180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X06  1.19078417</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X07 -1.66773921</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X08 -0.61233282</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X09  0.78319180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X10  0.63098249</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X11  0.78319180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X12 -0.55440704</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X13  0.78319180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X14 -1.31451616</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X15  1.39761822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X16 -0.08980838</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X17 -0.61233282</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X18 -1.28377835</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X19 -1.50898465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X20  0.95128437</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X21  0.78319180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Y01  0.78319180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Y02 -2.25565387</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Y03 -0.93343929</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Y04 -1.86931374</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Y05 -2.49580840</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Y06  0.63621469</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Y07 -0.55440704</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Y08 -0.16217779</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Y09  0.75454840</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Y10  0.26175241</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Y11  0.78319180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Y12  0.63098249</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Y13 -1.86931374</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Y14  0.44662392</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z01  0.90538719</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z02  0.78319180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z03  1.13556043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z05 -1.50898465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z06 -1.06787838</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z07 -0.55440704</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z09  0.95128437</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z10  0.78319180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z11  1.39761822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z14 -0.08980838</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z15  1.13430030</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z19  1.13556043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z20 -1.00111946</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z24 -0.93343929</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z26 -0.08980838</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

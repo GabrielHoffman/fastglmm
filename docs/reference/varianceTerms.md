@@ -13,6 +13,9 @@ varianceTerms(object, ...)
 # S4 method for class 'glm'
 varianceTerms(object, ...)
 
+# S4 method for class 'negbin'
+varianceTerms(object, ...)
+
 # S4 method for class 'merMod'
 varianceTerms(object, ...)
 

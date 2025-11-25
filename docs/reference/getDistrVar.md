@@ -27,7 +27,8 @@ and Zavoina, 1975).
 
 1 - Residuals gives the R2 values from
 `performance::r2_nakagawa(..., approximation="trigamma")`. Using
-`performance::r2_mckelvey()` use the "lognormal" approximation
+[`performance::r2_mckelvey()`](https://easystats.github.io/performance/reference/r2_mckelvey.html)
+use the "lognormal" approximation
 
 ## References
 

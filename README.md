@@ -1,7 +1,7 @@
 
 <br>
 
-## Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on >1 Million Samples
+## Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on Massive Datasets
 
 <style>
   body {

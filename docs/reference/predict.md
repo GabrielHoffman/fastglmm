@@ -46,5 +46,5 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
    family = binomial(), data = bacteria)
 
 predict(fit)[1:3]
-#> [1] 4.048579 4.048579 2.441202
+#> [1] 4.048960 4.048960 2.441364
 ```

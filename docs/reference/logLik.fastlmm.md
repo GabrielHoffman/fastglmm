@@ -29,5 +29,5 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
    family = binomial(), data = bacteria)
 
 logLik(fit)
-#> 'log Lik.' -550.9055 (df=30.82054)
+#> 'log Lik.' -550.9229 (df=30.82029)
 ```

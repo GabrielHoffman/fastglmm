@@ -19,8 +19,9 @@ fastglmm(
   delta = NULL,
   delta.range = c(-10, 10),
   maxit = 100,
-  tol = 1e-05,
-  tol.eta = 1e-07,
+  tol = 0.001,
+  tol.eta = 0.001,
+  doCoxReid = nrow(data) < 1000,
   nthreads = 6
 )
 ```
@@ -69,6 +70,11 @@ fastglmm(
 
   convergence criterion `eta` in the PQL iteration
 
+- doCoxReid:
+
+  use Cox-Reid correction for estimating theta in negative binomial
+  model
+
 - nthreads:
 
   number of threads
@@ -108,8 +114,8 @@ fit = fastglmm(y ~ trt + I(week > 2) + (1 | ID),
   family = binomial(), data = bacteria)
 coef(summary(fit))
 #>                   Estimate Std. Error   z value     Pr(>|z|)
-#> (Intercept)      3.4122730  0.5139270  6.639606 3.145221e-11
-#> trtdrug         -1.2474272  0.6383984 -1.953995 5.070182e-02
-#> trtdrug+        -0.7544029  0.6397095 -1.179290 2.382827e-01
-#> I(week > 2)TRUE -1.6073769  0.3551305 -4.526158 6.006558e-06
+#> (Intercept)      3.4127450  0.5140371  6.639102 3.155994e-11
+#> trtdrug         -1.2475583  0.6385870 -1.953623 5.074581e-02
+#> trtdrug+        -0.7545406  0.6398927 -1.179167 2.383315e-01
+#> I(week > 2)TRUE -1.6075955  0.3551408 -4.526643 5.992815e-06
 ```

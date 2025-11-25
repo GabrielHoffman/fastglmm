@@ -1,6 +1,6 @@
 Package: fastglmm
 Type: Package
-Title: Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on >1 Million Samples
+Title: Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on Massive Datasets
 Version: 0.3.4
 Date: 2025-11-17
 Authors@R: person("Gabriel", "Hoffman", role=c("aut", "cre"), email="gabriel.hoffman@mssm.edu", comment=c(ORCID="0000-0002-0957-0224"))
@@ -38,3 +38,4 @@ SystemRequirements:
 	C++17,
 	Intel TBB
 RoxygenNote: 7.3.3
+LazyData: false

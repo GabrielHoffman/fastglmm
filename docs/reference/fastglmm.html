@@ -11,7 +11,7 @@ Stores results of fastglmm model fit"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">fastglmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,7 @@ Stores results of fastglmm model fit"></head><body>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/GabrielHoffman/fastlmm/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/GabrielHoffman/fastglmm/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -37,7 +37,7 @@ Stores results of fastglmm model fit"></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fit Generalized Linear Mixed Model via PQL</h1>
-      <small class="dont-index">Source: <a href="https://github.com/GabrielHoffman/fastlmm/blob/HEAD/R/fastglmm.R" class="external-link"><code>R/fastglmm.R</code></a>, <a href="https://github.com/GabrielHoffman/fastlmm/blob/HEAD/R/fastlmm.fit.R" class="external-link"><code>R/fastlmm.fit.R</code></a>, <a href="https://github.com/GabrielHoffman/fastlmm/blob/HEAD/R/s3methods.R" class="external-link"><code>R/s3methods.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/GabrielHoffman/fastglmm/blob/HEAD/R/fastglmm.R" class="external-link"><code>R/fastglmm.R</code></a>, <a href="https://github.com/GabrielHoffman/fastglmm/blob/HEAD/R/fastlmm.fit.R" class="external-link"><code>R/fastlmm.fit.R</code></a>, <a href="https://github.com/GabrielHoffman/fastglmm/blob/HEAD/R/s3methods.R" class="external-link"><code>R/s3methods.R</code></a></small>
       <div class="d-none name"><code>fastglmm.Rd</code></div>
     </div>
 
@@ -57,8 +57,9 @@ Stores results of fastglmm model fit"></head><body>
 <span>  delta <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  delta.range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span>,</span>
 <span>  maxit <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>  tol <span class="op">=</span> <span class="fl">1e-05</span>,</span>
-<span>  tol.eta <span class="op">=</span> <span class="fl">1e-07</span>,</span>
+<span>  tol <span class="op">=</span> <span class="fl">0.001</span>,</span>
+<span>  tol.eta <span class="op">=</span> <span class="fl">0.001</span>,</span>
+<span>  doCoxReid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">1000</span>,</span>
 <span>  nthreads <span class="op">=</span> <span class="fl">6</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -103,6 +104,10 @@ Stores results of fastglmm model fit"></head><body>
 <dd><p>convergence criterion <code>eta</code> in the PQL iteration</p></dd>
 
 
+<dt id="arg-docoxreid">doCoxReid<a class="anchor" aria-label="anchor" href="#arg-docoxreid"></a></dt>
+<dd><p>use Cox-Reid correction for estimating theta in negative binomial model</p></dd>
+
+
 <dt id="arg-nthreads">nthreads<a class="anchor" aria-label="anchor" href="#arg-nthreads"></a></dt>
 <dd><p>number of threads</p></dd>
 
@@ -142,10 +147,10 @@ Stores results of fastglmm model fit"></head><body>
 <span class="r-in"><span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">binomial</a></span><span class="op">(</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">bacteria</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   Estimate Std. Error   z value     Pr(&gt;|z|)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      3.4122730  0.5139270  6.639606 3.145221e-11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> trtdrug         -1.2474272  0.6383984 -1.953995 5.070182e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> trtdrug+        -0.7544029  0.6397095 -1.179290 2.382827e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> I(week &gt; 2)TRUE -1.6073769  0.3551305 -4.526158 6.006558e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      3.4127450  0.5140371  6.639102 3.155994e-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> trtdrug         -1.2475583  0.6385870 -1.953623 5.074581e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> trtdrug+        -0.7545406  0.6398927 -1.179167 2.383315e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> I(week &gt; 2)TRUE -1.6075955  0.3551408 -4.526643 5.992815e-06</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

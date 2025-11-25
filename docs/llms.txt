@@ -10,10 +10,10 @@ other methods for large datasets.
 
 The **fastglmm** package is designed to be intuitive for users of other
 mixed model software such as
-[lme4](https://cran.r-project.org/web/packages/lme4/index.html), and
-uses familar mixed model syntax and R generics. Since **fastglmm** is
-designed for large datasets and GLMMs in mind, it uses maximum
-likelihood rather than REML to fit LMMs.
+[lme4](https://cran.r-project.org/package=lme4), and uses familar mixed
+model syntax and R generics. Since **fastglmm** is designed for large
+datasets and GLMMs in mind, it uses maximum likelihood rather than REML
+to fit LMMs.
 
 ### Example Usage
 
@@ -74,9 +74,8 @@ devtools::install_github("GabrielHoffman/fastglmm")
   templates
 - Interface between R and C++ is implemented in
   [Rcpp](https://www.rcpp.org) and also depends on
-  [RcppArmadillo](https://cran.r-project.org/web/packages/RcppArmadillo/)
-  and
-  [RcppParallel](https://cran.r-project.org/web/packages/RcppParallel/)
+  [RcppArmadillo](https://cran.r-project.org/package=RcppArmadillo) and
+  [RcppParallel](https://cran.r-project.org/package=RcppParallel)
 - Implemented in C++17
 
 ### See header-only C++ library [documentation](http://gabrielhoffman.github.io/fastglmm/doxygen/html/index.md)
@@ -86,7 +85,7 @@ devtools::install_github("GabrielHoffman/fastglmm")
 ## Core functions
 
 - [`fastlmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.md)
-  : Fast Linear Mixed Model with 1 Random eEffect
+  : Fast Linear Mixed Model with 1 Random Effect
 - [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
   : Fit Generalized Linear Mixed Model via PQL
 - [`fastglmm.nb()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.nb.md)

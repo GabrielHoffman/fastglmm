@@ -94,10 +94,10 @@ test_refitModel = function(){
 
   # full model
   fam = negative.binomial(NA)
-  fit = fastglmm(y.nb ~ X1 + X2 + (1|z), df, family=fam)
+  fit = fastglmm(y.nb ~ X1 + X2 + (1|z), df, family=fam, doCoxReid=FALSE)
 
   # null model
-  fit_null = fastglmm(y.nb ~ (1|z), df,family=fam)
+  fit_null = fastglmm(y.nb ~ (1|z), df, family=fam)
   fit_null2 = refitModel(fit, interceptOnly=TRUE)
 
   fit_null2$data = fit_null$data = NULL

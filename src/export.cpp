@@ -191,7 +191,8 @@ List fastglmm_mm(
   const double &tol,
   const double &tol_eta,
   const int &maxit,
-  const int &nthreads){
+  const int &nthreads, 
+  const bool &doCoxReid = true){
 
   ModelDetail md = MAX;
 
@@ -200,7 +201,7 @@ List fastglmm_mm(
   spectralDecomp dcmp(U, s, type);
 
   // initialize
-  fastglmm fit = fastglmm<vec,mat,mat>(y, X, dcmp, weights, offset, family, md, tol, tol_eta, maxit, delta, left, right, true);
+  fastglmm fit = fastglmm<vec,mat,mat>(y, X, dcmp, weights, offset, family, md, tol, tol_eta, maxit, delta, left, right, true, doCoxReid);
 
   return toList(fit);
 }
@@ -225,7 +226,8 @@ List fastglmm_ms(
   const double &tol,
   const double &tol_eta,
   const int &maxit,
-  const int &nthreads){
+  const int &nthreads, 
+  const bool &doCoxReid = true){
 
   ModelDetail md = MAX;
 
@@ -234,7 +236,7 @@ List fastglmm_ms(
   spectralDecomp dcmp(U, s, type);
 
   // initialize
-  fastglmm fit = fastglmm<vec,mat,sp_mat>(y, X, dcmp, weights, offset, family, md, tol, tol_eta, maxit, delta, left, right, true);
+  fastglmm fit = fastglmm<vec,mat,sp_mat>(y, X, dcmp, weights, offset, family, md, tol, tol_eta, maxit, delta, left, right, true, doCoxReid);
 
   return toList(fit);
 }

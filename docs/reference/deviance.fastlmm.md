@@ -29,5 +29,5 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
    family = binomial(), data = bacteria)
 
 deviance(fit)
-#> [1] 1101.811
+#> [1] 1101.846
 ```

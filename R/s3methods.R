@@ -63,13 +63,16 @@ anova.fastlmm <- function(object,...){
   # Numerator degrees of freedom
   df <- lengths(split(asgn, asgn))
 
-  df1 <- df2 <- NULL
+  df1 <- NULL
 
-  res = lapply(seq(0, max(asgn)), function(i){
+  # for LMM, use finite sample approximation
+  df2 <- df.residual(object)
+
+  res <- lapply(seq(0, max(asgn)), function(i){
 
     # create contrast matrix with 1's for this component
-    L = rep(0, length(asgn))
-    L[which(asgn == i)] = 1
+    L <- rep(0, length(asgn))
+    L[which(asgn == i)] <- 1
 
     F.stat <- (L %*% coef(object)) %*% solve(L %*% vcov(object) %*% L) %*% (L %*% coef(object))
 
@@ -78,7 +81,7 @@ anova.fastlmm <- function(object,...){
 
     data.frame(id = nmeffects[i+1], 
       df1 = sum(L), 
-      df2 = df.residual(object),
+      df2 = df2,
       F = F.stat)
     }) %>%
     bind_rows %>%
@@ -107,18 +110,18 @@ anova.fastglmm <- function(object,...){
   }
 
   # Numerator degrees of freedom
-  df <- lengths(split(asgn, asgn))
+  # df <- lengths(split(asgn, asgn))
+  Chisq <- NULL
 
-  df1 <- df2 <- Chisq <- NULL
-
-  res = lapply(seq(0, max(asgn)), function(i){
+  res <- lapply(seq(0, max(asgn)), function(i){
 
     # create contrast matrix with 1's for this component
-    L = rep(0, length(asgn))
-    L[which(asgn == i)] = 1
+    L <- rep(0, length(asgn))
+    L[which(asgn == i)] <- 1
 
     stat <- (L %*% coef(object)) %*% solve(L %*% vcov(object) %*% L) %*% (L %*% coef(object))
 
+    # if GLMM, use asymptotical null distribution
     # for comparison
     data.frame(id = nmeffects[i+1], 
       df = sum(L), 
@@ -763,7 +766,7 @@ ranef.fastlmm <- function(object, ...) {
   # since U^T U is identity if the GRM is full rank
   # v <- with(object, sqrt(s)*ru / (s + delta))
 
-  lst = list()
+  lst <- list()
   lst[[id.ranef]] <- v
   lst
 }

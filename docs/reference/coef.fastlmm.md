@@ -30,5 +30,5 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
 
 coef(fit)
 #>     (Intercept)         trtdrug        trtdrug+ I(week > 2)TRUE 
-#>       3.4122730      -1.2474272      -0.7544029      -1.6073769 
+#>       3.4127450      -1.2475583      -0.7545406      -1.6075955 
 ```

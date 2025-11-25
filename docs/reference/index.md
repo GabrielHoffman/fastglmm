@@ -3,7 +3,7 @@
 ## Core functions
 
 - [`fastlmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.md)
-  : Fast Linear Mixed Model with 1 Random eEffect
+  : Fast Linear Mixed Model with 1 Random Effect
 - [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
   : Fit Generalized Linear Mixed Model via PQL
 - [`fastglmm.nb()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.nb.md)

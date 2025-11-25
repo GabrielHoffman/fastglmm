@@ -15,6 +15,9 @@ getLambda(fit, ...)
 # S4 method for class 'glm'
 getLambda(fit, ...)
 
+# S4 method for class 'negbin'
+getLambda(fit, ...)
+
 getLambdaFromNull(fit_null, ...)
 ```
 

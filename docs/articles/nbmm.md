@@ -6,7 +6,7 @@ of samples [(Rood, et al.,
 2024)](https://doi.org/10.1038/s41586-024-08338-4). In differential
 expression analysis, the goal is to identify genes whose expression is
 associated with a variable of interest. Single cell transcriptomics
-produces counts for each cell and each observed cell.
+produces counts for each gene and each observed cell.
 
 To be concrete, consider counts from the gene PTPRG from 249 subjects
 measured across 60k microglia cells where an average of 202 cells were
@@ -17,7 +17,7 @@ number of counts for this gene, `libSize` is the total counts for each
 cell, `Dx` is Alzheimer’s disease status, `Age` and `Sex` indicate
 subject age and sex, and `SubID` indicates which subject each observed
 cell is from. Here we use a negative binomial mixed model (NBMM) to test
-of the counts of the PTPRG gene are associated with Alzheimer’s disease
+if the counts of the PTPRG gene are associated with Alzheimer’s disease
 status after accounting for the total number of counts for each cell.
 Age and sex are included as covariates and subject is a random effect to
 account for the repeated measures design. We use the familiar formula

@@ -9,8 +9,9 @@ fastglmm.nb(
   data,
   weights = NULL,
   maxit = 100,
-  tol = .Machine$double.eps^0.5,
-  tol.eta = .Machine$double.eps^0.5,
+  tol = 0.001,
+  tol.eta = 0.001,
+  doCoxReid = nrow(data) < 1000,
   nthreads = 6
 )
 }
@@ -26,6 +27,8 @@ fastglmm.nb(
 \item{tol}{convergence criterion for the 1D search of the delta space}
 
 \item{tol.eta}{convergence criterion \code{eta} in the PQL iteration}
+
+\item{doCoxReid}{use Cox-Reid correction for estimating theta in negative binomial model}
 
 \item{nthreads}{number of threads}
 }

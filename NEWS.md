@@ -1,10 +1,12 @@
 
 
 # fastglmm 0.3.4
- - Nov 17, 2025
+ - Nov 24, 2025
  - update `varpart()` for NB models
   - `fastglmm()` and `glm.nb()`
-  - handle singular models for NB fit
+- handle singular models for NB fit
+- add Cox-Reid option for NB models
+- looser convergence criteria for GLMM
 
 # fastglmm 0.3.3
  - Oct 17, 2025

@@ -52,7 +52,8 @@ class fastglmm {
 						const double &delta = -1,
 						const double &left = -10,
 						const double &right = 10,
-						const bool &returnUS = false);
+						const bool &returnUS = false,
+						const bool &doCoxReid = true);
 
 	const vec residuals(); // Pearson
 	const vec fitted();
@@ -90,7 +91,8 @@ fastglmm<T1, T2, T3>::fastglmm(
 	const double &delta,
 	const double &left,
 	const double &right,
-	const bool &returnUS):
+	const bool &returnUS,
+	const bool &doCoxReid):
 	y(y), 
 	weights(weights), 
 	dcmp(dcmp), 
@@ -127,7 +129,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 
 		// if Negative Binomial with unspecified theta
 		if( estimateTheta ){
-			theta = nb_theta_ml(y, work->mu, y.n_elem, weights, {}, false);
+			theta = nb_theta_ml(y, work->mu, y.n_elem, weights, X, doCoxReid);
 			fam->setOverdispersion( theta );
 		}
 
@@ -179,8 +181,8 @@ fastglmm<T1, T2, T3>::fastglmm(
 		fit = fastlmm(work->z, X, this->dcmp, work->w, LEAST);
 
 		if( delta > 0 ){
-      fit.eval_delta( delta ); 
-    }else{
+			fit.eval_delta( delta ); 
+		}else{
 			fit.estimate_delta(left, right, tol);	
 		}
 
@@ -194,8 +196,8 @@ fastglmm<T1, T2, T3>::fastglmm(
 		fit = fastlmm(work->z, X, this->dcmp, work->w, md);
 
 		if( delta > 0 ){
-      fit.eval_delta( delta ); 
-    }else{
+			fit.eval_delta( delta ); 
+		}else{
 			fit.estimate_delta(left, right, tol);	
 		}
 	}

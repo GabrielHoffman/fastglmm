@@ -73,7 +73,7 @@ test_varpart = function(){
   res2 = varpart(fit)
 
   checkEqualsNumeric(1 - res1$R2_conditional,  
-                  res2['Residuals'], 
+                  res2['Residuals'] + res2['CountNoise'], 
                   tol = 1e-1)
 
   # Compare GLM with GLMM with zero variance component

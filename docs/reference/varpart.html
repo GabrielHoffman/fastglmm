@@ -82,7 +82,7 @@
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The coefficient of determination (i.e. R^2) is 1 - [Residuals fraction].  This matches <code><a href="https://rdrr.io/pkg/performance/man/r2_nakagawa.html" class="external-link">performance::r2_nakagawa()</a></code> and <code><a href="https://rdrr.io/pkg/performance/man/r2_mckelvey.html" class="external-link">performance::r2_mckelvey()</a></code>, except these use the <code>"lognormal"</code> method.</p>
+    <p>The coefficient of determination (i.e. R^2) is 1 - [Residuals fraction].  This matches <code><a href="https://easystats.github.io/performance/reference/r2_nakagawa.html" class="external-link">performance::r2_nakagawa()</a></code> and <code><a href="https://easystats.github.io/performance/reference/r2_mckelvey.html" class="external-link">performance::r2_mckelvey()</a></code>, except these use the <code>"lognormal"</code> method.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -99,7 +99,8 @@
 <span class="r-in"><span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">binomial</a></span><span class="op">(</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">bacteria</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">varpart</span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in isCountModel(fit):</span> object 'famID2' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         trt I(week &gt; 2)          ID   Residuals </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.03695010  0.08324405  0.26113134  0.61867451 </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

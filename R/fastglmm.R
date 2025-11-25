@@ -59,6 +59,7 @@ process_formula = function(formula, data){
 #' @param maxit max number of PQL iterations
 #' @param tol convergence criterion for the 1D search of the delta space
 #' @param tol.eta convergence criterion \code{eta} in the PQL iteration
+#' @param doCoxReid use Cox-Reid correction for estimating theta in negative binomial model
 #' @param nthreads number of threads
 #'
 #' @examples
@@ -84,7 +85,7 @@ process_formula = function(formula, data){
 #' @importFrom lme4 nobars
 #' @importFrom methods is
 #' @export
-fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-5, tol.eta = 1e-7, nthreads = 6){
+fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-3, tol.eta = 1e-3, doCoxReid=nrow(data) < 1000, nthreads = 6){
 
 	mc <- match.call()
 
@@ -195,7 +196,8 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 						tol = tol, 
 						tol_eta = tol.eta,
 						maxit = maxit,
-						nthreads = nthreads)
+						nthreads = nthreads,
+						doCoxReid = doCoxReid)
 
 	fit$s <- c(fit$s)
 	fit$Z <- Z
@@ -203,7 +205,8 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 	# format output
 	fit <- as.fastlmm(fit, design = design, offset = offset, method = "PQL")
 
-  fit$response = y
+  fit$response <- y
+  fit$doCoxReid <- doCoxReid
 
   if( grepl("^nb:", fit$family) ){
   	# convert NB string to negative.binomial(theta)

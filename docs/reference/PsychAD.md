@@ -40,8 +40,8 @@ A data frame with 60481 rows (i.e. cells) and 6 variables:
 
 ## Source
 
-<https://doi.org/10.1101/2023.03.17.533005>,
-<https://diseaseneurogenomics.github.io/dreamlet/index.html>
+[doi:10.1101/2023.03.17.533005](https://doi.org/10.1101/2023.03.17.533005)
+, <https://diseaseneurogenomics.github.io/dreamlet/index.html>
 
 ## Examples
 
@@ -62,22 +62,22 @@ summary(fit)
 #> 
 #> Coefficients:
 #>              Estimate Std. Error z value Pr(>|z|)    
-#> (Intercept) -8.577763   0.369235 -23.231   <2e-16 ***
-#> DxAD         1.102771   0.087264  12.637   <2e-16 ***
-#> Age         -0.007261   0.004480  -1.621    0.105    
-#> SexMale     -0.103264   0.089892  -1.149    0.251    
+#> (Intercept) -8.577681   0.369007 -23.245   <2e-16 ***
+#> DxAD         1.102755   0.087209  12.645   <2e-16 ***
+#> Age         -0.007262   0.004477  -1.622    0.105    
+#> SexMale     -0.103277   0.089836  -1.150    0.250    
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> Residual df: 60227.2 
 #> 
 #> Variance components:
-#>   sigSq_g: 0.481
-#>   sigSq_e: 8.178
-#>   delta:   17
+#>   sigSq_g: 0.4803
+#>   sigSq_e: 8.17
+#>   delta:   17.01
 
 # Variance partitioning analysis
 varpart(fit)
-#>           Dx          Age          Sex        SubID    Residuals 
-#> 0.0133012726 0.0002195293 0.0001159424 0.0210471707 0.9653160849 
+#>           Dx          Age          Sex        SubID   CountNoise    Residuals 
+#> 0.0133097371 0.0002197195 0.0001160483 0.0210313340 0.3062036641 0.6591194970 
 ```

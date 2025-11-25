@@ -8,16 +8,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/GabrielHoffman/fastlmm/blob/HEAD/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/GabrielHoffman/fastglmm/blob/HEAD/DESCRIPTION)
 
 Hoffman G (2025). *fastglmm: Efficiently Fit Generalized Linear Mixed
-Model with a Single Random Effect on \>1 Million Samples*. R package
-version 0.3.3, <https://github.com/GabrielHoffman/fastlmm>.
+Model with a Single Random Effect on Massive Data*. R package version
+0.3.4, <https://gabrielhoffman.github.io/fastglmm/>.
 
     @Manual{,
-      title = {fastglmm: Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on >1 Million Samples},
+      title = {fastglmm: Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on Massive Data},
       author = {Gabriel Hoffman},
       year = {2025},
-      note = {R package version 0.3.3},
-      url = {https://github.com/GabrielHoffman/fastlmm},
+      note = {R package version 0.3.4},
+      url = {https://gabrielhoffman.github.io/fastglmm/},
     }
