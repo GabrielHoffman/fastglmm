@@ -2,8 +2,9 @@ pandoc: 3.8.2.1
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
+  jss: jss.pdf
   nbmm: nbmm.html
-last_built: 2025-11-24T21:10Z
+last_built: 2025-12-05T17:52Z
 urls:
   reference: http://gabrielhoffman.github.io/fastglmm/reference
   article: http://gabrielhoffman.github.io/fastglmm/articles

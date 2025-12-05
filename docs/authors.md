@@ -11,11 +11,11 @@ Source:
 [`DESCRIPTION`](https://github.com/GabrielHoffman/fastglmm/blob/HEAD/DESCRIPTION)
 
 Hoffman G (2025). *fastglmm: Efficiently Fit Generalized Linear Mixed
-Model with a Single Random Effect on Massive Data*. R package version
-0.3.4, <https://gabrielhoffman.github.io/fastglmm/>.
+Model with a Single Random Effect on Massive Datasets*. R package
+version 0.3.4, <https://gabrielhoffman.github.io/fastglmm/>.
 
     @Manual{,
-      title = {fastglmm: Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on Massive Data},
+      title = {fastglmm: Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on Massive Datasets},
       author = {Gabriel Hoffman},
       year = {2025},
       note = {R package version 0.3.4},

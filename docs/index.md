@@ -1,6 +1,6 @@
   
 
-## Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on \>1 Million Samples
+## Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on Massive Datasets
 
 Fitting linear mixed models (LMMs) and generalized linear mixed models
 (GLMMs) on large-scale datasets can be very computationally expensive.
