@@ -173,6 +173,9 @@ static ModelFitGLM GLM(
 
   if( md >= MOST ){
   	fit.setFittedValues( work->mu, weights_ );
+
+  	// variance of fitted values
+  	fit.varFitted = var( fit.mu );
   }
 
   if( md >= HIGH ){

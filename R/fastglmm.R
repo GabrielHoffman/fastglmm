@@ -17,7 +17,7 @@
 # $form_no_offset
 # a ~ (1 | b) + (1 | c)
 #
-#' @importFrom lme4 findbars
+#' @importFrom reformulas findbars
 process_formula = function(formula, data){
 
 	# 1) extract fixed effects
@@ -82,7 +82,7 @@ process_formula = function(formula, data){
 #' coef(summary(fit))
 #
 #' @import stats 
-#' @importFrom lme4 nobars
+#' @importFrom reformulas nobars
 #' @importFrom methods is
 #' @export
 fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-3, tol.eta = 1e-3, doCoxReid=nrow(data) < 1000, nthreads = 6){

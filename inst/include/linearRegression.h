@@ -533,7 +533,7 @@ static ModelFitList lmFitResponses(
 
 			// Reduce residual degrees of freedom by the number of 
 			// 	entries with zero weights
-		  int rdf_offset = count_nan(Wsqrt.col(j));
+		  int rdf_offset = accu(Wsqrt.col(j) == 0.0);
 
 	    // linear regression        
 	    // ModelFit fit = wlm(X, Y.col(j), Weights.col(j));

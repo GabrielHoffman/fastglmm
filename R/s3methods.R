@@ -712,6 +712,7 @@ rstudent.fastlmm <- function(model, ...) {
 
 
 
+
 #' Extract the modes of the random effect
 #'
 #' Extract the conditional modes of the random effect from the model fit
@@ -728,10 +729,9 @@ rstudent.fastlmm <- function(model, ...) {
 #'
 #' ranef(fit)
 #
-#' @importFrom lme4 ranef
 #' @importFrom Matrix crossprod
 #' @method ranef fastlmm
-#'
+#' @importFrom nlme ranef
 #' @rdname ranef
 #' @export
 ranef.fastlmm <- function(object, ...) {
@@ -772,7 +772,6 @@ ranef.fastlmm <- function(object, ...) {
 }
 
 
-
 #' Extract Fixed Effects
 #'
 #' Extract Fixed Effects
@@ -789,9 +788,9 @@ ranef.fastlmm <- function(object, ...) {
 #'
 #' fixef(fit)
 #
-#' @importFrom lme4 fixef
 #' @method fixef fastlmm
 #'
+#' @importFrom nlme fixef
 #' @export
 fixef.fastlmm <- function(object,...){
   coef(object)
@@ -939,7 +938,7 @@ summary.fastlmm <- function(object, ...) {
 #' terms(fit)
 #
 #' @importFrom stats terms
-#' @importFrom lme4 nobars
+#' @importFrom reformulas nobars
 #' @export
 terms.fastlmm <- function(x, ...) {
   terms(nobars(formula(x)))

@@ -36,7 +36,7 @@
 #' coef(summary(fit))
 #
 #' @import stats 
-#' @importFrom lme4 nobars
+#' @importFrom reformulas nobars
 #' @importFrom methods is
 #' @export
 fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-5, tol.eta = 1e-7, init.fit = NULL, init = c("lm", "glm"), nthreads = 6){

@@ -245,6 +245,7 @@ setMethod("varianceTerms", signature("negbin"),
 })
 
 #' @rdname varianceTerms
+
 #' @importFrom lme4 VarCorr
 #' @export
 setMethod("varianceTerms", signature("merMod"), 
@@ -256,7 +257,7 @@ setMethod("varianceTerms", signature("merMod"),
 
 
 #' @rdname varianceTerms
-#' @importFrom lme4 findbars
+#' @importFrom reformulas findbars
 #' @export
 setMethod("varianceTerms", signature("fastlmm"), 
   function(object,...) {

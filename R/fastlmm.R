@@ -33,7 +33,7 @@
 #'
 # other args
 # verbose = 0L, subset, weights = NULL, na.action, offset, contrasts = NULL
-#' @importFrom lme4 findbars nobars
+#' @importFrom reformulas findbars nobars
 #' @importFrom stats as.formula model.frame model.response model.matrix update model.offset
 #' @seealso \code{lme4::lmer()}
 #' @export

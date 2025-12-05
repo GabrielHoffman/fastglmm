@@ -20,7 +20,7 @@
 #' summary(refitModel(fit, delta=1000))
 #
 #' @importFrom stats reformulate
-#' @importFrom lme4 findbars
+#' @importFrom reformulas findbars
 #' @export
 refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FALSE){
 

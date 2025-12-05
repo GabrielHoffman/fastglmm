@@ -18,6 +18,8 @@ Suggests:
 Imports: 
 	Rcpp (>= 1.0.12),
 	Matrix,
+	lme4,
+	reformulas,
 	MASS,
 	car,
 	dplyr,
@@ -27,7 +29,7 @@ Imports:
 	methods
 Depends:
 	R (>= 4.1.0),
-	lme4
+	nlme
 Encoding: UTF-8
 LinkingTo: 
 	Rcpp, 
