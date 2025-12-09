@@ -1,5 +1,9 @@
 
 
+# fastglmm 0.3.5
+ - Dec 8, 2025
+ - Fixed but in C++ code for fastglmm for mu and residuals
+
 # fastglmm 0.3.4
  - Nov 24, 2025
  - update `varpart()` for NB models

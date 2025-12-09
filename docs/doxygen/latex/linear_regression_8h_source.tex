@@ -452,7 +452,7 @@
 \DoxyCodeLine{00533\ }
 \DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Reduce\ residual\ degrees\ of\ freedom\ by\ the\ number\ of\ }}
 \DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ entries\ with\ zero\ weights}}
-\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ int\ rdf\_offset\ =\ count\_nan(Wsqrt.col(j));}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ int\ rdf\_offset\ =\ accu(Wsqrt.col(j)\ ==\ 0.0);}
 \DoxyCodeLine{00537\ }
 \DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linear\ regression\ \ \ \ \ \ \ \ }}
 \DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ModelFit\ fit\ =\ wlm(X,\ Y.col(j),\ Weights.col(j));}}

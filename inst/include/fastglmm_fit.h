@@ -55,7 +55,8 @@ class fastglmm {
 						const bool &returnUS = false,
 						const bool &doCoxReid = true);
 
-	const vec residuals(); // Pearson
+	const vec residuals(); // Response
+	const vec residuals_pearson(); // Pearson
 	const vec fitted();
 	const vec devianceResiduals();
 
@@ -64,13 +65,15 @@ class fastglmm {
 
   private:
   fastlmm<T1,T2,T3> fit;
-  vec y, weights, mu; 
+  mat X;
+  vec y, weights, mu, eta, offset; 
 	spectralDecomp<T3> dcmp;
   string family;
   bool returnUS;
   int niter_pql;
   double w_mean; 
   double mu_mean = datum::nan;
+  double eta_var = datum::nan;
   ModelDetail md;
 	shared_ptr<GLMFamily> fam;
 	bool isValid = true;
@@ -94,7 +97,9 @@ fastglmm<T1, T2, T3>::fastglmm(
 	const bool &returnUS,
 	const bool &doCoxReid):
 	y(y), 
+	X(X),
 	weights(weights), 
+	offset(offset), 
 	dcmp(dcmp), 
 	family(family), 
 	returnUS(returnUS),
@@ -207,10 +212,12 @@ fastglmm<T1, T2, T3>::fastglmm(
 		this->family = "nb:" + to_string(theta);
 	}
 
-	// save GLM mu for use later
-  mu = this->fitted();
-
-	mu_mean = mean(work->mu);
+	// Use result of lmm and inverse link
+	// to get final value of mu
+	eta = fit.fitted() + offset; 
+  mu = fam->linkinv(eta);
+	mu_mean = mean(mu);
+	eta_var = var(eta);
 
 	delete work;
 }
@@ -220,6 +227,15 @@ fastglmm<T1, T2, T3>::fastglmm(
 template <typename T1, typename T2, typename T3> 
 const vec fastglmm<T1, T2, T3>::residuals(){
 
+	// Response residuals
+	return( y - mu ); 
+}
+
+
+template <typename T1, typename T2, typename T3> 
+const vec fastglmm<T1, T2, T3>::residuals_pearson(){
+
+	// Pearson residuals
 	// (y - mu) * sqrt(wts) / sqrt(fam$variance(mu))
 	return (y - mu) % sqrt(weights) / sqrt(fam->variance(mu));
 }
@@ -230,7 +246,6 @@ const vec fastglmm<T1, T2, T3>::fitted(){
 
 	return fam->linkinv( fit.fitted() );
 }
-
 
 
 template <typename T1, typename T2, typename T3> 
@@ -250,8 +265,6 @@ const vec fastglmm<T1, T2, T3>::devianceResiduals(){
 
 	return drMod;
 }
-
-
 
 
 
@@ -285,14 +298,16 @@ ModelFitGLMM fastglmm<T1, T2, T3>::get_result(){
 	ModelFitGLMM mf(res1, family, niter_pql);
 
 	mf.mu_mean = mu_mean;
+	mf.varFitted = eta_var;
 
   if( md == MAX ){
 		mf.devianceResiduals = devianceResiduals();
   }
 
   if( md >= HIGH ){
-		mf.residuals = residuals();
-  }
+  	// Respones residuals
+		mf.residuals = residuals(); 
+  } 
   
 	return mf;
 }

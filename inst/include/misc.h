@@ -188,6 +188,40 @@ static vec y_log_y(const vec & y, const vec & mu){
   return ret;
 }
 
+
+static double wvar(const vec & x, const vec & w) {
+
+  if (x.n_elem != w.n_elem) {
+    throw invalid_argument("Data and weights vectors must have the same number of elements.");
+  }
+
+  if (x.is_empty()) {
+    return 0.0; 
+  }
+
+  double sum_weights = sum(w);
+
+  if (sum_weights == 0) {
+    throw runtime_error("Sum of weights cannot be zero.");
+  }
+
+  // Calculate weighted mean
+  double weighted_mean = sum(x % w) / sum_weights;
+
+  // Calculate weighted variance
+  vec diff_sq = square(x - weighted_mean);
+  double numerator = sum(w % diff_sq);
+
+  double denominator = sum_weights - (sum(square(w)) / sum_weights);
+
+  if (denominator == 0) {
+    return 0.0; 
+  }
+
+  return numerator / denominator;
+}
+
+
 // Adapted from tbb::blocked_range
 // Designed to be used when tbb is not available
 template<typename T>

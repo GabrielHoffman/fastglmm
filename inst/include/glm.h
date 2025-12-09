@@ -163,7 +163,6 @@ static ModelFitGLM GLM(
   fit = lm(scaleEachCol(X, work->wsqrt), work->z % work->wsqrt, md, rdf_offset, work, fam->estimateDispersion());
 
   if( md == MAX){
-
 		// compute raw deviance residuals
   	vec dr = fam->dev_resids(y, work->mu, weights_);
 
@@ -173,14 +172,17 @@ static ModelFitGLM GLM(
 
   if( md >= MOST ){
   	fit.setFittedValues( work->mu, weights_ );
-
-  	// variance of fitted values
-  	fit.varFitted = var( fit.mu );
   }
 
   if( md >= HIGH ){
 	  // if weight is zero, set residuals to NAN
   	fit.residuals.elem(find(work->wsqrt == 0)).fill(datum::nan);
+  }
+
+  if( md >= LOW ){
+		// save variance of fitted eta:
+		// prediction on latent scale
+	  fit.varFitted = wvar( work->eta, weights_);
   }
 
 	// free work if allocated in this function

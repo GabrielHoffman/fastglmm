@@ -103,7 +103,7 @@ class fastlmm {
     }
 
     const vec hatvalues(); // diag of hat matrix
-    const vec residuals(); // Pearson
+    const vec residuals(); 
     const vec fitted();
 
     // Best linear unbiased predictor of random effect
@@ -332,13 +332,13 @@ const vec fastlmm<T1, T2, T3>::residuals(){
   return (Y / sqrt(weights)) - fitted();
 }
 
-
+// return predict(fit)
 template <typename T1, typename T2, typename T3> 
 const vec fastlmm<T1, T2, T3>::fitted(){
 
+  // ** need to scale X because it was transformed at the start
   // a <- object$U %*% (sqrt(object$s) * ranef.fastlmm(object))
   // a / sqrt(object$weights) + object$design %*% coef(object)
-  // need to scale X because it was transformed at the start
   return ((U * (sqrt(s) % blup())) + X * beta) / sqrt(weights);
 }
 
@@ -521,7 +521,7 @@ ModelFitLMM fastlmm<T1, T2, T3>::get_result(
                       1.0,
                       get_beta());
 
-  res.varFitted = var(fitted());
+  // res.varFitted = var(fitted());
 
   // res.dispersion = get_sigSq_e();
 

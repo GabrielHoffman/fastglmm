@@ -9,9 +9,11 @@
 \item 
 \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a53aff4890d4d14e44f36a10f32be3e7f}{fastglmm}} ()
 \item 
-\mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a0c36d281234e585a2a701a3259d8f183}{fastglmm}} (const T1 \&y, const T2 \&X, const \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectral\+Decomp}}$<$ T3 $>$ \&dcmp, const vec \&weights, const vec \&offset, const string \&family, const \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{Model\+Detail}} md=\mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}}, const double \&tol=1e-\/5, const double \&tol\+\_\+eta=1e-\/7, const int \&maxit=100, const double \&delta=-\/1, const double \&left=-\/10, const double \&right=10, const bool \&return\+US=false)
+\mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a10d046db637711bce881d8a1495712bc}{fastglmm}} (const T1 \&y, const T2 \&X, const \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectral\+Decomp}}$<$ T3 $>$ \&dcmp, const vec \&weights, const vec \&offset, const string \&family, const \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{Model\+Detail}} md=\mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}}, const double \&tol=1e-\/5, const double \&tol\+\_\+eta=1e-\/7, const int \&maxit=100, const double \&delta=-\/1, const double \&left=-\/10, const double \&right=10, const bool \&return\+US=false, const bool \&do\+Cox\+Reid=true)
 \item 
 const vec \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_ae312a6a0452c8097e263387210275451}{residuals}} ()
+\item 
+const vec \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a0d841e00a3764bb9f67dd228ce388cf6}{residuals\+\_\+pearson}} ()
 \item 
 const vec \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a82ae5304ae2c5f793dccf546bbdffe00}{fitted}} ()
 \item 
@@ -29,14 +31,14 @@ const vec \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a7490d79ba70ea450b33a66
 \doxysubsubsection{\texorpdfstring{fastglmm()}{fastglmm()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily \label{classfastglmm_lib_1_1fastglmm_a53aff4890d4d14e44f36a10f32be3e7f} 
 template$<$typename T1, typename T2, typename T3$>$ \\
-\mbox{\hyperlink{classfastglmm_lib_1_1fastglmm}{fastglmm\+Lib\+::fastglmm}}$<$ T1, T2, T3 $>$\mbox{\hyperlink{classfastglmm_lib_1_1fastglmm}{\+::fastglmm}} (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\hyperlink{classfastglmm_lib_1_1fastglmm}{fastglmm\+Lib\+::fastglmm}}$<$ T1, T2, T3 $>$\+::fastglmm (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\Hypertarget{classfastglmm_lib_1_1fastglmm_a0c36d281234e585a2a701a3259d8f183}\index{fastglmmLib::fastglmm$<$ T1, T2, T3 $>$@{fastglmmLib::fastglmm$<$ T1, T2, T3 $>$}!fastglmm@{fastglmm}}
+\Hypertarget{classfastglmm_lib_1_1fastglmm_a10d046db637711bce881d8a1495712bc}\index{fastglmmLib::fastglmm$<$ T1, T2, T3 $>$@{fastglmmLib::fastglmm$<$ T1, T2, T3 $>$}!fastglmm@{fastglmm}}
 \index{fastglmm@{fastglmm}!fastglmmLib::fastglmm$<$ T1, T2, T3 $>$@{fastglmmLib::fastglmm$<$ T1, T2, T3 $>$}}
 \doxysubsubsection{\texorpdfstring{fastglmm()}{fastglmm()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \label{classfastglmm_lib_1_1fastglmm_a0c36d281234e585a2a701a3259d8f183} 
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1fastglmm_a10d046db637711bce881d8a1495712bc} 
 template$<$typename T1, typename T2, typename T3$>$ \\
-\mbox{\hyperlink{classfastglmm_lib_1_1fastglmm}{fastglmm\+Lib\+::fastglmm}}$<$ T1, T2, T3 $>$\mbox{\hyperlink{classfastglmm_lib_1_1fastglmm}{\+::fastglmm}} (\begin{DoxyParamCaption}\item[{const T1 \&}]{y}{, }\item[{const T2 \&}]{X}{, }\item[{const \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectral\+Decomp}}$<$ T3 $>$ \&}]{dcmp}{, }\item[{const vec \&}]{weights}{, }\item[{const vec \&}]{offset}{, }\item[{const string \&}]{family}{, }\item[{const \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{Model\+Detail}}}]{md}{ = {\ttfamily \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}}}, }\item[{const double \&}]{tol}{ = {\ttfamily 1e-\/5}, }\item[{const double \&}]{tol\+\_\+eta}{ = {\ttfamily 1e-\/7}, }\item[{const int \&}]{maxit}{ = {\ttfamily 100}, }\item[{const double \&}]{delta}{ = {\ttfamily -\/1}, }\item[{const double \&}]{left}{ = {\ttfamily -\/10}, }\item[{const double \&}]{right}{ = {\ttfamily 10}, }\item[{const bool \&}]{return\+US}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+\mbox{\hyperlink{classfastglmm_lib_1_1fastglmm}{fastglmm\+Lib\+::fastglmm}}$<$ T1, T2, T3 $>$\+::fastglmm (\begin{DoxyParamCaption}\item[{const T1 \&}]{y}{, }\item[{const T2 \&}]{X}{, }\item[{const \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectral\+Decomp}}$<$ T3 $>$ \&}]{dcmp}{, }\item[{const vec \&}]{weights}{, }\item[{const vec \&}]{offset}{, }\item[{const string \&}]{family}{, }\item[{const \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{Model\+Detail}}}]{md}{ = {\ttfamily \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}}}, }\item[{const double \&}]{tol}{ = {\ttfamily 1e-\/5}, }\item[{const double \&}]{tol\+\_\+eta}{ = {\ttfamily 1e-\/7}, }\item[{const int \&}]{maxit}{ = {\ttfamily 100}, }\item[{const double \&}]{delta}{ = {\ttfamily -\/1}, }\item[{const double \&}]{left}{ = {\ttfamily -\/10}, }\item[{const double \&}]{right}{ = {\ttfamily 10}, }\item[{const bool \&}]{return\+US}{ = {\ttfamily false}, }\item[{const bool \&}]{do\+Cox\+Reid}{ = {\ttfamily true}}\end{DoxyParamCaption})}
 
 
 
@@ -70,6 +72,13 @@ template$<$typename T1, typename T2, typename T3$>$ \\
 {\footnotesize\ttfamily \label{classfastglmm_lib_1_1fastglmm_ae312a6a0452c8097e263387210275451} 
 template$<$typename T1, typename T2, typename T3$>$ \\
 const vec \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm}{fastglmm\+Lib\+::fastglmm}}$<$ T1, T2, T3 $>$\+::residuals (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classfastglmm_lib_1_1fastglmm_a0d841e00a3764bb9f67dd228ce388cf6}\index{fastglmmLib::fastglmm$<$ T1, T2, T3 $>$@{fastglmmLib::fastglmm$<$ T1, T2, T3 $>$}!residuals\_pearson@{residuals\_pearson}}
+\index{residuals\_pearson@{residuals\_pearson}!fastglmmLib::fastglmm$<$ T1, T2, T3 $>$@{fastglmmLib::fastglmm$<$ T1, T2, T3 $>$}}
+\doxysubsubsection{\texorpdfstring{residuals\_pearson()}{residuals\_pearson()}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1fastglmm_a0d841e00a3764bb9f67dd228ce388cf6} 
+template$<$typename T1, typename T2, typename T3$>$ \\
+const vec \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm}{fastglmm\+Lib\+::fastglmm}}$<$ T1, T2, T3 $>$\+::residuals\+\_\+pearson (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
