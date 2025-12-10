@@ -305,6 +305,23 @@ static shared_ptr<GLMFamily> getGLMFamily( const string &family){
 	return fam;
 }
 
+/** Return true of family is Poisson, quasi-Poisson or NB model
+ */ 
+static bool isCountModel(const string &family){
+
+	shared_ptr<GLMFamily> fam = getGLMFamily( family );
+	string famStr = fam->family();
+
+	bool value = false;
+	if( famStr == "PoissonLog" ||
+		famStr == "QuasipoissonLog" || 
+		famStr == "NB"){
+		value = true;
+	}
+
+	return value;
+}
+
 }
 
 #endif

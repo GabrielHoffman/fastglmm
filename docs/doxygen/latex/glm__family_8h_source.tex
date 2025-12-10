@@ -298,9 +298,24 @@
 \DoxyCodeLine{00304\ }
 \DoxyCodeLine{00305\ \ \ \ \ \textcolor{keywordflow}{return}\ fam;}
 \DoxyCodeLine{00306\ \}}
-\DoxyCodeLine{00307\ }
-\DoxyCodeLine{00308\ \}}
-\DoxyCodeLine{00309\ }
-\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00307\ \ }
+\DoxyCodeLine{00310\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ isCountModel(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&family)\{}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \ \ shared\_ptr<GLMFamily>\ fam\ =\ getGLMFamily(\ family\ );}
+\DoxyCodeLine{00313\ \ \ \ \ \textcolor{keywordtype}{string}\ famStr\ =\ fam-\/>family();}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keywordtype}{bool}\ value\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keywordflow}{if}(\ famStr\ ==\ \textcolor{stringliteral}{"{}PoissonLog"{}}\ ||}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ famStr\ ==\ \textcolor{stringliteral}{"{}QuasipoissonLog"{}}\ ||\ }
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ famStr\ ==\ \textcolor{stringliteral}{"{}NB"{}})\{}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ value\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00320\ \ \ \ \ \}}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00323\ \}}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \}}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

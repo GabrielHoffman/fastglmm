@@ -486,9 +486,24 @@ $(function() {
 <div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <span class="keywordflow">return</span> fam;</div>
 <div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>}</div>
 <div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>}</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="keyword">static</span> <span class="keywordtype">bool</span> isCountModel(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;family){</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    shared_ptr&lt;GLMFamily&gt; fam = getGLMFamily( family );</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    <span class="keywordtype">string</span> famStr = fam-&gt;family();</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    <span class="keywordtype">bool</span> value = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    <span class="keywordflow">if</span>( famStr == <span class="stringliteral">&quot;PoissonLog&quot;</span> ||</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        famStr == <span class="stringliteral">&quot;QuasipoissonLog&quot;</span> || </div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        famStr == <span class="stringliteral">&quot;NB&quot;</span>){</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        value = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    }</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <span class="keywordflow">return</span> value;</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>}</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> </div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>}</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span> </div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1_binomial_logit_html_a2e33ddc25a925b4e7a1eff515c2b4348"><div class="ttname"><a href="classfastglmm_lib_1_1_binomial_logit.html#a2e33ddc25a925b4e7a1eff515c2b4348">fastglmmLib::BinomialLogit::linkinv</a></div><div class="ttdeci">vec linkinv(const vec &amp;eta) const</div><div class="ttdef"><b>Definition</b> glm_family.h:94</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1_binomial_logit_html_a367559cc1e3788f7519ccdbfe74b7077"><div class="ttname"><a href="classfastglmm_lib_1_1_binomial_logit.html#a367559cc1e3788f7519ccdbfe74b7077">fastglmmLib::BinomialLogit::mu_eta</a></div><div class="ttdeci">vec mu_eta(const vec &amp;eta) const</div><div class="ttdef"><b>Definition</b> glm_family.h:97</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1_binomial_logit_html_a47ff7d35b0d775f44e1ae59fd17451a6"><div class="ttname"><a href="classfastglmm_lib_1_1_binomial_logit.html#a47ff7d35b0d775f44e1ae59fd17451a6">fastglmmLib::BinomialLogit::variance</a></div><div class="ttdeci">vec variance(const vec &amp;mu) const</div><div class="ttdef"><b>Definition</b> glm_family.h:101</div></div>
