@@ -7,6 +7,7 @@ test_varpart = function(){
   library(MASS)
   library(mvtnorm)
   library(insight)
+  library(Matrix)
   library(performance)
   library(RUnit)
 

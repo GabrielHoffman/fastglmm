@@ -129,12 +129,18 @@ fastglmm<T1, T2, T3>::fastglmm(
 	uvec idx_drop = find(weights == 0.0);
 	double n_active = weights.n_elem - idx_drop.n_elem;
 
+	CountTable ct;
+	if( estimateTheta ){
+		// Precompute lgamma() on each unique count
+		ct = CreateLUT(y, weights);	
+	}
+
 	// PQL iterations
 	for(niter_pql=0; niter_pql<maxit; niter_pql++){
 
 		// if Negative Binomial with unspecified theta
 		if( estimateTheta ){
-			theta = nb_theta_ml(y, work->mu, y.n_elem, weights, X, doCoxReid);
+			theta = nb_theta_ml(y, work->mu, y.n_elem, weights, X, doCoxReid, ct);
 			fam->setOverdispersion( theta );
 		}
 

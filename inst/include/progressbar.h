@@ -60,7 +60,7 @@ void ProgressBar::update( const int &progress, ostream &strm){
       minutes = static_cast<int>(etaSeconds / 60);
       seconds = static_cast<int>(etaSeconds) % 60;
     }
-    strm << " ETA: " << minutes << "m " << seconds << "s";
+    strm << " ETA: " << minutes << "m " << seconds << "s ";
     strm << std::flush; // Ensure immediate output
   }
 }

@@ -276,7 +276,39 @@
 \DoxyCodeLine{00272\ \}}
 \DoxyCodeLine{00273\ }
 \DoxyCodeLine{00274\ }
-\DoxyCodeLine{00275\ }
-\DoxyCodeLine{00276\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00275\ \textcolor{keyword}{static}\ uvec\ countResponseFilter(\ \textcolor{keyword}{const}\ mat\ \&Y)\{}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \textcolor{comment}{//\ \#\ filter\ genes\ by\ expression}}
+\DoxyCodeLine{00278\ \ \ \textcolor{comment}{//\ keep1\ <-\/\ rowSums2(countMatrix\ >\ 0)\ >\ max(2,\ 0.1*ncol(countMatrix))}}
+\DoxyCodeLine{00279\ \ \ \textcolor{comment}{//\ keep2\ <-\/\ rowSums2(countMatrix\ >\ 1)\ >\ max(2,\ 0.01*ncol(countMatrix))}}
+\DoxyCodeLine{00280\ \ \ \textcolor{comment}{//\ keep\ <-\/\ keep1\ \&\ keep2}}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \ \ \textcolor{keywordtype}{int}\ nr\ =Y.n\_rows;}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ uvec\ keep1\ =\ find(sum(Y\ >\ 0,\ 0)\ >\ max(2,\ (\textcolor{keywordtype}{int})\ 0.1*nr));}
+\DoxyCodeLine{00285\ \ \ uvec\ keep2\ =\ find(sum(Y\ >\ 1,\ 0)\ >\ max(2,\ (\textcolor{keywordtype}{int})\ 0.01*nr));}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \textcolor{keywordflow}{return}\ intersect(keep1,\ keep2);}
+\DoxyCodeLine{00288\ \}}
+\DoxyCodeLine{00289\ \ }
+\DoxyCodeLine{00292\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00293\ \textcolor{keyword}{static}\ vector<T>\ subset(\ \textcolor{keyword}{const}\ vector<T>\ \&v,\ \textcolor{keyword}{const}\ uvec\ \&idx)\{}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ vector<T>\ res;}
+\DoxyCodeLine{00296\ \ \ res.reserve(idx.n\_elem);}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \textcolor{keywordflow}{for}\ (uword\ i\ =\ 0;\ i\ <\ idx.n\_elem;\ ++i)\ \{}
+\DoxyCodeLine{00299\ \ \ \ \ res.push\_back(\ v[idx[i]]\ );}
+\DoxyCodeLine{00300\ \ \ \}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00303\ \}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

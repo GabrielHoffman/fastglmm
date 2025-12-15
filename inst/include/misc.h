@@ -272,5 +272,39 @@ static int count_nan( const vec &v){
 }
 
 
+static uvec countResponseFilter( const mat &Y){
+
+  // # filter genes by expression
+  // keep1 <- rowSums2(countMatrix > 0) > max(2, 0.1*ncol(countMatrix))
+  // keep2 <- rowSums2(countMatrix > 1) > max(2, 0.01*ncol(countMatrix))
+  // keep <- keep1 & keep2
+
+  int nr =Y.n_rows;
+
+  uvec keep1 = find(sum(Y > 0, 0) > max(2, (int) 0.1*nr));
+  uvec keep2 = find(sum(Y > 1, 0) > max(2, (int) 0.01*nr));
+
+  return intersect(keep1, keep2);
+}
+
+/** return subset of v defined by idx
+ */ 
+template <typename T>
+static vector<T> subset( const vector<T> &v, const uvec &idx){
+
+  vector<T> res;
+  res.reserve(idx.n_elem);
+
+  for (uword i = 0; i < idx.n_elem; ++i) {
+    res.push_back( v[idx[i]] );
+  }
+
+  return res;
+}
+
+
+
+
+
 
 #endif

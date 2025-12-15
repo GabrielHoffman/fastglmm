@@ -1,8 +1,10 @@
 
 
+# fastglmm 0.3.7
+ - performance improvements
+
 # fastglmm 0.3.6
  - add isCountModel() in C++
-
 
 # fastglmm 0.3.5
  - Dec 8, 2025
