@@ -23,7 +23,7 @@ var searchData=
   ['get_5fy_20',['get_Y',['../classfastglmm_lib_1_1_clean_data.html#a6dc133384a57ef4deace7efee9edb81f',1,'fastglmmLib::CleanData']]],
   ['get_5fy_21',['get_y',['../classfastglmm_lib_1_1fastlmm.html#a479092a5aebd65192991c7fd985a7abb',1,'fastglmmLib::fastlmm']]],
   ['glmfamily_22',['GLMFamily',['../classfastglmm_lib_1_1_g_l_m_family.html#a6b5d01f18dc7248eaca84f884c5acb2d',1,'fastglmmLib::GLMFamily']]],
-  ['glmmfitfeatures_23',['glmmFitFeatures',['../classfastglmm_lib_1_1glmm_fit_features.html#ae99aa31b4d3258efb9c58349257ea6a9',1,'fastglmmLib::glmmFitFeatures']]],
-  ['glmmfitresponses_24',['glmmFitResponses',['../classfastglmm_lib_1_1glmm_fit_responses.html#aa14757697b3be174c739aa29035f916e',1,'fastglmmLib::glmmFitResponses']]],
+  ['glmmfitfeatures_23',['glmmFitFeatures',['../classfastglmm_lib_1_1glmm_fit_features.html#ad82ec36a883a62fa94c06ab04c2e0802',1,'fastglmmLib::glmmFitFeatures']]],
+  ['glmmfitresponses_24',['glmmFitResponses',['../classfastglmm_lib_1_1glmm_fit_responses.html#a03c952471dc3f3291b3dfac6a810c932',1,'fastglmmLib::glmmFitResponses']]],
   ['glmwork_25',['GLMWork',['../structfastglmm_lib_1_1_g_l_m_work.html#aba57ce783999d90804c6066405292da0',1,'fastglmmLib::GLMWork']]]
 ];

@@ -71,6 +71,7 @@ as.fastlmm <- function(x, design, offset, method) {
 #' @param delta  if \code{NULL} estimate delta, if value is given used this fixed values
 #' @param delta.range min and max values (in log space), of the search space for delta to fit the random effect
 #' @param tol convergence criterion for the 1D search of the delta space
+#' @param lambda ridge shrinkage parameter
 #' @param nthreads number of threads
 #
 #' @details Fit a linear mixed model with a single variance component.
@@ -80,7 +81,7 @@ as.fastlmm <- function(x, design, offset, method) {
 # other args: sig_a_fixed = FALSE
 #' @importFrom methods is
 #' @export
-fastlmm.fit <- function(y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank = ncol(Z), weights = NULL, delta.range = c(-10, 10), tol = 1e-6, nthreads = 6) {
+fastlmm.fit <- function(y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank = ncol(Z), weights = NULL, delta.range = c(-10, 10), tol = 1e-6, lambda = 0, nthreads = 6) {
 
   if (delta.range[1] >= delta.range[2]) {
     stop("delta.range are not valid")
@@ -136,6 +137,7 @@ fastlmm.fit <- function(y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank
     left = delta.range[1],
     right = delta.range[2],
     tol = tol,
+    lambda = lambda,
     nthreads = nthreads
   )  
 

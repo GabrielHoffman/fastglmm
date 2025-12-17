@@ -48,6 +48,7 @@ struct LMWork {
  * @param rdf_offset degrees of freedom to remove due to pre-projection
  * @param work LMWork workspace to store intermediate results
  * @param estimateDispersion if true (default), estimate dispersion from residuals
+ * @param lambda ridge penalty
  * 
 / adapted from https://github.com/RcppCore/RcppArmadillo/blob/master/src/fastLm.cpp
 / https://genomicsclass.github.io/book/pages/qr_and_regression.html
@@ -56,6 +57,7 @@ static ModelFit lm(
 	const arma::mat& X,
 	const arma::colvec& y, 
 	const ModelDetail md = LOW, 
+	const double &lambda = 0,
 	const double &rdf_offset = 0, 
 	LMWork *work = nullptr, 
 	const bool estimateDispersion = true, 
@@ -84,15 +86,30 @@ static ModelFit lm(
   vec beta;
 	bool success1 = false;
 
+	// cross product for ridge and vcov
+	mat A = work->R.t() * work->R; 
+
 	// if QR succeed, compute beta
 	if( success0 ){
-		success1 = solve(beta, work->R, trans(work->Q) * y, solve_opts::no_approx);
+		if( lambda == 0.0 ){
+			// OLS
+			success1 = solve(beta, work->R, trans(work->Q) * y, solve_opts::no_approx);
+		}else{
+			// Ridge penalty, 
+    	// A.diag() += lambda;
+    	// but not on intercept
+    	for( uword i=1; i<A.n_rows; ++i){
+    		A(i,i) += lambda;
+    	}
+
+			success1 = solve(beta, A, work->R.t() * work->Q.t() * y, arma::solve_opts::fast + arma::solve_opts::likely_sympd);
+		}
 	}
 
 	// if system is singular,
 	// set beta to NaN
 	if( ! success0 || ! success1){
-		beta = vec (work->R.n_cols);
+		beta = vec(work->R.n_cols);
     beta.fill(datum::nan);
 	}
 
@@ -106,7 +123,7 @@ static ModelFit lm(
 		if( success1 ){
 			// only compute inverse if solve() above succeeded
 	    // V = solve(t(R)*R)
-	    success2 = inv_sympd(work->V, trans(work->R)*work->R);
+	    success2 = inv_sympd(work->V, A);
 		}else{
 			success2 = false;
 		}
@@ -299,16 +316,17 @@ static ModelFit wlm(
 	const arma::colvec& y, 
 	const arma::colvec& w = {}, 
 	const ModelDetail md = LOW, 
+	const double &lambda = 0, 
 	const double &rdf_offset = 0, 
 	LMWork *work = nullptr) {
 
 	ModelFit fit;
 
 	if( w.is_empty() ){
-		fit = lm( X, y, md, rdf_offset, work );
+		fit = lm( X, y, md, lambda, rdf_offset, work);
 	}else{
 		arma::colvec wsqrt = sqrt(w / mean(w));
-		fit = lm( X.each_col() % wsqrt, y % wsqrt, md, rdf_offset, work );
+		fit = lm( X.each_col() % wsqrt, y % wsqrt, md, lambda, rdf_offset, work);
 
 		if( md >= HIGH){
 	    // Rescale residuals by weights afterward
@@ -338,6 +356,7 @@ static vector<ModelFit> lmFitFeatures_standard(
 	const vector<string> &ids, 
 	const arma::vec &weights = {}, 
 	const ModelDetail md = LOW, 
+	const double &lambda = 0, 
 	const int &nthreads = 1){
 
 	int n_covs = X_design.n_cols;
@@ -368,7 +387,7 @@ static vector<ModelFit> lmFitFeatures_standard(
 			X.col(n_covs) = X_features.col(j);
 
 			// linear regression		
-			ModelFit fit = wlm(X, y, weights, md, 0, work);
+			ModelFit fit = wlm(X, y, weights, md, lambda, 0, work);
 			fit.ID = ids[j];
 
 			// save result to list
@@ -401,6 +420,7 @@ static ModelFitList lmFitFeatures_preproj(
 	const vector<string> &ids, 
 	const arma::vec &weights = {}, 
 	const ModelDetail md = LOW, 
+	const double &lambda = 0, 
 	const int &nthreads = 1){
 	
 	if( X_features.n_cols == 0){
@@ -433,7 +453,7 @@ static ModelFitList lmFitFeatures_preproj(
 	    for (int j = r.begin(); j != r.end(); ++j) {    	
 
 			// linear regression		
-			ModelFit fit = lm(X_proj.col(j), y_proj, md, rdf_offset, work );
+			ModelFit fit = lm(X_proj.col(j), y_proj, md, lambda, rdf_offset, work );
 
 			fit.ID = ids[j];
 
@@ -472,6 +492,7 @@ static ModelFitList lmFitFeatures(
 	const vector<string> &ids,
 	const arma::vec &weights = {}, 
 	const ModelDetail md = LOW, 
+	const double &lambda = 0, 
 	const bool &preprojection = true, 
 	const int &nthreads = 1){
 
@@ -479,10 +500,10 @@ static ModelFitList lmFitFeatures(
 
 	if( preprojection ){
 		// supports mat and sp_mat
-		fitList = lmFitFeatures_preproj(y, X_design, X_features, ids, weights, md, nthreads);
+		fitList = lmFitFeatures_preproj(y, X_design, X_features, ids, weights, md, lambda, nthreads);
 	}else{
 		// only supports mat 
-		fitList = lmFitFeatures_standard(y, mat(X_design), mat(X_features), ids, weights, md, nthreads);
+		fitList = lmFitFeatures_standard(y, mat(X_design), mat(X_features), ids, weights, md, lambda, nthreads);
 	}
 
 	return fitList;
@@ -509,7 +530,8 @@ static ModelFitList lmFitResponses(
 	const arma::mat &X, 
 	const vector<string> &ids, 
 	const arma::mat &Weights, 
-	const ModelDetail md = LOW, 
+	const ModelDetail md = LOW,
+	const double &lambda = 0,  
 	const int &nthreads = 1){
 
   ModelFitList fitList(Y.n_cols, ModelFit());
@@ -538,7 +560,7 @@ static ModelFitList lmFitResponses(
 	    // linear regression        
 	    // ModelFit fit = wlm(X, Y.col(j), Weights.col(j));
 	    ModelFit fit = lm(X_clean.each_col() % Wsqrt.col(j), 
-	    									Yw.col(j), md, rdf_offset);
+	    									Yw.col(j), md, lambda, rdf_offset);
 
 			fit.ID = ids[j];
 

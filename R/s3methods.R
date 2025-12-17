@@ -8,7 +8,7 @@
 #' Stores results of fastlmm model fit
 #'
 #' @name fastlmm-class
-#' @rdname fastlmm
+#' @rdname fastlmm-class
 #' @exportClass fastlmm
 #' @return none
 #' @keywords internal
@@ -20,7 +20,7 @@ setClass("fastlmm", contains="list")
 #' Stores results of fastglmm model fit
 #'
 #' @name fastglmm-class
-#' @rdname fastglmm
+#' @rdname fastglmm-class
 #' @exportClass fastglmm
 #' @return none
 #' @keywords internal

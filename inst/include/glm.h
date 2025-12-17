@@ -82,6 +82,7 @@ struct GLMWork : LMWork {
  * @param betaInit initial value for coefficients. If empty, use initialize() methods from GLMFamily
  * @param epsilon stopping criteria for norm between coefficient estimates compare to the previous iteration
  * @param maxit max iterations
+ * @param lambda ridge parameter
  */  
 static ModelFitGLM GLM(
 				const mat& X, 
@@ -93,7 +94,8 @@ static ModelFitGLM GLM(
 				GLMWork *work = nullptr, 
 				const vec &betaInit = {}, 
 				const double &epsilon = 1e-8, 
-				const double &maxit = 25){
+				const double &maxit = 25,
+				const double &lambda = 0){
 
 	shared_ptr<GLMFamily> fam = getGLMFamily( family );
 
@@ -140,7 +142,7 @@ static ModelFitGLM GLM(
   	vec beta_prev(fit.coef);
 
   	// Solve least squares system to get beta
-  	fit = lm(scaleEachCol(X, work->wsqrt), work->z % work->wsqrt, LEAST, 0, work);
+  	fit = lm(scaleEachCol(X, work->wsqrt), work->z % work->wsqrt, LEAST, lambda, 0, work );
 
   	// if model is singular
   	if( ! fit.success ) break;
@@ -160,7 +162,7 @@ static ModelFitGLM GLM(
   // Reduce residual degrees of freedom by the number of 
   // 	entries with zero weights
   double rdf_offset = sum(work->wsqrt == 0);
-  fit = lm(scaleEachCol(X, work->wsqrt), work->z % work->wsqrt, md, rdf_offset, work, fam->estimateDispersion());
+  fit = lm(scaleEachCol(X, work->wsqrt), work->z % work->wsqrt, md, lambda, rdf_offset, work, fam->estimateDispersion(), true);
 
   if( md == MAX){
 		// compute raw deviance residuals
@@ -212,6 +214,7 @@ static ModelFitGLM GLM(
  * @param maxit max iterations
   * @param epsilon_nb stopping criteria for norm between coefficient estimates compare to the previous iteration in estimating theta
  * @param maxit_nb max iterations for estimating theta
+ * @param lambda ridge parameter
  */  
 static ModelFitGLM GLM_NB(	
 	const mat& X, 
@@ -225,7 +228,8 @@ static ModelFitGLM GLM_NB(
 	const double &epsilon = 1e-8, 
 	const double &maxit = 25, 
 	const double &epsilon_nb = 1e-4, 
-	const double &maxit_nb = 5){
+	const double &maxit_nb = 5,
+	const double &lambda = 0){
 
 	// allocate work, if not already alloc'd
   bool alloc_local = false;
@@ -239,7 +243,7 @@ static ModelFitGLM GLM_NB(
 	double theta;
 
 	// Fit Poisson regression to estimate coefficients
-	fit = GLM(X, y, "poisson/log", LEAST, weights, offset, work, betaInit, epsilon, maxit);
+	fit = GLM(X, y, "poisson/log", LEAST, weights, offset, work, betaInit, epsilon, maxit, lambda);
 	vec beta_prev(fit.coef);
 
 	// Lookup table to speed up estimation of theta
@@ -252,7 +256,7 @@ static ModelFitGLM GLM_NB(
 		// Fit NB regression to estimate coefficients
     	beta_prev = fit.coef;
 		family = "nb:" + to_string(theta);
-		fit = GLM(X, y, family, LEAST, weights, offset, work, fit.coef, epsilon, maxit);
+		fit = GLM(X, y, family, LEAST, weights, offset, work, fit.coef, epsilon, maxit, lambda);
 
 		// if model is singular
 		if( !fit.success ) break;
@@ -262,7 +266,7 @@ static ModelFitGLM GLM_NB(
 	}
 
 	// Estimate parameters based on ModelDetail
-	fit = GLM(X, y, family, md, weights, offset, work, fit.coef, epsilon, maxit);
+	fit = GLM(X, y, family, md, weights, offset, work, fit.coef, epsilon, maxit, lambda);
 	fit.theta = theta;
 
 	// Since theta is estimated from the data
@@ -304,6 +308,7 @@ static ModelFitGLM GLM_NB(
  * @param maxit max iterations for GLM IRLS
  * @param epsilon_nb tolerance for negative binomial
  * @param maxit_nb max iterations for negative binomial
+ * @param lambda ridge parameter
 */
 static ModelFitGLMList glmFitFeatures(	
 	const arma::vec &y, 
@@ -321,7 +326,8 @@ static ModelFitGLMList glmFitFeatures(
 	const double &epsilon = 1e-8, 
 	const double &maxit = 25, 
 	const double &epsilon_nb = 1e-4,
-	const double &maxit_nb = 5){
+	const double &maxit_nb = 5,
+	const double &lambda = 0){
 
   // standardize weights
   if( ! weights.is_empty() ){
@@ -335,19 +341,19 @@ static ModelFitGLMList glmFitFeatures(
 	ModelFitGLM fitInit;
 	GLMWork *work = new GLMWork();
 	if( family == "nb" ){
-		fitInit = GLM_NB(X_design, y, LEAST, weights, offset, doCoxReid, work, {}, epsilon, maxit, epsilon_nb, maxit_nb);
+		fitInit = GLM_NB(X_design, y, LEAST, weights, offset, doCoxReid, work, {}, epsilon, maxit, epsilon_nb, maxit_nb, lambda);
 
 		// if shareTheta, use same theta value across all features
 		if( shareTheta ){
 			family = "nb:" + to_string(fitInit.theta);
 		}
 	}else{
-  	fitInit = GLM(X_design, y, family, LEAST, weights, offset, work, {}, epsilon, maxit);
+  	fitInit = GLM(X_design, y, family, LEAST, weights, offset, work, {}, epsilon, maxit, lambda);
   }
 
   // get working response
   vec workingResponse(work->z);
-  vec workingWeights(pow(work->wsqrt, 2));
+  vec workingWeights(square(work->wsqrt));
   workingWeights = workingWeights / mean(workingWeights);
   delete work;
 
@@ -396,9 +402,9 @@ static ModelFitGLMList glmFitFeatures(
 				// GLM regression		
 				ModelFitGLM fit;
 	      	if( family == "nb" ){
-	        	fit = GLM_NB(X, y, md, weights, offset, doCoxReid, work, betaInit, epsilon, maxit, epsilon_nb, maxit_nb);
+	        	fit = GLM_NB(X, y, md, weights, offset, doCoxReid, work, betaInit, epsilon, maxit, epsilon_nb, maxit_nb, lambda);
 	      	}else{
-	        	fit = GLM(X, y, family, md, weights, offset, work, betaInit, epsilon, maxit);
+	        	fit = GLM(X, y, family, md, weights, offset, work, betaInit, epsilon, maxit, lambda);
 	        }
 
 		    // Save feature ID
@@ -435,6 +441,7 @@ static ModelFitGLMList glmFitFeatures(
  * @param maxit max iterations for GLM IRLS
  * @param epsilon_nb tolerance for negative binomial
  * @param maxit_nb max iterations for negative binomial
+ * @param lambda ridge parameter
  * 
  * Since the weights vary for each response, each model is computed separately without recycling precomputed values
 */
@@ -451,7 +458,8 @@ static ModelFitGLMList glmFitResponses(
 	const double &epsilon = 1e-8, 
 	const double &maxit = 25, 
 	const double &epsilon_nb = 1e-4,
-	const double & maxit_nb = 5){
+	const double & maxit_nb = 5,
+	const double &lambda = 0){
 
   // standardize weights
   vec w_norm = weights;
@@ -494,9 +502,9 @@ static ModelFitGLMList glmFitResponses(
     	// GLM regression   
     	ModelFitGLM fit;
     	if( family[j] == "nb" ){
-      	fit = GLM_NB(X_clean, y, md, w, offset, doCoxReid, work, {}, epsilon, maxit, epsilon_nb, maxit_nb);
+      	fit = GLM_NB(X_clean, y, md, w, offset, doCoxReid, work, {}, epsilon, maxit, epsilon_nb, maxit_nb, lambda);
     	}else{
-      	fit = GLM(X_clean, y, family[j], md, w, offset, work, {}, epsilon, maxit);
+      	fit = GLM(X_clean, y, family[j], md, w, offset, work, {}, epsilon, maxit, lambda);
       }
 
 	    // Save feature ID
@@ -530,6 +538,7 @@ static ModelFitGLMList glmFitResponses(
  * @param maxit max iterations for GLM IRLS
  * @param epsilon_nb tolerance for negative binomial
  * @param maxit_nb max iterations for negative binomial
+ * @param lambda ridge parameter
  * 
  * Since the weights vary for each response, each model is computed separately without recycling precomputed values
 */
@@ -546,12 +555,13 @@ static ModelFitGLMList glmFitResponses(
 	const double &epsilon = 1e-8, 
 	const double &maxit = 25, 
 	const double &epsilon_nb = 1e-4, 
-	const double & maxit_nb = 5){
+	const double & maxit_nb = 5,
+	const double &lambda = 0){
 
 	// all responses analyzed with same family value
 	vector<string> famVec(Y.n_cols, family);
 
-	return glmFitResponses( Y, X, ids, famVec, weights, offset, md, doCoxReid, nthreads, epsilon, maxit, epsilon_nb, maxit_nb);
+	return glmFitResponses( Y, X, ids, famVec, weights, offset, md, doCoxReid, nthreads, epsilon, maxit, epsilon_nb, maxit_nb, lambda);
 }
 
 

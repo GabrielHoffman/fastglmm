@@ -26,6 +26,7 @@ class lmmFitResponses {
                   const double &left = -10,
                   const double &right = 10,
                   const double &tol = 1e-6,
+                  const double &lambda = 0,
                   const int &nthreads = 1,
                   const ModelDetail md = LOW,
                   const bool REML = false);
@@ -39,11 +40,10 @@ class lmmFitResponses {
   T2 X;  
   T3 Z;
   spectralDecomp<T3> dcmp;
-  double left, right, tol;
+  double left, right, tol, lambda;
   int nthreads;
   ModelDetail md;
   bool REML;
-
   uvec idx_drop;
   T2 X_clean;
 };
@@ -53,19 +53,21 @@ class lmmFitResponses {
 // constructor
 template <typename T1, typename T2, typename T3> 
 lmmFitResponses<T1, T2, T3>::lmmFitResponses(
-                            const T2 &X, 
-                            const spectralDecomp<T3> &dcmp,
-                            const double &left,
-                            const double &right,
-                            const double &tol,
-                            const int &nthreads,
-                            const ModelDetail md,
-                            const bool REML):
+        const T2 &X, 
+        const spectralDecomp<T3> &dcmp,
+        const double &left,
+        const double &right,
+        const double &tol,
+        const double &lambda,
+        const int &nthreads,
+        const ModelDetail md,
+        const bool REML):
   X(X), 
   dcmp(dcmp),
   left(left),
   right(right),
   tol(tol),
+  lambda(lambda),
   nthreads(nthreads),
   md(md),
   REML(REML) {
@@ -112,7 +114,7 @@ ModelFitLMMList
       y.elem(idx).zeros();
       w.elem(idx).zeros();
 
-      fastlmm fit = fastlmm<T1, T2, T3>(y, X_clean, dcmp, w, md, REML);
+      fastlmm fit = fastlmm<T1, T2, T3>(y, X_clean, dcmp, w, md, lambda, REML);
 
       fit.estimate_delta( left, right, tol );
 

@@ -15,6 +15,7 @@ fastlmm.fit(
   weights = NULL,
   delta.range = c(-10, 10),
   tol = 1e-06,
+  lambda = 0,
   nthreads = 6
 )
 }
@@ -38,6 +39,8 @@ fastlmm.fit(
 \item{delta.range}{min and max values (in log space), of the search space for delta to fit the random effect}
 
 \item{tol}{convergence criterion for the 1D search of the delta space}
+
+\item{lambda}{ridge shrinkage parameter}
 
 \item{nthreads}{number of threads}
 }

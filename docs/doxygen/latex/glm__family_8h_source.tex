@@ -67,7 +67,7 @@
 \DoxyCodeLine{00070\ \ \ \ \ \}}
 \DoxyCodeLine{00071\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_a415c91224c2949358603bf1d90c4da24}{dev\_resids}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&mu,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ wt\ *\ ((y\ -\/\ mu)\string^2)}}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ weights\ \%\ pow(y-\/mu,2);\ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ weights\ \%\ square(y-\/mu);\ \ }
 \DoxyCodeLine{00074\ \ \ \ \ \}}
 \DoxyCodeLine{00075\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_a70a039f8d85e0c1e65525de99dc3a6fd}{initialize}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ y;}
@@ -93,7 +93,7 @@
 \DoxyCodeLine{00096\ \ \ \ \ \}}
 \DoxyCodeLine{00097\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_a367559cc1e3788f7519ccdbfe74b7077}{mu\_eta}}(\ \textcolor{keyword}{const}\ vec\ \&eta)\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ vec\ v\ =\ exp(-\/1.0*eta);}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v\ /\ pow(\ 1.0\ +\ v,\ 2);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v\ /\ square(\ 1.0\ +\ v);}
 \DoxyCodeLine{00100\ \ \ \ \ \}}
 \DoxyCodeLine{00101\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_a47ff7d35b0d775f44e1ae59fd17451a6}{variance}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mu\ \%\ (1.0\ -\/\ mu);}
@@ -236,7 +236,7 @@
 \DoxyCodeLine{00239\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pmax(exp(eta),\ tol);}
 \DoxyCodeLine{00240\ \ \ \ \ \}}
 \DoxyCodeLine{00241\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_a3b0b0eda95b1231a0f0a1d3139cd253c}{variance}}(\ \textcolor{keyword}{const}\ vec\ \&mu)\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mu\ +\ pow(mu,\ 2)\ /\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_aaf708e8ecebca3cc2a94eeff810506ea}{theta}};}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mu\ +\ square(mu)\ /\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_aaf708e8ecebca3cc2a94eeff810506ea}{theta}};}
 \DoxyCodeLine{00243\ \ \ \ \ \}}
 \DoxyCodeLine{00244\ \ \ \ \ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1_n_b_ac545aa71975f26ac221c7d18a53da898}{dev\_resids}}(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&mu,\ \textcolor{keyword}{const}\ vec\ \&weights)\textcolor{keyword}{\ const\ }\{}
 \DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2\ *\ wt\ *\ (y\ *\ log(pmax(1,\ y)/mu)\ -\/\ (y\ +\ .Theta)\ *\ log((y\ +\ .Theta)/(mu\ +\ .Theta)))}}

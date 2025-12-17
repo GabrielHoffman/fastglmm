@@ -30,6 +30,8 @@ class glmmFitFeatures {
     const double &right = 10,
     const double &tol = 1e-5,
     const double &tol_eta = 1e-7,
+    const int &maxit = 100,
+    const double &lambda = 0,
     const int &nthreads = 1,
     const ModelDetail md = LOW);
 
@@ -44,8 +46,8 @@ class glmmFitFeatures {
   spectralDecomp<T3> dcmp;
   T3 U;
   vec s, weights, offset;
-  double delta, left, right, tol, tol_eta;
-  int nthreads;
+  double delta, left, right, tol, tol_eta, lambda;
+  int maxit, nthreads;
   ModelDetail md;
 };
 
@@ -65,6 +67,8 @@ glmmFitFeatures<T1, T2, T3>::glmmFitFeatures(
   const double &right,
   const double &tol,
   const double &tol_eta,
+  const int &maxit,
+  const double &lambda,
   const int &nthreads,
   const ModelDetail md) :
     y(y),
@@ -78,6 +82,8 @@ glmmFitFeatures<T1, T2, T3>::glmmFitFeatures(
     right(right), 
     tol(tol), 
     tol_eta(tol_eta),
+    maxit(maxit),
+    lambda(lambda),
     nthreads(nthreads), 
     md(md)
   {}
@@ -111,7 +117,7 @@ glmmFitFeatures<T1, T2, T3>::eval( const T2 &X_add_,
 
       // fits full model each time,
       // for speed, need to save Y, X, scaled by U and s
-      fastglmm fit = fastglmm(y, X_combined, dcmp, weights, offset, family, md, tol, tol_eta);
+      fastglmm fit = fastglmm(y, X_combined, dcmp, weights, offset, family, md, tol, tol_eta, maxit, lambda);
 
       result.at(j) = fit.get_result();
       result.at(j).ID = ids[j];

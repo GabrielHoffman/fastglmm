@@ -60,8 +60,10 @@ process_formula = function(formula, data){
 #' @param tol convergence criterion for the 1D search of the delta space
 #' @param tol.eta convergence criterion \code{eta} in the PQL iteration
 #' @param doCoxReid use Cox-Reid correction for estimating theta in negative binomial model
+#' @param lambda ridge shrinkage parameter
 #' @param nthreads number of threads
 #'
+#' @return model fit object
 #' @examples
 #' library(MASS)
 #' library(lme4)
@@ -85,7 +87,7 @@ process_formula = function(formula, data){
 #' @importFrom reformulas nobars
 #' @importFrom methods is
 #' @export
-fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-3, tol.eta = 1e-3, doCoxReid=nrow(data) < 1000, nthreads = 6){
+fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-3, tol.eta = 1e-3, doCoxReid=nrow(data) < 1000, lambda = 0, nthreads = 6){
 
 	mc <- match.call()
 
@@ -132,6 +134,7 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 	# drop rows with any NA values in active variables
 	data_sub <- data[,colnames(data) %in% all.vars(formula)]
 	data <- data[rowSums(is.na(data_sub)) == 0, colnames(data_sub)]
+	data <- droplevels(data)
 
   # if all columns of response are in the data matrix
   # for vector response, or cbind(v1, v2)
@@ -196,6 +199,7 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 						tol = tol, 
 						tol_eta = tol.eta,
 						maxit = maxit,
+						lambda = lambda,
 						nthreads = nthreads,
 						doCoxReid = doCoxReid)
 
@@ -219,6 +223,7 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 	fit$iter.pql <- fit$niter
 	fit$formula <- formula	
   fit$data <- data
+  fit$lambda <- lambda
 	class(fit) <- c("fastglmm", "fastlmm")
 
 	attr(fit, "call") <- mc

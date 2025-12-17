@@ -68,6 +68,7 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
               tol = 1e-3, 
               tol_eta = 1e-3,
               maxit = 100,
+              lambda = fit$lambda,
               doCoxReid = fit$doCoxReid,
               nthreads = 1)
 
@@ -110,7 +111,8 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
         delta = ifelse(is.null(delta), -1, delta),
         left = -10, 
         right = 10, 
-        tol = 1e-6, 
+        tol = 1e-6,
+        lambda = fit$lambda, 
         nthreads = 1)
 
     os <- 1
@@ -124,6 +126,7 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
   }
 
   res$data <- fit$data
+  res$lambda <- fit$lambda
 
   res
 }

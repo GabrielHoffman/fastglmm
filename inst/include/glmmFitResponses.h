@@ -29,6 +29,8 @@ class glmmFitResponses {
     const double &right = 10,
     const double &tol = 1e-5,
     const double &tol_eta = 1e-7,
+    const int &maxit = 100,
+    const double &lambda = 0,
     const int &nthreads = 1,
     const ModelDetail md = LOW);
 
@@ -41,7 +43,8 @@ class glmmFitResponses {
   T2 X;  
   spectralDecomp<T3> dcmp;
   vec weights, offset;
-  double left, right, tol, tol_eta;
+  int maxit;
+  double left, right, tol, tol_eta, lambda;
   int nthreads;
   ModelDetail md;
 
@@ -62,6 +65,8 @@ glmmFitResponses<T1, T2, T3>::glmmFitResponses(
       const double &right,
       const double &tol,
       const double &tol_eta,
+      const int &maxit,
+      const double &lambda,
       const int &nthreads,
       const ModelDetail md):
   X(X), 
@@ -72,6 +77,8 @@ glmmFitResponses<T1, T2, T3>::glmmFitResponses(
   right(right),
   tol(tol),
   tol_eta(tol_eta),
+  maxit(maxit),
+  lambda(lambda),
   nthreads(nthreads),
   md(md) {
 
@@ -116,7 +123,7 @@ ModelFitGLMMList
       y.elem(idx).zeros();
       w.elem(idx).zeros();
 
-      fastglmm fit = fastglmm<vec, T2, T3>(y, X_clean, dcmp, w, offset, family[j], md, tol, tol_eta);
+      fastglmm fit = fastglmm<vec, T2, T3>(y, X_clean, dcmp, w, offset, family[j], md, tol, tol_eta, maxit, lambda);
 
       result.at(j) = fit.get_result();
       result.at(j).ID = ids[j];

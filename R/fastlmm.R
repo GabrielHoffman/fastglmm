@@ -9,6 +9,7 @@
 #' @param delta  if \code{NULL} estimate delta, if value is given use this fixed value
 #' @param delta.range min and max values (in log space), of the search space for delta to fit the random effect
 #' @param tol convergence criterion for the 1D search of the delta space
+#' @param lambda ridge shrinkage parameter
 #' @param nthreads number of threads
 #
 #' @examples
@@ -37,7 +38,7 @@
 #' @importFrom stats as.formula model.frame model.response model.matrix update model.offset
 #' @seealso \code{lme4::lmer()}
 #' @export
-fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, delta.range = c(-10, 10), tol = 1e-6, nthreads = 6) {
+fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, delta.range = c(-10, 10), tol = 1e-6, nthreads = 6, lambda = 0) {
   mc <- match.call()
 
   # simplest way to extract data
@@ -61,6 +62,7 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
   # drop rows with any NA values in active variables
   data_sub <- data[,colnames(data) %in% all.vars(formula)]
   data <- data[rowSums(is.na(data_sub)) == 0, colnames(data_sub)]
+  data <- droplevels(data)
 
   # formula with only fixed effects
   form.fixed <- nobars(formula)
@@ -110,11 +112,13 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
     delta = delta,
     delta.range = delta.range,
     tol = tol,
+    lambda = lambda,
     nthreads = nthreads
   )
 
   fit$formula <- formula
   fit$data <- data
+  fit$lambda <- lambda
   
   # return model fit
   attr(fit, "call") <- mc

@@ -70,7 +70,7 @@ class GaussianIdentity :
 	}
 	vec dev_resids( const vec &y, const vec &mu, const vec &weights) const {
 		// wt * ((y - mu)^2)
-		return weights % pow(y-mu,2);	
+		return weights % square(y-mu);	
 	}
 	vec initialize( const vec &y, const vec &weights) const {
 		return y;
@@ -96,7 +96,7 @@ class BinomialLogit :
 	}
 	vec mu_eta( const vec &eta) const {
 		vec v = exp(-1.0*eta);
-		return v / pow( 1.0 + v, 2);
+		return v / square( 1.0 + v);
 	}
 	vec variance( const vec &mu) const {
 		return mu % (1.0 - mu);
@@ -239,7 +239,7 @@ class NB :
 	  return pmax(exp(eta), tol);
 	}
 	vec variance( const vec &mu) const {
-		return mu + pow(mu, 2) / theta;
+		return mu + square(mu) / theta;
 	}
 	vec dev_resids( const vec &y, const vec &mu, const vec &weights) const {
 		// 2 * wt * (y * log(pmax(1, y)/mu) - (y + .Theta) * log((y + .Theta)/(mu + .Theta)))

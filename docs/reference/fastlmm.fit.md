@@ -16,6 +16,7 @@ fastlmm.fit(
   weights = NULL,
   delta.range = c(-10, 10),
   tol = 1e-06,
+  lambda = 0,
   nthreads = 6
 )
 ```
@@ -68,6 +69,10 @@ fastlmm.fit(
 - tol:
 
   convergence criterion for the 1D search of the delta space
+
+- lambda:
+
+  ridge shrinkage parameter
 
 - nthreads:
 

@@ -25,6 +25,7 @@ class lmmFitFeatures {
                   const double &left = -10,
                   const double &right = 10,
                   const double &tol = 1e-6,
+                  const double &lambda = 0,
                   const int &nthreads = 1,
                   const ModelDetail md = LOW,
                   const bool REML = false);
@@ -38,7 +39,7 @@ class lmmFitFeatures {
   T3 U;
   spectralDecomp<T3> dcmp;
   vec s, weights;
-  double delta, left, right, tol;
+  double delta, left, right, tol, lambda;
   int nthreads;
   ModelDetail md;
   bool REML;
@@ -57,6 +58,7 @@ lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
                             const double &left,
                             const double &right,
                             const double &tol,
+                            const double &lambda,
                             const int &nthreads,
                             const ModelDetail md,
                             const bool REML) :
@@ -68,6 +70,7 @@ lmmFitFeatures<T1, T2, T3>::lmmFitFeatures(
   left(left), 
   right(right), 
   tol(tol), 
+  lambda(lambda),
   nthreads(nthreads), 
   md(md), 
   REML(REML)
@@ -105,7 +108,7 @@ ModelFitLMMList
 
       // fits full model each time,
       // for speed, need to save Y, X, scaled by U and s
-      fastlmm fit = fastlmm(Y, X_combined, dcmp, weights, md, REML);
+      fastlmm fit = fastlmm(Y, X_combined, dcmp, weights, md, lambda, REML);
 
       if( delta > 0 ){
           fit.eval_delta( delta ); 

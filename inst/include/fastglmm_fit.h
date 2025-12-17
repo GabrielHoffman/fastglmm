@@ -49,11 +49,12 @@ class fastglmm {
 						const double &tol = 1e-5,
 						const double &tol_eta = 1e-7,
 						const int &maxit = 100,
+						const double &lambda = 0,
 						const double &delta = -1,
 						const double &left = -10,
 						const double &right = 10,
 						const bool &returnUS = false,
-						const bool &doCoxReid = true);
+						const bool &doCoxReid = false);
 
 	const vec residuals(); // Response
 	const vec residuals_pearson(); // Pearson
@@ -65,10 +66,12 @@ class fastglmm {
 
   private:
   fastlmm<T1,T2,T3> fit;
+  vec y;
   mat X;
-  vec y, weights, mu, eta, offset; 
+  vec weights, mu, eta, offset; 
 	spectralDecomp<T3> dcmp;
   string family;
+  double lambda;
   bool returnUS;
   int niter_pql;
   double w_mean; 
@@ -91,6 +94,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 	const double &tol,
 	const double &tol_eta,
 	const int &maxit,
+	const double &lambda,
 	const double &delta,
 	const double &left,
 	const double &right,
@@ -102,6 +106,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 	offset(offset), 
 	dcmp(dcmp), 
 	family(family), 
+	lambda(lambda),
 	returnUS(returnUS),
 	md(md)
 	{
@@ -122,7 +127,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 
 	// Initialize eta
 	// just need a rough starting value
-	ModelFitGLM fit_init = GLM(X, y, this->family, LEAST, weights, offset, work, {}, 1e-2, 3);
+	ModelFitGLM fit_init = GLM(X, y, this->family, LEAST, weights, offset, work, {}, 1e-2, 3, lambda);
 
 	int iter_in = 0;
 	double theta;
@@ -140,7 +145,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 
 		// if Negative Binomial with unspecified theta
 		if( estimateTheta ){
-			theta = nb_theta_ml(y, work->mu, y.n_elem, weights, X, doCoxReid, ct);
+			theta = nb_theta_ml(y, work->mu, y.n_elem, weights, X, doCoxReid, ct, -5, 20);
 			fam->setOverdispersion( theta );
 		}
 
@@ -170,26 +175,27 @@ fastglmm<T1, T2, T3>::fastglmm(
 		work->z = (work->eta - offset) + (y - work->mu) / work->gprime;
 
 		// wz <- w * mu.eta.val^2/family$variance(mu)
-		work->w = pow(work->gprime,2) % (weights / fam->variance( work->mu ));
+		work->w = square(work->gprime) % (weights / fam->variance( work->mu ));
 
 		// wz <- wz / mean(wz)
 		w_mean = sum(work->w) / n_active;
 		work->w = work->w / w_mean;
 
-		// recompute U and s since work->w changed
-		this->dcmp.reweight(work->w);
-
-		// if model has nan values in z, it can't be fit
+		// if model has nan values in z or w, 
+		// it can't be fit
 		// so set beta values to nan 
 		// and set isValid to false
-		if( work->z.has_nan() ){
+		if( work->z.has_nan() || work->w.has_nan() ){
 			fit.set_model_failure();
 			isValid = false;
 			break;
 		}
 
+		// recompute U and s since work->w changed
+		this->dcmp.reweight(work->w);
+
 		// fit fastlmm
-		fit = fastlmm(work->z, X, this->dcmp, work->w, LEAST);
+		fit = fastlmm(work->z, X, this->dcmp, work->w, LEAST, lambda);
 
 		if( delta > 0 ){
 			fit.eval_delta( delta ); 
@@ -200,11 +206,12 @@ fastglmm<T1, T2, T3>::fastglmm(
 		// increment interation count
 		iter_in += fit.get_iter();
 	}
-
+		
 	// Final fit with ModelDetail md
 	if( isValid && (md > LEAST) ){		
+
 		// fit fastlmm
-		fit = fastlmm(work->z, X, this->dcmp, work->w, md);
+		fit = fastlmm(work->z, X, this->dcmp, work->w, md, lambda);
 
 		if( delta > 0 ){
 			fit.eval_delta( delta ); 
@@ -213,6 +220,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 		}
 	}
 
+
 	if( estimateTheta ){
 		// update family to include estimated theta
 		this->family = "nb:" + to_string(theta);
@@ -220,8 +228,13 @@ fastglmm<T1, T2, T3>::fastglmm(
 
 	// Use result of lmm and inverse link
 	// to get final value of mu
-	eta = fit.fitted() + offset; 
-  mu = fam->linkinv(eta);
+	if( isValid ){
+		eta = fit.fitted() + offset;
+  	mu = fam->linkinv(eta);
+	}else{
+		eta = vec(offset.n_elem, fill::value(datum::nan));
+		mu = vec(offset.n_elem, fill::value(datum::nan));
+	}
 	mu_mean = mean(mu);
 	eta_var = var(eta);
 
@@ -283,7 +296,10 @@ ModelFitGLMM fastglmm<T1, T2, T3>::get_result(){
 	// if model is not valid, it failed before final calculations
 	// so set values to NAN matching ModelDetail
 	if( ! isValid ){
-		int p = fit.get_beta().n_elem;
+		// number of coefs
+		int p = X.n_cols;
+		res1.coef = vec(p, fill::value(datum::nan));
+
 		switch( md ){
 	    case MAX:       
 	      // res1.hatvalues = hatvalues();

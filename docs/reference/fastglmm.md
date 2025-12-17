@@ -6,8 +6,6 @@ using penalized quasi-likelihood (PQL)
 Efficient Fit of Generalized Linear Mixed Model with a Single Random
 Effect
 
-Stores results of fastglmm model fit
-
 ## Usage
 
 ``` r
@@ -22,6 +20,7 @@ fastglmm(
   tol = 0.001,
   tol.eta = 0.001,
   doCoxReid = nrow(data) < 1000,
+  lambda = 0,
   nthreads = 6
 )
 ```
@@ -75,13 +74,17 @@ fastglmm(
   use Cox-Reid correction for estimating theta in negative binomial
   model
 
+- lambda:
+
+  ridge shrinkage parameter
+
 - nthreads:
 
   number of threads
 
 ## Value
 
-none
+model fit object
 
 ## Examples
 

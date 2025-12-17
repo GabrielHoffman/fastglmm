@@ -64,7 +64,8 @@ struct nbData {
 };
 
 // log-likelihood for NB GLM
-static  double nb_ll( 	const vec &y,
+static  double nb_ll( 	
+				const vec &y,
 				const vec &mu,
 				const double &n, 
 				const vec &weights, 
@@ -80,7 +81,11 @@ static  double nb_ll( 	const vec &y,
 	if( ct.size() == 0){	
 		// vanilla
 		vec value = lgamma(y_theta) - lgamma(theta) + theta*log(theta) - y_theta%log(mu + theta);
-		res = dot(value, weights) / n;
+		if( weights.is_empty() ){
+			res = sum(value) / n;
+		}else{
+			res = dot(value, weights) / n;
+		}
 	}else{
 		// count table
 		double sum_lgamma_y_theta = 0;
@@ -88,12 +93,22 @@ static  double nb_ll( 	const vec &y,
 			sum_lgamma_y_theta += it.second * lgamma(it.first + theta);
 		}
 
-		double sum_w = sum(weights);
+		if( weights.is_empty() ){
+			// Original
+			res = sum_lgamma_y_theta / n - 
+					n*lgamma(theta) / n + 
+					n*theta*log(theta)/n  - 
+					dot(y_theta, log(mu + theta)) / n;
+		}else{
+			double sum_w = sum(weights);
 
-		res = sum_lgamma_y_theta / n - 
-				sum_w*lgamma(theta) / n + 
-				sum_w*theta*log(theta)/n  - 
-				dot(weights,y_theta%log(mu + theta))/n;
+			// Original
+			res = sum_lgamma_y_theta / n - 
+					sum_w*lgamma(theta) / n + 
+					sum_w*theta*log(theta)/n;
+
+			res -= dot(weights,y_theta%log(mu + theta)) / n;
+		}
 	}
 
 	// Doesn't change with theta,
@@ -106,7 +121,12 @@ static  double nb_ll( 	const vec &y,
 		// use sample weights here
 		// use 1/theta here since notation is different
 		// than in glmGammaPoi
-		vec w = weights / (1.0/mu + 1.0/theta);
+		vec w;
+		if( weights.is_empty() ){
+			w = 1 / (1.0/mu + 1.0/theta);
+		}else{
+			w = weights / (1.0/mu + 1.0/theta);
+		}
 		double ld;
 		bool success = log_det_sympd(ld, X.t() * (X.each_col()%w));
 		cr = -0.5 * ld * 0.99; 
@@ -158,17 +178,21 @@ static double nb_theta_ml(
 	funcStruct F; 
 	F.function = nb_ll;
 
-	vec w(weights);
+	nbData *d;
 
-	if( w.is_empty() ){
-		w = vec(y.n_elem, fill::ones);
+	if( weights.is_empty() || all(weights == 1.0) ){
+		d = new nbData(y, mu, n, {}, X, doCoxReid, ct);
+	}else{		
+		d = new nbData(y, mu, n, weights, X, doCoxReid, ct);
 	}
-	nbData d(y, mu, n, w, X, doCoxReid, ct); 
-	F.params = &d;
+
+	F.params = d;
 
 	// maximize log-likelihood
 	// theta_log is returned by reference
 	local_min(left, right, tol, &F, theta_log, iter);
+
+	delete d;
 
 	return exp(theta_log);
 }	

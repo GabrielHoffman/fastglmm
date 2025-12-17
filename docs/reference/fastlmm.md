@@ -3,8 +3,6 @@
 Fit a linear mixed-effects model with 1 random effect with REML or
 maximum likelihood using the very fast algorithm and implementation
 
-Stores results of fastlmm model fit
-
 ## Usage
 
 ``` r
@@ -16,7 +14,8 @@ fastlmm(
   weights = NULL,
   delta.range = c(-10, 10),
   tol = 1e-06,
-  nthreads = 6
+  nthreads = 6,
+  lambda = 0
 )
 ```
 
@@ -63,9 +62,9 @@ fastlmm(
 
   number of threads
 
-## Value
+- lambda:
 
-none
+  ridge shrinkage parameter
 
 ## Details
 

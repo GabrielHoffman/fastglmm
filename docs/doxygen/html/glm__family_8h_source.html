@@ -186,7 +186,7 @@ $(function() {
 <div class="foldopen" id="foldopen00071" data-start="{" data-end="}">
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classfastglmm_lib_1_1_gaussian_identity.html#a415c91224c2949358603bf1d90c4da24">   71</a></span>    vec <a class="code hl_function" href="classfastglmm_lib_1_1_gaussian_identity.html#a415c91224c2949358603bf1d90c4da24">dev_resids</a>( <span class="keyword">const</span> vec &amp;y, <span class="keyword">const</span> vec &amp;mu, <span class="keyword">const</span> vec &amp;weights)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="comment">// wt * ((y - mu)^2)</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">return</span> weights % pow(y-mu,2);   </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">return</span> weights % square(y-mu);  </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
 </div>
 <div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
@@ -222,7 +222,7 @@ $(function() {
 <div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="classfastglmm_lib_1_1_binomial_logit.html#a367559cc1e3788f7519ccdbfe74b7077">   97</a></span>    vec <a class="code hl_function" href="classfastglmm_lib_1_1_binomial_logit.html#a367559cc1e3788f7519ccdbfe74b7077">mu_eta</a>( <span class="keyword">const</span> vec &amp;eta)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        vec v = exp(-1.0*eta);</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">return</span> v / pow( 1.0 + v, 2);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">return</span> v / square( 1.0 + v);</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    }</div>
 </div>
 <div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
@@ -415,7 +415,7 @@ $(function() {
 </div>
 <div class="foldopen" id="foldopen00241" data-start="{" data-end="}">
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno"><a class="line" href="classfastglmm_lib_1_1_n_b.html#a3b0b0eda95b1231a0f0a1d3139cd253c">  241</a></span>    vec <a class="code hl_function" href="classfastglmm_lib_1_1_n_b.html#a3b0b0eda95b1231a0f0a1d3139cd253c">variance</a>( <span class="keyword">const</span> vec &amp;mu)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <span class="keywordflow">return</span> mu + pow(mu, 2) / <a class="code hl_variable" href="classfastglmm_lib_1_1_n_b.html#aaf708e8ecebca3cc2a94eeff810506ea">theta</a>;</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <span class="keywordflow">return</span> mu + square(mu) / <a class="code hl_variable" href="classfastglmm_lib_1_1_n_b.html#aaf708e8ecebca3cc2a94eeff810506ea">theta</a>;</div>
 <div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    }</div>
 </div>
 <div class="foldopen" id="foldopen00244" data-start="{" data-end="}">

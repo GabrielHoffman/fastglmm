@@ -279,7 +279,7 @@ static uvec countResponseFilter( const mat &Y){
   // keep2 <- rowSums2(countMatrix > 1) > max(2, 0.01*ncol(countMatrix))
   // keep <- keep1 & keep2
 
-  int nr =Y.n_rows;
+  int nr = Y.n_rows;
 
   uvec keep1 = find(sum(Y > 0, 0) > max(2, (int) 0.1*nr));
   uvec keep2 = find(sum(Y > 1, 0) > max(2, (int) 0.01*nr));

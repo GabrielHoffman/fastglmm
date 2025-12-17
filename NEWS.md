@@ -2,6 +2,7 @@
 
 # fastglmm 0.3.7
  - performance improvements
+ - add ridge regression
 
 # fastglmm 0.3.6
  - add isCountModel() in C++

@@ -118,7 +118,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a53aff4890d4d14e44f36a10f32be3e7f" id="r_a53aff4890d4d14e44f36a10f32be3e7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53aff4890d4d14e44f36a10f32be3e7f">fastglmm</a> ()</td></tr>
-<tr class="memitem:a10d046db637711bce881d8a1495712bc" id="r_a10d046db637711bce881d8a1495712bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10d046db637711bce881d8a1495712bc">fastglmm</a> (const T1 &amp;y, const T2 &amp;X, const <a class="el" href="classfastglmm_lib_1_1spectral_decomp.html">spectralDecomp</a>&lt; T3 &gt; &amp;dcmp, const vec &amp;weights, const vec &amp;offset, const string &amp;family, const <a class="el" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2">ModelDetail</a> md=<a class="el" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0">LOW</a>, const double &amp;tol=1e-5, const double &amp;tol_eta=1e-7, const int &amp;maxit=100, const double &amp;delta=-1, const double &amp;left=-10, const double &amp;right=10, const bool &amp;returnUS=false, const bool &amp;doCoxReid=true)</td></tr>
+<tr class="memitem:a324a37895312527be12883b0fd23e30d" id="r_a324a37895312527be12883b0fd23e30d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a324a37895312527be12883b0fd23e30d">fastglmm</a> (const T1 &amp;y, const T2 &amp;X, const <a class="el" href="classfastglmm_lib_1_1spectral_decomp.html">spectralDecomp</a>&lt; T3 &gt; &amp;dcmp, const vec &amp;weights, const vec &amp;offset, const string &amp;family, const <a class="el" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2">ModelDetail</a> md=<a class="el" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0">LOW</a>, const double &amp;tol=1e-5, const double &amp;tol_eta=1e-7, const int &amp;maxit=100, const double &amp;lambda=0, const double &amp;delta=-1, const double &amp;left=-10, const double &amp;right=10, const bool &amp;returnUS=false, const bool &amp;doCoxReid=false)</td></tr>
 <tr class="memitem:ae312a6a0452c8097e263387210275451" id="r_ae312a6a0452c8097e263387210275451"><td class="memItemLeft" align="right" valign="top">const vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae312a6a0452c8097e263387210275451">residuals</a> ()</td></tr>
 <tr class="memitem:a0d841e00a3764bb9f67dd228ce388cf6" id="r_a0d841e00a3764bb9f67dd228ce388cf6"><td class="memItemLeft" align="right" valign="top">const vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d841e00a3764bb9f67dd228ce388cf6">residuals_pearson</a> ()</td></tr>
 <tr class="memitem:a82ae5304ae2c5f793dccf546bbdffe00" id="r_a82ae5304ae2c5f793dccf546bbdffe00"><td class="memItemLeft" align="right" valign="top">const vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82ae5304ae2c5f793dccf546bbdffe00">fitted</a> ()</td></tr>
@@ -153,8 +153,8 @@ template&lt;typename T1, typename T2, typename T3&gt; </div>
 
 </div>
 </div>
-<a id="a10d046db637711bce881d8a1495712bc" name="a10d046db637711bce881d8a1495712bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10d046db637711bce881d8a1495712bc">&#9670;&#160;</a></span>fastglmm() <span class="overload">[2/2]</span></h2>
+<a id="a324a37895312527be12883b0fd23e30d" name="a324a37895312527be12883b0fd23e30d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a324a37895312527be12883b0fd23e30d">&#9670;&#160;</a></span>fastglmm() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -214,6 +214,11 @@ template&lt;typename T1, typename T2, typename T3&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>lambda</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>delta</em></span><span class="paramdefsep"> = </span><span class="paramdefval">-1</span>, </td>
         </tr>
         <tr>
@@ -234,7 +239,7 @@ template&lt;typename T1, typename T2, typename T3&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>doCoxReid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>doCoxReid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
