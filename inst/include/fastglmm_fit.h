@@ -220,7 +220,6 @@ fastglmm<T1, T2, T3>::fastglmm(
 		}
 	}
 
-
 	if( estimateTheta ){
 		// update family to include estimated theta
 		this->family = "nb:" + to_string(theta);
@@ -235,7 +234,12 @@ fastglmm<T1, T2, T3>::fastglmm(
 		eta = vec(offset.n_elem, fill::value(datum::nan));
 		mu = vec(offset.n_elem, fill::value(datum::nan));
 	}
-	mu_mean = mean(mu);
+
+	// Compute mean of mu
+	// use robust mean to avoid influence of outliers
+	// This can happen with many zero and a few large values
+	mu_mean = robust_mean(mu, 4);
+
 	eta_var = var(eta);
 
 	delete work;

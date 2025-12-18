@@ -302,6 +302,19 @@ static vector<T> subset( const vector<T> &v, const uvec &idx){
   return res;
 }
 
+/** Robust mean using only samples less than z-cuttoff
+*/
+static double robust_mean( const vec &x, const double &z_cutoff){
+
+  // compute z-score
+  vec z = (x - mean(x)) / stddev(x);
+
+  // find indeces where abs z-score is less than cutoff
+  uvec idx = find(abs(z) < z_cutoff);
+
+  // mean of retained values
+  return mean(x.elem(idx));
+}
 
 
 
