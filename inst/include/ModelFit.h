@@ -193,6 +193,7 @@ class ModelFitGLM : public ModelFit {
   string family = "";
   double theta = datum::nan;
   double mu_mean = datum::nan;
+  double y_mean = datum::nan;
   int niter = 0;
   double nZeroPrediction = 0;
 };
@@ -381,6 +382,7 @@ class ModelFitGLMM : public ModelFitLMM {
   string family = "";
   double theta = datum::nan;
   double mu_mean = datum::nan;
+  double y_mean = datum::nan;
   double nZeroPrediction = 0;
 };
 

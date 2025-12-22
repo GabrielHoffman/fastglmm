@@ -7,11 +7,14 @@
 #' 
 #' @param fit model fit
 #' @param method use either the \code{"lognormal"} or \code{"trigamma"} formulas from Nakagawa, et al. (2017)
-#' 
+#' @param lambda.method use either \code{"parametric"} or \code{"mean"} method to estimate the mean rate for count models
+#'
 #' @details In generalized linear (mixed) models, the link function contributes to the coefficient of determination (Nakagawa, et al., 2012, 2017; McKelvey and Zavoina, 1975).  
 #' 
 #' 1 - Residuals gives the R2 values from \code{performance::r2_nakagawa(..., approximation="trigamma")}.  Using \code{performance::r2_mckelvey()} use the "lognormal" approximation
 #'
+#' For count models, the distributional variance is a function of the mean count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be estimated using parameters of a model including only intercept and random effect terms.  But this requires refitting the model dropping the rest of the fixed effects.  Instead, computing the mean of the observed counts is a fast approximation.
+#' 
 #' @references
 #' Nakagawa, Johnson, Schielzeth. 2017.  The coefficient of determination R2 and intra-class correlation coefficient from generalized linear mixed-effects models revisited and expanded. J. R. Soc. Interface 14: 20170213. \doi{10.1098/rsif.2017.0213}
 #'
@@ -22,7 +25,7 @@
 #' @importFrom stats family
 #' @keywords internal
 #' @export
-getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal")) {
+getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")) {
 
   method <- match.arg(method)
 
@@ -38,7 +41,7 @@ getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal")) {
     if( ! missing(fit_null) ){
       lambda <- getLambdaFromNull( fit_null )
     }else{      
-      lambda <- getLambda( fit )
+      lambda <- getLambda( fit, method = lambda.method )
     }
   }
 
@@ -105,87 +108,115 @@ get_mean_weights = function(fit){
 #' Estimate baseline rate from count model
 #' 
 #' @param fit model fit
+#' @param method use either \code{"parametric"} or \code{"mean"} method to estimate the mean rate for count models
 #' @param ... other args
+#'
+#' For count models, the distributional variance is a function of the mean count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be estimated using parameters of a model including only intercept and random effect terms.  But this requires refitting the model dropping the rest of the fixed effects.  Instead, computing the mean of the observed counts is a fast approximation.
 #'
 #' @keywords internal
 #' @rdname getLambda
 #' @export
-setGeneric("getLambda", function(fit,...) {
+setGeneric("getLambda", function(fit, method = c("parametric", "mean"),...) {
   standardGeneric("getLambda")
 })
 
 #' @rdname getLambda
 #' @export
 setMethod("getLambda", signature(fit = "fastlmm"), 
-  function(fit,...) {
+  function(fit, method = c("parametric", "mean"),...) {
+
+  method <- match.arg(method)
 
   if( ! '(Intercept)' %in% names(coef(fit)) ){
     stop("Intercept term is required for variance partitioning analysis of a Poisson model")
   }
 
-  # refit model with only intecept term and random effect
-  fit_null <- refitModel(fit, interceptOnly=TRUE,...)
+  if( method == "parametric"){
 
-  # mean term, including offset
-  mu <- coef(fit_null) + mean(fit_null$offset)
+    # refit model with only intecept term and random effect
+    fit_null <- refitModel(fit, interceptOnly=TRUE,...)
 
-  # mean term based on Eqn 5.8 of Nakagawa, et al. 2017.
-  # Uses both intercept and variance component
-  # follows approach of insight:::.variance_distributional
-  lambda <- exp(mu + 0.5*fit_null$sigSq_g)
-  as.numeric( lambda )
+    # mean term, including offset
+    mu <- coef(fit_null) + mean(fit_null$offset)
+
+    # mean term based on Eqn 5.8 of Nakagawa, et al. 2017.
+    # Uses both intercept and variance component
+    # follows approach of insight:::.variance_distributional
+    lambda <- exp(mu + 0.5*fit_null$sigSq_g)
+    lambda <- as.numeric( lambda )
+  }else{
+    lambda <- mean(fit$response)
+  }
+
+  lambda
 })
 
 
 #' @rdname getLambda
 #' @export
 setMethod("getLambda", signature("glm"), 
-  function(fit,...) {
+  function(fit, method = c("parametric", "mean"),...) {
 
-  # refit model with only intercept and offset
-  fit_null <- update(fit, . ~ 1, 
-                offset = fit$offset,
-                data = fit$data,
-                family = fit$family)
+  method <- match.arg(method)
 
-  # mean term, including offset
-  mu <- coef(fit_null) + 
-          ifelse(is.null(fit_null$offset), 0, mean(fit_null$offset))
+  if( method == "parametric"){
+    # refit model with only intercept and offset
+    fit_null <- update(fit, . ~ 1, 
+                  offset = fit$offset,
+                  data = fit$data,
+                  family = fit$family)
 
-  exp(as.numeric(mu))
+    # mean term, including offset
+    mu <- coef(fit_null) + 
+            ifelse(is.null(fit_null$offset), 0, mean(fit_null$offset))
+
+    lambda <- exp(as.numeric(mu))
+  }else{
+    lambda <- mean(fit$y)
+  }
+  lambda
 })
 
 #' @importFrom MASS glm.nb
 #' @rdname getLambda
 #' @export
 setMethod("getLambda", signature("negbin"), 
-  function(fit,...) {
+  function(fit, method = c("parametric", "mean"),...) {
+
+  method <- match.arg(method)
 
   # glm.nb doesn't support offset as arg, or in update()
   # must be in formula
   # so create new formula and run new glm.nb()
   i <- attr(fit$terms, "response")
   resp <- deparse(attr(fit$terms,"variables")[[i+1]])
-  form <- as.formula(paste(resp, "~ 0"))
 
-  if( ! is.null(fit$offset) ){
-    form <- update(form, . ~ offset(os)) 
-    fit$model$os <- fit$offset
+  if( method == "parametric"){
+    form <- as.formula(paste(resp, "~ 0"))
+
+    if( ! is.null(fit$offset) ){
+      form <- update(form, . ~ offset(os)) 
+      fit$model$os <- fit$offset
+    }else{
+      form <- update(form, . ~ 1)
+    }
+
+    # refit model with only intercept and offset
+    fit_null <- glm.nb(form, 
+                  data = fit$model, 
+                  etastart = fit$linear.predictors,
+                  weights = fit$prior.weights)
+
+    # mean term, including offset
+    mu <- coef(fit_null) + 
+            ifelse(is.null(fit_null$offset), 0, mean(fit_null$offset))
+
+    lambda <- exp(as.numeric(mu))
   }else{
-    form <- update(form, . ~ 1)
+    lambda <- mean(fit$y)
   }
 
-  # refit model with only intercept and offset
-  fit_null <- glm.nb(form, 
-                data = fit$model, 
-                etastart = fit$linear.predictors,
-                weights = fit$prior.weights)
-
-  # mean term, including offset
-  mu <- coef(fit_null) + 
-          ifelse(is.null(fit_null$offset), 0, mean(fit_null$offset))
-
-  exp(as.numeric(mu))
+  lambda
 })
 
 
@@ -281,12 +312,15 @@ setMethod("varianceTerms", signature("fastlmm"),
 #' Compute fraction of variance attributable to each variable in regression model.  Also interpretable as the intra-class correlation after correcting for all other variables in the model.
 #' 
 #' @param fit model fit  
-#' @param ... other arguments, not used here
+#' @param ... other arguments,
 #' @param distr.method use either the \code{"lognormal"} or \code{"trigamma"} formulas from Nakagawa, et al. (2017)
+#' @param lambda.method use either \code{"parametric"} or \code{"mean"} method to estimate the mean rate for count models
 #' 
 #' @details
 #' The coefficient of determination (i.e. R^2) is 1 - [Residuals fraction].  This matches \code{performance::r2_nakagawa()} and \code{performance::r2_mckelvey()}, except these use the \code{"lognormal"} method.   
 #' 
+#' For count models, the distributional variance is a function of the mean count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be estimated using parameters of a model including only intercept and random effect terms.  But this requires refitting the model dropping the rest of the fixed effects.  Instead, computing the mean of the observed counts is a fast approximation.
+#'
 #' @references
 #' Nakagawa, Johnson, Schielzeth. 2017.  The coefficient of determination R2 and intra-class correlation coefficient from generalized linear mixed-effects models revisited and expanded. J. R. Soc. Interface 14: 20170213. \doi{10.1098/rsif.2017.0213}
 #'
@@ -304,32 +338,38 @@ setMethod("varianceTerms", signature("fastlmm"),
 #' @importFrom matrixStats colVars
 #' @rdname varpart
 #' @export
-setGeneric("varpart", function(fit, ..., distr.method = c("trigamma", "lognormal")) {
+setGeneric("varpart", function(fit, ..., distr.method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")) {
   standardGeneric("varpart")
 })
 
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("fastlmm"), 
-  function(fit, ..., distr.method = c("trigamma", "lognormal")){
+  function(fit, ..., distr.method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")){
   
-  .varpart(fit = fit, distr.method = distr.method)
+  .varpart(fit = fit, 
+    distr.method = distr.method, 
+    lambda.method = lambda.method)
 })
 
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("fastglmm"), 
-  function(fit, ..., distr.method = c("trigamma", "lognormal")){
+  function(fit, ..., distr.method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")){
   
-  .varpart(fit = fit, distr.method = distr.method)
+  .varpart(fit = fit, 
+    distr.method = distr.method, 
+    lambda.method = lambda.method)
 })
 
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("glm"), 
-  function(fit, ..., distr.method = c("trigamma", "lognormal")){
+  function(fit, ..., distr.method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")){
   
-  .varpart(fit = fit, distr.method = distr.method)
+  .varpart(fit = fit, 
+    distr.method = distr.method, 
+    lambda.method = lambda.method)
 })
 
 #' @rdname varpart
@@ -337,32 +377,38 @@ setMethod("varpart", signature("glm"),
 setMethod("varpart", signature("negbin"), 
   function(fit, ..., distr.method = c("trigamma", "lognormal")){
   
-  .varpart(fit = fit, distr.method = distr.method)
+  .varpart(fit = fit, 
+    distr.method = distr.method, 
+    lambda.method = lambda.method)
 })
 
 
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("lm"), 
-  function(fit, ..., distr.method = c("trigamma", "lognormal")){
+  function(fit, ..., distr.method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")){
   
-  .varpart(fit = fit, distr.method = distr.method)
+  .varpart(fit = fit, 
+    distr.method = distr.method, 
+    lambda.method = lambda.method)
 })
 
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("merMod"), 
-  function(fit, ..., distr.method = c("trigamma", "lognormal")){
+  function(fit, ..., distr.method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")){
   
-  .varpart(fit = fit, distr.method = distr.method)
+  .varpart(fit = fit, 
+    distr.method = distr.method, 
+    lambda.method = lambda.method)
 })
 
 
-.varpart = function(fit, distr.method = c("trigamma", "lognormal")){
+.varpart = function(fit, distr.method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")){
 
   distr.method <- match.arg(distr.method)
   signal_var <- var(predict(fit)) 
-  distr_var <- getDistrVar( fit, method = distr.method ) 
+  distr_var <- getDistrVar( fit, method = distr.method, lambda.method = lambda.method ) 
   total_var <- signal_var + distr_var
   eta_var <- colVars(predict(fit, type="terms"))
 

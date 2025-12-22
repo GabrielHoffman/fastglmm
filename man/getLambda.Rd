@@ -8,18 +8,20 @@
 \alias{getLambdaFromNull}
 \title{Estimate baseline rate from count model}
 \usage{
-getLambda(fit, ...)
+getLambda(fit, method = c("parametric", "mean"), ...)
 
-\S4method{getLambda}{fastlmm}(fit, ...)
+\S4method{getLambda}{fastlmm}(fit, method = c("parametric", "mean"), ...)
 
-\S4method{getLambda}{glm}(fit, ...)
+\S4method{getLambda}{glm}(fit, method = c("parametric", "mean"), ...)
 
-\S4method{getLambda}{negbin}(fit, ...)
+\S4method{getLambda}{negbin}(fit, method = c("parametric", "mean"), ...)
 
 getLambdaFromNull(fit_null, ...)
 }
 \arguments{
 \item{fit}{model fit}
+
+\item{method}{use either \code{"parametric"} or \code{"mean"} method to estimate the mean rate for count models}
 
 \item{...}{other args}
 

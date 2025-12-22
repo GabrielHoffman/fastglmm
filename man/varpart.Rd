@@ -10,32 +10,71 @@
 \alias{varpart,merMod-method}
 \title{Variance Partitioning Analysis}
 \usage{
-varpart(fit, ..., distr.method = c("trigamma", "lognormal"))
+varpart(
+  fit,
+  ...,
+  distr.method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 
-\S4method{varpart}{fastlmm}(fit, ..., distr.method = c("trigamma", "lognormal"))
+\S4method{varpart}{fastlmm}(
+  fit,
+  ...,
+  distr.method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 
-\S4method{varpart}{fastglmm}(fit, ..., distr.method = c("trigamma", "lognormal"))
+\S4method{varpart}{fastglmm}(
+  fit,
+  ...,
+  distr.method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 
-\S4method{varpart}{glm}(fit, ..., distr.method = c("trigamma", "lognormal"))
+\S4method{varpart}{glm}(
+  fit,
+  ...,
+  distr.method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 
-\S4method{varpart}{negbin}(fit, ..., distr.method = c("trigamma", "lognormal"))
+\S4method{varpart}{negbin}(
+  fit,
+  ...,
+  distr.method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 
-\S4method{varpart}{lm}(fit, ..., distr.method = c("trigamma", "lognormal"))
+\S4method{varpart}{lm}(
+  fit,
+  ...,
+  distr.method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 
-\S4method{varpart}{merMod}(fit, ..., distr.method = c("trigamma", "lognormal"))
+\S4method{varpart}{merMod}(
+  fit,
+  ...,
+  distr.method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 }
 \arguments{
 \item{fit}{model fit}
 
-\item{...}{other arguments, not used here}
+\item{...}{other arguments,}
 
 \item{distr.method}{use either the \code{"lognormal"} or \code{"trigamma"} formulas from Nakagawa, et al. (2017)}
+
+\item{lambda.method}{use either \code{"parametric"} or \code{"mean"} method to estimate the mean rate for count models}
 }
 \description{
 Compute fraction of variance attributable to each variable in regression model.  Also interpretable as the intra-class correlation after correcting for all other variables in the model.
 }
 \details{
-The coefficient of determination (i.e. R^2) is 1 - [Residuals fraction].  This matches \code{performance::r2_nakagawa()} and \code{performance::r2_mckelvey()}, except these use the \code{"lognormal"} method.
+The coefficient of determination (i.e. R^2) is 1 - [Residuals fraction].  This matches \code{performance::r2_nakagawa()} and \code{performance::r2_mckelvey()}, except these use the \code{"lognormal"} method.   
+
+For count models, the distributional variance is a function of the mean count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be estimated using parameters of a model including only intercept and random effect terms.  But this requires refitting the model dropping the rest of the fixed effects.  Instead, computing the mean of the observed counts is a fast approximation.
 }
 \examples{
 library(MASS)

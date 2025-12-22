@@ -1,5 +1,50 @@
 
 
+test_getLambda = function(){
+
+  # test approximation of lambda form count models
+
+  # q()
+  # R
+  library(fastglmm)
+  library(lme4)
+  library(MASS)
+  data(PsychAD)
+
+  # fastglmm.nb
+  form <- PTPRG ~ offset(log(libSize)) + (1|SubID)
+  fit <- fastglmm.nb(form, PsychAD)
+  fastglmm:::getLambda(fit)
+  fastglmm:::getLambda(fit, method = "mean")
+  varpart(fit)
+  varpart(fit, lambda.method = "mean")
+
+   # fastglmm.nb
+  form <- PTPRG ~ offset(log(libSize)) + Dx + (1|SubID)
+  fit <- fastglmm.nb(form, PsychAD)
+  fit.null <- fastglmm.nb(form, PsychAD)
+  varpart(fit)
+  varpart(fit, lambda.method = "mean")
+
+
+  # glm
+  form <- PTPRG ~ offset(log(libSize)) + Dx
+  fit <- glm(form, PsychAD, family=negative.binomial(10))
+  fastglmm:::getLambda(fit)
+  fastglmm:::getLambda(fit, method = "mean")
+  varpart(fit)
+  varpart(fit, lambda.method = "mean")
+
+  # glm.nb
+  form <- PTPRG ~ offset(log(libSize)) + Dx
+  fit <- glm.nb(form, PsychAD)
+  fastglmm:::getLambda(fit)
+  fastglmm:::getLambda(fit, method = "mean")
+  varpart(fit)
+  varpart(fit, lambda.method = "mean")
+
+}
+
 test_varpart = function(){
 
   library(fastglmm)

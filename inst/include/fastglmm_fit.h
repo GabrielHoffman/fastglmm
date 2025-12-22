@@ -76,6 +76,7 @@ class fastglmm {
   int niter_pql;
   double w_mean; 
   double mu_mean = datum::nan;
+  double y_mean = datum::nan;
   double eta_var = datum::nan;
   ModelDetail md;
 	shared_ptr<GLMFamily> fam;
@@ -324,6 +325,7 @@ ModelFitGLMM fastglmm<T1, T2, T3>::get_result(){
 	ModelFitGLMM mf(res1, family, niter_pql);
 
 	mf.mu_mean = mu_mean;
+	mf.y_mean = mean(y);
 	mf.varFitted = eta_var;
 
   if( md == MAX ){

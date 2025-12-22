@@ -80,150 +80,150 @@
 \DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{int}\ niter\_pql;}
 \DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{double}\ w\_mean;\ }
 \DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{double}\ mu\_mean\ =\ datum::nan;}
-\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{double}\ eta\_var\ =\ datum::nan;}
-\DoxyCodeLine{00080\ \ \ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md;}
-\DoxyCodeLine{00081\ \ \ \ \ shared\_ptr<GLMFamily>\ fam;}
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{bool}\ isValid\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00083\ \};}
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
-\DoxyCodeLine{00086\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a53aff4890d4d14e44f36a10f32be3e7f}{fastglmm<T1,\ T2,\ T3>::fastglmm}}(}
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{const}\ T1\ \&y,\ }
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{const}\ T2\ \&X,\ }
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectralDecomp<T3>}}\ \&dcmp,}
-\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&weights,}
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&offset,}
-\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&family,\ }
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md,\ }
-\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&tol,}
-\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&tol\_eta,}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&maxit,}
-\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&lambda,}
-\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&delta,}
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&left,}
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&right,}
-\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&returnUS,}
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&doCoxReid):}
-\DoxyCodeLine{00103\ \ \ \ \ y(y),\ }
-\DoxyCodeLine{00104\ \ \ \ \ X(X),}
-\DoxyCodeLine{00105\ \ \ \ \ weights(weights),\ }
-\DoxyCodeLine{00106\ \ \ \ \ offset(offset),\ }
-\DoxyCodeLine{00107\ \ \ \ \ dcmp(dcmp),\ }
-\DoxyCodeLine{00108\ \ \ \ \ family(family),\ }
-\DoxyCodeLine{00109\ \ \ \ \ lambda(lambda),}
-\DoxyCodeLine{00110\ \ \ \ \ returnUS(returnUS),}
-\DoxyCodeLine{00111\ \ \ \ \ md(md)}
-\DoxyCodeLine{00112\ \ \ \ \ \{}
-\DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ \ \ \ \ fam\ =\ getGLMFamily(\ family\ );}
-\DoxyCodeLine{00115\ }
-\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ if\ Negative\ Binomial\ with\ unspecified\ theta}}
-\DoxyCodeLine{00117\ \ \ \ \ \textcolor{comment}{//\ estimate\ theta,\ and\ initialize\ with\ Poisson\ GLM}}
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{bool}\ estimateTheta\ =\ family\ ==\ \textcolor{stringliteral}{"{}nb"{}}\ ?\ true\ :\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{if}(\ estimateTheta\ )\{}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ this-\/>family\ =\ \textcolor{stringliteral}{"{}poisson/log"{}};}
-\DoxyCodeLine{00121\ \ \ \ \ \}}
-\DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ \ \ checkResponse(y,\ this-\/>family);}
-\DoxyCodeLine{00124\ }
-\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work}{GLMWork}}\ *work\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work}{GLMWork}}();}
-\DoxyCodeLine{00126\ \ \ \ \ vec\ eta\_old;}
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \ \ \ \ \textcolor{comment}{//\ Initialize\ eta}}
-\DoxyCodeLine{00129\ \ \ \ \ \textcolor{comment}{//\ just\ need\ a\ rough\ starting\ value}}
-\DoxyCodeLine{00130\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m}{ModelFitGLM}}\ fit\_init\ =\ GLM(X,\ y,\ this-\/>family,\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ weights,\ offset,\ work,\ \{\},\ 1e-\/2,\ 3,\ lambda);}
-\DoxyCodeLine{00131\ }
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{int}\ iter\_in\ =\ 0;}
-\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{double}\ theta;}
-\DoxyCodeLine{00134\ \ \ \ \ uvec\ idx\_drop\ =\ find(weights\ ==\ 0.0);}
-\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{double}\ n\_active\ =\ weights.n\_elem\ -\/\ idx\_drop.n\_elem;}
-\DoxyCodeLine{00136\ }
-\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}}\ ct;}
-\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{if}(\ estimateTheta\ )\{}
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Precompute\ lgamma()\ on\ each\ unique\ count}}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ ct\ =\ CreateLUT(y,\ weights);\ }
-\DoxyCodeLine{00141\ \ \ \ \ \}}
-\DoxyCodeLine{00142\ }
-\DoxyCodeLine{00143\ \ \ \ \ \textcolor{comment}{//\ PQL\ iterations}}
-\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{for}(niter\_pql=0;\ niter\_pql<maxit;\ niter\_pql++)\{}
-\DoxyCodeLine{00145\ }
-\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ Negative\ Binomial\ with\ unspecified\ theta}}
-\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ estimateTheta\ )\{}
-\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ theta\ =\ nb\_theta\_ml(y,\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}},\ y.n\_elem,\ weights,\ X,\ doCoxReid,\ ct,\ -\/5,\ 20);}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ fam-\/>setOverdispersion(\ theta\ );}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00151\ }
-\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ mu,\ eta,\ z,\ w,\ eta,\ }}
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ niter\_pql\ ==\ 0)\{}
-\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ =\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ +\ offset;}
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ eta\_old\ =\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}};}
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ =\ fit.fitted()\ +\ offset;}
-\DoxyCodeLine{00158\ }
-\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ convergence\ criteria\ based\ on\ norm\ of\ eta\ change}}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ norm(work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ -\/\ eta\_old)\ <\ tol\_eta)\{}
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00164\ }
-\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ entries\ with\ zero\ weights\ have\ NAN\ value}}
-\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}.elem(\ idx\_drop\ ).zeros();}
-\DoxyCodeLine{00167\ }
-\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ mu\ <-\/\ family\$linkinv(eta)}}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}}\ =\ fam-\/>linkinv(\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ );}
-\DoxyCodeLine{00170\ }
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ mu.eta.val\ <-\/\ family\$mu.eta(eta)}}
-\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_aca19672bd88aaabfe3de21da752a0b15}{gprime}}\ =\ fam-\/>mu\_eta(\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ );}
-\DoxyCodeLine{00173\ }
-\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ zz\ <-\/\ eta\ +\ (y.orig\ -\/\ mu)/mu.eta.val\ -\/\ offset}}
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ad2cd7f50570a2734edae6e0986db3b07}{z}}\ =\ (work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ -\/\ offset)\ +\ (y\ -\/\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}})\ /\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_aca19672bd88aaabfe3de21da752a0b15}{gprime}};}
-\DoxyCodeLine{00176\ }
-\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ wz\ <-\/\ w\ *\ mu.eta.val\string^2/family\$variance(mu)}}
-\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}}\ =\ square(work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_aca19672bd88aaabfe3de21da752a0b15}{gprime}})\ \%\ (weights\ /\ fam-\/>variance(\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}}\ ));}
-\DoxyCodeLine{00179\ }
-\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ wz\ <-\/\ wz\ /\ mean(wz)}}
-\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ w\_mean\ =\ sum(work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}})\ /\ n\_active;}
-\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}}\ =\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}}\ /\ w\_mean;}
-\DoxyCodeLine{00183\ }
-\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ model\ has\ nan\ values\ in\ z\ or\ w,\ }}
-\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ it\ can't\ be\ fit}}
-\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ so\ set\ beta\ values\ to\ nan\ }}
-\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ and\ set\ isValid\ to\ false}}
-\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ad2cd7f50570a2734edae6e0986db3b07}{z}}.has\_nan()\ ||\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}}.has\_nan()\ )\{}
-\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ fit.set\_model\_failure();}
-\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ isValid\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00193\ }
-\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ recompute\ U\ and\ s\ since\ work-\/>w\ changed}}
-\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ this-\/>dcmp.\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a147f7b2391dfc9a0c3677d39c07b0aa6}{reweight}}(work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}});}
-\DoxyCodeLine{00196\ }
-\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ fit\ fastlmm}}
-\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ fit\ =\ \mbox{\hyperlink{classfastglmm_lib_1_1fastlmm}{fastlmm}}(work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ad2cd7f50570a2734edae6e0986db3b07}{z}},\ X,\ this-\/>dcmp,\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}},\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ lambda);}
-\DoxyCodeLine{00199\ }
-\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ delta\ >\ 0\ )\{}
-\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ fit.eval\_delta(\ delta\ );\ }
-\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ fit.estimate\_delta(left,\ right,\ tol);\ \ \ }
-\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00205\ }
-\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ increment\ interation\ count}}
-\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ iter\_in\ +=\ fit.get\_iter();}
-\DoxyCodeLine{00208\ \ \ \ \ \}}
-\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00210\ \ \ \ \ \textcolor{comment}{//\ Final\ fit\ with\ ModelDetail\ md}}
-\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordflow}{if}(\ isValid\ \&\&\ (md\ >\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}})\ )\{\ \ \ \ \ \ }
-\DoxyCodeLine{00212\ }
-\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ fit\ fastlmm}}
-\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ fit\ =\ \mbox{\hyperlink{classfastglmm_lib_1_1fastlmm}{fastlmm}}(work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ad2cd7f50570a2734edae6e0986db3b07}{z}},\ X,\ this-\/>dcmp,\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}},\ md,\ lambda);}
-\DoxyCodeLine{00215\ }
-\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ delta\ >\ 0\ )\{}
-\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ fit.eval\_delta(\ delta\ );\ }
-\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ fit.estimate\_delta(left,\ right,\ tol);\ \ \ }
-\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00221\ \ \ \ \ \}}
-\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{double}\ y\_mean\ =\ datum::nan;}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{double}\ eta\_var\ =\ datum::nan;}
+\DoxyCodeLine{00081\ \ \ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md;}
+\DoxyCodeLine{00082\ \ \ \ \ shared\_ptr<GLMFamily>\ fam;}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{bool}\ isValid\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00084\ \};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
+\DoxyCodeLine{00087\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a53aff4890d4d14e44f36a10f32be3e7f}{fastglmm<T1,\ T2,\ T3>::fastglmm}}(}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{const}\ T1\ \&y,\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{const}\ T2\ \&X,\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectralDecomp<T3>}}\ \&dcmp,}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&weights,}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&offset,}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&family,\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md,\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&tol,}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&tol\_eta,}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&maxit,}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&lambda,}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&delta,}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&left,}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&right,}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&returnUS,}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&doCoxReid):}
+\DoxyCodeLine{00104\ \ \ \ \ y(y),\ }
+\DoxyCodeLine{00105\ \ \ \ \ X(X),}
+\DoxyCodeLine{00106\ \ \ \ \ weights(weights),\ }
+\DoxyCodeLine{00107\ \ \ \ \ offset(offset),\ }
+\DoxyCodeLine{00108\ \ \ \ \ dcmp(dcmp),\ }
+\DoxyCodeLine{00109\ \ \ \ \ family(family),\ }
+\DoxyCodeLine{00110\ \ \ \ \ lambda(lambda),}
+\DoxyCodeLine{00111\ \ \ \ \ returnUS(returnUS),}
+\DoxyCodeLine{00112\ \ \ \ \ md(md)}
+\DoxyCodeLine{00113\ \ \ \ \ \{}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ fam\ =\ getGLMFamily(\ family\ );}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{comment}{//\ if\ Negative\ Binomial\ with\ unspecified\ theta}}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{//\ estimate\ theta,\ and\ initialize\ with\ Poisson\ GLM}}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{bool}\ estimateTheta\ =\ family\ ==\ \textcolor{stringliteral}{"{}nb"{}}\ ?\ true\ :\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordflow}{if}(\ estimateTheta\ )\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ this-\/>family\ =\ \textcolor{stringliteral}{"{}poisson/log"{}};}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ checkResponse(y,\ this-\/>family);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work}{GLMWork}}\ *work\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work}{GLMWork}}();}
+\DoxyCodeLine{00127\ \ \ \ \ vec\ eta\_old;}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{comment}{//\ Initialize\ eta}}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{comment}{//\ just\ need\ a\ rough\ starting\ value}}
+\DoxyCodeLine{00131\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m}{ModelFitGLM}}\ fit\_init\ =\ GLM(X,\ y,\ this-\/>family,\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ weights,\ offset,\ work,\ \{\},\ 1e-\/2,\ 3,\ lambda);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{int}\ iter\_in\ =\ 0;}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{double}\ theta;}
+\DoxyCodeLine{00135\ \ \ \ \ uvec\ idx\_drop\ =\ find(weights\ ==\ 0.0);}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{double}\ n\_active\ =\ weights.n\_elem\ -\/\ idx\_drop.n\_elem;}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \mbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}}\ ct;}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{if}(\ estimateTheta\ )\{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Precompute\ lgamma()\ on\ each\ unique\ count}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ ct\ =\ CreateLUT(y,\ weights);\ }
+\DoxyCodeLine{00142\ \ \ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{comment}{//\ PQL\ iterations}}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{for}(niter\_pql=0;\ niter\_pql<maxit;\ niter\_pql++)\{}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ Negative\ Binomial\ with\ unspecified\ theta}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ estimateTheta\ )\{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ theta\ =\ nb\_theta\_ml(y,\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}},\ y.n\_elem,\ weights,\ X,\ doCoxReid,\ ct,\ -\/5,\ 20);}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ fam-\/>setOverdispersion(\ theta\ );}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ mu,\ eta,\ z,\ w,\ eta,\ }}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ niter\_pql\ ==\ 0)\{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ =\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ +\ offset;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ eta\_old\ =\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}};}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ =\ fit.fitted()\ +\ offset;}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ convergence\ criteria\ based\ on\ norm\ of\ eta\ change}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ norm(work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ -\/\ eta\_old)\ <\ tol\_eta)\{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ entries\ with\ zero\ weights\ have\ NAN\ value}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}.elem(\ idx\_drop\ ).zeros();}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ mu\ <-\/\ family\$linkinv(eta)}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}}\ =\ fam-\/>linkinv(\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ );}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ mu.eta.val\ <-\/\ family\$mu.eta(eta)}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_aca19672bd88aaabfe3de21da752a0b15}{gprime}}\ =\ fam-\/>mu\_eta(\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ );}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ zz\ <-\/\ eta\ +\ (y.orig\ -\/\ mu)/mu.eta.val\ -\/\ offset}}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ad2cd7f50570a2734edae6e0986db3b07}{z}}\ =\ (work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ -\/\ offset)\ +\ (y\ -\/\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}})\ /\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_aca19672bd88aaabfe3de21da752a0b15}{gprime}};}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ wz\ <-\/\ w\ *\ mu.eta.val\string^2/family\$variance(mu)}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}}\ =\ square(work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_aca19672bd88aaabfe3de21da752a0b15}{gprime}})\ \%\ (weights\ /\ fam-\/>variance(\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}}\ ));}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ wz\ <-\/\ wz\ /\ mean(wz)}}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ w\_mean\ =\ sum(work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}})\ /\ n\_active;}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}}\ =\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}}\ /\ w\_mean;}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ model\ has\ nan\ values\ in\ z\ or\ w,\ }}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ it\ can't\ be\ fit}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ so\ set\ beta\ values\ to\ nan\ }}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ and\ set\ isValid\ to\ false}}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ad2cd7f50570a2734edae6e0986db3b07}{z}}.has\_nan()\ ||\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}}.has\_nan()\ )\{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ fit.set\_model\_failure();}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ isValid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ recompute\ U\ and\ s\ since\ work-\/>w\ changed}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ this-\/>dcmp.\mbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a147f7b2391dfc9a0c3677d39c07b0aa6}{reweight}}(work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}});}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ fit\ fastlmm}}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ fit\ =\ \mbox{\hyperlink{classfastglmm_lib_1_1fastlmm}{fastlmm}}(work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ad2cd7f50570a2734edae6e0986db3b07}{z}},\ X,\ this-\/>dcmp,\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}},\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ lambda);}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ delta\ >\ 0\ )\{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ fit.eval\_delta(\ delta\ );\ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ fit.estimate\_delta(left,\ right,\ tol);\ \ \ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ increment\ interation\ count}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ iter\_in\ +=\ fit.get\_iter();}
+\DoxyCodeLine{00209\ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{comment}{//\ Final\ fit\ with\ ModelDetail\ md}}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordflow}{if}(\ isValid\ \&\&\ (md\ >\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}})\ )\{\ \ \ \ \ \ }
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ fit\ fastlmm}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ fit\ =\ \mbox{\hyperlink{classfastglmm_lib_1_1fastlmm}{fastlmm}}(work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ad2cd7f50570a2734edae6e0986db3b07}{z}},\ X,\ this-\/>dcmp,\ work-\/>\mbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}},\ md,\ lambda);}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ delta\ >\ 0\ )\{}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ fit.eval\_delta(\ delta\ );\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ fit.estimate\_delta(left,\ right,\ tol);\ \ \ }
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00222\ \ \ \ \ \}}
 \DoxyCodeLine{00223\ }
 \DoxyCodeLine{00224\ \ \ \ \ \textcolor{keywordflow}{if}(\ estimateTheta\ )\{}
 \DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ family\ to\ include\ estimated\ theta}}
@@ -239,107 +239,113 @@
 \DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ eta\ =\ vec(offset.n\_elem,\ fill::value(datum::nan));}
 \DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ mu\ =\ vec(offset.n\_elem,\ fill::value(datum::nan));}
 \DoxyCodeLine{00237\ \ \ \ \ \}}
-\DoxyCodeLine{00238\ \ \ \ \ mu\_mean\ =\ mean(mu);}
-\DoxyCodeLine{00239\ \ \ \ \ eta\_var\ =\ var(eta);}
-\DoxyCodeLine{00240\ }
-\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keyword}{delete}\ work;}
-\DoxyCodeLine{00242\ \}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{comment}{//\ Compute\ mean\ of\ mu}}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{comment}{//\ use\ robust\ mean\ to\ avoid\ influence\ of\ outliers}}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{comment}{//\ This\ can\ happen\ with\ many\ zero\ and\ a\ few\ large\ values}}
+\DoxyCodeLine{00242\ \ \ \ \ mu\_mean\ =\ robust\_mean(mu,\ 4);}
 \DoxyCodeLine{00243\ }
-\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00244\ \ \ \ \ eta\_var\ =\ var(eta);}
 \DoxyCodeLine{00245\ }
-\DoxyCodeLine{00246\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
-\DoxyCodeLine{00247\ \textcolor{keyword}{const}\ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_ae312a6a0452c8097e263387210275451}{fastglmm<T1,\ T2,\ T3>::residuals}}()\{}
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keyword}{delete}\ work;}
+\DoxyCodeLine{00247\ \}}
 \DoxyCodeLine{00248\ }
-\DoxyCodeLine{00249\ \ \ \ \ \textcolor{comment}{//\ Response\ residuals}}
-\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keywordflow}{return}(\ y\ -\/\ mu\ );\ }
-\DoxyCodeLine{00251\ \}}
-\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
+\DoxyCodeLine{00252\ \textcolor{keyword}{const}\ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_ae312a6a0452c8097e263387210275451}{fastglmm<T1,\ T2,\ T3>::residuals}}()\{}
 \DoxyCodeLine{00253\ }
-\DoxyCodeLine{00254\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
-\DoxyCodeLine{00255\ \textcolor{keyword}{const}\ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a0d841e00a3764bb9f67dd228ce388cf6}{fastglmm<T1,\ T2,\ T3>::residuals\_pearson}}()\{}
-\DoxyCodeLine{00256\ }
-\DoxyCodeLine{00257\ \ \ \ \ \textcolor{comment}{//\ Pearson\ residuals}}
-\DoxyCodeLine{00258\ \ \ \ \ \textcolor{comment}{//\ (y\ -\/\ mu)\ *\ sqrt(wts)\ /\ sqrt(fam\$variance(mu))}}
-\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordflow}{return}\ (y\ -\/\ mu)\ \%\ sqrt(weights)\ /\ sqrt(fam-\/>variance(mu));}
-\DoxyCodeLine{00260\ \}}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{comment}{//\ Response\ residuals}}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordflow}{return}(\ y\ -\/\ mu\ );\ }
+\DoxyCodeLine{00256\ \}}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
+\DoxyCodeLine{00260\ \textcolor{keyword}{const}\ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a0d841e00a3764bb9f67dd228ce388cf6}{fastglmm<T1,\ T2,\ T3>::residuals\_pearson}}()\{}
 \DoxyCodeLine{00261\ }
-\DoxyCodeLine{00262\ }
-\DoxyCodeLine{00263\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
-\DoxyCodeLine{00264\ \textcolor{keyword}{const}\ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a82ae5304ae2c5f793dccf546bbdffe00}{fastglmm<T1,\ T2,\ T3>::fitted}}()\{}
-\DoxyCodeLine{00265\ }
-\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keywordflow}{return}\ fam-\/>linkinv(\ fit.fitted()\ );}
-\DoxyCodeLine{00267\ \}}
-\DoxyCodeLine{00268\ }
-\DoxyCodeLine{00269\ }
-\DoxyCodeLine{00270\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
-\DoxyCodeLine{00271\ \textcolor{keyword}{const}\ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a7490d79ba70ea450b33a66d17c062666}{fastglmm<T1,\ T2,\ T3>::devianceResiduals}}()\{}
-\DoxyCodeLine{00272\ }
-\DoxyCodeLine{00273\ \ \ \ \ \textcolor{comment}{//\ transform\ from\ residuals.glm}}
-\DoxyCodeLine{00274\ \ \ \ \ \textcolor{comment}{//\ d.res\ <-\/\ sqrt(pmax((object\$family\$dev.resids)(y,\ mu,\ }}
-\DoxyCodeLine{00275\ \ \ \textcolor{comment}{//\ \ \ \ \ wts),\ 0))}}
-\DoxyCodeLine{00276\ \ \ \textcolor{comment}{//\ ifelse(y\ >\ mu,\ d.res,\ -\/d.res)}}
+\DoxyCodeLine{00262\ \ \ \ \ \textcolor{comment}{//\ Pearson\ residuals}}
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{comment}{//\ (y\ -\/\ mu)\ *\ sqrt(wts)\ /\ sqrt(fam\$variance(mu))}}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keywordflow}{return}\ (y\ -\/\ mu)\ \%\ sqrt(weights)\ /\ sqrt(fam-\/>variance(mu));}
+\DoxyCodeLine{00265\ \}}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
+\DoxyCodeLine{00269\ \textcolor{keyword}{const}\ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a82ae5304ae2c5f793dccf546bbdffe00}{fastglmm<T1,\ T2,\ T3>::fitted}}()\{}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordflow}{return}\ fam-\/>linkinv(\ fit.fitted()\ );}
+\DoxyCodeLine{00272\ \}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
+\DoxyCodeLine{00276\ \textcolor{keyword}{const}\ vec\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a7490d79ba70ea450b33a66d17c062666}{fastglmm<T1,\ T2,\ T3>::devianceResiduals}}()\{}
 \DoxyCodeLine{00277\ }
-\DoxyCodeLine{00278\ \ \ \ \ \textcolor{comment}{//\ compute\ raw\ deviance\ residuals}}
-\DoxyCodeLine{00279\ \ \ \ \ vec\ dr\ =\ fam-\/>dev\_resids(y,\ mu,\ weights);}
-\DoxyCodeLine{00280\ }
-\DoxyCodeLine{00281\ \ \ \ \ vec\ drMod\ =\ sqrt(pmax(dr,\ 0));}
-\DoxyCodeLine{00282\ \ \ \ \ uvec\ idx\ =\ find(y\ <=\ mu);}
-\DoxyCodeLine{00283\ \ \ \ \ drMod.elem(idx)\ =\ -\/1.0*drMod.elem(idx);}
-\DoxyCodeLine{00284\ }
-\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordflow}{return}\ drMod;}
-\DoxyCodeLine{00286\ \}}
-\DoxyCodeLine{00287\ }
-\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{comment}{//\ transform\ from\ residuals.glm}}
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{comment}{//\ d.res\ <-\/\ sqrt(pmax((object\$family\$dev.resids)(y,\ mu,\ }}
+\DoxyCodeLine{00280\ \ \ \textcolor{comment}{//\ \ \ \ \ wts),\ 0))}}
+\DoxyCodeLine{00281\ \ \ \textcolor{comment}{//\ ifelse(y\ >\ mu,\ d.res,\ -\/d.res)}}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{comment}{//\ compute\ raw\ deviance\ residuals}}
+\DoxyCodeLine{00284\ \ \ \ \ vec\ dr\ =\ fam-\/>dev\_resids(y,\ mu,\ weights);}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ vec\ drMod\ =\ sqrt(pmax(dr,\ 0));}
+\DoxyCodeLine{00287\ \ \ \ \ uvec\ idx\ =\ find(y\ <=\ mu);}
+\DoxyCodeLine{00288\ \ \ \ \ drMod.elem(idx)\ =\ -\/1.0*drMod.elem(idx);}
 \DoxyCodeLine{00289\ }
-\DoxyCodeLine{00290\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
-\DoxyCodeLine{00291\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m}{ModelFitGLMM}}\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a3cfc852df4bdf93a5805e0b0c7466209}{fastglmm<T1,\ T2,\ T3>::get\_result}}()\{}
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{keywordflow}{return}\ drMod;}
+\DoxyCodeLine{00291\ \}}
 \DoxyCodeLine{00292\ }
-\DoxyCodeLine{00293\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m}{ModelFitLMM}}\ res1\ =\ fit.get\_result(returnUS);}
-\DoxyCodeLine{00294\ \ \ \ \ res1.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a11b4c0d37ab16509143ff2cd5cd053e8}{set\_w\_mean}}(\ w\_mean\ );}
-\DoxyCodeLine{00295\ }
-\DoxyCodeLine{00296\ \ \ \ \ \textcolor{comment}{//\ if\ model\ is\ not\ valid,\ it\ failed\ before\ final\ calculations}}
-\DoxyCodeLine{00297\ \ \ \ \ \textcolor{comment}{//\ so\ set\ values\ to\ NAN\ matching\ ModelDetail}}
-\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ isValid\ )\{}
-\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ coefs}}
-\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ p\ =\ X.n\_cols;}
-\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ res1.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}}\ =\ vec(p,\ fill::value(datum::nan));}
-\DoxyCodeLine{00302\ }
-\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\ md\ )\{}
-\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ab9cd19e431dfc975f4ae5904e3ffb375}{MAX}}:\ \ \ \ \ \ \ }
-\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ res1.hatvalues\ =\ hatvalues();}}
-\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a230e5187507a3507ad7bde480080c191}{MOST}}:}
-\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ res1.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_ae7e1abdc7b2918fe78d74f96b2ed56d5}{hatvalues}}.fill(datum::nan);\ }
-\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2aa987f00d03050fb355d8d246a2c4d4e1}{HIGH}}:\ }
-\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ res1.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2d6e59e0f7fab81d35e413ff3f7c863d}{residuals}}.fill(datum::nan);}
-\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a41a28e506b339e530c5d8646e971e116}{MEDIUM}}:\ }
-\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res1.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}\ =\ mat(p,\ p,\ fill::value(datum::nan));}
-\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}}:\ }
-\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res1.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}}\ =\ vec(p,\ fill::value(datum::nan));}
-\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res1.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}}\ =\ datum::nan;}
-\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}}:\ }
-\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00318\ \ \ \ \ \}}
-\DoxyCodeLine{00319\ }
-\DoxyCodeLine{00320\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m}{ModelFitGLMM}}\ mf(res1,\ family,\ niter\_pql);}
-\DoxyCodeLine{00321\ }
-\DoxyCodeLine{00322\ \ \ \ \ mf.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a0cd9f08c7585c670ca73980e1c3d9a41}{mu\_mean}}\ =\ mu\_mean;}
-\DoxyCodeLine{00323\ \ \ \ \ mf.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_ab25d3f4abfc37b65d541ec58f886745d}{varFitted}}\ =\ eta\_var;}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
+\DoxyCodeLine{00296\ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m}{ModelFitGLMM}}\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a3cfc852df4bdf93a5805e0b0c7466209}{fastglmm<T1,\ T2,\ T3>::get\_result}}()\{}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m}{ModelFitLMM}}\ res1\ =\ fit.get\_result(returnUS);}
+\DoxyCodeLine{00299\ \ \ \ \ res1.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a11b4c0d37ab16509143ff2cd5cd053e8}{set\_w\_mean}}(\ w\_mean\ );}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \ \ \textcolor{comment}{//\ if\ model\ is\ not\ valid,\ it\ failed\ before\ final\ calculations}}
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{comment}{//\ so\ set\ values\ to\ NAN\ matching\ ModelDetail}}
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ isValid\ )\{}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ coefs}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ p\ =\ X.n\_cols;}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ res1.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}}\ =\ vec(p,\ fill::value(datum::nan));}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\ md\ )\{}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ab9cd19e431dfc975f4ae5904e3ffb375}{MAX}}:\ \ \ \ \ \ \ }
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ res1.hatvalues\ =\ hatvalues();}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a230e5187507a3507ad7bde480080c191}{MOST}}:}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ res1.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_ae7e1abdc7b2918fe78d74f96b2ed56d5}{hatvalues}}.fill(datum::nan);\ }
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2aa987f00d03050fb355d8d246a2c4d4e1}{HIGH}}:\ }
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ res1.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2d6e59e0f7fab81d35e413ff3f7c863d}{residuals}}.fill(datum::nan);}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a41a28e506b339e530c5d8646e971e116}{MEDIUM}}:\ }
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res1.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}\ =\ mat(p,\ p,\ fill::value(datum::nan));}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}}:\ }
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res1.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}}\ =\ vec(p,\ fill::value(datum::nan));}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res1.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c3704281b2ab5fcd244a4cc4da67386}{rdf}}\ =\ datum::nan;}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}}:\ }
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00323\ \ \ \ \ \}}
 \DoxyCodeLine{00324\ }
-\DoxyCodeLine{00325\ \ \ \textcolor{keywordflow}{if}(\ md\ ==\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ab9cd19e431dfc975f4ae5904e3ffb375}{MAX}}\ )\{}
-\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ mf.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a36747d1197e07f51c8e779c879377cdb}{devianceResiduals}}\ =\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a7490d79ba70ea450b33a66d17c062666}{devianceResiduals}}();}
-\DoxyCodeLine{00327\ \ \ \}}
-\DoxyCodeLine{00328\ }
-\DoxyCodeLine{00329\ \ \ \textcolor{keywordflow}{if}(\ md\ >=\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2aa987f00d03050fb355d8d246a2c4d4e1}{HIGH}}\ )\{}
-\DoxyCodeLine{00330\ \ \ \ \ \textcolor{comment}{//\ Respones\ residuals}}
-\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ mf.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2d6e59e0f7fab81d35e413ff3f7c863d}{residuals}}\ =\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_ae312a6a0452c8097e263387210275451}{residuals}}();\ }
-\DoxyCodeLine{00332\ \ \ \}\ }
-\DoxyCodeLine{00333\ \ \ }
-\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keywordflow}{return}\ mf;}
-\DoxyCodeLine{00335\ \}}
-\DoxyCodeLine{00336\ }
-\DoxyCodeLine{00337\ }
-\DoxyCodeLine{00338\ \}\ \textcolor{comment}{//\ end\ namespace}}
-\DoxyCodeLine{00339\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00325\ \ \ \ \ \mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m}{ModelFitGLMM}}\ mf(res1,\ family,\ niter\_pql);}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ mf.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a0cd9f08c7585c670ca73980e1c3d9a41}{mu\_mean}}\ =\ mu\_mean;}
+\DoxyCodeLine{00328\ \ \ \ \ mf.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a6ce834b03209e1d7856611fffa7bfde5}{y\_mean}}\ =\ mean(y);}
+\DoxyCodeLine{00329\ \ \ \ \ mf.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_ab25d3f4abfc37b65d541ec58f886745d}{varFitted}}\ =\ eta\_var;}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \textcolor{keywordflow}{if}(\ md\ ==\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ab9cd19e431dfc975f4ae5904e3ffb375}{MAX}}\ )\{}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ mf.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a36747d1197e07f51c8e779c879377cdb}{devianceResiduals}}\ =\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a7490d79ba70ea450b33a66d17c062666}{devianceResiduals}}();}
+\DoxyCodeLine{00333\ \ \ \}}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ \ \ \textcolor{keywordflow}{if}(\ md\ >=\ \mbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2aa987f00d03050fb355d8d246a2c4d4e1}{HIGH}}\ )\{}
+\DoxyCodeLine{00336\ \ \ \ \ \textcolor{comment}{//\ Respones\ residuals}}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ mf.\mbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2d6e59e0f7fab81d35e413ff3f7c863d}{residuals}}\ =\ \mbox{\hyperlink{classfastglmm_lib_1_1fastglmm_ae312a6a0452c8097e263387210275451}{residuals}}();\ }
+\DoxyCodeLine{00338\ \ \ \}\ }
+\DoxyCodeLine{00339\ \ \ }
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{keywordflow}{return}\ mf;}
+\DoxyCodeLine{00341\ \}}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \}\ \textcolor{comment}{//\ end\ namespace}}
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

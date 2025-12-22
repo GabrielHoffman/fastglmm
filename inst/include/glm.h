@@ -512,7 +512,10 @@ static ModelFitGLMList glmFitResponses(
 
 			// return mean of mu for jth response
 			fit.mu_mean = mean(work->mu);
-		
+
+			// return mean of response
+			fit.y_mean = mean(y);
+
       // save result to list
       fitList.at(j) = fit;
     }  

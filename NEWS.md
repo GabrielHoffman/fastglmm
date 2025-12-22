@@ -2,7 +2,9 @@
 
 # fastglmm 0.3.7
  - performance improvements
- - add ridge regression
+ - add ridge regression in fastglmm and fastlmm
+ - in variance partitioning analysis, add faster approximation of baseline rate for count models
+
 
 # fastglmm 0.3.6
  - add isCountModel() in C++

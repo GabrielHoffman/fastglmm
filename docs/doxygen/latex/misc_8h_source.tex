@@ -304,11 +304,25 @@
 \DoxyCodeLine{00302\ \ \ \textcolor{keywordflow}{return}\ res;}
 \DoxyCodeLine{00303\ \}}
 \DoxyCodeLine{00304\ }
-\DoxyCodeLine{00305\ }
-\DoxyCodeLine{00306\ }
-\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00307\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ robust\_mean(\ \textcolor{keyword}{const}\ vec\ \&x,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&z\_cutoff)\{}
 \DoxyCodeLine{00308\ }
-\DoxyCodeLine{00309\ }
-\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00309\ \ \ \textcolor{comment}{//\ keep\ only\ finite\ values}}
+\DoxyCodeLine{00310\ \ \ vec\ x1\ =\ x.elem(find\_finite(x));}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \textcolor{comment}{//\ compute\ z-\/score}}
+\DoxyCodeLine{00313\ \ \ vec\ z\ =\ (x1\ -\/\ mean(x1))\ /\ stddev(x1);}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \textcolor{comment}{//\ find\ indeces\ where\ abs\ z-\/score\ is\ less\ than\ cutoff}}
+\DoxyCodeLine{00316\ \ \ uvec\ idx\ =\ find(abs(z)\ <\ z\_cutoff);}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \textcolor{comment}{//\ mean\ of\ retained\ values}}
+\DoxyCodeLine{00319\ \ \ \textcolor{keywordflow}{return}\ mean(x1.elem(idx));}
+\DoxyCodeLine{00320\ \}}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

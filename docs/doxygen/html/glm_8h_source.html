@@ -547,42 +547,45 @@ $(function() {
 <div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span> </div>
 <div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>            <span class="comment">// return mean of mu for jth response</span></div>
 <div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>            fit.mu_mean = mean(work-&gt;mu);</div>
-<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>        </div>
-<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>      <span class="comment">// save result to list</span></div>
-<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>      fitList.at(j) = fit;</div>
-<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>    }  </div>
-<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>    <span class="keyword">delete</span> work;</div>
-<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>    }); });</div>
-<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span> </div>
-<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>  <span class="keywordflow">return</span> fitList;</div>
-<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>}</div>
-<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span></div>
-<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span><span class="keyword">static</span> <a class="code hl_typedef" href="namespacefastglmm_lib.html#ab5362fc8877a16829bbb048bd132ae96">ModelFitGLMList</a> glmFitResponses(</div>
-<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>    <span class="keyword">const</span> arma::mat &amp;Y, </div>
-<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>    <span class="keyword">const</span> arma::mat &amp;X, </div>
-<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>    <span class="keyword">const</span> vector&lt;string&gt; &amp;ids, </div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>    <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;family, </div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>    <span class="keyword">const</span> arma::vec &amp;weights = {}, </div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>    <span class="keyword">const</span> vec &amp;offset = {}, </div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2">ModelDetail</a> md = <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0">LOW</a>, </div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;doCoxReid = <span class="keyword">true</span>, </div>
-<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;nthreads = 1, </div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;epsilon = 1e-8, </div>
-<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;maxit = 25, </div>
-<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;epsilon_nb = 1e-4, </div>
-<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> &amp; maxit_nb = 5,</div>
-<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;lambda = 0){</div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span> </div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>    <span class="comment">// all responses analyzed with same family value</span></div>
-<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>    vector&lt;string&gt; famVec(Y.n_cols, family);</div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span> </div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>            <span class="comment">// return mean of response</span></div>
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>            fit.y_mean = mean(y);</div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span> </div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>      <span class="comment">// save result to list</span></div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>      fitList.at(j) = fit;</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>    }  </div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>    <span class="keyword">delete</span> work;</div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>    }); });</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span> </div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>  <span class="keywordflow">return</span> fitList;</div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>}</div>
+<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span></div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span><span class="keyword">static</span> <a class="code hl_typedef" href="namespacefastglmm_lib.html#ab5362fc8877a16829bbb048bd132ae96">ModelFitGLMList</a> glmFitResponses(</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>    <span class="keyword">const</span> arma::mat &amp;Y, </div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>    <span class="keyword">const</span> arma::mat &amp;X, </div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>    <span class="keyword">const</span> vector&lt;string&gt; &amp;ids, </div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>    <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;family, </div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>    <span class="keyword">const</span> arma::vec &amp;weights = {}, </div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>    <span class="keyword">const</span> vec &amp;offset = {}, </div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2">ModelDetail</a> md = <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0">LOW</a>, </div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;doCoxReid = <span class="keyword">true</span>, </div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;nthreads = 1, </div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;epsilon = 1e-8, </div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;maxit = 25, </div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;epsilon_nb = 1e-4, </div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> &amp; maxit_nb = 5,</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;lambda = 0){</div>
 <div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span> </div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    <span class="keywordflow">return</span> glmFitResponses( Y, X, ids, famVec, weights, offset, md, doCoxReid, nthreads, epsilon, maxit, epsilon_nb, maxit_nb, lambda);</div>
-<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>}</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    <span class="comment">// all responses analyzed with same family value</span></div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    vector&lt;string&gt; famVec(Y.n_cols, family);</div>
 <div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span> </div>
-<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span> </div>
-<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>};</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>    <span class="keywordflow">return</span> glmFitResponses( Y, X, ids, famVec, weights, offset, md, doCoxReid, nthreads, epsilon, maxit, epsilon_nb, maxit_nb, lambda);</div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>}</div>
 <div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span> </div>
-<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span> </div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>};</div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span> </div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_g_l_m_html"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit_g_l_m.html">fastglmmLib::ModelFitGLM</a></div><div class="ttdef"><b>Definition</b> ModelFit.h:165</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_html"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit.html">fastglmmLib::ModelFit</a></div><div class="ttdef"><b>Definition</b> ModelFit.h:37</div></div>
 <div class="ttc" id="aclassfastglmm_lib_1_1_model_fit_html_a16b2eba98289e6bcde50efaea15705cb"><div class="ttname"><a href="classfastglmm_lib_1_1_model_fit.html#a16b2eba98289e6bcde50efaea15705cb">fastglmmLib::ModelFit::coef</a></div><div class="ttdeci">vec coef</div><div class="ttdef"><b>Definition</b> ModelFit.h:40</div></div>
@@ -597,8 +600,8 @@ $(function() {
 <div class="ttc" id="anamespacefastglmm_lib_html_a7cbb450b70991b1d13a57f8200c131f2aa987f00d03050fb355d8d246a2c4d4e1"><div class="ttname"><a href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2aa987f00d03050fb355d8d246a2c4d4e1">fastglmmLib::HIGH</a></div><div class="ttdeci">@ HIGH</div><div class="ttdef"><b>Definition</b> ModelFit.h:30</div></div>
 <div class="ttc" id="anamespacefastglmm_lib_html_a7cbb450b70991b1d13a57f8200c131f2ab9cd19e431dfc975f4ae5904e3ffb375"><div class="ttname"><a href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ab9cd19e431dfc975f4ae5904e3ffb375">fastglmmLib::MAX</a></div><div class="ttdeci">@ MAX</div><div class="ttdef"><b>Definition</b> ModelFit.h:32</div></div>
 <div class="ttc" id="anamespacefastglmm_lib_html_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0"><div class="ttname"><a href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0">fastglmmLib::LOW</a></div><div class="ttdeci">@ LOW</div><div class="ttdef"><b>Definition</b> ModelFit.h:28</div></div>
-<div class="ttc" id="anamespacefastglmm_lib_html_ab5362fc8877a16829bbb048bd132ae96"><div class="ttname"><a href="namespacefastglmm_lib.html#ab5362fc8877a16829bbb048bd132ae96">fastglmmLib::ModelFitGLMList</a></div><div class="ttdeci">vector&lt; ModelFitGLM &gt; ModelFitGLMList</div><div class="ttdef"><b>Definition</b> ModelFit.h:389</div></div>
-<div class="ttc" id="anamespacefastglmm_lib_html_abe7eeaa6ccb8f0b33c2d18c1ee39701d"><div class="ttname"><a href="namespacefastglmm_lib.html#abe7eeaa6ccb8f0b33c2d18c1ee39701d">fastglmmLib::ModelFitList</a></div><div class="ttdeci">vector&lt; ModelFit &gt; ModelFitList</div><div class="ttdef"><b>Definition</b> ModelFit.h:388</div></div>
+<div class="ttc" id="anamespacefastglmm_lib_html_ab5362fc8877a16829bbb048bd132ae96"><div class="ttname"><a href="namespacefastglmm_lib.html#ab5362fc8877a16829bbb048bd132ae96">fastglmmLib::ModelFitGLMList</a></div><div class="ttdeci">vector&lt; ModelFitGLM &gt; ModelFitGLMList</div><div class="ttdef"><b>Definition</b> ModelFit.h:391</div></div>
+<div class="ttc" id="anamespacefastglmm_lib_html_abe7eeaa6ccb8f0b33c2d18c1ee39701d"><div class="ttname"><a href="namespacefastglmm_lib.html#abe7eeaa6ccb8f0b33c2d18c1ee39701d">fastglmmLib::ModelFitList</a></div><div class="ttdeci">vector&lt; ModelFit &gt; ModelFitList</div><div class="ttdef"><b>Definition</b> ModelFit.h:390</div></div>
 <div class="ttc" id="anb__theta_8h_html"><div class="ttname"><a href="nb__theta_8h.html">nb_theta.h</a></div></div>
 <div class="ttc" id="anb__theta_8h_html_a9cdc304469f800a940be5189b1301b3b"><div class="ttname"><a href="nb__theta_8h.html#a9cdc304469f800a940be5189b1301b3b">CountTable</a></div><div class="ttdeci">unordered_map&lt; long, double &gt; CountTable</div><div class="ttdef"><b>Definition</b> nb_theta.h:12</div></div>
 <div class="ttc" id="astructfastglmm_lib_1_1_g_l_m_work_html"><div class="ttname"><a href="structfastglmm_lib_1_1_g_l_m_work.html">fastglmmLib::GLMWork</a></div><div class="ttdef"><b>Definition</b> glm.h:65</div></div>

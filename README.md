@@ -18,6 +18,8 @@ As an introduction, consider fitting a LMM to the `sleepstudy` data distributed 
 
 ```r
 library(fastglmm)
+data(sleepstudy, package="lme4")
+
 fit <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy)
 
 fit

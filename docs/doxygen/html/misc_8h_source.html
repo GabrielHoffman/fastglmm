@@ -424,13 +424,27 @@ $(function() {
 <div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
 <div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>  <span class="keywordflow">return</span> res;</div>
 <div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>}</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span></div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="keyword">static</span> <span class="keywordtype">double</span> robust_mean( <span class="keyword">const</span> vec &amp;x, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;z_cutoff){</div>
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>  <span class="comment">// keep only finite values</span></div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>  vec x1 = x.elem(find_finite(x));</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>  <span class="comment">// compute z-score</span></div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>  vec z = (x1 - mean(x1)) / stddev(x1);</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>  <span class="comment">// find indeces where abs z-score is less than cutoff</span></div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>  uvec idx = find(abs(z) &lt; z_cutoff);</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span> </div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>  <span class="comment">// mean of retained values</span></div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>  <span class="keywordflow">return</span> mean(x1.elem(idx));</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>}</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> </div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassblocked__range_html_a2d8fd08bdc4b9f36956da0ab4a20e35a"><div class="ttname"><a href="classblocked__range.html#a2d8fd08bdc4b9f36956da0ab4a20e35a">blocked_range::blocked_range</a></div><div class="ttdeci">blocked_range(T begin, T end)</div><div class="ttdef"><b>Definition</b> misc.h:231</div></div>
 <div class="ttc" id="aclassblocked__range_html_a3fcfbfea120452696ad38bc0ac4642eb"><div class="ttname"><a href="classblocked__range.html#a3fcfbfea120452696ad38bc0ac4642eb">blocked_range::end</a></div><div class="ttdeci">T end()</div><div class="ttdef"><b>Definition</b> misc.h:236</div></div>
 <div class="ttc" id="aclassblocked__range_html_ae476798641214d341773f96d6a34dd7f"><div class="ttname"><a href="classblocked__range.html#ae476798641214d341773f96d6a34dd7f">blocked_range::begin</a></div><div class="ttdeci">T begin()</div><div class="ttdef"><b>Definition</b> misc.h:235</div></div>
