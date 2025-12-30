@@ -51,8 +51,9 @@ class glmmFitResponses {
   T2 X;  
   spectralDecomp<T3> dcmp;
   vec weights, offset;
+  double left, right, tol, tol_eta;
   int maxit;
-  double left, right, tol, tol_eta, lambda;
+  double lambda;
   int nthreads;
   ModelDetail md;
 
