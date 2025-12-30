@@ -10,6 +10,8 @@
 #ifndef _EXPORT_TO_R_FASTLMM_
 #define _EXPORT_TO_R_FASTLMM_
 
+#ifdef USE_R
+
 using namespace Rcpp; 
 using namespace fastglmmLib;
 
@@ -100,4 +102,5 @@ const List toList(fastglmm<T1, T2, T3> & fit){
   return toList( res );
 }
 
+#endif
 #endif

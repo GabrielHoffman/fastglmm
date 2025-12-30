@@ -10,8 +10,17 @@
 #ifndef _GLM_H_
 #define _GLM_H_
 
-// [[Rcpp::depends(RcppParallel)]]	
+// if -D USE_R, use RcppArmadillo library
+#ifdef USE_R
+// [[Rcpp::depends(RcppParallel)]]  
+// [[Rcpp::depends(RcppParallel)]]
+#include <RcppArmadillo.h>
 #include <RcppParallel.h>
+#else
+#include <armadillo>
+#include <tbb/tbb.h>
+#endif
+
 
 #include <iostream>
 

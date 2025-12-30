@@ -1,11 +1,12 @@
 #ifndef FASTLMM_MISC_H_
 #define FASTLMM_MISC_H_
 
-// if -D ARMA, use plain armadillo library
-#ifdef ARMA
-#include <armadillo>
-#else
+// if -D USE_R, use RcppArmadillo library
+#ifdef USE_R
+// [[Rcpp::depends(RcppParallel)]]  
 #include <RcppArmadillo.h>
+#else
+#include <armadillo>
 #endif
 
 using namespace arma;
@@ -163,11 +164,15 @@ static vec pmin( const vec &v, const double &value){
   return tmp;
 }
 
+#include "qnorm.h"
 static vec qnorm( const vec & v, const double &mean=0, const double &sd=1 ){
   vec tmp(v);
   for(int i=0; i<tmp.n_elem; i++){
-    tmp[i] = R::qnorm(tmp[i], mean, sd, 1, 0);
-    // tmp[i] = glm::qnorm(tmp[i],  mean, sd, 1, 0);
+    // R implementation of qnorm
+    // tmp[i] = R::qnorm(tmp[i], mean, sd, 1, 0);
+
+    // C++ without R dependency
+    tmp[i] = qnorm_as241(v[i], mean, sd, 1, 0);
   }
 
   return tmp;

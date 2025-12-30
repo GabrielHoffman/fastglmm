@@ -9,11 +9,12 @@
 #ifndef _FASTGLMM_FIT_H_
 #define _FASTGLMM_FIT_H_
 
-// if -D ARMA, use plain armadillo library
-#ifdef ARMA
-#include <armadillo>
-#else
+// if -D USE_R, use RcppArmadillo library
+#ifdef USE_R
+// [[Rcpp::depends(RcppParallel)]]	
 #include <RcppArmadillo.h>
+#else
+#include <armadillo>
 #endif
 
 #include "fastlmm_fit.h"

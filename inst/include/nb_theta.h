@@ -1,4 +1,10 @@
+// if -D USE_R, use RcppArmadillo library
+#ifdef USE_R
+// [[Rcpp::depends(RcppParallel)]]	
+#include <RcppArmadillo.h>
+#else
 #include <armadillo>
+#endif
 
 #include "local_min.h"
 

@@ -2,11 +2,11 @@
 #ifndef SPECTRAL_DECOMP_H_
 #define SPECTRAL_DECOMP_H_
 
-// if -D ARMA, use plain armadillo library
-#ifdef ARMA
-#include <armadillo>
-#else
+// if -D USE_R, use RcppArmadillo library
+#ifdef USE_R
 #include <RcppArmadillo.h>
+#else
+#include <armadillo>
 #endif
 
 #include "misc.h"
