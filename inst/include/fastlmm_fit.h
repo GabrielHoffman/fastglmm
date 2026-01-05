@@ -312,7 +312,7 @@ const double fastlmm<T1, T2, T3>::get_rdf(){
   vec w = (s/(delta_hat*s + pow(delta_hat,2)));
   mat A = mat(X / delta_hat - U * scaleEachCol( Xu, w));
   mat D_A_t = solve(mat(A.t() * X), A.t(), 
-    solve_opts::allow_ugly);
+    solve_opts::allow_ugly + solve_opts::fast);
   double h2_sum = delta_hat * arma::accu(A % D_A_t.t());
 
   return h1_sum - h2_sum;

@@ -314,6 +314,11 @@ static double robust_mean( const vec &x, const double &z_cutoff){
   // keep only finite values
   vec x1 = x.elem(find_finite(x));
 
+  // if no elements retained
+  if( x1.n_elem == 0){
+    return datum::nan;
+  }
+
   // compute z-score
   vec z = (x1 - mean(x1)) / stddev(x1);
 
