@@ -136,7 +136,8 @@ class BinomialProbit :
 	}
 	vec linkinv( const vec &eta) const { 
 	  // pnorm(eta)
-	  return normcdf( pmin(pmax(eta, -thresh), thresh) );
+	  // return normcdf( pmin(pmax(eta, -thresh), thresh) );
+	  return normcdf( clamp(eta, -thresh, thresh) );
 	}
 	vec mu_eta( const vec &eta) const {
 		// pmax(dnorm(eta), .Machine$double.eps)

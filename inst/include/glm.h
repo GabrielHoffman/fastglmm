@@ -470,18 +470,18 @@ static ModelFitGLMList glmFitResponses(
 	const double & maxit_nb = 5,
 	const double &lambda = 0){
 
-  // standardize weights
-  vec w_norm = weights;
-  if( ! w_norm.is_empty() ){
-  	w_norm = w_norm / mean(w_norm);
-  }
+	// standardize weights
+	vec w_norm = weights;
+	if( ! w_norm.is_empty() ){
+		w_norm = w_norm / mean(w_norm);
+	}
 
-  ModelFitGLMList fitList(Y.n_cols, ModelFitGLM());
+	ModelFitGLMList fitList(Y.n_cols, ModelFitGLM());
 
-  // find rows in X with NAN values
- 	uvec idx_drop = rows_with_nan(X);  
- 	mat X_clean(X);
- 	X_clean.rows(idx_drop).zeros();
+	// find rows in X with NAN values
+	uvec idx_drop = rows_with_nan(X);  
+	mat X_clean(X);
+	X_clean.rows(idx_drop).zeros();
 
 	// Parallel part using Thread Building Blocks
 	tbb::task_arena limited_arena(nthreads);
@@ -492,31 +492,31 @@ static ModelFitGLMList glmFitResponses(
 
 		disable_parallel_blas();
 
-  	// local workspace 
+		// local workspace 
 		GLMWork *work = new GLMWork();
 		vec y, w;
 		uvec idx;
 
-    // iterate through responses 
-    for (int j = r.begin(); j != r.end(); ++j) {  
+		// iterate through responses 
+		for (int j = r.begin(); j != r.end(); ++j) {  
 
-    	// identify samples with NAN entries
-    	// set values and weights to zero
-    	y = Y.col(j);	
-    	w = w_norm;
-    	idx = unique(join_cols(find_nan(y), idx_drop));
-    	y.elem(idx).zeros();
+			// identify samples with NAN entries
+			// set values and weights to zero
+			y = Y.col(j);	
+			w = w_norm;
+			idx = unique(join_cols(find_nan(y), idx_drop));
+			y.elem(idx).zeros();
 			w.elem(idx).zeros();
 
-    	// GLM regression   
-    	ModelFitGLM fit;
-    	if( family[j] == "nb" ){
-      	fit = GLM_NB(X_clean, y, md, w, offset, doCoxReid, work, {}, epsilon, maxit, epsilon_nb, maxit_nb, lambda);
-    	}else{
-      	fit = GLM(X_clean, y, family[j], md, w, offset, work, {}, epsilon, maxit, lambda);
-      }
+			// GLM regression   
+			ModelFitGLM fit;
+			if( family[j] == "nb" ){
+				fit = GLM_NB(X_clean, y, md, w, offset, doCoxReid, work, {}, epsilon, maxit, epsilon_nb, maxit_nb, lambda);
+			}else{
+				fit = GLM(X_clean, y, family[j], md, w, offset, work, {}, epsilon, maxit, lambda);
+			}
 
-	    // Save feature ID
+			// Save feature ID
 			fit.ID = ids[j];
 
 			// return mean of mu for jth response
@@ -525,14 +525,14 @@ static ModelFitGLMList glmFitResponses(
 			// return mean of response
 			fit.y_mean = mean(y);
 
-      // save result to list
-      fitList.at(j) = fit;
+			// save result to list
+			fitList.at(j) = fit;
     }  
-    delete work;
+		delete work;
 	}); });
 
-  return fitList;
-}
+	return fitList;
+	}
 
 /** Fit series of linear regression models to multiple responses with shared design matrix  
  * 
