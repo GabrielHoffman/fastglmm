@@ -2,17 +2,17 @@
 % Please edit documentation in R/misc.R
 \name{isNB}
 \alias{isNB}
-\title{Is fit a negative binomial model}
+\title{Is object a negative binomial model}
 \usage{
-isNB(fit)
+isNB(x)
 }
 \arguments{
-\item{fit}{model fit}
+\item{x}{family or model fit}
 }
 \value{
 TRUE for NB models
 }
 \description{
-Is fit a negative binomial model
+Is object a negative binomial model
 }
 \keyword{internal}

@@ -23,13 +23,14 @@ var searchData=
   ['get_5fx_20',['get_X',['../classfastglmm_lib_1_1_clean_data.html#ae4b2a55c30462ba96309752fbe4a9761',1,'fastglmmLib::CleanData']]],
   ['get_5fy_21',['get_Y',['../classfastglmm_lib_1_1_clean_data.html#a6dc133384a57ef4deace7efee9edb81f',1,'fastglmmLib::CleanData']]],
   ['get_5fy_22',['get_y',['../classfastglmm_lib_1_1fastlmm.html#a479092a5aebd65192991c7fd985a7abb',1,'fastglmmLib::fastlmm']]],
-  ['glm_2eh_23',['glm.h',['../glm_8h.html',1,'']]],
-  ['glm_5ffamily_2eh_24',['glm_family.h',['../glm__family_8h.html',1,'']]],
-  ['glmfamily_25',['GLMFamily',['../classfastglmm_lib_1_1_g_l_m_family.html',1,'fastglmmLib::GLMFamily'],['../classfastglmm_lib_1_1_g_l_m_family.html#a6b5d01f18dc7248eaca84f884c5acb2d',1,'fastglmmLib::GLMFamily::GLMFamily()']]],
-  ['glmmfitfeatures_26',['glmmFitFeatures',['../classfastglmm_lib_1_1glmm_fit_features.html',1,'fastglmmLib::glmmFitFeatures&lt; T1, T2, T3 &gt;'],['../classfastglmm_lib_1_1glmm_fit_features.html#ad82ec36a883a62fa94c06ab04c2e0802',1,'fastglmmLib::glmmFitFeatures::glmmFitFeatures()']]],
-  ['glmmfitfeatures_2eh_27',['glmmFitFeatures.h',['../glmm_fit_features_8h.html',1,'']]],
-  ['glmmfitresponses_28',['glmmFitResponses',['../classfastglmm_lib_1_1glmm_fit_responses.html',1,'fastglmmLib::glmmFitResponses&lt; T1, T2, T3 &gt;'],['../classfastglmm_lib_1_1glmm_fit_responses.html#a03c952471dc3f3291b3dfac6a810c932',1,'fastglmmLib::glmmFitResponses::glmmFitResponses()']]],
-  ['glmmfitresponses_2eh_29',['glmmFitResponses.h',['../glmm_fit_responses_8h.html',1,'']]],
-  ['glmwork_30',['GLMWork',['../structfastglmm_lib_1_1_g_l_m_work.html',1,'fastglmmLib::GLMWork'],['../structfastglmm_lib_1_1_g_l_m_work.html#aba57ce783999d90804c6066405292da0',1,'fastglmmLib::GLMWork::GLMWork()']]],
-  ['gprime_31',['gprime',['../structfastglmm_lib_1_1_g_l_m_work.html#aca19672bd88aaabfe3de21da752a0b15',1,'fastglmmLib::GLMWork']]]
+  ['glm_23',['glm',['../namespaceglm.html',1,'']]],
+  ['glm_2eh_24',['glm.h',['../glm_8h.html',1,'']]],
+  ['glm_5ffamily_2eh_25',['glm_family.h',['../glm__family_8h.html',1,'']]],
+  ['glmfamily_26',['GLMFamily',['../classfastglmm_lib_1_1_g_l_m_family.html',1,'fastglmmLib::GLMFamily'],['../classfastglmm_lib_1_1_g_l_m_family.html#a6b5d01f18dc7248eaca84f884c5acb2d',1,'fastglmmLib::GLMFamily::GLMFamily()']]],
+  ['glmmfitfeatures_27',['glmmFitFeatures',['../classfastglmm_lib_1_1glmm_fit_features.html',1,'fastglmmLib::glmmFitFeatures&lt; T1, T2, T3 &gt;'],['../classfastglmm_lib_1_1glmm_fit_features.html#ad82ec36a883a62fa94c06ab04c2e0802',1,'fastglmmLib::glmmFitFeatures::glmmFitFeatures()']]],
+  ['glmmfitfeatures_2eh_28',['glmmFitFeatures.h',['../glmm_fit_features_8h.html',1,'']]],
+  ['glmmfitresponses_29',['glmmFitResponses',['../classfastglmm_lib_1_1glmm_fit_responses.html',1,'fastglmmLib::glmmFitResponses&lt; T1, T2, T3 &gt;'],['../classfastglmm_lib_1_1glmm_fit_responses.html#a03c952471dc3f3291b3dfac6a810c932',1,'fastglmmLib::glmmFitResponses::glmmFitResponses()']]],
+  ['glmmfitresponses_2eh_30',['glmmFitResponses.h',['../glmm_fit_responses_8h.html',1,'']]],
+  ['glmwork_31',['GLMWork',['../structfastglmm_lib_1_1_g_l_m_work.html',1,'fastglmmLib::GLMWork'],['../structfastglmm_lib_1_1_g_l_m_work.html#aba57ce783999d90804c6066405292da0',1,'fastglmmLib::GLMWork::GLMWork()']]],
+  ['gprime_32',['gprime',['../structfastglmm_lib_1_1_g_l_m_work.html#aca19672bd88aaabfe3de21da752a0b15',1,'fastglmmLib::GLMWork']]]
 ];

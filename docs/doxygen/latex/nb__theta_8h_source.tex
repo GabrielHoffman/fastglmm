@@ -1,200 +1,206 @@
 \doxysection{nb\+\_\+theta.\+h}
 \hypertarget{nb__theta_8h_source}{}\label{nb__theta_8h_source}\index{inst/include/nb\_theta.h@{inst/include/nb\_theta.h}}
-\mbox{\hyperlink{nb__theta_8h}{Go to the documentation of this file.}}
+\doxymbox{\hyperlink{nb__theta_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <armadillo>}}
-\DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{local__min_8h}{local\_min.h}}"{}}}
-\DoxyCodeLine{00004\ }
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ NB\_THETA\_ML\_H\_}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ NB\_THETA\_ML\_H\_}}
-\DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \textcolor{keyword}{using\ namespace\ }arma;}
-\DoxyCodeLine{00009\ \ }
-\DoxyCodeLine{00012\ \textcolor{keyword}{typedef}\ unordered\_map<long,\ double>\ \mbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}};}
-\DoxyCodeLine{00013\ \ }
-\DoxyCodeLine{00016\ \textcolor{keyword}{static}\ \mbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}}\ CreateLUT(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights\ =\ \{\},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&maxUniqueEntries\ =\ 1000)\{}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \ \ \ \ vec\ w(weights);}
-\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{if}(\ w.is\_empty()\ )\{}
-\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ w\ =\ vec(y.n\_elem,\ fill::ones);}
-\DoxyCodeLine{00021\ \ \ \ \ \}}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//\ lookup\ table\ for\ suming\ weights\ for\ each\ y\ value}}
-\DoxyCodeLine{00024\ \ \ \ \ unordered\_map<long,\ double>\ lut;}
-\DoxyCodeLine{00025\ \ \ \ \ lut.reserve(maxUniqueEntries);}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ for\ each\ entry\ in\ y,}}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//\ increament\ count\ for\ that\ index}}
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<y.n\_elem;\ i++)\{}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ increment\ count\ for\ y[i]}}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ++lut[(long)\ y[i]];}}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ increment\ weights\ for\ y[i]}}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ lut[(long)\ y[i]]\ +=\ w[i];}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ number\ of\ entries\ exceeds\ maxUniqueEntries}}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ clear\ the\ table\ and\ break}}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ return\ empty\ table}}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ lut.size()\ >\ maxUniqueEntries)\{}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ lut.clear();}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00043\ \ \ \ \ \}}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{return}\ lut;}
-\DoxyCodeLine{00046\ \}}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnb_data_abc1985719b35b256291e8716eaf7edef}{nbData}}\ \{}
-\DoxyCodeLine{00050\ \ \ \ \ vec\ \mbox{\hyperlink{structnb_data_a02738edf2fbccb499e40192ab039f2db}{y}};}
-\DoxyCodeLine{00051\ \ \ \ \ vec\ \mbox{\hyperlink{structnb_data_a1e9990688a22c8c856decd23ac2befee}{mu}};}
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structnb_data_a550cb9067e366207c2d34f000543186d}{n}};}
-\DoxyCodeLine{00053\ \ \ \ \ vec\ \mbox{\hyperlink{structnb_data_a6bce5c498b3959a767ecfef9fcde716a}{weights}};}
-\DoxyCodeLine{00054\ \ \ \ \ mat\ \mbox{\hyperlink{structnb_data_a57e92ce968bcb38bd7dd1f96028b80e1}{X}};}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structnb_data_aba34cf86257a6a45ea41cb01953e19fe}{doCoxReid}};}
-\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}}\ \mbox{\hyperlink{structnb_data_ad06a44c8093a3ac72d9565185dea1513}{ct}};\ \ }
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{comment}{//\ Constructor}}
-\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{structnb_data_abc1985719b35b256291e8716eaf7edef}{nbData}}()\{\}}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//\ Constructor}}
-\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{structnb_data_ae76d4245e368ddf8076103e4248fc84b}{nbData}}(\textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{structnb_data_a02738edf2fbccb499e40192ab039f2db}{y}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{structnb_data_a1e9990688a22c8c856decd23ac2befee}{mu}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\mbox{\hyperlink{structnb_data_a550cb9067e366207c2d34f000543186d}{n}},\ \textcolor{keyword}{const}\ vec\ \&\mbox{\hyperlink{structnb_data_a6bce5c498b3959a767ecfef9fcde716a}{weights}},\ \textcolor{keyword}{const}\ mat\ \&\mbox{\hyperlink{structnb_data_a57e92ce968bcb38bd7dd1f96028b80e1}{X}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\mbox{\hyperlink{structnb_data_aba34cf86257a6a45ea41cb01953e19fe}{doCoxReid}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}}\ \&\mbox{\hyperlink{structnb_data_ad06a44c8093a3ac72d9565185dea1513}{ct}}\ =\ \{\}\ ):}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structnb_data_a02738edf2fbccb499e40192ab039f2db}{y}}(\mbox{\hyperlink{structnb_data_a02738edf2fbccb499e40192ab039f2db}{y}}),\ \mbox{\hyperlink{structnb_data_a1e9990688a22c8c856decd23ac2befee}{mu}}(\mbox{\hyperlink{structnb_data_a1e9990688a22c8c856decd23ac2befee}{mu}}),\ \mbox{\hyperlink{structnb_data_a550cb9067e366207c2d34f000543186d}{n}}(\mbox{\hyperlink{structnb_data_a550cb9067e366207c2d34f000543186d}{n}}),\ \mbox{\hyperlink{structnb_data_a6bce5c498b3959a767ecfef9fcde716a}{weights}}(\mbox{\hyperlink{structnb_data_a6bce5c498b3959a767ecfef9fcde716a}{weights}}),\ \mbox{\hyperlink{structnb_data_a57e92ce968bcb38bd7dd1f96028b80e1}{X}}(\mbox{\hyperlink{structnb_data_a57e92ce968bcb38bd7dd1f96028b80e1}{X}}),\ \mbox{\hyperlink{structnb_data_aba34cf86257a6a45ea41cb01953e19fe}{doCoxReid}}(\mbox{\hyperlink{structnb_data_aba34cf86257a6a45ea41cb01953e19fe}{doCoxReid}}),\ \mbox{\hyperlink{structnb_data_ad06a44c8093a3ac72d9565185dea1513}{ct}}(\mbox{\hyperlink{structnb_data_ad06a44c8093a3ac72d9565185dea1513}{ct}})\ \{\}}
-\DoxyCodeLine{00064\ \};}
-\DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \textcolor{comment}{//\ log-\/likelihood\ for\ NB\ GLM}}
-\DoxyCodeLine{00067\ \textcolor{keyword}{static}\ \ \textcolor{keywordtype}{double}\ nb\_ll(\ \ \ }
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&y,}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&mu,}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&n,\ }
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&weights,\ }
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&X,}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&doCoxReid,}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}}\ \&ct,\ \ \ }
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&theta)\{}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \ \ \ \ vec\ y\_theta\ =\ y\ +\ theta;}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{double}\ res;}
-\DoxyCodeLine{00080\ }
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{if}(\ ct.size()\ ==\ 0)\{\ \ \ \ }
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ vanilla}}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ vec\ value\ =\ lgamma(y\_theta)\ -\/\ lgamma(theta)\ +\ theta*log(theta)\ -\/\ y\_theta\%log(mu\ +\ theta);}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ weights.is\_empty()\ )\{}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ sum(value)\ /\ n;}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ dot(value,\ weights)\ /\ n;}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00089\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ count\ table}}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sum\_lgamma\_y\_theta\ =\ 0;}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ \&it:\ ct)\{}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ sum\_lgamma\_y\_theta\ +=\ it.second\ *\ lgamma(it.first\ +\ theta);}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ if\ -\/D\ USE\_R,\ use\ RcppArmadillo\ library}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifdef\ USE\_R}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ [[Rcpp::depends(RcppParallel)]]\ \ }}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <armadillo>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{local__min_8h}{local\_min.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ NB\_THETA\_ML\_H\_}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ NB\_THETA\_ML\_H\_}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{using\ namespace\ }arma;}
+\DoxyCodeLine{00015\ \ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{typedef}\ unordered\_map<long,\ double>\ \doxymbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}};}
+\DoxyCodeLine{00019\ \ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}}\ CreateLUT(\ \textcolor{keyword}{const}\ vec\ \&y,\ \textcolor{keyword}{const}\ vec\ \&weights\ =\ \{\},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&maxUniqueEntries\ =\ 1000)\{}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ vec\ w(weights);}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{if}(\ w.is\_empty()\ )\{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ w\ =\ vec(y.n\_elem,\ fill::ones);}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//\ lookup\ table\ for\ suming\ weights\ for\ each\ y\ value}}
+\DoxyCodeLine{00030\ \ \ \ \ unordered\_map<long,\ double>\ lut;}
+\DoxyCodeLine{00031\ \ \ \ \ lut.reserve(maxUniqueEntries);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//\ for\ each\ entry\ in\ y,}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{//\ increament\ count\ for\ that\ index}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<y.n\_elem;\ i++)\{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ increment\ count\ for\ y[i]}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ++lut[(long)\ y[i]];}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ increment\ weights\ for\ y[i]}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ lut[(long)\ y[i]]\ +=\ w[i];}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ number\ of\ entries\ exceeds\ maxUniqueEntries}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ clear\ the\ table\ and\ break}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ return\ empty\ table}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ lut.size()\ >\ maxUniqueEntries)\{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ lut.clear();}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{return}\ lut;}
+\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structnb_data_abc1985719b35b256291e8716eaf7edef}{nbData}}\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ vec\ \doxymbox{\hyperlink{structnb_data_a02738edf2fbccb499e40192ab039f2db}{y}};}
+\DoxyCodeLine{00057\ \ \ \ \ vec\ \doxymbox{\hyperlink{structnb_data_a1e9990688a22c8c856decd23ac2befee}{mu}};}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{structnb_data_a550cb9067e366207c2d34f000543186d}{n}};}
+\DoxyCodeLine{00059\ \ \ \ \ vec\ \doxymbox{\hyperlink{structnb_data_a6bce5c498b3959a767ecfef9fcde716a}{weights}};}
+\DoxyCodeLine{00060\ \ \ \ \ mat\ \doxymbox{\hyperlink{structnb_data_a57e92ce968bcb38bd7dd1f96028b80e1}{X}};}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structnb_data_aba34cf86257a6a45ea41cb01953e19fe}{doCoxReid}};}
+\DoxyCodeLine{00062\ \ \ \ \ \doxymbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}}\ \doxymbox{\hyperlink{structnb_data_ad06a44c8093a3ac72d9565185dea1513}{ct}};\ \ }
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{//\ Constructor}}
+\DoxyCodeLine{00065\ \ \ \ \ \doxymbox{\hyperlink{structnb_data_abc1985719b35b256291e8716eaf7edef}{nbData}}()\{\}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ Constructor}}
+\DoxyCodeLine{00068\ \ \ \ \ \doxymbox{\hyperlink{structnb_data_ae76d4245e368ddf8076103e4248fc84b}{nbData}}(\textcolor{keyword}{const}\ vec\ \&\doxymbox{\hyperlink{structnb_data_a02738edf2fbccb499e40192ab039f2db}{y}},\ \textcolor{keyword}{const}\ vec\ \&\doxymbox{\hyperlink{structnb_data_a1e9990688a22c8c856decd23ac2befee}{mu}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\doxymbox{\hyperlink{structnb_data_a550cb9067e366207c2d34f000543186d}{n}},\ \textcolor{keyword}{const}\ vec\ \&\doxymbox{\hyperlink{structnb_data_a6bce5c498b3959a767ecfef9fcde716a}{weights}},\ \textcolor{keyword}{const}\ mat\ \&\doxymbox{\hyperlink{structnb_data_a57e92ce968bcb38bd7dd1f96028b80e1}{X}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\doxymbox{\hyperlink{structnb_data_aba34cf86257a6a45ea41cb01953e19fe}{doCoxReid}},\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}}\ \&\doxymbox{\hyperlink{structnb_data_ad06a44c8093a3ac72d9565185dea1513}{ct}}\ =\ \{\}\ ):}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structnb_data_a02738edf2fbccb499e40192ab039f2db}{y}}(\doxymbox{\hyperlink{structnb_data_a02738edf2fbccb499e40192ab039f2db}{y}}),\ \doxymbox{\hyperlink{structnb_data_a1e9990688a22c8c856decd23ac2befee}{mu}}(\doxymbox{\hyperlink{structnb_data_a1e9990688a22c8c856decd23ac2befee}{mu}}),\ \doxymbox{\hyperlink{structnb_data_a550cb9067e366207c2d34f000543186d}{n}}(\doxymbox{\hyperlink{structnb_data_a550cb9067e366207c2d34f000543186d}{n}}),\ \doxymbox{\hyperlink{structnb_data_a6bce5c498b3959a767ecfef9fcde716a}{weights}}(\doxymbox{\hyperlink{structnb_data_a6bce5c498b3959a767ecfef9fcde716a}{weights}}),\ \doxymbox{\hyperlink{structnb_data_a57e92ce968bcb38bd7dd1f96028b80e1}{X}}(\doxymbox{\hyperlink{structnb_data_a57e92ce968bcb38bd7dd1f96028b80e1}{X}}),\ \doxymbox{\hyperlink{structnb_data_aba34cf86257a6a45ea41cb01953e19fe}{doCoxReid}}(\doxymbox{\hyperlink{structnb_data_aba34cf86257a6a45ea41cb01953e19fe}{doCoxReid}}),\ \doxymbox{\hyperlink{structnb_data_ad06a44c8093a3ac72d9565185dea1513}{ct}}(\doxymbox{\hyperlink{structnb_data_ad06a44c8093a3ac72d9565185dea1513}{ct}})\ \{\}}
+\DoxyCodeLine{00070\ \};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ log-\/likelihood\ for\ NB\ GLM}}
+\DoxyCodeLine{00073\ \textcolor{keyword}{static}\ \ \textcolor{keywordtype}{double}\ nb\_ll(\ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&y,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&mu,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&n,\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&weights,\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&X,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&doCoxReid,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}}\ \&ct,\ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&theta)\{}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ vec\ y\_theta\ =\ y\ +\ theta;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{double}\ res;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordflow}{if}(\ ct.size()\ ==\ 0)\{\ \ \ \ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ vanilla}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ vec\ value\ =\ lgamma(y\_theta)\ -\/\ lgamma(theta)\ +\ theta*log(theta)\ -\/\ y\_theta\%log(mu\ +\ theta);}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ weights.is\_empty()\ )\{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ sum(value)\ /\ n;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ dot(value,\ weights)\ /\ n;}
 \DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ weights.is\_empty()\ )\{}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Original}}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ sum\_lgamma\_y\_theta\ /\ n\ -\/\ }
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n*lgamma(theta)\ /\ n\ +\ }
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n*theta*log(theta)/n\ \ -\/\ }
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dot(y\_theta,\ log(mu\ +\ theta))\ /\ n;}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sum\_w\ =\ sum(weights);}
-\DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Original}}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ sum\_lgamma\_y\_theta\ /\ n\ -\/\ }
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sum\_w*lgamma(theta)\ /\ n\ +\ }
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sum\_w*theta*log(theta)/n;}
-\DoxyCodeLine{00109\ }
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ res\ -\/=\ dot(weights,y\_theta\%log(mu\ +\ theta))\ /\ n;}
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00112\ \ \ \ \ \}}
-\DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ \ \ \ \ \textcolor{comment}{//\ Doesn't\ change\ with\ theta,}}
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{comment}{//\ so\ don't\ need\ to\ evaluate\ it}}
-\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ value\ +=\ -\/\ lgamma(y+1)\ +\ y\%log(mu);}}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{double}\ cr\ =\ 0;}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{if}(\ doCoxReid\ )\{}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ logDet\ of\ information\ matrix}}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ sample\ weights\ here}}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ 1/theta\ here\ since\ notation\ is\ different}}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ than\ in\ glmGammaPoi}}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ vec\ w;}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ weights.is\_empty()\ )\{}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ w\ =\ 1\ /\ (1.0/mu\ +\ 1.0/theta);}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ w\ =\ weights\ /\ (1.0/mu\ +\ 1.0/theta);}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ld;}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ success\ =\ log\_det\_sympd(ld,\ X.t()\ *\ (X.each\_col()\%w));}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ cr\ =\ -\/0.5\ *\ ld\ *\ 0.99;\ }
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ success\ )\ cr\ =\ 0;}
-\DoxyCodeLine{00134\ \ \ \ \ \}}
-\DoxyCodeLine{00135\ }
-\DoxyCodeLine{00136\ \ \ \ \ res\ +=\ cr\ /\ n;}
-\DoxyCodeLine{00137\ }
-\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
-\DoxyCodeLine{00139\ \}}
-\DoxyCodeLine{00140\ }
-\DoxyCodeLine{00141\ \textcolor{comment}{//\ define\ functions\ to\ be\ minimized}}
-\DoxyCodeLine{00142\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ nb\_ll(\ \textcolor{keywordtype}{double}\ theta\_log,\ \textcolor{keywordtype}{void}\ *arg)\{}
+\DoxyCodeLine{00095\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ count\ table}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sum\_lgamma\_y\_theta\ =\ 0;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ \&it:\ ct)\{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ sum\_lgamma\_y\_theta\ +=\ it.second\ *\ lgamma(it.first\ +\ theta);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ weights.is\_empty()\ )\{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Original}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ sum\_lgamma\_y\_theta\ /\ n\ -\/\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n*lgamma(theta)\ /\ n\ +\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n*theta*log(theta)/n\ \ -\/\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dot(y\_theta,\ log(mu\ +\ theta))\ /\ n;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sum\_w\ =\ sum(weights);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Original}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ sum\_lgamma\_y\_theta\ /\ n\ -\/\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sum\_w*lgamma(theta)\ /\ n\ +\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sum\_w*theta*log(theta)/n;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ res\ -\/=\ dot(weights,y\_theta\%log(mu\ +\ theta))\ /\ n;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{comment}{//\ Doesn't\ change\ with\ theta,}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{comment}{//\ so\ don't\ need\ to\ evaluate\ it}}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{comment}{//\ value\ +=\ -\/\ lgamma(y+1)\ +\ y\%log(mu);}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{double}\ cr\ =\ 0;}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{if}(\ doCoxReid\ )\{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ logDet\ of\ information\ matrix}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ sample\ weights\ here}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ use\ 1/theta\ here\ since\ notation\ is\ different}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ than\ in\ glmGammaPoi}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ vec\ w;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ weights.is\_empty()\ )\{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ w\ =\ 1\ /\ (1.0/mu\ +\ 1.0/theta);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ w\ =\ weights\ /\ (1.0/mu\ +\ 1.0/theta);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ ld;}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ success\ =\ log\_det\_sympd(ld,\ X.t()\ *\ (X.each\_col()\%w));}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ cr\ =\ -\/0.5\ *\ ld\ *\ 0.99;\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ success\ )\ cr\ =\ 0;}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ res\ +=\ cr\ /\ n;}
 \DoxyCodeLine{00143\ }
-\DoxyCodeLine{00144\ \ \ \ \ \textcolor{comment}{//\ cast\ void\ pointer\ to\ nbData}}
-\DoxyCodeLine{00145\ \ \ \textcolor{keyword}{auto}\ *data\ =\ (\mbox{\hyperlink{structnb_data}{nbData}}\ *)\ arg;}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00145\ \}}
 \DoxyCodeLine{00146\ }
-\DoxyCodeLine{00147\ \ \ \textcolor{comment}{//\ value\ function\ to\ be\ minimized}}
-\DoxyCodeLine{00148\ \ \ \textcolor{keywordflow}{return}\ -\/1.0*nb\_ll(data-\/>y,\ data-\/>mu,\ data-\/>n,\ data-\/>weights,\ data-\/>X,\ data-\/>doCoxReid,\ data-\/>ct,\ exp(theta\_log));}
-\DoxyCodeLine{00149\ \}}
-\DoxyCodeLine{00150\ }
-\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00147\ \textcolor{comment}{//\ define\ functions\ to\ be\ minimized}}
+\DoxyCodeLine{00148\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ nb\_ll(\ \textcolor{keywordtype}{double}\ theta\_log,\ \textcolor{keywordtype}{void}\ *arg)\{}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{comment}{//\ cast\ void\ pointer\ to\ nbData}}
+\DoxyCodeLine{00151\ \ \ \textcolor{keyword}{auto}\ *data\ =\ (\doxymbox{\hyperlink{structnb_data}{nbData}}\ *)\ arg;}
 \DoxyCodeLine{00152\ }
-\DoxyCodeLine{00153\ }
-\DoxyCodeLine{00154\ \textcolor{comment}{/*}}
-\DoxyCodeLine{00155\ \textcolor{comment}{MASS::theta.ml()\ and\ glmGamPois()\ maximize\ the\ likelihood\ function\ using\ Fishers\ method\ with\ the\ score\ and\ info\ functions.\ \ That\ has\ the\ advantage\ of\ 1)\ using\ a\ starting\ value\ from\ the\ last\ call,\ 2)\ computes\ a\ look\ up\ table\ to\ compute\ lgamma(y\ +\ theta)\ since\ y\ has\ a\ small\ number\ of\ unique\ values,\ and\ 3)\ gives\ an\ estimate\ of\ the\ standard\ error\ of\ theta}}
-\DoxyCodeLine{00156\ \textcolor{comment}{*/}}
-\DoxyCodeLine{00157\ \ }
-\DoxyCodeLine{00160\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ nb\_theta\_ml(\ \ }
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&y,}
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&mu,}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&n,\ }
-\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&weights\ =\ \{\},\ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&X\ =\ \{\},\ \ }
-\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ doCoxReid\ =\ \textcolor{keyword}{true},}
-\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}}\ \&ct\ =\ \{\},\ \ }
-\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&left\ =\ -\/5,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&right\ =\ 20,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&tol\ =\ 0.0001220703)\{}
-\DoxyCodeLine{00171\ }
-\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{double}\ theta\_log;}
-\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{int}\ iter\ =\ 0;}
-\DoxyCodeLine{00174\ }
-\DoxyCodeLine{00175\ \ \ \ \ \textcolor{comment}{//\ Setup\ code\ to\ minimize\ function}}
-\DoxyCodeLine{00176\ }
-\DoxyCodeLine{00177\ \ \ \ \ \textcolor{comment}{//\ initialize\ function}}
-\DoxyCodeLine{00178\ \ \ \ \ \mbox{\hyperlink{structfunc_struct}{funcStruct}}\ F;\ }
-\DoxyCodeLine{00179\ \ \ \ \ F.\mbox{\hyperlink{structfunc_struct_a1ee5932dce2b8db8f1d6b9ae043f582f}{function}}\ =\ nb\_ll;}
+\DoxyCodeLine{00153\ \ \ \textcolor{comment}{//\ value\ function\ to\ be\ minimized}}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordflow}{return}\ -\/1.0*nb\_ll(data-\/>y,\ data-\/>mu,\ data-\/>n,\ data-\/>weights,\ data-\/>X,\ data-\/>doCoxReid,\ data-\/>ct,\ exp(theta\_log));}
+\DoxyCodeLine{00155\ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00161\ \textcolor{comment}{MASS::theta.ml()\ and\ glmGamPois()\ maximize\ the\ likelihood\ function\ using\ Fishers\ method\ with\ the\ score\ and\ info\ functions.\ \ That\ has\ the\ advantage\ of\ 1)\ using\ a\ starting\ value\ from\ the\ last\ call,\ 2)\ computes\ a\ look\ up\ table\ to\ compute\ lgamma(y\ +\ theta)\ since\ y\ has\ a\ small\ number\ of\ unique\ values,\ and\ 3)\ gives\ an\ estimate\ of\ the\ standard\ error\ of\ theta}}
+\DoxyCodeLine{00162\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00163\ \ }
+\DoxyCodeLine{00166\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ nb\_theta\_ml(\ \ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&y,}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&mu,}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&n,\ }
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&weights\ =\ \{\},\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&X\ =\ \{\},\ \ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ doCoxReid\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}}\ \&ct\ =\ \{\},\ \ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&left\ =\ -\/5,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&right\ =\ 20,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&tol\ =\ 0.0001220703)\{}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordtype}{double}\ theta\_log;}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordtype}{int}\ iter\ =\ 0;}
 \DoxyCodeLine{00180\ }
-\DoxyCodeLine{00181\ \ \ \ \ \mbox{\hyperlink{structnb_data}{nbData}}\ *d;}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{comment}{//\ Setup\ code\ to\ minimize\ function}}
 \DoxyCodeLine{00182\ }
-\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordflow}{if}(\ weights.is\_empty()\ ||\ all(weights\ ==\ 1.0)\ )\{}
-\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ d\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{structnb_data}{nbData}}(y,\ mu,\ n,\ \{\},\ X,\ doCoxReid,\ ct);}
-\DoxyCodeLine{00185\ \ \ \ \ \}\textcolor{keywordflow}{else}\{\ \ \ \ \ \ }
-\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ d\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{structnb_data}{nbData}}(y,\ mu,\ n,\ weights,\ X,\ doCoxReid,\ ct);}
-\DoxyCodeLine{00187\ \ \ \ \ \}}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{comment}{//\ initialize\ function}}
+\DoxyCodeLine{00184\ \ \ \ \ \doxymbox{\hyperlink{structfunc_struct}{funcStruct}}\ F;\ }
+\DoxyCodeLine{00185\ \ \ \ \ F.\doxymbox{\hyperlink{structfunc_struct_a1ee5932dce2b8db8f1d6b9ae043f582f}{function}}\ =\ nb\_ll;}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \doxymbox{\hyperlink{structnb_data}{nbData}}\ *d;}
 \DoxyCodeLine{00188\ }
-\DoxyCodeLine{00189\ \ \ \ \ F.\mbox{\hyperlink{structfunc_struct_a4889c4a13fe90bea0e1e239ae86ad3d1}{params}}\ =\ d;}
-\DoxyCodeLine{00190\ }
-\DoxyCodeLine{00191\ \ \ \ \ \textcolor{comment}{//\ maximize\ log-\/likelihood}}
-\DoxyCodeLine{00192\ \ \ \ \ \textcolor{comment}{//\ theta\_log\ is\ returned\ by\ reference}}
-\DoxyCodeLine{00193\ \ \ \ \ \mbox{\hyperlink{local__min_8h_a919819f5daaa93ea39ef94bf951f23f1}{local\_min}}(left,\ right,\ tol,\ \&F,\ theta\_log,\ iter);}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{if}(\ weights.is\_empty()\ ||\ all(weights\ ==\ 1.0)\ )\{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ d\ =\ \textcolor{keyword}{new}\ \doxymbox{\hyperlink{structnb_data}{nbData}}(y,\ mu,\ n,\ \{\},\ X,\ doCoxReid,\ ct);}
+\DoxyCodeLine{00191\ \ \ \ \ \}\textcolor{keywordflow}{else}\{\ \ \ \ \ \ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ d\ =\ \textcolor{keyword}{new}\ \doxymbox{\hyperlink{structnb_data}{nbData}}(y,\ mu,\ n,\ weights,\ X,\ doCoxReid,\ ct);}
+\DoxyCodeLine{00193\ \ \ \ \ \}}
 \DoxyCodeLine{00194\ }
-\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keyword}{delete}\ d;}
+\DoxyCodeLine{00195\ \ \ \ \ F.\doxymbox{\hyperlink{structfunc_struct_a4889c4a13fe90bea0e1e239ae86ad3d1}{params}}\ =\ d;}
 \DoxyCodeLine{00196\ }
-\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordflow}{return}\ exp(theta\_log);}
-\DoxyCodeLine{00198\ \}\ \ \ }
-\DoxyCodeLine{00199\ }
-\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{comment}{//\ maximize\ log-\/likelihood}}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{comment}{//\ theta\_log\ is\ returned\ by\ reference}}
+\DoxyCodeLine{00199\ \ \ \ \ \doxymbox{\hyperlink{local__min_8h_a919819f5daaa93ea39ef94bf951f23f1}{local\_min}}(left,\ right,\ tol,\ \&F,\ theta\_log,\ iter);}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keyword}{delete}\ d;}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordflow}{return}\ exp(theta\_log);}
+\DoxyCodeLine{00204\ \}\ \ \ }
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

@@ -1,0 +1,237 @@
+\doxysection{qnorm\+\_\+\+R.\+h}
+\hypertarget{qnorm___r_8h_source}{}\label{qnorm___r_8h_source}\index{inst/include/qnorm\_R.h@{inst/include/qnorm\_R.h}}
+\doxymbox{\hyperlink{qnorm___r_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ \ Mathlib\ :\ A\ C\ Library\ of\ Special\ Functions}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ \ Copyright\ (C)\ 2000-\/-\/2023\ The\ R\ Core\ Team}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ \ Copyright\ (C)\ 1998\ \ \ \ \ \ \ Ross\ Ihaka}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ based\ on\ AS\ 241\ (C)\ 1988\ Royal\ Statistical\ Society}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ \ This\ program\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ \ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ \ the\ Free\ Software\ Foundation;\ either\ version\ 2\ of\ the\ License,\ or}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ \ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ \ along\ with\ this\ program;\ if\ not,\ a\ copy\ is\ available\ at}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ \ https://www.R-\/project.org/Licenses/}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ SYNOPSIS}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ \ double\ qnorm5(double\ p,\ double\ mu,\ double\ sigma,}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ int\ lower\_tail,\ int\ log\_p)}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \{qnorm\ (..)\ is\ synonymous\ and\ preferred\ inside\ R\}}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ \ DESCRIPTION}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ \ Compute\ the\ quantile\ function\ for\ the\ normal\ distribution.}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ \ The\ algorithm\ AS\ 241\ of\ Wichura\ is\ used,}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ \ \ \ \ \ and\ has\ been\ improved\ for\ the\ very\ extreme\ tail\ (and\ log\_p=TRUE)}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ \ REFERENCE}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ \ \ \ \ \ Wichura,\ M.J.\ (1988).}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *\ \ \ \ \ \ Algorithm\ AS\ 241:\ The\ Percentage\ Points\ of\ the\ Normal\ Distribution.}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ \ \ \ \ \ Applied\ Statistics,\ 37,\ 477-\/484.}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ \ \ \ \ \ Maechler,\ M.\ (2022).\ Asymptotic\ tail\ formulas\ for\ gaussian\ quantiles;}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ \ \ \ \ \ https://CRAN.R-\/project.org/package=DPQ/vignettes/qnorm-\/asymp.pdf}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ Define\ here\ to\ avoid\ depending\ on\ R}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespaceglm}{glm}}\ \{}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#ifndef\ ML\_NEGINF}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ ML\_NEGINF\ std::numeric\_limits<double>::min()}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#ifndef\ ML\_POSINF\ \ \ }}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ ML\_POSINF\ std::numeric\_limits<double>::max()}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#ifndef\ NAN\ \ \ }}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ NAN\ std::numeric\_limits<double>::quiet\_NaN()}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#ifndef\ R\_D\_Lval\ }}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ R\_D\_Lval(p)\ (lower\_tail\ ?\ (p)\ :\ (0.5\ -\/\ (p)\ +\ 0.5))\ \ }\textcolor{comment}{/*\ \ p\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#ifndef\ R\_DT\_qIv\ }}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ R\_DT\_qIv(p)\ (log\_p\ ?\ (lower\_tail\ ?\ exp(p)\ :\ -\/\ expm1(p))\ \(\backslash\)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ R\_D\_Lval(p))}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{/*\ Do\ the\ boundaries\ exactly\ for\ q*()\ functions\ :}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ Often\ \ \_LEFT\_\ =\ ML\_NEGINF\ ,\ and\ very\ often\ \_RIGHT\_\ =\ ML\_POSINF;}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ *\ R\_Q\_P01\_boundaries(p,\ \_LEFT\_,\ \_RIGHT\_)\ \ :<==>}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ *\ \ \ \ \ R\_Q\_P01\_check(p);}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ *\ \ \ \ \ if\ (p\ ==\ R\_DT\_0)\ return\ \_LEFT\_\ ;}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ *\ \ \ \ \ if\ (p\ ==\ R\_DT\_1)\ return\ \_RIGHT\_;}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ *\ the\ following\ implementation\ should\ be\ more\ efficient\ (less\ tests):}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#ifndef\ R\_Q\_P01\_boundaries\ }}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ R\_Q\_P01\_boundaries(p,\ \_LEFT\_,\ \_RIGHT\_)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\ \ \ \ if\ (log\_p)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\ \ \ \ if(p\ >\ 0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NAN;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\ \ \ \ if(p\ ==\ 0)\ }\textcolor{comment}{/*\ upper\ bound*/}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ return\ lower\_tail\ ?\ \_RIGHT\_\ :\ \_LEFT\_;\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\ \ \ \ if(p\ ==\ ML\_NEGINF)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ return\ lower\_tail\ ?\ \_LEFT\_\ :\ \_RIGHT\_;\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\ \ \ \ else\ \{\ }\textcolor{comment}{/*\ !log\_p\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\ \ \ \ if(p\ <\ 0\ ||\ p\ >\ 1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ NAN;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\ \ \ \ if(p\ ==\ 0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ return\ lower\_tail\ ?\ \_LEFT\_\ :\ \_RIGHT\_;\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\ \ \ \ if(p\ ==\ 1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ return\ lower\_tail\ ?\ \_RIGHT\_\ :\ \_LEFT\_;\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#endif\ \ \ \ }}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ qnorm(\textcolor{keywordtype}{double}\ p,\ \textcolor{keywordtype}{double}\ mu,\ \textcolor{keywordtype}{double}\ sigma,\ \textcolor{keywordtype}{int}\ lower\_tail,\ \textcolor{keywordtype}{int}\ log\_p)\{}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{double}\ p\_,\ q,\ r,\ val;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{//\ \#ifdef\ IEEE\_754}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(p)\ ||\ std::isnan(mu)\ ||\ std::isnan(sigma))}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordflow}{return}\ p\ +\ mu\ +\ sigma;}
+\DoxyCodeLine{00114\ \textcolor{comment}{//\ \#endif}}
+\DoxyCodeLine{00115\ \ \ \ \ \doxymbox{\hyperlink{qnorm___r_8h_a40b69d5b59cec96b4d7d55e130c15ee1}{R\_Q\_P01\_boundaries}}(p,\ \doxymbox{\hyperlink{qnorm___r_8h_afbdc80787a710f367c254bc144c03d5d}{ML\_NEGINF}},\ \doxymbox{\hyperlink{qnorm___r_8h_a96868e4318f73814ca891ddf886281ba}{ML\_POSINF}});}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordflow}{if}(sigma\ \ <\ 0)\ \ \doxymbox{\hyperlink{qnorm___r_8h_a8abfcc76130f3f991d124dd22d7e69bc}{NAN}};}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{if}(sigma\ ==\ 0)\ \ \textcolor{keywordflow}{return}\ mu;}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ p\_\ =\ \doxymbox{\hyperlink{qnorm___r_8h_a84021858b4cb293b109c53adf3e48bcc}{R\_DT\_qIv}}(p);\textcolor{comment}{/*\ real\ lower\_tail\ prob.\ p\ */}}
+\DoxyCodeLine{00121\ \ \ \ \ q\ =\ p\_\ -\/\ 0.5;}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{comment}{//\ \#ifdef\ DEBUG\_qnorm}}
+\DoxyCodeLine{00124\ \textcolor{comment}{//\ \ \ \ \ REprintf("{}qnorm(p=\%10.7g,\ m=\%g,\ s=\%g,\ l.t.=\ \%d,\ log=\ \%d):\ q\ =\ \%g\(\backslash\)n"{},}}
+\DoxyCodeLine{00125\ \textcolor{comment}{//\ \ \ \ \ \ \ p,mu,sigma,\ lower\_tail,\ log\_p,\ q);}}
+\DoxyCodeLine{00126\ \textcolor{comment}{//\ \#endif}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{comment}{/*-\/-\/\ use\ AS\ 241\ -\/-\/-\/\ */}}
+\DoxyCodeLine{00130\ \textcolor{comment}{/*\ double\ ppnd16\_(double\ *p,\ long\ *ifault)*/}}
+\DoxyCodeLine{00131\ \textcolor{comment}{/*\ \ \ \ \ \ ALGORITHM\ AS241\ \ APPL.\ STATIST.\ (1988)\ VOL.\ 37,\ NO.\ 3}}
+\DoxyCodeLine{00132\ \textcolor{comment}{}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ \ \ \ \ \ \ \ Produces\ the\ normal\ deviate\ Z\ corresponding\ to\ a\ given\ lower}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ \ \ \ \ \ \ \ tail\ area\ of\ P;\ Z\ is\ accurate\ to\ about\ 1\ part\ in\ 10**16.}}
+\DoxyCodeLine{00135\ \textcolor{comment}{}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ \ \ \ \ \ \ \ (original\ fortran\ code\ used\ PARAMETER(..)\ for\ the\ coefficients}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ and\ provided\ hash\ codes\ for\ checking\ them...)}}
+\DoxyCodeLine{00138\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{if}\ (fabs(q)\ <=\ .425)\ \{\textcolor{comment}{/*\ |p\string~\ -\/\ 0.5|\ <=\ .425\ \ <==>\ 0.075\ <=\ p\string~\ <=\ 0.925\ */}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ r\ =\ .180625\ -\/\ q\ *\ q;\ \textcolor{comment}{//\ =\ .425\string^2\ -\/\ q\string^2\ \ >=\ 0}}
+\DoxyCodeLine{00141\ \ \ \ \ val\ =}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ q\ *\ (((((((r\ *\ 2509.0809287301226727\ +}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 33430.575583588128105)\ *\ r\ +\ 67265.770927008700853)\ *\ r\ +}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 45921.953931549871457)\ *\ r\ +\ 13731.693765509461125)\ *\ r\ +}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1971.5909503065514427)\ *\ r\ +\ 133.14166789178437745)\ *\ r\ +}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3.387132872796366608)}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ /\ (((((((r\ *\ 5226.495278852854561\ +}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 28729.085735721942674)\ *\ r\ +\ 39307.89580009271061)\ *\ r\ +}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 21213.794301586595867)\ *\ r\ +\ 5394.1960214247511077)\ *\ r\ +}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 687.1870074920579083)\ *\ r\ +\ 42.313330701600911252)\ *\ r\ +\ 1.);}
+\DoxyCodeLine{00151\ \ \ \ \ \}}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordflow}{else}\ \{\ \textcolor{comment}{/*\ closer\ than\ 0.075\ from\ \{0,1\}\ boundary\ :}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ \ r\ :=\ log(p\string~);\ \ p\string~\ =\ min(p,\ 1-\/p)\ <\ 0.075\ :\ \ */}}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordtype}{double}\ lp;}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordflow}{if}(log\_p\ \&\&\ ((lower\_tail\ \&\&\ q\ <=\ 0)\ ||\ (!lower\_tail\ \&\&\ q\ >\ 0)))\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ lp\ =\ p;}
+\DoxyCodeLine{00157\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ lp\ =\ log(\ (q\ >\ 0)\ ?\ R\_DT\_CIv(p)\ \textcolor{comment}{/*\ 1-\/p\ */}\ :\ p\_\ \textcolor{comment}{/*\ =\ R\_DT\_Iv(p)\ \string^=\ \ p\ */});}
+\DoxyCodeLine{00159\ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{comment}{//\ r\ =\ sqrt(\ -\/\ log(min(p,1-\/p))\ )\ \ <==>\ \ min(p,\ 1-\/p)\ =\ exp(\ -\/\ r\string^2\ )\ :}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ r\ =\ sqrt(-\/lp);}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#ifdef\ DEBUG\_qnorm}}
+\DoxyCodeLine{00163\ \ \ \ \ REprintf(\textcolor{stringliteral}{"{}\(\backslash\)t\ close\ to\ 0\ or\ 1:\ r\ =\ \%7g\(\backslash\)n"{}},\ r);}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (r\ <=\ 5.)\ \{\ \textcolor{comment}{/*\ <==>\ min(p,1-\/p)\ >=\ exp(-\/25)\ \string~=\ 1.3888e-\/11\ */}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ r\ +=\ -\/1.6;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ val\ =\ (((((((r\ *\ 7.7454501427834140764e-\/4\ +}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .0227238449892691845833)\ *\ r\ +\ .24178072517745061177)\ *}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\ +\ 1.27045825245236838258)\ *\ r\ +}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3.64784832476320460504)\ *\ r\ +\ 5.7694972214606914055)\ *}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\ +\ 4.6303378461565452959)\ *\ r\ +}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1.42343711074968357734)}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /\ (((((((r\ *}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1.05075007164441684324e-\/9\ +\ 5.475938084995344946e-\/4)\ *}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\ +\ .0151986665636164571966)\ *\ r\ +}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .14810397642748007459)\ *\ r\ +\ .68976733498510000455)\ *}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\ +\ 1.6763848301838038494)\ *\ r\ +}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2.05319162663775882187)\ *\ r\ +\ 1.);}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(r\ <=\ 27)\ \{\ \textcolor{comment}{/*\ p\ is\ very\ close\ to\ \ 0\ or\ 1:\ r\ in\ (5,\ 27]\ :}}
+\DoxyCodeLine{00181\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ \ r\ >\ \ \ 5\ <==>\ min(p,1-\/p)\ \ <\ exp(-\/25)\ =\ 1.3888..e-\/11}}
+\DoxyCodeLine{00182\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ \ r\ <=\ 27\ <==>\ min(p,1-\/p)\ >=\ exp(-\/27\string^2)\ =\ exp(-\/729)\ \string~=\ 2.507972e-\/317}}
+\DoxyCodeLine{00183\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ i.e.,\ we\ are\ just\ barely\ in\ the\ range\ where\ min(p,\ 1-\/p)\ has\ not\ yet\ underflowed\ to\ zero.}}
+\DoxyCodeLine{00184\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Wichura,\ p.478:\ minimax\ rational\ approx\ R\_3(t)\ is\ for\ 5\ <=\ t\ <=\ 27\ \ (t\ :==\ r)}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ r\ +=\ -\/5.;}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ val\ =\ (((((((r\ *\ 2.01033439929228813265e-\/7\ +}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2.71155556874348757815e-\/5)\ *\ r\ +}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .0012426609473880784386)\ *\ r\ +\ .026532189526576123093)\ *}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\ +\ .29656057182850489123)\ *\ r\ +}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1.7848265399172913358)\ *\ r\ +\ 5.4637849111641143699)\ *}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\ +\ 6.6579046435011037772)}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /\ (((((((r\ *}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2.04426310338993978564e-\/15\ +\ 1.4215117583164458887e-\/7)*}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\ +\ 1.8463183175100546818e-\/5)\ *\ r\ +}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 7.868691311456132591e-\/4)\ *\ r\ +\ .0148753612908506148525)}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ r\ +\ .13692988092273580531)\ *\ r\ +}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .59983220655588793769)\ *\ r\ +\ 1.);}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{\ \textcolor{comment}{//\ r\ >\ 27:\ p\ is\ *really*\ close\ to\ 0\ or\ 1\ ..\ practically\ only\ when\ log\_p\ =TRUE}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(r\ >=\ 6.4e8)\ \{\ \textcolor{comment}{//\ p\ is\ *very\ extremely*\ close\ to\ 0\ or\ 1}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Using\ the\ asymptotical\ formula\ ("{}0-\/th\ order"{}):\ qn\ =\ sqrt(2*s)}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ val\ =\ r\ *\ M\_SQRT2;}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ s2\ =\ -\/ldexp(lp,\ 1),\ \textcolor{comment}{//\ =\ -\/2*lp\ =\ 2s}}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ x2\ =\ s2\ -\/\ log(M\_2PI\ *\ s2);\ \textcolor{comment}{//\ =\ xs\_1}}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if(r\ >=\ 36000.)\ \ \#\ <==>\ s\ >=\ 36000\string^2\ \ \ use\ x2\ =\ xs\_1\ \ above}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(r\ <\ 36000.)\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ x2\ =\ s2\ -\/\ log(M\_2PI\ *\ x2)\ -\/\ 2./(2.\ +\ x2);\ \textcolor{comment}{//\ ==\ xs\_2}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(r\ <\ 840.)\ \{\ \textcolor{comment}{//\ 27\ <\ r\ <\ 840}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ x2\ =\ s2\ -\/\ log(M\_2PI\ *\ x2)\ +\ 2*log1p(-\/\ (1\ -\/\ 1/(4\ +\ x2))/(2.\ +\ x2));\ \textcolor{comment}{//\ ==\ xs\_3}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(r\ <\ 109.)\ \{\ \textcolor{comment}{//\ 27\ <\ r\ <\ 109}}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x2\ =\ s2\ -\/\ log(M\_2PI\ *\ x2)\ +}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2*log1p(-\/\ (1\ -\/\ (1\ -\/\ 5/(6\ +\ x2))/(4.\ +\ x2))/(2.\ +\ x2));\ \textcolor{comment}{//\ ==\ xs\_4}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(r\ <\ 55.)\ \{\ \textcolor{comment}{//\ 27\ <\ r\ <\ 55}}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x2\ =\ s2\ -\/\ log(M\_2PI\ *\ x2)\ +}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2*log1p(-\/\ (1\ -\/\ (1\ -\/\ (5\ -\/\ 9/(8.\ +\ x2))/(6.\ +\ x2))/(4.\ +\ x2))/(2.\ +\ x2));\ \textcolor{comment}{//\ ==\ xs\_5}}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ val\ =\ sqrt(x2);}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00224\ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordflow}{if}(q\ <\ 0.0)}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ val\ =\ -\/val;}
+\DoxyCodeLine{00227\ \ \ \ \ \}}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordflow}{return}\ mu\ +\ sigma\ *\ val;}
+\DoxyCodeLine{00229\ \}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \};}
+
+\end{DoxyCode}

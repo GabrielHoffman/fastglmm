@@ -320,13 +320,15 @@ static double robust_mean( const vec &x, const double &z_cutoff){
   }
 
   // compute z-score
-  vec z = (x1 - mean(x1)) / stddev(x1);
+  // add 1e-15 to avoid issue with sd is zero
+  vec z = (x1 - mean(x1)) / (stddev(x1) + 1e-15);
 
   // find indeces where abs z-score is less than cutoff
   uvec idx = find(abs(z) < z_cutoff);
 
   // mean of retained values
   return mean(x1.elem(idx));
+
 }
 
 

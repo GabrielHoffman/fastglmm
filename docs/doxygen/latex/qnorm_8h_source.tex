@@ -1,0 +1,137 @@
+\doxysection{qnorm.\+h}
+\hypertarget{qnorm_8h_source}{}\label{qnorm_8h_source}\index{inst/include/qnorm.h@{inst/include/qnorm.h}}
+\doxymbox{\hyperlink{qnorm_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ AS241:\ inverse\ standard\ normal\ CDF\ (quantile).}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Returns\ z\ such\ that\ P(Z\ <=\ z)\ =\ p\ \ (if\ lower\_tail=true).}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Supports\ log\_p\ (p\ given\ as\ log(p)).}}
+\DoxyCodeLine{00009\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{qnorm_8h_ae8e022ad9b48da949bc95b51d666efc8}{qnorm\_as241}}(\textcolor{keywordtype}{double}\ p,}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ mean\ =\ 0.0,}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sd\ =\ 1.0,}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ lower\_tail\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ log\_p\ =\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \ \ \textcolor{keywordflow}{if}\ (!(sd\ >\ 0.0)\ ||\ !std::isfinite(sd))\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordflow}{return}\ std::numeric\_limits<double>::quiet\_NaN();}
+\DoxyCodeLine{00017\ \ \ \}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \textcolor{comment}{//\ Handle\ log\_p\ and\ tail\ choice}}
+\DoxyCodeLine{00020\ \ \ \textcolor{keywordtype}{double}\ pp;}
+\DoxyCodeLine{00021\ \ \ \textcolor{keywordflow}{if}\ (log\_p)\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordflow}{if}\ (p\ >\ 0.0)\ \textcolor{keywordflow}{return}\ std::numeric\_limits<double>::quiet\_NaN();\ \textcolor{comment}{//\ log(p)\ must\ be\ <=\ 0}}
+\DoxyCodeLine{00023\ \ \ \ \ pp\ =\ std::exp(p);}
+\DoxyCodeLine{00024\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ pp\ =\ p;}
+\DoxyCodeLine{00026\ \ \ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordflow}{if}\ (!lower\_tail)\ pp\ =\ 1.0\ -\/\ pp;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \textcolor{comment}{//\ Bounds}}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordflow}{if}\ (pp\ <=\ 0.0)\ \textcolor{keywordflow}{return}\ -\/std::numeric\_limits<double>::infinity();}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordflow}{if}\ (pp\ >=\ 1.0)\ \textcolor{keywordflow}{return}\ \ std::numeric\_limits<double>::infinity();}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \textcolor{comment}{//\ Coefficients\ (AS241)}}
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ a[8]\ =\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ 3.3871328727963666080,}
+\DoxyCodeLine{00037\ \ \ \ \ 1.3314166789178437745e+2,}
+\DoxyCodeLine{00038\ \ \ \ \ 1.9715909503065514427e+3,}
+\DoxyCodeLine{00039\ \ \ \ \ 1.3731693765509461125e+4,}
+\DoxyCodeLine{00040\ \ \ \ \ 4.5921953931549871457e+4,}
+\DoxyCodeLine{00041\ \ \ \ \ 6.7265770927008700853e+4,}
+\DoxyCodeLine{00042\ \ \ \ \ 3.3430575583588128105e+4,}
+\DoxyCodeLine{00043\ \ \ \ \ 2.5090809287301226727e+3}
+\DoxyCodeLine{00044\ \ \ \};}
+\DoxyCodeLine{00045\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ b[8]\ =\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ 1.0,}
+\DoxyCodeLine{00047\ \ \ \ \ 4.2313330701600911252e+1,}
+\DoxyCodeLine{00048\ \ \ \ \ 6.8718700749205790830e+2,}
+\DoxyCodeLine{00049\ \ \ \ \ 5.3941960214247511077e+3,}
+\DoxyCodeLine{00050\ \ \ \ \ 2.1213794301586595867e+4,}
+\DoxyCodeLine{00051\ \ \ \ \ 3.9307895800092710610e+4,}
+\DoxyCodeLine{00052\ \ \ \ \ 2.8729085735721942674e+4,}
+\DoxyCodeLine{00053\ \ \ \ \ 5.2264952788528545610e+3}
+\DoxyCodeLine{00054\ \ \ \};}
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ c[8]\ =\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ 1.42343711074968357734,}
+\DoxyCodeLine{00057\ \ \ \ \ 4.63033784615654529590,}
+\DoxyCodeLine{00058\ \ \ \ \ 5.76949722146069140550,}
+\DoxyCodeLine{00059\ \ \ \ \ 3.64784832476320460504,}
+\DoxyCodeLine{00060\ \ \ \ \ 1.27045825245236838258,}
+\DoxyCodeLine{00061\ \ \ \ \ 2.41780725177450611770e-\/1,}
+\DoxyCodeLine{00062\ \ \ \ \ 2.27238449892691845833e-\/2,}
+\DoxyCodeLine{00063\ \ \ \ \ 7.74545014278341407640e-\/4}
+\DoxyCodeLine{00064\ \ \ \};}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ d[8]\ =\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ 1.0,}
+\DoxyCodeLine{00067\ \ \ \ \ 2.05319162663775882187,}
+\DoxyCodeLine{00068\ \ \ \ \ 1.67638483018380384940,}
+\DoxyCodeLine{00069\ \ \ \ \ 6.89767334985100004550e-\/1,}
+\DoxyCodeLine{00070\ \ \ \ \ 1.48103976427480074590e-\/1,}
+\DoxyCodeLine{00071\ \ \ \ \ 1.51986665636164571966e-\/2,}
+\DoxyCodeLine{00072\ \ \ \ \ 5.47593808499534494600e-\/4,}
+\DoxyCodeLine{00073\ \ \ \ \ 1.05075007164441684324e-\/9}
+\DoxyCodeLine{00074\ \ \ \};}
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ e[8]\ =\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ 6.65790464350110377720,}
+\DoxyCodeLine{00077\ \ \ \ \ 5.46378491116411436990,}
+\DoxyCodeLine{00078\ \ \ \ \ 1.78482653991729133580,}
+\DoxyCodeLine{00079\ \ \ \ \ 2.96560571828504891230e-\/1,}
+\DoxyCodeLine{00080\ \ \ \ \ 2.65321895265761230930e-\/2,}
+\DoxyCodeLine{00081\ \ \ \ \ 1.24266094738807843860e-\/3,}
+\DoxyCodeLine{00082\ \ \ \ \ 2.71155556874348757815e-\/5,}
+\DoxyCodeLine{00083\ \ \ \ \ 2.01033439929228813265e-\/7}
+\DoxyCodeLine{00084\ \ \ \};}
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ f[8]\ =\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ 1.0,}
+\DoxyCodeLine{00087\ \ \ \ \ 5.99832206555887937690e-\/1,}
+\DoxyCodeLine{00088\ \ \ \ \ 1.36929880922735805310e-\/1,}
+\DoxyCodeLine{00089\ \ \ \ \ 1.48753612908506148525e-\/2,}
+\DoxyCodeLine{00090\ \ \ \ \ 7.86869131145613259100e-\/4,}
+\DoxyCodeLine{00091\ \ \ \ \ 1.84631831751005468180e-\/5,}
+\DoxyCodeLine{00092\ \ \ \ \ 1.42151175831644588870e-\/7,}
+\DoxyCodeLine{00093\ \ \ \ \ 2.04426310338993978564e-\/15}
+\DoxyCodeLine{00094\ \ \ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{auto}\ poly\ =\ [](\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ coef,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ x)\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{comment}{//\ Horner:\ coef[0]\ +\ coef[1]\ x\ +\ ...\ +\ coef[n-\/1]\ x\string^(n-\/1)}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{double}\ v\ =\ coef[n\ -\/\ 1];}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ n\ -\/\ 2;\ i\ >=\ 0;\ -\/-\/i)\ v\ =\ v\ *\ x\ +\ coef[i];}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00101\ \ \ \};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{double}\ split1\ =\ 0.425;}
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{double}\ split2\ =\ 5.0;}
+\DoxyCodeLine{00105\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{double}\ const1\ =\ 0.180625;}
+\DoxyCodeLine{00106\ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{double}\ const2\ =\ 1.6;}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{double}\ q\ =\ pp\ -\/\ 0.5;}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{double}\ z;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordflow}{if}\ (std::fabs(q)\ <=\ split1)\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{comment}{//\ Central\ region}}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{double}\ r\ =\ const1\ -\/\ q*q;}
+\DoxyCodeLine{00114\ \ \ \ \ z\ =\ q\ *\ poly(a,\ 8,\ r)\ /\ poly(b,\ 8,\ r);}
+\DoxyCodeLine{00115\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ Tails}}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{double}\ r\ =\ (q\ <\ 0.0)\ ?\ pp\ :\ (1.0\ -\/\ pp);}
+\DoxyCodeLine{00118\ \ \ \ \ r\ =\ std::sqrt(-\/std::log(r));}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordflow}{if}\ (r\ <=\ split2)\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ r\ -\/=\ const2;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ z\ =\ poly(c,\ 8,\ r)\ /\ poly(d,\ 8,\ r);}
+\DoxyCodeLine{00123\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ r\ -\/=\ split2;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ z\ =\ poly(e,\ 8,\ r)\ /\ poly(f,\ 8,\ r);}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{if}\ (q\ <\ 0.0)\ z\ =\ -\/z;}
+\DoxyCodeLine{00128\ \ \ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordflow}{return}\ mean\ +\ sd\ *\ z;}
+\DoxyCodeLine{00131\ \}}
+
+\end{DoxyCode}

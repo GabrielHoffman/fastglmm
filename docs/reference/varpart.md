@@ -7,25 +7,60 @@ correcting for all other variables in the model.
 ## Usage
 
 ``` r
-varpart(fit, ..., distr.method = c("trigamma", "lognormal"))
+varpart(
+  fit,
+  ...,
+  distr.method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 
 # S4 method for class 'fastlmm'
-varpart(fit, ..., distr.method = c("trigamma", "lognormal"))
+varpart(
+  fit,
+  ...,
+  distr.method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 
 # S4 method for class 'fastglmm'
-varpart(fit, ..., distr.method = c("trigamma", "lognormal"))
+varpart(
+  fit,
+  ...,
+  distr.method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 
 # S4 method for class 'glm'
-varpart(fit, ..., distr.method = c("trigamma", "lognormal"))
+varpart(
+  fit,
+  ...,
+  distr.method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 
 # S4 method for class 'negbin'
-varpart(fit, ..., distr.method = c("trigamma", "lognormal"))
+varpart(
+  fit,
+  ...,
+  distr.method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 
 # S4 method for class 'lm'
-varpart(fit, ..., distr.method = c("trigamma", "lognormal"))
+varpart(
+  fit,
+  ...,
+  distr.method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 
 # S4 method for class 'merMod'
-varpart(fit, ..., distr.method = c("trigamma", "lognormal"))
+varpart(
+  fit,
+  ...,
+  distr.method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 ```
 
 ## Arguments
@@ -36,12 +71,17 @@ varpart(fit, ..., distr.method = c("trigamma", "lognormal"))
 
 - ...:
 
-  other arguments, not used here
+  other arguments,
 
 - distr.method:
 
   use either the `"lognormal"` or `"trigamma"` formulas from Nakagawa,
   et al. (2017)
+
+- lambda.method:
+
+  use either `"parametric"` or `"mean"` method to estimate the mean rate
+  for count models
 
 ## Details
 
@@ -51,6 +91,13 @@ fraction\]. This matches
 and
 [`performance::r2_mckelvey()`](https://easystats.github.io/performance/reference/r2_mckelvey.html),
 except these use the `"lognormal"` method.
+
+For count models, the distributional variance is a function of the mean
+count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be
+estimated using parameters of a model including only intercept and
+random effect terms. But this requires refitting the model dropping the
+rest of the fixed effects. Instead, computing the mean of the observed
+counts is a fast approximation.
 
 ## References
 

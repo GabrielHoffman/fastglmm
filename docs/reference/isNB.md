@@ -1,18 +1,18 @@
-# Is fit a negative binomial model
+# Is object a negative binomial model
 
-Is fit a negative binomial model
+Is object a negative binomial model
 
 ## Usage
 
 ``` r
-isNB(fit)
+isNB(x)
 ```
 
 ## Arguments
 
-- fit:
+- x:
 
-  model fit
+  family or model fit
 
 ## Value
 

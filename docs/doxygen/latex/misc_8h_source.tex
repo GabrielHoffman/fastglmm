@@ -1,328 +1,340 @@
 \doxysection{misc.\+h}
 \hypertarget{misc_8h_source}{}\label{misc_8h_source}\index{inst/include/misc.h@{inst/include/misc.h}}
-\mbox{\hyperlink{misc_8h}{Go to the documentation of this file.}}
+\doxymbox{\hyperlink{misc_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FASTLMM\_MISC\_H\_}}
 \DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FASTLMM\_MISC\_H\_}}
 \DoxyCodeLine{00003\ }
-\DoxyCodeLine{00004\ \textcolor{comment}{//\ if\ -\/D\ ARMA,\ use\ plain\ armadillo\ library}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifdef\ ARMA}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <armadillo>}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00010\ }
-\DoxyCodeLine{00011\ \textcolor{keyword}{using\ namespace\ }arma;}
-\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ if\ -\/D\ USE\_R,\ use\ RcppArmadillo\ library}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifdef\ USE\_R}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ [[Rcpp::depends(RcppParallel)]]\ \ }}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <armadillo>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{using\ namespace\ }arma;}
 \DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{comment}{//\ for\ each\ column,\ scale\ by\ w}}
-\DoxyCodeLine{00015\ \textcolor{keyword}{inline}\ mat\ \mbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(\textcolor{keyword}{const}\ mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
-\DoxyCodeLine{00016\ \ \ \textcolor{keywordflow}{return}\ X.each\_col()\ \%\ w;\ \ }
-\DoxyCodeLine{00017\ \}}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{comment}{//\ for\ each\ column,\ scale\ by\ w}}
-\DoxyCodeLine{00020\ \textcolor{keyword}{inline}\ sp\_mat\ \mbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(\textcolor{keyword}{const}\ sp\_mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \ \ sp\_mat\ M\ =\ sp\_mat(X);}
-\DoxyCodeLine{00023\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i=0;\ i<X.n\_cols;\ i++)\{}
-\DoxyCodeLine{00024\ \ \ \ \ M.col(i)\ \%=\ w;}
-\DoxyCodeLine{00025\ \ \ \}}
-\DoxyCodeLine{00026\ \ \ \textcolor{keywordflow}{return}(\ M\ );}
-\DoxyCodeLine{00027\ \}}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \textcolor{comment}{//\ for\ each\ row,\ scale\ by\ w}}
-\DoxyCodeLine{00030\ \textcolor{keyword}{inline}\ mat\ \mbox{\hyperlink{misc_8h_a613b4d5d3153ad82d4e3beed8060d305}{scaleEachRow}}(\textcolor{keyword}{const}\ mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
-\DoxyCodeLine{00031\ \ \ \textcolor{keywordflow}{return}\ w.t()\ \%\ X.each\_row();\ \ }
-\DoxyCodeLine{00032\ \}}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \textcolor{comment}{//\ for\ each\ row,\ scale\ by\ w}}
-\DoxyCodeLine{00035\ \textcolor{keyword}{inline}\ sp\_mat\ \mbox{\hyperlink{misc_8h_a613b4d5d3153ad82d4e3beed8060d305}{scaleEachRow}}(\textcolor{keyword}{const}\ sp\_mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ sp\_mat\ M\ =\ sp\_mat(X);}
-\DoxyCodeLine{00038\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i=0;\ i<X.n\_cols;\ i++)\{}
-\DoxyCodeLine{00039\ \ \ \ \ M.col(i)\ *=\ w[i];}
-\DoxyCodeLine{00040\ \ \ \}}
-\DoxyCodeLine{00041\ \ \ \textcolor{keywordflow}{return}(\ M\ );}
-\DoxyCodeLine{00042\ \}}
-\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ for\ each\ column,\ scale\ by\ w}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{inline}\ mat\ \doxymbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(\textcolor{keyword}{const}\ mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
+\DoxyCodeLine{00017\ \ \ \textcolor{keywordflow}{return}\ X.each\_col()\ \%\ w;\ \ }
+\DoxyCodeLine{00018\ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ for\ each\ column,\ scale\ by\ w}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{inline}\ sp\_mat\ \doxymbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(\textcolor{keyword}{const}\ sp\_mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ sp\_mat\ M\ =\ sp\_mat(X);}
+\DoxyCodeLine{00024\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i=0;\ i<X.n\_cols;\ i++)\{}
+\DoxyCodeLine{00025\ \ \ \ \ M.col(i)\ \%=\ w;}
+\DoxyCodeLine{00026\ \ \ \}}
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordflow}{return}(\ M\ );}
+\DoxyCodeLine{00028\ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ for\ each\ row,\ scale\ by\ w}}
+\DoxyCodeLine{00031\ \textcolor{keyword}{inline}\ mat\ \doxymbox{\hyperlink{misc_8h_a613b4d5d3153ad82d4e3beed8060d305}{scaleEachRow}}(\textcolor{keyword}{const}\ mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordflow}{return}\ w.t()\ \%\ X.each\_row();\ \ }
+\DoxyCodeLine{00033\ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ for\ each\ row,\ scale\ by\ w}}
+\DoxyCodeLine{00036\ \textcolor{keyword}{inline}\ sp\_mat\ \doxymbox{\hyperlink{misc_8h_a613b4d5d3153ad82d4e3beed8060d305}{scaleEachRow}}(\textcolor{keyword}{const}\ sp\_mat\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w)\{}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ sp\_mat\ M\ =\ sp\_mat(X);}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i=0;\ i<X.n\_cols;\ i++)\{}
+\DoxyCodeLine{00040\ \ \ \ \ M.col(i)\ *=\ w[i];}
+\DoxyCodeLine{00041\ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordflow}{return}(\ M\ );}
+\DoxyCodeLine{00043\ \}}
 \DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \textcolor{comment}{//\ scale\ by\ w\ and\ s}}
-\DoxyCodeLine{00046\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00047\ T\ \mbox{\hyperlink{misc_8h_aff616cc0cfc16600b8f55bf7b77f455e}{scaleRowsCols}}(\textcolor{keyword}{const}\ T\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w1,\ \textcolor{keyword}{const}\ vec\ \&w2)\{}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ T\ M\ =\ T(X);}
-\DoxyCodeLine{00050\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i=0;\ i<X.n\_cols;\ i++)\{}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{comment}{//\ M.col(i)\ \%=\ w1\ *\ w2(i);}}
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//\ manually\ setting\ order\ of\ operations\ is\ \_much\_\ faster}}
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//\ since\ this\ reduces\ the\ number\ of\ multiplications}}
-\DoxyCodeLine{00054\ \ \ \ \ M.col(i)\ *=\ w2(i);}
-\DoxyCodeLine{00055\ \ \ \ \ M.col(i)\ \%=\ w1;}
-\DoxyCodeLine{00056\ \ \ \}}
-\DoxyCodeLine{00057\ \ \ \textcolor{keywordflow}{return}(\ M\ );}
-\DoxyCodeLine{00058\ \}}
-\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ scale\ by\ w\ and\ s}}
+\DoxyCodeLine{00047\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00048\ T\ \doxymbox{\hyperlink{misc_8h_aff616cc0cfc16600b8f55bf7b77f455e}{scaleRowsCols}}(\textcolor{keyword}{const}\ T\ \&X,\ \textcolor{keyword}{const}\ vec\ \&w1,\ \textcolor{keyword}{const}\ vec\ \&w2)\{}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ T\ M\ =\ T(X);}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i=0;\ i<X.n\_cols;\ i++)\{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//\ M.col(i)\ \%=\ w1\ *\ w2(i);}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//\ manually\ setting\ order\ of\ operations\ is\ \_much\_\ faster}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//\ since\ this\ reduces\ the\ number\ of\ multiplications}}
+\DoxyCodeLine{00055\ \ \ \ \ M.col(i)\ *=\ w2(i);}
+\DoxyCodeLine{00056\ \ \ \ \ M.col(i)\ \%=\ w1;}
+\DoxyCodeLine{00057\ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordflow}{return}(\ M\ );}
+\DoxyCodeLine{00059\ \}}
 \DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \textcolor{comment}{//\ general\ case,\ returns\ false}}
-\DoxyCodeLine{00062\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
-\DoxyCodeLine{00063\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{misc_8h_a7f27bd5a55dc69659fbe6d20e0c6c4c4}{isSpMatrix}}(\textcolor{keyword}{const}\ T\ \&t)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \ \}\ }
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \ \textcolor{comment}{//\ but\ for\ sp\_mat\ returns\ true}}
-\DoxyCodeLine{00066\ \textcolor{keyword}{template}\ <>}
-\DoxyCodeLine{00067\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{misc_8h_a7f27bd5a55dc69659fbe6d20e0c6c4c4}{isSpMatrix}}(\ \textcolor{keyword}{const}\ sp\_mat\ \&t)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}\ }
-\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ general\ case,\ returns\ false}}
+\DoxyCodeLine{00063\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00064\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{misc_8h_a7f27bd5a55dc69659fbe6d20e0c6c4c4}{isSpMatrix}}(\textcolor{keyword}{const}\ T\ \&t)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \ \}\ }
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \textcolor{comment}{//\ but\ for\ sp\_mat\ returns\ true}}
+\DoxyCodeLine{00067\ \textcolor{keyword}{template}\ <>}
+\DoxyCodeLine{00068\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{misc_8h_a7f27bd5a55dc69659fbe6d20e0c6c4c4}{isSpMatrix}}(\ \textcolor{keyword}{const}\ sp\_mat\ \&t)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}\ }
 \DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \textcolor{comment}{//\ Given\ matrix,\ set\ entries\ in\ rows\ idx\ to\ zero}}
-\DoxyCodeLine{00071\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ rows\_to\_zero(\ mat\ \&X,\ \textcolor{keyword}{const}\ uvec\ \&idx\ )\{}
-\DoxyCodeLine{00072\ \ \ X.rows(idx).zeros();}
-\DoxyCodeLine{00073\ \}}
-\DoxyCodeLine{00074\ }
-\DoxyCodeLine{00075\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ rows\_to\_zero(\ sp\_mat\ \&X,\ \textcolor{keyword}{const}\ uvec\ \&idx\ )\{}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ j:\ idx\ )\{}
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \ it\ =\ X.begin\_row(j);\ it\ !=\ X.end\_row(j);\ ++it)\ \{}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ *it\ =\ 0.0;}
-\DoxyCodeLine{00080\ \ \ \ \ \}}
-\DoxyCodeLine{00081\ \ \ \}}
-\DoxyCodeLine{00082\ \ \ X.clean(0.0);}
-\DoxyCodeLine{00083\ \}}
-\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{//\ Given\ matrix,\ set\ entries\ in\ rows\ idx\ to\ zero}}
+\DoxyCodeLine{00072\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ rows\_to\_zero(\ mat\ \&X,\ \textcolor{keyword}{const}\ uvec\ \&idx\ )\{}
+\DoxyCodeLine{00073\ \ \ X.rows(idx).zeros();}
+\DoxyCodeLine{00074\ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ rows\_to\_zero(\ sp\_mat\ \&X,\ \textcolor{keyword}{const}\ uvec\ \&idx\ )\{}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ j:\ idx\ )\{}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \ it\ =\ X.begin\_row(j);\ it\ !=\ X.end\_row(j);\ ++it)\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ *it\ =\ 0.0;}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \}}
+\DoxyCodeLine{00083\ \ \ X.clean(0.0);}
+\DoxyCodeLine{00084\ \}}
 \DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \textcolor{comment}{//\ Return\ indices\ (0-\/based)\ of\ rows\ that\ contain\ at\ least\ one\ NaN}}
-\DoxyCodeLine{00087\ \textcolor{keyword}{static}\ uvec\ rows\_with\_nan(\textcolor{keyword}{const}\ mat\&\ M)\ \{}
-\DoxyCodeLine{00088\ \ \ std::vector<uword>\ nan\_rows;}
-\DoxyCodeLine{00089\ }
-\DoxyCodeLine{00090\ \ \ \textcolor{keywordflow}{for}\ (uword\ i\ =\ 0;\ i\ <\ M.n\_rows;\ ++i)\ \{}
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_nan\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00092\ }
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{comment}{//\ iterate\ over\ elements\ in\ row\ i}}
-\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{for}\ (mat::const\_row\_iterator\ it\ =\ M.begin\_row(i);}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ it\ !=\ M.end\_row(i);\ ++it)\ \{}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(*it))\ \{}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ has\_nan\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};\ \ \textcolor{comment}{//\ no\ need\ to\ check\ rest\ of\ row}}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00100\ \ \ \ \ \}}
-\DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{if}\ (has\_nan)\{}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ nan\_rows.push\_back(i);}
-\DoxyCodeLine{00104\ \ \ \ \ \}}
-\DoxyCodeLine{00105\ \ \ \}}
-\DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ \ \ \textcolor{keywordflow}{return}\ conv\_to<uvec>::from(nan\_rows);}
-\DoxyCodeLine{00108\ \}}
-\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{comment}{//\ Return\ indices\ (0-\/based)\ of\ rows\ that\ contain\ at\ least\ one\ NaN}}
+\DoxyCodeLine{00088\ \textcolor{keyword}{static}\ uvec\ rows\_with\_nan(\textcolor{keyword}{const}\ mat\&\ M)\ \{}
+\DoxyCodeLine{00089\ \ \ std::vector<uword>\ nan\_rows;}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordflow}{for}\ (uword\ i\ =\ 0;\ i\ <\ M.n\_rows;\ ++i)\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_nan\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{comment}{//\ iterate\ over\ elements\ in\ row\ i}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{for}\ (mat::const\_row\_iterator\ it\ =\ M.begin\_row(i);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ it\ !=\ M.end\_row(i);\ ++it)\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(*it))\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ has\_nan\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};\ \ \textcolor{comment}{//\ no\ need\ to\ check\ rest\ of\ row}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{if}\ (has\_nan)\{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ nan\_rows.push\_back(i);}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordflow}{return}\ conv\_to<uvec>::from(nan\_rows);}
+\DoxyCodeLine{00109\ \}}
 \DoxyCodeLine{00110\ }
-\DoxyCodeLine{00111\ \textcolor{comment}{//\ Return\ indices\ (0-\/based)\ of\ rows\ in\ sp\_mat\ containing\ NaN}}
-\DoxyCodeLine{00112\ \textcolor{keyword}{static}\ uvec\ rows\_with\_nan(\textcolor{keyword}{const}\ sp\_mat\&\ M)\ \{}
-\DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ \ \ std::vector<uword>\ nan\_rows;}
-\DoxyCodeLine{00115\ }
-\DoxyCodeLine{00116\ \ \ \textcolor{keywordflow}{for}\ (uword\ i\ =\ 0;\ i\ <\ M.n\_rows;\ ++i)\ \{}
-\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_nan\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00118\ }
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{comment}{//\ iterate\ over\ stored\ elements\ in\ row\ i}}
-\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordflow}{for}\ (sp\_mat::const\_row\_iterator\ it\ =\ M.begin\_row(i);}
-\DoxyCodeLine{00121\ \ \ \ \ it\ !=\ M.end\_row(i);\ ++it)\{}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(*it))\ \{}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ has\_nan\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};\ \ \textcolor{comment}{//\ stop\ once\ a\ NaN\ is\ found}}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00126\ \ \ \ \ \}}
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{if}\ (has\_nan)}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ nan\_rows.push\_back(i);}
-\DoxyCodeLine{00130\ \ \ \ \ \}}
-\DoxyCodeLine{00131\ }
-\DoxyCodeLine{00132\ \ \ \textcolor{keywordflow}{return}\ conv\_to<uvec>::from(nan\_rows);}
-\DoxyCodeLine{00133\ \}}
-\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{comment}{//\ Return\ indices\ (0-\/based)\ of\ rows\ in\ sp\_mat\ containing\ NaN}}
+\DoxyCodeLine{00113\ \textcolor{keyword}{static}\ uvec\ rows\_with\_nan(\textcolor{keyword}{const}\ sp\_mat\&\ M)\ \{}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ std::vector<uword>\ nan\_rows;}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordflow}{for}\ (uword\ i\ =\ 0;\ i\ <\ M.n\_rows;\ ++i)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_nan\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{comment}{//\ iterate\ over\ stored\ elements\ in\ row\ i}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{for}\ (sp\_mat::const\_row\_iterator\ it\ =\ M.begin\_row(i);}
+\DoxyCodeLine{00122\ \ \ \ \ it\ !=\ M.end\_row(i);\ ++it)\{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(*it))\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ has\_nan\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};\ \ \textcolor{comment}{//\ stop\ once\ a\ NaN\ is\ found}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{if}\ (has\_nan)}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ nan\_rows.push\_back(i);}
+\DoxyCodeLine{00131\ \ \ \ \ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordflow}{return}\ conv\_to<uvec>::from(nan\_rows);}
+\DoxyCodeLine{00134\ \}}
 \DoxyCodeLine{00135\ }
-\DoxyCodeLine{00136\ \textcolor{comment}{//\ template\ <typename\ T>}}
-\DoxyCodeLine{00137\ \textcolor{comment}{//\ const\ T\&\ min(const\ T\&\ a,\ const\ T\&\ b)\ \{}}
-\DoxyCodeLine{00138\ \textcolor{comment}{//\ \ \ \ \ return\ (a\ <\ b)\ ?\ a\ :\ b;}}
-\DoxyCodeLine{00139\ \textcolor{comment}{//\ \}}}
-\DoxyCodeLine{00140\ }
-\DoxyCodeLine{00141\ \textcolor{comment}{//\ template\ <typename\ T>}}
-\DoxyCodeLine{00142\ \textcolor{comment}{//\ const\ T\&\ max(const\ T\&\ a,\ const\ T\&\ b)\ \{}}
-\DoxyCodeLine{00143\ \textcolor{comment}{//\ \ \ \ \ return\ (a\ >\ b)\ ?\ a\ :\ b;}}
-\DoxyCodeLine{00144\ \textcolor{comment}{//\ \}}}
-\DoxyCodeLine{00145\ }
-\DoxyCodeLine{00146\ \textcolor{keyword}{static}\ vec\ pmax(\ \textcolor{keyword}{const}\ vec\ \&v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&value)\{}
-\DoxyCodeLine{00147\ }
-\DoxyCodeLine{00148\ \ \ vec\ tmp(v);}
-\DoxyCodeLine{00149\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<tmp.n\_elem;\ i++)\{}
-\DoxyCodeLine{00150\ \ \ \ \ tmp[i]\ =\ std::max(tmp[i],\ value);}
-\DoxyCodeLine{00151\ \ \ \}}
-\DoxyCodeLine{00152\ }
-\DoxyCodeLine{00153\ \ \ \textcolor{keywordflow}{return}\ tmp;}
-\DoxyCodeLine{00154\ \}}
-\DoxyCodeLine{00155\ }
-\DoxyCodeLine{00156\ \textcolor{keyword}{static}\ vec\ pmin(\ \textcolor{keyword}{const}\ vec\ \&v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&value)\{}
-\DoxyCodeLine{00157\ }
-\DoxyCodeLine{00158\ \ \ vec\ tmp(v);}
-\DoxyCodeLine{00159\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<tmp.n\_elem;\ i++)\{}
-\DoxyCodeLine{00160\ \ \ \ \ tmp[i]\ =\ std::min(tmp[i],\ value);}
-\DoxyCodeLine{00161\ \ \ \}}
-\DoxyCodeLine{00162\ }
-\DoxyCodeLine{00163\ \ \ \textcolor{keywordflow}{return}\ tmp;}
-\DoxyCodeLine{00164\ \}}
-\DoxyCodeLine{00165\ }
-\DoxyCodeLine{00166\ \textcolor{keyword}{static}\ vec\ qnorm(\ \textcolor{keyword}{const}\ vec\ \&\ v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&mean=0,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&sd=1\ )\{}
-\DoxyCodeLine{00167\ \ \ vec\ tmp(v);}
-\DoxyCodeLine{00168\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<tmp.n\_elem;\ i++)\{}
-\DoxyCodeLine{00169\ \ \ \ \ tmp[i]\ =\ R::qnorm(tmp[i],\ mean,\ sd,\ 1,\ 0);}
-\DoxyCodeLine{00170\ \ \ \ \ \textcolor{comment}{//\ tmp[i]\ =\ glm::qnorm(tmp[i],\ \ mean,\ sd,\ 1,\ 0);}}
-\DoxyCodeLine{00171\ \ \ \}}
-\DoxyCodeLine{00172\ }
-\DoxyCodeLine{00173\ \ \ \textcolor{keywordflow}{return}\ tmp;}
-\DoxyCodeLine{00174\ \}}
-\DoxyCodeLine{00175\ }
-\DoxyCodeLine{00176\ \textcolor{keyword}{static}\ vec\ y\_log\_y(\textcolor{keyword}{const}\ vec\ \&\ y,\ \textcolor{keyword}{const}\ vec\ \&\ mu)\{}
-\DoxyCodeLine{00177\ \ \ \ \ \textcolor{comment}{//\ (y)\ ?\ (y\ *\ log(y/mu))\ :\ 0;}}
-\DoxyCodeLine{00178\ }
-\DoxyCodeLine{00179\ \ \ \ \ \textcolor{comment}{//\ initialize\ to\ zeros}}
-\DoxyCodeLine{00180\ \ \ vec\ ret(y.n\_elem,\ fill::zeros);}
-\DoxyCodeLine{00181\ }
-\DoxyCodeLine{00182\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<y.n\_elem;\ i++)\{}
-\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordflow}{if}(\ y[i]\ !=\ 0.0)\{}
-\DoxyCodeLine{00184\ \ \ \ \ \ \ ret[i]\ =\ y[i]\ *\ log(y[i]/mu[i]);}
-\DoxyCodeLine{00185\ \ \ \ \ \}}
-\DoxyCodeLine{00186\ \ \ \}}
-\DoxyCodeLine{00187\ }
-\DoxyCodeLine{00188\ \ \ \textcolor{keywordflow}{return}\ ret;}
-\DoxyCodeLine{00189\ \}}
-\DoxyCodeLine{00190\ }
-\DoxyCodeLine{00191\ }
-\DoxyCodeLine{00192\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ wvar(\textcolor{keyword}{const}\ vec\ \&\ x,\ \textcolor{keyword}{const}\ vec\ \&\ w)\ \{}
-\DoxyCodeLine{00193\ }
-\DoxyCodeLine{00194\ \ \ \textcolor{keywordflow}{if}\ (x.n\_elem\ !=\ w.n\_elem)\ \{}
-\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordflow}{throw}\ invalid\_argument(\textcolor{stringliteral}{"{}Data\ and\ weights\ vectors\ must\ have\ the\ same\ number\ of\ elements."{}});}
-\DoxyCodeLine{00196\ \ \ \}}
-\DoxyCodeLine{00197\ }
-\DoxyCodeLine{00198\ \ \ \textcolor{keywordflow}{if}\ (x.is\_empty())\ \{}
-\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.0;\ }
-\DoxyCodeLine{00200\ \ \ \}}
-\DoxyCodeLine{00201\ }
-\DoxyCodeLine{00202\ \ \ \textcolor{keywordtype}{double}\ sum\_weights\ =\ sum(w);}
-\DoxyCodeLine{00203\ }
-\DoxyCodeLine{00204\ \ \ \textcolor{keywordflow}{if}\ (sum\_weights\ ==\ 0)\ \{}
-\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Sum\ of\ weights\ cannot\ be\ zero."{}});}
-\DoxyCodeLine{00206\ \ \ \}}
-\DoxyCodeLine{00207\ }
-\DoxyCodeLine{00208\ \ \ \textcolor{comment}{//\ Calculate\ weighted\ mean}}
-\DoxyCodeLine{00209\ \ \ \textcolor{keywordtype}{double}\ weighted\_mean\ =\ sum(x\ \%\ w)\ /\ sum\_weights;}
-\DoxyCodeLine{00210\ }
-\DoxyCodeLine{00211\ \ \ \textcolor{comment}{//\ Calculate\ weighted\ variance}}
-\DoxyCodeLine{00212\ \ \ vec\ diff\_sq\ =\ square(x\ -\/\ weighted\_mean);}
-\DoxyCodeLine{00213\ \ \ \textcolor{keywordtype}{double}\ numerator\ =\ sum(w\ \%\ diff\_sq);}
-\DoxyCodeLine{00214\ }
-\DoxyCodeLine{00215\ \ \ \textcolor{keywordtype}{double}\ denominator\ =\ sum\_weights\ -\/\ (sum(square(w))\ /\ sum\_weights);}
-\DoxyCodeLine{00216\ }
-\DoxyCodeLine{00217\ \ \ \textcolor{keywordflow}{if}\ (denominator\ ==\ 0)\ \{}
-\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.0;\ }
-\DoxyCodeLine{00219\ \ \ \}}
-\DoxyCodeLine{00220\ }
-\DoxyCodeLine{00221\ \ \ \textcolor{keywordflow}{return}\ numerator\ /\ denominator;}
-\DoxyCodeLine{00222\ \}}
-\DoxyCodeLine{00223\ }
-\DoxyCodeLine{00224\ }
-\DoxyCodeLine{00225\ \textcolor{comment}{//\ Adapted\ from\ tbb::blocked\_range}}
-\DoxyCodeLine{00226\ \textcolor{comment}{//\ Designed\ to\ be\ used\ when\ tbb\ is\ not\ available}}
-\DoxyCodeLine{00227\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00228\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classblocked__range_a2d8fd08bdc4b9f36956da0ab4a20e35a}{blocked\_range}}\ \{}
-\DoxyCodeLine{00229\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00230\ \ \ \ \ \textcolor{comment}{//\ constructors}}
-\DoxyCodeLine{00231\ \ \ \ \ \mbox{\hyperlink{classblocked__range_a2d8fd08bdc4b9f36956da0ab4a20e35a}{blocked\_range}}(\ T\ \mbox{\hyperlink{classblocked__range_ae476798641214d341773f96d6a34dd7f}{begin}},\ T\ \mbox{\hyperlink{classblocked__range_a3fcfbfea120452696ad38bc0ac4642eb}{end}}\ )\ :\ }
-\DoxyCodeLine{00232\ \ \ \ \ \ \ begin\_value(\mbox{\hyperlink{classblocked__range_ae476798641214d341773f96d6a34dd7f}{begin}}),\ end\_value(\mbox{\hyperlink{classblocked__range_a3fcfbfea120452696ad38bc0ac4642eb}{end}})\ \{\}}
-\DoxyCodeLine{00233\ }
-\DoxyCodeLine{00234\ \ \ \ \ \textcolor{comment}{//\ get\ range\ limits}}
-\DoxyCodeLine{00235\ \ \ \ \ T\ \mbox{\hyperlink{classblocked__range_ae476798641214d341773f96d6a34dd7f}{begin}}()\{\ \textcolor{keywordflow}{return}\ begin\_value;\ \}}
-\DoxyCodeLine{00236\ \ \ \ \ T\ \mbox{\hyperlink{classblocked__range_a3fcfbfea120452696ad38bc0ac4642eb}{end}}()\{\ \textcolor{keywordflow}{return}\ end\_value;\ \}}
-\DoxyCodeLine{00237\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00238\ \ \ \ \ T\ begin\_value,\ end\_value;}
-\DoxyCodeLine{00239\ \};}
-\DoxyCodeLine{00240\ }
-\DoxyCodeLine{00241\ }
-\DoxyCodeLine{00242\ \textcolor{comment}{//\ Set\ OpenMP\ threads\ to\ 1\ and\ disable\ nested\ parallelism}}
-\DoxyCodeLine{00243\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ disable\_parallel\_blas()\{}
-\DoxyCodeLine{00244\ \textcolor{preprocessor}{\ \ \#ifdef\ \_OPENMP}}
-\DoxyCodeLine{00245\ \textcolor{preprocessor}{\ \ \#include\ <omp.h>}\ }
-\DoxyCodeLine{00246\ \ \ \textcolor{comment}{//\ set\ threads}}
-\DoxyCodeLine{00247\ \ \ omp\_set\_num\_threads(1);}
-\DoxyCodeLine{00248\ \ \ \textcolor{comment}{//\ disable\ nested\ parallelism}}
-\DoxyCodeLine{00249\ \ \ omp\_set\_max\_active\_levels(0);}
-\DoxyCodeLine{00250\ \textcolor{preprocessor}{\ \ \#endif}}
-\DoxyCodeLine{00251\ \}}
-\DoxyCodeLine{00252\ }
-\DoxyCodeLine{00253\ \textcolor{comment}{//\ For\ NAN\ entries\ in\ Y,\ set\ matching\ entry\ in\ W\ to\ zero}}
-\DoxyCodeLine{00254\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ match\_NAN\_zeros(\ \textcolor{keyword}{const}\ mat\ \&Y,\ mat\ \&W)\{}
-\DoxyCodeLine{00255\ \ \ \textcolor{keywordflow}{for}\ (arma::uword\ r\ =\ 0;\ r\ <\ Y.n\_rows;\ ++r)\ \{}
-\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keywordflow}{for}\ (arma::uword\ c\ =\ 0;\ c\ <\ Y.n\_cols;\ ++c)\ \{}
-\DoxyCodeLine{00257\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(Y(r,\ c)))\ \{}
-\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ W(r,\ c)\ =\ 0.0;}
-\DoxyCodeLine{00259\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00260\ \ \ \ \ \}}
-\DoxyCodeLine{00261\ \ \ \}}
-\DoxyCodeLine{00262\ \}}
-\DoxyCodeLine{00263\ }
-\DoxyCodeLine{00264\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ count\_nan(\ \textcolor{keyword}{const}\ vec\ \&v)\{}
-\DoxyCodeLine{00265\ \ \ \textcolor{keywordtype}{int}\ nan\_count\ =\ 0;}
-\DoxyCodeLine{00266\ \ \ \textcolor{keywordflow}{for}\ (arma::uword\ i\ =\ 0;\ i\ <\ v.n\_elem;\ ++i)\ \{}
-\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(v(i)))\ \{}
-\DoxyCodeLine{00268\ \ \ \ \ \ \ nan\_count++;}
-\DoxyCodeLine{00269\ \ \ \ \ \}}
-\DoxyCodeLine{00270\ \ \ \}}
-\DoxyCodeLine{00271\ \ \ \textcolor{keywordflow}{return}\ nan\_count;}
-\DoxyCodeLine{00272\ \}}
-\DoxyCodeLine{00273\ }
-\DoxyCodeLine{00274\ }
-\DoxyCodeLine{00275\ \textcolor{keyword}{static}\ uvec\ countResponseFilter(\ \textcolor{keyword}{const}\ mat\ \&Y)\{}
-\DoxyCodeLine{00276\ }
-\DoxyCodeLine{00277\ \ \ \textcolor{comment}{//\ \#\ filter\ genes\ by\ expression}}
-\DoxyCodeLine{00278\ \ \ \textcolor{comment}{//\ keep1\ <-\/\ rowSums2(countMatrix\ >\ 0)\ >\ max(2,\ 0.1*ncol(countMatrix))}}
-\DoxyCodeLine{00279\ \ \ \textcolor{comment}{//\ keep2\ <-\/\ rowSums2(countMatrix\ >\ 1)\ >\ max(2,\ 0.01*ncol(countMatrix))}}
-\DoxyCodeLine{00280\ \ \ \textcolor{comment}{//\ keep\ <-\/\ keep1\ \&\ keep2}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{comment}{//\ template\ <typename\ T>}}
+\DoxyCodeLine{00138\ \textcolor{comment}{//\ const\ T\&\ min(const\ T\&\ a,\ const\ T\&\ b)\ \{}}
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ \ \ \ \ return\ (a\ <\ b)\ ?\ a\ :\ b;}}
+\DoxyCodeLine{00140\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{comment}{//\ template\ <typename\ T>}}
+\DoxyCodeLine{00143\ \textcolor{comment}{//\ const\ T\&\ max(const\ T\&\ a,\ const\ T\&\ b)\ \{}}
+\DoxyCodeLine{00144\ \textcolor{comment}{//\ \ \ \ \ return\ (a\ >\ b)\ ?\ a\ :\ b;}}
+\DoxyCodeLine{00145\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{keyword}{static}\ vec\ pmax(\ \textcolor{keyword}{const}\ vec\ \&v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&value)\{}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ vec\ tmp(v);}
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<tmp.n\_elem;\ i++)\{}
+\DoxyCodeLine{00151\ \ \ \ \ tmp[i]\ =\ std::max(tmp[i],\ value);}
+\DoxyCodeLine{00152\ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordflow}{return}\ tmp;}
+\DoxyCodeLine{00155\ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{static}\ vec\ pmin(\ \textcolor{keyword}{const}\ vec\ \&v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&value)\{}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ vec\ tmp(v);}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<tmp.n\_elem;\ i++)\{}
+\DoxyCodeLine{00161\ \ \ \ \ tmp[i]\ =\ std::min(tmp[i],\ value);}
+\DoxyCodeLine{00162\ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordflow}{return}\ tmp;}
+\DoxyCodeLine{00165\ \}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{qnorm_8h}{qnorm.h}}"{}}}
+\DoxyCodeLine{00168\ \textcolor{keyword}{static}\ vec\ qnorm(\ \textcolor{keyword}{const}\ vec\ \&\ v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&mean=0,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&sd=1\ )\{}
+\DoxyCodeLine{00169\ \ \ vec\ tmp(v);}
+\DoxyCodeLine{00170\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<tmp.n\_elem;\ i++)\{}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{comment}{//\ R\ implementation\ of\ qnorm}}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{comment}{//\ tmp[i]\ =\ R::qnorm(tmp[i],\ mean,\ sd,\ 1,\ 0);}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{comment}{//\ C++\ without\ R\ dependency}}
+\DoxyCodeLine{00175\ \ \ \ \ tmp[i]\ =\ \doxymbox{\hyperlink{qnorm_8h_ae8e022ad9b48da949bc95b51d666efc8}{qnorm\_as241}}(v[i],\ mean,\ sd,\ 1,\ 0);}
+\DoxyCodeLine{00176\ \ \ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordflow}{return}\ tmp;}
+\DoxyCodeLine{00179\ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{keyword}{static}\ vec\ y\_log\_y(\textcolor{keyword}{const}\ vec\ \&\ y,\ \textcolor{keyword}{const}\ vec\ \&\ mu)\{}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{comment}{//\ (y)\ ?\ (y\ *\ log(y/mu))\ :\ 0;}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{comment}{//\ initialize\ to\ zeros}}
+\DoxyCodeLine{00185\ \ \ vec\ ret(y.n\_elem,\ fill::zeros);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<y.n\_elem;\ i++)\{}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordflow}{if}(\ y[i]\ !=\ 0.0)\{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ ret[i]\ =\ y[i]\ *\ log(y[i]/mu[i]);}
+\DoxyCodeLine{00190\ \ \ \ \ \}}
+\DoxyCodeLine{00191\ \ \ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00194\ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ wvar(\textcolor{keyword}{const}\ vec\ \&\ x,\ \textcolor{keyword}{const}\ vec\ \&\ w)\ \{}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \textcolor{keywordflow}{if}\ (x.n\_elem\ !=\ w.n\_elem)\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordflow}{throw}\ invalid\_argument(\textcolor{stringliteral}{"{}Data\ and\ weights\ vectors\ must\ have\ the\ same\ number\ of\ elements."{}});}
+\DoxyCodeLine{00201\ \ \ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \textcolor{keywordflow}{if}\ (x.is\_empty())\ \{}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.0;\ }
+\DoxyCodeLine{00205\ \ \ \}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \textcolor{keywordtype}{double}\ sum\_weights\ =\ sum(w);}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \textcolor{keywordflow}{if}\ (sum\_weights\ ==\ 0)\ \{}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{throw}\ runtime\_error(\textcolor{stringliteral}{"{}Sum\ of\ weights\ cannot\ be\ zero."{}});}
+\DoxyCodeLine{00211\ \ \ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \textcolor{comment}{//\ Calculate\ weighted\ mean}}
+\DoxyCodeLine{00214\ \ \ \textcolor{keywordtype}{double}\ weighted\_mean\ =\ sum(x\ \%\ w)\ /\ sum\_weights;}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \textcolor{comment}{//\ Calculate\ weighted\ variance}}
+\DoxyCodeLine{00217\ \ \ vec\ diff\_sq\ =\ square(x\ -\/\ weighted\_mean);}
+\DoxyCodeLine{00218\ \ \ \textcolor{keywordtype}{double}\ numerator\ =\ sum(w\ \%\ diff\_sq);}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \textcolor{keywordtype}{double}\ denominator\ =\ sum\_weights\ -\/\ (sum(square(w))\ /\ sum\_weights);}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \textcolor{keywordflow}{if}\ (denominator\ ==\ 0)\ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.0;\ }
+\DoxyCodeLine{00224\ \ \ \}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \textcolor{keywordflow}{return}\ numerator\ /\ denominator;}
+\DoxyCodeLine{00227\ \}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{comment}{//\ Adapted\ from\ tbb::blocked\_range}}
+\DoxyCodeLine{00231\ \textcolor{comment}{//\ Designed\ to\ be\ used\ when\ tbb\ is\ not\ available}}
+\DoxyCodeLine{00232\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00233\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classblocked__range_a2d8fd08bdc4b9f36956da0ab4a20e35a}{blocked\_range}}\ \{}
+\DoxyCodeLine{00234\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{comment}{//\ constructors}}
+\DoxyCodeLine{00236\ \ \ \ \ \doxymbox{\hyperlink{classblocked__range_a2d8fd08bdc4b9f36956da0ab4a20e35a}{blocked\_range}}(\ T\ \doxymbox{\hyperlink{classblocked__range_ae476798641214d341773f96d6a34dd7f}{begin}},\ T\ \doxymbox{\hyperlink{classblocked__range_a3fcfbfea120452696ad38bc0ac4642eb}{end}}\ )\ :\ }
+\DoxyCodeLine{00237\ \ \ \ \ \ \ begin\_value(\doxymbox{\hyperlink{classblocked__range_ae476798641214d341773f96d6a34dd7f}{begin}}),\ end\_value(\doxymbox{\hyperlink{classblocked__range_a3fcfbfea120452696ad38bc0ac4642eb}{end}})\ \{\}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{comment}{//\ get\ range\ limits}}
+\DoxyCodeLine{00240\ \ \ \ \ T\ \doxymbox{\hyperlink{classblocked__range_ae476798641214d341773f96d6a34dd7f}{begin}}()\{\ \textcolor{keywordflow}{return}\ begin\_value;\ \}}
+\DoxyCodeLine{00241\ \ \ \ \ T\ \doxymbox{\hyperlink{classblocked__range_a3fcfbfea120452696ad38bc0ac4642eb}{end}}()\{\ \textcolor{keywordflow}{return}\ end\_value;\ \}}
+\DoxyCodeLine{00242\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00243\ \ \ \ \ T\ begin\_value,\ end\_value;}
+\DoxyCodeLine{00244\ \};}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \textcolor{comment}{//\ Set\ OpenMP\ threads\ to\ 1\ and\ disable\ nested\ parallelism}}
+\DoxyCodeLine{00248\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ disable\_parallel\_blas()\{}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\ \ \#ifdef\ \_OPENMP}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\ \ \#include\ <omp.h>}\ }
+\DoxyCodeLine{00251\ \ \ \textcolor{comment}{//\ set\ threads}}
+\DoxyCodeLine{00252\ \ \ omp\_set\_num\_threads(1);}
+\DoxyCodeLine{00253\ \ \ \textcolor{comment}{//\ disable\ nested\ parallelism}}
+\DoxyCodeLine{00254\ \ \ omp\_set\_max\_active\_levels(0);}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\ \ \#endif}}
+\DoxyCodeLine{00256\ \}}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \textcolor{comment}{//\ For\ NAN\ entries\ in\ Y,\ set\ matching\ entry\ in\ W\ to\ zero}}
+\DoxyCodeLine{00259\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ match\_NAN\_zeros(\ \textcolor{keyword}{const}\ mat\ \&Y,\ mat\ \&W)\{}
+\DoxyCodeLine{00260\ \ \ \textcolor{keywordflow}{for}\ (arma::uword\ r\ =\ 0;\ r\ <\ Y.n\_rows;\ ++r)\ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordflow}{for}\ (arma::uword\ c\ =\ 0;\ c\ <\ Y.n\_cols;\ ++c)\ \{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(Y(r,\ c)))\ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ W(r,\ c)\ =\ 0.0;}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ \ \ \ \ \}}
+\DoxyCodeLine{00266\ \ \ \}}
+\DoxyCodeLine{00267\ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ count\_nan(\ \textcolor{keyword}{const}\ vec\ \&v)\{}
+\DoxyCodeLine{00270\ \ \ \textcolor{keywordtype}{int}\ nan\_count\ =\ 0;}
+\DoxyCodeLine{00271\ \ \ \textcolor{keywordflow}{for}\ (arma::uword\ i\ =\ 0;\ i\ <\ v.n\_elem;\ ++i)\ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(v(i)))\ \{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ nan\_count++;}
+\DoxyCodeLine{00274\ \ \ \ \ \}}
+\DoxyCodeLine{00275\ \ \ \}}
+\DoxyCodeLine{00276\ \ \ \textcolor{keywordflow}{return}\ nan\_count;}
+\DoxyCodeLine{00277\ \}}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \textcolor{keyword}{static}\ uvec\ countResponseFilter(\ \textcolor{keyword}{const}\ mat\ \&Y)\{}
 \DoxyCodeLine{00281\ }
-\DoxyCodeLine{00282\ \ \ \textcolor{keywordtype}{int}\ nr\ =\ Y.n\_rows;}
-\DoxyCodeLine{00283\ }
-\DoxyCodeLine{00284\ \ \ uvec\ keep1\ =\ find(sum(Y\ >\ 0,\ 0)\ >\ max(2,\ (\textcolor{keywordtype}{int})\ 0.1*nr));}
-\DoxyCodeLine{00285\ \ \ uvec\ keep2\ =\ find(sum(Y\ >\ 1,\ 0)\ >\ max(2,\ (\textcolor{keywordtype}{int})\ 0.01*nr));}
+\DoxyCodeLine{00282\ \ \ \textcolor{comment}{//\ \#\ filter\ genes\ by\ expression}}
+\DoxyCodeLine{00283\ \ \ \textcolor{comment}{//\ keep1\ <-\/\ rowSums2(countMatrix\ >\ 0)\ >\ max(2,\ 0.1*ncol(countMatrix))}}
+\DoxyCodeLine{00284\ \ \ \textcolor{comment}{//\ keep2\ <-\/\ rowSums2(countMatrix\ >\ 1)\ >\ max(2,\ 0.01*ncol(countMatrix))}}
+\DoxyCodeLine{00285\ \ \ \textcolor{comment}{//\ keep\ <-\/\ keep1\ \&\ keep2}}
 \DoxyCodeLine{00286\ }
-\DoxyCodeLine{00287\ \ \ \textcolor{keywordflow}{return}\ intersect(keep1,\ keep2);}
-\DoxyCodeLine{00288\ \}}
-\DoxyCodeLine{00289\ \ }
-\DoxyCodeLine{00292\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00293\ \textcolor{keyword}{static}\ vector<T>\ subset(\ \textcolor{keyword}{const}\ vector<T>\ \&v,\ \textcolor{keyword}{const}\ uvec\ \&idx)\{}
-\DoxyCodeLine{00294\ }
-\DoxyCodeLine{00295\ \ \ vector<T>\ res;}
-\DoxyCodeLine{00296\ \ \ res.reserve(idx.n\_elem);}
-\DoxyCodeLine{00297\ }
-\DoxyCodeLine{00298\ \ \ \textcolor{keywordflow}{for}\ (uword\ i\ =\ 0;\ i\ <\ idx.n\_elem;\ ++i)\ \{}
-\DoxyCodeLine{00299\ \ \ \ \ res.push\_back(\ v[idx[i]]\ );}
-\DoxyCodeLine{00300\ \ \ \}}
-\DoxyCodeLine{00301\ }
-\DoxyCodeLine{00302\ \ \ \textcolor{keywordflow}{return}\ res;}
-\DoxyCodeLine{00303\ \}}
-\DoxyCodeLine{00304\ }
-\DoxyCodeLine{00307\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ robust\_mean(\ \textcolor{keyword}{const}\ vec\ \&x,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&z\_cutoff)\{}
-\DoxyCodeLine{00308\ }
-\DoxyCodeLine{00309\ \ \ \textcolor{comment}{//\ keep\ only\ finite\ values}}
-\DoxyCodeLine{00310\ \ \ vec\ x1\ =\ x.elem(find\_finite(x));}
-\DoxyCodeLine{00311\ }
-\DoxyCodeLine{00312\ \ \ \textcolor{comment}{//\ compute\ z-\/score}}
-\DoxyCodeLine{00313\ \ \ vec\ z\ =\ (x1\ -\/\ mean(x1))\ /\ stddev(x1);}
-\DoxyCodeLine{00314\ }
-\DoxyCodeLine{00315\ \ \ \textcolor{comment}{//\ find\ indeces\ where\ abs\ z-\/score\ is\ less\ than\ cutoff}}
-\DoxyCodeLine{00316\ \ \ uvec\ idx\ =\ find(abs(z)\ <\ z\_cutoff);}
-\DoxyCodeLine{00317\ }
-\DoxyCodeLine{00318\ \ \ \textcolor{comment}{//\ mean\ of\ retained\ values}}
-\DoxyCodeLine{00319\ \ \ \textcolor{keywordflow}{return}\ mean(x1.elem(idx));}
-\DoxyCodeLine{00320\ \}}
+\DoxyCodeLine{00287\ \ \ \textcolor{keywordtype}{int}\ nr\ =\ Y.n\_rows;}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ uvec\ keep1\ =\ find(sum(Y\ >\ 0,\ 0)\ >\ max(2,\ (\textcolor{keywordtype}{int})\ 0.1*nr));}
+\DoxyCodeLine{00290\ \ \ uvec\ keep2\ =\ find(sum(Y\ >\ 1,\ 0)\ >\ max(2,\ (\textcolor{keywordtype}{int})\ 0.01*nr));}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \textcolor{keywordflow}{return}\ intersect(keep1,\ keep2);}
+\DoxyCodeLine{00293\ \}}
+\DoxyCodeLine{00294\ \ }
+\DoxyCodeLine{00297\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00298\ \textcolor{keyword}{static}\ vector<T>\ subset(\ \textcolor{keyword}{const}\ vector<T>\ \&v,\ \textcolor{keyword}{const}\ uvec\ \&idx)\{}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ vector<T>\ res;}
+\DoxyCodeLine{00301\ \ \ res.reserve(idx.n\_elem);}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \textcolor{keywordflow}{for}\ (uword\ i\ =\ 0;\ i\ <\ idx.n\_elem;\ ++i)\ \{}
+\DoxyCodeLine{00304\ \ \ \ \ res.push\_back(\ v[idx[i]]\ );}
+\DoxyCodeLine{00305\ \ \ \}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00308\ \}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00312\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ robust\_mean(\ \textcolor{keyword}{const}\ vec\ \&x,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&z\_cutoff)\{}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ \textcolor{comment}{//\ keep\ only\ finite\ values}}
+\DoxyCodeLine{00315\ \ \ vec\ x1\ =\ x.elem(find\_finite(x));}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \textcolor{comment}{//\ if\ no\ elements\ retained}}
+\DoxyCodeLine{00318\ \ \ \textcolor{keywordflow}{if}(\ x1.n\_elem\ ==\ 0)\{}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keywordflow}{return}\ datum::nan;}
+\DoxyCodeLine{00320\ \ \ \}}
 \DoxyCodeLine{00321\ }
-\DoxyCodeLine{00322\ }
-\DoxyCodeLine{00323\ }
-\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00322\ \ \ \textcolor{comment}{//\ compute\ z-\/score}}
+\DoxyCodeLine{00323\ \ \ \textcolor{comment}{//\ add\ 1e-\/15\ to\ avoid\ issue\ with\ sd\ is\ zero}}
+\DoxyCodeLine{00324\ \ \ vec\ z\ =\ (x1\ -\/\ mean(x1))\ /\ (stddev(x1)\ +\ 1e-\/15);}
 \DoxyCodeLine{00325\ }
-\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00326\ \ \ \textcolor{comment}{//\ find\ indeces\ where\ abs\ z-\/score\ is\ less\ than\ cutoff}}
+\DoxyCodeLine{00327\ \ \ uvec\ idx\ =\ find(abs(z)\ <\ z\_cutoff);}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \textcolor{comment}{//\ mean\ of\ retained\ values}}
+\DoxyCodeLine{00330\ \ \ \textcolor{keywordflow}{return}\ mean(x1.elem(idx));}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \}}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

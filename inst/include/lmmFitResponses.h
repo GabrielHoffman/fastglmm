@@ -99,7 +99,7 @@ ModelFitLMMList
   tbb::task_arena limited_arena(nthreads);
   limited_arena.execute([&] {
   tbb::parallel_for(
-    tbb::blocked_range<int>(0, Y.n_cols, 100), 
+    tbb::blocked_range<int>(0, Y.n_cols, 10), 
     [&](const tbb::blocked_range<int>& r){ 
 
     disable_parallel_blas();

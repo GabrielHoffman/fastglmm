@@ -5,7 +5,12 @@ Compute distributional variance from the model fit
 ## Usage
 
 ``` r
-getDistrVar(fit, fit_null, method = c("trigamma", "lognormal"))
+getDistrVar(
+  fit,
+  fit_null,
+  method = c("trigamma", "lognormal"),
+  lambda.method = c("parametric", "mean")
+)
 ```
 
 ## Arguments
@@ -19,6 +24,11 @@ getDistrVar(fit, fit_null, method = c("trigamma", "lognormal"))
   use either the `"lognormal"` or `"trigamma"` formulas from Nakagawa,
   et al. (2017)
 
+- lambda.method:
+
+  use either `"parametric"` or `"mean"` method to estimate the mean rate
+  for count models
+
 ## Details
 
 In generalized linear (mixed) models, the link function contributes to
@@ -29,6 +39,13 @@ and Zavoina, 1975).
 `performance::r2_nakagawa(..., approximation="trigamma")`. Using
 [`performance::r2_mckelvey()`](https://easystats.github.io/performance/reference/r2_mckelvey.html)
 use the "lognormal" approximation
+
+For count models, the distributional variance is a function of the mean
+count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be
+estimated using parameters of a model including only intercept and
+random effect terms. But this requires refitting the model dropping the
+rest of the fixed effects. Instead, computing the mean of the observed
+counts is a fast approximation.
 
 ## References
 

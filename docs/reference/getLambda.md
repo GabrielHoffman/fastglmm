@@ -7,16 +7,16 @@ Estimate baseline rate from count model
 ## Usage
 
 ``` r
-getLambda(fit, ...)
+getLambda(fit, method = c("parametric", "mean"), ...)
 
 # S4 method for class 'fastlmm'
-getLambda(fit, ...)
+getLambda(fit, method = c("parametric", "mean"), ...)
 
 # S4 method for class 'glm'
-getLambda(fit, ...)
+getLambda(fit, method = c("parametric", "mean"), ...)
 
 # S4 method for class 'negbin'
-getLambda(fit, ...)
+getLambda(fit, method = c("parametric", "mean"), ...)
 
 getLambdaFromNull(fit_null, ...)
 ```
@@ -26,6 +26,11 @@ getLambdaFromNull(fit_null, ...)
 - fit:
 
   model fit
+
+- method:
+
+  use either `"parametric"` or `"mean"` method to estimate the mean rate
+  for count models
 
 - ...:
 

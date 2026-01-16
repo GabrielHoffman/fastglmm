@@ -2,17 +2,17 @@
 % Please edit documentation in R/misc.R
 \name{isCountModel}
 \alias{isCountModel}
-\title{Is fit a count model}
+\title{Is object a count model}
 \usage{
-isCountModel(fit)
+isCountModel(x)
 }
 \arguments{
-\item{fit}{model fit}
+\item{x}{family or model fit}
 }
 \value{
 TRUE for poisson, quasipoisson or NB models
 }
 \description{
-Is fit a count model
+Is object a count model
 }
 \keyword{internal}

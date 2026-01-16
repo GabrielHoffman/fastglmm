@@ -1,6 +1,6 @@
 \doxysection{fastglmm.\+h}
 \hypertarget{fastglmm_8h_source}{}\label{fastglmm_8h_source}\index{inst/include/fastglmm.h@{inst/include/fastglmm.h}}
-\mbox{\hyperlink{fastglmm_8h}{Go to the documentation of this file.}}
+\doxymbox{\hyperlink{fastglmm_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{/***************************************************************}}
 \DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ fastglmm.h}}
@@ -13,17 +13,22 @@
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ \_FASTGLMM\_H\_}}
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ \_FASTGLMM\_H\_}}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
-\DoxyCodeLine{00013\ \textcolor{comment}{//\ [[Rcpp::depends(RcppArmadillo)]]}}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{fastglmm__fit_8h}{fastglmm\_fit.h}}"{}}}
-\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_model_fit_8h}{ModelFit.h}}"{}}}
-\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{lmm_fit_responses_8h}{lmmFitResponses.h}}"{}}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{lmm_fit_features_8h}{lmmFitFeatures.h}}"{}}}
-\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{glmm_fit_responses_8h}{glmmFitResponses.h}}"{}}}
-\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{glmm_fit_features_8h}{glmmFitFeatures.h}}"{}}}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ if\ -\/D\ USE\_R,\ use\ RcppArmadillo\ library}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifdef\ USE\_R}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ [[Rcpp::depends(RcppParallel)]]\ \ }}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <armadillo>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{fastglmm__fit_8h}{fastglmm\_fit.h}}"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_model_fit_8h}{ModelFit.h}}"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lmm_fit_responses_8h}{lmmFitResponses.h}}"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{lmm_fit_features_8h}{lmmFitFeatures.h}}"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{glmm_fit_responses_8h}{glmmFitResponses.h}}"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{glmm_fit_features_8h}{glmmFitFeatures.h}}"{}}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

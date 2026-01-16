@@ -1,18 +1,18 @@
-# Is fit a count model
+# Is object a count model
 
-Is fit a count model
+Is object a count model
 
 ## Usage
 
 ``` r
-isCountModel(fit)
+isCountModel(x)
 ```
 
 ## Arguments
 
-- fit:
+- x:
 
-  model fit
+  family or model fit
 
 ## Value
 

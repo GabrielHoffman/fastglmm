@@ -24,6 +24,8 @@ the same as using `lme4::lmer(..., REML=FALSE)`.
 ``` r
 
 library(fastglmm)
+data(sleepstudy, package="lme4")
+
 fit <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy)
 
 fit

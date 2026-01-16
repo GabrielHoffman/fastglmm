@@ -56,37 +56,42 @@ concatItem = function(x, nms, collapse=", "){
     coolcat(paste0(x, "(%d): %s\n"), nms, collapse=collapse)
 }
 
-#' Is fit a count model
+#' Is object a count model
 #'
-#' Is fit a count model
+#' Is object a count model
 #'
-#' @param fit model fit
+#' @param x family or model fit
 #'
 #' @return TRUE for poisson, quasipoisson or NB models
 #'
 #' @export
 #' @keywords internal 
-isCountModel = function(fit){
+isCountModel = function(x){
+
+  # run family() extractor
+  # if fails, return x
+  fam <- tryCatch(family(x), error = function(e) x)
 
   # get family identifier
-  famID <- getFamilyString(family(fit))
+  famID <- getFamilyString(fam)
 
-  isNB(fit) || famID %in% c("poisson/log", "quasipoisson/log")
+  isNB(x) || famID %in% c("poisson/log", "quasipoisson/log")
 }
 
-#' Is fit a negative binomial model
+#' Is object a negative binomial model
 #'
-#' Is fit a negative binomial model
+#' Is object a negative binomial model
 #'
-#' @param fit model fit
+#' @param x family or model fit
 #'
 #' @return TRUE for NB models
 #'
 #' @export
 #' @keywords internal 
-isNB <- function( fit ){
+isNB <- function( x ){
 
-  famID <- getFamilyString(family(fit))
+  fam <- tryCatch(family(x), error = function(e) x)
+  famID <- getFamilyString(fam)
   famID2 <- gsub("^(.+):.*", "\\1", famID)
   return( famID2 == "nb" )
 }

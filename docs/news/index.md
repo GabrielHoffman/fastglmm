@@ -1,9 +1,19 @@
 # Changelog
 
+## fastglmm 0.3.8
+
+- Jan 16, 2016
+- more flexable
+  [`isCountModel()`](http://gabrielhoffman.github.io/fastglmm/reference/isCountModel.md)
+  and
+  [`isNB()`](http://gabrielhoffman.github.io/fastglmm/reference/isNB.md)
+
 ## fastglmm 0.3.7
 
 - performance improvements
-- add ridge regression
+- add ridge regression in fastglmm and fastlmm
+- in variance partitioning analysis, add faster approximation of
+  baseline rate for count models
 
 ## fastglmm 0.3.6
 
