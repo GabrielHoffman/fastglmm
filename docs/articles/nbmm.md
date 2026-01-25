@@ -43,11 +43,11 @@ fit
     ## Call:
     ## fastglmm(formula = formula, data = data, family = negative.binomial(NA), 
     ##     weights = weights, maxit = maxit, tol = tol, tol.eta = tol.eta, 
-    ##     nthreads = nthreads)
+    ##     doCoxReid = doCoxReid, nthreads = nthreads)
     ## 
     ## Coefficients:
     ## (Intercept)         DxAD          Age      SexMale  
-    ##   -8.577764     1.102771    -0.007261    -0.103264
+    ##   -8.577681     1.102755    -0.007262    -0.103277
 
 ## Hypothesis testing
 
@@ -56,25 +56,25 @@ fit
 summary(fit)
 ```
 
-    ## Generlized linear mixed model fit by PQL ['fastglmm']
+    ## Generalized linear mixed model fit by PQL ['fastglmm']
     ##  Family: Negative Binomial(0.2443)  ( log )
     ##  Formula: PTPRG ~ offset(log(libSize)) + Dx + Age + Sex + (1 | SubID)
     ## 
     ## Coefficients:
     ##              Estimate Std. Error z value Pr(>|z|)    
-    ## (Intercept) -8.577764   0.369236 -23.231   <2e-16 ***
-    ## DxAD         1.102771   0.087264  12.637   <2e-16 ***
-    ## Age         -0.007261   0.004480  -1.621    0.105    
-    ## SexMale     -0.103264   0.089893  -1.149    0.251    
+    ## (Intercept) -8.577681   0.369007 -23.245   <2e-16 ***
+    ## DxAD         1.102755   0.087209  12.645   <2e-16 ***
+    ## Age         -0.007262   0.004477  -1.622    0.105    
+    ## SexMale     -0.103277   0.089836  -1.150    0.250    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Residual df: 60227.2 
     ## 
     ## Variance components:
-    ##   sigSq_g: 0.481
-    ##   sigSq_e: 8.178
-    ##   delta:   17
+    ##   sigSq_g: 0.4803
+    ##   sigSq_e: 8.17
+    ##   delta:   17.01
 
 The PTPRG gene has increased expression in subjects with Alzheimer’s
 disease compared with controls with log fold change 1.10277 and a
@@ -99,8 +99,8 @@ work on single cell transcriptomics ([Jiang, et al.,
 varpart(fit)
 ```
 
-    ##           Dx          Age          Sex        SubID    Residuals 
-    ## 0.0133011914 0.0002195276 0.0001159415 0.0210472556 0.9653160840
+    ##           Dx          Age          Sex        SubID   CountNoise    Residuals 
+    ## 0.0133097371 0.0002197195 0.0001160483 0.0210313340 0.3062036641 0.6591194970
 
 Variance partitioning analysis quantifies the contribution of each
 variable to the observed variance in PTPRG expression. Alzheimer’s
@@ -134,24 +134,20 @@ sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] fastglmm_0.3.3 lme4_1.1-37    Matrix_1.7-4  
+    ## [1] fastglmm_0.3.8 nlme_3.1-168  
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] sass_0.4.10         generics_0.1.4      lattice_0.22-7     
-    ##  [4] digest_0.6.37       magrittr_2.0.4      evaluate_1.0.5     
-    ##  [7] grid_4.5.1          fastmap_1.2.0       jsonlite_2.0.0     
-    ## [10] Formula_1.2-5       numDeriv_2016.8-1.1 textshaping_1.0.4  
-    ## [13] jquerylib_0.1.4     abind_1.4-8         reformulas_0.4.2   
-    ## [16] Rdpack_2.6.4        cli_3.6.5           rlang_1.1.6        
-    ## [19] rbibutils_2.4       splines_4.5.1       cachem_1.1.0       
-    ## [22] yaml_2.3.10         tools_4.5.1         nloptr_2.2.1       
-    ## [25] minqa_1.2.8         dplyr_1.1.4         boot_1.3-32        
-    ## [28] vctrs_0.6.5         R6_2.6.1            matrixStats_1.5.0  
-    ## [31] lifecycle_1.0.4     fs_1.6.6            car_3.1-3          
-    ## [34] htmlwidgets_1.6.4   MASS_7.3-65         ragg_1.5.0         
-    ## [37] pkgconfig_2.0.3     desc_1.4.3          pkgdown_2.2.0      
-    ## [40] bslib_0.9.0         pillar_1.11.1       glue_1.8.0         
-    ## [43] Rcpp_1.1.0          systemfonts_1.3.1   xfun_0.54          
-    ## [46] tibble_3.3.0        tidyselect_1.2.1    knitr_1.50         
-    ## [49] htmltools_0.5.8.1   nlme_3.1-168        rmarkdown_2.30     
-    ## [52] carData_3.0-5       compiler_4.5.1
+    ##  [1] sass_0.4.10        generics_0.1.4     lattice_0.22-7     lme4_2.0-0        
+    ##  [5] digest_0.6.39      magrittr_2.0.4     evaluate_1.0.5     grid_4.5.1        
+    ##  [9] fastmap_1.2.0      jsonlite_2.0.0     Matrix_1.7-4       Formula_1.2-5     
+    ## [13] codetools_0.2-20   textshaping_1.0.4  jquerylib_0.1.4    reformulas_0.4.3.1
+    ## [17] abind_1.4-8        Rdpack_2.6.5       cli_3.6.5          rlang_1.1.7       
+    ## [21] rbibutils_2.4.1    splines_4.5.1      cachem_1.1.0       yaml_2.3.12       
+    ## [25] otel_0.2.0         tools_4.5.1        nloptr_2.2.1       minqa_1.2.8       
+    ## [29] dplyr_1.1.4        boot_1.3-32        vctrs_0.7.1        R6_2.6.1          
+    ## [33] matrixStats_1.5.0  lifecycle_1.0.5    fs_1.6.6           car_3.1-3         
+    ## [37] htmlwidgets_1.6.4  MASS_7.3-65        ragg_1.5.0         pkgconfig_2.0.3   
+    ## [41] desc_1.4.3         pkgdown_2.2.0      pillar_1.11.1      bslib_0.9.0       
+    ## [45] glue_1.8.0         Rcpp_1.1.1         systemfonts_1.3.1  xfun_0.56         
+    ## [49] tibble_3.3.1       tidyselect_1.2.1   knitr_1.51         htmltools_0.5.9   
+    ## [53] rmarkdown_2.30     carData_3.0-5      compiler_4.5.1
