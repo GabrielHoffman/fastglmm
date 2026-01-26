@@ -3,6 +3,7 @@
 # fastglmm 0.3.8 
  - Jan 16, 2016
  - more flexable `isCountModel()` and `isNB()`
+ - fix `simulate()` for NB models
 
 # fastglmm 0.3.7
  - performance improvements

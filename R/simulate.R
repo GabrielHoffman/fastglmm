@@ -70,8 +70,7 @@ simulateResponses = function(object, nsim = 1, seed=NULL,...){
   fam <- getFamilyString(family(object))
 
   # handle nb case
-  if( grepl("^nb:", fam) ){
-    object$theta <- as.numeric(strsplit(fam, ":")[[1]][2])
+  if( isNB(object) ){
     fam <- "nb"
   }
 
@@ -114,20 +113,15 @@ simulateResponses = function(object, nsim = 1, seed=NULL,...){
       Y <- do.call(cbind, Y)
       },
     "nb" = {
-      # simulate one response at a time
-      # then sort columns below
-      Y <- lapply(seq(ncol(mu)), function(i){
-        v <- rnegbin(nsim*nrow(mu), mu[,i], object$theta[i])
-        V <- matrix(v, nrow(mu), nsim, byrow=TRUE)
-        colnames(V) = paste0(colnames(mu)[i], "_", seq(nsim))
+      theta <- getTheta(object)
+
+      Y <- lapply(seq(nsim), function(i){
+        v <- rnegbin(length(mu), mu, theta)
+        V <- matrix(v, nrow(mu), ncol(mu), byrow=FALSE)
+        colnames(V) = paste0(colnames(mu), "_", i)
         V
         })
       Y <- do.call(cbind, Y)
-
-      cn = expand.grid(colnames(mu), seq(nsim)) |>
-        with(paste(Var1, Var2, sep="_"))
-
-      Y <- Y[,cn]  
   },
   # default
   {stop("Simulation from this family not supported: ", object$family)})
