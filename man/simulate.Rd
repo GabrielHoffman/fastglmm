@@ -16,7 +16,7 @@
 \item{...}{other args, not used}
 }
 \description{
-Simulate responses from model fit
+Simulate responses from model fit, conditional on the random effects
 }
 \examples{
 library(MASS)
@@ -27,4 +27,7 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
 
 y.sim <- simulate(fit, 2)
 head(y.sim)
+}
+\seealso{
+\code{lme4::simulate.merMod()}
 }

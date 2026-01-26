@@ -504,6 +504,45 @@ logLik.fastlmm <- function(object, ...) {
   val
 }
 
+
+#' Extracting the Model Frame from a Fit
+#' 
+#' Extracting the Model Frame from a Fit
+#'
+#' @param formula regression fit
+#' @param ... other args
+#' 
+#' @examples
+#' library(MASS)
+#' 
+#' # GLMM via PQL
+#' fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
+#'    family = binomial(), data = bacteria)
+#'
+#' data <- model.frame(fit)
+#' head(data)
+#' @importFrom reformulas subbars
+#' @importFrom stats model.frame.default
+#' @export
+model.frame.fastlmm <- function(formula, ...){
+
+  object <- formula
+
+  X <- model.frame.default(
+    subbars(object$formula), 
+    object$data,
+    ...)
+
+  if( !is.null(object$weights) ){
+    X[,'(weights)'] <- object$weights 
+  }
+
+  X
+}
+
+
+
+
 #' Family function for Negative Binomial GLMs
 #' 
 #' Specifies the information required to fit a Negative Binomial generalized linear model, with known \code{theta} parameter.  

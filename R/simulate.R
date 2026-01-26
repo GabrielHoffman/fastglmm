@@ -1,6 +1,6 @@
 #' Simulate Responses
 #' 
-#' Simulate responses from model fit
+#' Simulate responses from model fit, conditional on the random effects
 #' 
 #' @param object model fit
 #' @param nsim number of examples to simulate
@@ -17,35 +17,14 @@
 #' y.sim <- simulate(fit, 2)
 #' head(y.sim)
 #
+#' @seealso \code{lme4::simulate.merMod()}
 #' @rdname simulate
 #' @export
-# setMethod(
-#   "simulate", signature(object = "fastlmm"),
-#   function(object, nsim = 1, seed=NULL,...){
-#   simulateResponses(object, nsim, seed,...)
-# })
-simulate.fastlmm <- function(object, nsim = 1, seed=NULL,...){
-  simulateResponses(object, nsim, seed,...)
-}
-
-
-
-
-
-#' Simulate Responses
-#' 
-#' Simulate responses from model fit
-#' 
-#' @param object model fit
-#' @param nsim number of examples to simulate
-#' @param seed random seed
-#' @param ... other args, not used
-#'
 #' @importFrom stats runif rnorm rpois rbinom
 #' @importFrom MASS rnegbin
-#' @keywords internal
-#' @export
-simulateResponses = function(object, nsim = 1, seed=NULL,...){
+simulate.fastlmm <- function(object, nsim = 1, seed = NULL,...){
+
+  # handle random seed
   if(!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE))
     runif(1) # initialize the RNG if necessary
   if(is.null(seed))
@@ -55,6 +34,13 @@ simulateResponses = function(object, nsim = 1, seed=NULL,...){
     set.seed(seed)
     RNGstate <- structure(seed, kind = as.list(RNGkind()))
     on.exit(assign(".Random.seed", R.seed, envir = .GlobalEnv))
+  }
+
+  fam <- getFamilyString(family(object))
+
+  # handle nb case
+  if( isNB(object) ){
+    fam <- "nb"
   }
 
   # get matrix of fitted values in response space
@@ -67,68 +53,68 @@ simulateResponses = function(object, nsim = 1, seed=NULL,...){
     colnames(mu) <- seq(ncol(mu))
   }
 
-  fam <- getFamilyString(family(object))
+  # run simulations
+  Y <- simulateResponse(mu, nsim, fam, sigma(object), getTheta(object))
 
-  # handle nb case
-  if( isNB(object) ){
-    fam <- "nb"
-  }
+  # set names
+  colnames(Y) <- paste0("sim_", seq(ncol(Y)))
+  rownames(Y) <- rownames(object$data)
+  Y
+}
 
-  switch( fam, 
+#' Simulate Responses
+#' 
+#' Simulate responses from model fit
+#' 
+#' @param mu condition on this systematic component
+#' @param nsim number of examples to simulate
+#' @param family regression family
+#' @param sd standard deviation from model fit
+#' @param theta NB theta 
+#'
+#' @importFrom stats runif rnorm rpois rbinom
+#' @importFrom MASS rnegbin
+#' @keywords internal
+#' @export
+simulateResponse = function(mu, nsim, family, sd, theta){
+
+  switch( family, 
     "gaussian/identity" = {
       Y <- lapply(seq(nsim), function(i){
-        E <- rnorm(length(mu), 0, sd=sigma(object))
+        E <- rnorm(length(mu), 0, sd=sd)
         E <- matrix(E, nrow(mu), ncol(mu), byrow=TRUE)
-        V <- mu + E
-        colnames(V) = paste0(colnames(V), "_", i)
-        V
+        mu + E
         })
-      Y <- do.call(cbind, Y)
       },
     "binomial/logit" = {
       Y <- lapply(seq(nsim), function(i){
         v <- rbinom(length(mu), size=1, prob = mu)
-        V <- matrix(v, nrow(mu), ncol(mu), byrow=FALSE)
-        colnames(V) = paste0(colnames(mu), "_", i)
-        V
+        matrix(v, nrow(mu), ncol(mu), byrow=FALSE)
         })
-      Y <- do.call(cbind, Y)
       },
     "binomial/probit" = {   
       Y <- lapply(seq(nsim), function(i){
         v <- rbinom(length(mu), size=1, prob = mu)
-        V <- matrix(v, nrow(mu), ncol(mu), byrow=FALSE)
-        colnames(V) = paste0(colnames(mu), "_", i)
-        V
+        matrix(v, nrow(mu), ncol(mu), byrow=FALSE)
         })
-      Y <- do.call(cbind, Y)
       },
     "poisson/log" = {
       Y <- lapply(seq(nsim), function(i){
         v <- rpois(length(mu), mu)
-        V <- matrix(v, nrow(mu), ncol(mu), byrow=FALSE)
-        colnames(V) = paste0(colnames(mu), "_", i)
-        V
+        matrix(v, nrow(mu), ncol(mu), byrow=FALSE)
         })
-      Y <- do.call(cbind, Y)
       },
     "nb" = {
-      theta <- getTheta(object)
-
       Y <- lapply(seq(nsim), function(i){
         v <- rnegbin(length(mu), mu, theta)
-        V <- matrix(v, nrow(mu), ncol(mu), byrow=FALSE)
-        colnames(V) = paste0(colnames(mu), "_", i)
-        V
+        matrix(v, nrow(mu), ncol(mu), byrow=FALSE)
         })
-      Y <- do.call(cbind, Y)
   },
   # default
-  {stop("Simulation from this family not supported: ", object$family)})
+  {stop("Simulation from this family not supported: ", family)})
 
-  Y
+  do.call(cbind, Y)
 }
-
 
 
 
