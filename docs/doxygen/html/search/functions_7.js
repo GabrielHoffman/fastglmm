@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hatvalues_0',['hatvalues',['../classfastglmm_lib_1_1fastlmm.html#a4d22ae54a45d2630ee408856a91f5748',1,'fastglmmLib::fastlmm']]]
+  ['hatvalues_0',['hatvalues',['../classfastglmm_lib_1_1fastlmm.html#ac7dc82be6500d389ea3874df4816a135',1,'fastglmmLib::fastlmm']]]
 ];

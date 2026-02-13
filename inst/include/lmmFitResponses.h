@@ -84,7 +84,6 @@ lmmFitResponses<T1, T2, T3>::lmmFitResponses(
 }
 
 
-
 template <typename T1, typename T2, typename T3> 
 ModelFitLMMList 
   lmmFitResponses<T1, T2, T3>::eval(
@@ -95,11 +94,13 @@ ModelFitLMMList
   // store results
   ModelFitLMMList result(Y.n_cols, ModelFitLMM());
 
+  tbb::mutex myMutex; // avoid issue with rdf and hatvalues
+
   // Parallel part using Thread Building Blocks
   tbb::task_arena limited_arena(nthreads);
   limited_arena.execute([&] {
   tbb::parallel_for(
-    tbb::blocked_range<int>(0, Y.n_cols, 10), 
+    tbb::blocked_range<int>(0, Y.n_cols, 10), // size of blocks
     [&](const tbb::blocked_range<int>& r){ 
 
     disable_parallel_blas();
@@ -108,6 +109,8 @@ ModelFitLMMList
     T1 y;
     vec w;
     uvec idx;
+    // need local version due to reweighting
+    spectralDecomp dcmp_lcl(dcmp);
 
     // iterate through responses 
     for (int j = r.begin(); j != r.end(); ++j) { 
@@ -119,10 +122,11 @@ ModelFitLMMList
       y.elem(idx).zeros();
       w.elem(idx).zeros();
 
-      fastlmm fit = fastlmm<T1, T2, T3>(y, X_clean, dcmp, w, md, lambda, REML);
+      fastlmm fit = fastlmm<T1, T2, T3>(y, X_clean, dcmp_lcl, w, md, lambda, REML);
 
       fit.estimate_delta( left, right, tol );
 
+      tbb::mutex::scoped_lock myLock(myMutex); 
       result.at(j) = fit.get_result();
       result.at(j).ID = ids[j];
     }

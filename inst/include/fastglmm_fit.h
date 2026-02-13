@@ -57,10 +57,10 @@ class fastglmm {
 						const bool &returnUS = false,
 						const bool &doCoxReid = false);
 
-	const vec residuals(); // Response
-	const vec residuals_pearson(); // Pearson
-	const vec fitted();
-	const vec devianceResiduals();
+	const vec residuals() const ; // Response
+	const vec residuals_pearson() const ; // Pearson
+	const vec fitted() const ;
+	const vec devianceResiduals() const;
 
 	// extract results
   ModelFitGLMM get_result();
@@ -249,7 +249,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 
 
 template <typename T1, typename T2, typename T3> 
-const vec fastglmm<T1, T2, T3>::residuals(){
+const vec fastglmm<T1, T2, T3>::residuals() const {
 
 	// Response residuals
 	return( y - mu ); 
@@ -257,7 +257,7 @@ const vec fastglmm<T1, T2, T3>::residuals(){
 
 
 template <typename T1, typename T2, typename T3> 
-const vec fastglmm<T1, T2, T3>::residuals_pearson(){
+const vec fastglmm<T1, T2, T3>::residuals_pearson() const {
 
 	// Pearson residuals
 	// (y - mu) * sqrt(wts) / sqrt(fam$variance(mu))
@@ -266,14 +266,14 @@ const vec fastglmm<T1, T2, T3>::residuals_pearson(){
 
 
 template <typename T1, typename T2, typename T3> 
-const vec fastglmm<T1, T2, T3>::fitted(){
+const vec fastglmm<T1, T2, T3>::fitted() const {
 
 	return fam->linkinv( fit.fitted() );
 }
 
 
 template <typename T1, typename T2, typename T3> 
-const vec fastglmm<T1, T2, T3>::devianceResiduals(){
+const vec fastglmm<T1, T2, T3>::devianceResiduals() const {
 
 	// transform from residuals.glm
 	// d.res <- sqrt(pmax((object$family$dev.resids)(y, mu, 
@@ -289,7 +289,6 @@ const vec fastglmm<T1, T2, T3>::devianceResiduals(){
 
 	return drMod;
 }
-
 
 
 template <typename T1, typename T2, typename T3> 
@@ -327,6 +326,22 @@ ModelFitGLMM fastglmm<T1, T2, T3>::get_result(){
 	mf.mu_mean = mu_mean;
 	mf.y_mean = mean(y);
 	mf.varFitted = eta_var;
+
+  // QL dispersion based on Pearson residuals
+  // sum((w*r^2)[w > 0]) / df.r
+  // need to drop elements without nan  
+  vec rp = residuals_pearson();
+  vec rp_clean = rp.elem(find_finite(rp));
+  double disp = dot(rp_clean, rp_clean) / res1.rdf ;
+
+	if( fam->estimateDispersion() ){ 
+	  mf.dispersion = disp;
+	}else{
+		mf.dispersion = 1.0;
+		// unscale variances by dispersion
+		mf.vcov /= disp;
+		mf.se /= sqrt(disp);
+	}
 
   if( md == MAX ){
 		mf.devianceResiduals = devianceResiduals();

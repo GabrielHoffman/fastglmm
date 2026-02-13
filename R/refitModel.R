@@ -88,6 +88,19 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
       res$family <- family(fit)
     }
 
+    # for negative binomial
+    if( isNB(family(fit)) ){
+      # negative.binomial(NA) 
+      # QL dispersion is 1
+      if( fam == "nb"){
+        res$family$dispersion <- 1
+      }else{      
+        # negative.binomial(x)
+        # QL dispersion is estimated from data
+        res$family$dispersion <- NA
+      }
+    }
+
     res$prior.weights <- fit$prior.weights
     res$iter.pql <- res$niter
     res$formula <- formula

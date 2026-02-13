@@ -221,10 +221,18 @@ class NB :
 	virtual public GLMFamily {
 
 	public:	
-	NB() {}
+	NB() {
+		// if theta is estimated from data, 
+		// set QL dispersion phi = 1
+		ql_dispersion = false;
+	}
 
 	NB(const double &theta) : 
-		theta(theta) {}
+		theta(theta) {
+		// if theta is fixed, 
+		// estiamted QL dispersion phi
+		ql_dispersion = true;
+	}
 
 	~NB() {}
 
@@ -251,7 +259,7 @@ class NB :
 		// y + (y == 0)/6
 		return y + accu(y == 0) / 6.0;
 	}
-	bool estimateDispersion() const {return true;}
+	bool estimateDispersion() const {return ql_dispersion;}
 	string family() const {return "NB";}
 	bool isCountModel() const { return true; }
 
@@ -260,6 +268,7 @@ class NB :
 	}
 
 	double theta = std::numeric_limits<double>::quiet_NaN();
+	bool ql_dispersion = true;
 
 	private:
 	double tol = 2.220446e-16;

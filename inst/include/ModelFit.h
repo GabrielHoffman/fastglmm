@@ -39,8 +39,8 @@ class ModelFit {
 	bool success;
 	vec coef;
 	vec se;
-	double dispersion;
-	double rdf;
+	double dispersion = datum::nan;
+	double rdf = datum::nan;
 	string ID;
 	mat vcov;
 	vec residuals;
@@ -376,7 +376,7 @@ class ModelFitGLMM : public ModelFitLMM {
     shared_ptr<GLMFamily> fam = getGLMFamily( family );
     if( fam->isCountModel() ){
       nZeroPrediction = sum(gmf.mu < 1e-4);
-    }
+    } 
   }
 
   string family = "";

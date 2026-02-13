@@ -22,8 +22,6 @@ test_generics = function(){
                   unique %>%
                   sort
 
- 
-
   f_check_generics = function(fit1, fit2, exclude = c(), tol = 1e-5){
 
     # check df.residual
@@ -68,8 +66,9 @@ test_generics = function(){
         checkEqualsNumeric( c(res1), c(res2), tol=tol)
       }else if( fx %in% c("residuals")){
 
-        types <- c("deviance", "pearson", "working","response")
+        types <- c("deviance", "pearson", "working", "response")
         for(type in types){
+          message(type)
           res1 = get(fx)( fit1, type)
           res2 = get(fx)( fit2, type)
 
@@ -108,11 +107,13 @@ test_generics = function(){
   fit3 <- fastglmm(form, sleepstudy, weights = w)
   f_check_generics(fit1, fit3, exclude = "anova", tol=1e-3)
 
+  # par(cex=4)
+  # type = "working"
+  # plot(residuals(fit1, type), residuals(fit3, type))
+  # abline(0, 1, col="red", lwd=3)
+
+
 }
-
-
-
-
 
 
 

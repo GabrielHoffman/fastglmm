@@ -219,6 +219,19 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 		fit$family <- family
 	}
 
+	# for negative binomial
+	if( isNB(family) ){
+		# negative.binomial(NA) 
+		# QL dispersion is 1
+		if( getFamilyString(family) == "nb"){
+			fit$family$dispersion <- 1
+		}else{			
+			# negative.binomial(x)
+			# QL dispersion is estimated from data
+			fit$family$dispersion <- NA
+		}
+	}
+
 	fit$prior.weights <- weights
 	fit$iter.pql <- fit$niter
 	fit$formula <- formula	

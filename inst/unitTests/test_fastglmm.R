@@ -174,6 +174,9 @@ test_predict_fitted = function(){
 	fam = negative.binomial(as.numeric(a))
 	fit3 = glmmPQL( y ~ f1*f2 , random = ~ 1|g, dd, family = fam, niter=200)
 
+	dispersion(fit2)
+	summary(fit1)$dispersion
+
 	# coef estimates
 	checkEqualsNumeric( coef(summary(fit1))[,1], 
 						coef(summary(fit2))[,1], tol=1e-3 )
@@ -182,7 +185,7 @@ test_predict_fitted = function(){
 
 	# se estimates
 	checkEqualsNumeric( coef(summary(fit1))[,2], 
-						coef(summary(fit2))[,2], tol=1e-2 )
+						coef(summary(fit2))[,2], tol=5e-2 )
 	checkEqualsNumeric( coef(summary(fit1))[,2], 
 						coef(summary(fit3))[,2], tol=5e-2 )
 
@@ -346,7 +349,8 @@ test_fastglmm = function(){
 	# checkEqualsNumeric( fixef(fit1), fixef(fit2) )
 	checkEqualsNumeric( fixef(fit1), fixef(fit3), tol=1e-3 )
 	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=1e-3  )
-	checkEqualsNumeric( coef(summary(fit1))[,1:3], coef(summary(fit2))[,c(1,2,4)], tol=1e-3 )
+	checkEqualsNumeric( coef(summary(fit1))[,1:3], 
+		coef(summary(fit2))[,c(1,2,4)], tol=1e-3)
 
 	fit1$sigSq_g
 	fit1$sigSq_e

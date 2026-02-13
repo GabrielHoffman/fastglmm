@@ -77,8 +77,8 @@ test_refitModel = function(){
     })
 
 
-  # Negative binomial
 
+  # Negative binomial
   set.seed(1)
   n = 1e5
   sigSq_g = 1
@@ -99,6 +99,10 @@ test_refitModel = function(){
   # null model
   fit_null = fastglmm(y.nb ~ (1|z), df, family=fam)
   fit_null2 = refitModel(fit, interceptOnly=TRUE)
+
+  family(fit_null)$dispersion
+  family(fit_null2)$dispersion
+
 
   fit_null2$data = fit_null$data = NULL
   # summary(fit_null)

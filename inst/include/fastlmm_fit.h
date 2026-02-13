@@ -85,35 +85,35 @@ class fastlmm {
     ModelFitLMM get_result(const bool &returnUS = false);
 
     // Accessors
-    const double get_logLik(){ return this->logLik; }
-    const vec get_beta(){ return this->beta; }
-    const double get_sigSq_g(){ return sigSq_g;}
-    const double get_sigSq_e(){ 
+    const double get_logLik() const { return this->logLik; }
+    const vec get_beta() const { return this->beta; }
+    const double get_sigSq_g() const { return sigSq_g;}
+    const double get_sigSq_e() const { 
       return this->delta_hat * this->sigSq_g;
     }
-    const int get_iter(){ return this->iter;}
-    const double get_delta(){ return this->delta_hat;}
-    const mat get_vcov(){
+    const int get_iter() const { return this->iter;}
+    const double get_delta() const { return this->delta_hat;}
+    const mat get_vcov() const {
       return this->sigSq_g * inv_sympd(this->QXX, inv_opts::allow_approx) ;
     }
-    const mat get_beta_se(){
+    const mat get_beta_se() const {
       return sqrt(diagvec(get_vcov()));
     }
 
-    const double get_rdf();
+    const double get_rdf() const;
 
     // if model fails, set beta to nan
     void set_model_failure(){ 
       beta.fill(datum::nan);
     }
 
-    const vec hatvalues(); // diag of hat matrix
-    const vec residuals(); 
-    const vec fitted();
+    const vec hatvalues() const; // diag of hat matrix
+    const vec residuals() const; 
+    const vec fitted() const;
 
     // Best linear unbiased predictor of random effect
     // same as ranef() in R
-    const vec blup();
+    const vec blup() const;
 
     // compute log likelihood
     double ll(const double &delta);
@@ -295,7 +295,7 @@ template <typename T1, typename T2, typename T3>
 
 
 template <typename T1, typename T2, typename T3> 
-const double fastlmm<T1, T2, T3>::get_rdf(){
+const double fastlmm<T1, T2, T3>::get_rdf() const {
 
   int n = n_active;
   int k = s.n_elem;
@@ -311,19 +311,14 @@ const double fastlmm<T1, T2, T3>::get_rdf(){
   // h2.sum <- object$delta * sum(A * (A %*% D))
   vec w = (s/(delta_hat*s + pow(delta_hat,2)));
   mat A = mat(X / delta_hat - U * scaleEachCol( Xu, w));
-  mat D_A_t = solve(mat(A.t() * X), A.t(), 
-    solve_opts::allow_ugly + solve_opts::fast);
-  double h2_sum = delta_hat * arma::accu(A % D_A_t.t());
+  double h2_sum = delta_hat * trace(solve(A.t() * X, A.t() * A));
 
   return h1_sum - h2_sum;
 }
 
 
 template <typename T1, typename T2, typename T3> 
-const vec fastlmm<T1, T2, T3>::hatvalues(){
-
-  // int n = n_active;
-  // int k = s.n_elem;
+const vec fastlmm<T1, T2, T3>::hatvalues() const {
 
   // Usq <- model$U^2
   T3 Usq = square(U);
@@ -336,8 +331,7 @@ const vec fastlmm<T1, T2, T3>::hatvalues(){
   // h2 <- model$delta * rowSums(A * (A %*% D))
   vec w = (s/(delta_hat*s + pow(delta_hat,2)));
   mat A = mat(X / delta_hat - U * scaleEachCol( Xu, w));
-  mat D_A_t = solve(mat(A.t() * X), A.t(),
-    solve_opts::allow_ugly);
+  mat D_A_t = solve(A.t() * X, A.t());
   vec h2 = delta_hat * sum(A % D_A_t.t(), 1);
 
   // hatvalues
@@ -345,14 +339,14 @@ const vec fastlmm<T1, T2, T3>::hatvalues(){
 }
 
 template <typename T1, typename T2, typename T3> 
-const vec fastlmm<T1, T2, T3>::residuals(){
+const vec fastlmm<T1, T2, T3>::residuals() const {
 
   return (Y / sqrt(weights)) - fitted();
 }
 
 // return predict(fit)
 template <typename T1, typename T2, typename T3> 
-const vec fastlmm<T1, T2, T3>::fitted(){
+const vec fastlmm<T1, T2, T3>::fitted() const {
 
   // ** need to scale X because it was transformed at the start
   // a <- object$U %*% (sqrt(object$s) * ranef.fastlmm(object))
@@ -362,7 +356,7 @@ const vec fastlmm<T1, T2, T3>::fitted(){
 
 
 template <typename T1, typename T2, typename T3> 
-const vec fastlmm<T1, T2, T3>::blup(){
+const vec fastlmm<T1, T2, T3>::blup() const {
 
   // Zw <- c(sqrt(fit$weights)) * fit$Z
   // A <- crossprod(fit$U, Zw)
@@ -487,14 +481,14 @@ void fastlmm<T1, T2, T3>::estimate_delta( const double &left, const double &righ
   // need to mutliply but -1 since it actually minimizes
   // evaluated at minimum value 
   double res;
-  logLik = -1*local_min(leftIn, rightIn, tol, &F, res, iter);
+  this->logLik = -1*local_min(leftIn, rightIn, tol, &F, res, iter);
 
   // augment with value this is constant for varying delta's
   // weights with zero value, give Inf log values
   // so use omit_nonfinite
-  logLik += sum(omit_nonfinite(log(weights)))/2.0;
+  this->logLik += sum(omit_nonfinite(log(weights)))/2.0;
 
-  delta_hat = exp(res);
+  this->delta_hat = exp(res);
 }
 
 
@@ -546,25 +540,21 @@ ModelFitLMM fastlmm<T1, T2, T3>::get_result(
                       1.0,
                       get_beta());
 
-  // res.varFitted = var(fitted());
-
-  // res.dispersion = get_sigSq_e();
-
   // set additional values based on ModelDetail md
-  mat V = get_vcov();
+  mat V = this->get_vcov();
 
   switch( md ){
     case MAX:       
       // res.hatvalues = hatvalues();
     case MOST:
-      res.hatvalues = hatvalues(); 
+      res.hatvalues = this->hatvalues(); 
     case HIGH: 
-      res.residuals = residuals();
+      res.residuals = this->residuals();
     case MEDIUM: 
       res.vcov = V;
     case LOW: 
       res.se = sqrt(diagvec(V)); 
-      res.rdf = get_rdf();
+      res.rdf = this->get_rdf();
     case LEAST: 
       break;
   }

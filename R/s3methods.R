@@ -121,7 +121,7 @@ anova.fastglmm <- function(object,...){
 
     stat <- (L %*% coef(object)) %*% solve(L %*% vcov(object) %*% L) %*% (L %*% coef(object))
 
-    # if GLMM, use asymptotical null distribution
+    # if GLMM, use asymptotic null distribution
     # for comparison
     data.frame(id = nmeffects[i+1], 
       df = sum(L), 
@@ -134,7 +134,6 @@ anova.fastglmm <- function(object,...){
   structure(res, heading = "Analysis of Variance Table",
                   class = c("anova", "data.frame"))
 }
-
 
 
 
@@ -894,7 +893,7 @@ print.summary.fastlmm <- function(
   }
   printCoefmat(coefs, digits = digits, signif.stars = signif.stars, na.print = "NA", ...)
 
-  # cat("\n(Dispersion parameter for ", x$family$family, " family taken to be ", format(x$dispersion), ")\n")
+  # cat("\n(Dispersion parameter for ", x$family$family, " family taken to be ", format(x$dispersion, digits=3), ")\n", sep='')
 
   cat("\nResidual df:", round(x$rdf, digits=1), "\n")
 
@@ -905,6 +904,8 @@ print.summary.fastlmm <- function(
 
   cat("\n")
 }
+
+
 
 
 #' Object Summaries and Hypothesis Testing
@@ -919,8 +920,16 @@ print.summary.fastlmm <- function(
 summary.fastlmm <- function(object, ...) {
   z <- object
 
+  # quasi-likelihood dispersion 
+  # if not gaussian and family(object)$dispersion is NA
+  # if( family(object)$family != "gaussian" && is.na(family(object)$dispersion) ){
+  #   phi <- object$dispersion
+  # }else{
+  #   phi <- 1
+  # }
+
   est <- coef(object)
-  se <- object$se
+  se <- object$se #* sqrt(phi)
   rdf <- df.residual(object)
   tval <- est / se
   ans <- z[c("call", "terms", if (!is.null(z$weights)) "weights")]
@@ -956,8 +965,6 @@ summary.fastlmm <- function(object, ...) {
   class(ans) <- "summary.fastlmm"
   ans
 }
-
-
 
 
 #' Model Terms
@@ -1000,12 +1007,26 @@ terms.fastlmm <- function(x, ...) {
 #'
 #' vcov(fit)
 #
+#' @rdname vcov
 #' @export
 vcov.fastlmm <- function(object, ...) {
+
   object$vcov
 }
 
+# #' @rdname vcov
+# #' @export
+# vcov.fastglmm <- function(object, ...) {
 
+#   # quasi-likelihood dispersion 
+#   if( is.na(family(object)$dispersion) ){
+#     phi <- object$dispersion
+#   }else{
+#     phi <- 1
+#   }
+
+#   object$vcov * phi
+# }
 
 
 
@@ -1059,11 +1080,16 @@ residuals.fastglmm <- function(object, type = c("deviance" , "pearson", "working
   # so set to 1 now
   wts <- object$prior.weights
   if( is.null(wts) ) wts <- 1
+ 
+  os <- 0
+  if (!is.null(object$offset)) {
+    os <- object$offset
+  }
 
   mu <- fitted(object)
   y <- object$response  
   fam <- object$family
-
+ 
   switch(type, 
     deviance = 
       if ( df.residual(object) > 0) {
@@ -1073,22 +1099,23 @@ residuals.fastglmm <- function(object, type = c("deviance" , "pearson", "working
     pearson = 
       (y - mu) * sqrt(wts)/sqrt(fam$variance(mu)), 
     working = 
-      (y - mu) / fam$variance(mu), 
-    response = y - mu
+      object$y / sqrt(wts) - fam$linkfun(fitted(object)) + os,
+    response = y - mu 
     )
 }
 
 
 
 
-#' Overdispersion parameter
+#' Overdispersion parameter phi for quasi-likelihood
 #'
-#' Overdispersion parameter
+#' Overdispersion parameter phi for quasi-likelihood
 #'
 #' @param object model fit 
 #' 
 #' @export
-setGeneric("dispersion", function(object) {
+setGeneric("dispersion", 
+  function(object) {
   standardGeneric("dispersion")
 })
 
@@ -1098,28 +1125,43 @@ setGeneric("dispersion", function(object) {
 setMethod("dispersion", signature("fastlmm"), 
   function(object) {
 
-  df.r <- df.residual(object)
-  fam <- family(object)
-
-  if (!is.null(fam$dispersion) && !is.na(fam$dispersion)){
-    disp <- fam$dispersion
-  }else if(fam$family %in% c("poisson", "binomial")){
-    disp <- 1
-  }else{
-
-    if( df.r > 0){
-      # multiply by scale of weights
-      s <- ifelse(is(object, "fastlmm"), object$w.mean, 1)
-      w <- object$weights * s
-      r <- residuals(object, "working")
-      disp <- sum((w*r^2)[w > 0]) / df.r
-    } else {
-      disp <- NaN
-    }
-  }
-
-  disp
+  object$dispersion
 })
+
+
+
+
+# #' @rdname dispersion
+# #' @export
+# setMethod("dispersion", signature("fastlmm"), 
+#   function(object) {
+
+#   df.r <- df.residual(object)
+#   fam <- family(object)
+
+#   if (!is.null(fam$dispersion) && !is.na(fam$dispersion)){
+#     disp <- fam$dispersion
+#   }else if(fam$family %in% c("poisson", "binomial")){
+#     disp <- 1
+#   }else{
+
+#     if( df.r > 0){
+#       if(is(object, "fastglmm")){
+#         w <- object$prior.weights
+#       }else{        
+#         # multiply by scale of weights
+#         s <- ifelse(is(object, "fastlmm"), object$w.mean, 1)
+#         w <- object$weights * s
+#       }
+#       r <- residuals(object, "pearson")
+#       disp <- sum((w*r^2)[w > 0]) / df.r
+#     } else {
+#       disp <- NaN
+#     }
+#   }
+
+#   disp
+# })
 
 
 

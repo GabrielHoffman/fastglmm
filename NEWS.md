@@ -1,7 +1,18 @@
 
 
+# fastglmm 0.3.9
+ - Feb 11, 2026
+ - improved `get_rdf()` for `fastlmm` in C++
+ - clean up code, consts
+ - add mutex to response models
+ - fix bug in `dispersion()`, uses Pearson residuals
+ - NB-QL
+  - `negative.binomial(NA)` fixes dispersion to 1
+  - `negative.binomial(theta)` estimates dispersion from pearson residuals and scales vcov and se
+  - in C++ `NB()` now uses QL dispersion of theta is given
+
 # fastglmm 0.3.8 
- - Jan 16, 2016
+ - Jan 16, 2026
  - more flexable `isCountModel()` and `isNB()`
  - fix `simulate()` for NB models
 

@@ -3,7 +3,7 @@
 \name{dispersion}
 \alias{dispersion}
 \alias{dispersion,fastlmm-method}
-\title{Overdispersion parameter}
+\title{Overdispersion parameter phi for quasi-likelihood}
 \usage{
 dispersion(object)
 
@@ -13,5 +13,5 @@ dispersion(object)
 \item{object}{model fit}
 }
 \description{
-Overdispersion parameter
+Overdispersion parameter phi for quasi-likelihood
 }

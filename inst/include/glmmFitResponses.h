@@ -109,6 +109,8 @@ ModelFitGLMMList
   // store results
   ModelFitGLMMList result(Y.n_cols, ModelFitGLMM());
 
+  tbb::mutex myMutex; // avoid issue with rdf and hatvalues
+
   // Parallel part using Thread Building Blocks
   tbb::task_arena limited_arena(nthreads);
   limited_arena.execute([&] {
@@ -121,6 +123,8 @@ ModelFitGLMMList
     T1 y;
     vec w;
     uvec idx;
+    // need local version due to reweighting
+    spectralDecomp dcmp_lcl(dcmp);
 
     // iterate through responses 
     for (int j = r.begin(); j != r.end(); ++j) { 
@@ -132,8 +136,9 @@ ModelFitGLMMList
       y.elem(idx).zeros();
       w.elem(idx).zeros();
 
-      fastglmm fit = fastglmm<vec, T2, T3>(y, X_clean, dcmp, w, offset, family[j], md, tol, tol_eta, maxit, lambda);
+      fastglmm fit = fastglmm<vec, T2, T3>(y, X_clean, dcmp_lcl, w, offset, family[j], md, tol, tol_eta, maxit, lambda);
 
+      tbb::mutex::scoped_lock myLock(myMutex); 
       result.at(j) = fit.get_result();
       result.at(j).ID = ids[j];
     }
