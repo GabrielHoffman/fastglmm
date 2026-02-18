@@ -1,4 +1,24 @@
 
+Feb 17
+   linearHypothesis not exported
+   compute Satterthwaite ddf in C++
+      use low rank method
+   Manuscript:
+      move rdf to separate section
+      ddf matches lmerTest and glmmTMB for Gaussian models
+      controls false positive rate: qq plot
+      write new section
+      most important for covariates with little within cluster variation
+
+
+   glmmTMB() with poisson:
+      less similar due to fastglmm using different GLMM approx
+         not modeling uncertainty in weights or theta
+
+
+
+
+
 Feb 9, 
    rdf is good, but hatvalues for fastlmm has an issue with multithreading
 

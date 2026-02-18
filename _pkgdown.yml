@@ -34,7 +34,6 @@ reference:
 - title: Generics
   contents:
   - "anova.fastlmm"
-  - "anova.fastglmm"
   - "coef.fastlmm"
   - "cooks.distance.fastlmm"
   - "deviance.fastlmm"

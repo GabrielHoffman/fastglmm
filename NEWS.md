@@ -1,5 +1,10 @@
 
 
+# fastglmm 0.4.0
+ - Feb 17, 2026
+ - Hypothesis test uses Satterthwaite denominator degrees of freedom
+  - updated `summary()`, `anova()` and `linearHypothesis()`
+
 # fastglmm 0.3.9
  - Feb 11, 2026
  - improved `get_rdf()` for `fastlmm` in C++

@@ -4,10 +4,12 @@
 \alias{summary.fastlmm}
 \title{Object Summaries and Hypothesis Testing}
 \usage{
-\method{summary}{fastlmm}(object, ...)
+\method{summary}{fastlmm}(object, ddf = c("satterthwaite", "asymptotic"), ...)
 }
 \arguments{
 \item{object}{fitted model of class \code{fastlmm}}
+
+\item{ddf}{\code{"satterthwaite"}: use Satterthwaite approximation to denominator degrees of freedom for the Student-t distribution, or \code{"asymptotic"} to use normal distribution as null for the test statistic}
 
 \item{...}{other args, not used}
 }

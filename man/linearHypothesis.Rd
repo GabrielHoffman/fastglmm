@@ -2,17 +2,26 @@
 % Please edit documentation in R/s3methods.R
 \name{linearHypothesis.fastlmm}
 \alias{linearHypothesis.fastlmm}
-\alias{linearHypothesis}
 \title{Test Linear Hypothesis}
 \usage{
-\method{linearHypothesis}{fastlmm}(model, ...)
-
-linearHypothesis(model, ...)
+\method{linearHypothesis}{fastlmm}(
+  model,
+  hypothesis.matrix,
+  rhs = NULL,
+  ...,
+  ddf = c("satterthwaite", "asymptotic")
+)
 }
 \arguments{
 \item{model}{fitted model of class \code{fastlmm}}
 
+\item{hypothesis.matrix}{matrix (or vector) giving linear combinations of coefficients by rows, or a character vector giving the hypothesis in symbolic form}
+
+\item{rhs}{right-hand-side vector for hypothesis, with as many entries as rows in the hypothesis matrix; can be omitted, in which case it defaults to a vector of zeroes. For a multivariate linear model, ‘rhs’ is a matrix, defaulting to 0}
+
 \item{...}{other args passed to \code{car::linearHypothesis.default()}}
+
+\item{ddf}{\code{"satterthwaite"}: use Satterthwaite approximation to denominator degrees of freedom for the Student-t or F distribution, or \code{"asymptotic"} to use normal distribution or chisq as null for the test statistic}
 }
 \value{
 \code{car::linearHypothesis()}

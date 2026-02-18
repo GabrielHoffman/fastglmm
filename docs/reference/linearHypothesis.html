@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fastglmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,9 +45,13 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'fastlmm'</span></span>
-<span><span class="fu">linearHypothesis</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">linearHypothesis</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">linearHypothesis</span><span class="op">(</span></span>
+<span>  <span class="va">model</span>,</span>
+<span>  <span class="va">hypothesis.matrix</span>,</span>
+<span>  rhs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  ddf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"satterthwaite"</span>, <span class="st">"asymptotic"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -58,8 +62,20 @@
 <dd><p>fitted model of class <code>fastlmm</code></p></dd>
 
 
+<dt id="arg-hypothesis-matrix">hypothesis.matrix<a class="anchor" aria-label="anchor" href="#arg-hypothesis-matrix"></a></dt>
+<dd><p>matrix (or vector) giving linear combinations of coefficients by rows, or a character vector giving the hypothesis in symbolic form</p></dd>
+
+
+<dt id="arg-rhs">rhs<a class="anchor" aria-label="anchor" href="#arg-rhs"></a></dt>
+<dd><p>right-hand-side vector for hypothesis, with as many entries as rows in the hypothesis matrix; can be omitted, in which case it defaults to a vector of zeroes. For a multivariate linear model, ‘rhs’ is a matrix, defaulting to 0</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>other args passed to <code><a href="https://rdrr.io/pkg/car/man/linearHypothesis.html" class="external-link">car::linearHypothesis.default()</a></code></p></dd>
+
+
+<dt id="arg-ddf">ddf<a class="anchor" aria-label="anchor" href="#arg-ddf"></a></dt>
+<dd><p><code>"satterthwaite"</code>: use Satterthwaite approximation to denominator degrees of freedom for the Student-t or F distribution, or <code>"asymptotic"</code> to use normal distribution or chisq as null for the test statistic</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -80,18 +96,7 @@
 <span class="r-in"><span>   family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">binomial</a></span><span class="op">(</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">bacteria</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">linearHypothesis</span><span class="op">(</span><span class="va">fit</span>, <span class="st">"trtdrug"</span>, test<span class="op">=</span><span class="st">"F"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Linear hypothesis test:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> trtdrug = 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model 1: restricted model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model 2: y ~ trt + I(week &gt; 2) + (1 | ID)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Res.Df Df      F  Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 190.18                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 189.18  1 3.8166 0.05222 .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in linearHypothesis(fit, "trtdrug", test = "F"):</span> could not find function "linearHypothesis"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

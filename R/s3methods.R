@@ -33,6 +33,7 @@ setClass("fastglmm", contains="fastlmm")
 #' ANOVA Tables
 #' 
 #' @param object fitted model of class \code{fastlmm}
+#' @param ddf \code{"satterthwaite"}: use Satterthwaite approximation to denominator degrees of freedom for the F distribution, or \code{"asymptotic"} to use chisq distribution as null for the test statistic
 #' @param ... other args, not used
 #'
 #' @examples
@@ -48,7 +49,9 @@ setClass("fastglmm", contains="fastlmm")
 #' @importFrom dplyr bind_rows mutate `%>%`
 #' @importFrom tibble column_to_rownames
 #' @export
-anova.fastlmm <- function(object,...){
+anova.fastlmm <- function(object, ddf = c("satterthwaite", "asymptotic"), ...){
+
+  ddf <- match.arg(ddf)
 
   # Assign each coef to a contrast
   asgn <- attr(object$design, "assign")
@@ -60,28 +63,38 @@ anova.fastlmm <- function(object,...){
     nmeffects <- c("(Intercept)", nmeffects)
   }
 
-  # Numerator degrees of freedom
-  df <- lengths(split(asgn, asgn))
-
-  df1 <- NULL
-
-  # for LMM, use finite sample approximation
-  df2 <- df.residual(object)
-
-  res <- lapply(seq(0, max(asgn)), function(i){
+  # create matrix of contrasts
+  L.list <- lapply(seq(0, max(asgn)), function(i){
 
     # create contrast matrix with 1's for this component
     L <- rep(0, length(asgn))
     L[which(asgn == i)] <- 1
+    L
+  })
+  Lm <- do.call(rbind, L.list)
+
+  df1 <- NULL
+
+  if( ddf == "satterthwaite"){
+    df2 <- ddf(object, Lm)
+  }else{
+    # if F with df2 = Inf is chisq
+    df2 <- rep(Inf, nrow(Lm))
+  }
+
+  res <- lapply(seq(0, max(asgn)), function(i){
+
+    # create contrast matrix with 1's for this component
+    L <- Lm[i+1,]
 
     F.stat <- (L %*% coef(object)) %*% solve(L %*% vcov(object) %*% L) %*% (L %*% coef(object))
 
     # for comparison
-    # res = linearHypothesis(fit, L, test="F")
+    # res = linearHypothesis(fit, L, test="F", error.df = df2[i+1])
 
     data.frame(id = nmeffects[i+1], 
       df1 = sum(L), 
-      df2 = df2,
+      df2 = df2[i+1],
       F = F.stat)
     }) %>%
     bind_rows %>%
@@ -92,48 +105,6 @@ anova.fastlmm <- function(object,...){
                   class = c("anova", "data.frame"))
 }
 
-
-#' @rdname anova
-#' @importFrom dplyr bind_rows mutate `%>%`
-#' @importFrom tibble column_to_rownames
-#' @export
-anova.fastglmm <- function(object,...){
-
-  # Assign each coef to a contrast
-  asgn <- attr(object$design, "assign")
-
-  # Names of effects
-  nmeffects <- attr(terms(object), "term.labels")[unique(asgn)]
-
-  if( attr(terms(object),"intercept") == 1){
-    nmeffects <- c("(Intercept)", nmeffects)
-  }
-
-  # Numerator degrees of freedom
-  # df <- lengths(split(asgn, asgn))
-  Chisq <- NULL
-
-  res <- lapply(seq(0, max(asgn)), function(i){
-
-    # create contrast matrix with 1's for this component
-    L <- rep(0, length(asgn))
-    L[which(asgn == i)] <- 1
-
-    stat <- (L %*% coef(object)) %*% solve(L %*% vcov(object) %*% L) %*% (L %*% coef(object))
-
-    # if GLMM, use asymptotic null distribution
-    # for comparison
-    data.frame(id = nmeffects[i+1], 
-      df = sum(L), 
-      Chisq = stat)
-    }) %>%
-    bind_rows %>%
-    column_to_rownames("id") %>%
-    mutate('Pr(>Chisq)' = pchisq(Chisq, df, lower.tail=FALSE))
-
-  structure(res, heading = "Analysis of Variance Table",
-                  class = c("anova", "data.frame"))
-}
 
 
 
@@ -444,7 +415,10 @@ fitted.fastglmm = function(object,...){
 #' Test Linear Hypothesis
 #' 
 #' @param model fitted model of class \code{fastlmm}
+#' @param hypothesis.matrix matrix (or vector) giving linear combinations of coefficients by rows, or a character vector giving the hypothesis in symbolic form 
+#' @param rhs right-hand-side vector for hypothesis, with as many entries as rows in the hypothesis matrix; can be omitted, in which case it defaults to a vector of zeroes. For a multivariate linear model, ‘rhs’ is a matrix, defaulting to 0
 #' @param ... other args passed to \code{car::linearHypothesis.default()}
+#' @param ddf \code{"satterthwaite"}: use Satterthwaite approximation to denominator degrees of freedom for the Student-t or F distribution, or \code{"asymptotic"} to use normal distribution or chisq as null for the test statistic
 #'
 #' @examples
 #' library(MASS)
@@ -463,14 +437,44 @@ fitted.fastglmm = function(object,...){
 #' @seealso \code{car::linearHypothesis()}
 #' @rdname linearHypothesis
 #' @export
-linearHypothesis.fastlmm <- function(model, ...){
+linearHypothesis.fastlmm <- function(model, hypothesis.matrix, rhs = NULL, ..., ddf = c("satterthwaite", "asymptotic")){
 
-  linearHypothesis.default(model, ...)
+  ddf <- match.arg(ddf)
+
+  if( ddf == "satterthwaite" ){
+
+    # convert hypothesis.matrix into L
+    # code from car::linearHypothesis.default
+    if (is.character(hypothesis.matrix)) {
+        L <- makeHypothesis(names(b), hypothesis.matrix, rhs)
+        if (is.null(dim(L))) 
+            L <- t(L)
+        rhs <- L[, NCOL(L)]
+        L <- L[, -NCOL(L), drop = FALSE]
+        rownames(L) <- hypothesis.matrix
+    }
+    else {
+        L <- if (is.null(dim(hypothesis.matrix))) 
+            t(hypothesis.matrix)
+        else hypothesis.matrix
+        if (is.null(rhs)) 
+            rhs <- rep(0, nrow(L))
+    }
+
+    error.df <- ddf(model, L)
+  }else{
+    # Asymptotic null distribution
+    error.df <- Inf
+  }
+
+  linearHypothesis.default(model, hypothesis.matrix, rhs, ..., error.df=error.df)
 }
 
-#' @rdname linearHypothesis
-#' @export
-linearHypothesis <- car::linearHypothesis
+
+
+# #' @rdname linearHypothesis
+# #' @export
+# linearHypothesis <- car::linearHypothesis
 
 
 #' Extract Log-Likelihood
@@ -891,7 +895,7 @@ print.summary.fastlmm <- function(
     ))
     coefs[!aliased, ] <- x$coefficients
   }
-  printCoefmat(coefs, digits = digits, signif.stars = signif.stars, na.print = "NA", ...)
+  printCoefmat(coefs, digits = digits, signif.stars = signif.stars, na.print = "NA", tst.ind = which(colnames(coefs) == "ddf"), ...)
 
   # cat("\n(Dispersion parameter for ", x$family$family, " family taken to be ", format(x$dispersion, digits=3), ")\n", sep='')
 
@@ -913,45 +917,40 @@ print.summary.fastlmm <- function(
 #' Object summaries and hypothesis testing of fixed effects
 #' 
 #' @param object fitted model of class \code{fastlmm}
+#' @param ddf \code{"satterthwaite"}: use Satterthwaite approximation to denominator degrees of freedom for the Student-t distribution, or \code{"asymptotic"} to use normal distribution as null for the test statistic
 #' @param ... other args, not used
 #'
 #' @importFrom stats coef pt
 #' @export
-summary.fastlmm <- function(object, ...) {
+summary.fastlmm <- function(object, ddf = c("satterthwaite", "asymptotic"), ...) {
+
+  ddf <- match.arg(ddf)
   z <- object
 
-  # quasi-likelihood dispersion 
-  # if not gaussian and family(object)$dispersion is NA
-  # if( family(object)$family != "gaussian" && is.na(family(object)$dispersion) ){
-  #   phi <- object$dispersion
-  # }else{
-  #   phi <- 1
-  # }
-
   est <- coef(object)
-  se <- object$se #* sqrt(phi)
+  se <- object$se 
   rdf <- df.residual(object)
   tval <- est / se
   ans <- z[c("call", "terms", if (!is.null(z$weights)) "weights")]
   ans$aliased <- is.na(coef(object))
   ans$residuals <- z$residuals
 
-  # if object a GLMM and the family is _not_ gaussian
-  isGaussian <- (family(object)$family == "gaussian")
-  if( is(object, "fastglmm") & !isGaussian){
+  if( ddf == "satterthwaite"){
+    # Finite sample Student-t, with approximate ddf
+    ddf.values <- ddf(object)
+    ans$coefficients <- cbind(
+      Estimate = est, 
+      `Std. Error` = se,
+      ddf = round(ddf.values, 1),
+      `t value` = tval, 
+      `Pr(>|t|)` = 2 * pt(abs(tval), ddf.values, lower.tail = FALSE))
+  }else{
     # Normal approximation
     ans$coefficients <- cbind(
       Estimate = est, 
       `Std. Error` = se,
       `z value` = tval, 
       `Pr(>|z|)` = 2 * pnorm(abs(tval), lower.tail = FALSE))
-   }else{
-    # Finite sample Student-t
-    ans$coefficients <- cbind(
-      Estimate = est, 
-      `Std. Error` = se,
-      `t value` = tval, 
-      `Pr(>|t|)` = 2 * pt(abs(tval), rdf, lower.tail = FALSE))
   }
   ans$rdf <- rdf
   ans$sigSq_g <- object$sigSq_g

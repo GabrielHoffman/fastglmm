@@ -2,15 +2,14 @@
 % Please edit documentation in R/s3methods.R
 \name{anova.fastlmm}
 \alias{anova.fastlmm}
-\alias{anova.fastglmm}
 \title{ANOVA Tables}
 \usage{
-\method{anova}{fastlmm}(object, ...)
-
-\method{anova}{fastglmm}(object, ...)
+\method{anova}{fastlmm}(object, ddf = c("satterthwaite", "asymptotic"), ...)
 }
 \arguments{
 \item{object}{fitted model of class \code{fastlmm}}
+
+\item{ddf}{\code{"satterthwaite"}: use Satterthwaite approximation to denominator degrees of freedom for the F distribution, or \code{"asymptotic"} to use chisq distribution as null for the test statistic}
 
 \item{...}{other args, not used}
 }
