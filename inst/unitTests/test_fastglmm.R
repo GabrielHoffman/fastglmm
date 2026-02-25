@@ -300,6 +300,10 @@ test_fastglmm = function(){
 	fit2 = glmmPQL( y ~ 1, random = ~ 1|Indiv, data, family = poisson(), niter=100)
 	fit3 = glmer( y ~ (1|Indiv), data, family = poisson())
 
+	# fit4 = glmmTMB::glmmTMB( y ~ (1|Indiv), data, family = poisson())
+
+	# coef(summary(fit1, ddf="sat"))
+	# coef(summary(fit4, ddf="sat"))
 	
 	# fit1$sigSq_g / (fit1$sigSq_g + fit1$sigSq_e)
 	# fit1$sigSq_e / (fit1$sigSq_g + fit1$sigSq_e)
@@ -319,7 +323,7 @@ test_fastglmm = function(){
 	# checkEqualsNumeric( fixef(fit1), fixef(fit2) )
 	checkEqualsNumeric( fixef(fit1), fixef(fit3), tol=1e-3 )
 	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=1e-1  )
-	checkEqualsNumeric( coef(summary(fit1))[,1:3], coef(summary(fit2))[,c(1,2,4)], tol=1e-2 )
+	checkEqualsNumeric( coef(summary(fit1))[,c(1,2,4)], coef(summary(fit2))[,c(1,2,4)], tol=1e-2 )
 
 	fit1$sigSq_g
 	fit1$sigSq_e
@@ -349,7 +353,7 @@ test_fastglmm = function(){
 	# checkEqualsNumeric( fixef(fit1), fixef(fit2) )
 	checkEqualsNumeric( fixef(fit1), fixef(fit3), tol=1e-3 )
 	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=1e-3  )
-	checkEqualsNumeric( coef(summary(fit1))[,1:3], 
+	checkEqualsNumeric( coef(summary(fit1))[,c(1,2,4)], 
 		coef(summary(fit2))[,c(1,2,4)], tol=1e-3)
 
 	fit1$sigSq_g

@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['v_0',['V',['../structfastglmm_lib_1_1_l_m_work.html#a71a654e7de4a76f6a5191654b9e118b5',1,'fastglmmLib::LMWork::V'],['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a47db2201e17df892e83c32e8810be0f8',1,'fastglmmLib::ModelFitLMM::V'],['../classfastglmm_lib_1_1spectral_decomp.html#aed9d121652e56143c3791e83adaa1369',1,'fastglmmLib::spectralDecomp::V']]],
-  ['varfitted_1',['varFitted',['../classfastglmm_lib_1_1_model_fit.html#ab25d3f4abfc37b65d541ec58f886745d',1,'fastglmmLib::ModelFit']]],
-  ['variance_2',['variance',['../classfastglmm_lib_1_1_g_l_m_family.html#ac7e49ea977ff10ffc2e43f4049540012',1,'fastglmmLib::GLMFamily::variance()'],['../classfastglmm_lib_1_1_gaussian_identity.html#a829180f64b2715543082c9a3f19c8666',1,'fastglmmLib::GaussianIdentity::variance()'],['../classfastglmm_lib_1_1_binomial_logit.html#a47ff7d35b0d775f44e1ae59fd17451a6',1,'fastglmmLib::BinomialLogit::variance()'],['../classfastglmm_lib_1_1_binomial_probit.html#a3c710ce8089b372948ad4af26385ee92',1,'fastglmmLib::BinomialProbit::variance()'],['../classfastglmm_lib_1_1_poisson_log.html#a3aeabecf250dc29c2e278d17bfb49d44',1,'fastglmmLib::PoissonLog::variance()'],['../classfastglmm_lib_1_1_n_b.html#a3b0b0eda95b1231a0f0a1d3139cd253c',1,'fastglmmLib::NB::variance()']]],
-  ['vcov_3',['vcov',['../classfastglmm_lib_1_1_model_fit.html#a6c3ed52bee7cd14f7736f8a6f9717e65',1,'fastglmmLib::ModelFit']]],
-  ['vsp_4',['Vsp',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a28d33afe0776378060242781fb8d4b0f',1,'fastglmmLib::ModelFitLMM']]]
+  ['u_0',['U',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a7c46ea37999b499d13297de0071b8444',1,'fastglmmLib::ModelFitLMM::U'],['../classfastglmm_lib_1_1spectral_decomp.html#ab54ffa9c8066deb233d5d19fb986e529',1,'fastglmmLib::spectralDecomp::U']]],
+  ['update_1',['update',['../class_progress_bar.html#a2554aade8f291928e3089ad7b46a016e',1,'ProgressBar']]],
+  ['update_5fresponse_2',['update_response',['../classfastglmm_lib_1_1fastlmm.html#ada1f677dd0fcac48e0abf54450ac4178',1,'fastglmmLib::fastlmm::update_response(const T1 &amp;Y_, const vec &amp;weights_)'],['../classfastglmm_lib_1_1fastlmm.html#aa37016ccbfeefecd0eae004ca693da99',1,'fastglmmLib::fastlmm::update_response(const T1 &amp;Y_, const vec &amp;weights_, const mat &amp;Yu_)']]],
+  ['update_5fx_3',['update_X',['../classfastglmm_lib_1_1fastlmm.html#a74d364e9ab504d64c086f4c3546b0d89',1,'fastglmmLib::fastlmm']]],
+  ['update_5fy_4',['update_Y',['../classfastglmm_lib_1_1fastlmm.html#a6e35df0bf8846fe6bb725b8073c8f02f',1,'fastglmmLib::fastlmm']]],
+  ['usp_5',['Usp',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#aab739147184fd0f6b836c8ef5d930523',1,'fastglmmLib::ModelFitLMM']]]
 ];

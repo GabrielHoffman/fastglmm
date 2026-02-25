@@ -31,5 +31,5 @@ dcmp <- indicator_decomp(ID, w)
 Z_recon <- reconstruct_indicator( dcmp, w)
 
 range(Z_recon - Z)
-#> [1] -2.220446e-16  2.220446e-16
+#> [1] -1.110223e-16  2.220446e-16
 ```

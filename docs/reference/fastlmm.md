@@ -108,9 +108,9 @@ summary(fit)
 #>  Formula: Reaction ~ Days + (1 | Subject)
 #> 
 #> Coefficients:
-#>             Estimate Std. Error t value Pr(>|t|)    
-#> (Intercept) 251.4051     9.5062   26.45   <2e-16 ***
-#> Days         10.4673     0.8017   13.06   <2e-16 ***
+#>             Estimate Std. Error   ddf t value Pr(>|t|)    
+#> (Intercept) 251.4051     9.5062  24.5   26.45   <2e-16 ***
+#> Days         10.4673     0.8017 162.0   13.06   <2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 

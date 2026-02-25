@@ -1,12 +1,38 @@
 # Changelog
 
+## fastglmm 0.4.0
+
+- Feb 17, 2026
+- Hypothesis test uses Satterthwaite denominator degrees of freedom
+- updated [`summary()`](https://rdrr.io/r/base/summary.html),
+  [`anova()`](https://rdrr.io/r/stats/anova.html) and
+  [`linearHypothesis()`](http://gabrielhoffman.github.io/fastglmm/reference/linearHypothesis.md)
+- implemented at C++ level, return `A.sat`, `B.sat`, `hessian.vc`
+
+## fastglmm 0.3.9
+
+- Feb 11, 2026
+- improved `get_rdf()` for `fastlmm` in C++
+- clean up code, consts
+- add mutex to response models
+- fix bug in
+  [`dispersion()`](http://gabrielhoffman.github.io/fastglmm/reference/dispersion.md),
+  uses Pearson residuals
+- NB-QL
+- `negative.binomial(NA)` fixes dispersion to 1
+- `negative.binomial(theta)` estimates dispersion from pearson residuals
+  and scales vcov and se
+- in C++ `NB()` now uses QL dispersion of theta is given
+
 ## fastglmm 0.3.8
 
-- Jan 16, 2016
+- Jan 16, 2026
 - more flexable
   [`isCountModel()`](http://gabrielhoffman.github.io/fastglmm/reference/isCountModel.md)
   and
   [`isNB()`](http://gabrielhoffman.github.io/fastglmm/reference/isNB.md)
+- fix [`simulate()`](https://rdrr.io/r/stats/simulate.html) for NB
+  models
 
 ## fastglmm 0.3.7
 

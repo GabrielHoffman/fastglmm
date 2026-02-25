@@ -23,6 +23,7 @@ using namespace arma;
 #include "misc.h"
 #include "ModelFit.h"
 #include "spectralDecomp.h"
+#include "satterthwaite.h"
 
 namespace fastglmmLib {
 
@@ -100,12 +101,14 @@ class fastlmm {
       return sqrt(diagvec(get_vcov()));
     }
 
-    const double get_rdf() const;
-
     // if model fails, set beta to nan
     void set_model_failure(){ 
       beta.fill(datum::nan);
     }
+
+    /** Residual degrees of freedom
+     */ 
+    const double get_rdf() const;
 
     const vec hatvalues() const; // diag of hat matrix
     const vec residuals() const; 
@@ -316,7 +319,6 @@ const double fastlmm<T1, T2, T3>::get_rdf() const {
   return h1_sum - h2_sum;
 }
 
-
 template <typename T1, typename T2, typename T3> 
 const vec fastlmm<T1, T2, T3>::hatvalues() const {
 
@@ -337,6 +339,8 @@ const vec fastlmm<T1, T2, T3>::hatvalues() const {
   // hatvalues
   return 1 - h1 + h2;
 }
+
+
 
 template <typename T1, typename T2, typename T3> 
 const vec fastlmm<T1, T2, T3>::residuals() const {
@@ -545,7 +549,6 @@ ModelFitLMM fastlmm<T1, T2, T3>::get_result(
 
   switch( md ){
     case MAX:       
-      // res.hatvalues = hatvalues();
     case MOST:
       res.hatvalues = this->hatvalues(); 
     case HIGH: 
@@ -558,6 +561,15 @@ ModelFitLMM fastlmm<T1, T2, T3>::get_result(
     case LEAST: 
       break;
   }
+
+  // Precompute values for Satterthwaite DDF to be
+  // used later with V and L specified
+  Satterthwaite ddf_sat(res.y.n_elem, res.sigSq_g, res.sigSq_e, s, Xu, Gamma_XX, inv_s_delta, inv_s_delta_Xu);
+
+  // save precomputed values
+  res.hessian_vc = ddf_sat.get_hessian();
+  res.A_sat = ddf_sat.get_A();
+  res.B_sat = ddf_sat.get_B();
 
   // if returnUS
   // return U and s 

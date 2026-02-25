@@ -32,7 +32,10 @@ const List toList(ModelFitLMM &res){
                 Named("y")            = res.y,
                 Named("iter")         = res.iter,
                 Named("w.mean")       = res.w_mean,
-                Named("s")            = res.s);
+                Named("s")            = res.s,
+                Named("hessian.vc")   = res.hessian_vc,
+                Named("A.sat")        = res.A_sat,
+                Named("B.sat")        = res.B_sat);
 
   // Set U as either full or sparse matrix
   if( res.isSet_U ) lst["U"] = res.U;
@@ -83,7 +86,10 @@ const List toList(ModelFitGLMM &res){
                 Named("family")       = res.family,
                 Named("iter")         = res.iter,
                 Named("w.mean")       = res.w_mean,
-                Named("s")            = res.s);
+                Named("s")            = res.s,
+                Named("hessian.vc")   = res.hessian_vc,
+                Named("A.sat")        = res.A_sat,
+                Named("B.sat")        = res.B_sat);
 
   // Set U as either full or sparse matrix
   if( res.isSet_U ) lst["U"] = res.U;

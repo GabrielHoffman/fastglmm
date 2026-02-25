@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['begin_0',['begin',['../classblocked__range.html#ae476798641214d341773f96d6a34dd7f',1,'blocked_range']]],
-  ['binomiallogit_1',['BinomialLogit',['../classfastglmm_lib_1_1_binomial_logit.html',1,'fastglmmLib::BinomialLogit'],['../classfastglmm_lib_1_1_binomial_logit.html#ac0089b143646ff87efb876646b306d16',1,'fastglmmLib::BinomialLogit::BinomialLogit()']]],
-  ['binomialprobit_2',['BinomialProbit',['../classfastglmm_lib_1_1_binomial_probit.html',1,'fastglmmLib::BinomialProbit'],['../classfastglmm_lib_1_1_binomial_probit.html#a4d2a1c545851ddbf36c88a4ba823d79f',1,'fastglmmLib::BinomialProbit::BinomialProbit()']]],
-  ['blocked_5frange_3',['blocked_range',['../classblocked__range.html',1,'blocked_range&lt; T &gt;'],['../classblocked__range.html#a2d8fd08bdc4b9f36956da0ab4a20e35a',1,'blocked_range::blocked_range()']]],
-  ['blup_4',['blup',['../classfastglmm_lib_1_1fastlmm.html#a7ca9addf6a3c990fdad348e21f86cd79',1,'fastglmmLib::fastlmm']]]
+  ['a_5fsat_0',['A_sat',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a40f790d97c715f73db39936020012a12',1,'fastglmmLib::ModelFitLMM']]]
 ];

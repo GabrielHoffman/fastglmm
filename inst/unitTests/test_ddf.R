@@ -19,7 +19,7 @@ test_ddf = function(){
 
   # fastlmm
   fit <- fastlmm(y ~ x + (1 | g), dd)
-  ddf_fastlmm = fastglmm:::ddf(fit)
+  ddf_fastlmm = ddf(fit)
 
   # Compare to lmerTest
   #####################
@@ -67,7 +67,7 @@ test_ddf_glmmTMB = function(){
 
   family = gaussian()
   fit <- fastglmm(y ~ x + (1 | g), dd, family=family)
-  ddf_fastglmm = fastglmm:::ddf(fit)
+  ddf_fastglmm = ddf(fit)
 
   fit2 <- glmmTMB(y ~ x + (1 | g), dd, family=family)
   ddf_tmb <- coef(summary(fit2, ddf="satterthwaite"))$cond[,"ddf"]
@@ -78,6 +78,32 @@ test_ddf_glmmTMB = function(){
   res2 = coef(summary(fit2, ddf="satterthwaite"))$cond
   checkEqualsNumeric(res1, res2[,colnames(res1)], 
     tol=1e-3)
+
+  # Poisson
+  family = poisson()
+  fit <- fastglmm(y ~ x + (1 | g), dd, family=family)
+  ddf_fastglmm = ddf(fit)
+
+  fit2 <- glmmTMB(y ~ x + (1 | g), dd, family=family)
+  ddf_tmb <- coef(summary(fit2, ddf="satterthwaite"))$cond[,"ddf"]
+
+  ddf_fastglmm
+  ddf_tmb
+
+  dd$z = fit$y
+  it = lmerTest::lmer(z ~ x + (1 | g), dd, weights = fit$weights)
+  coef(summary(it))
+
+
+  # checkEqualsNumeric(ddf_fastglmm, ddf_tmb, tol=1e-2)
+
+  # res1 = coef(summary(fit))
+  # res2 = coef(summary(fit2, ddf="satterthwaite"))$cond
+  # checkEqualsNumeric(res1, res2[,colnames(res1)], 
+  #   tol=1e-3)
+
+
+
 
   # Compare interfaces
   #####################
@@ -95,6 +121,118 @@ test_ddf_glmmTMB = function(){
   checkEqualsNumeric(d$`Pr(>F)`[2], b[1,4])
 
 }
+
+
+test_ddf_compare = function(){
+
+  # https://chatgpt.com/share/698f66b1-88b0-800b-9001-e28f444f6015
+  est_hessian <- function(fit){
+
+    delta <- fit$delta
+    sigSq_g <- fit$sigSq_g
+    s <- fit$s
+
+    n <- length(fit$y)
+    r <- length(s)
+    H <- matrix(0, 2,2)
+
+    a <- sum(1/(s + delta)) + (n-r)/delta
+    b <- sum(1/(s + delta)^2) + (n-r)/delta^2
+
+    H[1,1] <- (n - 2*delta*a + delta^2*b) / (2*sigSq_g^2)
+    H[1,2] <- H[2,1] <- (a - delta*b) / (2*sigSq_g^2)
+    H[2,2] <- b / (2*sigSq_g^2)
+    H
+  }
+
+  est_gradient <- function(fit, L){
+
+    # slow versions
+    # W <- with(fit, solve(tcrossprod(Z) + diag(delta, nrow(Z))))
+    # A <- crossprod(X, W) %*% X
+    # B <- crossprod(X, W %*% W) %*% X
+
+    X = diag(c(sqrt(fit$weights))) %*% fit$design
+    Xu <- crossprod(fit$U, X)
+    Gamma_XX <- crossprod(X) - crossprod(Xu)
+    inv_s_delta <- 1 / (fit$s + fit$delta)
+    inv_s_delta_Xu <- inv_s_delta * Xu
+
+    A <- crossprod(Xu, inv_s_delta_Xu) + Gamma_XX / fit$delta
+
+    inv_s_delta_Xu <- inv_s_delta^2 * Xu
+    B <- crossprod(Xu, inv_s_delta_Xu) + Gamma_XX / fit$delta^2
+
+    lapply(seq(nrow(L)), function(i){
+
+      g <- c(0, 0)
+      invAL <- solve(A, L[i,])
+      C <- invAL %*% B %*% invAL
+      g[1] <- crossprod(L[i,], invAL) - fit$delta*C
+      g[2] <- C
+      g
+    })
+  }
+
+
+  ddf.orig <- function(fit, L = diag(1, length(coef(fit))) ){
+
+    stopifnot(is(fit, "fastlmm"))
+
+    H <- est_hessian(fit)
+    g <- est_gradient(fit, L)
+
+    sapply(seq(nrow(L)), function(i){
+      var_Lbeta <- crossprod(L[i,], vcov(fit)) %*% L[i,]
+      v_numerator <- 2 * var_Lbeta^2
+      v_denom <- crossprod(g[[i]], solve(H)) %*% g[[i]]
+
+      v_numerator / v_denom  
+    })
+  }
+
+  library(MASS)
+  library(fastglmm)
+  library(Matrix)
+  library(lme4)
+  library(RUnit)
+  set.seed(1)
+
+  n = 100
+  ndonors = 100
+
+  # n = 3000
+  # info = data.frame(x = rnorm(n))
+  # info$Indiv = factor(seq(n))
+
+  info = data.frame(x = rnorm(n))
+  info$Indiv = factor(sample(seq(ndonors), n, replace=TRUE))
+  info$Indiv = droplevels(info$Indiv)
+  beta = 1
+  eta = 4 + info$x * beta + model.matrix(~ 0 + Indiv, info) %*% rnorm(nlevels(info$Indiv), 0, sqrt(3)) 
+  # info$y = rnegbin(n, mu=exp(eta), theta = 10)
+  info$y = eta + rnorm(length(eta))
+
+  dcmp = indicator_decomp( info$Indiv )
+  indicObj = preprocess_indicator( info$Indiv )
+  X = model.matrix( ~ x, info)
+
+  formula = y ~ x + (1|Indiv)
+  data = info
+  eta = X %*% c(2, .0007) + model.matrix(~Indiv + 0, data) %*% rnorm(nlevels(info$Indiv))
+  data$y = rpois(nrow(data), exp(eta))
+  family = poisson()
+
+
+
+  fit = fastglmm( y ~ x + (1|Indiv), data, family = poisson())
+  a = ddf(fit)
+  b = ddf.orig(fit)
+  checkEqualsNumeric(a,b, tol=1e-3)
+
+
+}
+
 
 
 

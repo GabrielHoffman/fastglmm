@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['z_0',['Z',['../classfastglmm_lib_1_1spectral_decomp.html#a797bc1c94d2ecdd5ee44dfc8da49aa09',1,'fastglmmLib::spectralDecomp']]],
-  ['z_1',['z',['../structfastglmm_lib_1_1_g_l_m_work.html#ad2cd7f50570a2734edae6e0986db3b07',1,'fastglmmLib::GLMWork']]],
-  ['zw_2',['Zw',['../classfastglmm_lib_1_1spectral_decomp.html#a6f2bdd0d1342ee6c0f43410f3b164c34',1,'fastglmmLib::spectralDecomp']]]
+  ['x_0',['X',['../structnb_data.html#a57e92ce968bcb38bd7dd1f96028b80e1',1,'nbData']]]
 ];

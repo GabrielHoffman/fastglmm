@@ -1,14 +1,17 @@
 
 Feb 17
-   linearHypothesis not exported
-   compute Satterthwaite ddf in C++
-      use low rank method
-   Manuscript:
+   DONE: linearHypothesis not exported
+   DONE: compute Satterthwaite ddf in C++
+      DONE: use low rank method
+   DONE: Precompute terms for Satterthaite for when L is given later
+   ***DDF doesn't match for lmer() vs fastlmm() using weights
+   DONE Manuscript:
       move rdf to separate section
       ddf matches lmerTest and glmmTMB for Gaussian models
       controls false positive rate: qq plot
       write new section
       most important for covariates with little within cluster variation
+   Extend to BatchRegression
 
 
    glmmTMB() with poisson:

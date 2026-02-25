@@ -429,12 +429,16 @@ fitted.fastglmm = function(object,...){
 #' 
 #' linearHypothesis(fit, "trtdrug", test="F")
 #
-#' @importFrom car linearHypothesis
-#' @importFrom car linearHypothesis.default
-#' @method linearHypothesis fastlmm
+#' @importFrom car linearHypothesis linearHypothesis.default makeHypothesis
 #' 
-#' @return \code{car::linearHypothesis()}
+#' @rdname linearHypothesis
 #' @seealso \code{car::linearHypothesis()}
+#' @export
+linearHypothesis <- function (model, ...) 
+{
+    UseMethod("linearHypothesis")
+}
+
 #' @rdname linearHypothesis
 #' @export
 linearHypothesis.fastlmm <- function(model, hypothesis.matrix, rhs = NULL, ..., ddf = c("satterthwaite", "asymptotic")){
@@ -446,19 +450,20 @@ linearHypothesis.fastlmm <- function(model, hypothesis.matrix, rhs = NULL, ..., 
     # convert hypothesis.matrix into L
     # code from car::linearHypothesis.default
     if (is.character(hypothesis.matrix)) {
-        L <- makeHypothesis(names(b), hypothesis.matrix, rhs)
-        if (is.null(dim(L))) 
-            L <- t(L)
-        rhs <- L[, NCOL(L)]
-        L <- L[, -NCOL(L), drop = FALSE]
-        rownames(L) <- hypothesis.matrix
+      b <- coef(model)
+      L <- makeHypothesis(names(b), hypothesis.matrix, rhs)
+      if (is.null(dim(L))) 
+          L <- t(L)
+      rhs <- L[, NCOL(L)]
+      L <- L[, -NCOL(L), drop = FALSE]
+      rownames(L) <- hypothesis.matrix
     }
     else {
-        L <- if (is.null(dim(hypothesis.matrix))) 
-            t(hypothesis.matrix)
-        else hypothesis.matrix
-        if (is.null(rhs)) 
-            rhs <- rep(0, nrow(L))
+      L <- if (is.null(dim(hypothesis.matrix))) 
+        t(hypothesis.matrix)
+      else hypothesis.matrix
+      if (is.null(rhs)) 
+        rhs <- rep(0, nrow(L))
     }
 
     error.df <- ddf(model, L)
@@ -472,9 +477,6 @@ linearHypothesis.fastlmm <- function(model, hypothesis.matrix, rhs = NULL, ..., 
 
 
 
-# #' @rdname linearHypothesis
-# #' @export
-# linearHypothesis <- car::linearHypothesis
 
 
 #' Extract Log-Likelihood

@@ -28,7 +28,7 @@ test_user_fxn = function(){
 	checkEqualsNumeric( sigma(fit1), sigma(fit2), tol=1e-5 )
 	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=1e-5 )
 	checkEqualsNumeric( logLik(fit1), logLik(fit2), tol=1e-5 )
-	checkEqualsNumeric( coef(summary(fit1)), coef(summary(fit2))[,1:3], tol=1e-5 )
+	checkEqualsNumeric( coef(summary(fit1)), coef(summary(fit2)), tol=1e-4 )
 
 
 

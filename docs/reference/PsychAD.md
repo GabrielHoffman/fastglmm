@@ -61,11 +61,11 @@ summary(fit)
 #>  Formula: PTPRG ~ Dx + Age + Sex + offset(log(libSize)) + (1 | SubID)
 #> 
 #> Coefficients:
-#>              Estimate Std. Error z value Pr(>|z|)    
-#> (Intercept) -8.577681   0.369007 -23.245   <2e-16 ***
-#> DxAD         1.102755   0.087209  12.645   <2e-16 ***
-#> Age         -0.007262   0.004477  -1.622    0.105    
-#> SexMale     -0.103277   0.089836  -1.150    0.250    
+#>               Estimate Std. Error   ddf t value Pr(>|t|)    
+#> (Intercept)  -8.577681   0.311172 149.9 -27.566   <2e-16 ***
+#> DxAD          1.102755   0.073541 145.6  14.995   <2e-16 ***
+#> Age          -0.007262   0.003775 148.2  -1.923   0.0563 .  
+#> SexMale      -0.103277   0.075756 145.7  -1.363   0.1749    
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 

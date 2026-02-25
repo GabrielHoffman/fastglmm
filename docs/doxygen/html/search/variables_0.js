@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['coef_0',['coef',['../classfastglmm_lib_1_1_model_fit.html#a16b2eba98289e6bcde50efaea15705cb',1,'fastglmmLib::ModelFit']]],
-  ['ct_1',['ct',['../structnb_data.html#ad06a44c8093a3ac72d9565185dea1513',1,'nbData']]]
+  ['a_5fsat_0',['A_sat',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a40f790d97c715f73db39936020012a12',1,'fastglmmLib::ModelFitLMM']]]
 ];

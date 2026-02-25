@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['delta_0',['delta',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#aaad7993e6ca713a62362f59f7a9cacf5',1,'fastglmmLib::ModelFitLMM']]],
-  ['dev_5fresids_1',['dev_resids',['../classfastglmm_lib_1_1_g_l_m_family.html#a4e1d52aee5cac0836975abadd70f4c79',1,'fastglmmLib::GLMFamily::dev_resids()'],['../classfastglmm_lib_1_1_gaussian_identity.html#a415c91224c2949358603bf1d90c4da24',1,'fastglmmLib::GaussianIdentity::dev_resids()'],['../classfastglmm_lib_1_1_binomial_logit.html#a731ae7fdb80fd9bb26581740516d85a9',1,'fastglmmLib::BinomialLogit::dev_resids()'],['../classfastglmm_lib_1_1_binomial_probit.html#a6b531ba7bf80db65f67d53253bb5f806',1,'fastglmmLib::BinomialProbit::dev_resids()'],['../classfastglmm_lib_1_1_poisson_log.html#a827f0649aa3b64b9624cb879b2748838',1,'fastglmmLib::PoissonLog::dev_resids()'],['../classfastglmm_lib_1_1_n_b.html#ac545aa71975f26ac221c7d18a53da898',1,'fastglmmLib::NB::dev_resids()']]],
-  ['devianceresiduals_2',['devianceResiduals',['../classfastglmm_lib_1_1_model_fit.html#a36747d1197e07f51c8e779c879377cdb',1,'fastglmmLib::ModelFit::devianceResiduals'],['../classfastglmm_lib_1_1fastglmm.html#a7490d79ba70ea450b33a66d17c062666',1,'fastglmmLib::fastglmm::devianceResiduals()']]],
-  ['dispersion_3',['dispersion',['../classfastglmm_lib_1_1_model_fit.html#ad98009175c5351f81b7f5ad49b572b3f',1,'fastglmmLib::ModelFit']]],
-  ['docoxreid_4',['doCoxReid',['../structnb_data.html#aba34cf86257a6a45ea41cb01953e19fe',1,'nbData']]]
+  ['categorical_0',['CATEGORICAL',['../namespacefastglmm_lib.html#a2ecab82e2cb1387aa8d81e200b406a14a46ea8901c2d62c4681cea6fb50d54e6c',1,'fastglmmLib']]],
+  ['cleandata_1',['CleanData',['../classfastglmm_lib_1_1_clean_data.html',1,'fastglmmLib::CleanData'],['../classfastglmm_lib_1_1_clean_data.html#a9892799cd982985a94c90a8e893d2116',1,'fastglmmLib::CleanData::CleanData()']]],
+  ['cleandata_2eh_2',['CleanData.h',['../_clean_data_8h.html',1,'']]],
+  ['coef_3',['coef',['../classfastglmm_lib_1_1_model_fit.html#a16b2eba98289e6bcde50efaea15705cb',1,'fastglmmLib::ModelFit']]],
+  ['counttable_4',['CountTable',['../nb__theta_8h.html#a9cdc304469f800a940be5189b1301b3b',1,'nb_theta.h']]],
+  ['ct_5',['ct',['../structnb_data.html#ad06a44c8093a3ac72d9565185dea1513',1,'nbData']]]
 ];

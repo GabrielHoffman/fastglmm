@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gprime_0',['gprime',['../structfastglmm_lib_1_1_g_l_m_work.html#aca19672bd88aaabfe3de21da752a0b15',1,'fastglmmLib::GLMWork']]]
+  ['eta_0',['eta',['../structfastglmm_lib_1_1_g_l_m_work.html#ae6f190589dd2057e57ef167d53b81604',1,'fastglmmLib::GLMWork']]]
 ];

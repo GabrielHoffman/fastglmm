@@ -119,10 +119,10 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a53aff4890d4d14e44f36a10f32be3e7f" id="r_a53aff4890d4d14e44f36a10f32be3e7f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a53aff4890d4d14e44f36a10f32be3e7f">fastglmm</a> ()</td></tr>
 <tr class="memitem:a324a37895312527be12883b0fd23e30d" id="r_a324a37895312527be12883b0fd23e30d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a324a37895312527be12883b0fd23e30d">fastglmm</a> (const T1 &amp;y, const T2 &amp;X, const <a class="el" href="classfastglmm_lib_1_1spectral_decomp.html">spectralDecomp</a>&lt; T3 &gt; &amp;dcmp, const vec &amp;weights, const vec &amp;offset, const string &amp;family, const <a class="el" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2">ModelDetail</a> md=<a class="el" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0">LOW</a>, const double &amp;tol=1e-5, const double &amp;tol_eta=1e-7, const int &amp;maxit=100, const double &amp;lambda=0, const double &amp;delta=-1, const double &amp;left=-10, const double &amp;right=10, const bool &amp;returnUS=false, const bool &amp;doCoxReid=false)</td></tr>
-<tr class="memitem:ae312a6a0452c8097e263387210275451" id="r_ae312a6a0452c8097e263387210275451"><td class="memItemLeft">const vec&#160;</td><td class="memItemRight"><a class="el" href="#ae312a6a0452c8097e263387210275451">residuals</a> ()</td></tr>
-<tr class="memitem:a0d841e00a3764bb9f67dd228ce388cf6" id="r_a0d841e00a3764bb9f67dd228ce388cf6"><td class="memItemLeft">const vec&#160;</td><td class="memItemRight"><a class="el" href="#a0d841e00a3764bb9f67dd228ce388cf6">residuals_pearson</a> ()</td></tr>
-<tr class="memitem:a82ae5304ae2c5f793dccf546bbdffe00" id="r_a82ae5304ae2c5f793dccf546bbdffe00"><td class="memItemLeft">const vec&#160;</td><td class="memItemRight"><a class="el" href="#a82ae5304ae2c5f793dccf546bbdffe00">fitted</a> ()</td></tr>
-<tr class="memitem:a7490d79ba70ea450b33a66d17c062666" id="r_a7490d79ba70ea450b33a66d17c062666"><td class="memItemLeft">const vec&#160;</td><td class="memItemRight"><a class="el" href="#a7490d79ba70ea450b33a66d17c062666">devianceResiduals</a> ()</td></tr>
+<tr class="memitem:af1ce20eea4bfd5ca600e97f52a1617bb" id="r_af1ce20eea4bfd5ca600e97f52a1617bb"><td class="memItemLeft">const vec&#160;</td><td class="memItemRight"><a class="el" href="#af1ce20eea4bfd5ca600e97f52a1617bb">residuals</a> () const</td></tr>
+<tr class="memitem:afcc76fb57d8e1352dbbc79ecc76601b5" id="r_afcc76fb57d8e1352dbbc79ecc76601b5"><td class="memItemLeft">const vec&#160;</td><td class="memItemRight"><a class="el" href="#afcc76fb57d8e1352dbbc79ecc76601b5">residuals_pearson</a> () const</td></tr>
+<tr class="memitem:a97228793d8073d645341c552eb59ca36" id="r_a97228793d8073d645341c552eb59ca36"><td class="memItemLeft">const vec&#160;</td><td class="memItemRight"><a class="el" href="#a97228793d8073d645341c552eb59ca36">fitted</a> () const</td></tr>
+<tr class="memitem:ae8fa8db22e50614bf5eab0fab5861669" id="r_ae8fa8db22e50614bf5eab0fab5861669"><td class="memItemLeft">const vec&#160;</td><td class="memItemRight"><a class="el" href="#ae8fa8db22e50614bf5eab0fab5861669">devianceResiduals</a> () const</td></tr>
 <tr class="memitem:a3cfc852df4bdf93a5805e0b0c7466209" id="r_a3cfc852df4bdf93a5805e0b0c7466209"><td class="memItemLeft"><a class="el" href="classfastglmm_lib_1_1_model_fit_g_l_m_m.html">ModelFitGLMM</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3cfc852df4bdf93a5805e0b0c7466209">get_result</a> ()</td></tr>
 </table>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -247,8 +247,8 @@ template&lt;typename T1, typename T2, typename T3&gt; </div>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a7490d79ba70ea450b33a66d17c062666" name="a7490d79ba70ea450b33a66d17c062666"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7490d79ba70ea450b33a66d17c062666">&#9670;&#160;</a></span>devianceResiduals()</h2>
+<a id="ae8fa8db22e50614bf5eab0fab5861669" name="ae8fa8db22e50614bf5eab0fab5861669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8fa8db22e50614bf5eab0fab5861669">&#9670;&#160;</a></span>devianceResiduals()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -259,15 +259,15 @@ template&lt;typename T1, typename T2, typename T3&gt; </div>
           <td class="memname">const vec <a class="el" href="classfastglmm_lib_1_1fastglmm.html">fastglmmLib::fastglmm</a>&lt; T1, T2, T3 &gt;::devianceResiduals </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a82ae5304ae2c5f793dccf546bbdffe00" name="a82ae5304ae2c5f793dccf546bbdffe00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82ae5304ae2c5f793dccf546bbdffe00">&#9670;&#160;</a></span>fitted()</h2>
+<a id="a97228793d8073d645341c552eb59ca36" name="a97228793d8073d645341c552eb59ca36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97228793d8073d645341c552eb59ca36">&#9670;&#160;</a></span>fitted()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,7 +278,7 @@ template&lt;typename T1, typename T2, typename T3&gt; </div>
           <td class="memname">const vec <a class="el" href="classfastglmm_lib_1_1fastglmm.html">fastglmmLib::fastglmm</a>&lt; T1, T2, T3 &gt;::fitted </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -304,8 +304,8 @@ template&lt;typename T1, typename T2, typename T3&gt; </div>
 
 </div>
 </div>
-<a id="ae312a6a0452c8097e263387210275451" name="ae312a6a0452c8097e263387210275451"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae312a6a0452c8097e263387210275451">&#9670;&#160;</a></span>residuals()</h2>
+<a id="af1ce20eea4bfd5ca600e97f52a1617bb" name="af1ce20eea4bfd5ca600e97f52a1617bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1ce20eea4bfd5ca600e97f52a1617bb">&#9670;&#160;</a></span>residuals()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -316,15 +316,15 @@ template&lt;typename T1, typename T2, typename T3&gt; </div>
           <td class="memname">const vec <a class="el" href="classfastglmm_lib_1_1fastglmm.html">fastglmmLib::fastglmm</a>&lt; T1, T2, T3 &gt;::residuals </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a0d841e00a3764bb9f67dd228ce388cf6" name="a0d841e00a3764bb9f67dd228ce388cf6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d841e00a3764bb9f67dd228ce388cf6">&#9670;&#160;</a></span>residuals_pearson()</h2>
+<a id="afcc76fb57d8e1352dbbc79ecc76601b5" name="afcc76fb57d8e1352dbbc79ecc76601b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcc76fb57d8e1352dbbc79ecc76601b5">&#9670;&#160;</a></span>residuals_pearson()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -335,7 +335,7 @@ template&lt;typename T1, typename T2, typename T3&gt; </div>
           <td class="memname">const vec <a class="el" href="classfastglmm_lib_1_1fastglmm.html">fastglmmLib::fastglmm</a>&lt; T1, T2, T3 &gt;::residuals_pearson </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">

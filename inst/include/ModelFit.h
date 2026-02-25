@@ -215,6 +215,9 @@ class ModelFitLMM : public ModelFit {
   sp_mat Usp, Vsp; 
   vec s;  
 
+  // Precomputed values for Sattherthwaite DDF
+  mat A_sat, B_sat, hessian_vc;
+
   ModelFitLMM(){}
 
    // LEAST

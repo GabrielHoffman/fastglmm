@@ -1,6 +1,6 @@
-# Overdispersion parameter
+# Overdispersion parameter phi for quasi-likelihood
 
-Overdispersion parameter
+Overdispersion parameter phi for quasi-likelihood
 
 ## Usage
 

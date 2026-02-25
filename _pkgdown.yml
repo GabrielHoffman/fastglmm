@@ -37,6 +37,7 @@ reference:
   - "coef.fastlmm"
   - "cooks.distance.fastlmm"
   - "deviance.fastlmm"
+  - "ddf"
   - "df.residual.fastlmm"
   - "edf"
   - "extractAIC.fastlmm"

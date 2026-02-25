@@ -49,7 +49,7 @@
 #     f <- function(hsq) {
 #       # delta <- 1 / (1 / hsq - 1)
 #       delta <- hsq / (1 - hsq)
-#       -1 * ll_R(delta, fit$y, fit$design, Yu, Xu, fit$U, fit$s)
+#       -1 * fastglmm:::ll_R(delta, fit$y, fit$design, Yu, Xu, fit$U, fit$s)
 #     }
 
 #     # using refit
@@ -70,6 +70,10 @@
 #     p.value <- pchisq(stat^2, 1, lower.tail=FALSE)
 
 #     res <- data.frame(hsq = hsq_hat, se = se_hsq, p.value)
+
+#     # based on hessian of sigSq_g
+    
+  
 
 #   } else if (method == "permutation") {
 

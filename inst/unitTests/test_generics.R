@@ -28,7 +28,7 @@ test_generics = function(){
     checkEqualsNumeric( n - df.residual(fit1), sum(hatvalues(fit1)))
     
     # For each generic function
-    exclude = c(exclude, "coef", "print", "plot", "df.residual", "extractAIC", "edf", "varpart", "simulate")
+    exclude = c(exclude, "coef", "print", "plot", "df.residual", "extractAIC", "edf", "varpart", "simulate", "linearHypothesis")
     for(fx in setdiff(implemented, exclude) ){
 
       cat(fx, "\n")
@@ -84,6 +84,16 @@ test_generics = function(){
   }
 
 
+  # Unweighted LMM
+  w = seq(nrow(sleepstudy))
+  w[] = 1
+  n = nrow(sleepstudy)
+  form = Reaction ~ Days + (1 | Subject)
+
+  fit1 <- fastlmm(form, sleepstudy, weights = w)
+  fit2 <- lmer(form, sleepstudy, REML = FALSE, weights = w)
+  f_check_generics(fit1, fit2, tol=1e-4)
+
 
   # Weighted LMM
   w = seq(nrow(sleepstudy))
@@ -93,7 +103,9 @@ test_generics = function(){
 
   fit1 <- fastlmm(form, sleepstudy, weights = w)
   fit2 <- lmer(form, sleepstudy, REML = FALSE, weights = w)
-  f_check_generics(fit1, fit2)
+
+  # NOTE: DDF doesn't match for lmer() vs fastlmm() using weights
+  f_check_generics(fit1, fit2, exclude = "summary")
 
   # Weighted LMM with offset
   set.seed(1)

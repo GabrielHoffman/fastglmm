@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fastglmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -142,11 +142,11 @@
 <span class="r-in"><span><span class="va">fit</span> <span class="op">=</span> <span class="fu">fastglmm_R</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">trt</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">week</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">ID</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>   family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">binomial</a></span><span class="op">(</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">bacteria</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   Estimate Std. Error   z value     Pr(&gt;|z|)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      3.4122672  0.5139248  6.639623 3.144864e-11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> trtdrug         -1.2474256  0.6383952 -1.954002 5.070094e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> trtdrug+        -0.7544013  0.6397064 -1.179293 2.382815e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> I(week &gt; 2)TRUE -1.6073742  0.3551299 -4.526159 6.006546e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   Estimate Std. Error   ddf   t value     Pr(&gt;|t|)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      3.4122672  0.5139248 101.1  6.639623 1.597027e-09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> trtdrug         -1.2474256  0.6383952  46.9 -1.954002 5.668420e-02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> trtdrug+        -0.7544013  0.6397064  49.9 -1.179293 2.438782e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> I(week &gt; 2)TRUE -1.6073742  0.3551299 184.3 -4.526159 1.075064e-05</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -6,7 +6,7 @@ Object summaries and hypothesis testing of fixed effects
 
 ``` r
 # S3 method for class 'fastlmm'
-summary(object, ...)
+summary(object, ddf = c("satterthwaite", "asymptotic"), ...)
 ```
 
 ## Arguments
@@ -14,6 +14,12 @@ summary(object, ...)
 - object:
 
   fitted model of class `fastlmm`
+
+- ddf:
+
+  `"satterthwaite"`: use Satterthwaite approximation to denominator
+  degrees of freedom for the Student-t distribution, or `"asymptotic"`
+  to use normal distribution as null for the test statistic
 
 - ...:
 

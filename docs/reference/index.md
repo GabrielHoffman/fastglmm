@@ -17,7 +17,6 @@
 ## Generics
 
 - [`anova(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/anova.md)
-  [`anova(`*`<fastglmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/anova.md)
   : ANOVA Tables
 - [`coef(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/coef.fastlmm.md)
   : Extract Model Coefficients
@@ -25,6 +24,8 @@
   : Cook's Distance Metric
 - [`deviance(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/deviance.fastlmm.md)
   : Model Deviance
+- [`ddf()`](http://gabrielhoffman.github.io/fastglmm/reference/ddf.md) :
+  Denominator Degrees of Freedom
 - [`df.residual(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/df.residual.fastlmm.md)
   : Residual Degrees-of-Freedom
 - [`edf()`](http://gabrielhoffman.github.io/fastglmm/reference/edf.md) :
@@ -46,6 +47,8 @@
   : Test Linear Hypothesis
 - [`logLik(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/logLik.fastlmm.md)
   : Extract Log-Likelihood
+- [`model.frame(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/model.frame.fastlmm.md)
+  : Extracting the Model Frame from a Fit
 - [`nobs(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/nobs.fastlmm.md)
   : Extract the Number of Observations from a Fit
 - [`plot(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/plot.fastlmm.md)
@@ -69,7 +72,7 @@
   : Model Terms
 - [`varpart()`](http://gabrielhoffman.github.io/fastglmm/reference/varpart.md)
   : Variance Partitioning Analysis
-- [`vcov(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/vcov.fastlmm.md)
+- [`vcov(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/vcov.md)
   : Calculate Variance-Covariance Matrix for a Fitted Model Object
 
 ## Other
@@ -89,7 +92,7 @@
 - [`refitModel()`](http://gabrielhoffman.github.io/fastglmm/reference/refitModel.md)
   : Refit fastlmm model with new delta
 - [`dispersion()`](http://gabrielhoffman.github.io/fastglmm/reference/dispersion.md)
-  : Overdispersion parameter
+  : Overdispersion parameter phi for quasi-likelihood
 - [`varianceTerms()`](http://gabrielhoffman.github.io/fastglmm/reference/varianceTerms.md)
   : Array of variance component estimates
 - [`negative.binomial()`](http://gabrielhoffman.github.io/fastglmm/reference/negative.binomial.md)

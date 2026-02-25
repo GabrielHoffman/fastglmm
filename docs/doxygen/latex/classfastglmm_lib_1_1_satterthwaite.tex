@@ -1,0 +1,69 @@
+\doxysection{fastglmm\+Lib::\+Satterthwaite\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classfastglmm_lib_1_1_satterthwaite}{}\label{classfastglmm_lib_1_1_satterthwaite}\index{fastglmmLib::Satterthwaite$<$ T $>$@{fastglmmLib::Satterthwaite$<$ T $>$}}
+
+
+{\ttfamily \+\#include $<$satterthwaite.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_a5b5a515c0fa97ec7c85d86c2ebfdc40d}{Satterthwaite}} (const int \&n, const double \&sig\+Sq\+\_\+g, const double \&sig\+Sq\+\_\+e, const vec \&s, const T \&Xu, const mat \&Gamma\+\_\+\+XX, const vec \&inv\+\_\+s\+\_\+delta, const mat \&inv\+\_\+s\+\_\+delta\+\_\+\+Xu)
+\item 
+vec \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_ae12fbd95f38999afa2d888917f32e904}{get\+\_\+ddf}} (const mat \&V, const mat \&L) const
+\item 
+const mat \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_a682700f140aa851e12d132ca97e91bbe}{get\+\_\+hessian}} () const
+\item 
+const mat \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_a70655acb0bc307fb27f86df2e3a5218a}{get\+\_\+A}} () const
+\item 
+const mat \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_a76d4e60b13529a954b85d37dd093c6c2}{get\+\_\+B}} () const
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{classfastglmm_lib_1_1_satterthwaite_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classfastglmm_lib_1_1_satterthwaite_a5b5a515c0fa97ec7c85d86c2ebfdc40d}\index{fastglmmLib::Satterthwaite$<$ T $>$@{fastglmmLib::Satterthwaite$<$ T $>$}!Satterthwaite@{Satterthwaite}}
+\index{Satterthwaite@{Satterthwaite}!fastglmmLib::Satterthwaite$<$ T $>$@{fastglmmLib::Satterthwaite$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Satterthwaite()}{Satterthwaite()}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1_satterthwaite_a5b5a515c0fa97ec7c85d86c2ebfdc40d} 
+template$<$typename T$>$ \\
+\doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite}{fastglmm\+Lib::\+\+Satterthwaite}}$<$ T $>$::\+\+Satterthwaite (\begin{DoxyParamCaption}\item[{const int \&}]{n}{, }\item[{const double \&}]{sig\+Sq\+\_\+g}{, }\item[{const double \&}]{sig\+Sq\+\_\+e}{, }\item[{const vec \&}]{s}{, }\item[{const T \&}]{Xu}{, }\item[{const mat \&}]{Gamma\+\_\+\+XX}{, }\item[{const vec \&}]{inv\+\_\+s\+\_\+delta}{, }\item[{const mat \&}]{inv\+\_\+s\+\_\+delta\+\_\+\+Xu}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classfastglmm_lib_1_1_satterthwaite_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classfastglmm_lib_1_1_satterthwaite_a70655acb0bc307fb27f86df2e3a5218a}\index{fastglmmLib::Satterthwaite$<$ T $>$@{fastglmmLib::Satterthwaite$<$ T $>$}!get\_A@{get\_A}}
+\index{get\_A@{get\_A}!fastglmmLib::Satterthwaite$<$ T $>$@{fastglmmLib::Satterthwaite$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_A()}{get\_A()}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1_satterthwaite_a70655acb0bc307fb27f86df2e3a5218a} 
+template$<$typename T$>$ \\
+const mat \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite}{fastglmm\+Lib::\+\+Satterthwaite}}$<$ T $>$::\+get\+\_\+A (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classfastglmm_lib_1_1_satterthwaite_a76d4e60b13529a954b85d37dd093c6c2}\index{fastglmmLib::Satterthwaite$<$ T $>$@{fastglmmLib::Satterthwaite$<$ T $>$}!get\_B@{get\_B}}
+\index{get\_B@{get\_B}!fastglmmLib::Satterthwaite$<$ T $>$@{fastglmmLib::Satterthwaite$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_B()}{get\_B()}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1_satterthwaite_a76d4e60b13529a954b85d37dd093c6c2} 
+template$<$typename T$>$ \\
+const mat \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite}{fastglmm\+Lib::\+\+Satterthwaite}}$<$ T $>$::\+get\+\_\+B (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classfastglmm_lib_1_1_satterthwaite_ae12fbd95f38999afa2d888917f32e904}\index{fastglmmLib::Satterthwaite$<$ T $>$@{fastglmmLib::Satterthwaite$<$ T $>$}!get\_ddf@{get\_ddf}}
+\index{get\_ddf@{get\_ddf}!fastglmmLib::Satterthwaite$<$ T $>$@{fastglmmLib::Satterthwaite$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_ddf()}{get\_ddf()}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1_satterthwaite_ae12fbd95f38999afa2d888917f32e904} 
+template$<$typename T$>$ \\
+vec \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite}{fastglmm\+Lib::\+\+Satterthwaite}}$<$ T $>$::\+get\+\_\+ddf (\begin{DoxyParamCaption}\item[{const mat \&}]{V}{, }\item[{const mat \&}]{L}{}\end{DoxyParamCaption}) const}
+
+Evalute denominator degrees of freedom \Hypertarget{classfastglmm_lib_1_1_satterthwaite_a682700f140aa851e12d132ca97e91bbe}\index{fastglmmLib::Satterthwaite$<$ T $>$@{fastglmmLib::Satterthwaite$<$ T $>$}!get\_hessian@{get\_hessian}}
+\index{get\_hessian@{get\_hessian}!fastglmmLib::Satterthwaite$<$ T $>$@{fastglmmLib::Satterthwaite$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_hessian()}{get\_hessian()}}
+{\footnotesize\ttfamily \label{classfastglmm_lib_1_1_satterthwaite_a682700f140aa851e12d132ca97e91bbe} 
+template$<$typename T$>$ \\
+const mat \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite}{fastglmm\+Lib::\+\+Satterthwaite}}$<$ T $>$::\+get\+\_\+hessian (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get precomputed values to compute DDF from V and L later 
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+inst/\+include/\+\doxymbox{\hyperlink{satterthwaite_8h}{satterthwaite.\+h}}\end{DoxyCompactItemize}

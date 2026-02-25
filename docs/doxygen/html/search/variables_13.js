@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['y_0',['y',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a52de38278d89427192225dea05f6effe',1,'fastglmmLib::ModelFitLMM::y'],['../structnb_data.html#a02738edf2fbccb499e40192ab039f2db',1,'nbData::y']]],
-  ['y_5fmean_1',['y_mean',['../classfastglmm_lib_1_1_model_fit_g_l_m.html#a3b97563ec87be3811659a370635fc070',1,'fastglmmLib::ModelFitGLM::y_mean'],['../classfastglmm_lib_1_1_model_fit_g_l_m_m.html#a6ce834b03209e1d7856611fffa7bfde5',1,'fastglmmLib::ModelFitGLMM::y_mean']]]
+  ['w_0',['w',['../structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f',1,'fastglmmLib::GLMWork']]],
+  ['w_5fmean_1',['w_mean',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a0c834ffc86b2edfa64d8c8985e216fd8',1,'fastglmmLib::ModelFitLMM']]],
+  ['weights_2',['weights',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#ab34987e31ab1b81c060b53a5eb1ab859',1,'fastglmmLib::ModelFitLMM::weights'],['../structnb_data.html#a6bce5c498b3959a767ecfef9fcde716a',1,'nbData::weights']]],
+  ['wsqrt_3',['wsqrt',['../structfastglmm_lib_1_1_g_l_m_work.html#ac1bfff9b04722abcea592b81b460e30c',1,'fastglmmLib::GLMWork']]]
 ];

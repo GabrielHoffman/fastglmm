@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['categorical_0',['CATEGORICAL',['../namespacefastglmm_lib.html#a2ecab82e2cb1387aa8d81e200b406a14a46ea8901c2d62c4681cea6fb50d54e6c',1,'fastglmmLib']]],
-  ['cleandata_1',['CleanData',['../classfastglmm_lib_1_1_clean_data.html',1,'fastglmmLib::CleanData'],['../classfastglmm_lib_1_1_clean_data.html#a9892799cd982985a94c90a8e893d2116',1,'fastglmmLib::CleanData::CleanData()']]],
-  ['cleandata_2eh_2',['CleanData.h',['../_clean_data_8h.html',1,'']]],
-  ['coef_3',['coef',['../classfastglmm_lib_1_1_model_fit.html#a16b2eba98289e6bcde50efaea15705cb',1,'fastglmmLib::ModelFit']]],
-  ['counttable_4',['CountTable',['../nb__theta_8h.html#a9cdc304469f800a940be5189b1301b3b',1,'nb_theta.h']]],
-  ['ct_5',['ct',['../structnb_data.html#ad06a44c8093a3ac72d9565185dea1513',1,'nbData']]]
+  ['b_5fsat_0',['B_sat',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a9ea53dc3fa02ace3fe0efe9a66cb39b1',1,'fastglmmLib::ModelFitLMM']]],
+  ['begin_1',['begin',['../classblocked__range.html#ae476798641214d341773f96d6a34dd7f',1,'blocked_range']]],
+  ['binomiallogit_2',['BinomialLogit',['../classfastglmm_lib_1_1_binomial_logit.html',1,'fastglmmLib::BinomialLogit'],['../classfastglmm_lib_1_1_binomial_logit.html#ac0089b143646ff87efb876646b306d16',1,'fastglmmLib::BinomialLogit::BinomialLogit()']]],
+  ['binomialprobit_3',['BinomialProbit',['../classfastglmm_lib_1_1_binomial_probit.html',1,'fastglmmLib::BinomialProbit'],['../classfastglmm_lib_1_1_binomial_probit.html#a4d2a1c545851ddbf36c88a4ba823d79f',1,'fastglmmLib::BinomialProbit::BinomialProbit()']]],
+  ['blocked_5frange_4',['blocked_range',['../classblocked__range.html',1,'blocked_range&lt; T &gt;'],['../classblocked__range.html#a2d8fd08bdc4b9f36956da0ab4a20e35a',1,'blocked_range::blocked_range()']]],
+  ['blup_5',['blup',['../classfastglmm_lib_1_1fastlmm.html#a7ca9addf6a3c990fdad348e21f86cd79',1,'fastglmmLib::fastlmm']]]
 ];

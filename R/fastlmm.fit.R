@@ -52,6 +52,10 @@ as.fastlmm <- function(x, design, offset, method) {
   x$df.residual <- df.residual(x)
   x$method <- method
 
+  # set names for hessian of variance components
+  colnames(x$hessian.vc) <- c("sigSq_g", "sigSq_e")
+  rownames(x$hessian.vc) <- c("sigSq_g", "sigSq_e")
+  
   class(x) <- "fastlmm"
   x
 }
