@@ -46,7 +46,7 @@ summary(fit)
 #>  Formula: y ~ trt + I(week > 2) + (1 | ID)
 #> 
 #> Coefficients:
-#>                 Estimate Std. Error   ddf t value Pr(>|t|)    
+#>                 Estimate Std. Error    df t value Pr(>|t|)    
 #> (Intercept)       3.4127     0.6553 267.1   5.208 3.82e-07 ***
 #> trtdrug          -1.2476     0.8141 123.8  -1.533 0.127950    
 #> trtdrug+         -0.7545     0.8157 131.8  -0.925 0.356663    

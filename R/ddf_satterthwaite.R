@@ -28,19 +28,63 @@ ddf <- function(fit, L = diag(1, length(coef(fit))) ){
 
   stopifnot(is(fit, "fastlmm"))
 
+  .ddf(fit$delta, fit$hessian.vc, fit$A.sat, fit$B.sat, vcov(fit), L )
+}
+
+#' @keywords internal
+#' @export
+.ddf <- function(delta, hessian.vc, A.sat, B.sat, V, L){
+
   sapply(seq(nrow(L)), function(i){
 
-    invAL <- solve(fit$A.sat, L[i,])
-    C <- invAL %*% fit$B.sat %*% invAL
-    g <- c(crossprod(L[i,], invAL) - fit$delta*C, C)
+    invAL <- solve(A.sat, L[i,])
+    C <- invAL %*% B.sat %*% invAL
+    g <- c(crossprod(L[i,], invAL) - delta*C, C)
 
-    var_Lbeta <- crossprod(L[i,], vcov(fit)) %*% L[i,]
+    var_Lbeta <- crossprod(L[i,], V %*% L[i,])
     v_numerator <- 2 * var_Lbeta^2
-    v_denom <- solve(fit$hessian.vc, g) %*% g
+    v_denom <- solve(hessian.vc, g) %*% g
 
     v_numerator / v_denom  
   })
 }
+
+#' DDF for joint test
+#'
+#' DDF for joint test by summarizing ddf for each coefficient
+#'
+#' @param nu array of ddf values
+#' @param tol tolerance
+#'
+#' @seealso \code{lmerTest:::get_Fstat_ddf()}
+#' @keywords internal
+#' @export
+get_Fstat_ddf <- function(nu, tol=1e-8) {
+  # Computes denominator df for an F-statistic that is derived from a sum of
+  # squared t-statistics each with nu_m degrees of freedom.
+  #
+  # nu : vector of denominator df for the t-statistics
+  # tol: tolerance on the consequtive differences between elements of nu to
+  #      determine if mean(nu) should be returned.
+  #
+  # Result: a numeric scalar
+  #
+  # Returns nu if length(nu) == 1. Returns mean(nu) if all(abs(diff(nu)) < tol;
+  # otherwise ddf appears to be downward biased.
+  fun <- function(nu) {
+    if(any(nu <= 2)) 2 else {
+      E <- sum(nu / (nu - 2))
+      2 * E / (E - (length(nu))) # q = length(nu) : number of t-statistics
+    }
+  }
+  stopifnot(length(nu) >= 1,
+            # all(nu > 0), # returns 2 if any(nu < 2)
+            all(sapply(nu, is.numeric)))
+  if(length(nu) == 1L) return(nu)
+  if(all(abs(diff(nu)) < tol)) return(mean(nu))
+  if(!is.list(nu)) fun(nu) else vapply(nu, fun, numeric(1L))
+}
+
 
 
 

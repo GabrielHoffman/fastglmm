@@ -85,7 +85,7 @@ coef(summary(fit1))
 # NB GLMM via PQL
 fit2 <- fastglmm.nb(y ~ f1*f2 + (1|g), data=dd)
 coef(summary(fit2))
-#>               Estimate Std. Error   ddf   t value     Pr(>|t|)
+#>               Estimate Std. Error    df   t value     Pr(>|t|)
 #> (Intercept)  1.6500365  0.1298459 272.1 12.707655 2.322370e-29
 #> f12          0.7671854  0.1814985 802.6  4.226952 2.640988e-05
 #> f13          1.0115619  0.1811065 802.6  5.585454 3.191837e-08

@@ -63,43 +63,59 @@ anova.fastlmm <- function(object, ddf = c("satterthwaite", "asymptotic"), ...){
     nmeffects <- c("(Intercept)", nmeffects)
   }
 
-  # create matrix of contrasts
+  # create list of contrast matricies, one for each variable
   L.list <- lapply(seq(0, max(asgn)), function(i){
 
-    # create contrast matrix with 1's for this component
-    L <- rep(0, length(asgn))
-    L[which(asgn == i)] <- 1
-    L
+    hm <- colnames(object$design)[which(asgn == i)]
+    createContrastMatrix( object, hm)
   })
-  Lm <- do.call(rbind, L.list)
-
-  df1 <- NULL
 
   if( ddf == "satterthwaite"){
-    df2 <- ddf(object, Lm)
-  }else{
-    # if F with df2 = Inf is chisq
-    df2 <- rep(Inf, nrow(Lm))
+    # for each contrast
+    df2 <- sapply(L.list, function(L){
+      # compute ddf for each coefficient
+      nu <- ddf(object, L)
+
+      # if joint contrast, summarize nu values
+      get_Fstat_ddf(nu)
+        })
   }
 
-  res <- lapply(seq(0, max(asgn)), function(i){
+  df1 <- Chisq <- NULL
 
-    # create contrast matrix with 1's for this component
-    L <- Lm[i+1,]
+  res <- lapply(seq(0, max(asgn)) + 1, function(i){
 
-    F.stat <- (L %*% coef(object)) %*% solve(L %*% vcov(object) %*% L) %*% (L %*% coef(object))
+    # get contrast matrix 
+    L <- L.list[[i]]
 
-    # for comparison
-    # res = linearHypothesis(fit, L, test="F", error.df = df2[i+1])
+    # value being tested
+    LBeta <- L %*% coef(object) 
 
-    data.frame(id = nmeffects[i+1], 
-      df1 = sum(L), 
-      df2 = df2[i+1],
-      F = F.stat)
-    }) %>%
-    bind_rows %>%
-    column_to_rownames("id") %>%
-    mutate('Pr(>F)' = pf(F, df1, df2, lower.tail=FALSE))
+    # its variance
+    VLbeta <- L %*% tcrossprod(vcov(object), L)
+
+    # F statistic
+    F.stat <- crossprod(LBeta, solve(VLbeta, LBeta)) / ncol(VLbeta)
+
+    if( ddf == "satterthwaite"){
+      res <- data.frame(
+        id = nmeffects[i], 
+        df1 = nrow(L), 
+        df2 = df2[i],
+        F = F.stat) %>%
+      mutate('Pr(>F)' = pf(F, df1, df2, lower.tail=FALSE))
+    }else{
+      res <- data.frame(
+        id = nmeffects[i], 
+        df = nrow(L)) %>%
+      mutate(
+        Chisq = F.stat*df, 
+        'Pr(>Chisq)' = pchisq(Chisq, df, lower.tail=FALSE))
+    }
+    res
+  }) %>%
+  bind_rows %>%
+  column_to_rownames("id") 
 
   structure(res, heading = "Analysis of Variance Table",
                   class = c("anova", "data.frame"))
@@ -427,7 +443,7 @@ fitted.fastglmm = function(object,...){
 #' fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
 #'    family = binomial(), data = bacteria)
 #' 
-#' linearHypothesis(fit, "trtdrug", test="F")
+#' linearHypothesis(fit, "trtdrug")
 #
 #' @importFrom car linearHypothesis linearHypothesis.default makeHypothesis
 #' 
@@ -445,34 +461,19 @@ linearHypothesis.fastlmm <- function(model, hypothesis.matrix, rhs = NULL, ..., 
 
   ddf <- match.arg(ddf)
 
+  L <- createContrastMatrix( model, hypothesis.matrix)
+
   if( ddf == "satterthwaite" ){
-
-    # convert hypothesis.matrix into L
-    # code from car::linearHypothesis.default
-    if (is.character(hypothesis.matrix)) {
-      b <- coef(model)
-      L <- makeHypothesis(names(b), hypothesis.matrix, rhs)
-      if (is.null(dim(L))) 
-          L <- t(L)
-      rhs <- L[, NCOL(L)]
-      L <- L[, -NCOL(L), drop = FALSE]
-      rownames(L) <- hypothesis.matrix
-    }
-    else {
-      L <- if (is.null(dim(hypothesis.matrix))) 
-        t(hypothesis.matrix)
-      else hypothesis.matrix
-      if (is.null(rhs)) 
-        rhs <- rep(0, nrow(L))
-    }
-
     error.df <- ddf(model, L)
+    error.df <- get_Fstat_ddf(error.df)
+    test <- "F"
   }else{
     # Asymptotic null distribution
     error.df <- Inf
+    test <- "Chisq"
   }
 
-  linearHypothesis.default(model, hypothesis.matrix, rhs, ..., error.df=error.df)
+  linearHypothesis.default(model, L, rhs, test=test,..., error.df=error.df)
 }
 
 
@@ -897,7 +898,7 @@ print.summary.fastlmm <- function(
     ))
     coefs[!aliased, ] <- x$coefficients
   }
-  printCoefmat(coefs, digits = digits, signif.stars = signif.stars, na.print = "NA", tst.ind = which(colnames(coefs) == "ddf"), ...)
+  printCoefmat(coefs, digits = digits, signif.stars = signif.stars, na.print = "NA", tst.ind = which(colnames(coefs) == "df"), ...)
 
   # cat("\n(Dispersion parameter for ", x$family$family, " family taken to be ", format(x$dispersion, digits=3), ")\n", sep='')
 
@@ -943,7 +944,7 @@ summary.fastlmm <- function(object, ddf = c("satterthwaite", "asymptotic"), ...)
     ans$coefficients <- cbind(
       Estimate = est, 
       `Std. Error` = se,
-      ddf = round(ddf.values, 1),
+      df = round(ddf.values, 1),
       `t value` = tval, 
       `Pr(>|t|)` = 2 * pt(abs(tval), ddf.values, lower.tail = FALSE))
   }else{

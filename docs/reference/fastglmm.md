@@ -122,7 +122,7 @@ coef(summary(fit))
 fit = fastglmm(y ~ trt + I(week > 2) + (1 | ID),
   family = binomial(), data = bacteria)
 coef(summary(fit))
-#>                   Estimate Std. Error   ddf    t value     Pr(>|t|)
+#>                   Estimate Std. Error    df    t value     Pr(>|t|)
 #> (Intercept)      3.4127450  0.6552910 267.1  5.2079839 3.817213e-07
 #> trtdrug         -1.2475583  0.8140663 123.8 -1.5325020 1.279496e-01
 #> trtdrug+        -0.7545406  0.8157308 131.8 -0.9249872 3.566634e-01

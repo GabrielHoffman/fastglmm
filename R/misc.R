@@ -130,3 +130,44 @@ getTheta <- function( fit ){
 setClass("negbin")
 
 
+#' Create Contrast Matrix
+#' 
+#' Create contrast matrix as array or text
+#' 
+#' @param model model fit
+#' @param hypothesis.matrix array or text indicating contrast
+#' @param rhs right hand side of equation
+#'
+# @details adapted from \code{car::linearHypothesis.default()}
+#'
+#' @seealso \code{car::linearHypothesis.default()}
+#' @keywords internal
+#' @export
+createContrastMatrix <- function(model, hypothesis.matrix, rhs = NULL){
+  if (is.character(hypothesis.matrix)) {
+    b <- coef(model)
+    if( is.null(b) ){
+        b <- model$coef
+    }
+
+    if( is.matrix(b) ){
+        ids <- colnames(b)
+    }else{
+        ids <- names(b)
+    }
+
+    L <- makeHypothesis(ids, hypothesis.matrix, rhs)
+    if (is.null(dim(L))) 
+        L <- t(L)
+    rhs <- L[, NCOL(L)]
+    L <- L[, -NCOL(L), drop = FALSE]
+    rownames(L) <- hypothesis.matrix
+  }else {
+    L <- if (is.null(dim(hypothesis.matrix))) 
+      t(hypothesis.matrix)
+    else hypothesis.matrix
+    if (is.null(rhs)) 
+      rhs <- rep(0, nrow(L))
+  }
+  L
+}

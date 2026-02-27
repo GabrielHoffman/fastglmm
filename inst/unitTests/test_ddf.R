@@ -35,10 +35,10 @@ test_ddf = function(){
   a = coef(summary(fit))
   b = anova(fit)
 
-  checkEqualsNumeric(a[,"ddf"], b["df2"], tol=1e-3)
+  checkEqualsNumeric(a[,"df"], b["df2"], tol=1e-3)
   checkEqualsNumeric(log(a[,'Pr(>|t|)']), log(b[,4]))
 
-  d = linearHypothesis(fit, c(1,0), test="F")
+  d = linearHypothesis(fit, c(1,0))
   checkEqualsNumeric(d$`Pr(>F)`[2], b[1,4])
 
 }
@@ -76,7 +76,7 @@ test_ddf_glmmTMB = function(){
 
   res1 = coef(summary(fit))
   res2 = coef(summary(fit2, ddf="satterthwaite"))$cond
-  checkEqualsNumeric(res1, res2[,colnames(res1)], 
+  checkEqualsNumeric(res1, res2[,c(1,2,4,3,5)], 
     tol=1e-3)
 
   # Poisson
@@ -102,9 +102,6 @@ test_ddf_glmmTMB = function(){
   # checkEqualsNumeric(res1, res2[,colnames(res1)], 
   #   tol=1e-3)
 
-
-
-
   # Compare interfaces
   #####################
 
@@ -114,14 +111,61 @@ test_ddf_glmmTMB = function(){
   a = coef(summary(fit))
   b = anova(fit)
 
-  checkEqualsNumeric(a[,"ddf"], b["df2"], tol=1e-3)
+  checkEqualsNumeric(a[,"df"], b["df2"], tol=1e-3)
   checkEqualsNumeric(log(a[,'Pr(>|t|)']), log(b[,4]))
 
-  d = linearHypothesis(fit, c(1,0), test="F")
+  d = linearHypothesis(fit, c(1,0))
   checkEqualsNumeric(d$`Pr(>F)`[2], b[1,4])
 
 }
 
+
+test_hypothesisTesting = function(){
+
+  library(fastglmm)
+  library(lmerTest)
+  library(RUnit)
+
+  sleepstudy$Days = factor(sleepstudy$Days)
+
+  fit1 <- lmer( Reaction ~ Days + (1 | Subject), sleepstudy, REML=FALSE)
+  fit2 <- fastlmm( Reaction ~ Days + (1 | Subject), sleepstudy)
+
+  # summary
+  checkEqualsNumeric(
+    coef(summary(fit1)), 
+    coef(summary(fit2)),
+    tol = 1e-4)
+
+  # anova
+  a = anova(fit1)
+  b = anova(fit2)
+
+  aa = as.matrix(a) 
+  bb = as.matrix(b[2,])
+
+  checkEqualsNumeric(
+    aa[-c(1:2)],
+    bb, 
+    tol = 1e-5)
+
+  # linearHypothesis
+  res1 = linearHypothesis(fit2, "(Intercept)")
+
+  # single variable
+  checkEqualsNumeric(
+    as.matrix(res1[2,]),
+    as.matrix(b[1,])[c(2,1,3,4)]
+  )
+
+  # joint test
+  res2 = linearHypothesis(fit2, paste0("Days", seq(1, 9)))
+
+  checkEqualsNumeric(
+    as.matrix(res2[2,]),
+    as.matrix(b[2,])[c(2,1,3,4)])
+
+}
 
 test_ddf_compare = function(){
 

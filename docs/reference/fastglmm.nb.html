@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fastglmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,7 +120,7 @@
 <span class="r-in"><span><span class="co"># NB GLMM via PQL</span></span></span>
 <span class="r-in"><span><span class="va">fit2</span> <span class="op">&lt;-</span> <span class="fu">fastglmm.nb</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">f1</span><span class="op">*</span><span class="va">f2</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">g</span><span class="op">)</span>, data<span class="op">=</span><span class="va">dd</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Estimate Std. Error   ddf   t value     Pr(&gt;|t|)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Estimate Std. Error    df   t value     Pr(&gt;|t|)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  1.6500365  0.1298459 272.1 12.707655 2.322370e-29</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> f12          0.7671854  0.1814985 802.6  4.226952 2.640988e-05</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> f13          1.0115619  0.1811065 802.6  5.585454 3.191837e-08</span>

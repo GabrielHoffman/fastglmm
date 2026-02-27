@@ -36,7 +36,7 @@ library(MASS)
 fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
    family = binomial(), data = bacteria)
 
-linearHypothesis(fit, "trtdrug", test="F")
+linearHypothesis(fit, "trtdrug")
 }
 \seealso{
 \code{car::linearHypothesis()}

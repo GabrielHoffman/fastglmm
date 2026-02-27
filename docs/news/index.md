@@ -1,5 +1,10 @@
 # Changelog
 
+## fastglmm 0.4.1
+
+- Feb 26, 2026
+- fix hypothesis testing
+
 ## fastglmm 0.4.0
 
 - Feb 17, 2026
