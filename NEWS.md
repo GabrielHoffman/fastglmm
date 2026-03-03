@@ -6,8 +6,8 @@
 # fastglmm 0.4.0
  - Feb 17, 2026
  - Hypothesis test uses Satterthwaite denominator degrees of freedom
-  - updated `summary()`, `anova()` and `linearHypothesis()`
-  - implemented at C++ level, return `A.sat`, `B.sat`, `hessian.vc`
+   - updated `summary()`, `anova()` and `linearHypothesis()`
+   - implemented at C++ level, return `A.sat`, `B.sat`, `hessian.vc`
 
 # fastglmm 0.3.9
  - Feb 11, 2026
