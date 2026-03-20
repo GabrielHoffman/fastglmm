@@ -9,10 +9,10 @@
 
 - Feb 17, 2026
 - Hypothesis test uses Satterthwaite denominator degrees of freedom
-- updated [`summary()`](https://rdrr.io/r/base/summary.html),
-  [`anova()`](https://rdrr.io/r/stats/anova.html) and
-  [`linearHypothesis()`](http://gabrielhoffman.github.io/fastglmm/reference/linearHypothesis.md)
-- implemented at C++ level, return `A.sat`, `B.sat`, `hessian.vc`
+  - updated [`summary()`](https://rdrr.io/r/base/summary.html),
+    [`anova()`](https://rdrr.io/r/stats/anova.html) and
+    [`linearHypothesis()`](http://gabrielhoffman.github.io/fastglmm/reference/linearHypothesis.md)
+  - implemented at C++ level, return `A.sat`, `B.sat`, `hessian.vc`
 
 ## fastglmm 0.3.9
 

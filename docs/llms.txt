@@ -1,4 +1,4 @@
-  
+\
 
 ## Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on Massive Datasets
 
