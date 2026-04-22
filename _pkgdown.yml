@@ -61,6 +61,12 @@ reference:
   - "varpart"
   - "vcov.fastlmm"
 
+- title: Power analysis
+  contents:
+  - "meff"
+  - "plotSaturation"
+  - "powerNBMM"
+
 - title: Other
   contents:
   - "as.fastlmm"

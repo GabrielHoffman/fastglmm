@@ -4,4 +4,8 @@ output: pdf_document # Or other R Markdown output
 pkgdown:
   as_is: true
   extension: pdf
+vignette: >
+  %\VignetteIndexEntry{Manuscript}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---

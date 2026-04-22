@@ -5,3 +5,4 @@ _pkgdown.yml
 ^inst/doxygen$
 o$
 _cache$
+power_files$

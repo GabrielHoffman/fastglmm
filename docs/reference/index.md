@@ -75,6 +75,15 @@
 - [`vcov(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/vcov.md)
   : Calculate Variance-Covariance Matrix for a Fitted Model Object
 
+## Power analysis
+
+- [`meff()`](http://gabrielhoffman.github.io/fastglmm/reference/meff.md)
+  : Effective Number of Independent Measurements per Subject
+- [`plotSaturation()`](http://gabrielhoffman.github.io/fastglmm/reference/plotSaturation.md)
+  : Plot Saturation Curve for Meff
+- [`powerNBMM()`](http://gabrielhoffman.github.io/fastglmm/reference/powerNBMM.md)
+  : Power for Negative Binomial Mixed Model
+
 ## Other
 
 - [`as.fastlmm()`](http://gabrielhoffman.github.io/fastglmm/reference/as.fastlmm.md)

@@ -383,6 +383,7 @@ edf.fastlmm <- function(object, ...){
 #' 
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used
+#' @param newdata optionally, a data.frame in which to look for variables with which to predict.  If omitted, the fitted  predictors are used.
 #'
 #' @examples
 #' library(MASS)
@@ -394,35 +395,57 @@ edf.fastlmm <- function(object, ...){
 #' fitted(fit)[1:3]
 #
 #' @rdname fitted
-#' @importFrom stats fitted
+#' @importFrom stats fitted model.frame model.offset
 #' @importFrom Matrix crossprod
+#' @importFrom reformulas nobars findbars
 #' @export
-fitted.fastlmm <- function(object, ...) {
+fitted.fastlmm <- function(object, ..., newdata = NULL) {
     
-  blp = ranef(object)[[1]]
-  a <- with(object, U %*% (sqrt(s) * crossprod(V, blp)))
-  v <- as.matrix(a) / sqrt(object$weights) + object$design %*% coef(object)
+  blp = ranef(object)
 
-  if (!is.null(object$offset)) {
-    v <- v + object$offset
+  if( is.null(newdata) ){
+    # fitted value for existing data
+    a <- with(object, U %*% (sqrt(s) * crossprod(V, blp[[1]])))
+    v <- as.matrix(a) / sqrt(object$weights) + object$design %*% coef(object)
+
+    if (!is.null(object$offset)) {
+      v <- v + object$offset
+    }
+  }else{
+    # fitted value for _new_ data
+    design.star <- model.matrix(nobars(object$formula), newdata)
+
+    # random effects matrix
+    Z.star <- t(fac2sparse(newdata[[names(blp)]], drop.unused.levels=FALSE))
+
+    ids <- rownames(blp[[1]])
+
+    v <- design.star %*% coef(object) + Z.star[,ids] %*% blp[[1]]
+
+    # offset
+    mf <- model.frame(nobars(object$formula), newdata)
+    os =  model.offset(mf)
+    if (!is.null(os)) {
+      v <- v + os
+    }
   }
-  v
+  as.matrix(v)
 }
 
 
 # get eta from fastglmm
-get_eta = function(object){
+get_eta = function(object, newdata = NULL){
   class(object) <- "fastlmm"
-  fitted(object)
+  fitted(object, newdata = newdata)
 }
 
 #' @rdname fitted
 #' @importFrom stats fitted
 #' @export
-fitted.fastglmm = function(object,...){
+fitted.fastglmm = function(object,..., newdata = NULL){
 
   # convert eta to mu
-  object$family$linkinv( get_eta(object) )
+  object$family$linkinv( get_eta(object, newdata = newdata) )
 }
 
 
@@ -626,7 +649,7 @@ plot.fastlmm <- function(x,
 #' Model Predictions
 #'
 #' @param object fitted model of class \code{fastlmm}
-#' @param newdata optionally, a data frame in which to look for variables with which to predict.  If omitted, the fitted  predictors are used.
+#' @param newdata optionally, a data.frame in which to look for variables with which to predict.  If omitted, the fitted  predictors are used.
 #' @param type the type of prediction required.  The default is on the scale of the linear predictors; the alternative \code{"response"} is on the scale of the response variable.  Thus for a default  binomial model the default predictions are of log-odds (probabilities on logit scale) and \code{type = "response"} gives the predicted probabilities. \code{type = "terms"} computes the linear predict for each model term
 #' @param ... other args, not used
 #'
@@ -645,12 +668,12 @@ predict.fastlmm <- function(object, newdata = NULL, type = c("response", "terms"
 
   type <- match.arg(type)
 
-  if (!is.null(newdata)) {
-    stop("newdata is not currently supported")
+  if (!is.null(newdata) & type == "terms") {
+    stop("newdata is not currently supported for type terms")
   }
 
   switch(type, 
-    response = fitted(object),
+    response = fitted(object, newdata = newdata),
     terms = predict_terms(object))
 }
 
@@ -662,13 +685,13 @@ predict.fastglmm <- function(object, newdata = NULL,
 
   type <- match.arg(type)
 
-  if (!is.null(newdata)) {
-    stop("newdata is not currently supported")
+  if (!is.null(newdata) & type == "terms") {
+    stop("newdata is not currently supported for type terms")
   }
   
   switch(type,
-      link = get_eta(object),
-      response = fitted(object),
+      link = get_eta(object, newdata = newdata),
+      response = fitted(object, newdata = newdata),
       terms = predict_terms(object))
 }
 

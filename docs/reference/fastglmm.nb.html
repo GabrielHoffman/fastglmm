@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fastglmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,37 +96,20 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/" class="external-link">MASS</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/" class="external-link">lme4</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">PsychAD</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">101</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>f1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>               f2 <span class="op">=</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, g<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">)</span>, rep<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">15</span>,</span></span>
-<span class="r-in"><span>       KEEP.OUT.ATTRS<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fl">5</span><span class="op">*</span><span class="op">(</span><span class="op">-</span><span class="fl">4</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dd</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">f1</span><span class="op">)</span> <span class="op">+</span> <span class="fl">4</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">f2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dd</span><span class="op">$</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/NegBinomial.html" class="external-link">rnbinom</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dd</span><span class="op">)</span>, mu <span class="op">=</span> <span class="va">mu</span>, size <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># regression formula</span></span></span>
+<span class="r-in"><span><span class="va">form</span> <span class="op">&lt;-</span> <span class="va">PTPRG</span> <span class="op">~</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">SubID</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/offset.html" class="external-link">offset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">libSize</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># NB GLMM on PTPRG expression via PQL</span></span></span>
+<span class="r-in"><span><span class="va">fit1</span> <span class="op">&lt;-</span> <span class="fu">fastglmm.nb</span><span class="op">(</span><span class="va">form</span>, <span class="va">PsychAD</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Estimate Std. Error    df   t value      Pr(&gt;|t|)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) -8.638731 0.04585474 148.2 -188.3934 2.647753e-178</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># NB GLMM via Laplace approximation</span></span></span>
-<span class="r-in"><span><span class="va">fit1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/glmer.nb.html" class="external-link">glmer.nb</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">f1</span><span class="op">*</span><span class="va">f2</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">g</span><span class="op">)</span>, data<span class="op">=</span><span class="va">dd</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> boundary (singular) fit: see help('isSingular')</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Estimate Std. Error   z value     Pr(&gt;|z|)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  1.6500844  0.1298536 12.707264 5.388716e-37</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f12          0.7671505  0.1815543  4.225460 2.384528e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f13          1.0114682  0.1811596  5.583300 2.359976e-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f2B          1.5124145  0.1805961  8.374570 5.542585e-17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f12:f2B     -0.6150597  0.2538182 -2.423229 1.538322e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f13:f2B     -0.6103981  0.2534190 -2.408652 1.601155e-02</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># NB GLMM via PQL</span></span></span>
-<span class="r-in"><span><span class="va">fit2</span> <span class="op">&lt;-</span> <span class="fu">fastglmm.nb</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">f1</span><span class="op">*</span><span class="va">f2</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">g</span><span class="op">)</span>, data<span class="op">=</span><span class="va">dd</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Estimate Std. Error    df   t value     Pr(&gt;|t|)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  1.6500365  0.1298459 272.1 12.707655 2.322370e-29</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f12          0.7671854  0.1814985 802.6  4.226952 2.640988e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f13          1.0115619  0.1811065 802.6  5.585454 3.191837e-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f2B          1.5122439  0.1805473 802.6  8.375890 2.433819e-16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f12:f2B     -0.6149961  0.2537603 802.6 -2.423531 1.559056e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f13:f2B     -0.6103809  0.2533639 802.6 -2.409108 1.621583e-02</span>
+<span class="r-in"><span><span class="co"># fit2 &lt;- lme4::glmer.nb(form, PsychAD)</span></span></span>
+<span class="r-in"><span><span class="co"># coef(summary(fit2))</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -78,10 +78,38 @@ getFamilyString = function( family ){
 }
 
 #' @importFrom MASS negative.binomial
-stringToNbFamily <- function(txt){
+stringToNbFamily <- function(text){
 
-  theta <- as.numeric(unlist(strsplit(txt, ":"))[[2]])
+  theta <- as.numeric(unlist(strsplit(text, ":"))[[2]])
   negative.binomial(theta)
 }
+
+#' String To Family
+#'
+#' String To Family 
+#'
+#' @param text string indicating GLM family
+#'
+#' @examples
+#' stringToFamily("poisson/log")
+#' 
+#' @export
+#' @keywords internal
+stringToFamily = function(text){
+
+ switch( text, 
+  "gaussian" = gaussian(),
+  "gaussian/identity" = gaussian(),
+  "poisson/log" = poisson(),
+  "quasipoisson/log" = quasipoisson(), 
+  "quasibinomial/logit" = quasibinomial(),
+  "quasibinomial/probit" = quasibinomial("probit"),
+  "binomial/logit" = binomial(), 
+  "binomial/probit" = binomial("probit"),
+  "nb" = negative.binomial(NA)) 
+}
+
+
+
 
 

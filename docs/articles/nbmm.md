@@ -61,11 +61,11 @@ summary(fit)
     ##  Formula: PTPRG ~ offset(log(libSize)) + Dx + Age + Sex + (1 | SubID)
     ## 
     ## Coefficients:
-    ##              Estimate Std. Error z value Pr(>|z|)    
-    ## (Intercept) -8.577681   0.369007 -23.245   <2e-16 ***
-    ## DxAD         1.102755   0.087209  12.645   <2e-16 ***
-    ## Age         -0.007262   0.004477  -1.622    0.105    
-    ## SexMale     -0.103277   0.089836  -1.150    0.250    
+    ##               Estimate Std. Error    df t value Pr(>|t|)    
+    ## (Intercept)  -8.577681   0.311172 149.9 -27.566   <2e-16 ***
+    ## DxAD          1.102755   0.073541 145.6  14.995   <2e-16 ***
+    ## Age          -0.007262   0.003775 148.2  -1.923   0.0563 .  
+    ## SexMale      -0.103277   0.075756 145.7  -1.363   0.1749    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
@@ -122,7 +122,7 @@ sessionInfo()
     ## Running under: macOS Sonoma 14.7.1
     ## 
     ## Matrix products: default
-    ## BLAS/LAPACK: /opt/homebrew/Cellar/openblas/0.3.30/lib/libopenblasp-r0.3.30.dylib;  LAPACK version 3.12.0
+    ## BLAS/LAPACK: /opt/homebrew/Cellar/openblas/0.3.31_1/lib/libopenblasp-r0.3.31.dylib;  LAPACK version 3.12.0
     ## 
     ## locale:
     ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -134,20 +134,20 @@ sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] fastglmm_0.3.8 nlme_3.1-168  
+    ## [1] fastglmm_0.4.1 nlme_3.1-168  
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] sass_0.4.10        generics_0.1.4     lattice_0.22-7     lme4_2.0-0        
-    ##  [5] digest_0.6.39      magrittr_2.0.4     evaluate_1.0.5     grid_4.5.1        
-    ##  [9] fastmap_1.2.0      jsonlite_2.0.0     Matrix_1.7-4       Formula_1.2-5     
-    ## [13] codetools_0.2-20   textshaping_1.0.4  jquerylib_0.1.4    reformulas_0.4.3.1
-    ## [17] abind_1.4-8        Rdpack_2.6.5       cli_3.6.5          rlang_1.1.7       
-    ## [21] rbibutils_2.4.1    splines_4.5.1      cachem_1.1.0       yaml_2.3.12       
-    ## [25] otel_0.2.0         tools_4.5.1        nloptr_2.2.1       minqa_1.2.8       
-    ## [29] dplyr_1.1.4        boot_1.3-32        vctrs_0.7.1        R6_2.6.1          
-    ## [33] matrixStats_1.5.0  lifecycle_1.0.5    fs_1.6.6           car_3.1-3         
-    ## [37] htmlwidgets_1.6.4  MASS_7.3-65        ragg_1.5.0         pkgconfig_2.0.3   
-    ## [41] desc_1.4.3         pkgdown_2.2.0      pillar_1.11.1      bslib_0.9.0       
-    ## [45] glue_1.8.0         Rcpp_1.1.1         systemfonts_1.3.1  xfun_0.56         
-    ## [49] tibble_3.3.1       tidyselect_1.2.1   knitr_1.51         htmltools_0.5.9   
-    ## [53] rmarkdown_2.30     carData_3.0-5      compiler_4.5.1
+    ##  [1] sass_0.4.10       generics_0.1.4    lattice_0.22-9    lme4_2.0-1       
+    ##  [5] digest_0.6.39     magrittr_2.0.4    evaluate_1.0.5    grid_4.5.1       
+    ##  [9] fastmap_1.2.0     jsonlite_2.0.0    Matrix_1.7-4      Formula_1.2-5    
+    ## [13] codetools_0.2-20  textshaping_1.0.5 jquerylib_0.1.4   reformulas_0.4.4 
+    ## [17] abind_1.4-8       Rdpack_2.6.6      cli_3.6.5         rlang_1.1.7      
+    ## [21] rbibutils_2.4.1   splines_4.5.1     cachem_1.1.0      yaml_2.3.12      
+    ## [25] otel_0.2.0        tools_4.5.1       nloptr_2.2.1      minqa_1.2.8      
+    ## [29] dplyr_1.2.0       boot_1.3-32       vctrs_0.7.1       R6_2.6.1         
+    ## [33] matrixStats_1.5.0 lifecycle_1.0.5   fs_1.6.7          car_3.1-5        
+    ## [37] htmlwidgets_1.6.4 MASS_7.3-65       ragg_1.5.1        pkgconfig_2.0.3  
+    ## [41] desc_1.4.3        pkgdown_2.2.0     pillar_1.11.1     bslib_0.10.0     
+    ## [45] glue_1.8.0        Rcpp_1.1.1        systemfonts_1.3.2 xfun_0.56        
+    ## [49] tibble_3.3.1      tidyselect_1.2.1  knitr_1.51        htmltools_0.5.9  
+    ## [53] rmarkdown_2.30    carData_3.0-6     compiler_4.5.1

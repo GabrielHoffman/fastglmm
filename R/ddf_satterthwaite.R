@@ -45,7 +45,7 @@ ddf <- function(fit, L = diag(1, length(coef(fit))) ){
     v_numerator <- 2 * var_Lbeta^2
     v_denom <- solve(hessian.vc, g) %*% g
 
-    v_numerator / v_denom  
+    max(v_numerator / v_denom, 2)
   })
 }
 

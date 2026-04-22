@@ -306,8 +306,8 @@ ModelFitGLMM fastglmm<T1, T2, T3>::get_result(){
 
 		switch( md ){
 	    case MAX:       
-	      // res1.hatvalues = hatvalues();
 	    case MOST:
+	      res1.mu.fill(datum::nan); 
 	      res1.hatvalues.fill(datum::nan); 
 	    case HIGH: 
 	      res1.residuals.fill(datum::nan);
@@ -348,10 +348,16 @@ ModelFitGLMM fastglmm<T1, T2, T3>::get_result(){
   }
 
   if( md >= HIGH ){
-  	// Respones residuals
+  	// response residuals
 		mf.residuals = residuals(); 
-  } 
+  }
   
+  if( md >= MOST ){
+  	// Respones residuals
+		mf.mu = fitted(); 
+		// mf.hatvalues = hatvalues(); 
+  } 
+
 	return mf;
 }
 

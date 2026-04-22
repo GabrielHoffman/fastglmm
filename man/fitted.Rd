@@ -5,14 +5,16 @@
 \alias{fitted.fastglmm}
 \title{Extract Model Fitted Values}
 \usage{
-\method{fitted}{fastlmm}(object, ...)
+\method{fitted}{fastlmm}(object, ..., newdata = NULL)
 
-\method{fitted}{fastglmm}(object, ...)
+\method{fitted}{fastglmm}(object, ..., newdata = NULL)
 }
 \arguments{
 \item{object}{fitted model of class \code{fastlmm}}
 
 \item{...}{other args, not used}
+
+\item{newdata}{optionally, a data.frame in which to look for variables with which to predict.  If omitted, the fitted  predictors are used.}
 }
 \description{
 Extract Model Fitted Values

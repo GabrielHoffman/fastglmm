@@ -1,4 +1,20 @@
 
+# fastglmm 0.4.5
+ - April 20, 2026
+ - `predict()`, `fitted()` accepts `newdata` parameter
+
+# fastglmm 0.4.4
+ - April 17, 2026
+ - fix computing mu (fitted.values) for glmmFitResponses
+
+# fastglmm 0.4.3
+ - March 31, 2026
+ - add \code{powerNBMM()}, \code{meff()}, \code{plotSaturation()}
+
+# fastglmm 0.4.2
+ - March 23, 2026
+ - `ddf()` now has a min value of 2
+
 # fastglmm 0.4.1
  - Feb 26, 2026
  - fix hypothesis testing

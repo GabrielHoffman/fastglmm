@@ -1,5 +1,16 @@
 # Changelog
 
+## fastglmm 0.4.3
+
+- March 31, 2026
+- add , ,
+
+## fastglmm 0.4.2
+
+- March 23, 2026
+- [`ddf()`](http://gabrielhoffman.github.io/fastglmm/reference/ddf.md)
+  now has a min value of 2
+
 ## fastglmm 0.4.1
 
 - Feb 26, 2026

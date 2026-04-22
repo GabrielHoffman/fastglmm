@@ -12,7 +12,7 @@
 \arguments{
 \item{object}{fitted model of class \code{fastlmm}}
 
-\item{newdata}{optionally, a data frame in which to look for variables with which to predict.  If omitted, the fitted  predictors are used.}
+\item{newdata}{optionally, a data.frame in which to look for variables with which to predict.  If omitted, the fitted  predictors are used.}
 
 \item{type}{the type of prediction required.  The default is on the scale of the linear predictors; the alternative \code{"response"} is on the scale of the response variable.  Thus for a default  binomial model the default predictions are of log-odds (probabilities on logit scale) and \code{type = "response"} gives the predicted probabilities. \code{type = "terms"} computes the linear predict for each model term}
 
