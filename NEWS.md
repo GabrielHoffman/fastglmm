@@ -1,4 +1,8 @@
 
+# fastglmm 0.4.6
+ - April 24, 2026
+ - for count regression model, throws error for non-integer responses
+
 # fastglmm 0.4.5
  - April 20, 2026
  - `predict()`, `fitted()` accepts `newdata` parameter

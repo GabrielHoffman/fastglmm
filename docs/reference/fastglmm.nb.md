@@ -67,14 +67,12 @@ data(PsychAD)
 form <- PTPRG ~ (1|SubID) + offset(log(libSize))
 
 # NB GLMM on PTPRG expression via PQL
-fit1 <- fastglmm.nb(form, data)
-#> Error in as.data.frame.default(data, optional = TRUE): cannot coerce class ‘"function"’ to a data.frame
+fit1 <- fastglmm.nb(form, PsychAD)
 coef(summary(fit1))
-#> Error in h(simpleError(msg, call)): error in evaluating the argument 'object' in selecting a method for function 'summary': object 'fit1' not found
+#>              Estimate Std. Error    df   t value      Pr(>|t|)
+#> (Intercept) -8.638731 0.04585474 148.2 -188.3934 2.647753e-178
 
 # NB GLMM via Laplace approximation
-fit2 <- lme4::glmer.nb(form, data)
-#> Error in list2env(data): first argument must be a named list
-coef(summary(fit2))
-#> Error in h(simpleError(msg, call)): error in evaluating the argument 'object' in selecting a method for function 'summary': object 'fit2' not found
+# fit2 <- lme4::glmer.nb(form, PsychAD)
+# coef(summary(fit2))
 ```

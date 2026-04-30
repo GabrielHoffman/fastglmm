@@ -59,8 +59,14 @@ static void checkResponse(const vec &y, const string &family){
 	else if( famStr == "PoissonLog" || famStr == "QuasipoissonLog" || famStr == "NB"){
 		// min value must be non-negative
 		if( res[0] < 0){
-			throw logic_error( "Invalid response for poisson/nb, must be non-negative" );
+			throw logic_error( "Invalid response for poisson/nb: must be non-negative" );
 		}
+
+		// check that values are integers
+		if( ! all_integer_valued(res) ){			
+			throw logic_error( "Invalid response for poisson/nb: must be integers" );
+		}
+
 	}else if( famStr == "QuasibinomialLogit" ){
 		if( res[0] < 0 || res[res.n_elem-1] >=1 ){
 			throw logic_error( "Invalid response for quasi-binomial, must be between 0 and 1" );

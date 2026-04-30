@@ -1,5 +1,6 @@
 #ifndef FASTLMM_MISC_H_
 #define FASTLMM_MISC_H_
+#pragma once
 
 // if -D USE_R, use RcppArmadillo library
 #ifdef USE_R
@@ -331,7 +332,11 @@ static double robust_mean( const vec &x, const double &z_cutoff){
 
 }
 
-
+/** Check that all values in x are integer values
+ */
+static bool all_integer_valued(const vec &x, double tol = 1e-12) {
+  return all(abs(x - round(x)) < tol);
+}
 
 
 

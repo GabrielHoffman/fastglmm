@@ -1,5 +1,22 @@
 # Changelog
 
+## fastglmm 0.4.6
+
+- April 20, 2026
+- for count regression model, throws error for non-integer responses
+
+## fastglmm 0.4.5
+
+- April 20, 2026
+- [`predict()`](https://rdrr.io/r/stats/predict.html),
+  [`fitted()`](https://rdrr.io/r/stats/fitted.values.html) accepts
+  `newdata` parameter
+
+## fastglmm 0.4.4
+
+- April 17, 2026
+- fix computing mu (fitted.values) for glmmFitResponses
+
 ## fastglmm 0.4.3
 
 - March 31, 2026

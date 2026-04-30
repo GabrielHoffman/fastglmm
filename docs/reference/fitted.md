@@ -6,10 +6,10 @@ Extract Model Fitted Values
 
 ``` r
 # S3 method for class 'fastlmm'
-fitted(object, ...)
+fitted(object, ..., newdata = NULL)
 
 # S3 method for class 'fastglmm'
-fitted(object, ...)
+fitted(object, ..., newdata = NULL)
 ```
 
 ## Arguments
@@ -21,6 +21,11 @@ fitted(object, ...)
 - ...:
 
   other args, not used
+
+- newdata:
+
+  optionally, a data.frame in which to look for variables with which to
+  predict. If omitted, the fitted predictors are used.
 
 ## Examples
 

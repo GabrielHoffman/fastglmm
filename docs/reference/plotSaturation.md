@@ -1,7 +1,7 @@
-# Plot Saturation Curve for Meff
+# Plot Saturation Curve for NBMM
 
 Saturation curve for the effective number of independent measurements
-per donor
+per donor for a negative binomial mixed model
 
 ## Usage
 

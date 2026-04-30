@@ -80,7 +80,7 @@
 - [`meff()`](http://gabrielhoffman.github.io/fastglmm/reference/meff.md)
   : Effective Number of Independent Measurements per Subject
 - [`plotSaturation()`](http://gabrielhoffman.github.io/fastglmm/reference/plotSaturation.md)
-  : Plot Saturation Curve for Meff
+  : Plot Saturation Curve for NBMM
 - [`powerNBMM()`](http://gabrielhoffman.github.io/fastglmm/reference/powerNBMM.md)
   : Power for Negative Binomial Mixed Model
 

@@ -20,7 +20,7 @@ predict(object, newdata = NULL, type = c("link", "response", "terms"), ...)
 
 - newdata:
 
-  optionally, a data frame in which to look for variables with which to
+  optionally, a data.frame in which to look for variables with which to
   predict. If omitted, the fitted predictors are used.
 
 - type:
