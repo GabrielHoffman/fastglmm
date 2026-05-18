@@ -236,6 +236,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 		eta = vec(offset.n_elem, fill::value(datum::nan));
 		mu = vec(offset.n_elem, fill::value(datum::nan));
 	}
+
 	// Compute mean of mu
 	// use robust mean to avoid influence of outliers
 	// This can happen with many zero and a few large values
