@@ -9,9 +9,9 @@
 \item 
 \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aca8fc34a15eed8ce138eba906f782652}{spectral\+Decomp}} ()
 \item 
-\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aae3876ffafb86aab607d1e010a097d6c}{spectral\+Decomp}} (const T \&\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}, const vec \&\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}}, const \doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14}{ZTYPE}} \&\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a02393ff6627856c3ee3627862ea69eb3}{type}}=\doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14a4e9ba2711b6b58af3be78b16012aee64}{GENERAL}})
+\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aae3876ffafb86aab607d1e010a097d6c}{spectral\+Decomp}} (const T \&U, const vec \&s, const \doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14}{ZTYPE}} \&type=\doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14a4e9ba2711b6b58af3be78b16012aee64}{GENERAL}})
 \item 
-\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a4013b754bf77ef37e1cad5a87ca6bf7d}{spectral\+Decomp}} (const T \&\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}}, const \doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14}{ZTYPE}} \&\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a02393ff6627856c3ee3627862ea69eb3}{type}}=\doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14a4e9ba2711b6b58af3be78b16012aee64}{GENERAL}})
+\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a4013b754bf77ef37e1cad5a87ca6bf7d}{spectral\+Decomp}} (const T \&Z, const \doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14}{ZTYPE}} \&type=\doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14a4e9ba2711b6b58af3be78b16012aee64}{GENERAL}})
 \item 
 \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a4ccf6f36e4375e84995dd49f37a390a3}{spectral\+Decomp}} (const spectral\+Decomp \&other)
 \item 
@@ -49,7 +49,7 @@ Class storing matrix Z, its {\itshape squared} singular values (s), left singula
 
 \doxylink{classfastglmm_lib_1_1spectral_decomp_a147f7b2391dfc9a0c3677d39c07b0aa6}{reweight()} computes the SVD of the weighted Z matrix 
 
-\label{doc-constructors}
+\label{classfastglmm_lib_1_1spectral_decomp_doc-constructors}
 \Hypertarget{classfastglmm_lib_1_1spectral_decomp_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{classfastglmm_lib_1_1spectral_decomp_aca8fc34a15eed8ce138eba906f782652}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!spectralDecomp@{spectralDecomp}}
@@ -68,9 +68,9 @@ template$<$typename T$>$ \\
 
 Constructor 
 \begin{DoxyParams}{Parameters}
-{\em \doxylink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}} & left singular vectors \\
+{\em U} & left singular vectors \\
 \hline
-{\em \doxylink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}} & squared singular values \\
+{\em s} & squared singular values \\
 \hline
 \end{DoxyParams}
 \Hypertarget{classfastglmm_lib_1_1spectral_decomp_a4013b754bf77ef37e1cad5a87ca6bf7d}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!spectralDecomp@{spectralDecomp}}
@@ -82,7 +82,7 @@ template$<$typename T$>$ \\
 
 Constructor 
 \begin{DoxyParams}{Parameters}
-{\em \doxylink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}} & Random effects design matrix \\
+{\em Z} & Random effects design matrix \\
 \hline
 \end{DoxyParams}
 \Hypertarget{classfastglmm_lib_1_1spectral_decomp_a4ccf6f36e4375e84995dd49f37a390a3}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!spectralDecomp@{spectralDecomp}}
@@ -94,7 +94,7 @@ template$<$typename T$>$ \\
 
 
 
-\label{doc-func-members}
+\label{classfastglmm_lib_1_1spectral_decomp_doc-func-members}
 \Hypertarget{classfastglmm_lib_1_1spectral_decomp_doc-func-members}
 \doxysubsection{Member Function Documentation}
 \Hypertarget{classfastglmm_lib_1_1spectral_decomp_aa711e4e643496c31fb3678303c5817b0}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!get\_s@{get\_s}}
@@ -143,7 +143,7 @@ Compute spectral decomp of weighted Z.
 \end{DoxyParams}
 
 
-\label{doc-variable-members}
+\label{classfastglmm_lib_1_1spectral_decomp_doc-variable-members}
 \Hypertarget{classfastglmm_lib_1_1spectral_decomp_doc-variable-members}
 \doxysubsection{Member Data Documentation}
 \Hypertarget{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}\index{fastglmmLib::spectralDecomp$<$ T $>$@{fastglmmLib::spectralDecomp$<$ T $>$}!s@{s}}

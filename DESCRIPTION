@@ -1,8 +1,8 @@
 Package: fastglmm
 Type: Package
 Title: Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on Massive Datasets
-Version: 0.4.6
-Date: 2026-04-24
+Version: 0.4.7
+Date: 2026-05-19
 Authors@R: person("Gabriel", "Hoffman", role=c("aut", "cre"), email="gabriel.hoffman@mssm.edu", comment=c(ORCID="0000-0002-0957-0224"))
 Maintainer: Gabriel Hoffman <gabriel.hoffman@mssm.edu>
 Description: Fitting linear mixed model on large-scale datasets can be very computationally expensive.  Here, we provide a very fast method for fitting linear mixed models with a single random effect.  This can be 10-100x faster than other methods for large datasets.

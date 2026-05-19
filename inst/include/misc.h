@@ -278,17 +278,13 @@ static int count_nan( const vec &v){
 }
 
 
-static uvec countResponseFilter( const mat &Y){
+static uvec countResponseFilter( const mat &Y, int n0, int n1){
+
+  // Rcpp::Rcout << "n0: " << n0 << " n1: " << n1 << std::endl;
 
   // # filter genes by expression
-  // keep1 <- rowSums2(countMatrix > 0) > max(2, 0.1*ncol(countMatrix))
-  // keep2 <- rowSums2(countMatrix > 1) > max(2, 0.01*ncol(countMatrix))
-  // keep <- keep1 & keep2
-
-  int nr = Y.n_rows;
-
-  uvec keep1 = find(sum(Y > 0, 0) > max(2, (int) 0.1*nr));
-  uvec keep2 = find(sum(Y > 1, 0) > max(2, (int) 0.01*nr));
+  uvec keep1 = find(sum(Y > 0, 0) > max(2, n0));
+  uvec keep2 = find(sum(Y > 1, 0) > max(2, n1));
 
   return intersect(keep1, keep2);
 }

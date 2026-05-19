@@ -1,4 +1,8 @@
 
+# fastglmm 0.4.7
+ - May 19, 2026
+ - update count filtering 
+
 # fastglmm 0.4.6
  - April 24, 2026
  - for count regression model, throws error for non-integer responses

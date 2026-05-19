@@ -7,7 +7,7 @@ have Alzheimer's disease, and 150 are neurotypical controls.
 ## Usage
 
 ``` r
-PsychAD
+data(PsychAD)
 ```
 
 ## Format
