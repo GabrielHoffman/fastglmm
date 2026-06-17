@@ -64,6 +64,6 @@ fit <- fastglmm.nb(form, PsychAD)
 
 # effective number of independent measurements per subject
 meff(fit)
-#>     m.mean        rho    m.eff    m.max  fraction
-#> 1 202.9564 0.03465127 25.37575 28.85897 0.8793019
+#>     m.mean      rho    m.eff    m.max  fraction
+#> 1 202.9564 0.126551 7.642067 7.901952 0.9671114
 ```

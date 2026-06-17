@@ -17,14 +17,14 @@ test_getLambda = function(){
   fastglmm:::getLambda(fit)
   fastglmm:::getLambda(fit, method = "mean")
   varpart(fit)
-  varpart(fit, lambda.method = "mean")
+  # varpart(fit, lambda.method = "mean")
 
    # fastglmm.nb
   form <- PTPRG ~ offset(log(libSize)) + Dx + (1|SubID)
   fit <- fastglmm.nb(form, PsychAD)
   fit.null <- fastglmm.nb(form, PsychAD)
   varpart(fit)
-  varpart(fit, lambda.method = "mean")
+  # varpart(fit, lambda.method = "mean")
 
 
   # glm
@@ -33,7 +33,7 @@ test_getLambda = function(){
   fastglmm:::getLambda(fit)
   fastglmm:::getLambda(fit, method = "mean")
   varpart(fit)
-  varpart(fit, lambda.method = "mean")
+  # varpart(fit, lambda.method = "mean")
 
   # glm.nb
   form <- PTPRG ~ offset(log(libSize)) + Dx
@@ -41,7 +41,7 @@ test_getLambda = function(){
   fastglmm:::getLambda(fit)
   fastglmm:::getLambda(fit, method = "mean")
   varpart(fit)
-  varpart(fit, lambda.method = "mean")
+  # varpart(fit, lambda.method = "mean")
 
 }
 
@@ -90,7 +90,7 @@ test_varpart = function(){
 
   # Coefficient of determination
   res1 = r2_nakagawa(fit.tmb, null_model = fit.null, approximation="trigamma")
-  res2 = varpart(fit)
+  res2 = varpart(fit, method="trigamma")
 
   checkEqualsNumeric(1 - res1$R2_conditional,  
                   res2['Residuals'], 
@@ -116,7 +116,7 @@ test_varpart = function(){
 
   # Coefficient of determination
   res1 = r2_nakagawa(fit.tmb, approximation="trigamma")
-  res2 = varpart(fit)
+  res2 = varpart(fit, method="trigamma")
 
   checkEqualsNumeric(1 - res1$R2_conditional,  
                   res2['Residuals'] + res2['CountNoise'], 

@@ -1,0 +1,258 @@
+\doxysection{log\+\_\+moments\+\_\+nb.\+h}
+\hypertarget{log__moments__nb_8h_source}{}\label{log__moments__nb_8h_source}\index{inst/include/log\_moments\_nb.h@{inst/include/log\_moments\_nb.h}}
+\doxymbox{\hyperlink{log__moments__nb_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ LOG\_MOMENTS\_NB\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ LOG\_MOMENTS\_NB\_H\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ if\ -\/D\ USE\_R,\ use\ RcppArmadillo\ library}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifdef\ USE\_R}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ [[Rcpp::depends(RcppParallel)]]\ \ }}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <RcppArmadillo.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <RcppParallel.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <armadillo>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <tbb/tbb.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <Rcpp.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <utility>}\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{distributions_8h}{distributions.h}}>}\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{using\ namespace\ }arma;}
+\DoxyCodeLine{00020\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ vec\ \doxymbox{\hyperlink{log__moments__nb_8h_ac0a68e9a719eaa13d15b9f8658579a70}{generate\_seq}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&qmax)\ \{}
+\DoxyCodeLine{00023\ \ \ \textcolor{comment}{//\ Initialize\ an\ IntegerVector\ of\ size\ (qmax\ +\ 1)}}
+\DoxyCodeLine{00024\ \ \ vec\ y(qmax\ +\ 1);}
+\DoxyCodeLine{00025\ \ \ }
+\DoxyCodeLine{00026\ \ \ \textcolor{comment}{//\ Fill\ the\ vector\ with\ values\ starting\ from\ 0\ to\ qmax}}
+\DoxyCodeLine{00027\ \ \ std::iota(y.begin(),\ y.end(),\ 0);}
+\DoxyCodeLine{00028\ \ \ }
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordflow}{return}\ y;}
+\DoxyCodeLine{00030\ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ std::pair<double,\ double>\ \doxymbox{\hyperlink{log__moments__nb_8h_a799e2c30a21c2b66abbf0f08a6406db5}{\_log\_moments\_nb\_mu}}(}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&\ mu,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&theta,\ \textcolor{comment}{//\ overdispersion}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&c\ =\ 1.0,\ \textcolor{comment}{//\ pseudocount}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&p\_tail\ =\ 1e-\/4)\ \{}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{int}\ n\ =\ mu.size();}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ vec\ mean\_out(n);}
+\DoxyCodeLine{00041\ \ \ vec\ var\_out(n);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \textcolor{comment}{//\ for\ each\ entry\ in\ mu}}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ ++i)\ \{}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{double}\ qmax\_d;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//\ get\ quantiles}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//\ can\ be\ off\ by\ 1\ due\ to\ differences\ in\ rounding}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//\ but\ the\ boost\ functions\ are\ thread-\/safe}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{if}(\ isinf(theta)\ )\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \textcolor{comment}{//\ qmax\_d\ =\ R::qpois(p\_tail,\ mu[i],\ false,\ false);}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ qmax\_d\ =\ \doxymbox{\hyperlink{distributions_8h_a737b2c510afca8fcea21f1cb2a66d6b5}{qpois\_boost}}(p\_tail,\ mu[i],\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00054\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \textcolor{comment}{//\ qmax\_d\ =\ R::qnbinom(p\_tail,\ theta,\ theta\ /\ (theta\ +\ mu[i]),\ false,\ false);\ \ \ \ \ \ }}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ qmax\_d\ =\ \doxymbox{\hyperlink{distributions_8h_af84e2131391e767c8463c7a992260b10}{qnbinom\_boost}}(p\_tail,\ theta,\ theta\ /\ (theta\ +\ mu[i]),\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{int}\ qmax\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(qmax\_d);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//\ y\ <-\/\ seq(0,\ qmax)}}
+\DoxyCodeLine{00062\ \ \ \ \ vec\ y\ =\ \doxymbox{\hyperlink{log__moments__nb_8h_ac0a68e9a719eaa13d15b9f8658579a70}{generate\_seq}}(qmax);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ vec\ p(y.size());}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{if}(\ isinf(theta)\ )\{\ \ \ \ \ \ }
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \textcolor{comment}{//\ Poisson}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k\ =\ 0;\ k<y.size();\ k++)\{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ p(k)\ =\ \doxymbox{\hyperlink{distributions_8h_a13bd3123501722d95aa18b1a677a129c}{dpois\_boost}}(y[k],\ mu[i]);}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \textcolor{comment}{//\ Negative\ binomial}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ prob\ =\ theta\ /\ (theta\ +\ mu[i]);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k\ =\ 0;\ k<y.size();\ k++)\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ p(k)\ =\ \doxymbox{\hyperlink{distributions_8h_a4c47c53252d9742a040ba782adf8b225}{dnbinom\_boost}}(y[k],\ theta,\ prob);}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{comment}{//\ Normalize\ probabilies\ to\ sum\ to\ 1}}
+\DoxyCodeLine{00081\ \ \ \ \ p\ =\ p\ /\ sum(p);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//\ Compute\ log\ response\ plus\ pseudocount}}
+\DoxyCodeLine{00084\ \ \ \ \ vec\ z\ =\ log(y\ +\ c);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{comment}{//\ Expected\ value\ of\ z}}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{double}\ ez\ =\ sum(z\ \%\ p);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{comment}{//\ Variance\ of\ z}}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{//\ vz\ <-\/\ sum((z\ -\/\ ez)\string^2\ *\ p)}}
+\DoxyCodeLine{00091\ \ \ \ \ vec\ dz\ =\ z\ -\/\ ez;}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{double}\ vz\ =\ sum(dz\ \%\ dz\ \%\ p);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ mean\_out[i]\ =\ ez;}
+\DoxyCodeLine{00095\ \ \ \ \ var\_out[i]\ =\ vz;}
+\DoxyCodeLine{00096\ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{double}\ signal\ =\ var(mean\_out);}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{double}\ noise\ =\ mean(var\_out);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordflow}{return}\ \{signal,\ noise\};}
+\DoxyCodeLine{00102\ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{comment}{/*\ Log\ Moments\ of\ NB\ given\ X,\ Beta,\ and\ offset\ */}}
+\DoxyCodeLine{00107\ tuple<vec,\ vec,\ vec>\ \doxymbox{\hyperlink{log__moments__nb_8h_af66e2ac4e795af3cc7d8bc51cd439c2f}{\_log\_moments\_nb\_XB}}(}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{const}\ mat\ \&\ X,}
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{const}\ mat\ \&\ Beta,}
+\DoxyCodeLine{00110\ \ \ \textcolor{keyword}{const}\ vec\ \&\ offset,}
+\DoxyCodeLine{00111\ \ \ \textcolor{keyword}{const}\ vec\ \&\ theta,\ \textcolor{comment}{//\ overdispersion}}
+\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&method,}
+\DoxyCodeLine{00113\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ c\ =\ 1.0,\ \textcolor{comment}{//\ pseudocount}}
+\DoxyCodeLine{00114\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ p\_tail\ =\ 1e-\/4,}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ nthreads\ =\ 10)\ \{}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{int}\ n\_responses\ =\ Beta.n\_rows;}
+\DoxyCodeLine{00118\ \ \ vec\ signal(n\_responses);}
+\DoxyCodeLine{00119\ \ \ vec\ noise(n\_responses);}
+\DoxyCodeLine{00120\ \ \ vec\ alpha(n\_responses);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \textcolor{comment}{//\ Parallel\ part\ using\ Thread\ Building\ Blocks}}
+\DoxyCodeLine{00123\ \ \ tbb::task\_arena\ limited\_arena(nthreads);}
+\DoxyCodeLine{00124\ \ \ limited\_arena.execute([\&]\ \{}
+\DoxyCodeLine{00125\ \ \ tbb::parallel\_for(}
+\DoxyCodeLine{00126\ \ \ \ \ tbb::blocked\_range<int>(0,\ n\_responses,\ 10),\ }
+\DoxyCodeLine{00127\ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ disable\_parallel\_blas();}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ vec\ mu(X.n\_rows);}
+\DoxyCodeLine{00132\ \ \ \ \ vec\ var\_poisson(X.n\_rows),\ var\_overdisp(X.n\_rows);}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ r.begin();\ j\ !=\ r.end();\ ++j)\ \{}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \textcolor{comment}{//\ create\ mu}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ mu\ =\ exp(X\ *\ Beta.row(j).t()\ +\ offset);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \textcolor{comment}{//\ Poisson\ variance}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ var\_poisson\ =\ mu\ /\ square(mu+c);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \textcolor{comment}{//\ Overdispersion\ variance}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ var\_overdisp\ =\ (square(mu)/theta(j))\ /\ square(mu+c);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \textcolor{comment}{//\ Poisson\ noise\ ratio}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ alpha(j)\ =\ mean(\ var\_poisson\ /\ (var\_poisson\ +\ var\_overdisp));}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ method\ ==\ \textcolor{stringliteral}{"{}exact"{}}\ \&\&\ mean(mu)\ <\ 1e8)\{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ evaluate\ moments}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [signal\_,\ noise\_]\ =\ \doxymbox{\hyperlink{log__moments__nb_8h_a799e2c30a21c2b66abbf0f08a6406db5}{\_log\_moments\_nb\_mu}}(mu,\ theta(j),\ c,\ p\_tail);\ \ \ \ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ signal(j)\ =\ signal\_;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ noise(j)\ =\ noise\_;\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ signal(j)\ =\ var(log(mu\ +\ c));}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ noise(j)\ =\ mean(var\_poisson\ +\ var\_overdisp);\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+\DoxyCodeLine{00157\ \ \ \ \});\ \});}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordflow}{return}\ \{signal,\ noise,\ alpha\};}
+\DoxyCodeLine{00160\ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{comment}{/*\ Log\ Moments\ of\ NB\ given\ BLUP,\ X,\ Beta,\ Z,\ offset\ */}}
+\DoxyCodeLine{00164\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00165\ tuple<vec,\ vec,\ vec>\ \doxymbox{\hyperlink{log__moments__nb_8h_ac77c370cbdd46efca19ad6ff689311f1}{\_log\_moments\_nb\_BlupXBZ}}(}
+\DoxyCodeLine{00166\ \ \ \textcolor{keyword}{const}\ mat\ \&\ BLUP,}
+\DoxyCodeLine{00167\ \ \ \textcolor{keyword}{const}\ mat\ \&\ X,}
+\DoxyCodeLine{00168\ \ \ \textcolor{keyword}{const}\ mat\ \&\ Beta,}
+\DoxyCodeLine{00169\ \ \ \textcolor{keyword}{const}\ T\ \&\ Z,\ \ }
+\DoxyCodeLine{00170\ \ \ \textcolor{keyword}{const}\ vec\ \&\ weights,}
+\DoxyCodeLine{00171\ \ \ \textcolor{keyword}{const}\ vec\ \&\ offset,}
+\DoxyCodeLine{00172\ \ \ \textcolor{keyword}{const}\ vec\ \&\ theta,\ \textcolor{comment}{//\ overdispersion}}
+\DoxyCodeLine{00173\ \ \ \textcolor{keyword}{const}\ vec\ \&\ delta,\ \textcolor{comment}{//\ variance\ component\ ratio}}
+\DoxyCodeLine{00174\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&method,}
+\DoxyCodeLine{00175\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&dcmpMethod,\ }
+\DoxyCodeLine{00176\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ c\ =\ 1.0,\ \textcolor{comment}{//\ pseudocount}}
+\DoxyCodeLine{00177\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ p\_tail\ =\ 1e-\/4,}
+\DoxyCodeLine{00178\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ nthreads\ =\ 10)\ \{}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \textcolor{keywordtype}{int}\ n\_responses\ =\ Beta.n\_rows;}
+\DoxyCodeLine{00181\ \ \ vec\ signal(n\_responses);}
+\DoxyCodeLine{00182\ \ \ vec\ noise(n\_responses);}
+\DoxyCodeLine{00183\ \ \ vec\ alpha(n\_responses);}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ uvec\ idx\_drop\ =\ find(weights\ ==\ 0.0);}
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordtype}{double}\ n\_active\ =\ weights.n\_elem\ -\/\ idx\_drop.n\_elem;}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ ZTYPE\ type\ =\ dcmpMethod\ ==\ \textcolor{stringliteral}{"{}categorical"{}}\ ?\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CATEGORICAL\ :\ GENERAL;}
+\DoxyCodeLine{00190\ \ \ spectralDecomp<T>\ dcmp(Z,\ type);}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \textcolor{comment}{//\ Parallel\ part\ using\ Thread\ Building\ Blocks}}
+\DoxyCodeLine{00193\ \ \ tbb::task\_arena\ limited\_arena(nthreads);}
+\DoxyCodeLine{00194\ \ \ limited\_arena.execute([\&]\ \{}
+\DoxyCodeLine{00195\ \ \ tbb::parallel\_for(}
+\DoxyCodeLine{00196\ \ \ \ \ tbb::blocked\_range<int>(0,\ n\_responses,\ 10),\ }
+\DoxyCodeLine{00197\ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ disable\_parallel\_blas();}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{comment}{//\ need\ local\ version\ due\ to\ reweighting}}
+\DoxyCodeLine{00202\ \ \ \ \ spectralDecomp<T>\ dcmp\_lcl(dcmp);}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ vec\ mu(X.n\_rows),\ eta(X.n\_rows);}
+\DoxyCodeLine{00205\ \ \ \ \ vec\ var\_poisson(X.n\_rows),\ var\_overdisp(X.n\_rows);}
+\DoxyCodeLine{00206\ \ \ \ \ T\ A;}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ r.begin();\ j\ !=\ r.end();\ ++j)\ \{\ }
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ shared\_ptr<GLMFamily>\ fam\ =\ getGLMFamily(\ \textcolor{stringliteral}{"{}nb:"{}}\ +\ to\_string(theta[j])\ );}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \textcolor{comment}{//\ create\ eta}}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ eta\ =\ offset\ +\ X\ *\ Beta.row(j).t()\ +\ Z\ *\ BLUP.col(j);}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ mu\ =\ exp(eta);}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \textcolor{comment}{//\ Poisson\ variance}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ var\_poisson\ =\ mu\ /\ square(mu+c);}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \textcolor{comment}{//\ Overdispersion\ variance}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ var\_overdisp\ =\ (square(mu)/theta(j))\ /\ square(mu+c);}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \textcolor{comment}{//\ Poisson\ ratio}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ alpha(j)\ =\ mean(\ var\_poisson\ /\ (var\_poisson\ +\ var\_overdisp));}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ method\ ==\ \textcolor{stringliteral}{"{}exact"{}}\ \&\&\ mean(mu)\ <\ 1e8)\{}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ evaluate\ moments}}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [signal\_,\ noise\_]\ =\ \doxymbox{\hyperlink{log__moments__nb_8h_a799e2c30a21c2b66abbf0f08a6406db5}{\_log\_moments\_nb\_mu}}(mu,\ theta(j),\ c,\ p\_tail);\ \ \ \ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ signal(j)\ =\ signal\_;}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ noise(j)\ =\ noise\_;\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ signal(j)\ =\ var(log(mu\ +\ c));}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ noise(j)\ =\ mean(var\_poisson\ +\ var\_overdisp);\ }
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00234\ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \ \ \ \});\ \});}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \textcolor{keywordflow}{return}\ \{signal,\ noise,\ alpha\};}
+\DoxyCodeLine{00238\ \}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ }
+
+\end{DoxyCode}

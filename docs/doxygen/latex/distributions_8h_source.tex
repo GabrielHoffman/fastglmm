@@ -1,0 +1,89 @@
+\doxysection{distributions.\+h}
+\hypertarget{distributions_8h_source}{}\label{distributions_8h_source}\index{inst/include/distributions.h@{inst/include/distributions.h}}
+\doxymbox{\hyperlink{distributions_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/***************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ @file\ \ \ \ distributions.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ @author\ \ Gabriel\ Hoffman}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ @email\ \ \ gabriel.hoffman@mssm.edu}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ @brief\ \ \ Thread-\/safe\ distribution\ functions}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2026\ Gabriel\ Hoffman}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ **************************************************************/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ DISTRIBUTIONS\_H\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ DISTRIBUTIONS\_H\_}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <boost/math/distributions/poisson.hpp>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <boost/math/distributions/negative\_binomial.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{using\ namespace\ }boost::math;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{/*\ like\ R::qpois(p,\ lambda)\ but\ threadsafe}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ [[Rcpp::export]]}}
+\DoxyCodeLine{00020\ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{distributions_8h_a737b2c510afca8fcea21f1cb2a66d6b5}{qpois\_boost}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ p,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&lambda,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&lowertail=\textcolor{keyword}{true})\{}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \textcolor{comment}{//\ Initialize\ Poisson\ distribution}}
+\DoxyCodeLine{00023\ \ \ boost::math::poisson\_distribution<double>\ dist(lambda);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \textcolor{comment}{//\ Calculate\ the\ quantile\ (inverse\ CDF)}}
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{double}\ value;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordflow}{if}(\ lowertail\ )\{}
+\DoxyCodeLine{00029\ \ \ \ \ value\ =\ quantile(dist,\ p);}
+\DoxyCodeLine{00030\ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00031\ \ \ \ \ value\ =\ quantile(complement(dist,\ p));}
+\DoxyCodeLine{00032\ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00035\ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{/*\ like\ R::qnbinom(p,\ size,\ prob)\ but\ threadsafe}}
+\DoxyCodeLine{00038\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ [[Rcpp::export]]}}
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{distributions_8h_af84e2131391e767c8463c7a992260b10}{qnbinom\_boost}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ p,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&prob,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&lowertail=\textcolor{keyword}{true})\{}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \textcolor{comment}{//\ Initialize\ NB\ distribution}}
+\DoxyCodeLine{00043\ \ \ boost::math::negative\_binomial\_distribution<double>\ dist(size,\ prob);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \textcolor{comment}{//\ Calculate\ the\ quantile\ (inverse\ CDF)}}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{double}\ value;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordflow}{if}(\ lowertail\ )\{}
+\DoxyCodeLine{00049\ \ \ \ \ value\ =\ quantile(dist,\ p);}
+\DoxyCodeLine{00050\ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00051\ \ \ \ \ value\ =\ quantile(complement(dist,\ p));}
+\DoxyCodeLine{00052\ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00055\ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{/*\ like\ R::dpois(x,\ lambda)\ but\ threadsafe}}
+\DoxyCodeLine{00059\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ [[Rcpp::export]]}}
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{distributions_8h_a13bd3123501722d95aa18b1a677a129c}{dpois\_boost}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ x,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&lambda)\{}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{comment}{//\ Initialize\ Poisson\ distribution}}
+\DoxyCodeLine{00064\ \ \ boost::math::poisson\_distribution<double>\ dist(lambda);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \textcolor{comment}{//\ Calculate\ the\ PDF}}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordflow}{return}\ pdf(dist,\ x);}
+\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{/*\ like\ R::dnbinom(x,\ size,\ prob)\ but\ threadsafe}}
+\DoxyCodeLine{00071\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ [[Rcpp::export]]}}
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{distributions_8h_a4c47c53252d9742a040ba782adf8b225}{dnbinom\_boost}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ x,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&prob)\{}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{//\ Initialize\ NB\ distribution}}
+\DoxyCodeLine{00076\ \ \ boost::math::negative\_binomial\_distribution<double>\ dist(size,\ prob);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{comment}{//\ Calculate\ the\ PDF}}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordflow}{return}\ pdf(dist,\ x);}
+\DoxyCodeLine{00080\ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

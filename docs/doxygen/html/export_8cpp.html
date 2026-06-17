@@ -140,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <code>#include &quot;<a class="el" href="nb__theta_8h_source.html">nb_theta.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="glmm_fit_features_8h_source.html">glmmFitFeatures.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="glmm_fit_responses_8h_source.html">glmmFitResponses.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="log__moments__nb_8h_source.html">log_moments_nb.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -150,6 +151,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ab7062d9f2ba0c976843ef3b71b4df85d" id="r_ab7062d9f2ba0c976843ef3b71b4df85d"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#ab7062d9f2ba0c976843ef3b71b4df85d">nb_theta</a> (const NumericVector &amp;y, const NumericVector &amp;mu, const double &amp;n, const NumericVector &amp;weights, const double &amp;left=-5, const double &amp;right=20, const double &amp;tol=1e-5)</td></tr>
 <tr class="memitem:a4503a0bcf4d70589b72c7b3e0da767ef" id="r_a4503a0bcf4d70589b72c7b3e0da767ef"><td class="memItemLeft">List&#160;</td><td class="memItemRight"><a class="el" href="#a4503a0bcf4d70589b72c7b3e0da767ef">fastglmm_mm</a> (const arma::vec &amp;y, const arma::mat &amp;X, const arma::mat &amp;U, const arma::vec &amp;s, const arma::vec &amp;weights, const arma::vec &amp;offset, const std::string &amp;family, const std::string &amp;dcmpMethod, const double &amp;delta, const double &amp;left, const double &amp;right, const double &amp;tol, const double &amp;tol_eta, const int &amp;maxit, const double &amp;lambda, const int &amp;nthreads, const bool &amp;doCoxReid=true)</td></tr>
 <tr class="memitem:a60db488eefb065a5cbce63a689c72b53" id="r_a60db488eefb065a5cbce63a689c72b53"><td class="memItemLeft">List&#160;</td><td class="memItemRight"><a class="el" href="#a60db488eefb065a5cbce63a689c72b53">fastglmm_ms</a> (const arma::vec &amp;y, const arma::mat &amp;X, const arma::sp_mat &amp;U, const arma::vec &amp;s, const arma::vec &amp;weights, const arma::vec &amp;offset, const std::string &amp;family, const std::string &amp;dcmpMethod, const double &amp;delta, const double &amp;left, const double &amp;right, const double &amp;tol, const double &amp;tol_eta, const int &amp;maxit, const double &amp;lambda, const int &amp;nthreads, const bool &amp;doCoxReid=true)</td></tr>
+<tr class="memitem:a17ab4794ac59f675e4e5da1f44e2a523" id="r_a17ab4794ac59f675e4e5da1f44e2a523"><td class="memItemLeft">DataFrame&#160;</td><td class="memItemRight"><a class="el" href="#a17ab4794ac59f675e4e5da1f44e2a523">log_moments_nb_mu</a> (const vec &amp;mu, const double &amp;theta, const double &amp;c=1.0, const double &amp;p_tail=1e-4)</td></tr>
+<tr class="memitem:a5b6f1ef1c9540aa2f11a9a8420189e64" id="r_a5b6f1ef1c9540aa2f11a9a8420189e64"><td class="memItemLeft">DataFrame&#160;</td><td class="memItemRight"><a class="el" href="#a5b6f1ef1c9540aa2f11a9a8420189e64">log_moments_nb_XB</a> (const mat &amp;X, const mat &amp;Beta, const vec &amp;offset, const vec &amp;theta, const string &amp;method, const double &amp;c=1.0, const double &amp;p_tail=1e-4, const int &amp;nthreads=10)</td></tr>
+<tr class="memitem:a44720b31a8c03616b3a7bed41995b369" id="r_a44720b31a8c03616b3a7bed41995b369"><td class="memItemLeft">DataFrame&#160;</td><td class="memItemRight"><a class="el" href="#a44720b31a8c03616b3a7bed41995b369">log_moments_nb_BlupXBZ</a> (const mat &amp;BLUP, const mat &amp;X, const mat &amp;Beta, const mat &amp;Z, const vec &amp;weights, const vec &amp;offset, const vec &amp;theta, const vec &amp;delta, const string &amp;method, const string &amp;dcmpMethod, const double &amp;c=1.0, const double &amp;p_tail=1e-4, const int &amp;nthreads=10)</td></tr>
+<tr class="memitem:aba1303b8daccac4491189d5bb1404787" id="r_aba1303b8daccac4491189d5bb1404787"><td class="memItemLeft">DataFrame&#160;</td><td class="memItemRight"><a class="el" href="#aba1303b8daccac4491189d5bb1404787">log_moments_nb_BlupXBZ_sp</a> (const mat &amp;BLUP, const mat &amp;X, const mat &amp;Beta, const sp_mat &amp;Z, const vec &amp;weights, const vec &amp;offset, const vec &amp;theta, const vec &amp;delta, const string &amp;method, const string &amp;dcmpMethod, const double &amp;c=1.0, const double &amp;p_tail=1e-4, const int &amp;nthreads=10)</td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a4503a0bcf4d70589b72c7b3e0da767ef" name="a4503a0bcf4d70589b72c7b3e0da767ef"></a>
@@ -642,6 +647,240 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>REML</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a44720b31a8c03616b3a7bed41995b369" name="a44720b31a8c03616b3a7bed41995b369"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44720b31a8c03616b3a7bed41995b369">&#9670;&#160;</a></span>log_moments_nb_BlupXBZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DataFrame log_moments_nb_BlupXBZ </td>
+          <td>(</td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>BLUP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>Beta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>Z</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>weights</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>theta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>delta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>method</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>dcmpMethod</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>c</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>p_tail</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1e-4</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>nthreads</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aba1303b8daccac4491189d5bb1404787" name="aba1303b8daccac4491189d5bb1404787"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba1303b8daccac4491189d5bb1404787">&#9670;&#160;</a></span>log_moments_nb_BlupXBZ_sp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DataFrame log_moments_nb_BlupXBZ_sp </td>
+          <td>(</td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>BLUP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>Beta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sp_mat &amp;</td>          <td class="paramname"><span class="paramname"><em>Z</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>weights</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>theta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>delta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>method</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>dcmpMethod</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>c</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>p_tail</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1e-4</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>nthreads</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a17ab4794ac59f675e4e5da1f44e2a523" name="a17ab4794ac59f675e4e5da1f44e2a523"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17ab4794ac59f675e4e5da1f44e2a523">&#9670;&#160;</a></span>log_moments_nb_mu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DataFrame log_moments_nb_mu </td>
+          <td>(</td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>mu</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>theta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>c</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>p_tail</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1e-4</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5b6f1ef1c9540aa2f11a9a8420189e64" name="a5b6f1ef1c9540aa2f11a9a8420189e64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b6f1ef1c9540aa2f11a9a8420189e64">&#9670;&#160;</a></span>log_moments_nb_XB()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DataFrame log_moments_nb_XB </td>
+          <td>(</td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>Beta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>theta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>method</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>c</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>p_tail</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1e-4</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>nthreads</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

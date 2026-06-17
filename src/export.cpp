@@ -14,6 +14,7 @@
 #include "nb_theta.h"
 #include "glmmFitFeatures.h"
 #include "glmmFitResponses.h"
+#include "log_moments_nb.h"
 
 using namespace Rcpp; 
 using namespace arma;
@@ -246,5 +247,123 @@ List fastglmm_ms(
 
   return toList(fit);
 }
+
+
+/* Log Moments of NB given mu vector
+*/
+// [[Rcpp::export]]
+DataFrame log_moments_nb_mu(
+  const vec &mu,
+  const double & theta, // overdispersion
+  const double & c = 1.0, // pseudocount
+  const double & p_tail = 1e-4) {
+
+  auto [signal, noise] = _log_moments_nb_mu(mu, theta, c, p_tail);
+
+  return DataFrame::create(
+    Named("var.signal") = signal,
+    Named("var.noise")  = noise
+  );
+}
+
+
+// /* Log Moments of NB given mu matrix
+// */
+// // [[Rcpp::export]]
+// List log_moments_nb_mat(
+//   const mat & Mu,
+//   const vec & theta, // overdispersion
+//   const double & c = 1.0, // pseudocount
+//   const double & p_tail = 1e-4) {
+
+//   int n_responses = Mu.n_cols;
+//   vec signal(n_responses);
+//   vec noise(n_responses);
+
+//   for(int i=0; i<n_responses; ++i){
+//     auto [signal_, noise_] = _log_moments_nb_mu(Mu.col(i), theta(i), c, p_tail);    
+//     signal(i) = signal_;
+//     noise(i) = noise_; 
+//   }
+
+//   return List::create(
+//     Named("var.signal") = signal,
+//     Named("var.noise")  = noise
+//   );
+// }
+
+
+/* Log Moments of NB given X, Beta, and offset */
+// [[Rcpp::export]]
+DataFrame log_moments_nb_XB(
+  const mat & X,
+  const mat & Beta,
+  const vec & offset,
+  const vec & theta, // overdispersion
+  const string &method,
+  const double & c = 1.0, // pseudocount
+  const double & p_tail = 1e-4,
+  const int & nthreads = 10) {
+
+  auto [signal, noise, alpha] = _log_moments_nb_XB(X, Beta, offset, theta, method, c, p_tail, nthreads);
+
+  return DataFrame::create(
+    Named("var.signal") = wrap(signal),
+    Named("var.noise")  = wrap(noise),
+    Named("alpha")  = wrap(alpha)
+  );
+}
+
+// [[Rcpp::export]]
+DataFrame log_moments_nb_BlupXBZ(
+  const mat & BLUP,
+  const mat & X,
+  const mat & Beta,
+  const mat & Z,  
+  const vec & weights,
+  const vec & offset,
+  const vec & theta, // overdispersion
+  const vec & delta, // variance component ratio
+  const string &method,
+  const string &dcmpMethod, 
+  const double & c = 1.0, // pseudocount
+  const double & p_tail = 1e-4,
+  const int & nthreads = 10) {
+
+  auto [signal, noise, alpha] = _log_moments_nb_BlupXBZ(BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c, p_tail, nthreads);
+
+  return DataFrame::create(
+    Named("var.signal") = wrap(signal),
+    Named("var.noise")  = wrap(noise),
+    Named("alpha")  = wrap(alpha)
+  );
+}
+
+// [[Rcpp::export]]
+DataFrame log_moments_nb_BlupXBZ_sp(
+  const mat & BLUP,
+  const mat & X,
+  const mat & Beta,
+  const sp_mat & Z,  
+  const vec & weights,
+  const vec & offset,
+  const vec & theta, // overdispersion
+  const vec & delta, // variance component ratio
+  const string &method,
+  const string &dcmpMethod, 
+  const double & c = 1.0, // pseudocount
+  const double & p_tail = 1e-4,
+  const int & nthreads = 10) {
+
+   auto [signal, noise, alpha] = _log_moments_nb_BlupXBZ(BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c, p_tail, nthreads);
+
+  return DataFrame::create(
+    Named("var.signal") = wrap(signal),
+    Named("var.noise")  = wrap(noise),
+    Named("alpha")  = wrap(alpha)
+  );
+}
+
+
 
 

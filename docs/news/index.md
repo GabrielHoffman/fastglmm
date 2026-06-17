@@ -1,5 +1,17 @@
 # Changelog
 
+## fastglmm 0.4.9
+
+- June 3, 2026
+- add “exact” method for
+  [`varpart()`](http://gabrielhoffman.github.io/fastglmm/reference/varpart.md)
+
+## fastglmm 0.4.8
+
+- June 3, 2026
+- add “exact” method for
+  [`varpart()`](http://gabrielhoffman.github.io/fastglmm/reference/varpart.md)
+
 ## fastglmm 0.4.7
 
 - May 19, 2026

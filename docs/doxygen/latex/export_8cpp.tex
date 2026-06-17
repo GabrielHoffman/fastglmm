@@ -6,6 +6,7 @@
 {\ttfamily \+\#include "{}nb\+\_\+theta.\+h"{}}\newline
 {\ttfamily \+\#include "{}glmm\+Fit\+Features.\+h"{}}\newline
 {\ttfamily \+\#include "{}glmm\+Fit\+Responses.\+h"{}}\newline
+{\ttfamily \+\#include "{}log\+\_\+moments\+\_\+nb.\+h"{}}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -22,6 +23,14 @@ double \doxymbox{\hyperlink{export_8cpp_ab7062d9f2ba0c976843ef3b71b4df85d}{nb\+\
 List \doxymbox{\hyperlink{export_8cpp_a4503a0bcf4d70589b72c7b3e0da767ef}{fastglmm\+\_\+mm}} (const arma::\+vec \&y, const arma::\+mat \&X, const arma::\+mat \&U, const arma::\+vec \&s, const arma::\+vec \&weights, const arma::\+vec \&offset, const std::\+string \&family, const std::\+string \&dcmp\+Method, const double \&delta, const double \&left, const double \&right, const double \&tol, const double \&tol\+\_\+eta, const int \&maxit, const double \&lambda, const int \&nthreads, const bool \&do\+Cox\+Reid=true)
 \item 
 List \doxymbox{\hyperlink{export_8cpp_a60db488eefb065a5cbce63a689c72b53}{fastglmm\+\_\+ms}} (const arma::\+vec \&y, const arma::\+mat \&X, const arma::\+sp\+\_\+mat \&U, const arma::\+vec \&s, const arma::\+vec \&weights, const arma::\+vec \&offset, const std::\+string \&family, const std::\+string \&dcmp\+Method, const double \&delta, const double \&left, const double \&right, const double \&tol, const double \&tol\+\_\+eta, const int \&maxit, const double \&lambda, const int \&nthreads, const bool \&do\+Cox\+Reid=true)
+\item 
+Data\+Frame \doxymbox{\hyperlink{export_8cpp_a17ab4794ac59f675e4e5da1f44e2a523}{log\+\_\+moments\+\_\+nb\+\_\+mu}} (const vec \&mu, const double \&theta, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4)
+\item 
+Data\+Frame \doxymbox{\hyperlink{export_8cpp_a5b6f1ef1c9540aa2f11a9a8420189e64}{log\+\_\+moments\+\_\+nb\+\_\+\+XB}} (const mat \&X, const mat \&Beta, const vec \&offset, const vec \&theta, const string \&method, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4, const int \&nthreads=10)
+\item 
+Data\+Frame \doxymbox{\hyperlink{export_8cpp_a44720b31a8c03616b3a7bed41995b369}{log\+\_\+moments\+\_\+nb\+\_\+\+Blup\+XBZ}} (const mat \&BLUP, const mat \&X, const mat \&Beta, const mat \&Z, const vec \&weights, const vec \&offset, const vec \&theta, const vec \&delta, const string \&method, const string \&dcmp\+Method, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4, const int \&nthreads=10)
+\item 
+Data\+Frame \doxymbox{\hyperlink{export_8cpp_aba1303b8daccac4491189d5bb1404787}{log\+\_\+moments\+\_\+nb\+\_\+\+Blup\+XBZ\+\_\+sp}} (const mat \&BLUP, const mat \&X, const mat \&Beta, const sp\+\_\+mat \&Z, const vec \&weights, const vec \&offset, const vec \&theta, const vec \&delta, const string \&method, const string \&dcmp\+Method, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4, const int \&nthreads=10)
 \end{DoxyCompactItemize}
 
 
@@ -63,6 +72,30 @@ List fastlmm\+\_\+sm (\begin{DoxyParamCaption}\item[{const arma::\+vec \&}]{y}{,
 \doxysubsubsection{\texorpdfstring{fastlmm\_ss()}{fastlmm\_ss()}}
 {\footnotesize\ttfamily \label{export_8cpp_a2256ca767d839cbf0e14fa53e854ebd5} 
 List fastlmm\+\_\+ss (\begin{DoxyParamCaption}\item[{const arma::\+vec \&}]{y}{, }\item[{const arma::\+sp\+\_\+mat \&}]{X}{, }\item[{const arma::\+sp\+\_\+mat \&}]{U}{, }\item[{const arma::\+vec \&}]{s}{, }\item[{const arma::\+vec \&}]{weights}{, }\item[{const std::\+string \&}]{dcmp\+Method}{, }\item[{const double \&}]{delta}{, }\item[{const double \&}]{left}{, }\item[{const double \&}]{right}{, }\item[{const double \&}]{tol}{, }\item[{const double \&}]{lambda}{, }\item[{const int \&}]{nthreads}{, }\item[{const bool}]{REML}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a44720b31a8c03616b3a7bed41995b369}\index{export.cpp@{export.cpp}!log\_moments\_nb\_BlupXBZ@{log\_moments\_nb\_BlupXBZ}}
+\index{log\_moments\_nb\_BlupXBZ@{log\_moments\_nb\_BlupXBZ}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{log\_moments\_nb\_BlupXBZ()}{log\_moments\_nb\_BlupXBZ()}}
+{\footnotesize\ttfamily \label{export_8cpp_a44720b31a8c03616b3a7bed41995b369} 
+Data\+Frame log\+\_\+moments\+\_\+nb\+\_\+\+Blup\+XBZ (\begin{DoxyParamCaption}\item[{const mat \&}]{BLUP}{, }\item[{const mat \&}]{X}{, }\item[{const mat \&}]{Beta}{, }\item[{const mat \&}]{Z}{, }\item[{const vec \&}]{weights}{, }\item[{const vec \&}]{offset}{, }\item[{const vec \&}]{theta}{, }\item[{const vec \&}]{delta}{, }\item[{const string \&}]{method}{, }\item[{const string \&}]{dcmp\+Method}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_aba1303b8daccac4491189d5bb1404787}\index{export.cpp@{export.cpp}!log\_moments\_nb\_BlupXBZ\_sp@{log\_moments\_nb\_BlupXBZ\_sp}}
+\index{log\_moments\_nb\_BlupXBZ\_sp@{log\_moments\_nb\_BlupXBZ\_sp}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{log\_moments\_nb\_BlupXBZ\_sp()}{log\_moments\_nb\_BlupXBZ\_sp()}}
+{\footnotesize\ttfamily \label{export_8cpp_aba1303b8daccac4491189d5bb1404787} 
+Data\+Frame log\+\_\+moments\+\_\+nb\+\_\+\+Blup\+XBZ\+\_\+sp (\begin{DoxyParamCaption}\item[{const mat \&}]{BLUP}{, }\item[{const mat \&}]{X}{, }\item[{const mat \&}]{Beta}{, }\item[{const sp\+\_\+mat \&}]{Z}{, }\item[{const vec \&}]{weights}{, }\item[{const vec \&}]{offset}{, }\item[{const vec \&}]{theta}{, }\item[{const vec \&}]{delta}{, }\item[{const string \&}]{method}{, }\item[{const string \&}]{dcmp\+Method}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a17ab4794ac59f675e4e5da1f44e2a523}\index{export.cpp@{export.cpp}!log\_moments\_nb\_mu@{log\_moments\_nb\_mu}}
+\index{log\_moments\_nb\_mu@{log\_moments\_nb\_mu}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{log\_moments\_nb\_mu()}{log\_moments\_nb\_mu()}}
+{\footnotesize\ttfamily \label{export_8cpp_a17ab4794ac59f675e4e5da1f44e2a523} 
+Data\+Frame log\+\_\+moments\+\_\+nb\+\_\+mu (\begin{DoxyParamCaption}\item[{const vec \&}]{mu}{, }\item[{const double \&}]{theta}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}}\end{DoxyParamCaption})}
+
+\Hypertarget{export_8cpp_a5b6f1ef1c9540aa2f11a9a8420189e64}\index{export.cpp@{export.cpp}!log\_moments\_nb\_XB@{log\_moments\_nb\_XB}}
+\index{log\_moments\_nb\_XB@{log\_moments\_nb\_XB}!export.cpp@{export.cpp}}
+\doxysubsubsection{\texorpdfstring{log\_moments\_nb\_XB()}{log\_moments\_nb\_XB()}}
+{\footnotesize\ttfamily \label{export_8cpp_a5b6f1ef1c9540aa2f11a9a8420189e64} 
+Data\+Frame log\+\_\+moments\+\_\+nb\+\_\+\+XB (\begin{DoxyParamCaption}\item[{const mat \&}]{X}{, }\item[{const mat \&}]{Beta}{, }\item[{const vec \&}]{offset}{, }\item[{const vec \&}]{theta}{, }\item[{const string \&}]{method}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
 
 \Hypertarget{export_8cpp_ab7062d9f2ba0c976843ef3b71b4df85d}\index{export.cpp@{export.cpp}!nb\_theta@{nb\_theta}}
 \index{nb\_theta@{nb\_theta}!export.cpp@{export.cpp}}

@@ -7,14 +7,14 @@
 getDistrVar(
   fit,
   fit_null,
-  method = c("trigamma", "lognormal"),
+  method = c("trigamma", "lognormal", "delta"),
   lambda.method = c("parametric", "mean")
 )
 }
 \arguments{
 \item{fit}{model fit}
 
-\item{method}{use either the \code{"lognormal"} or \code{"trigamma"} formulas from Nakagawa, et al. (2017)}
+\item{method}{use either the \code{"trigamma"}, \code{"lognormal"} or  \code{"delta"} formulas from Nakagawa, et al. (2017)}
 
 \item{lambda.method}{use either \code{"parametric"} or \code{"mean"} method to estimate the mean rate for count models}
 }

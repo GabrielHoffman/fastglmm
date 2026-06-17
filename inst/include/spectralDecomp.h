@@ -87,12 +87,10 @@ class spectralDecomp {
           break;
       }
 
-      // mat Z_recon = scaleRowsCols(U, 1 / sqrt(weights), sqrt(s)) * V.t();
-      // Z_recon.print("Z_recon:");
-
       if( sort ){
+        applySorting = true;
         // reorder by decreasing eigen-value
-        uvec idx = sort_index(s, "descend");
+        idx = sort_index(s, "descend");
         s = s(idx);
         U = U.cols(idx);
       }
@@ -114,12 +112,16 @@ class spectralDecomp {
       mat V_ret;
 
       switch( type ){
-        case GENERAL:
-          V_ret = V;
+        case GENERAL:          
+          V_ret = V;          
           break;
         case CATEGORICAL:      
           V_ret = eye<mat>(U.n_cols, U.n_cols);
           break;
+      }
+  
+      if( applySorting ){
+        V_ret = V_ret.cols(idx);
       }
 
       return V_ret;
@@ -135,6 +137,8 @@ class spectralDecomp {
     T Z, Zw;
     mat V;
     ZTYPE type;
+    bool applySorting = false;
+    uvec idx;
 };
 
 

@@ -70,14 +70,11 @@ The count data shows high overdispersion with $\theta = 0.2443$, where $\theta =
 Note that while 71\% of the 60k observations are zero, this is due to a low count rate rather than zero inflation.  This is supported by comparison with the zero inflation component using `glmmTMB::glmmTMB()` (p-value of zero-inflation intercept: 0.961), and consistent with other work on single cell transcriptomics  ([Jiang, et al., 2022](https://doi.org/10.1186/s13059-022-02601-5), [Sarkar and Stephens, 2021](https://doi.org/10.1038/s41588-021-00873-4), [Svensson, 2020](https://doi.org/10.1038/s41587-019-0379-5)).
 
 
-
-
-
 # Variance partitioning analysis
 ```{r varpart}
 varpart(fit)
 ```
-Variance partitioning analysis quantifies the contribution of each variable to the observed variance in PTPRG expression.  Alzheimer's disease status explains 1.3% of observed expression variation, variation across subjects explains 2.1%, with sex and age making a smaller contribution.  Measurement error  due to sampling a finite number of counts (i.e. `CountNoise`) explains 30.6% of the variance, and the remaining 65.9% of the variance is explained by the residuals.
+Variance partitioning analysis quantifies the contribution of each variable to the observed variance in PTPRG expression.  Alzheimer's disease status explains 4.8% of observed expression variation, variation across subjects explains 7.6%, with sex and age making a smaller contribution.  Measurement error  due to sampling a finite number of counts (i.e. `CountNoise`) explains 25.8% of the variance, and the remaining 61.4% of the variance is explained by the residuals.
 
 #### Session info
 <details>

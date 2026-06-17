@@ -1,4 +1,13 @@
 
+# fastglmm 0.4.9
+ - June 17, 2026
+ - new arguments to `varpart()`
+   - add `log_moments_nb()`
+
+# fastglmm 0.4.8
+ - June 3, 2026
+ - add "exact" method for `varpart()`
+
 # fastglmm 0.4.7
  - May 19, 2026
  - update count filtering 

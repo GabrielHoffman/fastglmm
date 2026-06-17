@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fastglmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getDistrVar</span><span class="op">(</span></span>
 <span>  <span class="va">fit</span>,</span>
 <span>  <span class="va">fit_null</span>,</span>
-<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"trigamma"</span>, <span class="st">"lognormal"</span><span class="op">)</span>,</span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"trigamma"</span>, <span class="st">"lognormal"</span>, <span class="st">"delta"</span><span class="op">)</span>,</span>
 <span>  lambda.method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"parametric"</span>, <span class="st">"mean"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -60,7 +60,7 @@
 
 
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
-<dd><p>use either the <code>"lognormal"</code> or <code>"trigamma"</code> formulas from Nakagawa, et al. (2017)</p></dd>
+<dd><p>use either the <code>"trigamma"</code>, <code>"lognormal"</code> or  <code>"delta"</code> formulas from Nakagawa, et al. (2017)</p></dd>
 
 
 <dt id="arg-lambda-method">lambda.method<a class="anchor" aria-label="anchor" href="#arg-lambda-method"></a></dt>

@@ -61,6 +61,7 @@ class fastglmm {
 	const vec residuals_pearson() const ; // Pearson
 	const vec fitted() const ;
 	const vec devianceResiduals() const;
+	const vec get_blup() const;
 
 	// extract results
   ModelFitGLMM get_result();
@@ -69,6 +70,7 @@ class fastglmm {
   fastlmm<T1,T2,T3> fit;
   vec y;
   mat X;
+  vec blup;
   vec weights, mu, eta, offset; 
 	spectralDecomp<T3> dcmp;
   string family;
@@ -82,6 +84,7 @@ class fastglmm {
   ModelDetail md;
 	shared_ptr<GLMFamily> fam;
 	bool isValid = true;
+	mat V;
 };
 
 template <typename T1, typename T2, typename T3> 
@@ -244,9 +247,12 @@ fastglmm<T1, T2, T3>::fastglmm(
 
 	eta_var = var(eta);
 
+	// save the BLUP from the fastlmm into the fastglmm object
+	// apply V to correct ordering
+	blup = this->dcmp.get_V() * fit.blup();
+
 	delete work;
 }
-
 
 
 template <typename T1, typename T2, typename T3> 
@@ -327,6 +333,9 @@ ModelFitGLMM fastglmm<T1, T2, T3>::get_result(){
 	mf.mu_mean = mu_mean;
 	mf.y_mean = mean(y);
 	mf.varFitted = eta_var;
+
+	// BLUP
+	mf.blup = blup;
 
   // QL dispersion based on Pearson residuals
   // sum((w*r^2)[w > 0]) / df.r

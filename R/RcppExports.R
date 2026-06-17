@@ -29,3 +29,19 @@
     .Call('_fastglmm_fastglmm_ms', PACKAGE = 'fastglmm', y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid)
 }
 
+log_moments_nb_mu <- function(mu, theta, c = 1.0, p_tail = 1e-4) {
+    .Call('_fastglmm_log_moments_nb_mu', PACKAGE = 'fastglmm', mu, theta, c, p_tail)
+}
+
+log_moments_nb_XB <- function(X, Beta, offset, theta, method, c = 1.0, p_tail = 1e-4, nthreads = 10L) {
+    .Call('_fastglmm_log_moments_nb_XB', PACKAGE = 'fastglmm', X, Beta, offset, theta, method, c, p_tail, nthreads)
+}
+
+log_moments_nb_BlupXBZ <- function(BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c = 1.0, p_tail = 1e-4, nthreads = 10L) {
+    .Call('_fastglmm_log_moments_nb_BlupXBZ', PACKAGE = 'fastglmm', BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c, p_tail, nthreads)
+}
+
+log_moments_nb_BlupXBZ_sp <- function(BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c = 1.0, p_tail = 1e-4, nthreads = 10L) {
+    .Call('_fastglmm_log_moments_nb_BlupXBZ_sp', PACKAGE = 'fastglmm', BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c, p_tail, nthreads)
+}
+

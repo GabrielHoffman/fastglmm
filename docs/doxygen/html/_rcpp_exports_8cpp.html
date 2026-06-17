@@ -154,6 +154,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a4c6ca9f54c0f0d76b3c896ca65e40c1c" id="r_a4c6ca9f54c0f0d76b3c896ca65e40c1c"><td class="memItemLeft">RcppExport SEXP&#160;</td><td class="memItemRight"><a class="el" href="#a4c6ca9f54c0f0d76b3c896ca65e40c1c">_fastglmm_fastglmm_mm</a> (SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP dcmpMethodSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP tol_etaSEXP, SEXP maxitSEXP, SEXP lambdaSEXP, SEXP nthreadsSEXP, SEXP doCoxReidSEXP)</td></tr>
 <tr class="memitem:a19cc3ed5950d6a98e2fdcb1e99b7c577" id="r_a19cc3ed5950d6a98e2fdcb1e99b7c577"><td class="memItemLeft">List&#160;</td><td class="memItemRight"><a class="el" href="#a19cc3ed5950d6a98e2fdcb1e99b7c577">fastglmm_ms</a> (const arma::vec &amp;y, const arma::mat &amp;X, const arma::sp_mat &amp;U, const arma::vec &amp;s, const arma::vec &amp;weights, const arma::vec &amp;offset, const std::string &amp;family, const std::string &amp;dcmpMethod, const double &amp;delta, const double &amp;left, const double &amp;right, const double &amp;tol, const double &amp;tol_eta, const int &amp;maxit, const double &amp;lambda, const int &amp;nthreads, const bool &amp;doCoxReid)</td></tr>
 <tr class="memitem:a0373105dc7902ef9be1a7ea16d3ca75e" id="r_a0373105dc7902ef9be1a7ea16d3ca75e"><td class="memItemLeft">RcppExport SEXP&#160;</td><td class="memItemRight"><a class="el" href="#a0373105dc7902ef9be1a7ea16d3ca75e">_fastglmm_fastglmm_ms</a> (SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP dcmpMethodSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP tol_etaSEXP, SEXP maxitSEXP, SEXP lambdaSEXP, SEXP nthreadsSEXP, SEXP doCoxReidSEXP)</td></tr>
+<tr class="memitem:a1da55dccfda0cd9659b86e9a3b16aa21" id="r_a1da55dccfda0cd9659b86e9a3b16aa21"><td class="memItemLeft">DataFrame&#160;</td><td class="memItemRight"><a class="el" href="#a1da55dccfda0cd9659b86e9a3b16aa21">log_moments_nb_mu</a> (const vec &amp;mu, const double &amp;theta, const double &amp;c, const double &amp;p_tail)</td></tr>
+<tr class="memitem:a3dd98d323cd613aa0c8bcfe10224533b" id="r_a3dd98d323cd613aa0c8bcfe10224533b"><td class="memItemLeft">RcppExport SEXP&#160;</td><td class="memItemRight"><a class="el" href="#a3dd98d323cd613aa0c8bcfe10224533b">_fastglmm_log_moments_nb_mu</a> (SEXP muSEXP, SEXP thetaSEXP, SEXP cSEXP, SEXP p_tailSEXP)</td></tr>
+<tr class="memitem:a492584375ebee622eca9069e258e029e" id="r_a492584375ebee622eca9069e258e029e"><td class="memItemLeft">DataFrame&#160;</td><td class="memItemRight"><a class="el" href="#a492584375ebee622eca9069e258e029e">log_moments_nb_XB</a> (const mat &amp;X, const mat &amp;Beta, const vec &amp;offset, const vec &amp;theta, const string &amp;method, const double &amp;c, const double &amp;p_tail, const int &amp;nthreads)</td></tr>
+<tr class="memitem:a22fb070d18f713cf4541a314fae2f50f" id="r_a22fb070d18f713cf4541a314fae2f50f"><td class="memItemLeft">RcppExport SEXP&#160;</td><td class="memItemRight"><a class="el" href="#a22fb070d18f713cf4541a314fae2f50f">_fastglmm_log_moments_nb_XB</a> (SEXP XSEXP, SEXP BetaSEXP, SEXP offsetSEXP, SEXP thetaSEXP, SEXP methodSEXP, SEXP cSEXP, SEXP p_tailSEXP, SEXP nthreadsSEXP)</td></tr>
+<tr class="memitem:ac71087134b0e3790a7e8321ee6dd3e7f" id="r_ac71087134b0e3790a7e8321ee6dd3e7f"><td class="memItemLeft">DataFrame&#160;</td><td class="memItemRight"><a class="el" href="#ac71087134b0e3790a7e8321ee6dd3e7f">log_moments_nb_BlupXBZ</a> (const mat &amp;BLUP, const mat &amp;X, const mat &amp;Beta, const mat &amp;Z, const vec &amp;weights, const vec &amp;offset, const vec &amp;theta, const vec &amp;delta, const string &amp;method, const string &amp;dcmpMethod, const double &amp;c, const double &amp;p_tail, const int &amp;nthreads)</td></tr>
+<tr class="memitem:a4a0d1918acad2d07d852fc31c1f32ef9" id="r_a4a0d1918acad2d07d852fc31c1f32ef9"><td class="memItemLeft">RcppExport SEXP&#160;</td><td class="memItemRight"><a class="el" href="#a4a0d1918acad2d07d852fc31c1f32ef9">_fastglmm_log_moments_nb_BlupXBZ</a> (SEXP BLUPSEXP, SEXP XSEXP, SEXP BetaSEXP, SEXP ZSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP thetaSEXP, SEXP deltaSEXP, SEXP methodSEXP, SEXP dcmpMethodSEXP, SEXP cSEXP, SEXP p_tailSEXP, SEXP nthreadsSEXP)</td></tr>
+<tr class="memitem:a6be0b2bfdc454c27d2384e0a487f2e80" id="r_a6be0b2bfdc454c27d2384e0a487f2e80"><td class="memItemLeft">DataFrame&#160;</td><td class="memItemRight"><a class="el" href="#a6be0b2bfdc454c27d2384e0a487f2e80">log_moments_nb_BlupXBZ_sp</a> (const mat &amp;BLUP, const mat &amp;X, const mat &amp;Beta, const sp_mat &amp;Z, const vec &amp;weights, const vec &amp;offset, const vec &amp;theta, const vec &amp;delta, const string &amp;method, const string &amp;dcmpMethod, const double &amp;c, const double &amp;p_tail, const int &amp;nthreads)</td></tr>
+<tr class="memitem:a4a684dc745f39610100075fee7dcdd45" id="r_a4a684dc745f39610100075fee7dcdd45"><td class="memItemLeft">RcppExport SEXP&#160;</td><td class="memItemRight"><a class="el" href="#a4a684dc745f39610100075fee7dcdd45">_fastglmm_log_moments_nb_BlupXBZ_sp</a> (SEXP BLUPSEXP, SEXP XSEXP, SEXP BetaSEXP, SEXP ZSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP thetaSEXP, SEXP deltaSEXP, SEXP methodSEXP, SEXP dcmpMethodSEXP, SEXP cSEXP, SEXP p_tailSEXP, SEXP nthreadsSEXP)</td></tr>
 <tr class="memitem:a95ff4b825d1b8f017361e3556e0d57bc" id="r_a95ff4b825d1b8f017361e3556e0d57bc"><td class="memItemLeft">RcppExport void&#160;</td><td class="memItemRight"><a class="el" href="#a95ff4b825d1b8f017361e3556e0d57bc">R_init_fastglmm</a> (DllInfo *dll)</td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
@@ -647,6 +655,240 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>REMLSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4a0d1918acad2d07d852fc31c1f32ef9" name="a4a0d1918acad2d07d852fc31c1f32ef9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a0d1918acad2d07d852fc31c1f32ef9">&#9670;&#160;</a></span>_fastglmm_log_moments_nb_BlupXBZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _fastglmm_log_moments_nb_BlupXBZ </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>BLUPSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>XSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>BetaSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>ZSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>weightsSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>offsetSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>thetaSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>deltaSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>methodSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>dcmpMethodSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>cSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>p_tailSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>nthreadsSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4a684dc745f39610100075fee7dcdd45" name="a4a684dc745f39610100075fee7dcdd45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a684dc745f39610100075fee7dcdd45">&#9670;&#160;</a></span>_fastglmm_log_moments_nb_BlupXBZ_sp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _fastglmm_log_moments_nb_BlupXBZ_sp </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>BLUPSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>XSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>BetaSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>ZSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>weightsSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>offsetSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>thetaSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>deltaSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>methodSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>dcmpMethodSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>cSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>p_tailSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>nthreadsSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3dd98d323cd613aa0c8bcfe10224533b" name="a3dd98d323cd613aa0c8bcfe10224533b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dd98d323cd613aa0c8bcfe10224533b">&#9670;&#160;</a></span>_fastglmm_log_moments_nb_mu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _fastglmm_log_moments_nb_mu </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>muSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>thetaSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>cSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>p_tailSEXP</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a22fb070d18f713cf4541a314fae2f50f" name="a22fb070d18f713cf4541a314fae2f50f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22fb070d18f713cf4541a314fae2f50f">&#9670;&#160;</a></span>_fastglmm_log_moments_nb_XB()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RcppExport SEXP _fastglmm_log_moments_nb_XB </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>XSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>BetaSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>offsetSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>thetaSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>methodSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>cSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>p_tailSEXP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>nthreadsSEXP</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1189,6 +1431,240 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>REML</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac71087134b0e3790a7e8321ee6dd3e7f" name="ac71087134b0e3790a7e8321ee6dd3e7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac71087134b0e3790a7e8321ee6dd3e7f">&#9670;&#160;</a></span>log_moments_nb_BlupXBZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DataFrame log_moments_nb_BlupXBZ </td>
+          <td>(</td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>BLUP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>Beta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>Z</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>weights</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>theta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>delta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>method</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>dcmpMethod</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>c</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>p_tail</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>nthreads</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6be0b2bfdc454c27d2384e0a487f2e80" name="a6be0b2bfdc454c27d2384e0a487f2e80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6be0b2bfdc454c27d2384e0a487f2e80">&#9670;&#160;</a></span>log_moments_nb_BlupXBZ_sp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DataFrame log_moments_nb_BlupXBZ_sp </td>
+          <td>(</td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>BLUP</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>Beta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sp_mat &amp;</td>          <td class="paramname"><span class="paramname"><em>Z</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>weights</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>theta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>delta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>method</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>dcmpMethod</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>c</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>p_tail</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>nthreads</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1da55dccfda0cd9659b86e9a3b16aa21" name="a1da55dccfda0cd9659b86e9a3b16aa21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1da55dccfda0cd9659b86e9a3b16aa21">&#9670;&#160;</a></span>log_moments_nb_mu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DataFrame log_moments_nb_mu </td>
+          <td>(</td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>mu</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>theta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>c</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>p_tail</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a492584375ebee622eca9069e258e029e" name="a492584375ebee622eca9069e258e029e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a492584375ebee622eca9069e258e029e">&#9670;&#160;</a></span>log_moments_nb_XB()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DataFrame log_moments_nb_XB </td>
+          <td>(</td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>Beta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>theta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>method</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>c</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>p_tail</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>nthreads</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -12,61 +12,70 @@
 \usage{
 varpart(
   fit,
-  ...,
-  distr.method = c("trigamma", "lognormal"),
-  lambda.method = c("parametric", "mean")
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 1,
+  p.tail = 1e-04,
+  ...
 )
 
 \S4method{varpart}{fastlmm}(
   fit,
-  ...,
-  distr.method = c("trigamma", "lognormal"),
-  lambda.method = c("parametric", "mean")
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 1,
+  p.tail = 1e-04,
+  ...
 )
 
 \S4method{varpart}{fastglmm}(
   fit,
-  ...,
-  distr.method = c("trigamma", "lognormal"),
-  lambda.method = c("parametric", "mean")
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 1,
+  p.tail = 1e-04,
+  ...
 )
 
 \S4method{varpart}{glm}(
   fit,
-  ...,
-  distr.method = c("trigamma", "lognormal"),
-  lambda.method = c("parametric", "mean")
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 1,
+  p.tail = 1e-04,
+  ...
 )
 
 \S4method{varpart}{negbin}(
   fit,
-  ...,
-  distr.method = c("trigamma", "lognormal"),
-  lambda.method = c("parametric", "mean")
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 1,
+  p.tail = 1e-04,
+  ...
 )
 
 \S4method{varpart}{lm}(
   fit,
-  ...,
-  distr.method = c("trigamma", "lognormal"),
-  lambda.method = c("parametric", "mean")
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 1,
+  p.tail = 1e-04,
+  ...
 )
 
 \S4method{varpart}{merMod}(
   fit,
-  ...,
-  distr.method = c("trigamma", "lognormal"),
-  lambda.method = c("parametric", "mean")
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 1,
+  p.tail = 1e-04,
+  ...
 )
 }
 \arguments{
-\item{fit}{model fit}
+\item{fit}{regression model fit}
 
-\item{...}{other arguments,}
+\item{method}{select method for count models:  \code{"exact"} or \code{"approximate"} from the current work, or \code{"trigamma"}, \code{"lognormal"} or \code{"delta"} formulas from Nakagawa, et al. (2017)}
 
-\item{distr.method}{use either the \code{"lognormal"} or \code{"trigamma"} formulas from Nakagawa, et al. (2017)}
+\item{pseudocount}{pseudocount used for \code{"exact"} and \code{"approximate"} methods for count models}
 
-\item{lambda.method}{use either \code{"parametric"} or \code{"mean"} method to estimate the mean rate for count models}
+\item{p.tail}{probability threashold for evaluating expectations for \code{"exact"} methods for count models}
+
+\item{...}{other arguments, passed to \code{vpOther()} or \code{vpCounts()}}
 }
 \description{
 Compute fraction of variance attributable to each variable in regression model.  Also interpretable as the intra-class correlation after correcting for all other variables in the model.

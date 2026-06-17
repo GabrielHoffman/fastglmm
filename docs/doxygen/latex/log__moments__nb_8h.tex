@@ -1,0 +1,48 @@
+\doxysection{inst/\+include/\+log\+\_\+moments\+\_\+nb.h File Reference}
+\hypertarget{log__moments__nb_8h}{}\label{log__moments__nb_8h}\index{inst/include/log\_moments\_nb.h@{inst/include/log\_moments\_nb.h}}
+{\ttfamily \+\#include $<$armadillo$>$}\newline
+{\ttfamily \+\#include $<$tbb/\+tbb.\+h$>$}\newline
+{\ttfamily \+\#include $<$Rcpp.\+h$>$}\newline
+{\ttfamily \+\#include $<$utility$>$}\newline
+{\ttfamily \+\#include $<$distributions.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+vec \doxymbox{\hyperlink{log__moments__nb_8h_ac0a68e9a719eaa13d15b9f8658579a70}{generate\+\_\+seq}} (const int \&qmax)
+\item 
+std::\+pair$<$ double, double $>$ \doxymbox{\hyperlink{log__moments__nb_8h_a799e2c30a21c2b66abbf0f08a6406db5}{\+\_\+log\+\_\+moments\+\_\+nb\+\_\+mu}} (const vec \&mu, const double \&theta, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4)
+\item 
+tuple$<$ vec, vec, vec $>$ \doxymbox{\hyperlink{log__moments__nb_8h_af66e2ac4e795af3cc7d8bc51cd439c2f}{\+\_\+log\+\_\+moments\+\_\+nb\+\_\+\+XB}} (const mat \&X, const mat \&Beta, const vec \&offset, const vec \&theta, const string \&method, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4, const int \&nthreads=10)
+\item 
+{\footnotesize template$<$typename T$>$ }\\tuple$<$ vec, vec, vec $>$ \doxymbox{\hyperlink{log__moments__nb_8h_ac77c370cbdd46efca19ad6ff689311f1}{\+\_\+log\+\_\+moments\+\_\+nb\+\_\+\+Blup\+XBZ}} (const mat \&BLUP, const mat \&X, const mat \&Beta, const T \&Z, const vec \&weights, const vec \&offset, const vec \&theta, const vec \&delta, const string \&method, const string \&dcmp\+Method, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4, const int \&nthreads=10)
+\end{DoxyCompactItemize}
+
+
+\label{log__moments__nb_8h_doc-func-members}
+\Hypertarget{log__moments__nb_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{log__moments__nb_8h_ac77c370cbdd46efca19ad6ff689311f1}\index{log\_moments\_nb.h@{log\_moments\_nb.h}!\_log\_moments\_nb\_BlupXBZ@{\_log\_moments\_nb\_BlupXBZ}}
+\index{\_log\_moments\_nb\_BlupXBZ@{\_log\_moments\_nb\_BlupXBZ}!log\_moments\_nb.h@{log\_moments\_nb.h}}
+\doxysubsubsection{\texorpdfstring{\_log\_moments\_nb\_BlupXBZ()}{\_log\_moments\_nb\_BlupXBZ()}}
+{\footnotesize\ttfamily \label{log__moments__nb_8h_ac77c370cbdd46efca19ad6ff689311f1} 
+template$<$typename T$>$ \\
+tuple$<$ vec, vec, vec $>$ \+\_\+log\+\_\+moments\+\_\+nb\+\_\+\+Blup\+XBZ (\begin{DoxyParamCaption}\item[{const mat \&}]{BLUP}{, }\item[{const mat \&}]{X}{, }\item[{const mat \&}]{Beta}{, }\item[{const T \&}]{Z}{, }\item[{const vec \&}]{weights}{, }\item[{const vec \&}]{offset}{, }\item[{const vec \&}]{theta}{, }\item[{const vec \&}]{delta}{, }\item[{const string \&}]{method}{, }\item[{const string \&}]{dcmp\+Method}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
+
+\Hypertarget{log__moments__nb_8h_a799e2c30a21c2b66abbf0f08a6406db5}\index{log\_moments\_nb.h@{log\_moments\_nb.h}!\_log\_moments\_nb\_mu@{\_log\_moments\_nb\_mu}}
+\index{\_log\_moments\_nb\_mu@{\_log\_moments\_nb\_mu}!log\_moments\_nb.h@{log\_moments\_nb.h}}
+\doxysubsubsection{\texorpdfstring{\_log\_moments\_nb\_mu()}{\_log\_moments\_nb\_mu()}}
+{\footnotesize\ttfamily \label{log__moments__nb_8h_a799e2c30a21c2b66abbf0f08a6406db5} 
+std::\+pair$<$ double, double $>$ \+\_\+log\+\_\+moments\+\_\+nb\+\_\+mu (\begin{DoxyParamCaption}\item[{const vec \&}]{mu}{, }\item[{const double \&}]{theta}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}}\end{DoxyParamCaption})}
+
+\Hypertarget{log__moments__nb_8h_af66e2ac4e795af3cc7d8bc51cd439c2f}\index{log\_moments\_nb.h@{log\_moments\_nb.h}!\_log\_moments\_nb\_XB@{\_log\_moments\_nb\_XB}}
+\index{\_log\_moments\_nb\_XB@{\_log\_moments\_nb\_XB}!log\_moments\_nb.h@{log\_moments\_nb.h}}
+\doxysubsubsection{\texorpdfstring{\_log\_moments\_nb\_XB()}{\_log\_moments\_nb\_XB()}}
+{\footnotesize\ttfamily \label{log__moments__nb_8h_af66e2ac4e795af3cc7d8bc51cd439c2f} 
+tuple$<$ vec, vec, vec $>$ \+\_\+log\+\_\+moments\+\_\+nb\+\_\+\+XB (\begin{DoxyParamCaption}\item[{const mat \&}]{X}{, }\item[{const mat \&}]{Beta}{, }\item[{const vec \&}]{offset}{, }\item[{const vec \&}]{theta}{, }\item[{const string \&}]{method}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
+
+\Hypertarget{log__moments__nb_8h_ac0a68e9a719eaa13d15b9f8658579a70}\index{log\_moments\_nb.h@{log\_moments\_nb.h}!generate\_seq@{generate\_seq}}
+\index{generate\_seq@{generate\_seq}!log\_moments\_nb.h@{log\_moments\_nb.h}}
+\doxysubsubsection{\texorpdfstring{generate\_seq()}{generate\_seq()}}
+{\footnotesize\ttfamily \label{log__moments__nb_8h_ac0a68e9a719eaa13d15b9f8658579a70} 
+vec generate\+\_\+seq (\begin{DoxyParamCaption}\item[{const int \&}]{qmax}{}\end{DoxyParamCaption})}
+

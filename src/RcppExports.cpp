@@ -175,6 +175,84 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// log_moments_nb_mu
+DataFrame log_moments_nb_mu(const vec& mu, const double& theta, const double& c, const double& p_tail);
+RcppExport SEXP _fastglmm_log_moments_nb_mu(SEXP muSEXP, SEXP thetaSEXP, SEXP cSEXP, SEXP p_tailSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const vec& >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< const double& >::type theta(thetaSEXP);
+    Rcpp::traits::input_parameter< const double& >::type c(cSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_tail(p_tailSEXP);
+    rcpp_result_gen = Rcpp::wrap(log_moments_nb_mu(mu, theta, c, p_tail));
+    return rcpp_result_gen;
+END_RCPP
+}
+// log_moments_nb_XB
+DataFrame log_moments_nb_XB(const mat& X, const mat& Beta, const vec& offset, const vec& theta, const string& method, const double& c, const double& p_tail, const int& nthreads);
+RcppExport SEXP _fastglmm_log_moments_nb_XB(SEXP XSEXP, SEXP BetaSEXP, SEXP offsetSEXP, SEXP thetaSEXP, SEXP methodSEXP, SEXP cSEXP, SEXP p_tailSEXP, SEXP nthreadsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const mat& >::type Beta(BetaSEXP);
+    Rcpp::traits::input_parameter< const vec& >::type offset(offsetSEXP);
+    Rcpp::traits::input_parameter< const vec& >::type theta(thetaSEXP);
+    Rcpp::traits::input_parameter< const string& >::type method(methodSEXP);
+    Rcpp::traits::input_parameter< const double& >::type c(cSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_tail(p_tailSEXP);
+    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(log_moments_nb_XB(X, Beta, offset, theta, method, c, p_tail, nthreads));
+    return rcpp_result_gen;
+END_RCPP
+}
+// log_moments_nb_BlupXBZ
+DataFrame log_moments_nb_BlupXBZ(const mat& BLUP, const mat& X, const mat& Beta, const mat& Z, const vec& weights, const vec& offset, const vec& theta, const vec& delta, const string& method, const string& dcmpMethod, const double& c, const double& p_tail, const int& nthreads);
+RcppExport SEXP _fastglmm_log_moments_nb_BlupXBZ(SEXP BLUPSEXP, SEXP XSEXP, SEXP BetaSEXP, SEXP ZSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP thetaSEXP, SEXP deltaSEXP, SEXP methodSEXP, SEXP dcmpMethodSEXP, SEXP cSEXP, SEXP p_tailSEXP, SEXP nthreadsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const mat& >::type BLUP(BLUPSEXP);
+    Rcpp::traits::input_parameter< const mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const mat& >::type Beta(BetaSEXP);
+    Rcpp::traits::input_parameter< const mat& >::type Z(ZSEXP);
+    Rcpp::traits::input_parameter< const vec& >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< const vec& >::type offset(offsetSEXP);
+    Rcpp::traits::input_parameter< const vec& >::type theta(thetaSEXP);
+    Rcpp::traits::input_parameter< const vec& >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< const string& >::type method(methodSEXP);
+    Rcpp::traits::input_parameter< const string& >::type dcmpMethod(dcmpMethodSEXP);
+    Rcpp::traits::input_parameter< const double& >::type c(cSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_tail(p_tailSEXP);
+    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(log_moments_nb_BlupXBZ(BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c, p_tail, nthreads));
+    return rcpp_result_gen;
+END_RCPP
+}
+// log_moments_nb_BlupXBZ_sp
+DataFrame log_moments_nb_BlupXBZ_sp(const mat& BLUP, const mat& X, const mat& Beta, const sp_mat& Z, const vec& weights, const vec& offset, const vec& theta, const vec& delta, const string& method, const string& dcmpMethod, const double& c, const double& p_tail, const int& nthreads);
+RcppExport SEXP _fastglmm_log_moments_nb_BlupXBZ_sp(SEXP BLUPSEXP, SEXP XSEXP, SEXP BetaSEXP, SEXP ZSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP thetaSEXP, SEXP deltaSEXP, SEXP methodSEXP, SEXP dcmpMethodSEXP, SEXP cSEXP, SEXP p_tailSEXP, SEXP nthreadsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const mat& >::type BLUP(BLUPSEXP);
+    Rcpp::traits::input_parameter< const mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const mat& >::type Beta(BetaSEXP);
+    Rcpp::traits::input_parameter< const sp_mat& >::type Z(ZSEXP);
+    Rcpp::traits::input_parameter< const vec& >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< const vec& >::type offset(offsetSEXP);
+    Rcpp::traits::input_parameter< const vec& >::type theta(thetaSEXP);
+    Rcpp::traits::input_parameter< const vec& >::type delta(deltaSEXP);
+    Rcpp::traits::input_parameter< const string& >::type method(methodSEXP);
+    Rcpp::traits::input_parameter< const string& >::type dcmpMethod(dcmpMethodSEXP);
+    Rcpp::traits::input_parameter< const double& >::type c(cSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_tail(p_tailSEXP);
+    Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(log_moments_nb_BlupXBZ_sp(BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c, p_tail, nthreads));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_fastglmm_fastlmm_mm", (DL_FUNC) &_fastglmm_fastlmm_mm, 13},
@@ -184,6 +262,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_fastglmm_nb_theta", (DL_FUNC) &_fastglmm_nb_theta, 7},
     {"_fastglmm_fastglmm_mm", (DL_FUNC) &_fastglmm_fastglmm_mm, 17},
     {"_fastglmm_fastglmm_ms", (DL_FUNC) &_fastglmm_fastglmm_ms, 17},
+    {"_fastglmm_log_moments_nb_mu", (DL_FUNC) &_fastglmm_log_moments_nb_mu, 4},
+    {"_fastglmm_log_moments_nb_XB", (DL_FUNC) &_fastglmm_log_moments_nb_XB, 8},
+    {"_fastglmm_log_moments_nb_BlupXBZ", (DL_FUNC) &_fastglmm_log_moments_nb_BlupXBZ, 13},
+    {"_fastglmm_log_moments_nb_BlupXBZ_sp", (DL_FUNC) &_fastglmm_log_moments_nb_BlupXBZ_sp, 13},
     {NULL, NULL, 0}
 };
 

@@ -382,6 +382,7 @@ class ModelFitGLMM : public ModelFitLMM {
     } 
   }
 
+  vec blup;
   string family = "";
   double theta = datum::nan;
   double mu_mean = datum::nan;

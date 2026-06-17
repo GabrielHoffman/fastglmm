@@ -9,57 +9,64 @@ correcting for all other variables in the model.
 ``` r
 varpart(
   fit,
-  ...,
-  distr.method = c("trigamma", "lognormal"),
-  lambda.method = c("parametric", "mean")
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 1,
+  p.tail = 1e-04,
+  ...
 )
 
 # S4 method for class 'fastlmm'
 varpart(
   fit,
-  ...,
-  distr.method = c("trigamma", "lognormal"),
-  lambda.method = c("parametric", "mean")
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 1,
+  p.tail = 1e-04,
+  ...
 )
 
 # S4 method for class 'fastglmm'
 varpart(
   fit,
-  ...,
-  distr.method = c("trigamma", "lognormal"),
-  lambda.method = c("parametric", "mean")
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 1,
+  p.tail = 1e-04,
+  ...
 )
 
 # S4 method for class 'glm'
 varpart(
   fit,
-  ...,
-  distr.method = c("trigamma", "lognormal"),
-  lambda.method = c("parametric", "mean")
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 1,
+  p.tail = 1e-04,
+  ...
 )
 
 # S4 method for class 'negbin'
 varpart(
   fit,
-  ...,
-  distr.method = c("trigamma", "lognormal"),
-  lambda.method = c("parametric", "mean")
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 1,
+  p.tail = 1e-04,
+  ...
 )
 
 # S4 method for class 'lm'
 varpart(
   fit,
-  ...,
-  distr.method = c("trigamma", "lognormal"),
-  lambda.method = c("parametric", "mean")
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 1,
+  p.tail = 1e-04,
+  ...
 )
 
 # S4 method for class 'merMod'
 varpart(
   fit,
-  ...,
-  distr.method = c("trigamma", "lognormal"),
-  lambda.method = c("parametric", "mean")
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 1,
+  p.tail = 1e-04,
+  ...
 )
 ```
 
@@ -67,21 +74,27 @@ varpart(
 
 - fit:
 
-  model fit
+  regression model fit
+
+- method:
+
+  select method for count models: `"exact"` or `"approximate"` from the
+  current work, or `"trigamma"`, `"lognormal"` or `"delta"` formulas
+  from Nakagawa, et al. (2017)
+
+- pseudocount:
+
+  pseudocount used for `"exact"` and `"approximate"` methods for count
+  models
+
+- p.tail:
+
+  probability threashold for evaluating expectations for `"exact"`
+  methods for count models
 
 - ...:
 
-  other arguments,
-
-- distr.method:
-
-  use either the `"lognormal"` or `"trigamma"` formulas from Nakagawa,
-  et al. (2017)
-
-- lambda.method:
-
-  use either `"parametric"` or `"mean"` method to estimate the mean rate
-  for count models
+  other arguments, passed to `vpOther()` or `vpCounts()`
 
 ## Details
 

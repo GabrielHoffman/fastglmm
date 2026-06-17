@@ -149,7 +149,7 @@ class fastlmm {
     vec wsqrt;
     T1 Y;
     T2 X;
-    T3 U;
+    T3 U, V;
     vec s, weights;
     T1 Yu;
     T2 Xu;
@@ -191,6 +191,7 @@ fastlmm<T1, T2, T3>::fastlmm(
   this->dcmp.reweight(weights);
   U = this->dcmp.get_U();
   s = this->dcmp.get_s();
+  V = this->dcmp.get_V();
 
   n_active = accu(weights != 0.0);
   Yu = U.t() * Y;
@@ -227,6 +228,7 @@ fastlmm<T1, T2, T3>::fastlmm(
   this->dcmp.reweight(weights);
   U = this->dcmp.get_U();
   s = this->dcmp.get_s();
+  V = this->dcmp.get_V();
 
   n_active = accu(weights != 0.0);
   Yu = Yu_;
@@ -262,6 +264,7 @@ fastlmm<T1, T2, T3>::fastlmm(
   this->dcmp.reweight(weights);
   U = this->dcmp.get_U();
   s = this->dcmp.get_s();
+  V = this->dcmp.get_V();
 
   n_active = accu(weights != 0.0);
   Yu = Yu_;
@@ -288,6 +291,7 @@ template <typename T1, typename T2, typename T3>
   this->dcmp.reweight(weights);
   U = this->dcmp.get_U();
   s = this->dcmp.get_s();
+  V = this->dcmp.get_V();
 
   Xu = U.t() * X;
   Gamma_XX = X.t() * X - Xu.t() * Xu;

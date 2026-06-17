@@ -74,61 +74,65 @@
 \DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00088\ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00089\ }
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \textcolor{comment}{//\ mat\ Z\_recon\ =\ scaleRowsCols(U,\ 1\ /\ sqrt(weights),\ sqrt(s))\ *\ V.t();}}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \textcolor{comment}{//\ Z\_recon.print("{}Z\_recon:"{});}}
-\DoxyCodeLine{00092\ }
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ sort\ )\{}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reorder\ by\ decreasing\ eigen-\/value}}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ uvec\ idx\ =\ sort\_index(\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}},\ \textcolor{stringliteral}{"{}descend"{}});}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}}\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}}(idx);}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}.cols(idx);}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00099\ \ \ \ \ \}}
-\DoxyCodeLine{00100\ }
-\DoxyCodeLine{00102\ \ \ \ \ T\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_acc68b87ba87067a12e06433c0a3aa26d}{get\_U}}()\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}};}
-\DoxyCodeLine{00104\ \ \ \ \ \}}
-\DoxyCodeLine{00105\ }
-\DoxyCodeLine{00107\ \ \ \ \ vec\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aa711e4e643496c31fb3678303c5817b0}{get\_s}}()\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}};}
-\DoxyCodeLine{00109\ \ \ \ \ \}}
-\DoxyCodeLine{00110\ }
-\DoxyCodeLine{00112\ \ \ \ \ mat\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a9fa49c05757ba360f10241db6ab1ebf5}{get\_V}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ sort\ )\{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_afc4996a7feb1bb46a33b33ab2232fd70}{applySorting}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reorder\ by\ decreasing\ eigen-\/value}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a32a1dd4bd8a08f42bc85a9bcd19b6a55}{idx}}\ =\ sort\_index(\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}},\ \textcolor{stringliteral}{"{}descend"{}});}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}}\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}}(\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a32a1dd4bd8a08f42bc85a9bcd19b6a55}{idx}});}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}.cols(\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a32a1dd4bd8a08f42bc85a9bcd19b6a55}{idx}});}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00100\ \ \ \ \ T\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_acc68b87ba87067a12e06433c0a3aa26d}{get\_U}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}};}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00105\ \ \ \ \ vec\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aa711e4e643496c31fb3678303c5817b0}{get\_s}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}};}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00110\ \ \ \ \ mat\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a9fa49c05757ba360f10241db6ab1ebf5}{get\_V}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ mat\ V\_ret;}
 \DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ \ \ \ \ \ \ mat\ V\_ret;}
-\DoxyCodeLine{00115\ }
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a02393ff6627856c3ee3627862ea69eb3}{type}}\ )\{}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14a4e9ba2711b6b58af3be78b16012aee64}{GENERAL}}:}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ V\_ret\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aed9d121652e56143c3791e83adaa1369}{V}};}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14a46ea8901c2d62c4681cea6fb50d54e6c}{CATEGORICAL}}:\ \ \ \ \ \ }
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ V\_ret\ =\ eye<mat>(\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}.n\_cols,\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}.n\_cols);}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00124\ }
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ V\_ret;}
-\DoxyCodeLine{00126\ \ \ \ \ \}}
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \ \ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14}{ZTYPE}}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aa969a05975c0d9a380131d4895140d9d}{get\_type}}()\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a02393ff6627856c3ee3627862ea69eb3}{type}};}
-\DoxyCodeLine{00130\ \ \ \ \ \}}
-\DoxyCodeLine{00131\ }
-\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{protected}:}
-\DoxyCodeLine{00133\ \ \ \ \ T\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}};}
-\DoxyCodeLine{00134\ \ \ \ \ vec\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}};}
-\DoxyCodeLine{00135\ \ \ \ \ T\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}},\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a6f2bdd0d1342ee6c0f43410f3b164c34}{Zw}};}
-\DoxyCodeLine{00136\ \ \ \ \ mat\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aed9d121652e56143c3791e83adaa1369}{V}};}
-\DoxyCodeLine{00137\ \ \ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14}{ZTYPE}}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a02393ff6627856c3ee3627862ea69eb3}{type}};}
-\DoxyCodeLine{00138\ \};}
-\DoxyCodeLine{00139\ }
-\DoxyCodeLine{00140\ }
-\DoxyCodeLine{00141\ }
-\DoxyCodeLine{00142\ }
-\DoxyCodeLine{00143\ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a02393ff6627856c3ee3627862ea69eb3}{type}}\ )\{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14a4e9ba2711b6b58af3be78b16012aee64}{GENERAL}}:\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ V\_ret\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aed9d121652e56143c3791e83adaa1369}{V}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14a46ea8901c2d62c4681cea6fb50d54e6c}{CATEGORICAL}}:\ \ \ \ \ \ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ V\_ret\ =\ eye<mat>(\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}.n\_cols,\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}}.n\_cols);}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00122\ \ \ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_afc4996a7feb1bb46a33b33ab2232fd70}{applySorting}}\ )\{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ V\_ret\ =\ V\_ret.cols(\doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a32a1dd4bd8a08f42bc85a9bcd19b6a55}{idx}});}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ V\_ret;}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14}{ZTYPE}}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aa969a05975c0d9a380131d4895140d9d}{get\_type}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a02393ff6627856c3ee3627862ea69eb3}{type}};}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00135\ \ \ \ \ T\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab54ffa9c8066deb233d5d19fb986e529}{U}};}
+\DoxyCodeLine{00136\ \ \ \ \ vec\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_ab73460eee8c4932254dc82c56e674dcf}{s}};}
+\DoxyCodeLine{00137\ \ \ \ \ T\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a797bc1c94d2ecdd5ee44dfc8da49aa09}{Z}},\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a6f2bdd0d1342ee6c0f43410f3b164c34}{Zw}};}
+\DoxyCodeLine{00138\ \ \ \ \ mat\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_aed9d121652e56143c3791e83adaa1369}{V}};}
+\DoxyCodeLine{00139\ \ \ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_a2ecab82e2cb1387aa8d81e200b406a14}{ZTYPE}}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a02393ff6627856c3ee3627862ea69eb3}{type}};}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_afc4996a7feb1bb46a33b33ab2232fd70}{applySorting}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00141\ \ \ \ \ uvec\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp_a32a1dd4bd8a08f42bc85a9bcd19b6a55}{idx}};}
+\DoxyCodeLine{00142\ \};}
+\DoxyCodeLine{00143\ }
 \DoxyCodeLine{00144\ }
 \DoxyCodeLine{00145\ }
 \DoxyCodeLine{00146\ }
-\DoxyCodeLine{00147\ }
-\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00147\ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

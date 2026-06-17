@@ -8,7 +8,7 @@ Compute distributional variance from the model fit
 getDistrVar(
   fit,
   fit_null,
-  method = c("trigamma", "lognormal"),
+  method = c("trigamma", "lognormal", "delta"),
   lambda.method = c("parametric", "mean")
 )
 ```
@@ -21,8 +21,8 @@ getDistrVar(
 
 - method:
 
-  use either the `"lognormal"` or `"trigamma"` formulas from Nakagawa,
-  et al. (2017)
+  use either the `"trigamma"`, `"lognormal"` or `"delta"` formulas from
+  Nakagawa, et al. (2017)
 
 - lambda.method:
 

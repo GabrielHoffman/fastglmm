@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['fastglmm_2eh_0',['fastglmm.h',['../fastglmm_8h.html',1,'']]],
-  ['fastglmm_5ffit_2eh_1',['fastglmm_fit.h',['../fastglmm__fit_8h.html',1,'']]],
-  ['fastlmm_5ffit_2eh_2',['fastlmm_fit.h',['../fastlmm__fit_8h.html',1,'']]]
+  ['export_2ecpp_0',['export.cpp',['../export_8cpp.html',1,'']]],
+  ['exporttor_5ffastlmm_2eh_1',['exportToR_fastlmm.h',['../export_to_r__fastlmm_8h.html',1,'']]]
 ];

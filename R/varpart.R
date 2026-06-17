@@ -6,7 +6,7 @@
 #' Compute distributional variance from the model fit
 #' 
 #' @param fit model fit
-#' @param method use either the \code{"lognormal"} or \code{"trigamma"} formulas from Nakagawa, et al. (2017)
+#' @param method use either the \code{"trigamma"}, \code{"lognormal"} or  \code{"delta"} formulas from Nakagawa, et al. (2017)
 #' @param lambda.method use either \code{"parametric"} or \code{"mean"} method to estimate the mean rate for count models
 #'
 #' @details In generalized linear (mixed) models, the link function contributes to the coefficient of determination (Nakagawa, et al., 2012, 2017; McKelvey and Zavoina, 1975).  
@@ -25,9 +25,10 @@
 #' @importFrom stats family
 #' @keywords internal
 #' @export
-getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")) {
+getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal", "delta"), lambda.method = c("parametric", "mean")) {
 
   method <- match.arg(method)
+  lambda.method <- match.arg(lambda.method)
 
   # get family identifier
   famID <- getFamilyString(family(fit))
@@ -43,6 +44,7 @@ getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal"), lamb
     }else{      
       lambda <- getLambda( fit, method = lambda.method )
     }
+    lambda = mean(lambda)
   }
 
   distVar <- switch( famID2, 
@@ -53,29 +55,35 @@ getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal"), lamb
       sigma(fit)^2 / w
     },
     "poisson/log" = {
+      method <- match.arg(method)
       switch(method,
+        "delta"     = 1 / lambda,
         "lognormal" = log(1 + 1 / lambda),
-        "trigamma" = trigamma(lambda))
+        "trigamma"  = trigamma(lambda))
     },
-    "binomial/logit" = (pi^2) / 3,
+    "binomial/logit"  = (pi^2) / 3,
     "binomial/probit" = 1,
-    "quasipoisson/log" =  {
+    "quasipoisson/log" = {
 
+      method <- match.arg(method)
       omega <- dispersion(fit)
 
       switch(method,
+        "delta"     = omega / lambda,
         "lognormal" = log(1 + omega / lambda),
-        "trigamma" = trigamma(lambda / omega))
+        "trigamma"  = trigamma(lambda / omega))
     },
     "quasibinomial/logit" = stop("Link not supported"),
     "quasibinomial/probit" = stop("Link not supported"),
     "nb" = {
 
+      method <- match.arg(method)
       theta <- getTheta( fit )
 
       switch(method,
+        "delta"     = 1/lambda + 1/theta,
         "lognormal" = log(1 + 1 / lambda + 1 / theta),
-        "trigamma" = trigamma(1/(1/lambda + 1/theta)))
+        "trigamma"  = trigamma(1/(1/lambda + 1/theta)))
     })
 
   if (is.null(distVar)) {
@@ -84,6 +92,20 @@ getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal"), lamb
 
   distVar
 }
+
+# evaluate NB variance when lambda is Inf
+#' @keywords internal
+#' @export
+noiseVarNB = function(theta,  method = c("trigamma", "lognormal", "delta")){
+
+  method <- match.arg(method)
+
+  switch(method,
+    "delta"     = 1/theta,
+    "lognormal" = log(1 + 1 / theta),
+    "trigamma"  = trigamma(theta))
+}
+
 
 get_mean_weights = function(fit){
 
@@ -137,14 +159,15 @@ setMethod("getLambda", signature(fit = "fastlmm"),
     fit_null <- refitModel(fit, interceptOnly=TRUE,...)
 
     # mean term, including offset
-    mu <- coef(fit_null) + mean(fit_null$offset)
+    eta <- coef(fit_null) + fit_null$offset
 
     # mean term based on Eqn 5.8 of Nakagawa, et al. 2017.
     # Uses both intercept and variance component
     # follows approach of insight:::.variance_distributional
-    lambda <- exp(mu + 0.5*fit_null$sigSq_g)
+    lambda <- exp(eta + 0.5*fit_null$sigSq_g)
     lambda <- as.numeric( lambda )
   }else{
+    # stop("Not enabled")
     lambda <- mean(fit$response)
   }
 
@@ -167,11 +190,15 @@ setMethod("getLambda", signature("glm"),
                   family = fit$family)
 
     # mean term, including offset
-    mu <- coef(fit_null) + 
-            ifelse(is.null(fit_null$offset), 0, mean(fit_null$offset))
+    if( is.null(fit_null$offset) ){
+      eta <- coef(fit_null)
+    }else{
+      eta <- coef(fit_null) + fit_null$offset
+    }
 
-    lambda <- exp(as.numeric(mu))
+    lambda <- exp(as.numeric(eta))
   }else{
+    # stop("Not enabled")
     lambda <- mean(fit$y)
   }
   lambda
@@ -208,11 +235,15 @@ setMethod("getLambda", signature("negbin"),
                   weights = fit$prior.weights)
 
     # mean term, including offset
-    mu <- coef(fit_null) + 
-            ifelse(is.null(fit_null$offset), 0, mean(fit_null$offset))
+    if( is.null(fit_null$offset) ){
+      eta <- coef(fit_null)
+    }else{
+      eta <- coef(fit_null) + fit_null$offset
+    }
 
-    lambda <- exp(as.numeric(mu))
+    lambda <- exp(as.numeric(eta))
   }else{
+    # stop("Not enabled")
     lambda <- mean(fit$y)
   }
 
@@ -311,11 +342,12 @@ setMethod("varianceTerms", signature("fastlmm"),
 #' 
 #' Compute fraction of variance attributable to each variable in regression model.  Also interpretable as the intra-class correlation after correcting for all other variables in the model.
 #' 
-#' @param fit model fit  
-#' @param ... other arguments,
-#' @param distr.method use either the \code{"lognormal"} or \code{"trigamma"} formulas from Nakagawa, et al. (2017)
-#' @param lambda.method use either \code{"parametric"} or \code{"mean"} method to estimate the mean rate for count models
-#' 
+#' @param fit regression model fit  
+#' @param method select method for count models:  \code{"exact"} or \code{"approximate"} from the current work, or \code{"trigamma"}, \code{"lognormal"} or \code{"delta"} formulas from Nakagawa, et al. (2017)
+#' @param pseudocount pseudocount used for \code{"exact"} and \code{"approximate"} methods for count models
+#' @param p.tail probability threashold for evaluating expectations for \code{"exact"} methods for count models
+#' @param ... other arguments, passed to \code{vpOther()} or \code{vpCounts()}
+#'
 #' @details
 #' The coefficient of determination (i.e. R^2) is 1 - [Residuals fraction].  This matches \code{performance::r2_nakagawa()} and \code{performance::r2_mckelvey()}, except these use the \code{"lognormal"} method.   
 #' 
@@ -338,82 +370,124 @@ setMethod("varianceTerms", signature("fastlmm"),
 #' @importFrom matrixStats colVars
 #' @rdname varpart
 #' @export
-setGeneric("varpart", function(fit, ..., distr.method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")) {
+setGeneric("varpart", function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...) {
   standardGeneric("varpart")
 })
 
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("fastlmm"), 
-  function(fit, ..., distr.method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...){
   
-  .varpart(fit = fit, 
-    distr.method = distr.method, 
-    lambda.method = lambda.method)
+  .varpart(
+    fit = fit, 
+    method = method, 
+    pseudocount = pseudocount,
+    p.tail = p.tail,
+    ...)
 })
 
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("fastglmm"), 
-  function(fit, ..., distr.method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...){
   
-  .varpart(fit = fit, 
-    distr.method = distr.method, 
-    lambda.method = lambda.method)
+  .varpart(
+    fit = fit, 
+    method = method, 
+    pseudocount = pseudocount,
+    p.tail = p.tail,
+    ...)
 })
 
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("glm"), 
-  function(fit, ..., distr.method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...){
   
-  .varpart(fit = fit, 
-    distr.method = distr.method, 
-    lambda.method = lambda.method)
+  .varpart(
+    fit = fit, 
+    method = method, 
+    pseudocount = pseudocount,
+    p.tail = p.tail,
+    ...)
 })
 
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("negbin"), 
-  function(fit, ..., distr.method = c("trigamma", "lognormal")){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...){
   
-  .varpart(fit = fit, 
-    distr.method = distr.method, 
-    lambda.method = lambda.method)
+  .varpart(
+    fit = fit, 
+    method = method, 
+    pseudocount = pseudocount,
+    p.tail = p.tail,
+    ...)
 })
 
 
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("lm"), 
-  function(fit, ..., distr.method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...){
   
-  .varpart(fit = fit, 
-    distr.method = distr.method, 
-    lambda.method = lambda.method)
+  .varpart(
+    fit = fit, 
+    method = method, 
+    pseudocount = pseudocount,
+    p.tail = p.tail,
+    ...)
 })
 
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("merMod"), 
-  function(fit, ..., distr.method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...){
   
-  .varpart(fit = fit, 
-    distr.method = distr.method, 
-    lambda.method = lambda.method)
+  .varpart(
+    fit = fit, 
+    method = method, 
+    pseudocount = pseudocount,
+    p.tail = p.tail,
+    ...)
 })
 
 
-.varpart = function(fit, distr.method = c("trigamma", "lognormal"), lambda.method = c("parametric", "mean")){
+.varpart = function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...){
 
-  distr.method <- match.arg(distr.method)
+  method <- match.arg(method)
+
+  if( isCountModel(fit) && method %in% c("exact", "approximate")){
+    vp <- vpCounts(fit, 
+          method = method,
+          pseudocount = pseudocount, 
+          p.tail = p.tail,
+          ... )
+  }else{
+    if( method %in% c("exact", "approximate")){
+      method <- "trigamma"
+    }
+    vp <- vpOther( fit, method, ...)
+  }
+
+  vp
+}
+
+
+
+vpOther <- function(fit, method = c("trigamma", "lognormal", "delta"),...){
+
+  method <- match.arg(method)
+
   signal_var <- var(predict(fit)) 
-  distr_var <- getDistrVar( fit, method = distr.method, lambda.method = lambda.method ) 
+  distr_var <- getDistrVar( fit, 
+                  method = method) 
   total_var <- signal_var + distr_var
   eta_var <- colVars(predict(fit, type="terms"))
 
   if( length(eta_var) == 0 ){
-    stop("glm.nb with only no variables not supported")
+    stop("models with no variables not supported")
   }
 
   # remove intercept since variance is zero
@@ -426,7 +500,7 @@ setMethod("varpart", signature("merMod"),
 
   # if family is Negative Binomial
   if( isNB(fit) ){
-    resid_var <- trigamma( getTheta(fit) )
+    resid_var <- noiseVarNB( getTheta(fit), method )
     count_var <- distr_var - resid_var
 
     res <- c(eta_var / sum(eta_var) * frac_signal,
@@ -440,6 +514,69 @@ setMethod("varpart", signature("merMod"),
 
   res 
 }
+
+# Variance partitioning for count models
+#
+#' @importFrom matrixStats colVars
+vpCounts = function(fit, method = c("exact", "approximate"),pseudocount = 1, p.tail = 1e-4){
+
+  method <- match.arg(method)
+  mu <- predict(fit, type = "response")
+  theta <- getTheta(fit) 
+
+  # Approx total noise
+  var.poisson <- mu / (mu+pseudocount)^2
+  if( is.na(theta) ){
+    var.overdisp <- 0
+    theta <- 1e12
+  }else{
+    var.overdisp <- (mu^2/theta) / (mu+pseudocount)^2
+  }
+
+  # fraction of variance that is Poisson shot noise
+  alpha <- mean(var.poisson / (var.poisson + var.overdisp))
+
+  if( method == "exact" && mean(mu) < 1e8){ 
+    # Exact variances
+    # integration over NB
+    # get mean and variance of log(y + c) given mu, theta
+    res <- log_moments_nb_mu(mu, theta, c = pseudocount, p_tail = p.tail)
+    var.signal <- res$var.signal
+    var.noise <- res$var.noise
+  }else{
+    # Approximate variances
+    # var.signal <- var(log(mu + pseudocount) - (mu + mu^2/theta)/(2*(mu+pseudocount)^2))[1] # second order
+    var.signal <- var(log(mu + pseudocount))[1] # first order
+    var.noise <- mean(var.poisson + var.overdisp)
+  }
+
+  # total variance
+  var.total <- var.signal + var.noise
+
+  # total signal
+  rho2.signal <- var.signal / var.total
+
+  # Exact total noise
+  rho2.noise <- var.noise / var.total
+
+  # Approximate fractions
+  # fraction of variance for each variable on eta scale
+  # Apply these fractions to divide rho2.signal
+  eta_var <- colVars(predict(fit, type="terms"))
+  eta_var <- eta_var[names(eta_var) != "(Intercept)"]
+  eta_var <- c(eta_var, varianceTerms(fit) )
+  gamma <- eta_var / sum(eta_var)
+
+  # Variance fractions
+  c(rho2.signal*gamma, 
+    CountNoise = rho2.noise*alpha,
+    Residuals = rho2.noise*(1-alpha)
+    )
+}
+
+
+
+
 
 
 
