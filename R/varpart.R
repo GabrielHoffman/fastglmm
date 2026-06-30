@@ -94,8 +94,6 @@ getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal", "delt
 }
 
 # evaluate NB variance when lambda is Inf
-#' @keywords internal
-#' @export
 noiseVarNB = function(theta,  method = c("trigamma", "lognormal", "delta")){
 
   method <- match.arg(method)
@@ -306,15 +304,47 @@ setMethod("varianceTerms", signature("negbin"),
   NULL
 })
 
-#' @rdname varianceTerms
 
+#' @rdname varianceTerms
 #' @importFrom lme4 VarCorr
 #' @export
 setMethod("varianceTerms", signature("merMod"), 
   function(object,...) {
-  sapply(VarCorr(object), function(x){
-    attr(x, "stddev")^2
-  })
+
+  vc <- VarCorr(object)
+
+  res <- lapply(names(vc), function(x){
+      v <- attr(vc[[x]], "stddev")^2
+      names(v) = paste(x, names(v), sep='.')
+      v
+    })
+  names(res) <- NULL
+  res <- unlist(res)
+  
+  names(res) <- gsub("\\.\\(Intercept\\)", "", names(res))
+
+  res
+})
+
+
+#' @rdname varianceTerms
+#' @export
+setMethod("varianceTerms", signature("glmmTMB"), 
+  function(object,...) {
+
+  vc <- VarCorr(object)$cond
+
+  res <- lapply(names(vc), function(x){
+      v <- attr(vc[[x]], "stddev")^2
+      names(v) = paste(x, names(v), sep='.')
+      v
+    })
+  names(res) <- NULL
+  res <- unlist(res)
+  
+  names(res) <- gsub("\\.\\(Intercept\\)", "", names(res))
+
+  res
 })
 
 
@@ -370,14 +400,14 @@ setMethod("varianceTerms", signature("fastlmm"),
 #' @importFrom matrixStats colVars
 #' @rdname varpart
 #' @export
-setGeneric("varpart", function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...) {
+setGeneric("varpart", function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...) {
   standardGeneric("varpart")
 })
 
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("fastlmm"), 
-  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
   
   .varpart(
     fit = fit, 
@@ -390,7 +420,7 @@ setMethod("varpart", signature("fastlmm"),
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("fastglmm"), 
-  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
   
   .varpart(
     fit = fit, 
@@ -403,7 +433,7 @@ setMethod("varpart", signature("fastglmm"),
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("glm"), 
-  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
   
   .varpart(
     fit = fit, 
@@ -416,7 +446,7 @@ setMethod("varpart", signature("glm"),
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("negbin"), 
-  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
   
   .varpart(
     fit = fit, 
@@ -430,7 +460,7 @@ setMethod("varpart", signature("negbin"),
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("lm"), 
-  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
   
   .varpart(
     fit = fit, 
@@ -443,7 +473,20 @@ setMethod("varpart", signature("lm"),
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("merMod"), 
-  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
+  
+  .varpart(
+    fit = fit, 
+    method = method, 
+    pseudocount = pseudocount,
+    p.tail = p.tail,
+    ...)
+})
+
+#' @rdname varpart
+#' @export
+setMethod("varpart", signature("glmmTMB"), 
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
   
   .varpart(
     fit = fit, 
@@ -454,7 +497,8 @@ setMethod("varpart", signature("merMod"),
 })
 
 
-.varpart = function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1, p.tail = 1e-4, ...){
+
+.varpart = function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
 
   method <- match.arg(method)
 
@@ -484,7 +528,7 @@ vpOther <- function(fit, method = c("trigamma", "lognormal", "delta"),...){
   distr_var <- getDistrVar( fit, 
                   method = method) 
   total_var <- signal_var + distr_var
-  eta_var <- colVars(predict(fit, type="terms"))
+  eta_var <- colVars(predictTerms(fit))
 
   if( length(eta_var) == 0 ){
     stop("models with no variables not supported")
@@ -518,7 +562,7 @@ vpOther <- function(fit, method = c("trigamma", "lognormal", "delta"),...){
 # Variance partitioning for count models
 #
 #' @importFrom matrixStats colVars
-vpCounts = function(fit, method = c("exact", "approximate"),pseudocount = 1, p.tail = 1e-4){
+vpCounts <- function(fit, method = c("exact", "approximate"),pseudocount = 0.1, p.tail = 1e-4){
 
   method <- match.arg(method)
   mu <- predict(fit, type = "response")
@@ -536,17 +580,17 @@ vpCounts = function(fit, method = c("exact", "approximate"),pseudocount = 1, p.t
   # fraction of variance that is Poisson shot noise
   alpha <- mean(var.poisson / (var.poisson + var.overdisp))
 
-  if( method == "exact" && mean(mu) < 1e8){ 
+  if( method == "exact"){ 
     # Exact variances
     # integration over NB
     # get mean and variance of log(y + c) given mu, theta
-    res <- log_moments_nb_mu(mu, theta, c = pseudocount, p_tail = p.tail)
+    res <- log_moments_nb_mu(mu, theta, "exact", c = pseudocount, p_tail = p.tail)
     var.signal <- res$var.signal
     var.noise <- res$var.noise
   }else{
     # Approximate variances
-    # var.signal <- var(log(mu + pseudocount) - (mu + mu^2/theta)/(2*(mu+pseudocount)^2))[1] # second order
-    var.signal <- var(log(mu + pseudocount))[1] # first order
+    var.signal <- var(log(mu + pseudocount) - (mu + mu^2/theta)/(2*(mu+pseudocount)^2))[1] # second order
+    # var.signal <- var(log(mu + pseudocount))[1] # first order
     var.noise <- mean(var.poisson + var.overdisp)
   }
 
@@ -562,7 +606,7 @@ vpCounts = function(fit, method = c("exact", "approximate"),pseudocount = 1, p.t
   # Approximate fractions
   # fraction of variance for each variable on eta scale
   # Apply these fractions to divide rho2.signal
-  eta_var <- colVars(predict(fit, type="terms"))
+  eta_var <- colVars(predictTerms(fit))
   eta_var <- eta_var[names(eta_var) != "(Intercept)"]
   eta_var <- c(eta_var, varianceTerms(fit) )
   gamma <- eta_var / sum(eta_var)

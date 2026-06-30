@@ -8,12 +8,13 @@
 \alias{varpart,negbin-method}
 \alias{varpart,lm-method}
 \alias{varpart,merMod-method}
+\alias{varpart,glmmTMB-method}
 \title{Variance Partitioning Analysis}
 \usage{
 varpart(
   fit,
   method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
-  pseudocount = 1,
+  pseudocount = 0.1,
   p.tail = 1e-04,
   ...
 )
@@ -21,7 +22,7 @@ varpart(
 \S4method{varpart}{fastlmm}(
   fit,
   method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
-  pseudocount = 1,
+  pseudocount = 0.1,
   p.tail = 1e-04,
   ...
 )
@@ -29,7 +30,7 @@ varpart(
 \S4method{varpart}{fastglmm}(
   fit,
   method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
-  pseudocount = 1,
+  pseudocount = 0.1,
   p.tail = 1e-04,
   ...
 )
@@ -37,7 +38,7 @@ varpart(
 \S4method{varpart}{glm}(
   fit,
   method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
-  pseudocount = 1,
+  pseudocount = 0.1,
   p.tail = 1e-04,
   ...
 )
@@ -45,7 +46,7 @@ varpart(
 \S4method{varpart}{negbin}(
   fit,
   method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
-  pseudocount = 1,
+  pseudocount = 0.1,
   p.tail = 1e-04,
   ...
 )
@@ -53,7 +54,7 @@ varpart(
 \S4method{varpart}{lm}(
   fit,
   method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
-  pseudocount = 1,
+  pseudocount = 0.1,
   p.tail = 1e-04,
   ...
 )
@@ -61,7 +62,15 @@ varpart(
 \S4method{varpart}{merMod}(
   fit,
   method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
-  pseudocount = 1,
+  pseudocount = 0.1,
+  p.tail = 1e-04,
+  ...
+)
+
+\S4method{varpart}{glmmTMB}(
+  fit,
+  method = c("exact", "approximate", "trigamma", "lognormal", "delta"),
+  pseudocount = 0.1,
   p.tail = 1e-04,
   ...
 )

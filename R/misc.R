@@ -93,7 +93,7 @@ isNB <- function( x ){
   fam <- tryCatch(family(x), error = function(e) x)
   famID <- getFamilyString(fam)
   famID2 <- gsub("^(.+):.*", "\\1", famID)
-  return( famID2 == "nb" )
+  return( famID2 %in% c("nb", "nbinom2/log") )
 }
 
 #' Get theta from NB model
@@ -108,14 +108,17 @@ isNB <- function( x ){
 #' @keywords internal 
 getTheta <- function( fit ){
   theta <- NA
-  if( isNB(fit) ){
+
+  if( is(fit, "glmmTMB") & family(fit)$family == "nbinom2" ){
+    theta <- as.numeric(exp(fit$fit$par["betadisp"]))
+  }else if( isNB(fit) ){
     if( ! is.null(fit$theta) ){
       theta <- fit$theta
     }else{
       famID <- getFamilyString(family(fit))
       theta <- as.numeric(gsub("^(.+):(.*)$", "\\2", famID))
     }
-  }
+  } 
 
   theta
 }

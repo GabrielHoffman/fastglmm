@@ -569,6 +569,27 @@ model.frame.fastlmm <- function(formula, ...){
   X
 }
 
+#' Construct Design Matrices
+#' 
+#' Construct Design Matrices
+#' 
+#' @param object regression model object
+#' @param ... other args
+#' 
+#' @examples
+#' library(MASS)
+#' 
+#' # GLMM via PQL
+#' fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
+#'    family = binomial(), data = bacteria)
+#'
+#' design <- model.matrix(fit)
+#' head(design)
+#' @export
+model.matrix.fastlmm <- function(object, ...){
+  object$design
+}
+
 
 
 
@@ -674,7 +695,7 @@ predict.fastlmm <- function(object, newdata = NULL, type = c("response", "terms"
 
   switch(type, 
     response = fitted(object, newdata = newdata),
-    terms = predict_terms(object))
+    terms = predictTerms(object))
 }
 
 
@@ -692,15 +713,18 @@ predict.fastglmm <- function(object, newdata = NULL,
   switch(type,
       link = get_eta(object, newdata = newdata),
       response = fitted(object, newdata = newdata),
-      terms = predict_terms(object))
+      terms = predictTerms(object))
 }
 
 
 # Compute eta value for each fixed effect
-predict_terms <- function( object ){
+predictTerms <- function( object ){
+
+  # get design matrix
+  X <- model.matrix(object)
 
   # Assign each coef to a contrast
-  asgn <- attr(object$design, "assign")
+  asgn <- attr(X, "assign")
 
   # Names of effects
   nmeffects <- attr(terms(object), "term.labels")[unique(asgn)]
@@ -709,19 +733,44 @@ predict_terms <- function( object ){
     nmeffects <- c("(Intercept)", nmeffects)
   }
 
+  beta <- getCoef(object)
+
   # prediction for each term
   Eta <- lapply(seq(0, max(asgn)), function(i){
     # indeces in this term
     idx <- which(asgn == i)
-    eta_i <- object$design[,idx,drop=FALSE] %*% coef(object)[idx,drop=FALSE]
+    eta_i <- X[,idx,drop=FALSE] %*% beta[idx,drop=FALSE]
     c(eta_i)
     }) 
   Eta <- do.call("cbind", Eta)
   colnames(Eta) <- nmeffects
+  rownames(Eta) <- rownames(X)
 
   Eta
 }
 
+# Extract the fixed-effect coefficients for many model types
+getCoef <- function( model ){
+
+  beta <- NULL
+  if( is(model, "lm") || is(model, "negbin") || is(model, "fastlmm")){
+    beta <- coef(model)
+  }else if( is(model, "merMod") ){    
+    beta <- fixef(model)
+
+  }else if( is( model, "glmmTMB") ){
+    beta <- fixef(model)$cond
+
+    if( length(fixef(model)$zi) > 0 ){
+      stop("Zero inflation component not supported")
+    }
+    if( length(fixef(model)$disp) > 1 ){
+      stop("Dispersion component not supported")
+    }
+  }
+
+  beta
+}
 
 
 #' Print model
