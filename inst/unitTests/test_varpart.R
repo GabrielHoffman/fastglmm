@@ -1,5 +1,44 @@
 
 
+test_models = function(){
+
+  library(lme4)
+  library(MASS)
+  library(glmmTMB)
+  library(fastglmm)
+
+  object <- lmer(Reaction ~ Days + I(Days^2) + (1 | Subject), data = sleepstudy)
+  varpart(object)
+
+  # Fit a sample lme4 model
+  model <- lmer(Reaction ~ Days + I(Days^2) + (Days | Subject), data = sleepstudy)
+  varpart(model)
+
+  model <- fastlmm(Reaction ~ Days + I(Days^2) + (1 | Subject), data = sleepstudy)
+  varpart(model)
+
+  gm1 <- glmer(cbind(incidence, size - incidence) ~ (1|period) + (1 | herd), data = cbpp, family = binomial)
+  varpart(gm1)
+
+    gm1 <- glmmTMB(cbind(incidence, size - incidence) ~ (1|period) + (1 | herd), data = cbpp, family = binomial)
+  varpart(gm1)
+
+  m1 <- glmmTMB(count ~ mined + (1|site),
+     family=poisson, data=Salamanders)
+  varpart(m1)
+
+  m1 <- glmmTMB(count ~ mined + (Wtemp|site),
+     family=nbinom2, data=Salamanders)
+  varpart(m1)
+
+  m1 <- glmmTMB(count ~ mined + (1|site/spp),
+     family=nbinom2, data=Salamanders)
+  varpart(m1)
+
+  quine.nb1 <- glm.nb(Days ~ Sex/(Age + Eth*Lrn), data = quine)
+  varpart(quine.nb1)
+}
+
 test_getLambda = function(){
 
   # test approximation of lambda form count models
@@ -42,6 +81,12 @@ test_getLambda = function(){
   fastglmm:::getLambda(fit, method = "mean")
   varpart(fit)
   # varpart(fit, lambda.method = "mean")
+
+  # library(glmmTMB)
+
+  # form <- PTPRG ~ offset(log(libSize)) + Dx + (1|SubID)
+  # fit = glmmTMB(form, data = PsychAD, family=nbinom2)
+  #  varpart(fit)
 
 }
 
