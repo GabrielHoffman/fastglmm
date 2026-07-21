@@ -12,12 +12,12 @@ Source:
 
 Hoffman G (2026). *fastglmm: Efficiently Fit Generalized Linear Mixed
 Model with a Single Random Effect on Massive Datasets*. R package
-version 0.4.8, <https://gabrielhoffman.github.io/fastglmm/>.
+version 0.4.11, <https://gabrielhoffman.github.io/fastglmm/>.
 
     @Manual{,
       title = {fastglmm: Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on Massive Datasets},
       author = {Gabriel Hoffman},
       year = {2026},
-      note = {R package version 0.4.8},
+      note = {R package version 0.4.11},
       url = {https://gabrielhoffman.github.io/fastglmm/},
     }

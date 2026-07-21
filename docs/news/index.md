@@ -1,10 +1,34 @@
 # Changelog
 
+## fastglmm 0.4.11
+
+- July 15, 2026
+- fix bug in
+  [`getTheta()`](http://gabrielhoffman.github.io/fastglmm/reference/getTheta.md)
+- use weighted variances in `vpOther()`
+- bug fixes
+
+## fastglmm 0.4.10
+
+- July 9, 2026
+- [`varpart()`](http://gabrielhoffman.github.io/fastglmm/reference/varpart.md)
+  works with [`lmer()`](https://rdrr.io/pkg/lme4/man/lmer.html),
+  [`glmer()`](https://rdrr.io/pkg/lme4/man/glmer.html), `glmmTMB()`,
+  [`glm()`](https://rdrr.io/r/stats/glm.html),
+  [`lm()`](https://rdrr.io/r/stats/lm.html)
+  - also
+    [`varianceTerms()`](http://gabrielhoffman.github.io/fastglmm/reference/varianceTerms.md),
+    `predictTerms()`
+- pseudocount defaults to 1
+- improve numerical stability of
+  [`log_moments_nb_XB()`](http://gabrielhoffman.github.io/fastglmm/reference/log_moments_nb_XB.md)
+
 ## fastglmm 0.4.9
 
-- June 3, 2026
-- add “exact” method for
+- June 17, 2026
+- new arguments to
   [`varpart()`](http://gabrielhoffman.github.io/fastglmm/reference/varpart.md)
+  - add `log_moments_nb()`
 
 ## fastglmm 0.4.8
 

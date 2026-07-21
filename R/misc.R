@@ -112,7 +112,8 @@ getTheta <- function( fit ){
   if( is(fit, "glmmTMB") & family(fit)$family == "nbinom2" ){
     theta <- as.numeric(exp(fit$fit$par["betadisp"]))
   }else if( isNB(fit) ){
-    if( ! is.null(fit$theta) ){
+
+    if( "theta" %in% names(fit) ){
       theta <- fit$theta
     }else{
       famID <- getFamilyString(family(fit))

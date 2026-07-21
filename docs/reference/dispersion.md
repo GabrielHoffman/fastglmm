@@ -9,6 +9,15 @@ dispersion(object)
 
 # S4 method for class 'fastlmm'
 dispersion(object)
+
+# S4 method for class 'glm'
+dispersion(object)
+
+# S4 method for class 'negbin'
+dispersion(object)
+
+# S4 method for class 'glmmTMB'
+dispersion(object)
 ```
 
 ## Arguments

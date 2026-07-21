@@ -1,6 +1,6 @@
 \
 
-![](reference/figures/logo.png)
+![package logo](reference/figures/logo.png)
 
 ## Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on Massive Datasets
 

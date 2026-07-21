@@ -20,7 +20,7 @@ test_models = function(){
   gm1 <- glmer(cbind(incidence, size - incidence) ~ (1|period) + (1 | herd), data = cbpp, family = binomial)
   varpart(gm1)
 
-    gm1 <- glmmTMB(cbind(incidence, size - incidence) ~ (1|period) + (1 | herd), data = cbpp, family = binomial)
+  gm1 <- glmmTMB(cbind(incidence, size - incidence) ~ (1|period) + (1 | herd), data = cbpp, family = binomial)
   varpart(gm1)
 
   m1 <- glmmTMB(count ~ mined + (1|site),
@@ -37,6 +37,13 @@ test_models = function(){
 
   quine.nb1 <- glm.nb(Days ~ Sex/(Age + Eth*Lrn), data = quine)
   varpart(quine.nb1)
+
+  m1 <- glm(count ~ mined + spp,
+     family=negative.binomial(1.6), data=Salamanders)
+  varpart(m1)
+
+  m1 <- lm(log(count+1) ~ mined + spp, data=Salamanders)
+  varpart(m1)
 }
 
 test_getLambda = function(){
@@ -100,11 +107,13 @@ test_varpart = function(){
   library(Matrix)
   library(performance)
   library(RUnit)
+  library(lme4)
 
   # fastglmm::varpart() gives the model R2 and 1 - [Residual frac]
   # This is equivalent to the performance::r2_nakagawa() with the trigamma method
   # Any difference should be due to parameter estimates from 
   # fastglmm() vs glmmTMB()
+  # As of Jul 21, 2026 varpart uses QL dispersion
 
   # insight::get_variance(fit.tmb)
 
@@ -119,22 +128,63 @@ test_varpart = function(){
   df = data.frame(X, z)
   Z = sparse.model.matrix(~z, df)
   alpha = rnorm(ncol(Z), 0, sd=sqrt(sigSq_g))
-  eta = as.matrix(X %*% beta + Z %*% alpha) - 4
+  eta = as.matrix(X %*% beta + Z %*% alpha) - 1
   df$y.poisson = rpois(n, exp(eta))
+  df$z.perm = factor(sample(seq(2), n, replace=TRUE))
+
+
+  # weighted lm
+  ##############
+  w = sqrt(seq(1, nrow(df)))
+  fit1 = fastlmm(log(y.poisson+1) ~ X1 + X2 + (1|z.perm), df, weights=w)
+  fit2 = fastglmm(log(y.poisson+1) ~ X1 + X2 + (1|z.perm), df, weights=w)
+  fit3 = lm(log(y.poisson+1) ~ X1 + X2, df, weights=w)
+  fit4 = glm(log(y.poisson+1) ~ X1 + X2, df, weights=w, family=gaussian())
+  fit5 = lmer(log(y.poisson+1) ~ X1 + X2 + (1|z.perm), df, weights=w)
+
+  fastglmm:::vpOther(fit1)
+  fastglmm:::vpOther(fit2)
+
+  # Compare to R2
+  v1 = summary(fit3)$r.squared
+  v2 = 1 - varpart(fit3)[3]
+  checkEqualsNumeric(v1, v2, tol=1e-5)
+
+
+  fastglmm:::get_mean_weights(fit1)
+  fastglmm:::get_mean_weights(fit2)
+  fastglmm:::get_mean_weights(fit3)
+  fastglmm:::get_mean_weights(fit4)
+
+
+  fastglmm:::getDistrVar(fit1)
+  fastglmm:::getDistrVar(fit2)
+  fastglmm:::getDistrVar(fit3)
+  fastglmm:::getDistrVar(fit4)
+
+
+  checkEqualsNumeric(sigma(fit1), sigma(fit2), tol=1e-3)
+  checkEqualsNumeric(sigma(fit1), sigma(fit3), tol=1e-3)
+  checkEqualsNumeric(sigma(fit1), sigma(fit4), tol=1e-3)
+  checkEqualsNumeric(sigma(fit1), sigma(fit5), tol=1e-3)
+
+  checkEqualsNumeric(varpart(fit1), varpart(fit2), tol=1e-3)
+  checkEqualsNumeric(varpart(fit1)[-3], varpart(fit3), tol=1e-4)
+  checkEqualsNumeric(varpart(fit1)[-3], varpart(fit4), tol=1e-4)
+  checkEqualsNumeric(varpart(fit1), varpart(fit5), tol=1e-3)
 
   # Poisson model
   ###############
   fam = poisson()
   fit.tmb = glmmTMB(y.poisson ~ X1 + X2 + (1|z), df, family=fam)
-  fit.null = glmmTMB(y.poisson ~ (1|z), df, family=fam)
   fit = fastglmm(y.poisson ~ X1 + X2 + (1|z), df,family=fam)
 
   # distributional variance should be very close
-  get_variance_distribution( fit.tmb, null_model = fit.null, approximation="trigamma" )
+  get_variance_distribution( fit.tmb, approximation="trigamma" )
   fastglmm:::getDistrVar( fit, method="trigamma" )
 
   # Coefficient of determination
-  res1 = r2_nakagawa(fit.tmb, null_model = fit.null, approximation="trigamma")
+  res1 = r2_nakagawa(fit.tmb, approximation="trigamma")
   res2 = varpart(fit, method="trigamma")
 
   checkEqualsNumeric(1 - res1$R2_conditional,  
@@ -175,7 +225,6 @@ test_varpart = function(){
 
   checkEqualsNumeric( varpart(fit)[-3], varpart(fit2), tol=1e-3)
 
-
   # logit
   ########
   df$y = rbinom(n, 1, plogis(eta))
@@ -189,7 +238,7 @@ test_varpart = function(){
 
   # Coefficient of determination
   res1 = r2_nakagawa(fit.tmb, approximation="trigamma")
-  res2 = varpart(fit)
+  res2 = varpart(fit, method="trigamma")
 
   checkEqualsNumeric(1 - res1$R2_conditional,  
                   res2['Residuals'], 
@@ -215,7 +264,7 @@ test_varpart = function(){
 
   # Coefficient of determination
   res1 = r2_nakagawa(fit.tmb, approximation="trigamma")
-  res2 = varpart(fit)
+  res2 = varpart(fit, method="trigamma")
 
   checkEqualsNumeric(1 - res1$R2_conditional,  
                   res2['Residuals'], 

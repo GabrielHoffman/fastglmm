@@ -19,6 +19,9 @@ varianceTerms(object, ...)
 # S4 method for class 'merMod'
 varianceTerms(object, ...)
 
+# S4 method for class 'glmmTMB'
+varianceTerms(object, ...)
+
 # S4 method for class 'fastlmm'
 varianceTerms(object, ...)
 ```

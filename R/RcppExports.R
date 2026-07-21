@@ -29,18 +29,67 @@
     .Call('_fastglmm_fastglmm_ms', PACKAGE = 'fastglmm', y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid)
 }
 
-log_moments_nb_mu <- function(mu, theta, c = 1.0, p_tail = 1e-4) {
-    .Call('_fastglmm_log_moments_nb_mu', PACKAGE = 'fastglmm', mu, theta, c, p_tail)
+log_moments_nb_mu <- function(mu, theta, method, c = 1.0, p_tail = 1e-4) {
+    .Call('_fastglmm_log_moments_nb_mu', PACKAGE = 'fastglmm', mu, theta, method, c, p_tail)
 }
 
+#' Log Moments of NB given X, Beta, and offset
+#'
+#' @param X design matrix
+#' @param Beta coefs
+#' @param offset offset
+#' @param theta overdispersion parameters
+#' @param method method
+#' @param c pseudocount
+#' @param p_tail probability cutoff
+#' @param nthreads number of threads
+#' 
+#' @keywords internal
+#' @export
 log_moments_nb_XB <- function(X, Beta, offset, theta, method, c = 1.0, p_tail = 1e-4, nthreads = 10L) {
     .Call('_fastglmm_log_moments_nb_XB', PACKAGE = 'fastglmm', X, Beta, offset, theta, method, c, p_tail, nthreads)
 }
 
+#' Log Moments of NB given X, Beta, and offset
+#'
+#' @param BLUP BLUP
+#' @param X design matrix
+#' @param Beta coefs
+#' @param Z random effects design matrix
+#' @param weights sample-level weights
+#' @param offset offset
+#' @param theta overdispersion parameters
+#' @param delta ratio of variance components
+#' @param method method
+#' @param dcmpMethod dcmpMethod
+#' @param c pseudocount
+#' @param p_tail probability cutoff
+#' @param nthreads number of threads
+#' 
+#' @keywords internal
+#' @export
 log_moments_nb_BlupXBZ <- function(BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c = 1.0, p_tail = 1e-4, nthreads = 10L) {
     .Call('_fastglmm_log_moments_nb_BlupXBZ', PACKAGE = 'fastglmm', BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c, p_tail, nthreads)
 }
 
+#' Log Moments of NB given X, Beta, and offset
+#'
+#' @param BLUP BLUP
+#' @param X design matrix
+#' @param Beta coefs
+#' @param Z random effects design matrix
+#' @param weights sample-level weights
+#' @param offset offset
+#' @param theta overdispersion parameters
+#' @param delta ratio of variance components
+#' @param method method
+#' @param dcmpMethod dcmpMethod
+#' @param c pseudocount
+#' @param p_tail probability cutoff
+#' @param nthreads number of threads
+#' 
+#' @keywords internal
+#' @export
 log_moments_nb_BlupXBZ_sp <- function(BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c = 1.0, p_tail = 1e-4, nthreads = 10L) {
     .Call('_fastglmm_log_moments_nb_BlupXBZ_sp', PACKAGE = 'fastglmm', BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c, p_tail, nthreads)
 }

@@ -80,4 +80,33 @@ double dnbinom_boost(const double & x, const double &size, const double &prob){
 }
 
 
+/* Create vector of probabilities for NB distribution
+
+Evaluate NB PDF for y = 0:qmax using recursion to avoid using lgamma()
+
+vec y = generate_seq(qmax);
+vec p(y.size());
+double prob = theta / (theta + mu);
+for(int k = 0; k<y.size(); ++k){
+  p(k) = dnbinom_boost(y[k], theta, prob);
+}
+*/
+arma::vec dnbinom_seq_mu_theta(double mu, double theta, int qmax) {
+  arma::vec out(qmax + 1);
+
+  double p = mu / (mu + theta);
+  double q = theta / (mu + theta);
+
+  // P(Y = 0)
+  out[0] = std::pow(q, theta);
+
+  // recurrence:
+  // P(y+1) = P(y) * ((y + theta)/(y+1)) * p
+  for (int y = 0; y < qmax; ++y) {
+    out[y + 1] = out[y] * ( (y + theta) / (y + 1.0) ) * p;
+  }
+
+  return out;
+}
+
 #endif

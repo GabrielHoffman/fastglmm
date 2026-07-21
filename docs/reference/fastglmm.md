@@ -94,6 +94,9 @@ library(lme4)
 #> Loading required package: Matrix
 #> 
 #> Attaching package: ‘lme4’
+#> The following objects are masked from ‘package:fastglmm’:
+#> 
+#>     getLambda, getTheta
 #> The following object is masked from ‘package:nlme’:
 #> 
 #>     lmList

@@ -3,11 +3,20 @@
 \name{dispersion}
 \alias{dispersion}
 \alias{dispersion,fastlmm-method}
+\alias{dispersion,glm-method}
+\alias{dispersion,negbin-method}
+\alias{dispersion,glmmTMB-method}
 \title{Overdispersion parameter phi for quasi-likelihood}
 \usage{
 dispersion(object)
 
 \S4method{dispersion}{fastlmm}(object)
+
+\S4method{dispersion}{glm}(object)
+
+\S4method{dispersion}{negbin}(object)
+
+\S4method{dispersion}{glmmTMB}(object)
 }
 \arguments{
 \item{object}{model fit}

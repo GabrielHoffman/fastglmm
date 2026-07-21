@@ -255,45 +255,43 @@ List fastglmm_ms(
 DataFrame log_moments_nb_mu(
   const vec &mu,
   const double & theta, // overdispersion
+  const string & method,
   const double & c = 1.0, // pseudocount
   const double & p_tail = 1e-4) {
 
-  auto [signal, noise] = _log_moments_nb_mu(mu, theta, c, p_tail);
+  if (c < 0) {
+    stop("Pseudocount value must be non-negative");
+  }
+
+  if( method != "exact" && method != "approximate" ){
+    stop("method must be 'exact' or 'approximate'");
+  } 
+
+  auto [signal, noise, alpha] = _log_moments_nb_mu(mu, theta, method, c, p_tail);
 
   return DataFrame::create(
     Named("var.signal") = signal,
-    Named("var.noise")  = noise
+    Named("var.noise")  = noise,
+    Named("alpha")  = alpha
   );
 }
 
 
-// /* Log Moments of NB given mu matrix
-// */
-// // [[Rcpp::export]]
-// List log_moments_nb_mat(
-//   const mat & Mu,
-//   const vec & theta, // overdispersion
-//   const double & c = 1.0, // pseudocount
-//   const double & p_tail = 1e-4) {
-
-//   int n_responses = Mu.n_cols;
-//   vec signal(n_responses);
-//   vec noise(n_responses);
-
-//   for(int i=0; i<n_responses; ++i){
-//     auto [signal_, noise_] = _log_moments_nb_mu(Mu.col(i), theta(i), c, p_tail);    
-//     signal(i) = signal_;
-//     noise(i) = noise_; 
-//   }
-
-//   return List::create(
-//     Named("var.signal") = signal,
-//     Named("var.noise")  = noise
-//   );
-// }
-
 
 /* Log Moments of NB given X, Beta, and offset */
+//' Log Moments of NB given X, Beta, and offset
+//'
+//' @param X design matrix
+//' @param Beta coefs
+//' @param offset offset
+//' @param theta overdispersion parameters
+//' @param method method
+//' @param c pseudocount
+//' @param p_tail probability cutoff
+//' @param nthreads number of threads
+//' 
+//' @keywords internal
+//' @export
 // [[Rcpp::export]]
 DataFrame log_moments_nb_XB(
   const mat & X,
@@ -305,6 +303,14 @@ DataFrame log_moments_nb_XB(
   const double & p_tail = 1e-4,
   const int & nthreads = 10) {
 
+  if (c < 0) {
+    stop("Pseudocount value must be non-negative");
+  }
+
+  if( method != "exact" && method != "approximate" ){
+    stop("method must be 'exact' or 'approximate'");
+  } 
+
   auto [signal, noise, alpha] = _log_moments_nb_XB(X, Beta, offset, theta, method, c, p_tail, nthreads);
 
   return DataFrame::create(
@@ -314,6 +320,24 @@ DataFrame log_moments_nb_XB(
   );
 }
 
+//' Log Moments of NB given X, Beta, and offset
+//'
+//' @param BLUP BLUP
+//' @param X design matrix
+//' @param Beta coefs
+//' @param Z random effects design matrix
+//' @param weights sample-level weights
+//' @param offset offset
+//' @param theta overdispersion parameters
+//' @param delta ratio of variance components
+//' @param method method
+//' @param dcmpMethod dcmpMethod
+//' @param c pseudocount
+//' @param p_tail probability cutoff
+//' @param nthreads number of threads
+//' 
+//' @keywords internal
+//' @export
 // [[Rcpp::export]]
 DataFrame log_moments_nb_BlupXBZ(
   const mat & BLUP,
@@ -330,6 +354,14 @@ DataFrame log_moments_nb_BlupXBZ(
   const double & p_tail = 1e-4,
   const int & nthreads = 10) {
 
+  if (c < 0) {
+    stop("Pseudocount value must be non-negative");
+  }
+
+  if( method != "exact" && method != "approximate" ){
+    stop("method must be 'exact' or 'approximate'");
+  } 
+
   auto [signal, noise, alpha] = _log_moments_nb_BlupXBZ(BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c, p_tail, nthreads);
 
   return DataFrame::create(
@@ -339,6 +371,24 @@ DataFrame log_moments_nb_BlupXBZ(
   );
 }
 
+//' Log Moments of NB given X, Beta, and offset
+//'
+//' @param BLUP BLUP
+//' @param X design matrix
+//' @param Beta coefs
+//' @param Z random effects design matrix
+//' @param weights sample-level weights
+//' @param offset offset
+//' @param theta overdispersion parameters
+//' @param delta ratio of variance components
+//' @param method method
+//' @param dcmpMethod dcmpMethod
+//' @param c pseudocount
+//' @param p_tail probability cutoff
+//' @param nthreads number of threads
+//' 
+//' @keywords internal
+//' @export
 // [[Rcpp::export]]
 DataFrame log_moments_nb_BlupXBZ_sp(
   const mat & BLUP,
@@ -355,7 +405,15 @@ DataFrame log_moments_nb_BlupXBZ_sp(
   const double & p_tail = 1e-4,
   const int & nthreads = 10) {
 
-   auto [signal, noise, alpha] = _log_moments_nb_BlupXBZ(BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c, p_tail, nthreads);
+  if (c < 0) {
+    stop("Pseudocount value must be non-negative");
+  }
+
+  if( method != "exact" && method != "approximate" ){
+    stop("method must be 'exact' or 'approximate'");
+  } 
+
+  auto [signal, noise, alpha] = _log_moments_nb_BlupXBZ(BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c, p_tail, nthreads);
 
   return DataFrame::create(
     Named("var.signal") = wrap(signal),

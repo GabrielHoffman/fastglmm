@@ -2,9 +2,12 @@
 % Please edit documentation in R/s3methods.R
 \name{sigma.fastlmm}
 \alias{sigma.fastlmm}
+\alias{sigma.fastglmm}
 \title{Extract Residual Standard Deviation}
 \usage{
 \method{sigma}{fastlmm}(object, ...)
+
+\method{sigma}{fastglmm}(object, ...)
 }
 \arguments{
 \item{object}{fitted model of class \code{fastlmm}}

@@ -48,6 +48,7 @@ reference:
   - "linearHypothesis.fastlmm"
   - "logLik.fastlmm"
   - "model.frame.fastlmm"
+  - "model.matrix.fastlmm"
   - "nobs.fastlmm"
   - "plot.fastlmm"
   - "predict.fastlmm"

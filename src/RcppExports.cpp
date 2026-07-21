@@ -176,16 +176,17 @@ BEGIN_RCPP
 END_RCPP
 }
 // log_moments_nb_mu
-DataFrame log_moments_nb_mu(const vec& mu, const double& theta, const double& c, const double& p_tail);
-RcppExport SEXP _fastglmm_log_moments_nb_mu(SEXP muSEXP, SEXP thetaSEXP, SEXP cSEXP, SEXP p_tailSEXP) {
+DataFrame log_moments_nb_mu(const vec& mu, const double& theta, const string& method, const double& c, const double& p_tail);
+RcppExport SEXP _fastglmm_log_moments_nb_mu(SEXP muSEXP, SEXP thetaSEXP, SEXP methodSEXP, SEXP cSEXP, SEXP p_tailSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const vec& >::type mu(muSEXP);
     Rcpp::traits::input_parameter< const double& >::type theta(thetaSEXP);
+    Rcpp::traits::input_parameter< const string& >::type method(methodSEXP);
     Rcpp::traits::input_parameter< const double& >::type c(cSEXP);
     Rcpp::traits::input_parameter< const double& >::type p_tail(p_tailSEXP);
-    rcpp_result_gen = Rcpp::wrap(log_moments_nb_mu(mu, theta, c, p_tail));
+    rcpp_result_gen = Rcpp::wrap(log_moments_nb_mu(mu, theta, method, c, p_tail));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -262,7 +263,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_fastglmm_nb_theta", (DL_FUNC) &_fastglmm_nb_theta, 7},
     {"_fastglmm_fastglmm_mm", (DL_FUNC) &_fastglmm_fastglmm_mm, 17},
     {"_fastglmm_fastglmm_ms", (DL_FUNC) &_fastglmm_fastglmm_ms, 17},
-    {"_fastglmm_log_moments_nb_mu", (DL_FUNC) &_fastglmm_log_moments_nb_mu, 4},
+    {"_fastglmm_log_moments_nb_mu", (DL_FUNC) &_fastglmm_log_moments_nb_mu, 5},
     {"_fastglmm_log_moments_nb_XB", (DL_FUNC) &_fastglmm_log_moments_nb_XB, 8},
     {"_fastglmm_log_moments_nb_BlupXBZ", (DL_FUNC) &_fastglmm_log_moments_nb_BlupXBZ, 13},
     {"_fastglmm_log_moments_nb_BlupXBZ_sp", (DL_FUNC) &_fastglmm_log_moments_nb_BlupXBZ_sp, 13},

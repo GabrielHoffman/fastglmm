@@ -64,7 +64,7 @@ fit
 summary(fit)
 ```
 
-The PTPRG gene has increased expression in subjects with Alzheimer's disease compared with controls with log fold change $1.10277$  and a p-value $< 2\times 10^{-16}$.
+The PTPRG gene has increased expression in subjects with Alzheimer's disease compared with controls with log fold change $1.102755$  and a p-value $< 2\times 10^{-16}$.
 The count data shows high overdispersion with $\theta = 0.2443$, where $\theta = \infty$ is equivalent to a Poisson distribution with no overdispersion.
 
 Note that while 71\% of the 60k observations are zero, this is due to a low count rate rather than zero inflation.  This is supported by comparison with the zero inflation component using `glmmTMB::glmmTMB()` (p-value of zero-inflation intercept: 0.961), and consistent with other work on single cell transcriptomics  ([Jiang, et al., 2022](https://doi.org/10.1186/s13059-022-02601-5), [Sarkar and Stephens, 2021](https://doi.org/10.1038/s41588-021-00873-4), [Svensson, 2020](https://doi.org/10.1038/s41587-019-0379-5)).

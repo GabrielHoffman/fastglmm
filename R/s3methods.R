@@ -930,12 +930,19 @@ fixef.fastlmm <- function(object,...){
 #'
 #' sigma(fit)
 #
+#' @rdname sigma
 #' @importFrom stats sigma
 #' @export
 sigma.fastlmm <- function(object, ...) {
-  sqrt(object$sigSq_e)
+  sqrt(object$sigSq_e) * sqrt(object$w.mean)
 }
 
+#' @importFrom stats sigma
+#' @export
+#' @rdname sigma
+sigma.fastglmm <- function(object, ...) {
+  sqrt(object$sigSq_e) * sqrt(mean(object$prior.weights))
+}
 
 cat.f <- function(...) cat(..., fill = TRUE)
 
@@ -1187,6 +1194,7 @@ residuals.fastglmm <- function(object, type = c("deviance" , "pearson", "working
 #'
 #' @param object model fit 
 #' 
+#' @rdname dispersion
 #' @export
 setGeneric("dispersion", 
   function(object) {
@@ -1201,6 +1209,31 @@ setMethod("dispersion", signature("fastlmm"),
 
   object$dispersion
 })
+
+#' @rdname dispersion
+#' @export
+setMethod("dispersion", signature("glm"), 
+  function(object) {
+
+  summary(object)$dispersion
+})
+
+#' @rdname dispersion
+#' @export
+setMethod("dispersion", signature("negbin"), 
+  function(object) {
+
+  summary(object)$dispersion
+})
+
+#' @rdname dispersion
+#' @export
+setMethod("dispersion", signature("glmmTMB"), 
+  function(object) {
+  # no QL dispersion for glmmTMB models
+  1.0
+})
+
 
 
 

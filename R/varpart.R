@@ -93,8 +93,16 @@ getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal", "delt
   distVar
 }
 
-# evaluate NB variance when lambda is Inf
-noiseVarNB = function(theta,  method = c("trigamma", "lognormal", "delta")){
+#' Evaluate NB variance when lambda is Inf
+#' 
+#' Evaluate NB variance when lambda is Inf
+#' 
+#' @param theta NB overdispersion parameter
+#' @param method approximation method
+#' 
+#' @export
+#' @keywords internal
+noiseVarNB = function(theta, method = c("trigamma", "lognormal", "delta")){
 
   method <- match.arg(method)
 
@@ -107,19 +115,20 @@ noiseVarNB = function(theta,  method = c("trigamma", "lognormal", "delta")){
 
 get_mean_weights = function(fit){
 
-  if( is(fit, "lmerMod") ){
-    w = mean(weights(fit))
-  }else if( !is.null(fit$prior.weights) ){
-    w <- mean(fit$prior.weights)
-  }else if( is(fit, "lm") ){
-    w <- ifelse(is.null(fit$weights), 1, mean(fit$weights))
-  }else if( is(fit, "modelFits") ){
-    w <- rep(1, length(sigma(fit)))
-  }else{
-    w <- 1
-  }
+  w.mean <- 1
 
-  w
+  if( is(fit, "fastglmm") ){
+    w.mean <- mean(fit$prior.weights)
+  }else if( is(fit, "fastlmm") ){ 
+    w.mean <- ifelse(!is.null(fit$w.mean), fit$w.mean, 1.0)
+  }else if( is(fit, "modelFits") ){
+    w.mean <- rep(1, length(sigma(fit)))
+  }else {
+    w <- weights(fit)
+    w.mean <- ifelse(is.null(w), 1, mean(w))
+  } 
+
+  w.mean
 }
 
 
@@ -379,15 +388,25 @@ setMethod("varianceTerms", signature("fastlmm"),
 #' @param ... other arguments, passed to \code{vpOther()} or \code{vpCounts()}
 #'
 #' @details
-#' The coefficient of determination (i.e. R^2) is 1 - [Residuals fraction].  This matches \code{performance::r2_nakagawa()} and \code{performance::r2_mckelvey()}, except these use the \code{"lognormal"} method.   
-#' 
-#' For count models, the distributional variance is a function of the mean count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be estimated using parameters of a model including only intercept and random effect terms.  But this requires refitting the model dropping the rest of the fixed effects.  Instead, computing the mean of the observed counts is a fast approximation.
+#' For linear model, variance fractions are computed based on the sum of squares explained by each component.  For the linear mixed model, the variance fractions are computed by variance component estimates for random effects and sum of squares for fixed effects.
+#'
+#' For a generalized linear model, the variance fraction also includes the contribution of the link function so that fractions are reported on the linear (i.e. link) scale rather than the observed (i.e. response) scale. For linear regression with an identity link, fractions are the same on both scales.  But for logit or probit links, the fractions are not well defined on the observed scale due to the transformation imposed by the link function.
+#'
+#' The variance implied by the link function is the variance of the corresponding distribution (Nakagawa, et al. 2013, 2017)
+#'
+#' logit -> logistic distribution -> variance is \eqn{\pi^\frac{2}{3}}
+#'
+#' probit -> standard normal distribution -> variance is 1
+#'
+#' For count models, Nakagawa, et al. (2013, 2017) propose a large-count approximation.  Instead, we use an exact method described in Hoffman, et al (2026).
 #'
 #' @references
 #' Nakagawa, Johnson, Schielzeth. 2017.  The coefficient of determination R2 and intra-class correlation coefficient from generalized linear mixed-effects models revisited and expanded. J. R. Soc. Interface 14: 20170213. \doi{10.1098/rsif.2017.0213}
 #'
 #' Nakagawa, and Schielzeth. "A general and simple method for obtaining R2 from generalized linear mixed‐effects models." Methods in ecology and evolution 4, no. 2 (2013): 133-142. \doi{10.1111/j.2041-210x.2012.00261.x}
-#
+#'
+#' Hoffman, et al. Partitioning gene expression variance using count models. In prep.
+#'
 #' @examples
 #' library(MASS)
 #' library(lme4)
@@ -400,14 +419,14 @@ setMethod("varianceTerms", signature("fastlmm"),
 #' @importFrom matrixStats colVars
 #' @rdname varpart
 #' @export
-setGeneric("varpart", function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...) {
+setGeneric("varpart", function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1.0, p.tail = 1e-4, ...) {
   standardGeneric("varpart")
 })
 
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("fastlmm"), 
-  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1.0, p.tail = 1e-4, ...){
   
   .varpart(
     fit = fit, 
@@ -420,7 +439,7 @@ setMethod("varpart", signature("fastlmm"),
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("fastglmm"), 
-  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1.0, p.tail = 1e-4, ...){
   
   .varpart(
     fit = fit, 
@@ -433,7 +452,7 @@ setMethod("varpart", signature("fastglmm"),
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("glm"), 
-  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1.0, p.tail = 1e-4, ...){
   
   .varpart(
     fit = fit, 
@@ -446,7 +465,7 @@ setMethod("varpart", signature("glm"),
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("negbin"), 
-  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1.0, p.tail = 1e-4, ...){
   
   .varpart(
     fit = fit, 
@@ -460,7 +479,7 @@ setMethod("varpart", signature("negbin"),
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("lm"), 
-  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1.0, p.tail = 1e-4, ...){
   
   .varpart(
     fit = fit, 
@@ -473,7 +492,7 @@ setMethod("varpart", signature("lm"),
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("merMod"), 
-  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1.0, p.tail = 1e-4, ...){
   
   .varpart(
     fit = fit, 
@@ -486,7 +505,7 @@ setMethod("varpart", signature("merMod"),
 #' @rdname varpart
 #' @export
 setMethod("varpart", signature("glmmTMB"), 
-  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
+  function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1.0, p.tail = 1e-4, ...){
   
   .varpart(
     fit = fit, 
@@ -498,7 +517,7 @@ setMethod("varpart", signature("glmmTMB"),
 
 
 
-.varpart = function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 0.1, p.tail = 1e-4, ...){
+.varpart = function(fit, method = c("exact", "approximate", "trigamma", "lognormal", "delta"), pseudocount = 1.0, p.tail = 1e-4, ...){
 
   method <- match.arg(method)
 
@@ -512,23 +531,34 @@ setMethod("varpart", signature("glmmTMB"),
     if( method %in% c("exact", "approximate")){
       method <- "trigamma"
     }
-    vp <- vpOther( fit, method, ...)
+    vp <- vpOther( fit, method = method, ...)
   }
 
   vp
 }
 
 
-
+#' @importFrom matrixStats weightedVar
 vpOther <- function(fit, method = c("trigamma", "lognormal", "delta"),...){
 
   method <- match.arg(method)
 
-  signal_var <- var(predict(fit)) 
+  # get model weights
+  if( is(fit, "fastglmm" ) ){
+    w <- fit$prior.weights
+  }else{
+    w <- c(weights(fit))
+  }
+
+  if( !is.null(w) ){
+    w <- w / mean(w)
+  }
+
+  signal_var <- weightedVar(predict(fit), w) 
   distr_var <- getDistrVar( fit, 
                   method = method) 
   total_var <- signal_var + distr_var
-  eta_var <- colVars(predictTerms(fit))
+  eta_var <- apply(predictTerms(fit), 2, function(x) weightedVar(x, w))
 
   if( length(eta_var) == 0 ){
     stop("models with no variables not supported")
@@ -552,7 +582,15 @@ vpOther <- function(fit, method = c("trigamma", "lognormal", "delta"),...){
       Residuals = resid_var / total_var)
 
   }else{
-    res <- c(eta_var / sum(eta_var) * frac_signal, 
+    signal <- eta_var / sum(eta_var) * frac_signal
+
+    # if eta_var and frac_signal is effectively zero, 
+    # set signal to zero and avoid division by zero
+    if( sum(eta_var) < 1e-12 && frac_signal < 1e-12 ){
+      signal[] <- 0
+    }
+
+    res <- c(signal, 
       Residuals = distr_var / total_var)
   }
 
@@ -562,7 +600,7 @@ vpOther <- function(fit, method = c("trigamma", "lognormal", "delta"),...){
 # Variance partitioning for count models
 #
 #' @importFrom matrixStats colVars
-vpCounts <- function(fit, method = c("exact", "approximate"),pseudocount = 0.1, p.tail = 1e-4){
+vpCounts <- function(fit, method = c("exact", "approximate"),pseudocount = 1.0, p.tail = 1e-4){
 
   method <- match.arg(method)
   mu <- predict(fit, type = "response")
@@ -593,6 +631,9 @@ vpCounts <- function(fit, method = c("exact", "approximate"),pseudocount = 0.1, 
     # var.signal <- var(log(mu + pseudocount))[1] # first order
     var.noise <- mean(var.poisson + var.overdisp)
   }
+
+  # scale noise variance by the QL dispersion scale
+  var.noise <- var.noise * dispersion(fit)
 
   # total variance
   var.total <- var.signal + var.noise

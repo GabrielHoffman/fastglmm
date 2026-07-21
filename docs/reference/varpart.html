@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fastglmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,6 +103,15 @@
 <span>  pseudocount <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  p.tail <span class="op">=</span> <span class="fl">1e-04</span>,</span>
 <span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'glmmTMB'</span></span>
+<span><span class="fu">varpart</span><span class="op">(</span></span>
+<span>  <span class="va">fit</span>,</span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"exact"</span>, <span class="st">"approximate"</span>, <span class="st">"trigamma"</span>, <span class="st">"lognormal"</span>, <span class="st">"delta"</span><span class="op">)</span>,</span>
+<span>  pseudocount <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  p.tail <span class="op">=</span> <span class="fl">1e-04</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -132,13 +141,18 @@
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The coefficient of determination (i.e. R^2) is 1 - [Residuals fraction].  This matches <code><a href="https://easystats.github.io/performance/reference/r2_nakagawa.html" class="external-link">performance::r2_nakagawa()</a></code> and <code><a href="https://easystats.github.io/performance/reference/r2_mckelvey.html" class="external-link">performance::r2_mckelvey()</a></code>, except these use the <code>"lognormal"</code> method.</p>
-<p>For count models, the distributional variance is a function of the mean count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be estimated using parameters of a model including only intercept and random effect terms.  But this requires refitting the model dropping the rest of the fixed effects.  Instead, computing the mean of the observed counts is a fast approximation.</p>
+    <p>For linear model, variance fractions are computed based on the sum of squares explained by each component.  For the linear mixed model, the variance fractions are computed by variance component estimates for random effects and sum of squares for fixed effects.</p>
+<p>For a generalized linear model, the variance fraction also includes the contribution of the link function so that fractions are reported on the linear (i.e. link) scale rather than the observed (i.e. response) scale. For linear regression with an identity link, fractions are the same on both scales.  But for logit or probit links, the fractions are not well defined on the observed scale due to the transformation imposed by the link function.</p>
+<p>The variance implied by the link function is the variance of the corresponding distribution (Nakagawa, et al. 2013, 2017)</p>
+<p>logit -&gt; logistic distribution -&gt; variance is \(\pi^\frac{2}{3}\)</p>
+<p>probit -&gt; standard normal distribution -&gt; variance is 1</p>
+<p>For count models, Nakagawa, et al. (2013, 2017) propose a large-count approximation.  Instead, we use an exact method described in Hoffman, et al (2026).</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Nakagawa, Johnson, Schielzeth. 2017.  The coefficient of determination R2 and intra-class correlation coefficient from generalized linear mixed-effects models revisited and expanded. J. R. Soc. Interface 14: 20170213. <a href="https://doi.org/10.1098/rsif.2017.0213" class="external-link">doi:10.1098/rsif.2017.0213</a></p>
 <p>Nakagawa, and Schielzeth. "A general and simple method for obtaining R2 from generalized linear mixed‐effects models." Methods in ecology and evolution 4, no. 2 (2013): 133-142. <a href="https://doi.org/10.1111/j.2041-210x.2012.00261.x" class="external-link">doi:10.1111/j.2041-210x.2012.00261.x</a></p>
+<p>Hoffman, et al. Partitioning gene expression variance using count models. In prep.</p>
     </div>
 
     <div class="section level2">
@@ -163,7 +177,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

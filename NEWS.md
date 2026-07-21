@@ -1,4 +1,17 @@
 
+# fastglmm 0.4.11
+ - July 15, 2026
+ - fix bug in `getTheta()`
+ - use weighted variances in `vpOther()`
+ - bug fixes
+
+# fastglmm 0.4.10
+ - July 9, 2026
+ - `varpart()` works with `lmer()`, `glmer()`, `glmmTMB()`, `glm()`, `lm()`
+   - also `varianceTerms()`, `predictTerms()`
+ - pseudocount defaults to 1
+ - improve numerical stability of `log_moments_nb_XB()`
+
 # fastglmm 0.4.9
  - June 17, 2026
  - new arguments to `varpart()`

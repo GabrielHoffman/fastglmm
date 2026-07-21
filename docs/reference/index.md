@@ -49,6 +49,8 @@
   : Extract Log-Likelihood
 - [`model.frame(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/model.frame.fastlmm.md)
   : Extracting the Model Frame from a Fit
+- [`model.matrix(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/model.matrix.fastlmm.md)
+  : Construct Design Matrices
 - [`nobs(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/nobs.fastlmm.md)
   : Extract the Number of Observations from a Fit
 - [`plot(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/plot.fastlmm.md)
@@ -62,7 +64,8 @@
   : Extract Model Residuals
 - [`rstudent(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/rstudent.fastlmm.md)
   : Extract Studentized Residuals
-- [`sigma(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/sigma.fastlmm.md)
+- [`sigma(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/sigma.md)
+  [`sigma(`*`<fastglmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/sigma.md)
   : Extract Residual Standard Deviation
 - [`simulate(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/simulate.md)
   : Simulate Responses

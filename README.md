@@ -1,7 +1,9 @@
 
 <br>
 
-<img align="right" width="175" src="man/figures/logo.png">
+<div style="float: right; margin-left: 15px; margin-bottom: 15px;">
+  <img src="man/figures/logo.png" alt="package logo" width="150" />
+</div>
 
 ## Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on Massive Datasets
 
