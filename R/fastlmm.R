@@ -100,13 +100,6 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
 
   Z <- preprocess_indicator(data[[vs]])
 
-  if( is.numeric(weights) ){
-    w.mean <- mean(weights)
-    weights <- weights / w.mean
-  }else{
-    w.mean <- 1
-  }
-
   # fit model
   fit <- fastlmm.fit(
     y = y,
@@ -124,7 +117,6 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
   )
 
 
-  fit$w.mean <- w.mean
   fit$formula <- formula
   fit$data <- data
   fit$lambda <- lambda

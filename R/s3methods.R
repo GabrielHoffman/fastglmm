@@ -1188,12 +1188,24 @@ residuals.fastglmm <- function(object, type = c("deviance" , "pearson", "working
 
 
 
-#' Overdispersion parameter phi for quasi-likelihood
+#' Dispersion parameter phi for quasi-likelihood
 #'
-#' Overdispersion parameter phi for quasi-likelihood
+#' Extract dispersion parameter phi for quasi-likelihood
 #'
 #' @param object model fit 
 #' 
+#' @examples
+#' library(MASS)
+#' data(PsychAD)
+#' 
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#' 
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#' 
+#' dispersion(fit)
+#
 #' @rdname dispersion
 #' @export
 setGeneric("dispersion", 
@@ -1231,6 +1243,14 @@ setMethod("dispersion", signature("negbin"),
 setMethod("dispersion", signature("glmmTMB"), 
   function(object) {
   # no QL dispersion for glmmTMB models
+  1.0
+})
+
+#' @rdname dispersion
+#' @export
+setMethod("dispersion", signature("glmerMod"), 
+  function(object) {
+  # no QL dispersion for glmerMod models
   1.0
 })
 

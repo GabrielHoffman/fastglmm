@@ -223,13 +223,22 @@ std::tuple<double, double, double> _log_moments_nb_mu(
     signal = var(ez);
     noise = mean(vz);
   }else{
-
     // Exact
-    auto [ez, vz, a] = _log_moments_nb_exact_fast(mu, theta, c, p_tail);
+    if( isinf(theta) ){
+      // Poisson
+      auto [ez, vz] = _log_moments_poisson_exact_fast(mu, c, p_tail);
 
-    signal = var(ez);
-    noise = mean(vz);
-    alpha = a;
+      signal = var(ez);
+      noise = mean(vz);
+      alpha = 1.0;
+    }else{
+      // Negative binomial
+      auto [ez, vz, a] = _log_moments_nb_exact_fast(mu, theta, c, p_tail);
+
+      signal = var(ez);
+      noise = mean(vz);
+      alpha = a;
+    }
   }
 
   return {signal, noise, alpha};

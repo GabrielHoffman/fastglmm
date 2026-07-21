@@ -39,6 +39,7 @@ reference:
   - "deviance.fastlmm"
   - "ddf"
   - "df.residual.fastlmm"
+  - "dispersion"
   - "edf"
   - "extractAIC.fastlmm"
   - "family.fastlmm"
@@ -77,7 +78,6 @@ reference:
   - "fastlmm.fit"
   - "nb_theta"
   - "refitModel"
-  - "dispersion"
   - "varianceTerms"
   - "negative.binomial"
 

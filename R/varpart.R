@@ -120,7 +120,7 @@ get_mean_weights = function(fit){
   if( is(fit, "fastglmm") ){
     w.mean <- mean(fit$prior.weights)
   }else if( is(fit, "fastlmm") ){ 
-    w.mean <- ifelse(!is.null(fit$w.mean), fit$w.mean, 1.0)
+    w.mean <- mean(weights(fit))
   }else if( is(fit, "modelFits") ){
     w.mean <- rep(1, length(sigma(fit)))
   }else {
@@ -607,16 +607,9 @@ vpCounts <- function(fit, method = c("exact", "approximate"),pseudocount = 1.0, 
   theta <- getTheta(fit) 
 
   # Approx total noise
-  var.poisson <- mu / (mu+pseudocount)^2
   if( is.na(theta) ){
-    var.overdisp <- 0
-    theta <- 1e12
-  }else{
-    var.overdisp <- (mu^2/theta) / (mu+pseudocount)^2
+    theta <- Inf
   }
-
-  # fraction of variance that is Poisson shot noise
-  alpha <- mean(var.poisson / (var.poisson + var.overdisp))
 
   if( method == "exact"){ 
     # Exact variances
@@ -625,11 +618,23 @@ vpCounts <- function(fit, method = c("exact", "approximate"),pseudocount = 1.0, 
     res <- log_moments_nb_mu(mu, theta, "exact", c = pseudocount, p_tail = p.tail)
     var.signal <- res$var.signal
     var.noise <- res$var.noise
+    alpha <- res$alpha
   }else{
     # Approximate variances
+    var.poisson <- mu / (mu+pseudocount)^2
+
+    if( ! is.finite(theta) ){
+      var.overdisp <- 0
+    }else{
+      var.overdisp <- (mu^2/theta) / (mu+pseudocount)^2
+    }
+
     var.signal <- var(log(mu + pseudocount) - (mu + mu^2/theta)/(2*(mu+pseudocount)^2))[1] # second order
     # var.signal <- var(log(mu + pseudocount))[1] # first order
     var.noise <- mean(var.poisson + var.overdisp)
+
+    # fraction of variance that is Poisson shot noise
+    alpha <- mean(var.poisson / (var.poisson + var.overdisp))
   }
 
   # scale noise variance by the QL dispersion scale

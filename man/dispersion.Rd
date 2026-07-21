@@ -6,7 +6,8 @@
 \alias{dispersion,glm-method}
 \alias{dispersion,negbin-method}
 \alias{dispersion,glmmTMB-method}
-\title{Overdispersion parameter phi for quasi-likelihood}
+\alias{dispersion,glmerMod-method}
+\title{Dispersion parameter phi for quasi-likelihood}
 \usage{
 dispersion(object)
 
@@ -17,10 +18,24 @@ dispersion(object)
 \S4method{dispersion}{negbin}(object)
 
 \S4method{dispersion}{glmmTMB}(object)
+
+\S4method{dispersion}{glmerMod}(object)
 }
 \arguments{
 \item{object}{model fit}
 }
 \description{
-Overdispersion parameter phi for quasi-likelihood
+Extract dispersion parameter phi for quasi-likelihood
+}
+\examples{
+library(MASS)
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+dispersion(fit)
 }
