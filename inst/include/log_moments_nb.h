@@ -28,13 +28,13 @@ std::pair<double, double> _log_moments_poisson_exact_fast(
       const double &c = 1.0,
       const double &p_tail = 1e-4){
 
-  // // For large count values, use approximation
-  // if( m > COUNT_CEILING ){
-  //   double vz = boost::math::trigamma(m);
-  //   double ez = log(m); 
+  // For large count values, use approximation
+  if( m > COUNT_CEILING ){
+    double vz = boost::math::trigamma(m);
+    double ez = log(m); 
 
-  //   return {ez, vz};
-  // }
+    return {ez, vz};
+  }
 
   int qmax = qpois_boost(p_tail, m, false);
   if (qmax < 1) qmax = 1;
@@ -121,13 +121,13 @@ std::pair<double, double> _log_moments_nb_exact_fast(
       const double &c = 1.0,
       const double &p_tail = 1e-4) {
 
-  // // For large count values, use approximation
-  // if( m > COUNT_CEILING ){
-  //   double vz = boost::math::trigamma(1/(1/m + 1/theta));
-  //   double ez = log(m + c) - 0.5*(m + pow(m,2)/theta)/pow(m+c,2);
+  // For large count values, use approximation
+  if( m > COUNT_CEILING ){
+    double vz = boost::math::trigamma(1/(1/m + 1/theta));
+    double ez = log(m + c) - 0.5*(m + pow(m,2)/theta)/pow(m+c,2);
 
-  //   return {ez, vz};
-  // }
+    return {ez, vz};
+  }
 
   // R parameterization: size = theta, mu = m
   double prob = theta / (theta + m);
