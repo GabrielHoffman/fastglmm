@@ -19,8 +19,78 @@
 using namespace arma;
 using namespace std;
 
+// for values greater than this, use approximation
+#define COUNT_CEILING 1e8
 
 // Evaluate poisson pdf across many values of y using Panjer recursion
+std::pair<double, double> _log_moments_poisson_exact_fast(
+      const double& m,
+      const double &c = 1.0,
+      const double &p_tail = 1e-4){
+
+  // // For large count values, use approximation
+  // if( m > COUNT_CEILING ){
+  //   double vz = boost::math::trigamma(m);
+  //   double ez = log(m); 
+
+  //   return {ez, vz};
+  // }
+
+  int qmax = qpois_boost(p_tail, m, false);
+  if (qmax < 1) qmax = 1;
+
+  int mode = std::floor(m);
+  if (mode > qmax) mode = qmax;
+
+  double sum_p  = 0.0;
+  double sum_z  = 0.0;
+  double sum_z2 = 0.0;
+
+  // anchor at mode with arbitrary scale
+  double py = 1.0;
+
+  // include mode
+  if (!(c == 0.0 && mode == 0)) {
+    double z = std::log(mode + c);
+    sum_p  += py;
+    sum_z  += py * z;
+    sum_z2 += py * z * z;
+  }
+
+  // recurse downward from mode to 0:
+  // p_{y-1} = p_y * y / mu
+  py = 1.0;
+  for (int y = mode; y >= 1; --y) {
+    py *= y / m;  // now py is scaled p_{y-1}
+
+    int yy = y - 1;
+
+    if (c == 0.0 && yy == 0) continue;
+
+    double z = std::log(yy + c);
+    sum_p  += py;
+    sum_z  += py * z;
+    sum_z2 += py * z * z;
+  }
+
+  // recurse upward from mode to qmax:
+  // p_y = p_{y-1} * mu / y
+  py = 1.0;
+  for (int y = mode + 1; y <= qmax; ++y) {
+    py *= m / y;  // now py is scaled p_y
+
+    double z = std::log(y + c);
+    sum_p  += py;
+    sum_z  += py * z;
+    sum_z2 += py * z * z;
+  }
+
+  double ez = sum_z / sum_p;
+  double vz = sum_z2 / sum_p - ez * ez;
+
+  return {ez, vz};
+}
+
 std::pair<vec, vec> _log_moments_poisson_exact_fast(
       const arma::vec& mu,
       const double &c = 1.0,
@@ -31,60 +101,9 @@ std::pair<vec, vec> _log_moments_poisson_exact_fast(
   arma::vec var_out(n);
 
   for (int i = 0; i < n; ++i) {
-    double m = mu[i];
 
-    int qmax = qpois_boost(p_tail, m, false);
-    if (qmax < 1) qmax = 1;
-
-    int mode = std::floor(m);
-    if (mode > qmax) mode = qmax;
-
-    double sum_p  = 0.0;
-    double sum_z  = 0.0;
-    double sum_z2 = 0.0;
-
-    // anchor at mode with arbitrary scale
-    double py = 1.0;
-
-    // include mode
-    if (!(c == 0.0 && mode == 0)) {
-      double z = std::log(mode + c);
-      sum_p  += py;
-      sum_z  += py * z;
-      sum_z2 += py * z * z;
-    }
-
-    // recurse downward from mode to 0:
-    // p_{y-1} = p_y * y / mu
-    py = 1.0;
-    for (int y = mode; y >= 1; --y) {
-      py *= y / m;  // now py is scaled p_{y-1}
-
-      int yy = y - 1;
-
-      if (c == 0.0 && yy == 0) continue;
-
-      double z = std::log(yy + c);
-      sum_p  += py;
-      sum_z  += py * z;
-      sum_z2 += py * z * z;
-    }
-
-    // recurse upward from mode to qmax:
-    // p_y = p_{y-1} * mu / y
-    py = 1.0;
-    for (int y = mode + 1; y <= qmax; ++y) {
-      py *= m / y;  // now py is scaled p_y
-
-      double z = std::log(y + c);
-      sum_p  += py;
-      sum_z  += py * z;
-      sum_z2 += py * z * z;
-    }
-
-    double ez = sum_z / sum_p;
-    double vz = sum_z2 / sum_p - ez * ez;
-
+    auto [ez, vz] = _log_moments_poisson_exact_fast(mu[i], c, p_tail);
+    
     mean_out[i] = ez;
     var_out[i] = vz;
   }
@@ -96,6 +115,89 @@ std::pair<vec, vec> _log_moments_poisson_exact_fast(
 
 
 // Evaluate NB PDF for y = 0:qmax using recursion Panjer recursion
+std::pair<double, double> _log_moments_nb_exact_fast(
+      const double& m,
+      const double &theta,
+      const double &c = 1.0,
+      const double &p_tail = 1e-4) {
+
+  // // For large count values, use approximation
+  // if( m > COUNT_CEILING ){
+  //   double vz = boost::math::trigamma(1/(1/m + 1/theta));
+  //   double ez = log(m + c) - 0.5*(m + pow(m,2)/theta)/pow(m+c,2);
+
+  //   return {ez, vz};
+  // }
+
+  // R parameterization: size = theta, mu = m
+  double prob = theta / (theta + m);
+
+  // Use R's qnbinom for truncation cutoff
+  // int qmax = R::qnbinom(p_tail, theta, prob, false, false);
+  int qmax = qnbinom_boost(p_tail, theta, prob, false);
+  if (qmax < 1) qmax = 1;
+
+  double p = m / (m + theta);
+
+   // NB mode: floor((theta - 1) * p / (1 - p)), for theta > 1
+  // In mean/size form this is floor((theta - 1) * mu / theta).
+  int mode = 0;
+  if (theta > 1.0) {
+    mode = std::floor((theta - 1.0) * m / theta);
+    if (mode < 0) mode = 0;
+    if (mode > qmax) mode = qmax;
+  }
+
+  double sum_p  = 0.0;
+  double sum_z  = 0.0;
+  double sum_z2 = 0.0;
+
+  // Anchor at mode with arbitrary scaled mass
+  double py = 1.0;
+
+  // Include mode
+  if (!(c == 0.0 && mode == 0)) {
+    double z = std::log(mode + c);
+    sum_p  += py;
+    sum_z  += py * z;
+    sum_z2 += py * z * z;
+  }
+
+  // Downward recurrence:
+  // p_{y-1} = p_y * y / ((y + theta - 1) * p)
+  py = 1.0;
+  for (int y = mode; y >= 1; --y) {
+    py *= y / ((y + theta - 1.0) * p);
+
+    int yy = y - 1;
+
+    if (c == 0.0 && yy == 0) continue;
+
+    double z = std::log(yy + c);
+    sum_p  += py;
+    sum_z  += py * z;
+    sum_z2 += py * z * z;
+  }
+
+  // Upward recurrence:
+  // p_y = p_{y-1} * ((y + theta - 1) / y) * p
+  py = 1.0;
+  for (int y = mode + 1; y <= qmax; ++y) {
+    py *= ((y + theta - 1.0) / y) * p;
+
+    double z = std::log(y + c);
+    sum_p  += py;
+    sum_z  += py * z;
+    sum_z2 += py * z * z;
+  }
+
+  double ez = sum_z / sum_p;
+  double vz = sum_z2 / sum_p - ez * ez;
+
+  return {ez, vz};
+}
+
+
 std::tuple<vec, vec, double> _log_moments_nb_exact_fast(
       const arma::vec& mu,
       const double &theta,
@@ -111,72 +213,8 @@ std::tuple<vec, vec, double> _log_moments_nb_exact_fast(
   arma::vec var_out(n);
 
   for (int i = 0; i < n; ++i) {
-    double m = mu[i];
-
-    // R parameterization: size = theta, mu = m
-    double prob = theta / (theta + m);
-
-    // Use R's qnbinom for truncation cutoff
-    // int qmax = R::qnbinom(p_tail, theta, prob, false, false);
-    int qmax = qnbinom_boost(p_tail, theta, prob, false);
-    if (qmax < 1) qmax = 1;
-
-    double p = m / (m + theta);
-
-     // NB mode: floor((theta - 1) * p / (1 - p)), for theta > 1
-    // In mean/size form this is floor((theta - 1) * mu / theta).
-    int mode = 0;
-    if (theta > 1.0) {
-      mode = std::floor((theta - 1.0) * m / theta);
-      if (mode < 0) mode = 0;
-      if (mode > qmax) mode = qmax;
-    }
-
-    double sum_p  = 0.0;
-    double sum_z  = 0.0;
-    double sum_z2 = 0.0;
-
-    // Anchor at mode with arbitrary scaled mass
-    double py = 1.0;
-
-    // Include mode
-    if (!(c == 0.0 && mode == 0)) {
-      double z = std::log(mode + c);
-      sum_p  += py;
-      sum_z  += py * z;
-      sum_z2 += py * z * z;
-    }
-
-    // Downward recurrence:
-    // p_{y-1} = p_y * y / ((y + theta - 1) * p)
-    py = 1.0;
-    for (int y = mode; y >= 1; --y) {
-      py *= y / ((y + theta - 1.0) * p);
-
-      int yy = y - 1;
-
-      if (c == 0.0 && yy == 0) continue;
-
-      double z = std::log(yy + c);
-      sum_p  += py;
-      sum_z  += py * z;
-      sum_z2 += py * z * z;
-    }
-
-    // Upward recurrence:
-    // p_y = p_{y-1} * ((y + theta - 1) / y) * p
-    py = 1.0;
-    for (int y = mode + 1; y <= qmax; ++y) {
-      py *= ((y + theta - 1.0) / y) * p;
-
-      double z = std::log(y + c);
-      sum_p  += py;
-      sum_z  += py * z;
-      sum_z2 += py * z * z;
-    }
-
-    double ez = sum_z / sum_p;
-    double vz = sum_z2 / sum_p - ez * ez;
+   
+    auto [ez, vz] = _log_moments_nb_exact_fast(mu[i], theta, c, p_tail);
 
     mean_out[i] = ez;
     var_out[i] = vz;
