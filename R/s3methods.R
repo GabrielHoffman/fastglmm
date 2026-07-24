@@ -12,6 +12,7 @@
 #' @exportClass fastlmm
 #' @return none
 #' @keywords internal
+#' @importFrom RcppParallel RcppParallelLibs
 setClass("fastlmm", contains="list")
 
 
