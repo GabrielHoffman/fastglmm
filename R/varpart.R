@@ -554,7 +554,14 @@ vpOther <- function(fit, method = c("trigamma", "lognormal", "delta"),...){
     w <- w / mean(w)
   }
 
-  signal_var <- weightedVar(predict(fit), w) 
+  # signal variancebased on covariates
+  #   but not offset
+  y.pred <- predict(fit)
+  if( !is.null( getOffset(fit) ) ){
+    y.pred <- y.pred - getOffset(fit) 
+  }
+
+  signal_var <- weightedVar(y.pred, w) 
   distr_var <- getDistrVar( fit, 
                   method = method) 
   total_var <- signal_var + distr_var
@@ -603,8 +610,9 @@ vpOther <- function(fit, method = c("trigamma", "lognormal", "delta"),...){
 vpCounts <- function(fit, method = c("exact", "approximate"),pseudocount = 1.0, p.tail = 1e-4){
 
   method <- match.arg(method)
+ 
   mu <- predict(fit, type = "response")
-  theta <- getTheta(fit) 
+  theta <- getTheta(fit)
 
   # Approx total noise
   if( is.na(theta) ){
@@ -653,16 +661,45 @@ vpCounts <- function(fit, method = c("exact", "approximate"),pseudocount = 1.0, 
   # fraction of variance for each variable on eta scale
   # Apply these fractions to divide rho2.signal
   eta_var <- colVars(predictTerms(fit))
+
+  if( !is.null(getOffset(fit)) ){
+    # account for variance due to offset
+    eta_var['offset'] <- var(getOffset(fit))
+  }
   eta_var <- eta_var[names(eta_var) != "(Intercept)"]
   eta_var <- c(eta_var, varianceTerms(fit) )
   gamma <- eta_var / sum(eta_var)
 
   # Variance fractions
-  c(rho2.signal*gamma, 
+  frac <- c(rho2.signal*gamma, 
     CountNoise = rho2.noise*alpha,
     Residuals = rho2.noise*(1-alpha)
     )
+
+  if( !is.null(getOffset(fit)) ){
+    # account for variance due to offset
+    i <- match("offset", names(frac))
+    frac <- frac[-i] / sum(frac[-i])
+  }
+
+  frac
 }
+
+#' @importFrom lme4 getME
+# extract offset from model fit
+#' @importFrom lme4 getME
+getOffset <- function(fit){
+
+  if( is(fit, "merMod")){
+    os <- getME(fit, "offset")
+  }else{
+    os <- fit[['offset']]
+  }
+
+  os
+}
+
+
 
 
 

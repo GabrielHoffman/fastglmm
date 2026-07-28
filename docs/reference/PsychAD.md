@@ -79,5 +79,5 @@ summary(fit)
 # Variance partitioning analysis
 varpart(fit)
 #>           Dx          Age          Sex        SubID   CountNoise    Residuals 
-#> 0.0485718482 0.0008018328 0.0004235004 0.0767506346 0.2586898490 0.6147623350 
+#> 0.0381796508 0.0006302765 0.0003328903 0.0603294404 0.5524005465 0.3481271955 
 ```

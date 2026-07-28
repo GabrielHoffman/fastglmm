@@ -28,6 +28,8 @@
   Denominator Degrees of Freedom
 - [`df.residual(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/df.residual.fastlmm.md)
   : Residual Degrees-of-Freedom
+- [`dispersion()`](http://gabrielhoffman.github.io/fastglmm/reference/dispersion.md)
+  : Dispersion parameter phi for quasi-likelihood
 - [`edf()`](http://gabrielhoffman.github.io/fastglmm/reference/edf.md) :
   Effective Degrees-of-Freedom of Model Fit
 - [`extractAIC(`*`<fastlmm>`*`)`](http://gabrielhoffman.github.io/fastglmm/reference/extractAIC.fastlmm.md)
@@ -103,8 +105,6 @@
   : Estimate theta of the Negative Binomial
 - [`refitModel()`](http://gabrielhoffman.github.io/fastglmm/reference/refitModel.md)
   : Refit fastlmm model with new delta
-- [`dispersion()`](http://gabrielhoffman.github.io/fastglmm/reference/dispersion.md)
-  : Overdispersion parameter phi for quasi-likelihood
 - [`varianceTerms()`](http://gabrielhoffman.github.io/fastglmm/reference/varianceTerms.md)
   : Array of variance component estimates
 - [`negative.binomial()`](http://gabrielhoffman.github.io/fastglmm/reference/negative.binomial.md)

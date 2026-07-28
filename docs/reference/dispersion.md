@@ -1,6 +1,6 @@
-# Overdispersion parameter phi for quasi-likelihood
+# Dispersion parameter phi for quasi-likelihood
 
-Overdispersion parameter phi for quasi-likelihood
+Extract dispersion parameter phi for quasi-likelihood
 
 ## Usage
 
@@ -18,6 +18,9 @@ dispersion(object)
 
 # S4 method for class 'glmmTMB'
 dispersion(object)
+
+# S4 method for class 'glmerMod'
+dispersion(object)
 ```
 
 ## Arguments
@@ -25,3 +28,19 @@ dispersion(object)
 - object:
 
   model fit
+
+## Examples
+
+``` r
+library(MASS)
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+dispersion(fit)
+#> [1] 1
+```

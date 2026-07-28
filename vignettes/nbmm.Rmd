@@ -17,7 +17,7 @@ vignette: >
 
 cd /Users/gabrielhoffman/workspace/repos/fastglmm/vignettes
 
-# rm -rf variancePartitioning_cache/
+# rm -rf nbmm_cache/
 
 rmarkdown::render("nbmm.Rmd")
 
@@ -74,7 +74,7 @@ Note that while 71\% of the 60k observations are zero, this is due to a low coun
 ```{r varpart}
 varpart(fit)
 ```
-Variance partitioning analysis quantifies the contribution of each variable to the observed variance in PTPRG expression.  Alzheimer's disease status explains 4.8% of observed expression variation, variation across subjects explains 7.6%, with sex and age making a smaller contribution.  Measurement error  due to sampling a finite number of counts (i.e. `CountNoise`) explains 25.8% of the variance, and the remaining 61.4% of the variance is explained by the residuals.
+Variance partitioning analysis quantifies the contribution of each variable to the observed variance in PTPRG expression.  Alzheimer's disease status explains 3.8% of observed expression variation, variation across subjects explains 6.0%, with sex and age making a smaller contribution.  Measurement error  due to sampling a finite number of counts (i.e. `CountNoise`) explains 55.2% of the variance, and the remaining 34.8% of the variance is explained by the residuals.
 
 #### Session info
 <details>

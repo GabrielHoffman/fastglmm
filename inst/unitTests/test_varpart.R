@@ -10,6 +10,11 @@ test_models = function(){
   object <- lmer(Reaction ~ Days + I(Days^2) + (1 | Subject), data = sleepstudy)
   varpart(object)
 
+
+  sleepstudy$os = 1000
+  object <- lmer(Reaction ~ offset(os) + Days + I(Days^2) + (1 | Subject), data = sleepstudy)
+  varpart(object)
+
   # Fit a sample lme4 model
   model <- lmer(Reaction ~ Days + I(Days^2) + (Days | Subject), data = sleepstudy)
   varpart(model)

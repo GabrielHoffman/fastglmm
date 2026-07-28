@@ -1,4 +1,8 @@
 
+# fastglmm 0.4.13
+ - July 28, 2026
+ - fix accouting for count model offset
+
 # fastglmm 0.4.12
  - July 24, 2026
  - use `_log_moments_nb_mu()` uses approximation for lage mu values
