@@ -269,7 +269,7 @@ static ModelFitGLM GLM_NB(
 		theta = nb_theta_ml(y, work->mu, y.n_elem, weights, X, doCoxReid, ct);
 
 		// Fit NB regression to estimate coefficients
-    	beta_prev = fit.coef;
+    beta_prev = fit.coef;
 		family = "nb:" + to_string(theta);
 		fit = GLM(X, y, family, LEAST, weights, offset, work, fit.coef, epsilon, maxit, lambda);
 
