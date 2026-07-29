@@ -10,6 +10,8 @@ test_varpart_offset = function(){
 
   data(PsychAD)
 
+  set.seed(1)
+  
   X = model.matrix(~Age, PsychAD)
   eta = log(PsychAD$libSize) + X %*% c(0,.02)
 
