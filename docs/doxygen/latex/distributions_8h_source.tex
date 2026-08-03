@@ -84,6 +84,35 @@
 \DoxyCodeLine{00080\ \}}
 \DoxyCodeLine{00081\ }
 \DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00083\ \textcolor{comment}{/*\ Create\ vector\ of\ probabilities\ for\ NB\ distribution}}
+\DoxyCodeLine{00084\ \textcolor{comment}{}}
+\DoxyCodeLine{00085\ \textcolor{comment}{Evaluate\ NB\ PDF\ for\ y\ =\ 0:qmax\ using\ recursion\ to\ avoid\ using\ lgamma()}}
+\DoxyCodeLine{00086\ \textcolor{comment}{}}
+\DoxyCodeLine{00087\ \textcolor{comment}{vec\ y\ =\ generate\_seq(qmax);}}
+\DoxyCodeLine{00088\ \textcolor{comment}{vec\ p(y.size());}}
+\DoxyCodeLine{00089\ \textcolor{comment}{double\ prob\ =\ theta\ /\ (theta\ +\ mu);}}
+\DoxyCodeLine{00090\ \textcolor{comment}{for(int\ k\ =\ 0;\ k<y.size();\ ++k)\{}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ \ p(k)\ =\ dnbinom\_boost(y[k],\ theta,\ prob);}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\}}}
+\DoxyCodeLine{00093\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00094\ arma::vec\ \doxymbox{\hyperlink{distributions_8h_a0635b5da3f502b8ef3392cf34f6241d0}{dnbinom\_seq\_mu\_theta}}(\textcolor{keywordtype}{double}\ mu,\ \textcolor{keywordtype}{double}\ theta,\ \textcolor{keywordtype}{int}\ qmax)\ \{}
+\DoxyCodeLine{00095\ \ \ arma::vec\ out(qmax\ +\ 1);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{double}\ p\ =\ mu\ /\ (mu\ +\ theta);}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{double}\ q\ =\ theta\ /\ (mu\ +\ theta);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \textcolor{comment}{//\ P(Y\ =\ 0)}}
+\DoxyCodeLine{00101\ \ \ out[0]\ =\ std::pow(q,\ theta);}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \textcolor{comment}{//\ recurrence:}}
+\DoxyCodeLine{00104\ \ \ \textcolor{comment}{//\ P(y+1)\ =\ P(y)\ *\ ((y\ +\ theta)/(y+1))\ *\ p}}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ y\ =\ 0;\ y\ <\ qmax;\ ++y)\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ out[y\ +\ 1]\ =\ out[y]\ *\ (\ (y\ +\ theta)\ /\ (y\ +\ 1.0)\ )\ *\ p;}
+\DoxyCodeLine{00107\ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00110\ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

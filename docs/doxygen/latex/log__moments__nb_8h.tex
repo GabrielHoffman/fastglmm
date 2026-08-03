@@ -5,17 +5,39 @@
 {\ttfamily \+\#include $<$Rcpp.\+h$>$}\newline
 {\ttfamily \+\#include $<$utility$>$}\newline
 {\ttfamily \+\#include $<$distributions.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{log__moments__nb_8h_a6ca7e72d50dd7d34c5e4856527812ebe}{COUNT\+\_\+\+CEILING}}~1e8
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-vec \doxymbox{\hyperlink{log__moments__nb_8h_ac0a68e9a719eaa13d15b9f8658579a70}{generate\+\_\+seq}} (const int \&qmax)
+std::\+pair$<$ double, double $>$ \doxymbox{\hyperlink{log__moments__nb_8h_a655e2099f7fa135bf796477df25387ca}{\+\_\+log\+\_\+moments\+\_\+poisson\+\_\+exact\+\_\+fast}} (const double \&m, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4)
 \item 
-std::\+pair$<$ double, double $>$ \doxymbox{\hyperlink{log__moments__nb_8h_a799e2c30a21c2b66abbf0f08a6406db5}{\+\_\+log\+\_\+moments\+\_\+nb\+\_\+mu}} (const vec \&mu, const double \&theta, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4)
+std::\+pair$<$ vec, vec $>$ \doxymbox{\hyperlink{log__moments__nb_8h_a645e424afc43e2367af2c5094df58f4d}{\+\_\+log\+\_\+moments\+\_\+poisson\+\_\+exact\+\_\+fast}} (const arma::\+vec \&mu, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4)
+\item 
+std::\+pair$<$ double, double $>$ \doxymbox{\hyperlink{log__moments__nb_8h_aacf688f1715e58941ab1489e704c7e4e}{\+\_\+log\+\_\+moments\+\_\+nb\+\_\+exact\+\_\+fast}} (const double \&m, const double \&theta, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4)
+\item 
+std::\+tuple$<$ vec, vec, double $>$ \doxymbox{\hyperlink{log__moments__nb_8h_af9d2e17c0b156ef6e6297e7a7abb273e}{\+\_\+log\+\_\+moments\+\_\+nb\+\_\+exact\+\_\+fast}} (const arma::\+vec \&mu, const double \&theta, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4)
+\item 
+std::\+tuple$<$ double, double, double $>$ \doxymbox{\hyperlink{log__moments__nb_8h_ac5b7f5dd10e829ca07ead49cd19d3d3e}{\+\_\+log\+\_\+moments\+\_\+nb\+\_\+mu}} (const vec \&mu, const double \&theta, const string \&method, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4)
 \item 
 tuple$<$ vec, vec, vec $>$ \doxymbox{\hyperlink{log__moments__nb_8h_af66e2ac4e795af3cc7d8bc51cd439c2f}{\+\_\+log\+\_\+moments\+\_\+nb\+\_\+\+XB}} (const mat \&X, const mat \&Beta, const vec \&offset, const vec \&theta, const string \&method, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4, const int \&nthreads=10)
 \item 
 {\footnotesize template$<$typename T$>$ }\\tuple$<$ vec, vec, vec $>$ \doxymbox{\hyperlink{log__moments__nb_8h_ac77c370cbdd46efca19ad6ff689311f1}{\+\_\+log\+\_\+moments\+\_\+nb\+\_\+\+Blup\+XBZ}} (const mat \&BLUP, const mat \&X, const mat \&Beta, const T \&Z, const vec \&weights, const vec \&offset, const vec \&theta, const vec \&delta, const string \&method, const string \&dcmp\+Method, const double \&c=1.\+0, const double \&p\+\_\+tail=1e-\/4, const int \&nthreads=10)
 \end{DoxyCompactItemize}
+
+
+\label{log__moments__nb_8h_doc-define-members}
+\Hypertarget{log__moments__nb_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{log__moments__nb_8h_a6ca7e72d50dd7d34c5e4856527812ebe}\index{log\_moments\_nb.h@{log\_moments\_nb.h}!COUNT\_CEILING@{COUNT\_CEILING}}
+\index{COUNT\_CEILING@{COUNT\_CEILING}!log\_moments\_nb.h@{log\_moments\_nb.h}}
+\doxysubsubsection{\texorpdfstring{COUNT\_CEILING}{COUNT\_CEILING}}
+{\footnotesize\ttfamily \label{log__moments__nb_8h_a6ca7e72d50dd7d34c5e4856527812ebe} 
+\+\#define COUNT\+\_\+\+CEILING~1e8}
+
 
 
 \label{log__moments__nb_8h_doc-func-members}
@@ -28,11 +50,23 @@ tuple$<$ vec, vec, vec $>$ \doxymbox{\hyperlink{log__moments__nb_8h_af66e2ac4e79
 template$<$typename T$>$ \\
 tuple$<$ vec, vec, vec $>$ \+\_\+log\+\_\+moments\+\_\+nb\+\_\+\+Blup\+XBZ (\begin{DoxyParamCaption}\item[{const mat \&}]{BLUP}{, }\item[{const mat \&}]{X}{, }\item[{const mat \&}]{Beta}{, }\item[{const T \&}]{Z}{, }\item[{const vec \&}]{weights}{, }\item[{const vec \&}]{offset}{, }\item[{const vec \&}]{theta}{, }\item[{const vec \&}]{delta}{, }\item[{const string \&}]{method}{, }\item[{const string \&}]{dcmp\+Method}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
 
-\Hypertarget{log__moments__nb_8h_a799e2c30a21c2b66abbf0f08a6406db5}\index{log\_moments\_nb.h@{log\_moments\_nb.h}!\_log\_moments\_nb\_mu@{\_log\_moments\_nb\_mu}}
+\Hypertarget{log__moments__nb_8h_af9d2e17c0b156ef6e6297e7a7abb273e}\index{log\_moments\_nb.h@{log\_moments\_nb.h}!\_log\_moments\_nb\_exact\_fast@{\_log\_moments\_nb\_exact\_fast}}
+\index{\_log\_moments\_nb\_exact\_fast@{\_log\_moments\_nb\_exact\_fast}!log\_moments\_nb.h@{log\_moments\_nb.h}}
+\doxysubsubsection{\texorpdfstring{\_log\_moments\_nb\_exact\_fast()}{\_log\_moments\_nb\_exact\_fast()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{log__moments__nb_8h_af9d2e17c0b156ef6e6297e7a7abb273e} 
+std::\+tuple$<$ vec, vec, double $>$ \+\_\+log\+\_\+moments\+\_\+nb\+\_\+exact\+\_\+fast (\begin{DoxyParamCaption}\item[{const arma::\+vec \&}]{mu}{, }\item[{const double \&}]{theta}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}}\end{DoxyParamCaption})}
+
+\Hypertarget{log__moments__nb_8h_aacf688f1715e58941ab1489e704c7e4e}\index{log\_moments\_nb.h@{log\_moments\_nb.h}!\_log\_moments\_nb\_exact\_fast@{\_log\_moments\_nb\_exact\_fast}}
+\index{\_log\_moments\_nb\_exact\_fast@{\_log\_moments\_nb\_exact\_fast}!log\_moments\_nb.h@{log\_moments\_nb.h}}
+\doxysubsubsection{\texorpdfstring{\_log\_moments\_nb\_exact\_fast()}{\_log\_moments\_nb\_exact\_fast()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{log__moments__nb_8h_aacf688f1715e58941ab1489e704c7e4e} 
+std::\+pair$<$ double, double $>$ \+\_\+log\+\_\+moments\+\_\+nb\+\_\+exact\+\_\+fast (\begin{DoxyParamCaption}\item[{const double \&}]{m}{, }\item[{const double \&}]{theta}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}}\end{DoxyParamCaption})}
+
+\Hypertarget{log__moments__nb_8h_ac5b7f5dd10e829ca07ead49cd19d3d3e}\index{log\_moments\_nb.h@{log\_moments\_nb.h}!\_log\_moments\_nb\_mu@{\_log\_moments\_nb\_mu}}
 \index{\_log\_moments\_nb\_mu@{\_log\_moments\_nb\_mu}!log\_moments\_nb.h@{log\_moments\_nb.h}}
 \doxysubsubsection{\texorpdfstring{\_log\_moments\_nb\_mu()}{\_log\_moments\_nb\_mu()}}
-{\footnotesize\ttfamily \label{log__moments__nb_8h_a799e2c30a21c2b66abbf0f08a6406db5} 
-std::\+pair$<$ double, double $>$ \+\_\+log\+\_\+moments\+\_\+nb\+\_\+mu (\begin{DoxyParamCaption}\item[{const vec \&}]{mu}{, }\item[{const double \&}]{theta}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{log__moments__nb_8h_ac5b7f5dd10e829ca07ead49cd19d3d3e} 
+std::\+tuple$<$ double, double, double $>$ \+\_\+log\+\_\+moments\+\_\+nb\+\_\+mu (\begin{DoxyParamCaption}\item[{const vec \&}]{mu}{, }\item[{const double \&}]{theta}{, }\item[{const string \&}]{method}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}}\end{DoxyParamCaption})}
 
 \Hypertarget{log__moments__nb_8h_af66e2ac4e795af3cc7d8bc51cd439c2f}\index{log\_moments\_nb.h@{log\_moments\_nb.h}!\_log\_moments\_nb\_XB@{\_log\_moments\_nb\_XB}}
 \index{\_log\_moments\_nb\_XB@{\_log\_moments\_nb\_XB}!log\_moments\_nb.h@{log\_moments\_nb.h}}
@@ -40,9 +74,15 @@ std::\+pair$<$ double, double $>$ \+\_\+log\+\_\+moments\+\_\+nb\+\_\+mu (\begin
 {\footnotesize\ttfamily \label{log__moments__nb_8h_af66e2ac4e795af3cc7d8bc51cd439c2f} 
 tuple$<$ vec, vec, vec $>$ \+\_\+log\+\_\+moments\+\_\+nb\+\_\+\+XB (\begin{DoxyParamCaption}\item[{const mat \&}]{X}{, }\item[{const mat \&}]{Beta}{, }\item[{const vec \&}]{offset}{, }\item[{const vec \&}]{theta}{, }\item[{const string \&}]{method}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}, }\item[{const int \&}]{nthreads}{ = {\ttfamily 10}}\end{DoxyParamCaption})}
 
-\Hypertarget{log__moments__nb_8h_ac0a68e9a719eaa13d15b9f8658579a70}\index{log\_moments\_nb.h@{log\_moments\_nb.h}!generate\_seq@{generate\_seq}}
-\index{generate\_seq@{generate\_seq}!log\_moments\_nb.h@{log\_moments\_nb.h}}
-\doxysubsubsection{\texorpdfstring{generate\_seq()}{generate\_seq()}}
-{\footnotesize\ttfamily \label{log__moments__nb_8h_ac0a68e9a719eaa13d15b9f8658579a70} 
-vec generate\+\_\+seq (\begin{DoxyParamCaption}\item[{const int \&}]{qmax}{}\end{DoxyParamCaption})}
+\Hypertarget{log__moments__nb_8h_a645e424afc43e2367af2c5094df58f4d}\index{log\_moments\_nb.h@{log\_moments\_nb.h}!\_log\_moments\_poisson\_exact\_fast@{\_log\_moments\_poisson\_exact\_fast}}
+\index{\_log\_moments\_poisson\_exact\_fast@{\_log\_moments\_poisson\_exact\_fast}!log\_moments\_nb.h@{log\_moments\_nb.h}}
+\doxysubsubsection{\texorpdfstring{\_log\_moments\_poisson\_exact\_fast()}{\_log\_moments\_poisson\_exact\_fast()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{log__moments__nb_8h_a645e424afc43e2367af2c5094df58f4d} 
+std::\+pair$<$ vec, vec $>$ \+\_\+log\+\_\+moments\+\_\+poisson\+\_\+exact\+\_\+fast (\begin{DoxyParamCaption}\item[{const arma::\+vec \&}]{mu}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}}\end{DoxyParamCaption})}
+
+\Hypertarget{log__moments__nb_8h_a655e2099f7fa135bf796477df25387ca}\index{log\_moments\_nb.h@{log\_moments\_nb.h}!\_log\_moments\_poisson\_exact\_fast@{\_log\_moments\_poisson\_exact\_fast}}
+\index{\_log\_moments\_poisson\_exact\_fast@{\_log\_moments\_poisson\_exact\_fast}!log\_moments\_nb.h@{log\_moments\_nb.h}}
+\doxysubsubsection{\texorpdfstring{\_log\_moments\_poisson\_exact\_fast()}{\_log\_moments\_poisson\_exact\_fast()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{log__moments__nb_8h_a655e2099f7fa135bf796477df25387ca} 
+std::\+pair$<$ double, double $>$ \+\_\+log\+\_\+moments\+\_\+poisson\+\_\+exact\+\_\+fast (\begin{DoxyParamCaption}\item[{const double \&}]{m}{, }\item[{const double \&}]{c}{ = {\ttfamily 1.0}, }\item[{const double \&}]{p\+\_\+tail}{ = {\ttfamily 1e-\/4}}\end{DoxyParamCaption})}
 

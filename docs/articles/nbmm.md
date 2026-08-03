@@ -84,15 +84,15 @@ work on single cell transcriptomics ([Jiang, et al.,
 [`varpart`](http://gabrielhoffman.github.io/fastglmm/reference/varpart.md)`(``fit``)`
 
     ##           Dx          Age          Sex        SubID   CountNoise    Residuals 
-    ## 0.0381796508 0.0006302765 0.0003328903 0.0603294404 0.5524005465 0.3481271955
+    ## 0.0381796508 0.0006302765 0.0003328903 0.0603294404 0.3944562458 0.5060714962
 
 Variance partitioning analysis quantifies the contribution of each
 variable to the observed variance in PTPRG expression. Alzheimer’s
 disease status explains 3.8% of observed expression variation, variation
 across subjects explains 6.0%, with sex and age making a smaller
 contribution. Measurement error due to sampling a finite number of
-counts (i.e. `CountNoise`) explains 55.2% of the variance, and the
-remaining 34.8% of the variance is explained by the residuals.
+counts (i.e. `CountNoise`) explains 39.4% of the variance, and the
+remaining 50.6% of the variance is explained by the residuals.
 
 ##### Session info
 
@@ -120,7 +120,7 @@ remaining 34.8% of the variance is explained by the residuals.
     ## loaded via a namespace (and not attached):
     ##  [1] sass_0.4.10        generics_0.1.4     lattice_0.22-9     lme4_2.1-0        
     ##  [5] digest_0.6.39      magrittr_2.0.5     evaluate_1.0.5     grid_4.5.1        
-    ##  [9] RColorBrewer_1.1-3 fastmap_1.2.0      jsonlite_2.0.0     Matrix_1.7-5      
+    ##  [9] RColorBrewer_1.1-3 fastmap_1.2.0      jsonlite_2.0.0     Matrix_1.7-6      
     ## [13] Formula_1.2-5      scales_1.4.0       codetools_0.2-20   textshaping_1.0.5 
     ## [17] jquerylib_0.1.4    reformulas_0.4.4   Rdpack_2.6.6       abind_1.4-8       
     ## [21] cli_3.6.6          rlang_1.3.0        rbibutils_2.4.1    splines_4.5.1     
@@ -129,7 +129,7 @@ remaining 34.8% of the variance is explained by the residuals.
     ## [33] boot_1.3-32        vctrs_0.7.3        R6_2.6.1           matrixStats_1.5.0 
     ## [37] lifecycle_1.0.5    fs_2.1.0           car_3.1-5          htmlwidgets_1.6.4 
     ## [41] MASS_7.3-66        ragg_1.5.2         pkgconfig_2.0.3    desc_1.4.3        
-    ## [45] pkgdown_2.2.1      RcppParallel_6.0.0 pillar_1.11.1      bslib_0.11.0      
+    ## [45] pkgdown_2.2.1      RcppParallel_6.1.1 pillar_1.11.1      bslib_0.11.0      
     ## [49] gtable_0.3.6       glue_1.8.1         Rcpp_1.1.2         systemfonts_1.3.2 
     ## [53] xfun_0.60          tibble_3.3.1       tidyselect_1.2.1   knitr_1.51        
     ## [57] dichromat_2.0-1    farver_2.1.2       htmltools_0.5.9    rmarkdown_2.31    

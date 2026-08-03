@@ -343,6 +343,10 @@ setMethod("varianceTerms", signature("glmmTMB"),
 
   vc <- VarCorr(object)$cond
 
+  if( is.null(vc) ){
+    return(vc)
+  }
+
   res <- lapply(names(vc), function(x){
       v <- attr(vc[[x]], "stddev")^2
       names(v) = paste(x, names(v), sep='.')

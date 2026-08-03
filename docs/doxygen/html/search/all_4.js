@@ -6,6 +6,7 @@ var searchData=
   ['dispersion_3',['dispersion',['../classfastglmm_lib_1_1_model_fit.html#ad98009175c5351f81b7f5ad49b572b3f',1,'fastglmmLib::ModelFit']]],
   ['distributions_2eh_4',['distributions.h',['../distributions_8h.html',1,'']]],
   ['dnbinom_5fboost_5',['dnbinom_boost',['../distributions_8h.html#a4c47c53252d9742a040ba782adf8b225',1,'distributions.h']]],
-  ['docoxreid_6',['doCoxReid',['../structnb_data.html#aba34cf86257a6a45ea41cb01953e19fe',1,'nbData']]],
-  ['dpois_5fboost_7',['dpois_boost',['../distributions_8h.html#a13bd3123501722d95aa18b1a677a129c',1,'distributions.h']]]
+  ['dnbinom_5fseq_5fmu_5ftheta_6',['dnbinom_seq_mu_theta',['../distributions_8h.html#a0635b5da3f502b8ef3392cf34f6241d0',1,'distributions.h']]],
+  ['docoxreid_7',['doCoxReid',['../structnb_data.html#aba34cf86257a6a45ea41cb01953e19fe',1,'nbData']]],
+  ['dpois_5fboost_8',['dpois_boost',['../distributions_8h.html#a13bd3123501722d95aa18b1a677a129c',1,'distributions.h']]]
 ];

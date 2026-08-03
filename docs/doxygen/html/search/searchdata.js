@@ -9,7 +9,7 @@ var indexSectionsWithContent =
   6: "cm",
   7: "mz",
   8: "cghlm",
-  9: "mnr"
+  9: "cmnr"
 };
 
 var indexSectionNames =

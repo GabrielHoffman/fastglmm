@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">log_moments_nb.h File Reference</div></div>
 </div><!--header-->
@@ -142,14 +143,36 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 <p><a href="log__moments__nb_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a6ca7e72d50dd7d34c5e4856527812ebe" id="r_a6ca7e72d50dd7d34c5e4856527812ebe"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a6ca7e72d50dd7d34c5e4856527812ebe">COUNT_CEILING</a>&#160;&#160;&#160;1e8</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac0a68e9a719eaa13d15b9f8658579a70" id="r_ac0a68e9a719eaa13d15b9f8658579a70"><td class="memItemLeft">vec&#160;</td><td class="memItemRight"><a class="el" href="#ac0a68e9a719eaa13d15b9f8658579a70">generate_seq</a> (const int &amp;qmax)</td></tr>
-<tr class="memitem:a799e2c30a21c2b66abbf0f08a6406db5" id="r_a799e2c30a21c2b66abbf0f08a6406db5"><td class="memItemLeft">std::pair&lt; double, double &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a799e2c30a21c2b66abbf0f08a6406db5">_log_moments_nb_mu</a> (const vec &amp;mu, const double &amp;theta, const double &amp;c=1.0, const double &amp;p_tail=1e-4)</td></tr>
+<tr class="memitem:a655e2099f7fa135bf796477df25387ca" id="r_a655e2099f7fa135bf796477df25387ca"><td class="memItemLeft">std::pair&lt; double, double &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a655e2099f7fa135bf796477df25387ca">_log_moments_poisson_exact_fast</a> (const double &amp;m, const double &amp;c=1.0, const double &amp;p_tail=1e-4)</td></tr>
+<tr class="memitem:a645e424afc43e2367af2c5094df58f4d" id="r_a645e424afc43e2367af2c5094df58f4d"><td class="memItemLeft">std::pair&lt; vec, vec &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a645e424afc43e2367af2c5094df58f4d">_log_moments_poisson_exact_fast</a> (const arma::vec &amp;mu, const double &amp;c=1.0, const double &amp;p_tail=1e-4)</td></tr>
+<tr class="memitem:aacf688f1715e58941ab1489e704c7e4e" id="r_aacf688f1715e58941ab1489e704c7e4e"><td class="memItemLeft">std::pair&lt; double, double &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aacf688f1715e58941ab1489e704c7e4e">_log_moments_nb_exact_fast</a> (const double &amp;m, const double &amp;theta, const double &amp;c=1.0, const double &amp;p_tail=1e-4)</td></tr>
+<tr class="memitem:af9d2e17c0b156ef6e6297e7a7abb273e" id="r_af9d2e17c0b156ef6e6297e7a7abb273e"><td class="memItemLeft">std::tuple&lt; vec, vec, double &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af9d2e17c0b156ef6e6297e7a7abb273e">_log_moments_nb_exact_fast</a> (const arma::vec &amp;mu, const double &amp;theta, const double &amp;c=1.0, const double &amp;p_tail=1e-4)</td></tr>
+<tr class="memitem:ac5b7f5dd10e829ca07ead49cd19d3d3e" id="r_ac5b7f5dd10e829ca07ead49cd19d3d3e"><td class="memItemLeft">std::tuple&lt; double, double, double &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac5b7f5dd10e829ca07ead49cd19d3d3e">_log_moments_nb_mu</a> (const vec &amp;mu, const double &amp;theta, const string &amp;method, const double &amp;c=1.0, const double &amp;p_tail=1e-4)</td></tr>
 <tr class="memitem:af66e2ac4e795af3cc7d8bc51cd439c2f" id="r_af66e2ac4e795af3cc7d8bc51cd439c2f"><td class="memItemLeft">tuple&lt; vec, vec, vec &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af66e2ac4e795af3cc7d8bc51cd439c2f">_log_moments_nb_XB</a> (const mat &amp;X, const mat &amp;Beta, const vec &amp;offset, const vec &amp;theta, const string &amp;method, const double &amp;c=1.0, const double &amp;p_tail=1e-4, const int &amp;nthreads=10)</td></tr>
 <tr class="memitem:ac77c370cbdd46efca19ad6ff689311f1" id="r_ac77c370cbdd46efca19ad6ff689311f1"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:ac77c370cbdd46efca19ad6ff689311f1 template"><td class="memItemLeft">tuple&lt; vec, vec, vec &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac77c370cbdd46efca19ad6ff689311f1">_log_moments_nb_BlupXBZ</a> (const mat &amp;BLUP, const mat &amp;X, const mat &amp;Beta, const T &amp;Z, const vec &amp;weights, const vec &amp;offset, const vec &amp;theta, const vec &amp;delta, const string &amp;method, const string &amp;dcmpMethod, const double &amp;c=1.0, const double &amp;p_tail=1e-4, const int &amp;nthreads=10)</td></tr>
 </table>
+<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="a6ca7e72d50dd7d34c5e4856527812ebe" name="a6ca7e72d50dd7d34c5e4856527812ebe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ca7e72d50dd7d34c5e4856527812ebe">&#9670;&#160;</a></span>COUNT_CEILING</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COUNT_CEILING&#160;&#160;&#160;1e8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ac77c370cbdd46efca19ad6ff689311f1" name="ac77c370cbdd46efca19ad6ff689311f1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac77c370cbdd46efca19ad6ff689311f1">&#9670;&#160;</a></span>_log_moments_nb_BlupXBZ()</h2>
@@ -229,14 +252,76 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
-<a id="a799e2c30a21c2b66abbf0f08a6406db5" name="a799e2c30a21c2b66abbf0f08a6406db5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a799e2c30a21c2b66abbf0f08a6406db5">&#9670;&#160;</a></span>_log_moments_nb_mu()</h2>
+<a id="af9d2e17c0b156ef6e6297e7a7abb273e" name="af9d2e17c0b156ef6e6297e7a7abb273e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9d2e17c0b156ef6e6297e7a7abb273e">&#9670;&#160;</a></span>_log_moments_nb_exact_fast() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt; double, double &gt; _log_moments_nb_mu </td>
+          <td class="memname">std::tuple&lt; vec, vec, double &gt; _log_moments_nb_exact_fast </td>
+          <td>(</td>
+          <td class="paramtype">const arma::vec &amp;</td>          <td class="paramname"><span class="paramname"><em>mu</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>theta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>c</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>p_tail</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1e-4</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aacf688f1715e58941ab1489e704c7e4e" name="aacf688f1715e58941ab1489e704c7e4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacf688f1715e58941ab1489e704c7e4e">&#9670;&#160;</a></span>_log_moments_nb_exact_fast() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; double, double &gt; _log_moments_nb_exact_fast </td>
+          <td>(</td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>m</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>theta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>c</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>p_tail</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1e-4</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac5b7f5dd10e829ca07ead49cd19d3d3e" name="ac5b7f5dd10e829ca07ead49cd19d3d3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5b7f5dd10e829ca07ead49cd19d3d3e">&#9670;&#160;</a></span>_log_moments_nb_mu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::tuple&lt; double, double, double &gt; _log_moments_nb_mu </td>
           <td>(</td>
           <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>mu</em></span>, </td>
         </tr>
@@ -244,6 +329,11 @@ template&lt;typename T&gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>theta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;</td>          <td class="paramname"><span class="paramname"><em>method</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -311,17 +401,52 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
-<a id="ac0a68e9a719eaa13d15b9f8658579a70" name="ac0a68e9a719eaa13d15b9f8658579a70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0a68e9a719eaa13d15b9f8658579a70">&#9670;&#160;</a></span>generate_seq()</h2>
+<a id="a645e424afc43e2367af2c5094df58f4d" name="a645e424afc43e2367af2c5094df58f4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a645e424afc43e2367af2c5094df58f4d">&#9670;&#160;</a></span>_log_moments_poisson_exact_fast() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vec generate_seq </td>
+          <td class="memname">std::pair&lt; vec, vec &gt; _log_moments_poisson_exact_fast </td>
           <td>(</td>
-          <td class="paramtype">const int &amp;</td>          <td class="paramname"><span class="paramname"><em>qmax</em></span></td><td>)</td>
+          <td class="paramtype">const arma::vec &amp;</td>          <td class="paramname"><span class="paramname"><em>mu</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>c</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>p_tail</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1e-4</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a655e2099f7fa135bf796477df25387ca" name="a655e2099f7fa135bf796477df25387ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a655e2099f7fa135bf796477df25387ca">&#9670;&#160;</a></span>_log_moments_poisson_exact_fast() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; double, double &gt; _log_moments_poisson_exact_fast </td>
+          <td>(</td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>m</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>c</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>p_tail</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1e-4</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

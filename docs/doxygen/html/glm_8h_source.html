@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        theta = nb_theta_ml(y, work-&gt;mu, y.n_elem, weights, X, doCoxReid, ct);</div>
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <span class="comment">// Fit NB regression to estimate coefficients</span></div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        beta_prev = fit.coef;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    beta_prev = fit.coef;</div>
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        family = <span class="stringliteral">&quot;nb:&quot;</span> + to_string(theta);</div>
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        fit = GLM(X, y, family, <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba">LEAST</a>, weights, offset, work, fit.coef, epsilon, maxit, lambda);</div>
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
