@@ -221,7 +221,7 @@ std::tuple<vec, vec, double> _log_moments_nb_exact_fast(
   }
 
   // Poisson noise ratio
-  double alpha = mean( vz_poisson / var_out );
+  double alpha = mean(vz_poisson) / mean(var_out);
 
   // cap alpha at 1
   // empirical fraction can exceed 1 due to delta approx
@@ -253,7 +253,7 @@ std::tuple<double, double, double> _log_moments_nb_mu(
 
     // Poisson noise ratio
     vec vz = var_poisson + var_overdisp;
-    alpha = mean( var_poisson / vz);
+    alpha = mean( var_poisson) / mean(vz);
 
     // vec ez = log(mu + c) - 0.5*(mu+square(mu)/theta)/square(mu+c);
     vec ez = log(mu + c) - 0.5*(mu + sq_mu_theta)/sq_mu_c;
