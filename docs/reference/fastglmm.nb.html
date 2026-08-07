@@ -51,6 +51,7 @@
 <span>  tol <span class="op">=</span> <span class="fl">0.001</span>,</span>
 <span>  tol.eta <span class="op">=</span> <span class="fl">0.001</span>,</span>
 <span>  doCoxReid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">1000</span>,</span>
+<span>  lambda <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  nthreads <span class="op">=</span> <span class="fl">6</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -85,6 +86,10 @@
 
 <dt id="arg-docoxreid">doCoxReid<a class="anchor" aria-label="anchor" href="#arg-docoxreid"></a></dt>
 <dd><p>use Cox-Reid correction for estimating theta in negative binomial model</p></dd>
+
+
+<dt id="arg-lambda">lambda<a class="anchor" aria-label="anchor" href="#arg-lambda"></a></dt>
+<dd><p>ridge shrinkage parameter</p></dd>
 
 
 <dt id="arg-nthreads">nthreads<a class="anchor" aria-label="anchor" href="#arg-nthreads"></a></dt>

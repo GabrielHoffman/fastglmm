@@ -136,7 +136,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 
 	int iter_in = 0;
 	double theta;
-	uvec idx_drop = find(weights == 0.0);
+	uvec idx_drop = find(weights < 1e-12);
 	double n_active = weights.n_elem - idx_drop.n_elem;
 
 	CountTable ct;
@@ -206,6 +206,13 @@ fastglmm<T1, T2, T3>::fastglmm(
 			fit.eval_delta( delta ); 
 		}else{
 			fit.estimate_delta(left, right, tol);	
+		}
+
+		// check condition number of vcov matrix
+		if( fit.get_vcov_kappa() > 1e10 ){
+			fit.set_model_failure();
+			isValid = false;
+			break;
 		}
 
 		// increment interation count

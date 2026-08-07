@@ -97,9 +97,14 @@ class fastlmm {
     const mat get_vcov() const {
       return this->sigSq_g * inv_sympd(this->QXX, inv_opts::allow_approx) ;
     }
+    // condition number of vcov matrix
+    const double get_vcov_kappa() const {
+      return 1 / rcond(this->QXX) ;
+    }
     const mat get_beta_se() const {
       return sqrt(diagvec(get_vcov()));
     }
+
 
     // if model fails, set beta to nan
     void set_model_failure(){ 

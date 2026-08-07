@@ -972,7 +972,7 @@ print.summary.fastlmm <- function(
   coefs <- x$coefficients
   if (any(aliased <- x$aliased)) {
     cn <- names(aliased)
-    coefs <- matrix(NA, length(aliased), 4, dimnames = list(
+    coefs <- matrix(NA, length(aliased), 5, dimnames = list(
       cn,
       colnames(coefs)
     ))

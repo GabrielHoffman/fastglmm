@@ -12,6 +12,7 @@ fastglmm.nb(
   tol = 0.001,
   tol.eta = 0.001,
   doCoxReid = nrow(data) < 1000,
+  lambda = 0,
   nthreads = 6
 )
 }
@@ -29,6 +30,8 @@ fastglmm.nb(
 \item{tol.eta}{convergence criterion \code{eta} in the PQL iteration}
 
 \item{doCoxReid}{use Cox-Reid correction for estimating theta in negative binomial model}
+
+\item{lambda}{ridge shrinkage parameter}
 
 \item{nthreads}{number of threads}
 }
