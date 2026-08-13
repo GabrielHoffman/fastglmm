@@ -150,9 +150,22 @@ static ModelFitGLM GLM(
 			work->eta = X * fit.coef + offset_;
 			work->mu 	= fam->linkinv( work->eta );
 		}
+
   	work->gprime= fam->mu_eta( work->eta );
   	work->z  		= (work->eta - offset_) + (y - work->mu) / work->gprime;
-  	work->wsqrt = work->gprime % sqrt(weights_ / fam->variance( work->mu ));
+
+  	// if( fam->family() == "NB"){
+		// 	// Numerically stable evaluation for NB		
+		// 	double theta = fam->getOverdispersion();		
+	  //   vec x = work->eta - log(theta);
+	  //   work->wsqrt = sqrt(weights_ %(theta * (0.5 * (1.0 + tanh(0.5 * x)))));
+  	// }else{
+	  	work->wsqrt = work->gprime % sqrt(weights_ / fam->variance( work->mu ));
+	  // }
+
+  	// if weights are zero, set them to very small value
+		// uvec idx = find(work->wsqrt == 0 && weights_ != 0);
+		// work->wsqrt.elem(idx).fill(1e-8);
 
   	vec beta_prev(fit.coef);
 
@@ -160,7 +173,9 @@ static ModelFitGLM GLM(
   	fit = lm(scaleEachCol(X, work->wsqrt), work->z % work->wsqrt, LEAST, lambda, 0, work );
 
   	// if model is singular
-  	if( ! fit.success ) break;
+  	if( ! fit.success ){
+  		break;
+  	}
 
 		// stopping criterion
 		if( i > 0 && norm(fit.coef - beta_prev) < epsilon ) break;

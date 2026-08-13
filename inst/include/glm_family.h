@@ -46,6 +46,7 @@ class GLMFamily {
 	virtual string family() const {return "GLMFamily";};	
 	virtual bool isCountModel() const {return true;}
 	virtual void setOverdispersion( const double & value){}
+	virtual double getOverdispersion() const {return datum::nan;}
 };
 
 class GaussianIdentity :
@@ -206,6 +207,9 @@ class PoissonLog :
 	bool estimateDispersion() const {return false;}
 	string family() const {return "PoissonLog";}
 	bool isCountModel() const { return true; }
+	double getOverdispersion() const {
+		return numeric_limits<double>::infinity();
+	}
 
 	private:
 	double tol = 2.220446e-16;
@@ -265,6 +269,9 @@ class NB :
 
 	void setOverdispersion( const double &value){
 		theta = value;
+	}
+	double getOverdispersion() const {
+		return theta;
 	}
 
 	double theta = std::numeric_limits<double>::quiet_NaN();

@@ -116,6 +116,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 	md(md)
 	{
 
+	int _maxit = maxit;
 	fam = getGLMFamily( family );
 
 	// if Negative Binomial with unspecified theta
@@ -134,19 +135,33 @@ fastglmm<T1, T2, T3>::fastglmm(
 	// just need a rough starting value
 	ModelFitGLM fit_init = GLM(X, y, this->family, LEAST, weights, offset, work, {}, 1e-2, 3, lambda);
 
+	// if GLM fails, 
+	if( ! fit_init.success ){
+
+		// fit simple fastlmm, 
+		// set _maxit to zero to avoid PQL iterations
+		// set isValid to FALSE
+		work->w = vec(y.n_elem, fill::value(1));
+			this->dcmp.reweight(work->w);
+		fit = fastlmm(y, X, this->dcmp, work->w, LEAST, lambda);
+		fit.eval_delta( 1 ); 
+		_maxit = 0;
+		isValid = false;
+	}
+
 	int iter_in = 0;
 	double theta;
 	uvec idx_drop = find(weights < 1e-12);
 	double n_active = weights.n_elem - idx_drop.n_elem;
 
 	CountTable ct;
-	if( estimateTheta ){
+	if( estimateTheta && _maxit > 0){
 		// Precompute lgamma() on each unique count
 		ct = CreateLUT(y, weights);	
 	}
 
 	// PQL iterations
-	for(niter_pql=0; niter_pql<maxit; niter_pql++){
+	for(niter_pql=0; niter_pql<_maxit; niter_pql++){
 
 		// if Negative Binomial with unspecified theta
 		if( estimateTheta ){
@@ -179,8 +194,15 @@ fastglmm<T1, T2, T3>::fastglmm(
 		// zz <- eta + (y.orig - mu)/mu.eta.val - offset
 		work->z = (work->eta - offset) + (y - work->mu) / work->gprime;
 
-		// wz <- w * mu.eta.val^2/family$variance(mu)
-		work->w = square(work->gprime) % (weights / fam->variance( work->mu ));
+ 		// wz <- w * mu.eta.val^2/family$variance(mu)
+		if( fam->family() == "NB"){
+			// Numerically stable evaluation for NB		
+			theta = fam->getOverdispersion();		
+	    vec x = work->eta - log(theta);
+	    work->w = weights % (theta * (0.5 * (1.0 + tanh(0.5 * x))));	    
+		}else{
+			work->w = square(work->gprime) % (weights / fam->variance( work->mu ));
+		}
 
 		// wz <- wz / mean(wz)
 		w_mean = sum(work->w) / n_active;
@@ -218,7 +240,8 @@ fastglmm<T1, T2, T3>::fastglmm(
 		// increment interation count
 		iter_in += fit.get_iter();
 	}
-		
+	
+
 	// Final fit with ModelDetail md
 	if( isValid && (md > LEAST) ){		
 
@@ -242,9 +265,14 @@ fastglmm<T1, T2, T3>::fastglmm(
 	if( isValid ){
 		eta = fit.fitted() + offset;
   	mu = fam->linkinv(eta);
+
+		// save the BLUP from the fastlmm into the fastglmm object
+		// apply V to correct ordering
+		blup = this->dcmp.get_V() * fit.blup();
 	}else{
 		eta = vec(offset.n_elem, fill::value(datum::nan));
 		mu = vec(offset.n_elem, fill::value(datum::nan));
+		blup = vec(this->dcmp.get_V().n_rows, fill::value(datum::nan));
 	}
 
 	// Compute mean of mu
@@ -253,10 +281,6 @@ fastglmm<T1, T2, T3>::fastglmm(
 	mu_mean = robust_mean(mu, 4);
 
 	eta_var = var(eta);
-
-	// save the BLUP from the fastlmm into the fastglmm object
-	// apply V to correct ordering
-	blup = this->dcmp.get_V() * fit.blup();
 
 	delete work;
 }
