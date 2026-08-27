@@ -14,6 +14,7 @@ fastglmm.nb(
   tol = 0.001,
   tol.eta = 0.001,
   doCoxReid = nrow(data) < 1000,
+  lambda = 0,
   nthreads = 6
 )
 ```
@@ -52,6 +53,10 @@ fastglmm.nb(
 
   use Cox-Reid correction for estimating theta in negative binomial
   model
+
+- lambda:
+
+  ridge shrinkage parameter
 
 - nthreads:
 

@@ -85,68 +85,90 @@ exportMethods(varianceTerms)
 exportMethods(varpart)
 import(ggplot2)
 import(stats)
-importFrom(MASS,glm.nb)
-importFrom(MASS,negative.binomial)
-importFrom(MASS,rnegbin)
-importFrom(Matrix,Diagonal)
-importFrom(Matrix,colSums)
-importFrom(Matrix,crossprod)
-importFrom(Matrix,fac2sparse)
-importFrom(Matrix,rowSums)
-importFrom(Matrix,t)
+importFrom(MASS,
+  glm.nb,
+  negative.binomial,
+  rnegbin
+)
+importFrom(Matrix,
+  Diagonal,
+  colSums,
+  crossprod,
+  fac2sparse,
+  rowSums,
+  t
+)
 importFrom(Rcpp,evalCpp)
 importFrom(RcppParallel,RcppParallelLibs)
-importFrom(car,linearHypothesis)
-importFrom(car,linearHypothesis.default)
-importFrom(car,makeHypothesis)
-importFrom(dplyr,`%>%`)
-importFrom(dplyr,bind_rows)
-importFrom(dplyr,mutate)
-importFrom(dplyr,tibble)
+importFrom(car,
+  linearHypothesis,
+  linearHypothesis.default,
+  makeHypothesis
+)
+importFrom(dplyr,
+  `%>%`,
+  bind_rows,
+  mutate,
+  tibble
+)
 importFrom(graphics,abline)
-importFrom(lme4,VarCorr)
-importFrom(lme4,getME)
-importFrom(matrixStats,colVars)
-importFrom(matrixStats,weightedVar)
-importFrom(methods,is)
-importFrom(methods,new)
-importFrom(methods,show)
-importFrom(nlme,fixef)
-importFrom(nlme,ranef)
-importFrom(reformulas,findbars)
-importFrom(reformulas,nobars)
-importFrom(reformulas,subbars)
-importFrom(stats,as.formula)
-importFrom(stats,coef)
-importFrom(stats,extractAIC)
-importFrom(stats,family)
-importFrom(stats,fitted)
-importFrom(stats,gaussian)
-importFrom(stats,model.frame)
-importFrom(stats,model.frame.default)
-importFrom(stats,model.matrix)
-importFrom(stats,model.offset)
-importFrom(stats,model.response)
-importFrom(stats,nobs)
-importFrom(stats,optimize)
-importFrom(stats,pbeta)
-importFrom(stats,pchisq)
-importFrom(stats,pnorm)
-importFrom(stats,printCoefmat)
-importFrom(stats,pt)
-importFrom(stats,qchisq)
-importFrom(stats,qnorm)
-importFrom(stats,rbinom)
-importFrom(stats,reformulate)
-importFrom(stats,residuals)
-importFrom(stats,rnorm)
-importFrom(stats,rpois)
-importFrom(stats,runif)
-importFrom(stats,sd)
-importFrom(stats,sigma)
-importFrom(stats,terms)
-importFrom(stats,update)
+importFrom(lme4,
+  VarCorr,
+  getME
+)
+importFrom(matrixStats,
+  colVars,
+  weightedVar
+)
+importFrom(methods,
+  is,
+  new,
+  show
+)
+importFrom(nlme,
+  fixef,
+  ranef
+)
+importFrom(reformulas,
+  findbars,
+  nobars,
+  subbars
+)
+importFrom(stats,
+  as.formula,
+  coef,
+  extractAIC,
+  family,
+  fitted,
+  gaussian,
+  model.frame,
+  model.frame.default,
+  model.matrix,
+  model.offset,
+  model.response,
+  nobs,
+  optimize,
+  pbeta,
+  pchisq,
+  pnorm,
+  printCoefmat,
+  pt,
+  qchisq,
+  qnorm,
+  rbinom,
+  reformulate,
+  residuals,
+  rnorm,
+  rpois,
+  runif,
+  sd,
+  sigma,
+  terms,
+  update
+)
 importFrom(tibble,column_to_rownames)
-importFrom(utils,head)
-importFrom(utils,tail)
+importFrom(utils,
+  head,
+  tail
+)
 useDynLib(fastglmm)

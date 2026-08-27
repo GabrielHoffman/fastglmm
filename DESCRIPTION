@@ -42,4 +42,4 @@ SystemRequirements:
 	C++17,
 	Intel TBB
 LazyData: false
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0
