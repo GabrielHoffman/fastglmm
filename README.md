@@ -17,7 +17,22 @@ Fitting linear mixed models (LMMs) and generalized linear mixed models (GLMMs) o
 
 The **fastglmm** package is designed to be intuitive for users of other mixed model software such as [lme4](https://cran.r-project.org/package=lme4), and uses familar mixed model syntax and R generics.  Since **fastglmm** is designed for large datasets and GLMMs in mind, it uses maximum likelihood rather than REML to fit LMMs. 
 
-### Example Usage
+## Core functions
+- [`fastlmm()`](reference/fastlmm.html): linear mixed model
+- [`fastglmm()`](reference/fastglmm.html): generalized linear mixed model
+- [`fastglmm.nb()`](reference/fastglmm.nb.html): negative binomial mixed model
+
+## See also
+- [Manuscript](articles/jss.pdf) describing package, estimating algorithm and hypothesis testing.
+- [Application](articles/nbmm.html) of negative binomial mixed model to single cell gene expression data.
+
+
+## Installation
+```r
+remotes::install_github("GabrielHoffman/fastglmm")
+```
+
+## Example Usage
 As an introduction, consider fitting a LMM to the `sleepstudy` data distributed with `lme4`.  The model syntax and parameter estimates are the same as using `lme4::lmer(..., REML=FALSE)`. 
 
 ```r
@@ -53,13 +68,6 @@ summary(fit)
 #>   sigSq_e: 954.5
 #>   delta:   0.736
 ```
-
-
-### Installation
-```r
-devtools::install_github("GabrielHoffman/fastglmm")
-```
-
 
 
 ## Implementation details
