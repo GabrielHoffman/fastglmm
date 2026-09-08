@@ -23,10 +23,42 @@ As an introduction, consider fitting a LMM to the `sleepstudy` data
 distributed with `lme4`. The model syntax and parameter estimates are
 the same as using `lme4::lmer(..., REML=FALSE)`.
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`fastglmm`](https://gabrielhoffman.github.io/fastglmm/)`)`` `[`data`](https://rdrr.io/r/utils/data.html)`(``sleepstudy``, package``=``"lme4"``)`` `` ``fit`` ``<-`` `[`fastlmm`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.md)`(``Reaction`` ``~`` ``Days`` ``+`` ``(``1`` ``|`` ``Subject``)``, ``sleepstudy``)`` `` ``fit`` ``#> `` ``#> Call:`` ``#> fastlmm(formula = Reaction ~ Days + (1 | Subject), data = sleepstudy)`` ``#> `` ``#> Coefficients:`` ``#> (Intercept) Days `` ``#> 251.41 10.47`` `` `[`summary`](https://rdrr.io/r/base/summary.html)`(``fit``)`` ``#> Linear mixed model fit by ML ['fastlmm']`` ``#> Formula: Reaction ~ Days + (1 | Subject)`` ``#> `` ``#> Coefficients:`` ``#> Estimate Std. Error ddf t value Pr(>|t|) `` ``#> (Intercept) 251.4051 9.5062 24.5 26.45 <2e-16 ***`` ``#> Days 10.4673 0.8017 162.0 13.06 <2e-16 ***`` ``#> ---`` ``#> Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1`` ``#> `` ``#> Residual df: 162.2 `` ``#> `` ``#> Variance components:`` ``#> sigSq_g: 1297`` ``#> sigSq_e: 954.5`` ``#> delta: 0.736`
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`fastglmm`](https://gabrielhoffman.github.io/fastglmm/)`)`\
+[`data`](https://rdrr.io/r/utils/data.html)`(``sleepstudy``, package``=``"lme4"``)`\
+\
+`fit`` ``<-`` `[`fastlmm`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.md)`(``Reaction`` ``~`` ``Days`` ``+`` ``(``1`` ``|`` ``Subject``)``, ``sleepstudy``)`\
+\
+`fit`\
+`#> `\
+`#> Call:`\
+`#> fastlmm(formula = Reaction ~ Days + (1 | Subject), data = sleepstudy)`\
+`#> `\
+`#> Coefficients:`\
+`#> (Intercept)         Days  `\
+`#>      251.41        10.47`\
+\
+[`summary`](https://rdrr.io/r/base/summary.html)`(``fit``)`\
+`#> Linear mixed model fit by ML ['fastlmm']`\
+`#>  Formula: Reaction ~ Days + (1 | Subject)`\
+`#> `\
+`#> Coefficients:`\
+`#>             Estimate Std. Error   ddf t value Pr(>|t|)    `\
+`#> (Intercept) 251.4051     9.5062  24.5   26.45   <2e-16 ***`\
+`#> Days         10.4673     0.8017 162.0   13.06   <2e-16 ***`\
+`#> ---`\
+`#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1`\
+`#> `\
+`#> Residual df: 162.2 `\
+`#> `\
+`#> Variance components:`\
+`#>   sigSq_g: 1297`\
+`#>   sigSq_e: 954.5`\
+`#>   delta:   0.736`
 
 ### Installation
 
+\
 `devtools``::`[`install_github`](https://devtools.r-lib.org/reference/install-deprecated.html)`(``"GabrielHoffman/fastglmm"``)`
 
 ## Implementation details

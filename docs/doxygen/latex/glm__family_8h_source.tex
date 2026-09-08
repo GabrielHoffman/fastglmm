@@ -115,8 +115,8 @@
 \DoxyCodeLine{00118\ }
 \DoxyCodeLine{00119\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classfastglmm_lib_1_1_quasibinomial_logit}{QuasibinomialLogit}}\ :}
 \DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_ac0089b143646ff87efb876646b306d16}{BinomialLogit}}\ \{}
-\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_ad0c104186f604e8ac76bec553387fdfb}{estimateDispersion}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
-\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{string}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_abd01c7f26edcf1a3e2807e5d9587a456}{family}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}QuasibinomialLogit"{}};\}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{bool}\ estimateDispersion()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{string}\ family()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}QuasibinomialLogit"{}};\}}
 \DoxyCodeLine{00123\ \};}
 \DoxyCodeLine{00124\ }
 \DoxyCodeLine{00125\ }
@@ -215,7 +215,7 @@
 \DoxyCodeLine{00218\ }
 \DoxyCodeLine{00219\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classfastglmm_lib_1_1_quasipoisson_log}{QuasipoissonLog}}\ :}
 \DoxyCodeLine{00220\ \ \ \ \ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_ad0a190b55ae6ddd71841e1ffaa683384}{PoissonLog}}\ \{}
-\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_a1573f7cec17f820beee5aff6526920e0}{estimateDispersion}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordtype}{bool}\ estimateDispersion()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\}}
 \DoxyCodeLine{00222\ \};}
 \DoxyCodeLine{00223\ }
 \DoxyCodeLine{00224\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classfastglmm_lib_1_1_n_b_a1d7bfac44cbefbc3d9ef8de5230f84ad}{NB}}\ :}
@@ -285,16 +285,16 @@
 \DoxyCodeLine{00291\ \ \ \ \ shared\_ptr<GLMFamily>\ fam;}
 \DoxyCodeLine{00292\ }
 \DoxyCodeLine{00293\ \ \ \ \ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}gaussian"{}}\ ||\ family\ ==\ \textcolor{stringliteral}{"{}gaussian/identity"{}}\ )\{}
-\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity}{GaussianIdentity}}());}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_gaussian_identity_a05f05c080c7783f79a3f3c8c0064bb3f}{GaussianIdentity}}());}
 \DoxyCodeLine{00295\ \ \ \ \ \}}
 \DoxyCodeLine{00296\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}binomial/logit"{}}\ )\{}
-\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ BinomialLogit());}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_binomial_logit_ac0089b143646ff87efb876646b306d16}{BinomialLogit}}());}
 \DoxyCodeLine{00298\ \ \ \ \ \}}
 \DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}binomial/probit"{}}\ )\{}
-\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit}{BinomialProbit}}());}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_binomial_probit_a4d2a1c545851ddbf36c88a4ba823d79f}{BinomialProbit}}());}
 \DoxyCodeLine{00301\ \ \ \ \ \}}
 \DoxyCodeLine{00302\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}poisson/log"{}}\ )\{}
-\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_poisson_log}{PoissonLog}}());}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_poisson_log_ad0a190b55ae6ddd71841e1ffaa683384}{PoissonLog}}());}
 \DoxyCodeLine{00304\ \ \ \ \ \}}
 \DoxyCodeLine{00305\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}quasibinomial/logit"{}}\ )\{}
 \DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_quasibinomial_logit}{QuasibinomialLogit}}());}
@@ -303,12 +303,12 @@
 \DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_quasipoisson_log}{QuasipoissonLog}}());}
 \DoxyCodeLine{00310\ \ \ \ \ \}}
 \DoxyCodeLine{00311\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}nb"{}}\ )\{}
-\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_n_b}{NB}}());}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_n_b_a1d7bfac44cbefbc3d9ef8de5230f84ad}{NB}}());}
 \DoxyCodeLine{00313\ \ \ \ \ \}}
 \DoxyCodeLine{00314\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ regex\_search(\ family,\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}))\ )\{}
 \DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ theta\_str\ =\ regex\_replace(\ family,\ regex(\textcolor{stringliteral}{"{}\string^nb:"{}}),\ \textcolor{stringliteral}{"{}"{}});}
 \DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ theta\ =\ atof(theta\_str.c\_str());}
-\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_n_b}{NB}}(theta));}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ fam\ =\ shared\_ptr<GLMFamily>(\textcolor{keyword}{new}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_n_b_a1d7bfac44cbefbc3d9ef8de5230f84ad}{NB}}(theta));}
 \DoxyCodeLine{00318\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
 \DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ invalid\_argument(\ \textcolor{stringliteral}{"{}Invalid\ GLM\ family:\ "{}}\ +\ family\ );}
 \DoxyCodeLine{00320\ \ \ \ \ \}}

@@ -104,7 +104,7 @@
 \DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{bool}\ alloc\_local\ =\ \textcolor{keyword}{false};}
 \DoxyCodeLine{00121\ \ \ \textcolor{keywordflow}{if}(\ work\ ==\ \textcolor{keyword}{nullptr}\ )\{}
 \DoxyCodeLine{00122\ \ \ \ \ alloc\_local\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ work\ =\ \textcolor{keyword}{new}\ \doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work}{GLMWork}}();}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ work\ =\ \textcolor{keyword}{new}\ \doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_aba57ce783999d90804c6066405292da0}{GLMWork}}();}
 \DoxyCodeLine{00124\ \ \ \}}
 \DoxyCodeLine{00125\ }
 \DoxyCodeLine{00126\ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit}{ModelFit}}\ fit;}
@@ -204,7 +204,7 @@
 \DoxyCodeLine{00220\ \ \ \ \ \textcolor{comment}{//\ free\ work\ if\ allocated\ in\ this\ function}}
 \DoxyCodeLine{00221\ \ \ \textcolor{keywordflow}{if}(\ alloc\_local)\ \textcolor{keyword}{delete}\ work;}
 \DoxyCodeLine{00222\ }
-\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m}{ModelFitGLM}}(fit,\ family,\ i);}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7bab615b7fd566efcf685a54e6ff2182}{ModelFitGLM}}(fit,\ family,\ i);}
 \DoxyCodeLine{00224\ \}}
 \DoxyCodeLine{00225\ }
 \DoxyCodeLine{00226\ }
@@ -231,7 +231,7 @@
 \DoxyCodeLine{00265\ \ \ \textcolor{keywordtype}{bool}\ alloc\_local\ =\ \textcolor{keyword}{false};}
 \DoxyCodeLine{00266\ \ \ \textcolor{keywordflow}{if}(\ work\ ==\ \textcolor{keyword}{nullptr}\ )\{}
 \DoxyCodeLine{00267\ \ \ \ \ alloc\_local\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00268\ \ \ \ \ \ \ work\ =\ \textcolor{keyword}{new}\ \doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work}{GLMWork}}();}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ work\ =\ \textcolor{keyword}{new}\ \doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_aba57ce783999d90804c6066405292da0}{GLMWork}}();}
 \DoxyCodeLine{00269\ \ \ \}}
 \DoxyCodeLine{00270\ }
 \DoxyCodeLine{00271\ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m}{ModelFitGLM}}\ fit;}
@@ -315,7 +315,7 @@
 \DoxyCodeLine{00369\ \ \ \ \ \textcolor{comment}{//\ Estimate\ coef\ using\ only\ design\ matrix}}
 \DoxyCodeLine{00370\ \ \ \ \ \textcolor{comment}{//\ use\ to\ initialize\ coefficients\ for\ each\ feature}}
 \DoxyCodeLine{00371\ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m}{ModelFitGLM}}\ fitInit;}
-\DoxyCodeLine{00372\ \ \ \ \ \doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work}{GLMWork}}\ *work\ =\ \textcolor{keyword}{new}\ \doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work}{GLMWork}}();}
+\DoxyCodeLine{00372\ \ \ \ \ \doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work}{GLMWork}}\ *work\ =\ \textcolor{keyword}{new}\ \doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_aba57ce783999d90804c6066405292da0}{GLMWork}}();}
 \DoxyCodeLine{00373\ \ \ \ \ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}nb"{}}\ )\{}
 \DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ fitInit\ =\ GLM\_NB(X\_design,\ y,\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ weights,\ offset,\ doCoxReid,\ work,\ \{\},\ epsilon,\ maxit,\ epsilon\_nb,\ maxit\_nb,\ lambda);}
 \DoxyCodeLine{00375\ }
@@ -343,7 +343,7 @@
 \DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_abe7eeaa6ccb8f0b33c2d18c1ee39701d}{ModelFitList}}\ mfl\ =\ lmFitFeatures\_preproj(workingResponse,\ X\_design,\ X\_features,\ ids,\ workingWeights,\ md,\ nthreads);}
 \DoxyCodeLine{00398\ }
 \DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<mfl.size();\ i++)\{}
-\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ fitList.at(i)\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m}{ModelFitGLM}}(mfl[i],\ family,\ 1);}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ fitList.at(i)\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7bab615b7fd566efcf685a54e6ff2182}{ModelFitGLM}}(mfl[i],\ family,\ 1);}
 \DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00402\ \ \ \}\textcolor{keywordflow}{else}\{}
 \DoxyCodeLine{00403\ \ \ \ \ }

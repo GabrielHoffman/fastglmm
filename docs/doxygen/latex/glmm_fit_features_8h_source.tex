@@ -102,7 +102,7 @@
 \DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{int}\ n\_tests\ =\ X\_add\_.n\_cols;}
 \DoxyCodeLine{00099\ }
 \DoxyCodeLine{00100\ \ \ \textcolor{comment}{//\ store\ results}}
-\DoxyCodeLine{00101\ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_aa845d99c94d3583204551aea51dad721}{ModelFitGLMMList}}\ result(n\_tests,\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m}{ModelFitGLMM}}());}
+\DoxyCodeLine{00101\ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_aa845d99c94d3583204551aea51dad721}{ModelFitGLMMList}}\ result(n\_tests,\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m_a6ca8878ca1f03419edcee6f092eaf342}{ModelFitGLMM}}());}
 \DoxyCodeLine{00102\ }
 \DoxyCodeLine{00103\ \ \ \textcolor{comment}{//\ Parallel\ part\ using\ Thread\ Building\ Blocks}}
 \DoxyCodeLine{00104\ \ \ tbb::task\_arena\ limited\_arena(nthreads);}
@@ -121,7 +121,7 @@
 \DoxyCodeLine{00117\ }
 \DoxyCodeLine{00118\ \ \ \ \ \ \ \textcolor{comment}{//\ fits\ full\ model\ each\ time,}}
 \DoxyCodeLine{00119\ \ \ \ \ \ \ \textcolor{comment}{//\ for\ speed,\ need\ to\ save\ Y,\ X,\ scaled\ by\ U\ and\ s}}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1fastglmm}{fastglmm}}\ fit\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1fastglmm}{fastglmm}}(y,\ X\_combined,\ dcmp,\ weights,\ offset,\ family,\ md,\ tol,\ tol\_eta,\ maxit,\ lambda);}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1fastglmm}{fastglmm}}\ fit\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a53aff4890d4d14e44f36a10f32be3e7f}{fastglmm}}(y,\ X\_combined,\ dcmp,\ weights,\ offset,\ family,\ md,\ tol,\ tol\_eta,\ maxit,\ lambda);}
 \DoxyCodeLine{00121\ }
 \DoxyCodeLine{00122\ \ \ \ \ \ \ result.at(j)\ =\ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a3cfc852df4bdf93a5805e0b0c7466209}{get\_result}}();}
 \DoxyCodeLine{00123\ \ \ \ \ \ \ result.at(j).\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a77fa3b847607cd5b1bb659078a17f55a}{ID}}\ =\ ids[j];}

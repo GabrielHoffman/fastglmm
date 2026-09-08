@@ -27,7 +27,15 @@ function:
 
 ## Fit NBMM
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`fastglmm`](https://gabrielhoffman.github.io/fastglmm/)`)`` `` `[`data`](https://rdrr.io/r/utils/data.html)`(``PsychAD``)`` `` ``form`` ``<-`` ``PTPRG`` ``~`` `[`offset`](https://rdrr.io/r/stats/offset.html)`(`[`log`](https://rdrr.io/r/base/Log.html)`(``libSize``)``)`` ``+`` ``Dx`` ``+`` ``Age`` ``+`` ``Sex`` ``+`` ``(``1``|``SubID``)`` ``fit`` ``<-`` `[`fastglmm.nb`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.nb.md)`(``form``, ``PsychAD``)`` `` ``fit`
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`fastglmm`](https://gabrielhoffman.github.io/fastglmm/)`)`\
+\
+[`data`](https://rdrr.io/r/utils/data.html)`(``PsychAD``)`\
+\
+`form`` ``<-`` ``PTPRG`` ``~`` `[`offset`](https://rdrr.io/r/stats/offset.html)`(`[`log`](https://rdrr.io/r/base/Log.html)`(``libSize``)``)`` ``+`` ``Dx`` ``+`` ``Age`` ``+`` ``Sex`` ``+`` ``(``1``|``SubID``)`\
+`fit`` ``<-`` `[`fastglmm.nb`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.nb.md)`(``form``, ``PsychAD``)`\
+\
+`fit`
 
     ## 
     ## Call:
@@ -41,6 +49,7 @@ function:
 
 ## Hypothesis testing
 
+\
 [`summary`](https://rdrr.io/r/base/summary.html)`(``fit``)`
 
     ## Generalized linear mixed model fit by PQL ['fastglmm']
@@ -81,6 +90,7 @@ work on single cell transcriptomics ([Jiang, et al.,
 
 ## Variance partitioning analysis
 
+\
 [`varpart`](http://gabrielhoffman.github.io/fastglmm/reference/varpart.md)`(``fit``)`
 
     ##           Dx          Age          Sex        SubID   CountNoise    Residuals 
@@ -96,6 +106,7 @@ remaining 50.6% of the variance is explained by the residuals.
 
 ##### Session info
 
+\
 [`sessionInfo`](https://rdrr.io/r/utils/sessionInfo.html)`(``)`
 
     ## R version 4.5.1 (2025-06-13)

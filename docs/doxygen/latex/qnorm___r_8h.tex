@@ -19,7 +19,7 @@ namespace \doxymbox{\hyperlink{namespaceglm}{glm}}
 \item 
 \+\#define \doxymbox{\hyperlink{qnorm___r_8h_a84021858b4cb293b109c53adf3e48bcc}{R\+\_\+\+DT\+\_\+q\+Iv}}(p)
 \item 
-\+\#define \doxymbox{\hyperlink{qnorm___r_8h_a40b69d5b59cec96b4d7d55e130c15ee1}{R\+\_\+\+Q\+\_\+\+P01\+\_\+boundaries}}(p,  \+\_\+\+LEFT\+\_\+,  \+\_\+\+RIGHT\+\_\+)
+\+\#define \doxymbox{\hyperlink{qnorm___r_8h_a40b69d5b59cec96b4d7d55e130c15ee1}{R\+\_\+\+Q\+\_\+\+P01\+\_\+boundaries}}(p,  \+\_\+\+LEFT\_,  \+\_\+\+RIGHT\_)
 \end{DoxyCompactItemize}
 
 
@@ -50,9 +50,9 @@ namespace \doxymbox{\hyperlink{namespaceglm}{glm}}
 {\footnotesize\ttfamily \label{qnorm___r_8h_a6b89eed393ee84160deb1f8268ebbb2c} 
 \+\#define R\+\_\+\+D\+\_\+\+Lval(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
 
-{\bfseries Value:\+}
+{\bfseries Value:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{(lower\_tail\ ?\ (p)\ :\ (0.5\ -\/\ (p)\ +\ 0.5))\ \ \textcolor{comment}{/*\ \ p\ \ */}}
+\DoxyCodeLine{(lower\_tail\ ?\ (p)\ :\ (0.5\ -\/\ (p)\ +\ 0.5))}
 
 \end{DoxyCode}
 \Hypertarget{qnorm___r_8h_a84021858b4cb293b109c53adf3e48bcc}\index{qnorm\_R.h@{qnorm\_R.h}!R\_DT\_qIv@{R\_DT\_qIv}}
@@ -61,7 +61,7 @@ namespace \doxymbox{\hyperlink{namespaceglm}{glm}}
 {\footnotesize\ttfamily \label{qnorm___r_8h_a84021858b4cb293b109c53adf3e48bcc} 
 \+\#define R\+\_\+\+DT\+\_\+q\+Iv(\begin{DoxyParamCaption}\item[{}]{p}{}\end{DoxyParamCaption})}
 
-{\bfseries Value:\+}
+{\bfseries Value:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{(log\_p\ ?\ (lower\_tail\ ?\ exp(p)\ :\ -\/\ expm1(p))\ \(\backslash\)}
 \DoxyCodeLine{:\ \doxymbox{\hyperlink{qnorm___r_8h_a6b89eed393ee84160deb1f8268ebbb2c}{R\_D\_Lval}}(p))}
@@ -71,19 +71,19 @@ namespace \doxymbox{\hyperlink{namespaceglm}{glm}}
 \index{R\_Q\_P01\_boundaries@{R\_Q\_P01\_boundaries}!qnorm\_R.h@{qnorm\_R.h}}
 \doxysubsubsection{\texorpdfstring{R\_Q\_P01\_boundaries}{R\_Q\_P01\_boundaries}}
 {\footnotesize\ttfamily \label{qnorm___r_8h_a40b69d5b59cec96b4d7d55e130c15ee1} 
-\+\#define R\+\_\+\+Q\+\_\+\+P01\+\_\+boundaries(\begin{DoxyParamCaption}\item[{}]{p}{, }\item[{}]{\+\_\+\+LEFT\+\_\+}{, }\item[{}]{\+\_\+\+RIGHT\+\_\+}{}\end{DoxyParamCaption})}
+\+\#define R\+\_\+\+Q\+\_\+\+P01\+\_\+boundaries(\begin{DoxyParamCaption}\item[{}]{p}{, }\item[{}]{\+\_\+\+LEFT\_}{, }\item[{}]{\+\_\+\+RIGHT\_}{}\end{DoxyParamCaption})}
 
-{\bfseries Value:\+}
+{\bfseries Value:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keywordflow}{if}\ (log\_p)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
 \DoxyCodeLine{if(p\ >\ 0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
 \DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{qnorm___r_8h_a8abfcc76130f3f991d124dd22d7e69bc}{NAN}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
-\DoxyCodeLine{if(p\ ==\ 0)\ \textcolor{comment}{/*\ upper\ bound*/}\ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{if(p\ ==\ 0)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ lower\_tail\ ?\ \_RIGHT\_\ :\ \_LEFT\_;\ \ \ \(\backslash\)}
 \DoxyCodeLine{if(p\ ==\ \doxymbox{\hyperlink{qnorm___r_8h_afbdc80787a710f367c254bc144c03d5d}{ML\_NEGINF}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ lower\_tail\ ?\ \_LEFT\_\ :\ \_RIGHT\_;\ \ \ \(\backslash\)}
 \DoxyCodeLine{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
-\DoxyCodeLine{\textcolor{keywordflow}{else}\ \{\ \textcolor{comment}{/*\ !log\_p\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\textcolor{keywordflow}{else}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
 \DoxyCodeLine{if(p\ <\ 0\ ||\ p\ >\ 1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
 \DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{qnorm___r_8h_a8abfcc76130f3f991d124dd22d7e69bc}{NAN}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
 \DoxyCodeLine{if(p\ ==\ 0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
