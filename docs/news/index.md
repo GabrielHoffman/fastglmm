@@ -1,5 +1,10 @@
 # Changelog
 
+## fastglmm 0.4.14
+
+- Sept 6, 2026
+- update docs
+
 ## fastglmm 0.4.13
 
 - July 28, 2026
@@ -8,7 +13,7 @@
 ## fastglmm 0.4.12
 
 - July 24, 2026
-- use `_log_moments_nb_mu()` uses approximation for lage mu values
+- `_log_moments_nb_mu()` uses approximation for large mu values
 
 ## fastglmm 0.4.11
 
@@ -140,7 +145,7 @@
 - update
   [`varpart()`](http://gabrielhoffman.github.io/fastglmm/reference/varpart.md)
   for NB models
-- [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
+- [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm-pkg.md)
   and [`glm.nb()`](https://rdrr.io/pkg/MASS/man/glm.nb.html)
 - handle singular models for NB fit
 - add Cox-Reid option for NB models
@@ -168,7 +173,7 @@
 - May 6, 2025
 - rename
 - add
-  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
+  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm-pkg.md)
   in C++
 - pull code from `BatchRegression`
 
@@ -202,7 +207,7 @@
 
 - Aug 28, 2024
 - changes to allow PQL with
-  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
+  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm-pkg.md)
 
 ## fastglmm 0.1.2
 

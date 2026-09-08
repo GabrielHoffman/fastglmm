@@ -25,7 +25,7 @@
 #' fit2 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML = FALSE)
 #' coef(summary(fit2))
 #'
-#' @details Hoffman (2013), Lippert, et al. (2011) 
+#' @details See Hoffman (2013) and Lippert, et al. (2011) for algorithm for low rank linear mixed model with one random effect
 #'
 #' @references
 #' Hoffman, G. E. (2013). Correcting for population structure and kinship using the linear mixed model: theory and extensions. PloS one, 8(10), e75707. \doi{10.1371/journal.pone.0075707}

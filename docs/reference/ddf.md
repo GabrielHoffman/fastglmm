@@ -15,7 +15,7 @@ ddf(fit, L = diag(1, length(coef(fit))))
   model fit from
   [`fastlmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.md)
   or
-  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
+  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm-pkg.md)
 
 - L:
 

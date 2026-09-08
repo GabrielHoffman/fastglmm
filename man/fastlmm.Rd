@@ -39,7 +39,7 @@ fastlmm(
 Fit a linear mixed-effects model with 1 random effect with REML or maximum likelihood using the very fast algorithm and implementation
 }
 \details{
-Hoffman (2013), Lippert, et al. (2011)
+See Hoffman (2013) and Lippert, et al. (2011) for algorithm for low rank linear mixed model with one random effect
 }
 \examples{
 library(lme4)

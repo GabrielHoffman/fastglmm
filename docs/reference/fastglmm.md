@@ -3,9 +3,6 @@
 Fit generalized linear mixed model (GLMM) with a single random effect
 using penalized quasi-likelihood (PQL)
 
-Efficient Fit of Generalized Linear Mixed Model with a Single Random
-Effect
-
 ## Usage
 
 ``` r

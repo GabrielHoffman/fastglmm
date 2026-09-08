@@ -19,6 +19,7 @@
 #'
 #' Efficient Fit of Generalized Linear Mixed Model with a Single Random Effect
 #'
+#' @rdname fastglmm-pkg
 #' @name fastglmm
 #' @useDynLib fastglmm
 #' @importFrom Rcpp evalCpp

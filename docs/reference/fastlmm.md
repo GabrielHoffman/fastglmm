@@ -68,7 +68,8 @@ fastlmm(
 
 ## Details
 
-Hoffman (2013), Lippert, et al. (2011)
+See Hoffman (2013) and Lippert, et al. (2011) for algorithm for low rank
+linear mixed model with one random effect
 
 ## References
 

@@ -16,7 +16,7 @@ plotSaturation(fit, method = c("counts", "measurements"))
   model fit from
   [`fastlmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.md)
   or
-  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
+  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm-pkg.md)
 
 - method:
 

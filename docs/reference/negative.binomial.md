@@ -14,7 +14,7 @@ negative.binomial(theta = stop("'theta' must be specified"), link = "log")
 - theta:
 
   The known value of the additional parameter, `theta`. If set to `NA`,
-  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
+  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm-pkg.md)
   will estimate the parameter from the data
 
 - link:
