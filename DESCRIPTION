@@ -17,6 +17,7 @@ Suggests:
 	lmerTest,
 	glmmTMB,
 	tidyverse,
+	insight,
 	RUnit
 Imports: 
 	Rcpp (>= 1.0.12),

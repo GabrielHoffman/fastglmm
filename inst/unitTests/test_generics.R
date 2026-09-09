@@ -17,6 +17,12 @@ test_generics = function(){
                   setdiff(methods(class = "list")) %>%
                   grep("-method", ., value=TRUE, invert=TRUE)
 
+  # make sure these are functions
+  # debugging for GitHub Actions   
+  implemented = implemented %>%
+    grep("-method", ., value=TRUE, invert=TRUE) %>%
+    {.[sapply(., function(nm) is.function(get(nm, inherits=TRUE)))]}
+
   target = methods(class = "merMod") %>%
                   gsub("\\.merMod", "", .) %>%
                   unique %>%

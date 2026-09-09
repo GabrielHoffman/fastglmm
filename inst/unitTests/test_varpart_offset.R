@@ -27,7 +27,7 @@ test_varpart_offset = function(){
   fit <- fastlmm(form, PsychAD)
   vp2 = varpart(fit)
 
-  plot(vp1[-5], vp2)
+  # plot(vp1[-5], vp2)
 
   checkIdentical(max(abs(vp1[-5] - vp2)) < 1e-3, TRUE)
 
