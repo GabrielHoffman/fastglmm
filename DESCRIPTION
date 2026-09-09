@@ -40,6 +40,7 @@ LinkingTo:
 SystemRequirements: 
 	GNU make, 
 	C++17,
-	Intel TBB
+	Intel TBB,
+	boost-math
 LazyData: false
 Config/roxygen2/version: 8.1.0
