@@ -18,6 +18,7 @@ Suggests:
 	glmmTMB,
 	tidyverse,
 	insight,
+	performance,
 	RUnit
 Imports: 
 	Rcpp (>= 1.0.12),
