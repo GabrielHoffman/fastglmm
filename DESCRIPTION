@@ -30,17 +30,17 @@ Imports:
 	stats,
 	methods
 Depends:
-	R (>= 4.1.0),
+	R (>= 4.4.0),
 	nlme
 Encoding: UTF-8
 LinkingTo: 
 	Rcpp, 
 	RcppArmadillo (>= 15.0.2.2),
-	RcppParallel
+	RcppParallel,
+	BH
 SystemRequirements: 
 	GNU make, 
-	C++17,
-	Intel TBB,
-	boost-math
+	C++20,
+	Intel TBB
 LazyData: false
 Config/roxygen2/version: 8.1.0
