@@ -40,7 +40,7 @@ LinkingTo:
 	BH
 SystemRequirements: 
 	GNU make, 
-	C++20,
+	C++17,
 	Intel TBB
 LazyData: false
 Config/roxygen2/version: 8.1.0
