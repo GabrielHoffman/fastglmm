@@ -114,7 +114,7 @@ static ModelFit lm(
 	}
 
 	// if md != LEAST, compute residuals
-	arma::vec stderr;
+	vec std_err;
 	double rdf = n - k - rdf_offset; 
 	double dispersion = 1.0;
 	bool success2 = true;
@@ -141,9 +141,9 @@ static ModelFit lm(
 		}
 
     if( success0 && success1 && success2 ){
-	    stderr = sqrt(dispersion * diagvec(work->V));
+	    std_err = sqrt(dispersion * diagvec(work->V));
     }else{
-      stderr = vec(k, fill::value(datum::nan));
+      std_err = vec(k, fill::value(datum::nan));
       beta.fill(datum::nan);
     }
 	}
@@ -158,21 +158,21 @@ static ModelFit lm(
 			break;
 
 	  case LOW:
-			fit = ModelFit( success, beta, stderr, dispersion, rdf);
+			fit = ModelFit( success, beta, std_err, dispersion, rdf);
 			break;
 
 		case MEDIUM:
-			fit = ModelFit( success, beta, stderr, dispersion, rdf, work->V * dispersion);
+			fit = ModelFit( success, beta, std_err, dispersion, rdf, work->V * dispersion);
 			break;
 
 		case HIGH:
-			fit = ModelFit( success, beta, stderr, dispersion, rdf, work->V * dispersion, work->residuals);
+			fit = ModelFit( success, beta, std_err, dispersion, rdf, work->V * dispersion, work->residuals);
 			break;
 
 		case MOST:
 		case MAX: 
 			vec hatvalues = diagvec(work->Q * trans(work->Q));
-			fit = ModelFit( success, beta, stderr, dispersion, rdf, work->V * dispersion, work->residuals, hatvalues);
+			fit = ModelFit( success, beta, std_err, dispersion, rdf, work->V * dispersion, work->residuals, hatvalues);
 			fit.setFittedValues( X*beta );
 			break;
 	}
@@ -349,7 +349,7 @@ static ModelFit wlm(
  * @param nthreads number of threads.  Each model is fit in serial, analysis is parallelized across features
  * 
 */
-static vector<ModelFit> lmFitFeatures_standard(
+static inline vector<ModelFit> lmFitFeatures_standard(
 	const arma::vec &y, 
 	const arma::mat &X_design, 
 	const arma::mat &X_features, 
