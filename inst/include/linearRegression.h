@@ -114,7 +114,7 @@ static ModelFit lm(
 	}
 
 	// if md != LEAST, compute residuals
-	vec stderr;
+	arma::vec stderr;
 	double rdf = n - k - rdf_offset; 
 	double dispersion = 1.0;
 	bool success2 = true;
