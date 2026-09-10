@@ -94,8 +94,25 @@ class fastlmm {
     }
     const int get_iter() const { return this->iter;}
     const double get_delta() const { return this->delta_hat;}
+    
     const mat get_vcov() const {
-      return this->sigSq_g * inv_sympd(this->QXX, inv_opts::allow_approx) ;
+
+      // initialize result matrix to NaN
+      mat QXX_inv(this->QXX.n_rows, this->QXX.n_cols, arma::fill::nan);
+      bool success = true;
+
+      // if QXX is finite, compute inverse
+      if( this->QXX.is_finite() ) {
+        success = inv_sympd(QXX_inv, this->QXX);
+      }
+
+      // if inverse fails, set result to NaN
+      if( !success ){
+        QXX_inv.fill(arma::datum::nan);
+      }
+
+      // Scale NaN matrix
+      return this->sigSq_g * QXX_inv ;
     }
     // condition number of vcov matrix
     const double get_vcov_kappa() const {
@@ -104,7 +121,6 @@ class fastlmm {
     const mat get_beta_se() const {
       return sqrt(diagvec(get_vcov()));
     }
-
 
     // if model fails, set beta to nan
     void set_model_failure(){ 

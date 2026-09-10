@@ -1,4 +1,8 @@
 
+# fastglmm 0.4.15
+ - Sept 10, 2026
+ - more robust check for model failure
+
 # fastglmm 0.4.14
  - Sept 6, 2026
  - update docs
