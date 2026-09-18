@@ -32,6 +32,10 @@ The **fastglmm** package is designed to be intuitive for users of other mixed mo
 
 ## Installation
 ```r
+# Release from CRAN
+install.packages("fastglmm")
+
+# Development from Github
 remotes::install_github("GabrielHoffman/fastglmm")
 ```
 
