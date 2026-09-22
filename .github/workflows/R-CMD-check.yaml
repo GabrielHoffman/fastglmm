@@ -20,10 +20,10 @@ jobs:
       matrix:
         config:
           - {os: macos-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
+          # - {os: windows-latest, r: 'release'}
+          # - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
+          # - {os: ubuntu-latest,   r: 'release'}
+          # - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -50,6 +50,15 @@ jobs:
               remove.packages("TMB", lib = lib)
             }
 
+            # install from binary
+            install.packages(
+              c("lme4", "numDeriv", "reformulas", "pbkrtest", "sandwich", "RcppEigen"),
+              repos = "https://cloud.r-project.org",
+              type = "binary",
+              dependencies = TRUE,
+              lib = lib)
+
+            # install from source
             install.packages(
               c("TMB", "glmmTMB"),
               type = "source",
