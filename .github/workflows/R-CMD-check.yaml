@@ -54,6 +54,7 @@ jobs:
               c("TMB", "glmmTMB"),
               type = "source",
               repos = "https://cloud.r-project.org",
+              dependencies = FALSE,
               lib = lib
             )'
 
