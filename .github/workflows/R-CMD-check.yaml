@@ -51,7 +51,7 @@ jobs:
             }
 
             install.packages(
-              "TMB",
+              c("TMB", "glmmTMB"),
               type = "source",
               repos = "https://cloud.r-project.org",
               lib = lib

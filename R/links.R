@@ -23,10 +23,6 @@
 #' @export
 getLink = function(family){
 
-  if( !is(family, "family") ){
-    stop("Argument must be of class: family")
-  }
-
   famStr <- ifelse(isNB(family), "nb", getFamilyString(family))
 
   switch( famStr, 
@@ -64,10 +60,6 @@ getLink = function(family){
 #' @importFrom stats pnorm
 #' @export
 getLinkInv = function(family){
-
-  if( !is(family, "family") ){
-    stop("Argument must be of class: family")
-  }
 
   famStr <- ifelse(isNB(family), "nb", getFamilyString(family))
 
