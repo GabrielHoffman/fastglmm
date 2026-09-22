@@ -39,6 +39,24 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
 
+      - name: Rebuild TMB from source on macOS
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          Rscript -e '
+            lib <- .libPaths()[1]
+
+            if ("TMB" %in% rownames(installed.packages(lib.loc = lib))) {
+              remove.packages("TMB", lib = lib)
+            }
+
+            install.packages(
+              "TMB",
+              type = "source",
+              repos = "https://cloud.r-project.org",
+              lib = lib
+            )
+
       - uses: r-lib/actions/setup-tinytex@v2
 
       - uses: r-lib/actions/setup-r-dependencies@v2
