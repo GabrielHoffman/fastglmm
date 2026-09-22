@@ -1,7 +1,7 @@
 Package: fastglmm
 Type: Package
 Title: Efficiently Fit Generalized Linear Mixed Model with a Single Random Effect on Massive Datasets
-Version: 0.4.17
+Version: 0.4.18
 Date: 2026-09-22
 Authors@R: person("Gabriel", "Hoffman", role=c("aut", "cre", "cph"), email="gabriel.hoffman@mssm.edu", comment=c(ORCID="0000-0002-0957-0224"))
 Maintainer: Gabriel Hoffman <gabriel.hoffman@mssm.edu>

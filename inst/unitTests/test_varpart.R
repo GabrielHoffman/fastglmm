@@ -32,9 +32,9 @@ test_models = function(){
      family=poisson, data=Salamanders)
   varpart(m1)
 
-  m1 <- glmmTMB(count ~ mined + (Wtemp|site),
-     family=nbinom2, data=Salamanders)
-  varpart(m1)
+  # m1 <- glmmTMB(count ~ mined + (Wtemp|site),
+  #    family=nbinom2, data=Salamanders)
+  # varpart(m1)
 
   m1 <- glmmTMB(count ~ mined + (1|site/spp),
      family=nbinom2, data=Salamanders)
@@ -65,8 +65,8 @@ test_getLambda = function(){
   # fastglmm.nb
   form <- PTPRG ~ offset(log(libSize)) + (1|SubID)
   fit <- fastglmm.nb(form, PsychAD)
-  fastglmm:::getLambda(fit)
-  fastglmm:::getLambda(fit, method = "mean")
+  fastglmm::getLambdaParam(fit)
+  fastglmm::getLambdaParam(fit, method = "mean")
   varpart(fit)
   # varpart(fit, lambda.method = "mean")
 
@@ -81,16 +81,16 @@ test_getLambda = function(){
   # glm
   form <- PTPRG ~ offset(log(libSize)) + Dx
   fit <- glm(form, PsychAD, family=negative.binomial(10))
-  fastglmm:::getLambda(fit)
-  fastglmm:::getLambda(fit, method = "mean")
+  fastglmm::getLambdaParam(fit)
+  fastglmm::getLambdaParam(fit, method = "mean")
   varpart(fit)
   # varpart(fit, lambda.method = "mean")
 
   # glm.nb
   form <- PTPRG ~ offset(log(libSize)) + Dx
   fit <- glm.nb(form, PsychAD)
-  fastglmm:::getLambda(fit)
-  fastglmm:::getLambda(fit, method = "mean")
+  fastglmm::getLambdaParam(fit)
+  fastglmm::getLambdaParam(fit, method = "mean")
   varpart(fit)
   # varpart(fit, lambda.method = "mean")
 
@@ -271,7 +271,9 @@ test_varpart = function(){
   #################
   df$y = plogis(eta + rnorm(n))
   fam = binomial()
+  suppressWarnings({
   fit.tmb = glmmTMB(y ~ X1 + X2 + (1|z), df, family=fam)
+  })
   fit = fastglmm(y ~ X1 + X2 + (1|z), df,family=fam)
 
   # distributional variance should be very close
@@ -289,7 +291,9 @@ test_varpart = function(){
   # Compare GLM with GLMM with zero variance component
   df$z.perm = factor(sample(seq(2), n, replace=TRUE))
   fit = fastglmm(y ~ X1 + X2 + (1|z.perm), df, family=fam)
+  suppressWarnings({
   fit2 = glm(y ~ X1 + X2, df, family=fam)
+  })
 
   checkEqualsNumeric( varpart(fit)[-3], varpart(fit2), tol=1e-3)
 

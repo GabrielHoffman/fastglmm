@@ -154,8 +154,8 @@ test_refitModel = function(){
   form = y.nb ~ offset(log(off+1))
   fit.glm = glm(form, df, family=fam)
   
-  a = fastglmm:::getLambda(fit, delta = 1e8, fixedNBtheta=TRUE)
-  b = fastglmm:::getLambda(fit.glm)
+  a = fastglmm::getLambdaParam(fit, delta = 1e8, fixedNBtheta=TRUE)
+  b = fastglmm::getLambdaParam(fit.glm)
 
   checkEqualsNumeric(a,b, tol=1e-6)
 }

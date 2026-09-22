@@ -59,6 +59,7 @@ variance of the signal (var.signal), variance of the noise (var.noise),
 ## Examples
 
 ``` r
+library(MASS)
 data(PsychAD)
 
 # regression formula

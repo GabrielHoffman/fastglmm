@@ -38,6 +38,6 @@ library(MASS)
 fit = fastglmm(y ~ trt + I(week > 2) + (1 | ID),
    family = binomial(), data = bacteria)
 
-lostDf(fit)
-#> Error in lostDf(fit): could not find function "lostDf"
+fastglmm:::lostDf(fit)
+#> [1] 0
 ```

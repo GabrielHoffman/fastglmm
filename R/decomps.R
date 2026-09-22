@@ -80,6 +80,8 @@ indicator_decomp <- function(x, weights = NULL, rank = NULL, sort = FALSE) {
 #' @param x a \code{factor}
 #'
 #' @examples
+#' data(PsychAD)
+#'
 #' # extract a few subjects
 #' idx <- c(1, 4, 100, 444)
 #' dcmp <- preprocess_indicator(PsychAD$SubID[idx])

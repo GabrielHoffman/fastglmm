@@ -26,6 +26,6 @@ form <- PTPRG ~ (1|SubID) + offset(log(libSize))
 # NB GLMM on PTPRG expression via PQL
 fit <- fastglmm.nb(form, PsychAD)
 
-noiseVarNB(fit)
+noiseVarNB(getNBTheta(fit))
 }
 \keyword{internal}

@@ -29,6 +29,6 @@ form <- PTPRG ~ (1|SubID) + offset(log(libSize))
 # NB GLMM on PTPRG expression via PQL
 fit <- fastglmm.nb(form, PsychAD)
 
-getLink(fit)
-#> Error in getFamilyString(family): family must be a string or function
+getLink(family(fit))
+#> function (x, base = exp(1))  .Primitive("log")
 ```

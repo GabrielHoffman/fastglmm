@@ -39,6 +39,7 @@ variance of the signal (var.signal), variance of the noise (var.noise), (alpha) 
 Log Moments of NB given X, Beta, and offset
 }
 \examples{
+library(MASS)
 data(PsychAD)
 
 # regression formula

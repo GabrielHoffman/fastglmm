@@ -24,6 +24,6 @@ form <- PTPRG ~ (1|SubID) + offset(log(libSize))
 # NB GLMM on PTPRG expression via PQL
 fit <- fastglmm.nb(form, PsychAD)
 
-getLinkInv(fit)
+getLinkInv(family(fit))
 }
 \keyword{internal}

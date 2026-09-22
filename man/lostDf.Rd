@@ -24,7 +24,7 @@ library(MASS)
 fit = fastglmm(y ~ trt + I(week > 2) + (1 | ID),
    family = binomial(), data = bacteria)
 
-lostDf(fit)
+fastglmm:::lostDf(fit)
 
 }
 \references{

@@ -29,10 +29,6 @@ getLambdaParamFromNull(fit_null, ...)
 }
 \value{
 lambda value
-
-scalar lambda value
-
-scalar lambda value from the null model fit
 }
 \description{
 Estimate baseline rate from count model
@@ -52,5 +48,6 @@ form <- PTPRG ~ (1|SubID) + offset(log(libSize))
 fit <- fastglmm.nb(form, PsychAD)
 
 getLambdaParam(fit)
+
 }
 \keyword{internal}

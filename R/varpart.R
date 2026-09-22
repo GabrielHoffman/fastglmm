@@ -124,7 +124,7 @@ getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal", "delt
 #' # NB GLMM on PTPRG expression via PQL
 #' fit <- fastglmm.nb(form, PsychAD)
 #'
-#' noiseVarNB(fit)
+#' noiseVarNB(getNBTheta(fit))
 #
 #' @export
 #' @keywords internal
@@ -179,7 +179,6 @@ get_mean_weights = function(fit){
 #' fit <- fastglmm.nb(form, PsychAD)
 #'
 #' getLambdaParam(fit)
-#' @return scalar lambda value
 #'
 #' @keywords internal
 #' @rdname getLambdaParam
@@ -307,8 +306,6 @@ setMethod("getLambdaParam", signature("negbin"),
 #' @param fit_null model fit of null
 #' @param ... other args
 #' 
-#' @return scalar lambda value from the null model fit
-#
 #' @rdname getLambdaParam
 #' @keywords internal
 #' @export

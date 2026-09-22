@@ -47,6 +47,7 @@ log_moments_nb_mu <- function(mu, theta, method, c = 1.0, p_tail = 1e-4) {
 #' @return variance of the signal (var.signal), variance of the noise (var.noise), (alpha) fraction of Poisson noise
 #' 
 #' @examples
+#' library(MASS)
 #' data(PsychAD)
 #' 
 #' # regression formula
@@ -82,7 +83,6 @@ log_moments_nb_XB <- function(X, Beta, offset, theta, method, c = 1.0, p_tail = 
 #' @param c pseudocount
 #' @param p_tail probability cutoff
 #' @param nthreads number of threads
-#' 
 #' 
 #' @return variance of the signal (var.signal), variance of the noise (var.noise), (alpha) fraction of Poisson noise
 #' 

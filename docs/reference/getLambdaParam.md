@@ -44,10 +44,6 @@ getLambdaParamFromNull(fit_null, ...)
 
 lambda value
 
-scalar lambda value
-
-scalar lambda value from the null model fit
-
 ## Details
 
 For count models, the distributional variance is a function of the mean

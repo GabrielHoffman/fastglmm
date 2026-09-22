@@ -293,6 +293,7 @@ DataFrame log_moments_nb_mu(
 //' @return variance of the signal (var.signal), variance of the noise (var.noise), (alpha) fraction of Poisson noise
 //' 
 //' @examples
+//' library(MASS)
 //' data(PsychAD)
 //' 
 //' # regression formula
@@ -305,7 +306,7 @@ DataFrame log_moments_nb_mu(
 //'   model.matrix(fit), 
 //'   as.matrix(coef(fit)), 
 //'   fit$offset, 
-//'   getTheta(fit), 
+//'   getNBTheta(fit), 
 //'   method="exact")
 //' @keywords internal
 //' @export
@@ -353,7 +354,6 @@ DataFrame log_moments_nb_XB(
 //' @param p_tail probability cutoff
 //' @param nthreads number of threads
 //' 
-//' 
 //' @return variance of the signal (var.signal), variance of the noise (var.noise), (alpha) fraction of Poisson noise
 //' 
 //' @examples
@@ -374,7 +374,7 @@ DataFrame log_moments_nb_XB(
 //'   Z = as.matrix(fit$Z),
 //'   weights = fit$prior.weights,
 //'   offset = fit$offset, 
-//'   theta = getTheta(fit),
+//'   theta = getNBTheta(fit),
 //'   delta = fit$delta,
 //'   method = "exact", 
 //'   dcmpMethod = "categorical"
@@ -450,7 +450,7 @@ DataFrame log_moments_nb_BlupXBZ(
 //'   Z = fit$Z,
 //'   weights = fit$prior.weights,
 //'   offset = fit$offset, 
-//'   theta = getTheta(fit),
+//'   theta = getNBTheta(fit),
 //'   delta = fit$delta,
 //'   method = "exact", 
 //'   dcmpMethod = "categorical"
