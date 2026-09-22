@@ -109,7 +109,7 @@ plotSaturation = function(fit, method = c("counts", "measurements") ){
   }
 
   N <- ncol(fit$Z) 
-  theta <- getTheta(fit)
+  theta <- getNBTheta(fit)
   sigSq.a <- fit$sigSq_g
 
   # mean number of measurements per subject
@@ -285,7 +285,7 @@ powerNBMM <- function(N, m, mu, sigSq.a, theta, beta = NA, sd_x = NA, alpha = 0.
       m = minfo$m.mean, 
       mu = mu,
       sigSq.a = fit$sigSq_g, 
-      theta = getTheta(fit), 
+      theta = getNBTheta(fit), 
       beta = beta, 
       sd_x = sd_x,
       alpha = alpha,

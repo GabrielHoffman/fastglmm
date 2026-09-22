@@ -53,9 +53,9 @@ getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal", "delt
 
     # mean term based on Eqn 5.8 of Nakagawa, et al. 2017.
     if( ! missing(fit_null) ){
-      lambda <- getLambdaFromNull( fit_null )
+      lambda <- getLambdaParamFromNull( fit_null )
     }else{      
-      lambda <- getLambda( fit, method = lambda.method )
+      lambda <- getLambdaParam( fit, method = lambda.method )
     }
     lambda = mean(lambda)
   }
@@ -91,7 +91,7 @@ getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal", "delt
     "nb" = {
 
       method <- match.arg(method)
-      theta <- getTheta( fit )
+      theta <- getNBTheta( fit )
 
       switch(method,
         "delta"     = 1/lambda + 1/theta,
@@ -168,6 +168,7 @@ get_mean_weights = function(fit){
 #'
 #' @details For count models, the distributional variance is a function of the mean count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be estimated using parameters of a model including only intercept and random effect terms.  But this requires refitting the model dropping the rest of the fixed effects.  Instead, computing the mean of the observed counts is a fast approximation.
 #'
+#' @return lambda value
 #' @examples
 #' data(PsychAD)
 #'
@@ -177,19 +178,19 @@ get_mean_weights = function(fit){
 #' # NB GLMM on PTPRG expression via PQL
 #' fit <- fastglmm.nb(form, PsychAD)
 #'
-#' getLambda(fit)
+#' getLambdaParam(fit)
 #' @return scalar lambda value
 #'
 #' @keywords internal
-#' @rdname getLambda
+#' @rdname getLambdaParam
 #' @export
-setGeneric("getLambda", function(fit, method = c("parametric", "mean"),...) {
-  standardGeneric("getLambda")
+setGeneric("getLambdaParam", function(fit, method = c("parametric", "mean"),...) {
+  standardGeneric("getLambdaParam")
 })
 
-#' @rdname getLambda
+#' @rdname getLambdaParam
 #' @export
-setMethod("getLambda", signature(fit = "fastlmm"), 
+setMethod("getLambdaParam", signature(fit = "fastlmm"), 
   function(fit, method = c("parametric", "mean"),...) {
 
   method <- match.arg(method)
@@ -220,9 +221,9 @@ setMethod("getLambda", signature(fit = "fastlmm"),
 })
 
 
-#' @rdname getLambda
+#' @rdname getLambdaParam
 #' @export
-setMethod("getLambda", signature("glm"), 
+setMethod("getLambdaParam", signature("glm"), 
   function(fit, method = c("parametric", "mean"),...) {
 
   method <- match.arg(method)
@@ -250,9 +251,9 @@ setMethod("getLambda", signature("glm"),
 })
 
 #' @importFrom MASS glm.nb
-#' @rdname getLambda
+#' @rdname getLambdaParam
 #' @export
-setMethod("getLambda", signature("negbin"), 
+setMethod("getLambdaParam", signature("negbin"), 
   function(fit, method = c("parametric", "mean"),...) {
 
   method <- match.arg(method)
@@ -307,23 +308,12 @@ setMethod("getLambda", signature("negbin"),
 #' @param ... other args
 #' 
 #' @return scalar lambda value from the null model fit
-#'
-#' @examples
-#' data(PsychAD)
-#'
-#' # regression formula
-#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
-#'
-#' # NB GLMM on PTPRG expression via PQL
-#' fit <- fastglmm.nb(form, PsychAD)
-#'
-#' getLambdaFromNull(fit)
 #
-#' @rdname getLambda
+#' @rdname getLambdaParam
 #' @keywords internal
 #' @export
-setGeneric("getLambdaFromNull", function(fit_null,...) {
-  standardGeneric("getLambdaFromNull")
+setGeneric("getLambdaParamFromNull", function(fit_null,...) {
+  standardGeneric("getLambdaParamFromNull")
 })
 
 
@@ -651,7 +641,7 @@ vpOther <- function(fit, method = c("trigamma", "lognormal", "delta"),...){
 
   # if family is Negative Binomial
   if( isNB(fit) ){
-    resid_var <- noiseVarNB( getTheta(fit), method )
+    resid_var <- noiseVarNB( getNBTheta(fit), method )
     count_var <- distr_var - resid_var
 
     res <- c(eta_var / sum(eta_var) * frac_signal,
@@ -682,7 +672,7 @@ vpCounts <- function(fit, method = c("exact", "approximate"),pseudocount = 1.0, 
   method <- match.arg(method)
  
   mu <- predict(fit, type = "response")
-  theta <- getTheta(fit)
+  theta <- getNBTheta(fit)
 
   # Approx total noise
   if( is.na(theta) ){

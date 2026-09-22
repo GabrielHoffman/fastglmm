@@ -71,7 +71,7 @@ log_moments_nb_BlupXBZ_sp(
   Z = fit$Z,
   weights = fit$prior.weights,
   offset = fit$offset, 
-  theta = getTheta(fit),
+  theta = getNBTheta(fit),
   delta = fit$delta,
   method = "exact", 
   dcmpMethod = "categorical"

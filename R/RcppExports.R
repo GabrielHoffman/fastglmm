@@ -59,7 +59,7 @@ log_moments_nb_mu <- function(mu, theta, method, c = 1.0, p_tail = 1e-4) {
 #'   model.matrix(fit), 
 #'   as.matrix(coef(fit)), 
 #'   fit$offset, 
-#'   getTheta(fit), 
+#'   getNBTheta(fit), 
 #'   method="exact")
 #' @keywords internal
 #' @export
@@ -104,7 +104,7 @@ log_moments_nb_XB <- function(X, Beta, offset, theta, method, c = 1.0, p_tail = 
 #'   Z = as.matrix(fit$Z),
 #'   weights = fit$prior.weights,
 #'   offset = fit$offset, 
-#'   theta = getTheta(fit),
+#'   theta = getNBTheta(fit),
 #'   delta = fit$delta,
 #'   method = "exact", 
 #'   dcmpMethod = "categorical"
@@ -151,7 +151,7 @@ log_moments_nb_BlupXBZ <- function(BLUP, X, Beta, Z, weights, offset, theta, del
 #'   Z = fit$Z,
 #'   weights = fit$prior.weights,
 #'   offset = fit$offset, 
-#'   theta = getTheta(fit),
+#'   theta = getNBTheta(fit),
 #'   delta = fit$delta,
 #'   method = "exact", 
 #'   dcmpMethod = "categorical"

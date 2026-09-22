@@ -135,10 +135,10 @@ isNB <- function( x ){
 #' # NB GLMM on PTPRG expression via PQL
 #' fit <- fastglmm.nb(form, PsychAD)
 #'
-#' getTheta(fit)
+#' getNBTheta(fit)
 #' @export
 #' @keywords internal 
-getTheta <- function( fit ){
+getNBTheta <- function( fit ){
   theta <- NA
 
   if( is(fit, "glmmTMB") & family(fit)$family == "nbinom2" ){

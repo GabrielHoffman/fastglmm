@@ -194,10 +194,14 @@ the same as using `lme4::lmer(..., REML=FALSE)`.
 
 - [`getFamilyString()`](http://gabrielhoffman.github.io/fastglmm/reference/getFamilyString.md)
   : Convert GLM family to string
+- [`getNBTheta()`](http://gabrielhoffman.github.io/fastglmm/reference/getNBTheta.md)
+  : Get theta from NB model
 - [`indicator_decomp()`](http://gabrielhoffman.github.io/fastglmm/reference/indicator_decomp.md)
   : Spectral decomposition of factor indicator matrix
 - [`preprocess_indicator()`](http://gabrielhoffman.github.io/fastglmm/reference/preprocess_indicator.md)
   : Create sparse indicator matrix
+- [`fastlmm.fit()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.fit.md)
+  : Fitter Function for Linear Mixed Model
 - [`nb_theta()`](http://gabrielhoffman.github.io/fastglmm/reference/nb_theta.md)
   : Estimate theta of the Negative Binomial
 - [`refitModel()`](http://gabrielhoffman.github.io/fastglmm/reference/refitModel.md)

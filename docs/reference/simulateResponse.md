@@ -45,9 +45,10 @@ form <- PTPRG ~ (1|SubID) + offset(log(libSize))
 # NB GLMM on PTPRG expression via PQL
 fit <- fastglmm.nb(form, PsychAD)
 
-Y <- simulateResponse(fitted(fit), 10, "nb", sigma(fit), getTheta(fit))
-#> Error: unable to find an inherited method for function ‘getTheta’ for signature ‘object = "fastglmm"’
+Y <- simulateResponse(fitted(fit), 10, "nb", sigma(fit), getNBTheta(fit))
 
 Y[1:2, 1:3]
-#> Error: object 'Y' not found
+#>      [,1] [,2] [,3]
+#> [1,]    2    4    0
+#> [2,]    0    0    0
 ```

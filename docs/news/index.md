@@ -29,7 +29,7 @@
 
 - July 15, 2026
 - fix bug in
-  [`getTheta()`](http://gabrielhoffman.github.io/fastglmm/reference/getTheta.md)
+  [`getTheta()`](https://rdrr.io/pkg/lme4/man/Covariance-class.html)
 - use weighted variances in `vpOther()`
 - bug fixes
 

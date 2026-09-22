@@ -73,9 +73,10 @@ reference:
   contents:
   # - "as.fastlmm"
   - "getFamilyString"
+  - "getNBTheta"
   - "indicator_decomp"
   - "preprocess_indicator" 
-  # - "fastlmm.fit"
+  - "fastlmm.fit"
   - "nb_theta"
   - "refitModel"
   - "varianceTerms"

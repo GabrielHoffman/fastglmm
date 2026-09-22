@@ -85,3 +85,14 @@ fastlmm.fit(
 ## Details
 
 Fit a linear mixed model with a single variance component.
+
+## Examples
+
+``` r
+library(lme4)
+
+y <- sleepstudy$Reaction
+X <- model.matrix(~ Days, sleepstudy)
+Z <- preprocess_indicator(sleepstudy$Subject)
+fit <- fastlmm.fit(y, X, Z)
+```

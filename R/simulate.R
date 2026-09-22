@@ -56,7 +56,7 @@ simulate.fastlmm <- function(object, nsim = 1, seed = NULL,...){
   }
 
   # run simulations
-  Y <- simulateResponse(mu, nsim, fam, sigma(object), getTheta(object))
+  Y <- simulateResponse(mu, nsim, fam, sigma(object), getNBTheta(object))
 
   # set names
   colnames(Y) <- paste0("sim_", seq(ncol(Y)))
@@ -85,7 +85,7 @@ simulate.fastlmm <- function(object, nsim = 1, seed = NULL,...){
 #' # NB GLMM on PTPRG expression via PQL
 #' fit <- fastglmm.nb(form, PsychAD)
 #'
-#' Y <- simulateResponse(fitted(fit), 10, "nb", sigma(fit), getTheta(fit))
+#' Y <- simulateResponse(fitted(fit), 10, "nb", sigma(fit), getNBTheta(fit))
 #' 
 #' Y[1:2, 1:3]
 #

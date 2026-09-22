@@ -101,10 +101,11 @@ log_moments_nb_BlupXBZ_sp(
   Z = fit$Z,
   weights = fit$prior.weights,
   offset = fit$offset, 
-  theta = getTheta(fit),
+  theta = getNBTheta(fit),
   delta = fit$delta,
   method = "exact", 
   dcmpMethod = "categorical"
   )
-#> Error: unable to find an inherited method for function ‘getTheta’ for signature ‘object = "fastglmm"’
+#>   var.signal var.noise     alpha
+#> 1 0.05916934 0.4083839 0.4384918
 ```

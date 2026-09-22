@@ -51,7 +51,7 @@ log_moments_nb_XB(
   model.matrix(fit), 
   as.matrix(coef(fit)), 
   fit$offset, 
-  getTheta(fit), 
+  getNBTheta(fit), 
   method="exact")
 }
 \keyword{internal}

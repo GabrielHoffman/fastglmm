@@ -71,7 +71,8 @@ log_moments_nb_XB(
   model.matrix(fit), 
   as.matrix(coef(fit)), 
   fit$offset, 
-  getTheta(fit), 
+  getNBTheta(fit), 
   method="exact")
-#> Error: unable to find an inherited method for function ‘getTheta’ for signature ‘object = "negbin"’
+#>   var.signal var.noise     alpha
+#> 1 0.01399011 0.4857437 0.4710863
 ```
