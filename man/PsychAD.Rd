@@ -3,11 +3,11 @@
 \docType{data}
 \name{PsychAD}
 \alias{PsychAD}
-\title{Gene expession of PTPRG in microglia in 60k cells}
+\title{Gene expression of PTPRG in microglia in 60k cells}
 \format{
 A data frame with 60481 rows (i.e. cells) and 6 variables:
 \describe{
-  \item{SubID}{subject identifer}
+  \item{SubID}{subject identifier}
   \item{Sex}{Sex}
   \item{Dx}{Diagnosis: AD or Control}
   \item{Age}{subject age}

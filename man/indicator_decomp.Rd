@@ -9,7 +9,7 @@ indicator_decomp(x, weights = NULL, rank = NULL, sort = FALSE)
 \arguments{
 \item{x}{object of type \code{factor} or \code{sparseMatrix}}
 
-\item{weights}{vector of weights with a value for each sample.  If ommited, weights are set to 1.}
+\item{weights}{vector of weights with a value for each sample.  If omited, weights are set to 1.}
 
 \item{rank}{rank of random effect.  The maximum rank is the number of columns in \code{Z}.  A low rank approximation can be useful if the eigen-values decrease quickly.}
 
@@ -19,7 +19,7 @@ indicator_decomp(x, weights = NULL, rank = NULL, sort = FALSE)
 list storing spectral decomposition like from \code{eigen()}
 }
 \description{
-Given a factor, construct the spectral decompostion of the corresponding indicator matrix.  Uses linear time algorithm and sparse matrix algebra.  Resulting vector space is also sparse.
+Given a factor, construct the spectral decomposition of the corresponding indicator matrix.  Uses linear time algorithm and sparse matrix algebra.  Resulting vector space is also sparse.
 }
 \details{
 This approach is dramatically faster than the naive algorithm that is quadratic time in the number of levels.

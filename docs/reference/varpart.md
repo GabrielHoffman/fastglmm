@@ -98,7 +98,7 @@ varpart(
 
 - p.tail:
 
-  probability threashold for evaluating expectations for `"exact"`
+  probability threshold for evaluating expectations for `"exact"`
   methods for count models
 
 - ...:

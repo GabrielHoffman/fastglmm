@@ -17,8 +17,8 @@ reconstruct_indicator(dcmp, weights = NULL)
 
 - weights:
 
-  vector of weights with a value for each sample. If ommited, weights
-  are set to 1.
+  vector of weights with a value for each sample. If omited, weights are
+  set to 1.
 
 ## Examples
 

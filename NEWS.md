@@ -9,7 +9,7 @@
 
 # fastglmm 0.4.13
  - July 28, 2026
- - fix accouting for count model offset
+ - fix accounting for count model offset
 
 # fastglmm 0.4.12
  - July 24, 2026
@@ -84,7 +84,7 @@
 
 # fastglmm 0.3.8 
  - Jan 16, 2026
- - more flexable `isCountModel()` and `isNB()`
+ - more flexible `isCountModel()` and `isNB()`
  - fix `simulate()` for NB models
 
 # fastglmm 0.3.7

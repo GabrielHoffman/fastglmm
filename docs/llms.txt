@@ -12,12 +12,37 @@ other methods for large datasets.
 
 The **fastglmm** package is designed to be intuitive for users of other
 mixed model software such as
-[lme4](https://cran.r-project.org/package=lme4), and uses familar mixed
+[lme4](https://cran.r-project.org/package=lme4), and uses familiar mixed
 model syntax and R generics. Since **fastglmm** is designed for large
 datasets and GLMMs in mind, it uses maximum likelihood rather than REML
 to fit LMMs.
 
-### Example Usage
+## Core functions
+
+- [`fastlmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.md):
+  linear mixed model
+- [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md):
+  generalized linear mixed model
+- [`fastglmm.nb()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.nb.md):
+  negative binomial mixed model
+
+## See also
+
+- [Manuscript](http://gabrielhoffman.github.io/fastglmm/articles/jss.pdf)
+  describing package, estimating algorithm and hypothesis testing.
+- [Application](http://gabrielhoffman.github.io/fastglmm/articles/nbmm.md)
+  of negative binomial mixed model to single cell gene expression data.
+
+## Installation
+
+\
+`# Release from CRAN`\
+[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"fastglmm"``)`\
+\
+`# Development from Github`\
+`remotes``::`[`install_github`](https://remotes.r-lib.org/reference/install_github.html)`(``"GabrielHoffman/fastglmm"``)`
+
+## Example Usage
 
 As an introduction, consider fitting a LMM to the `sleepstudy` data
 distributed with `lme4`. The model syntax and parameter estimates are
@@ -56,11 +81,6 @@ the same as using `lme4::lmer(..., REML=FALSE)`.
 `#>   sigSq_e: 954.5`\
 `#>   delta:   0.736`
 
-### Installation
-
-\
-`devtools``::`[`install_github`](https://devtools.r-lib.org/reference/install-deprecated.html)`(``"GabrielHoffman/fastglmm"``)`
-
 ## Implementation details
 
 - Analysis of a given response or features is performed on a single
@@ -69,7 +89,7 @@ the same as using `lme4::lmer(..., REML=FALSE)`.
   ([oneTBB](https://uxlfoundation.github.io/oneTBB/))
 - Linear algebra is performed with
   [Armadillo](https://arma.sourceforge.net)
-- Use of dense and sparse matricies is supported at the C++ level using
+- Use of dense and sparse matrices is supported at the C++ level using
   templates
 - Interface between R and C++ is implemented in
   [Rcpp](https://www.rcpp.org) and also depends on
@@ -93,7 +113,7 @@ the same as using `lme4::lmer(..., REML=FALSE)`.
 ## Example Data
 
 - [`PsychAD`](http://gabrielhoffman.github.io/fastglmm/reference/PsychAD.md)
-  : Gene expession of PTPRG in microglia in 60k cells
+  : Gene expression of PTPRG in microglia in 60k cells
 
 ## Generics
 

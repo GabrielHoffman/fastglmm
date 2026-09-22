@@ -388,7 +388,7 @@ setMethod("varianceTerms", signature("fastlmm"),
 #' @param fit regression model fit  
 #' @param method select method for count models:  \code{"exact"} or \code{"approximate"} from the current work, or \code{"trigamma"}, \code{"lognormal"} or \code{"delta"} formulas from Nakagawa, et al. (2017)
 #' @param pseudocount pseudocount used for \code{"exact"} and \code{"approximate"} methods for count models
-#' @param p.tail probability threashold for evaluating expectations for \code{"exact"} methods for count models
+#' @param p.tail probability threshold for evaluating expectations for \code{"exact"} methods for count models
 #' @param ... other arguments, passed to \code{vpOther()} or \code{vpCounts()}
 #'
 #' @details

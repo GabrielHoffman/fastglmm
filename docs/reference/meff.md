@@ -16,7 +16,7 @@ meff(fit)
   model fit from
   [`fastlmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.md)
   or
-  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm-pkg.md)
+  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
 
 ## Value
 
@@ -36,7 +36,7 @@ In a repeated measures model with multiple correlated measurements per
 subject, Lui and Liang (1997) define a formula for the effect number of
 \_independent\_ measurements per subject (m.eff): \$\$ m\_\text{eff} = m
 / (1+(m-1)\rho) \$\$ where \\m\\ is the mean number of measurements per
-subjectd, and \\\rho\\ is the intra-class correlation indicating the
+subject, and \\\rho\\ is the intra-class correlation indicating the
 correlation between measurements within the same subject.
 
 Increasing \\m\\ has diminishing returns and as \\m\\ increases,

@@ -9,7 +9,7 @@ powerNBMM(N, m, mu, sigSq.a, theta, beta = NA, sd_x = NA, alpha = 0.05, fit)
 \arguments{
 \item{N}{number of subjects}
 
-\item{m}{number of measurements pwer subject}
+\item{m}{number of measurements per subject}
 
 \item{mu}{mean read count}
 

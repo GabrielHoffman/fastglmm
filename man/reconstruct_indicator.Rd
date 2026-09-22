@@ -9,7 +9,7 @@ reconstruct_indicator(dcmp, weights = NULL)
 \arguments{
 \item{dcmp}{eigen decomp from \code{indicator_decomp()}}
 
-\item{weights}{vector of weights with a value for each sample.  If ommited, weights are set to 1.}
+\item{weights}{vector of weights with a value for each sample.  If omited, weights are set to 1.}
 }
 \description{
 Reconstruct indicator matrix from eigen decomp

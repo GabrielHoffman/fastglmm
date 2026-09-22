@@ -1,4 +1,4 @@
-# Gene expession of PTPRG in microglia in 60k cells
+# Gene expression of PTPRG in microglia in 60k cells
 
 A dataset containing gene expression of PTPRG in 60k microglia cells
 from the PsychAD Consortium from 299 subjects. Of these, 149 subjects
@@ -16,7 +16,7 @@ A data frame with 60481 rows (i.e. cells) and 6 variables:
 
 - SubID:
 
-  subject identifer
+  subject identifier
 
 - Sex:
 

@@ -1,9 +1,9 @@
 #' Spectral decomposition of factor indicator matrix
 #'
-#' Given a factor, construct the spectral decompostion of the corresponding indicator matrix.  Uses linear time algorithm and sparse matrix algebra.  Resulting vector space is also sparse.
+#' Given a factor, construct the spectral decomposition of the corresponding indicator matrix.  Uses linear time algorithm and sparse matrix algebra.  Resulting vector space is also sparse.
 #'
 #' @param x object of type \code{factor} or \code{sparseMatrix}
-#' @param weights vector of weights with a value for each sample.  If ommited, weights are set to 1.
+#' @param weights vector of weights with a value for each sample.  If omited, weights are set to 1.
 #' @param rank rank of random effect.  The maximum rank is the number of columns in \code{Z}.  A low rank approximation can be useful if the eigen-values decrease quickly.
 #' @param sort sort eigen vectors and values
 #'
@@ -102,7 +102,7 @@ preprocess_indicator <- function(x) {
 #' Reconstruct indicator matrix from eigen decomp
 #'
 #' @param dcmp eigen decomp from \code{indicator_decomp()}
-#' @param weights vector of weights with a value for each sample.  If ommited, weights are set to 1.
+#' @param weights vector of weights with a value for each sample.  If omited, weights are set to 1.
 #'
 #' @examples
 #' ID <- factor(sample(LETTERS[1:4], 100, replace=TRUE))

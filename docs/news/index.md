@@ -1,5 +1,10 @@
 # Changelog
 
+## fastglmm 0.4.15
+
+- Sept 10, 2026
+- more robust check for model failure
+
 ## fastglmm 0.4.14
 
 - Sept 6, 2026
@@ -8,7 +13,7 @@
 ## fastglmm 0.4.13
 
 - July 28, 2026
-- fix accouting for count model offset
+- fix accounting for count model offset
 
 ## fastglmm 0.4.12
 
@@ -116,7 +121,7 @@
 ## fastglmm 0.3.8
 
 - Jan 16, 2026
-- more flexable
+- more flexible
   [`isCountModel()`](http://gabrielhoffman.github.io/fastglmm/reference/isCountModel.md)
   and
   [`isNB()`](http://gabrielhoffman.github.io/fastglmm/reference/isNB.md)
@@ -145,7 +150,7 @@
 - update
   [`varpart()`](http://gabrielhoffman.github.io/fastglmm/reference/varpart.md)
   for NB models
-- [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm-pkg.md)
+- [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
   and [`glm.nb()`](https://rdrr.io/pkg/MASS/man/glm.nb.html)
 - handle singular models for NB fit
 - add Cox-Reid option for NB models
@@ -173,7 +178,7 @@
 - May 6, 2025
 - rename
 - add
-  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm-pkg.md)
+  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
   in C++
 - pull code from `BatchRegression`
 
@@ -207,7 +212,7 @@
 
 - Aug 28, 2024
 - changes to allow PQL with
-  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm-pkg.md)
+  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
 
 ## fastglmm 0.1.2
 

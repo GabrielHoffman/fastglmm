@@ -41,7 +41,7 @@ function:
     ## Call:
     ## fastglmm(formula = formula, data = data, family = negative.binomial(NA), 
     ##     weights = weights, maxit = maxit, tol = tol, tol.eta = tol.eta, 
-    ##     doCoxReid = doCoxReid, nthreads = nthreads)
+    ##     doCoxReid = doCoxReid, lambda = lambda, nthreads = nthreads)
     ## 
     ## Coefficients:
     ## (Intercept)         DxAD          Age      SexMale  
@@ -126,13 +126,13 @@ remaining 50.6% of the variance is explained by the residuals.
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] fastglmm_0.4.13 nlme_3.1-170   
+    ## [1] fastglmm_0.4.15 nlme_3.1-171   
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] sass_0.4.10        generics_0.1.4     lattice_0.22-9     lme4_2.1-0        
+    ##  [1] sass_0.4.10        generics_0.1.4     lattice_0.23-1     lme4_2.1-0        
     ##  [5] digest_0.6.39      magrittr_2.0.5     evaluate_1.0.5     grid_4.5.1        
     ##  [9] RColorBrewer_1.1-3 fastmap_1.2.0      jsonlite_2.0.0     Matrix_1.7-6      
-    ## [13] Formula_1.2-5      scales_1.4.0       codetools_0.2-20   textshaping_1.0.5 
+    ## [13] Formula_1.2-6      scales_1.4.0       codetools_0.2-20   textshaping_1.0.5 
     ## [17] jquerylib_0.1.4    reformulas_0.4.4   Rdpack_2.6.6       abind_1.4-8       
     ## [21] cli_3.6.6          rlang_1.3.0        rbibutils_2.4.1    splines_4.5.1     
     ## [25] cachem_1.1.0       yaml_2.3.12        otel_0.2.0         tools_4.5.1       
@@ -140,8 +140,8 @@ remaining 50.6% of the variance is explained by the residuals.
     ## [33] boot_1.3-32        vctrs_0.7.3        R6_2.6.1           matrixStats_1.5.0 
     ## [37] lifecycle_1.0.5    fs_2.1.0           car_3.1-5          htmlwidgets_1.6.4 
     ## [41] MASS_7.3-66        ragg_1.5.2         pkgconfig_2.0.3    desc_1.4.3        
-    ## [45] pkgdown_2.2.1      RcppParallel_6.1.1 pillar_1.11.1      bslib_0.11.0      
+    ## [45] pkgdown_2.2.1      RcppParallel_6.2.1 pillar_1.11.1      bslib_0.12.0      
     ## [49] gtable_0.3.6       glue_1.8.1         Rcpp_1.1.2         systemfonts_1.3.2 
-    ## [53] xfun_0.60          tibble_3.3.1       tidyselect_1.2.1   knitr_1.51        
-    ## [57] dichromat_2.0-1    farver_2.1.2       htmltools_0.5.9    rmarkdown_2.31    
+    ## [53] xfun_0.61          tibble_3.3.1       tidyselect_1.2.1   knitr_1.52        
+    ## [57] dichromat_2.0-1    farver_2.1.2       htmltools_0.5.9    rmarkdown_2.32    
     ## [61] carData_3.0-6      compiler_4.5.1     S7_0.2.2

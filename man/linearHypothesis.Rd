@@ -22,7 +22,7 @@ linearHypothesis(model, ...)
 
 \item{hypothesis.matrix}{matrix (or vector) giving linear combinations of coefficients by rows, or a character vector giving the hypothesis in symbolic form}
 
-\item{rhs}{right-hand-side vector for hypothesis, with as many entries as rows in the hypothesis matrix; can be omitted, in which case it defaults to a vector of zeroes. For a multivariate linear model, ‘rhs’ is a matrix, defaulting to 0}
+\item{rhs}{right-hand-side vector for hypothesis, with as many entries as rows in the hypothesis matrix; can be omitted, in which case it defaults to a vector of zeroes. For a multivariate linear model, \code{rhs} is a matrix, defaulting to 0}
 
 \item{ddf}{\code{"satterthwaite"}: use Satterthwaite approximation to denominator degrees of freedom for the Student-t or F distribution, or \code{"asymptotic"} to use normal distribution or chisq as null for the test statistic}
 }

@@ -26,7 +26,7 @@ In a repeated measures model with multiple correlated measurements per subject, 
 \deqn{
   m_\text{eff} = m / (1+(m-1)\rho)
 }
-where \eqn{m} is the mean number of measurements per subjectd, and \eqn{\rho} is the intra-class correlation indicating the correlation between measurements within the same subject.
+where \eqn{m} is the mean number of measurements per subject, and \eqn{\rho} is the intra-class correlation indicating the correlation between measurements within the same subject.
 
 Increasing \eqn{m} has diminishing returns and as \eqn{m} increases, \eqn{m_\text{eff}} converges to \eqn{1/\rho}.
 }

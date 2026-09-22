@@ -17,7 +17,7 @@ powerNBMM(N, m, mu, sigSq.a, theta, beta = NA, sd_x = NA, alpha = 0.05, fit)
 
 - m:
 
-  number of measurements pwer subject
+  number of measurements per subject
 
 - mu:
 
@@ -48,7 +48,7 @@ powerNBMM(N, m, mu, sigSq.a, theta, beta = NA, sd_x = NA, alpha = 0.05, fit)
   model fit with
   [`fastlmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.md)
   or
-  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm-pkg.md)
+  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
 
 ## See also
 

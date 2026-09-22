@@ -82,7 +82,7 @@ varpart(
 
 \item{pseudocount}{pseudocount used for \code{"exact"} and \code{"approximate"} methods for count models}
 
-\item{p.tail}{probability threashold for evaluating expectations for \code{"exact"} methods for count models}
+\item{p.tail}{probability threshold for evaluating expectations for \code{"exact"} methods for count models}
 
 \item{...}{other arguments, passed to \code{vpOther()} or \code{vpCounts()}}
 }

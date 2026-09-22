@@ -1,8 +1,8 @@
 # Spectral decomposition of factor indicator matrix
 
-Given a factor, construct the spectral decompostion of the corresponding
-indicator matrix. Uses linear time algorithm and sparse matrix algebra.
-Resulting vector space is also sparse.
+Given a factor, construct the spectral decomposition of the
+corresponding indicator matrix. Uses linear time algorithm and sparse
+matrix algebra. Resulting vector space is also sparse.
 
 ## Usage
 
@@ -18,8 +18,8 @@ indicator_decomp(x, weights = NULL, rank = NULL, sort = FALSE)
 
 - weights:
 
-  vector of weights with a value for each sample. If ommited, weights
-  are set to 1.
+  vector of weights with a value for each sample. If omited, weights are
+  set to 1.
 
 - rank:
 

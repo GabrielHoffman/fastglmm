@@ -12,7 +12,7 @@
 ## Example Data
 
 - [`PsychAD`](http://gabrielhoffman.github.io/fastglmm/reference/PsychAD.md)
-  : Gene expession of PTPRG in microglia in 60k cells
+  : Gene expression of PTPRG in microglia in 60k cells
 
 ## Generics
 
