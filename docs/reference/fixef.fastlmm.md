@@ -19,6 +19,10 @@ fixef(object, ...)
 
   other args, not used
 
+## Value
+
+fixed effects coefficients
+
 ## Examples
 
 ``` r

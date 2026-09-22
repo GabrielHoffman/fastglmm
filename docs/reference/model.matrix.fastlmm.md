@@ -19,6 +19,10 @@ model.matrix(object, ...)
 
   other args
 
+## Value
+
+model matrix
+
 ## Examples
 
 ``` r

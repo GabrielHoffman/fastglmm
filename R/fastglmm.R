@@ -63,7 +63,8 @@ process_formula = function(formula, data){
 #' @param lambda ridge shrinkage parameter
 #' @param nthreads number of threads
 #'
-#' @return model fit object
+#' @return model fit object of class fastglmm
+#'
 #' @examples
 #' library(MASS)
 #' library(lme4)

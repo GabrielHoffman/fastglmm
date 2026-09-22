@@ -19,6 +19,10 @@ df.residual(object, ...)
 
   other args, not used
 
+## Value
+
+residual degrees of freedom
+
 ## Examples
 
 ``` r

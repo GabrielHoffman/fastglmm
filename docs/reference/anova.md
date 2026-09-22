@@ -25,6 +25,10 @@ anova(object, ddf = c("satterthwaite", "asymptotic"), ...)
 
   other args, not used
 
+## Value
+
+anova table like [`stats::anova()`](https://rdrr.io/r/stats/anova.html)
+
 ## Examples
 
 ``` r

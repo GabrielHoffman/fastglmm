@@ -17,7 +17,23 @@ simulateResponse(mu, nsim, family, sd, theta)
 
 \item{theta}{NB theta}
 }
+\value{
+matrix of responses simulated from the model
+}
 \description{
 Simulate responses from model fit
+}
+\examples{
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+Y <- simulateResponse(fitted(fit), 10, "nb", sigma(fit), getTheta(fit))
+
+Y[1:2, 1:3]
 }
 \keyword{internal}

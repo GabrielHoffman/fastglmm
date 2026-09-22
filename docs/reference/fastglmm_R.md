@@ -78,6 +78,10 @@ fastglmm_R(
 
   number of threads
 
+## Value
+
+model fit
+
 ## Examples
 
 ``` r

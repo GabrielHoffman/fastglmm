@@ -20,6 +20,10 @@ reconstruct_indicator(dcmp, weights = NULL)
   vector of weights with a value for each sample. If omited, weights are
   set to 1.
 
+## Value
+
+re-weighted indicator matrix
+
 ## Examples
 
 ``` r

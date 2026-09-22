@@ -91,16 +91,12 @@
 
 ## Other
 
-- [`as.fastlmm()`](http://gabrielhoffman.github.io/fastglmm/reference/as.fastlmm.md)
-  : Convert list to fastlmm class
 - [`getFamilyString()`](http://gabrielhoffman.github.io/fastglmm/reference/getFamilyString.md)
   : Convert GLM family to string
 - [`indicator_decomp()`](http://gabrielhoffman.github.io/fastglmm/reference/indicator_decomp.md)
   : Spectral decomposition of factor indicator matrix
 - [`preprocess_indicator()`](http://gabrielhoffman.github.io/fastglmm/reference/preprocess_indicator.md)
   : Create sparse indicator matrix
-- [`fastlmm.fit()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.fit.md)
-  : Fitter Function for Linear Mixed Model
 - [`nb_theta()`](http://gabrielhoffman.github.io/fastglmm/reference/nb_theta.md)
   : Estimate theta of the Negative Binomial
 - [`refitModel()`](http://gabrielhoffman.github.io/fastglmm/reference/refitModel.md)

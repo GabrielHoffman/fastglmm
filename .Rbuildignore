@@ -7,3 +7,4 @@ o$
 _cache$
 power_files$
 pkgdown
+^cran-comments\.md$

@@ -71,11 +71,11 @@ reference:
 
 - title: Other
   contents:
-  - "as.fastlmm"
+  # - "as.fastlmm"
   - "getFamilyString"
   - "indicator_decomp"
   - "preprocess_indicator" 
-  - "fastlmm.fit"
+  # - "fastlmm.fit"
   - "nb_theta"
   - "refitModel"
   - "varianceTerms"

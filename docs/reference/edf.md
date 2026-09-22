@@ -19,6 +19,10 @@ edf(object, ...)
 
   other args, not used
 
+## Value
+
+effective degrees of freedom
+
 ## Examples
 
 ``` r

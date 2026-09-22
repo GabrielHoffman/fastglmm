@@ -47,7 +47,34 @@ log_moments_nb_BlupXBZ(
 
 \item{nthreads}{number of threads}
 }
+\value{
+variance of the signal (var.signal), variance of the noise (var.noise), (alpha) fraction of Poisson noise
+}
 \description{
 Log Moments of NB given X, Beta, and offset
+}
+\examples{
+library(fastglmm)
+
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+log_moments_nb_BlupXBZ(
+  BLUP = ranef(fit)$SubID,
+  X = model.matrix(fit), 
+  Beta = as.matrix(coef(fit)), 
+  Z = as.matrix(fit$Z),
+  weights = fit$prior.weights,
+  offset = fit$offset, 
+  theta = getTheta(fit),
+  delta = fit$delta,
+  method = "exact", 
+  dcmpMethod = "categorical"
+  )
 }
 \keyword{internal}

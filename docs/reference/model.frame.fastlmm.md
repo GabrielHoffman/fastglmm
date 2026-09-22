@@ -19,6 +19,10 @@ model.frame(formula, ...)
 
   other args
 
+## Value
+
+model frame
+
 ## Examples
 
 ``` r

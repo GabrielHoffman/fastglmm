@@ -11,6 +11,9 @@ reconstruct_indicator(dcmp, weights = NULL)
 
 \item{weights}{vector of weights with a value for each sample.  If omited, weights are set to 1.}
 }
+\value{
+re-weighted indicator matrix
+}
 \description{
 Reconstruct indicator matrix from eigen decomp
 }

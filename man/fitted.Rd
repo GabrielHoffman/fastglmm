@@ -16,6 +16,9 @@
 
 \item{newdata}{optionally, a data.frame in which to look for variables with which to predict.  If omitted, the fitted  predictors are used.}
 }
+\value{
+fitted values from model fit
+}
 \description{
 Extract Model Fitted Values
 }

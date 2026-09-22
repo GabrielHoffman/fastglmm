@@ -22,6 +22,10 @@ sigma(object, ...)
 
   other args, not used
 
+## Value
+
+residual standard deviation
+
 ## Examples
 
 ``` r

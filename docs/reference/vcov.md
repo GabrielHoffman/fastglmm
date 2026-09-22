@@ -19,6 +19,10 @@ vcov(object, ...)
 
   other args, not used
 
+## Value
+
+variance-covariance matrix of fixed effects
+
 ## Examples
 
 ``` r

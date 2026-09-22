@@ -15,6 +15,9 @@ refitModel(fit, delta = NULL, interceptOnly = FALSE, fixedNBtheta = FALSE)
 
 \item{fixedNBtheta}{if \code{FALSE}, low theta in NB model to be re-estimated too}
 }
+\value{
+refit model
+}
 \description{
 Refit fastlmm model with new delta value
 }

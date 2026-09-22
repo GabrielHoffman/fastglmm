@@ -13,6 +13,7 @@
 #' }
 #' @source \doi{10.1101/2023.03.17.533005}, \url{https://diseaseneurogenomics.github.io/dreamlet/index.html}
 #' 
+#' @return none
 #' @examples
 #' data(PsychAD)
 #' 

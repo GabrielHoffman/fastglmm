@@ -11,6 +11,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+hat values of model fit
+}
 \description{
 Return diagonals of the hat matrix
 }

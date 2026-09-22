@@ -11,6 +11,9 @@ plotSaturation(fit, method = c("counts", "measurements"))
 
 \item{method}{use asymptotic values for \code{"counts"} or \code{"measurements"}}
 }
+\value{
+plot of saturation curve
+}
 \description{
 Saturation curve for the effective number of independent measurements per donor for a negative binomial mixed model
 }

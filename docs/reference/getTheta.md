@@ -17,3 +17,18 @@ getTheta(fit)
 ## Value
 
 theta for NB models, else NA
+
+## Examples
+
+``` r
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+getTheta(fit)
+#> Error: unable to find an inherited method for function ‘getTheta’ for signature ‘object = "fastglmm"’
+```

@@ -45,7 +45,7 @@ fastglmm(
 \item{nthreads}{number of threads}
 }
 \value{
-model fit object
+model fit object of class fastglmm
 }
 \description{
 Fit generalized linear mixed model (GLMM) with a single random effect using penalized quasi-likelihood (PQL)

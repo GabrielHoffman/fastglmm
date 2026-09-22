@@ -50,6 +50,10 @@ powerNBMM(N, m, mu, sigSq.a, theta, beta = NA, sd_x = NA, alpha = 0.05, fit)
   or
   [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
 
+## Value
+
+object of class powerNBMM
+
 ## See also
 
 [`meff()`](http://gabrielhoffman.github.io/fastglmm/reference/meff.md)

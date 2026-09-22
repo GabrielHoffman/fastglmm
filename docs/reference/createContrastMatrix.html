@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fastglmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.15</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.16</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,10 +63,34 @@
 
 </dl></div>
     <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>contrast matrix</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="https://rdrr.io/pkg/car/man/linearHypothesis.html" class="external-link">car::linearHypothesis.default()</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/" class="external-link">lme4</a></span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: Matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘lme4’</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:fastglmm’:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     getLambda, getTheta</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:nlme’:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     lmList</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="fastlmm.html">fastlmm</a></span><span class="op">(</span><span class="va">Reaction</span> <span class="op">~</span> <span class="va">Days</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, <span class="va">sleepstudy</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">createContrastMatrix</span><span class="op">(</span><span class="va">fit</span>, <span class="st">"Days = 0"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          (Intercept) Days</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Days = 0           0    1</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

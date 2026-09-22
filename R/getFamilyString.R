@@ -90,6 +90,8 @@ stringToNbFamily <- function(text){
 #'
 #' @param text string indicating GLM family
 #'
+#' @return model family
+#'
 #' @examples
 #' stringToFamily("poisson/log")
 #' 

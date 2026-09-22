@@ -79,6 +79,11 @@ indicator_decomp <- function(x, weights = NULL, rank = NULL, sort = FALSE) {
 #'
 #' @param x a \code{factor}
 #'
+#' @examples
+#' # extract a few subjects
+#' idx <- c(1, 4, 100, 444)
+#' dcmp <- preprocess_indicator(PsychAD$SubID[idx])
+#
 #' @return sparse indicator matrix with levels as columns
 #' @importFrom Matrix fac2sparse
 #' @export
@@ -103,6 +108,8 @@ preprocess_indicator <- function(x) {
 #'
 #' @param dcmp eigen decomp from \code{indicator_decomp()}
 #' @param weights vector of weights with a value for each sample.  If omited, weights are set to 1.
+#'
+#' @return re-weighted indicator matrix
 #'
 #' @examples
 #' ID <- factor(sample(LETTERS[1:4], 100, replace=TRUE))

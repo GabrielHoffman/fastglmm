@@ -66,6 +66,10 @@ fastlmm(
 
   ridge shrinkage parameter
 
+## Value
+
+model fit of class fastlmm
+
 ## Details
 
 See Hoffman (2013) and Lippert, et al. (2011) for algorithm for low rank

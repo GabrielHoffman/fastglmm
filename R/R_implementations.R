@@ -16,6 +16,8 @@
 #' @param init \code{c("lm", "glm")} method to initialize \code{eta} values
 #' @param nthreads number of threads
 #'
+#' @return model fit
+#'
 #' @examples
 #' library(MASS)
 #' library(lme4)
@@ -174,6 +176,8 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
 #' @param init.fit \code{fastglmm} object to initialize parameters
 #' @param init \code{c("lm", "glm")} method to initialize \code{eta} values
 #' @param nthreads number of threads
+#'
+#' @return model fit
 #'
 #' @examples
 #' library(MASS)

@@ -22,6 +22,10 @@ plotSaturation(fit, method = c("counts", "measurements"))
 
   use asymptotic values for `"counts"` or `"measurements"`
 
+## Value
+
+plot of saturation curve
+
 ## Details
 
 See

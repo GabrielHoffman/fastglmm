@@ -25,6 +25,10 @@ family(object, ...)
 
   other args, not used
 
+## Value
+
+model family
+
 ## Examples
 
 ``` r

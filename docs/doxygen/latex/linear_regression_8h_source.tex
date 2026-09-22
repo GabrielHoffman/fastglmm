@@ -103,7 +103,7 @@
 \DoxyCodeLine{00114\ \ \ \ \ \}}
 \DoxyCodeLine{00115\ }
 \DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ if\ md\ !=\ LEAST,\ compute\ residuals}}
-\DoxyCodeLine{00117\ \ \ \ \ vec\ stderr;}
+\DoxyCodeLine{00117\ \ \ \ \ vec\ std\_err;}
 \DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{double}\ rdf\ =\ n\ -\/\ k\ -\/\ rdf\_offset;\ }
 \DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{double}\ dispersion\ =\ 1.0;}
 \DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{bool}\ success2\ =\ \textcolor{keyword}{true};}
@@ -130,9 +130,9 @@
 \DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00142\ }
 \DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordflow}{if}(\ success0\ \&\&\ success1\ \&\&\ success2\ )\{}
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ stderr\ =\ sqrt(dispersion\ *\ diagvec(work-\/>V));}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ std\_err\ =\ sqrt(dispersion\ *\ diagvec(work-\/>V));}
 \DoxyCodeLine{00145\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00146\ \ \ \ \ \ \ stderr\ =\ vec(k,\ fill::value(datum::nan));}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ std\_err\ =\ vec(k,\ fill::value(datum::nan));}
 \DoxyCodeLine{00147\ \ \ \ \ \ \ beta.fill(datum::nan);}
 \DoxyCodeLine{00148\ \ \ \ \ \}}
 \DoxyCodeLine{00149\ \ \ \ \ \}}
@@ -147,21 +147,21 @@
 \DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00159\ }
 \DoxyCodeLine{00160\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}}:}
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ success,\ beta,\ stderr,\ dispersion,\ rdf);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ success,\ beta,\ std\_err,\ dispersion,\ rdf);}
 \DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00163\ }
 \DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a41a28e506b339e530c5d8646e971e116}{MEDIUM}}:}
-\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ success,\ beta,\ stderr,\ dispersion,\ rdf,\ work-\/>V\ *\ dispersion);}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ success,\ beta,\ std\_err,\ dispersion,\ rdf,\ work-\/>V\ *\ dispersion);}
 \DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00167\ }
 \DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2aa987f00d03050fb355d8d246a2c4d4e1}{HIGH}}:}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ success,\ beta,\ stderr,\ dispersion,\ rdf,\ work-\/>V\ *\ dispersion,\ work-\/>residuals);}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ success,\ beta,\ std\_err,\ dispersion,\ rdf,\ work-\/>V\ *\ dispersion,\ work-\/>residuals);}
 \DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00171\ }
 \DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a230e5187507a3507ad7bde480080c191}{MOST}}:}
 \DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ab9cd19e431dfc975f4ae5904e3ffb375}{MAX}}:\ }
 \DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ vec\ hatvalues\ =\ diagvec(work-\/>Q\ *\ trans(work-\/>Q));}
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ success,\ beta,\ stderr,\ dispersion,\ rdf,\ work-\/>V\ *\ dispersion,\ work-\/>residuals,\ hatvalues);}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a1499c8b1131c94add12b7a1b770fe2de}{ModelFit}}(\ success,\ beta,\ std\_err,\ dispersion,\ rdf,\ work-\/>V\ *\ dispersion,\ work-\/>residuals,\ hatvalues);}
 \DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ fit.setFittedValues(\ X*beta\ );}
 \DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00178\ \ \ \ \ \}}
@@ -301,7 +301,7 @@
 \DoxyCodeLine{00338\ \ \ \ \ \textcolor{keywordflow}{return}\ fit;}
 \DoxyCodeLine{00339\ \}}
 \DoxyCodeLine{00340\ }
-\DoxyCodeLine{00352\ \textcolor{keyword}{static}\ vector<ModelFit>\ lmFitFeatures\_standard(}
+\DoxyCodeLine{00352\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ vector<ModelFit>\ lmFitFeatures\_standard(}
 \DoxyCodeLine{00353\ \ \ \ \ \textcolor{keyword}{const}\ arma::vec\ \&y,\ }
 \DoxyCodeLine{00354\ \ \ \ \ \textcolor{keyword}{const}\ arma::mat\ \&X\_design,\ }
 \DoxyCodeLine{00355\ \ \ \ \ \textcolor{keyword}{const}\ arma::mat\ \&X\_features,\ }

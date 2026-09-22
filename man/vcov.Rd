@@ -11,6 +11,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+variance-covariance matrix of fixed effects
+}
 \description{
 Calculate Variance-Covariance Matrix for a Fitted Model Object
 }

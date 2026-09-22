@@ -18,6 +18,9 @@ getDistrVar(
 
 \item{lambda.method}{use either \code{"parametric"} or \code{"mean"} method to estimate the mean rate for count models}
 }
+\value{
+scalar value of the distributional variance for the given model fit
+}
 \description{
 Compute distributional variance from the model fit
 }
@@ -27,6 +30,17 @@ In generalized linear (mixed) models, the link function contributes to the coeff
 1 - Residuals gives the R2 values from \code{performance::r2_nakagawa(..., approximation="trigamma")}.  Using \code{performance::r2_mckelvey()} use the "lognormal" approximation
 
 For count models, the distributional variance is a function of the mean count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be estimated using parameters of a model including only intercept and random effect terms.  But this requires refitting the model dropping the rest of the fixed effects.  Instead, computing the mean of the observed counts is a fast approximation.
+}
+\examples{
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+getDistrVar(fit)
 }
 \references{
 Nakagawa, Johnson, Schielzeth. 2017.  The coefficient of determination R2 and intra-class correlation coefficient from generalized linear mixed-effects models revisited and expanded. J. R. Soc. Interface 14: 20170213. \doi{10.1098/rsif.2017.0213}

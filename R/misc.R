@@ -46,6 +46,8 @@ coolcat = function (fmt, vals = character(), exdent = 2, collapse=', ', ...) {
 #' @param nms items in array
 #' @param collapse separator
 #' 
+#' @return string
+#'
 #' @examples
 #' concatItem("letters", letters)
 #' 
@@ -64,6 +66,16 @@ concatItem = function(x, nms, collapse=", "){
 #'
 #' @return TRUE for poisson, quasipoisson or NB models
 #'
+#' @examples
+#' data(PsychAD)
+#'
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#'
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#'
+#' isCountModel(fit)
 #' @export
 #' @keywords internal 
 isCountModel = function(x){
@@ -86,6 +98,16 @@ isCountModel = function(x){
 #'
 #' @return TRUE for NB models
 #'
+#' @examples
+#' data(PsychAD)
+#'
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#'
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#'
+#' isNB(fit)
 #' @export
 #' @keywords internal 
 isNB <- function( x ){
@@ -104,6 +126,16 @@ isNB <- function( x ){
 #'
 #' @return theta for NB models, else NA
 #'
+#' @examples
+#' data(PsychAD)
+#'
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#'
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#'
+#' getTheta(fit)
 #' @export
 #' @keywords internal 
 getTheta <- function( fit ){
@@ -142,8 +174,16 @@ setClass("negbin")
 #' @param hypothesis.matrix array or text indicating contrast
 #' @param rhs right hand side of equation
 #'
-# @details adapted from \code{car::linearHypothesis.default()}
+#' @return contrast matrix
+#' 
+#' @examples
+#' library(lme4)
 #'
+#' fit <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy)
+#'
+#' createContrastMatrix(fit, "Days = 0")
+# @details adapted from \code{car::linearHypothesis.default()}
+#
 #' @seealso \code{car::linearHypothesis.default()}
 #' @keywords internal
 #' @export

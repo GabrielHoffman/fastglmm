@@ -11,6 +11,9 @@
 
 \item{...}{other args}
 }
+\value{
+model matrix
+}
 \description{
 Construct Design Matrices
 }

@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="comment">// if md != LEAST, compute residuals</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    vec stderr;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    vec std_err;</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordtype">double</span> rdf = n - k - rdf_offset; </div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordtype">double</span> dispersion = 1.0;</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordtype">bool</span> success2 = <span class="keyword">true</span>;</div>
@@ -261,9 +261,9 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        }</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordflow">if</span>( success0 &amp;&amp; success1 &amp;&amp; success2 ){</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        stderr = sqrt(dispersion * diagvec(work-&gt;V));</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        std_err = sqrt(dispersion * diagvec(work-&gt;V));</div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    }<span class="keywordflow">else</span>{</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>      stderr = vec(k, fill::value(datum::nan));</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>      std_err = vec(k, fill::value(datum::nan));</div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>      beta.fill(datum::nan);</div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    }</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    }</div>
@@ -278,21 +278,21 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>      <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0">LOW</a>:</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            fit = <a class="code hl_function" href="classfastglmm_lib_1_1_model_fit.html#a1499c8b1131c94add12b7a1b770fe2de">ModelFit</a>( success, beta, stderr, dispersion, rdf);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            fit = <a class="code hl_function" href="classfastglmm_lib_1_1_model_fit.html#a1499c8b1131c94add12b7a1b770fe2de">ModelFit</a>( success, beta, std_err, dispersion, rdf);</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2a41a28e506b339e530c5d8646e971e116">MEDIUM</a>:</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            fit = <a class="code hl_function" href="classfastglmm_lib_1_1_model_fit.html#a1499c8b1131c94add12b7a1b770fe2de">ModelFit</a>( success, beta, stderr, dispersion, rdf, work-&gt;V * dispersion);</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            fit = <a class="code hl_function" href="classfastglmm_lib_1_1_model_fit.html#a1499c8b1131c94add12b7a1b770fe2de">ModelFit</a>( success, beta, std_err, dispersion, rdf, work-&gt;V * dispersion);</div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2aa987f00d03050fb355d8d246a2c4d4e1">HIGH</a>:</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            fit = <a class="code hl_function" href="classfastglmm_lib_1_1_model_fit.html#a1499c8b1131c94add12b7a1b770fe2de">ModelFit</a>( success, beta, stderr, dispersion, rdf, work-&gt;V * dispersion, work-&gt;residuals);</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            fit = <a class="code hl_function" href="classfastglmm_lib_1_1_model_fit.html#a1499c8b1131c94add12b7a1b770fe2de">ModelFit</a>( success, beta, std_err, dispersion, rdf, work-&gt;V * dispersion, work-&gt;residuals);</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2a230e5187507a3507ad7bde480080c191">MOST</a>:</div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ab9cd19e431dfc975f4ae5904e3ffb375">MAX</a>: </div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            vec hatvalues = diagvec(work-&gt;Q * trans(work-&gt;Q));</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            fit = <a class="code hl_function" href="classfastglmm_lib_1_1_model_fit.html#a1499c8b1131c94add12b7a1b770fe2de">ModelFit</a>( success, beta, stderr, dispersion, rdf, work-&gt;V * dispersion, work-&gt;residuals, hatvalues);</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            fit = <a class="code hl_function" href="classfastglmm_lib_1_1_model_fit.html#a1499c8b1131c94add12b7a1b770fe2de">ModelFit</a>( success, beta, std_err, dispersion, rdf, work-&gt;V * dispersion, work-&gt;residuals, hatvalues);</div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            fit.setFittedValues( X*beta );</div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    }</div>
@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="keywordflow">return</span> fit;</div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>}</div>
 <div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span></div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span><span class="keyword">static</span> vector&lt;ModelFit&gt; lmFitFeatures_standard(</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span><span class="keyword">static</span> <span class="keyword">inline</span> vector&lt;ModelFit&gt; lmFitFeatures_standard(</div>
 <div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    <span class="keyword">const</span> arma::vec &amp;y, </div>
 <div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    <span class="keyword">const</span> arma::mat &amp;X_design, </div>
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    <span class="keyword">const</span> arma::mat &amp;X_features, </div>

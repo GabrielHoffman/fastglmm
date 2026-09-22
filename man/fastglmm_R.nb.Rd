@@ -35,6 +35,9 @@ fastglmm_R.nb(
 
 \item{nthreads}{number of threads}
 }
+\value{
+model fit
+}
 \description{
 Fit negative binomial mixed model (GLMM) with a single random effect using penalized quasi-likelihood (PQL)
 }

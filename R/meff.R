@@ -79,6 +79,8 @@ meff <- function(fit){
 #'
 #' @details See \code{powerNBMM()}
 #' 
+#' @return plot of saturation curve
+#' 
 #' @examples
 #' data(PsychAD)
 #' 
@@ -239,6 +241,8 @@ setMethod("show", "powerNBMM", function(object) {
 #' @param sd_x standard deviation of target variable  
 #' @param alpha target false positive rate
 #' @param fit model fit with \code{fastlmm()} or  \code{fastglmm()}
+#' 
+#' @return object of class powerNBMM
 #' 
 #' @examples
 #' data(PsychAD)

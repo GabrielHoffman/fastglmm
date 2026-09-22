@@ -36,6 +36,10 @@ predict(object, newdata = NULL, type = c("link", "response", "terms"), ...)
 
   other args, not used
 
+## Value
+
+predicted values
+
 ## Examples
 
 ``` r

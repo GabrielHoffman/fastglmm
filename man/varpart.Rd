@@ -86,6 +86,9 @@ varpart(
 
 \item{...}{other arguments, passed to \code{vpOther()} or \code{vpCounts()}}
 }
+\value{
+variance fractions
+}
 \description{
 Compute fraction of variance attributable to each variable in regression model.  Also interpretable as the intra-class correlation after correcting for all other variables in the model.
 }

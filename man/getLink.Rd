@@ -9,7 +9,21 @@ getLink(family)
 \arguments{
 \item{family}{family function}
 }
+\value{
+link function for model family
+}
 \description{
 Get link function given family
+}
+\examples{
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+getLink(fit)
 }
 \keyword{internal}

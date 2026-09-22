@@ -47,6 +47,17 @@ ll_R <- function(delta, Y, X, Yu, Xu, U, s) {
 #'
 #' @return summary statistics for model fit, and hypothesis testing
 #'
+#' @examples
+#' library(lme4)
+#' fit <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy)
+#'
+#' y <- sleepstudy$Reaction
+#' X <- model.matrix(~Days, sleepstudy)
+#' dcmp <- indicator_decomp(sleepstudy$Subject)
+#'
+#' fit2 <- fastlmm_R(y, X, dcmp$vectors, dcmp$values)
+#'
+#' fit2
 #' @importFrom stats optimize pnorm sd pbeta
 #' @export
 fastlmm_R <- function(Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NULL, delta = NULL, sig_a_fixed = FALSE, rank = ncol(U)) {

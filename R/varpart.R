@@ -9,12 +9,25 @@
 #' @param method use either the \code{"trigamma"}, \code{"lognormal"} or  \code{"delta"} formulas from Nakagawa, et al. (2017)
 #' @param lambda.method use either \code{"parametric"} or \code{"mean"} method to estimate the mean rate for count models
 #'
+#' @examples
+#' data(PsychAD)
+#'
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#'
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#'
+#' getDistrVar(fit)
+#
 #' @details In generalized linear (mixed) models, the link function contributes to the coefficient of determination (Nakagawa, et al., 2012, 2017; McKelvey and Zavoina, 1975).  
 #' 
 #' 1 - Residuals gives the R2 values from \code{performance::r2_nakagawa(..., approximation="trigamma")}.  Using \code{performance::r2_mckelvey()} use the "lognormal" approximation
 #'
 #' For count models, the distributional variance is a function of the mean count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be estimated using parameters of a model including only intercept and random effect terms.  But this requires refitting the model dropping the rest of the fixed effects.  Instead, computing the mean of the observed counts is a fast approximation.
 #' 
+#' @return scalar value of the distributional variance for the given model fit
+#'
 #' @references
 #' Nakagawa, Johnson, Schielzeth. 2017.  The coefficient of determination R2 and intra-class correlation coefficient from generalized linear mixed-effects models revisited and expanded. J. R. Soc. Interface 14: 20170213. \doi{10.1098/rsif.2017.0213}
 #'
@@ -100,6 +113,19 @@ getDistrVar <- function(fit, fit_null, method = c("trigamma", "lognormal", "delt
 #' @param theta NB overdispersion parameter
 #' @param method approximation method
 #' 
+#' @return scalar value the the NB variance
+#'
+#' @examples
+#' data(PsychAD)
+#'
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#'
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#'
+#' noiseVarNB(fit)
+#
 #' @export
 #' @keywords internal
 noiseVarNB = function(theta, method = c("trigamma", "lognormal", "delta")){
@@ -140,7 +166,19 @@ get_mean_weights = function(fit){
 #' @param method use either \code{"parametric"} or \code{"mean"} method to estimate the mean rate for count models
 #' @param ... other args
 #'
-#' For count models, the distributional variance is a function of the mean count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be estimated using parameters of a model including only intercept and random effect terms.  But this requires refitting the model dropping the rest of the fixed effects.  Instead, computing the mean of the observed counts is a fast approximation.
+#' @details For count models, the distributional variance is a function of the mean count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be estimated using parameters of a model including only intercept and random effect terms.  But this requires refitting the model dropping the rest of the fixed effects.  Instead, computing the mean of the observed counts is a fast approximation.
+#'
+#' @examples
+#' data(PsychAD)
+#'
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#'
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#'
+#' getLambda(fit)
+#' @return scalar lambda value
 #'
 #' @keywords internal
 #' @rdname getLambda
@@ -267,7 +305,20 @@ setMethod("getLambda", signature("negbin"),
 #' 
 #' @param fit_null model fit of null
 #' @param ... other args
+#' 
+#' @return scalar lambda value from the null model fit
 #'
+#' @examples
+#' data(PsychAD)
+#'
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#'
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#'
+#' getLambdaFromNull(fit)
+#
 #' @rdname getLambda
 #' @keywords internal
 #' @export
@@ -283,7 +334,20 @@ setGeneric("getLambdaFromNull", function(fit_null,...) {
 #' 
 #' @param object model fit
 #' @param ... other args
+#' 
+#' @return array of variance component estimates
 #'
+#' @examples
+#' data(PsychAD)
+#'
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#'
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#'
+#' varianceTerms(fit)
+#
 #' @rdname varianceTerms
 #' @export
 setGeneric("varianceTerms", function(object,...) {
@@ -403,6 +467,8 @@ setMethod("varianceTerms", signature("fastlmm"),
 #' probit -> standard normal distribution -> variance is 1
 #'
 #' For count models, Nakagawa, et al. (2013, 2017) propose a large-count approximation.  Instead, we use an exact method described in Hoffman, et al (2026).
+#'
+#' @return variance fractions
 #'
 #' @references
 #' Nakagawa, Johnson, Schielzeth. 2017.  The coefficient of determination R2 and intra-class correlation coefficient from generalized linear mixed-effects models revisited and expanded. J. R. Soc. Interface 14: 20170213. \doi{10.1098/rsif.2017.0213}

@@ -11,6 +11,9 @@
 
 \item{...}{other args}
 }
+\value{
+model frame
+}
 \description{
 Extracting the Model Frame from a Fit
 }

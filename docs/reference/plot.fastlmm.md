@@ -23,6 +23,10 @@ plot(x, form = resid(x, type = "pearson") ~ fitted(x), ...)
 
   other args, not used
 
+## Value
+
+diagnostic plots
+
 ## Examples
 
 ``` r

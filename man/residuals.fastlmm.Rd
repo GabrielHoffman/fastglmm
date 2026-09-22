@@ -13,6 +13,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+extract model residuals
+}
 \description{
 Extract Model Residuals
 }

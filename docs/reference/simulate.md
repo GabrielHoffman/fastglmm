@@ -27,6 +27,10 @@ simulate(object, nsim = 1, seed = NULL, ...)
 
   other args, not used
 
+## Value
+
+matrix of responses simulated from the model
+
 ## See also
 
 [`lme4::simulate.merMod()`](https://rdrr.io/pkg/lme4/man/simulate.merMod.html)

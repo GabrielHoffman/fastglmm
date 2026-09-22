@@ -18,6 +18,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+predicted values
+}
 \description{
 Model Predictions
 }

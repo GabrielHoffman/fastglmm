@@ -14,6 +14,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+residual standard deviation
+}
 \description{
 Extract Residual Standard Deviation
 }

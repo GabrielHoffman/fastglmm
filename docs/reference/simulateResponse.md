@@ -29,3 +29,25 @@ simulateResponse(mu, nsim, family, sd, theta)
 - theta:
 
   NB theta
+
+## Value
+
+matrix of responses simulated from the model
+
+## Examples
+
+``` r
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+Y <- simulateResponse(fitted(fit), 10, "nb", sigma(fit), getTheta(fit))
+#> Error: unable to find an inherited method for function ‘getTheta’ for signature ‘object = "fastglmm"’
+
+Y[1:2, 1:3]
+#> Error: object 'Y' not found
+```

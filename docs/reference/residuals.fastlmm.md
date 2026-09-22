@@ -23,6 +23,10 @@ residuals(object, type = c("working", "response", "deviance", "pearson"), ...)
 
   other args, not used
 
+## Value
+
+extract model residuals
+
 ## See also
 
 [`residuals.glm()`](https://rdrr.io/r/stats/glm.summaries.html)

@@ -19,6 +19,10 @@ terms(x, ...)
 
   other args, not used
 
+## Value
+
+terms
+
 ## Examples
 
 ``` r
@@ -46,5 +50,5 @@ terms(fit)
 #> attr(,"response")
 #> [1] 1
 #> attr(,".Environment")
-#> <environment: 0x30e825820>
+#> <environment: 0x15ffbe3d8>
 ```

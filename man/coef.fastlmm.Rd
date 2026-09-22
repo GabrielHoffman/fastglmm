@@ -11,6 +11,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+coefficient values
+}
 \description{
 Extract Model Coefficients
 }

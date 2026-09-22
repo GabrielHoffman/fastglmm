@@ -24,6 +24,9 @@ dispersion(object)
 \arguments{
 \item{object}{model fit}
 }
+\value{
+dispersion parameter phi for quasi-likelihood
+}
 \description{
 Extract dispersion parameter phi for quasi-likelihood
 }

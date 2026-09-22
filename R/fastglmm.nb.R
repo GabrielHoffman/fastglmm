@@ -19,6 +19,8 @@
 #' @param lambda ridge shrinkage parameter
 #' @param nthreads number of threads
 #'
+#' @return model fit of class fastglmm
+#'
 #' @examples
 #' library(MASS)
 #' data(PsychAD)

@@ -11,6 +11,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+terms
+}
 \description{
 Model Terms
 }

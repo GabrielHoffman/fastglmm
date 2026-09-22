@@ -29,6 +29,20 @@ varianceTerms(object, ...)
 
 \item{...}{other args}
 }
+\value{
+array of variance component estimates
+}
 \description{
 Array of variance component estimates
+}
+\examples{
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+varianceTerms(fit)
 }

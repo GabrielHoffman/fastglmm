@@ -39,3 +39,43 @@ getLambdaFromNull(fit_null, ...)
 - fit_null:
 
   model fit of null
+
+## Value
+
+scalar lambda value
+
+scalar lambda value from the null model fit
+
+## Details
+
+For count models, the distributional variance is a function of the mean
+count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be
+estimated using parameters of a model including only intercept and
+random effect terms. But this requires refitting the model dropping the
+rest of the fixed effects. Instead, computing the mean of the observed
+counts is a fast approximation.
+
+## Examples
+
+``` r
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+getLambda(fit)
+#> Error: unable to find an inherited method for function ‘getLambda’ for signature ‘object = "fastglmm"’
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+getLambdaFromNull(fit)
+#> Error: unable to find an inherited method for function ‘getLambdaFromNull’ for signature ‘fit_null = "fastglmm"’
+```

@@ -15,6 +15,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+matrix of responses simulated from the model
+}
 \description{
 Simulate responses from model fit, conditional on the random effects
 }

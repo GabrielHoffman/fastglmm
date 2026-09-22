@@ -14,6 +14,8 @@ concatItem(x, nms, collapse = ", ")
 \item{collapse}{separator}
 }
 \value{
+string
+
 print to screen
 }
 \description{

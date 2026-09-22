@@ -13,8 +13,18 @@ createContrastMatrix(model, hypothesis.matrix, rhs = NULL)
 
 \item{rhs}{right hand side of equation}
 }
+\value{
+contrast matrix
+}
 \description{
 Create contrast matrix as array or text
+}
+\examples{
+library(lme4)
+
+fit <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy)
+
+createContrastMatrix(fit, "Days = 0")
 }
 \seealso{
 \code{car::linearHypothesis.default()}

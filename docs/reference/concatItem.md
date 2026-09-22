@@ -24,6 +24,8 @@ concatItem(x, nms, collapse = ", ")
 
 ## Value
 
+string
+
 print to screen
 
 ## Examples

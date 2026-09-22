@@ -48,6 +48,10 @@ nb_theta(
 
   tolerance of optimization
 
+## Value
+
+estimate of theta
+
 ## Details
 
 Estimate overdispersion parameter for negative binomial distribution

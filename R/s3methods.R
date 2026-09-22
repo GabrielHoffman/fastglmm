@@ -36,6 +36,8 @@ setClass("fastglmm", contains="fastlmm")
 #' @param object fitted model of class \code{fastlmm}
 #' @param ddf \code{"satterthwaite"}: use Satterthwaite approximation to denominator degrees of freedom for the F distribution, or \code{"asymptotic"} to use chisq distribution as null for the test statistic
 #' @param ... other args, not used
+#' 
+#' @return anova table like \code{stats::anova()}
 #'
 #' @examples
 #' library(MASS)
@@ -131,6 +133,8 @@ anova.fastlmm <- function(object, ddf = c("satterthwaite", "asymptotic"), ...){
 #'
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used
+#' 
+#' @return coefficient values
 #'
 #' @examples
 #' library(MASS)
@@ -153,6 +157,8 @@ coef.fastlmm <- function(object, ...) {
 #'
 #' @param model fitted model of class \code{fastlmm}
 #' @param ... other args, not used
+#'
+#' @return Cook's distances values
 #'
 #' @examples
 #' library(MASS)
@@ -181,6 +187,8 @@ cooks.distance.fastlmm <- function(model,...){
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used
 #'
+#' @return model deviance
+#'
 #' @examples
 #' library(MASS)
 #' 
@@ -201,6 +209,8 @@ deviance.fastlmm <- function(object, ...) {
 #'
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used
+#'
+#' @return residual degrees of freedom
 #'
 #' @examples
 #' library(MASS)
@@ -240,6 +250,8 @@ df.residual.fastlmm <- function(object, ...){
 #' @param k numeric specifying the \code{weight} of the _equivalent degrees of freedom_ (=: \code{edf}) part in the AIC formula.
 #' @param ... other args, not used
 #'
+#' @return AIC value of model
+#'
 #' @examples
 #' library(MASS)
 #' 
@@ -265,6 +277,8 @@ extractAIC.fastlmm <- function(fit, scale = 0, k = 2, ...) {
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used
 #' 
+#' @return model family
+#'
 #' @examples
 #' library(MASS)
 #' 
@@ -303,6 +317,8 @@ family.glmmPQL <- function(object,...){
 #' @param model fitted model of class \code{fastlmm}
 #' @param ... other args, not used
 #' 
+#' @return hat values of model fit
+#'
 #' @examples
 #' library(MASS)
 #' 
@@ -339,6 +355,8 @@ hatvalues.fastlmm <- function(model, ...){
 #' @param object fitted model 
 #' @param ... other args, not used
 #' 
+#' @return effective degrees of freedom
+#'
 #' @examples
 #' library(MASS)
 #' 
@@ -385,6 +403,8 @@ edf.fastlmm <- function(object, ...){
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used
 #' @param newdata optionally, a data.frame in which to look for variables with which to predict.  If omitted, the fitted  predictors are used.
+#'
+#' @return fitted values from model fit
 #'
 #' @examples
 #' library(MASS)
@@ -460,6 +480,8 @@ fitted.fastglmm = function(object,..., newdata = NULL){
 #' @param ... other args passed to \code{car::linearHypothesis.default()}
 #' @param ddf \code{"satterthwaite"}: use Satterthwaite approximation to denominator degrees of freedom for the Student-t or F distribution, or \code{"asymptotic"} to use normal distribution or chisq as null for the test statistic
 #'
+#' @return hypothesis testing
+#'
 #' @examples
 #' library(MASS)
 #' 
@@ -511,6 +533,8 @@ linearHypothesis.fastlmm <- function(model, hypothesis.matrix, rhs = NULL, ..., 
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used
 #'
+#' @return log-likelihood of model fit
+#'
 #' @examples
 #' library(MASS)
 #' 
@@ -542,6 +566,8 @@ logLik.fastlmm <- function(object, ...) {
 #' @param formula regression fit
 #' @param ... other args
 #' 
+#' @return model frame
+#'
 #' @examples
 #' library(MASS)
 #' 
@@ -577,6 +603,8 @@ model.frame.fastlmm <- function(formula, ...){
 #' @param object regression model object
 #' @param ... other args
 #' 
+#' @return model matrix
+#'
 #' @examples
 #' library(MASS)
 #' 
@@ -601,6 +629,10 @@ model.matrix.fastlmm <- function(object, ...){
 #' @param theta The known value of the additional parameter, \code{theta}. If set to \code{NA}, \code{fastglmm()} will estimate the parameter from the data
 #' @param link The link function, as a character string, name or one-element character vector specifying one of \code{log}, \code{sqrt} or \code{identity}, or an object of class \code{"link-glm"}.
 #'
+#' @return negative binomial model family
+#' @examples
+#' negative.binomial(3)
+#
 #' @export 
 negative.binomial <- MASS::negative.binomial
 
@@ -610,6 +642,8 @@ negative.binomial <- MASS::negative.binomial
 #'
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used
+#'
+#' @return number of observations
 #'
 #' @examples
 #' library(MASS)
@@ -638,6 +672,8 @@ nobs.fastlmm <- function(object, ...) {
 #' @param x fitted model of class \code{fastlmm}
 #' @param form formula to plot
 #' @param ... other args, not used
+#'
+#' @return diagnostic plots
 #'
 #' @examples
 #' library(MASS)
@@ -674,6 +710,8 @@ plot.fastlmm <- function(x,
 #' @param newdata optionally, a data.frame in which to look for variables with which to predict.  If omitted, the fitted  predictors are used.
 #' @param type the type of prediction required.  The default is on the scale of the linear predictors; the alternative \code{"response"} is on the scale of the response variable.  Thus for a default  binomial model the default predictions are of log-odds (probabilities on logit scale) and \code{type = "response"} gives the predicted probabilities. \code{type = "terms"} computes the linear predict for each model term
 #' @param ... other args, not used
+#'
+#' @return predicted values
 #'
 #' @examples
 #' library(MASS)
@@ -782,6 +820,19 @@ getCoef <- function( model ){
 #' @param digits minimal number of _significant_ digits,
 #' @param ... other args, not used
 #'
+#' @return print model
+#'
+#' @examples
+#' data(PsychAD)
+#'
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#'
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#'
+#' fit
+#
 #' @importFrom stats coef
 #' @export
 #' @keywords internal
@@ -806,6 +857,8 @@ print.fastlmm <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' 
 #' @param model fitted model of class \code{fastlmm}
 #' @param ... other args, not used
+#'
+#' @return standardized residuals
 #'
 #' @examples
 #' library(MASS)
@@ -837,6 +890,8 @@ rstudent.fastlmm <- function(model, ...) {
 #'
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used
+#'
+#' @return BLUP, modes of the random effect
 #'
 #' @examples
 #' library(MASS)
@@ -897,6 +952,8 @@ ranef.fastlmm <- function(object, ...) {
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used
 #'
+#' @return fixed effects coefficients
+#'
 #' @examples
 #' library(MASS)
 #' 
@@ -922,6 +979,8 @@ fixef.fastlmm <- function(object,...){
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used
 #' 
+#' @return residual standard deviation
+#'
 #' @examples
 #' library(MASS)
 #' 
@@ -1003,6 +1062,16 @@ print.summary.fastlmm <- function(
 #' @param ddf \code{"satterthwaite"}: use Satterthwaite approximation to denominator degrees of freedom for the Student-t distribution, or \code{"asymptotic"} to use normal distribution as null for the test statistic
 #' @param ... other args, not used
 #'
+#' @return summary of model fit
+#'
+#' @examples
+#' library(lme4)
+#'
+#' fit <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy)
+#'
+#' fit
+#'
+#' summary(fit)
 #' @importFrom stats coef pt
 #' @export
 summary.fastlmm <- function(object, ddf = c("satterthwaite", "asymptotic"), ...) {
@@ -1056,6 +1125,8 @@ summary.fastlmm <- function(object, ddf = c("satterthwaite", "asymptotic"), ...)
 #' @param x fitted model of class \code{fastlmm}
 #' @param ... other args, not used
 #'
+#' @return terms
+#'
 #' @examples
 #' library(MASS)
 #' 
@@ -1080,6 +1151,8 @@ terms.fastlmm <- function(x, ...) {
 #' @param object fitted model of class \code{fastlmm}
 #' @param ... other args, not used
 #' 
+#' @return variance-covariance matrix of fixed effects
+#'
 #' @examples
 #' library(MASS)
 #' 
@@ -1119,6 +1192,8 @@ vcov.fastlmm <- function(object, ...) {
 #' @param object fitted model of class \code{fastlmm}
 #' @param type the type of residuals which should be returned.  
 #' @param ... other args, not used
+#'
+#' @return extract model residuals
 #'
 #' @examples
 #' library(MASS)
@@ -1195,6 +1270,8 @@ residuals.fastglmm <- function(object, type = c("deviance" , "pearson", "working
 #'
 #' @param object model fit 
 #' 
+#' @return dispersion parameter phi for quasi-likelihood
+#'
 #' @examples
 #' library(MASS)
 #' data(PsychAD)

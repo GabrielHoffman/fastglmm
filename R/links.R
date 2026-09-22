@@ -5,6 +5,19 @@
 #' 
 #' @param family family function
 #' 
+#' @return link function for model family
+#'
+#' @examples
+#' data(PsychAD)
+#'
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#'
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#'
+#' getLink(fit)
+#
 #' @keywords internal
 #' @importFrom stats qnorm
 #' @export
@@ -27,6 +40,19 @@ getLink = function(family){
 #' 
 #' @param family family function
 #' 
+#' @return inverse link function for model family
+#' 
+#' @examples
+#' data(PsychAD)
+#'
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#'
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#'
+#' getLinkInv(fit)
+#
 #' @keywords internal
 #' @importFrom stats pnorm
 #' @export

@@ -13,6 +13,18 @@
 
 \item{...}{other args, not used}
 }
+\value{
+summary of model fit
+}
 \description{
 Object summaries and hypothesis testing of fixed effects
+}
+\examples{
+library(lme4)
+
+fit <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy)
+
+fit
+
+summary(fit)
 }

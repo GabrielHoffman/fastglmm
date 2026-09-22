@@ -9,7 +9,21 @@ getLinkInv(family)
 \arguments{
 \item{family}{family function}
 }
+\value{
+inverse link function for model family
+}
 \description{
 Get inverse link function given family
+}
+\examples{
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+getLinkInv(fit)
 }
 \keyword{internal}

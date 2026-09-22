@@ -44,6 +44,23 @@ log_moments_nb_mu <- function(mu, theta, method, c = 1.0, p_tail = 1e-4) {
 #' @param p_tail probability cutoff
 #' @param nthreads number of threads
 #' 
+#' @return variance of the signal (var.signal), variance of the noise (var.noise), (alpha) fraction of Poisson noise
+#' 
+#' @examples
+#' data(PsychAD)
+#' 
+#' # regression formula
+#' form <- PTPRG ~ offset(log(libSize))
+#' 
+#' # NB GLM on PTPRG expression 
+#' fit <- glm.nb(form, PsychAD)
+#' 
+#' log_moments_nb_XB(
+#'   model.matrix(fit), 
+#'   as.matrix(coef(fit)), 
+#'   fit$offset, 
+#'   getTheta(fit), 
+#'   method="exact")
 #' @keywords internal
 #' @export
 log_moments_nb_XB <- function(X, Beta, offset, theta, method, c = 1.0, p_tail = 1e-4, nthreads = 10L) {
@@ -66,6 +83,32 @@ log_moments_nb_XB <- function(X, Beta, offset, theta, method, c = 1.0, p_tail = 
 #' @param p_tail probability cutoff
 #' @param nthreads number of threads
 #' 
+#' 
+#' @return variance of the signal (var.signal), variance of the noise (var.noise), (alpha) fraction of Poisson noise
+#' 
+#' @examples
+#' library(fastglmm)
+#' 
+#' data(PsychAD)
+#' 
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#' 
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#' 
+#' log_moments_nb_BlupXBZ(
+#'   BLUP = ranef(fit)$SubID,
+#'   X = model.matrix(fit), 
+#'   Beta = as.matrix(coef(fit)), 
+#'   Z = as.matrix(fit$Z),
+#'   weights = fit$prior.weights,
+#'   offset = fit$offset, 
+#'   theta = getTheta(fit),
+#'   delta = fit$delta,
+#'   method = "exact", 
+#'   dcmpMethod = "categorical"
+#'   )
 #' @keywords internal
 #' @export
 log_moments_nb_BlupXBZ <- function(BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c = 1.0, p_tail = 1e-4, nthreads = 10L) {
@@ -88,6 +131,31 @@ log_moments_nb_BlupXBZ <- function(BLUP, X, Beta, Z, weights, offset, theta, del
 #' @param p_tail probability cutoff
 #' @param nthreads number of threads
 #' 
+#' @return variance of the signal (var.signal), variance of the noise (var.noise), (alpha) fraction of Poisson noise
+#' 
+#' @examples
+#' library(fastglmm)
+#' 
+#' data(PsychAD)
+#' 
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#' 
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#' 
+#' log_moments_nb_BlupXBZ_sp(
+#'   BLUP = ranef(fit)$SubID,
+#'   X = model.matrix(fit), 
+#'   Beta = as.matrix(coef(fit)), 
+#'   Z = fit$Z,
+#'   weights = fit$prior.weights,
+#'   offset = fit$offset, 
+#'   theta = getTheta(fit),
+#'   delta = fit$delta,
+#'   method = "exact", 
+#'   dcmpMethod = "categorical"
+#'   )
 #' @keywords internal
 #' @export
 log_moments_nb_BlupXBZ_sp <- function(BLUP, X, Beta, Z, weights, offset, theta, delta, method, dcmpMethod, c = 1.0, p_tail = 1e-4, nthreads = 10L) {

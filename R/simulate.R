@@ -6,6 +6,8 @@
 #' @param nsim number of examples to simulate
 #' @param seed random seed
 #' @param ... other args, not used
+#' 
+#' @return matrix of responses simulated from the model
 #'
 #' @examples
 #' library(MASS)
@@ -71,7 +73,22 @@ simulate.fastlmm <- function(object, nsim = 1, seed = NULL,...){
 #' @param family regression family
 #' @param sd standard deviation from model fit
 #' @param theta NB theta 
+#' 
+#' @return matrix of responses simulated from the model
 #'
+#' @examples
+#' data(PsychAD)
+#'
+#' # regression formula
+#' form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+#'
+#' # NB GLMM on PTPRG expression via PQL
+#' fit <- fastglmm.nb(form, PsychAD)
+#'
+#' Y <- simulateResponse(fitted(fit), 10, "nb", sigma(fit), getTheta(fit))
+#' 
+#' Y[1:2, 1:3]
+#
 #' @importFrom stats runif rnorm rpois rbinom
 #' @importFrom MASS rnegbin
 #' @keywords internal

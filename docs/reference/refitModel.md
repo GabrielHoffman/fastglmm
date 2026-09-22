@@ -27,6 +27,10 @@ refitModel(fit, delta = NULL, interceptOnly = FALSE, fixedNBtheta = FALSE)
 
   if `FALSE`, low theta in NB model to be re-estimated too
 
+## Value
+
+refit model
+
 ## Details
 
 Useful for evaluating log-likelihood and multiple values of delta

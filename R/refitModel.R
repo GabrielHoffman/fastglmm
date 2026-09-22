@@ -10,6 +10,8 @@
 #' 
 #' @details Useful for evaluating log-likelihood and multiple values of delta
 #' 
+#' @return refit model
+#'
 #' @examples
 #' library(lme4)
 #' 

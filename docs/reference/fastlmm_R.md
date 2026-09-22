@@ -69,3 +69,26 @@ summary statistics for model fit, and hypothesis testing
 ## Details
 
 Fit a linear mixed model with a single variance component.
+
+## Examples
+
+``` r
+library(lme4)
+fit <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy)
+
+y <- sleepstudy$Reaction
+X <- model.matrix(~Days, sleepstudy)
+dcmp <- indicator_decomp(sleepstudy$Subject)
+
+fit2 <- fastlmm_R(y, X, dcmp$vectors, dcmp$values)
+
+fit2
+#> 
+#> Call:
+#> NULL
+#> 
+#> Coefficients:
+#> (Intercept)         Days  
+#>      251.41        10.47  
+#> 
+```

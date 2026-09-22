@@ -19,6 +19,10 @@ deviance(object, ...)
 
   other args, not used
 
+## Value
+
+model deviance
+
 ## Examples
 
 ``` r

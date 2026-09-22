@@ -19,6 +19,10 @@ cooks.distance(model, ...)
 
   other args, not used
 
+## Value
+
+Cook's distances values
+
 ## Examples
 
 ``` r

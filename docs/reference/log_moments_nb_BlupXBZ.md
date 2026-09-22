@@ -75,3 +75,36 @@ log_moments_nb_BlupXBZ(
 - nthreads:
 
   number of threads
+
+## Value
+
+variance of the signal (var.signal), variance of the noise (var.noise),
+(alpha) fraction of Poisson noise
+
+## Examples
+
+``` r
+library(fastglmm)
+
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+log_moments_nb_BlupXBZ(
+  BLUP = ranef(fit)$SubID,
+  X = model.matrix(fit), 
+  Beta = as.matrix(coef(fit)), 
+  Z = as.matrix(fit$Z),
+  weights = fit$prior.weights,
+  offset = fit$offset, 
+  theta = getTheta(fit),
+  delta = fit$delta,
+  method = "exact", 
+  dcmpMethod = "categorical"
+  )
+#> Error: unable to find an inherited method for function ‘getTheta’ for signature ‘object = "fastglmm"’
+```

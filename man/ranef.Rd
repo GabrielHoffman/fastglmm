@@ -11,6 +11,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+BLUP, modes of the random effect
+}
 \description{
 Extract the conditional modes of the random effect from the model fit
 }

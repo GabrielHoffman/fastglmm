@@ -13,6 +13,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+anova table like \code{stats::anova()}
+}
 \description{
 ANOVA Tables
 }

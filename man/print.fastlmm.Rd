@@ -13,7 +13,21 @@
 
 \item{...}{other args, not used}
 }
+\value{
+print model
+}
 \description{
 Print model
+}
+\examples{
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+fit
 }
 \keyword{internal}

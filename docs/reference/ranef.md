@@ -19,6 +19,10 @@ ranef(object, ...)
 
   other args, not used
 
+## Value
+
+BLUP, modes of the random effect
+
 ## Examples
 
 ``` r

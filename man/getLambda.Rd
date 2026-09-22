@@ -27,9 +27,37 @@ getLambdaFromNull(fit_null, ...)
 
 \item{fit_null}{model fit of null}
 }
+\value{
+scalar lambda value
+
+scalar lambda value from the null model fit
+}
 \description{
 Estimate baseline rate from count model
 
 Estimate baseline rate from count model
+}
+\details{
+For count models, the distributional variance is a function of the mean count rate. Following Eqn 5.8 of Nakagawa, et al. 2017, this can be estimated using parameters of a model including only intercept and random effect terms.  But this requires refitting the model dropping the rest of the fixed effects.  Instead, computing the mean of the observed counts is a fast approximation.
+}
+\examples{
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+getLambda(fit)
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+getLambdaFromNull(fit)
 }
 \keyword{internal}

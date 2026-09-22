@@ -15,6 +15,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+AIC value of model
+}
 \description{
 Extract AIC from a Fitted Model
 }

@@ -11,6 +11,9 @@ edf(object, ...)
 
 \item{...}{other args, not used}
 }
+\value{
+effective degrees of freedom
+}
 \description{
 Effective degrees-of-freedom of model fit is the trace of the hat matrix mapping from observed to predicted response
 }

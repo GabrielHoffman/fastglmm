@@ -56,6 +56,11 @@ ddf <- function(fit, L = diag(1, length(coef(fit))) ){
 #' @param nu array of ddf values
 #' @param tol tolerance
 #'
+#' @return scalar value
+#'
+#' @examples
+#' get_Fstat_ddf(1:10)
+#
 #' @seealso \code{lmerTest:::get_Fstat_ddf()}
 #' @keywords internal
 #' @export

@@ -18,6 +18,17 @@ get_Fstat_ddf(nu, tol = 1e-08)
 
   tolerance
 
+## Value
+
+scalar value
+
 ## See also
 
 `lmerTest:::get_Fstat_ddf()`
+
+## Examples
+
+``` r
+get_Fstat_ddf(1:10)
+#> [1] 2
+```

@@ -14,6 +14,10 @@ stringToFamily(text)
 
   string indicating GLM family
 
+## Value
+
+model family
+
 ## Examples
 
 ``` r

@@ -9,6 +9,9 @@ stringToFamily(text)
 \arguments{
 \item{text}{string indicating GLM family}
 }
+\value{
+model family
+}
 \description{
 String To Family
 }

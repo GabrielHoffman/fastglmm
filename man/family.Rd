@@ -17,6 +17,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+model family
+}
 \description{
 Extract Model Family
 }

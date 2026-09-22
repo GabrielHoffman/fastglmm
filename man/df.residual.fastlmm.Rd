@@ -11,6 +11,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+residual degrees of freedom
+}
 \description{
 Residual degrees-of-freedom is the trace of the residual hat matrix
 }

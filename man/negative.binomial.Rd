@@ -11,6 +11,12 @@ negative.binomial(theta = stop("'theta' must be specified"), link = "log")
 
 \item{link}{The link function, as a character string, name or one-element character vector specifying one of \code{log}, \code{sqrt} or \code{identity}, or an object of class \code{"link-glm"}.}
 }
+\value{
+negative binomial model family
+}
 \description{
 Specifies the information required to fit a Negative Binomial generalized linear model, with known \code{theta} parameter.
+}
+\examples{
+negative.binomial(3)
 }

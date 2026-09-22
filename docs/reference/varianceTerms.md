@@ -35,3 +35,23 @@ varianceTerms(object, ...)
 - ...:
 
   other args
+
+## Value
+
+array of variance component estimates
+
+## Examples
+
+``` r
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+varianceTerms(fit)
+#>     SubID 
+#> 0.7856561 
+```

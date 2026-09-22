@@ -47,6 +47,10 @@ linearHypothesis(
   `"asymptotic"` to use normal distribution or chisq as null for the
   test statistic
 
+## Value
+
+hypothesis testing
+
 ## See also
 
 [`car::linearHypothesis()`](https://rdrr.io/pkg/car/man/linearHypothesis.html)

@@ -19,6 +19,10 @@ logLik(object, ...)
 
   other args, not used
 
+## Value
+
+log-likelihood of model fit
+
 ## Examples
 
 ``` r

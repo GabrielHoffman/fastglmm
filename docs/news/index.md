@@ -1,5 +1,10 @@
 # Changelog
 
+## fastglmm 0.4.16
+
+- Sept 22, 2026
+- update docs to pass CRAN check
+
 ## fastglmm 0.4.15
 
 - Sept 10, 2026

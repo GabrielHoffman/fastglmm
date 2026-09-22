@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fastglmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.15</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.16</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,6 +86,10 @@
 <dd><p>tolerance of optimization</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>estimate of theta</p>
+    </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Estimate overdispersion parameter for negative binomial distribution using univariate optimization with Brent's method.  For very large datasets, this can be much faster than the Newton-Raphson method used by <code><a href="https://rdrr.io/pkg/MASS/man/theta.md.html" class="external-link">MASS::theta.ml()</a></code>.  This is faster since the <code><a href="https://rdrr.io/r/base/Special.html" class="external-link">lgamma()</a></code> function used in the likelihood is faster than the <code><a href="https://rdrr.io/r/base/Special.html" class="external-link">digamma()</a></code> and <code><a href="https://rdrr.io/r/base/Special.html" class="external-link">trigamma()</a></code> functions used in the score and information steps.  Also, the univariate optimization is performed on <code>log(theta)</code>, while the Newton-Raphson approach is performed on the original scale of <code>theta</code>.</p>

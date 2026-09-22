@@ -11,7 +11,21 @@ noiseVarNB(theta, method = c("trigamma", "lognormal", "delta"))
 
 \item{method}{approximation method}
 }
+\value{
+scalar value the the NB variance
+}
 \description{
 Evaluate NB variance when lambda is Inf
+}
+\examples{
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+noiseVarNB(fit)
 }
 \keyword{internal}

@@ -50,3 +50,28 @@ log_moments_nb_XB(
 - nthreads:
 
   number of threads
+
+## Value
+
+variance of the signal (var.signal), variance of the noise (var.noise),
+(alpha) fraction of Poisson noise
+
+## Examples
+
+``` r
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ offset(log(libSize))
+
+# NB GLM on PTPRG expression 
+fit <- glm.nb(form, PsychAD)
+
+log_moments_nb_XB(
+  model.matrix(fit), 
+  as.matrix(coef(fit)), 
+  fit$offset, 
+  getTheta(fit), 
+  method="exact")
+#> Error: unable to find an inherited method for function ‘getTheta’ for signature ‘object = "negbin"’
+```

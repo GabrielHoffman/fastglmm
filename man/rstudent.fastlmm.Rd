@@ -11,6 +11,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+standardized residuals
+}
 \description{
 Extract Studentized Residuals
 }

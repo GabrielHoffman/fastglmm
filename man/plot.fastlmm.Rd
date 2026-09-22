@@ -13,6 +13,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+diagnostic plots
+}
 \description{
 Diagnostic plots for \code{fastlmm} Fits
 }

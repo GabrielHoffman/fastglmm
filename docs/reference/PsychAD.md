@@ -43,6 +43,10 @@ A data frame with 60481 rows (i.e. cells) and 6 variables:
 [doi:10.1101/2023.03.17.533005](https://doi.org/10.1101/2023.03.17.533005)
 , <https://diseaseneurogenomics.github.io/dreamlet/index.html>
 
+## Value
+
+none
+
 ## Examples
 
 ``` r

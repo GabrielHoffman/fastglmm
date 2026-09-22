@@ -11,7 +11,9 @@
 #' @param tol convergence criterion for the 1D search of the delta space
 #' @param lambda ridge shrinkage parameter
 #' @param nthreads number of threads
-#
+#'
+#' @return model fit of class fastlmm
+#'
 #' @examples
 #' library(lme4)
 #'

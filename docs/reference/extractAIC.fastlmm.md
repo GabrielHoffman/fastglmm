@@ -28,6 +28,10 @@ extractAIC(fit, scale = 0, k = 2, ...)
 
   other args, not used
 
+## Value
+
+AIC value of model
+
 ## Examples
 
 ``` r

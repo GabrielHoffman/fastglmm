@@ -15,4 +15,15 @@ TRUE for poisson, quasipoisson or NB models
 \description{
 Is object a count model
 }
+\examples{
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+isCountModel(fit)
+}
 \keyword{internal}

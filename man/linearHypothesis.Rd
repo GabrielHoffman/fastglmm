@@ -26,6 +26,9 @@ linearHypothesis(model, ...)
 
 \item{ddf}{\code{"satterthwaite"}: use Satterthwaite approximation to denominator degrees of freedom for the Student-t or F distribution, or \code{"asymptotic"} to use normal distribution or chisq as null for the test statistic}
 }
+\value{
+hypothesis testing
+}
 \description{
 Test Linear Hypothesis
 }

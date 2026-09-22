@@ -21,6 +21,9 @@ A data frame with 60481 rows (i.e. cells) and 6 variables:
 \usage{
 data(PsychAD)
 }
+\value{
+none
+}
 \description{
 A dataset containing gene expression of PTPRG in 60k microglia cells from the PsychAD Consortium from 299 subjects.  Of these, 149 subjects have Alzheimer's disease, and 150 are neurotypical controls.
 }

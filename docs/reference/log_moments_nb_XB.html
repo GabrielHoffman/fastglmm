@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fastglmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.15</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.16</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,7 +91,30 @@
 <dd><p>number of threads</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>variance of the signal (var.signal), variance of the noise (var.noise), (alpha) fraction of Poisson noise</p>
+    </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">PsychAD</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># regression formula</span></span></span>
+<span class="r-in"><span><span class="va">form</span> <span class="op">&lt;-</span> <span class="va">PTPRG</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/offset.html" class="external-link">offset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">libSize</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># NB GLM on PTPRG expression </span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/glm.nb.html" class="external-link">glm.nb</a></span><span class="op">(</span><span class="va">form</span>, <span class="va">PsychAD</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">log_moments_nb_XB</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>  <span class="va">fit</span><span class="op">$</span><span class="va">offset</span>, </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="getTheta.html">getTheta</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>  method<span class="op">=</span><span class="st">"exact"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> unable to find an inherited method for function ‘getTheta’ for signature ‘object = "negbin"’</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

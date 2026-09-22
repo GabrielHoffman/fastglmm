@@ -29,6 +29,10 @@ dispersion(object)
 
   model fit
 
+## Value
+
+dispersion parameter phi for quasi-likelihood
+
 ## Examples
 
 ``` r

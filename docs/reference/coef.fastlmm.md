@@ -19,6 +19,10 @@ coef(object, ...)
 
   other args, not used
 
+## Value
+
+coefficient values
+
 ## Examples
 
 ``` r

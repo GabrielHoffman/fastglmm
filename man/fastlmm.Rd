@@ -35,6 +35,9 @@ fastlmm(
 
 \item{lambda}{ridge shrinkage parameter}
 }
+\value{
+model fit of class fastlmm
+}
 \description{
 Fit a linear mixed-effects model with 1 random effect with REML or maximum likelihood using the very fast algorithm and implementation
 }

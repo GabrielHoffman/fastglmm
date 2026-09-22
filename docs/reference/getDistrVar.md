@@ -29,6 +29,10 @@ getDistrVar(
   use either `"parametric"` or `"mean"` method to estimate the mean rate
   for count models
 
+## Value
+
+scalar value of the distributional variance for the given model fit
+
 ## Details
 
 In generalized linear (mixed) models, the link function contributes to
@@ -63,3 +67,18 @@ in ecology and evolution 4, no. 2 (2013): 133-142.
 McKelvey, R., Zavoina, W. (1975), "A Statistical Model for the Analysis
 of Ordinal Level Dependent Variables", Journal of Mathematical Sociology
 4, S.103–120.
+
+## Examples
+
+``` r
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+getDistrVar(fit)
+#> [1] 25.15688
+```

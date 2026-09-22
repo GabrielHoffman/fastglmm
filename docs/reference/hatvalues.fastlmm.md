@@ -19,6 +19,10 @@ hatvalues(model, ...)
 
   other args, not used
 
+## Value
+
+hat values of model fit
+
 ## Examples
 
 ``` r

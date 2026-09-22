@@ -25,6 +25,9 @@ powerNBMM(N, m, mu, sigSq.a, theta, beta = NA, sd_x = NA, alpha = 0.05, fit)
 
 \item{fit}{model fit with \code{fastlmm()} or  \code{fastglmm()}}
 }
+\value{
+object of class powerNBMM
+}
 \description{
 Evaluate effective sample size and power for negative binomial mixed model given parameter values
 }

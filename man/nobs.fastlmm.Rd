@@ -11,6 +11,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+number of observations
+}
 \description{
 Extract the Number of Observations from a Fit
 }

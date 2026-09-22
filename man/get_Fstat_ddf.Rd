@@ -11,8 +11,14 @@ get_Fstat_ddf(nu, tol = 1e-08)
 
 \item{tol}{tolerance}
 }
+\value{
+scalar value
+}
 \description{
 DDF for joint test by summarizing ddf for each coefficient
+}
+\examples{
+get_Fstat_ddf(1:10)
 }
 \seealso{
 \code{lmerTest:::get_Fstat_ddf()}

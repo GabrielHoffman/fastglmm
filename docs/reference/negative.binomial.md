@@ -22,3 +22,17 @@ negative.binomial(theta = stop("'theta' must be specified"), link = "log")
   The link function, as a character string, name or one-element
   character vector specifying one of `log`, `sqrt` or `identity`, or an
   object of class `"link-glm"`.
+
+## Value
+
+negative binomial model family
+
+## Examples
+
+``` r
+negative.binomial(3)
+#> 
+#> Family: Negative Binomial(3) 
+#> Link function: log 
+#> 
+```

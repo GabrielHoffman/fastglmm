@@ -19,6 +19,10 @@ nobs(object, ...)
 
   other args, not used
 
+## Value
+
+number of observations
+
 ## Examples
 
 ``` r

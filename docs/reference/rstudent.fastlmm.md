@@ -19,6 +19,10 @@ rstudent(model, ...)
 
   other args, not used
 
+## Value
+
+standardized residuals
+
 ## Examples
 
 ``` r

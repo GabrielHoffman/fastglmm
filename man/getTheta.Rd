@@ -15,4 +15,15 @@ theta for NB models, else NA
 \description{
 Get theta from NB model
 }
+\examples{
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+getTheta(fit)
+}
 \keyword{internal}

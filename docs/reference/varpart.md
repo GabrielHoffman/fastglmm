@@ -105,6 +105,10 @@ varpart(
 
   other arguments, passed to `vpOther()` or `vpCounts()`
 
+## Value
+
+variance fractions
+
 ## Details
 
 For linear model, variance fractions are computed based on the sum of

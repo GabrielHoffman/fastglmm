@@ -13,3 +13,22 @@ getLinkInv(family)
 - family:
 
   family function
+
+## Value
+
+inverse link function for model family
+
+## Examples
+
+``` r
+data(PsychAD)
+
+# regression formula
+form <- PTPRG ~ (1|SubID) + offset(log(libSize))
+
+# NB GLMM on PTPRG expression via PQL
+fit <- fastglmm.nb(form, PsychAD)
+
+getLinkInv(fit)
+#> Error in getFamilyString(family): family must be a string or function
+```

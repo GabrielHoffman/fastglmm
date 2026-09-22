@@ -11,6 +11,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+log-likelihood of model fit
+}
 \description{
 Extract Log-Likelihood
 }

@@ -15,3 +15,8 @@ sparse indicator matrix with levels as columns
 \description{
 Create sparse indicator matrix from factor
 }
+\examples{
+# extract a few subjects
+idx <- c(1, 4, 100, 444)
+dcmp <- preprocess_indicator(PsychAD$SubID[idx])
+}

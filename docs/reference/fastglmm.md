@@ -81,22 +81,13 @@ fastglmm(
 
 ## Value
 
-model fit object
+model fit object of class fastglmm
 
 ## Examples
 
 ``` r
 library(MASS)
 library(lme4)
-#> Loading required package: Matrix
-#> 
-#> Attaching package: ‘lme4’
-#> The following objects are masked from ‘package:fastglmm’:
-#> 
-#>     getLambda, getTheta
-#> The following object is masked from ‘package:nlme’:
-#> 
-#>     lmList
 
 # GLMM via Laplace approximation
 fit = glmer(y ~ trt + I(week > 2) + (1 | ID),

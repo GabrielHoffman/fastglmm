@@ -11,6 +11,9 @@
 
 \item{...}{other args, not used}
 }
+\value{
+Cook's distances values
+}
 \description{
 Cook's Distance Metric
 }

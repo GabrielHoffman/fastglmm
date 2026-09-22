@@ -29,6 +29,9 @@ nb_theta(
 
 \item{tol}{tolerance of optimization}
 }
+\value{
+estimate of theta
+}
 \description{
 Given the estimated mean vector, estimate \code{theta} overdispersion parameter of the negative binomial distribution.
 }

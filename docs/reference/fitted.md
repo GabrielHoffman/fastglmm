@@ -27,6 +27,10 @@ fitted(object, ..., newdata = NULL)
   optionally, a data.frame in which to look for variables with which to
   predict. If omitted, the fitted predictors are used.
 
+## Value
+
+fitted values from model fit
+
 ## Examples
 
 ``` r
