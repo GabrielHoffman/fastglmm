@@ -51,7 +51,7 @@ jobs:
             }
 
             # install from binary
-            # since it's _much_ faster
+            # since its _much_ faster
             install.packages(
               c("lme4", "numDeriv", "reformulas", "pbkrtest", "sandwich", "RcppEigen"),
               repos = "https://cloud.r-project.org",
