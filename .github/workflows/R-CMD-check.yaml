@@ -61,7 +61,7 @@ jobs:
 
             # install from source
             # since TMB binary was combined with OpenMP
-            # but testing machine doesn't have OpenMP
+            # but testing machine doesnt have OpenMP
             install.packages(
               c("TMB", "glmmTMB"),
               type = "source",
