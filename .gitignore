@@ -3,3 +3,4 @@
 inst/doxygen/html
 inst/doxygen/latex
 inst/test_*
+Rprof.out

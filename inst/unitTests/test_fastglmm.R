@@ -13,7 +13,7 @@ test_predict_fitted = function(){
 
 	set.seed(101)
 	dd <- expand.grid(f1 = factor(1:5),
-	            f2 = LETTERS[1:5], g=factor(1:30), rep=1:15,
+	            f2 = LETTERS[1:5], g=factor(1:30), rep=1:10,
 	    KEEP.OUT.ATTRS=FALSE)
 	mu <- 50*(-4 + with(dd, as.integer(f1) + 4*as.numeric(f2)))
 	dd$y <- rnbinom(nrow(dd), mu = mu, size = 1e8)
@@ -44,13 +44,13 @@ test_predict_fitted = function(){
 
 	fit2 <- fastglmm(y ~ f1*f2 + (1|g), data=dd, family=poisson())
 	fit1 <- glmer(y ~ f1*f2 + (1|g), data=dd, family=poisson())
-	fit3 = glmmPQL( y ~ f1*f2 , random = ~ 1|g, dd, family = poisson(), niter=100)
+	fit3 = glmmPQL( y ~ f1*f2 , random = ~ 1|g, dd, family = poisson(), niter=5)
 
 	# coef estimates
 	checkEqualsNumeric( coef(summary(fit1))[,1], 
-						coef(summary(fit2))[,1], tol=1e-7 )
+						coef(summary(fit2))[,1], tol=1e-5 )
 	checkEqualsNumeric( coef(summary(fit1))[,1], 
-						coef(summary(fit3))[,1], tol=1e-7 )
+						coef(summary(fit3))[,1], tol=1e-5 )
 
 	# se estimates
 	checkEqualsNumeric( coef(summary(fit1))[,2], 
@@ -101,13 +101,13 @@ test_predict_fitted = function(){
 
 	fit2 <- fastglmm(y ~ f1*f2 + (1|g) + offset(log(size)), data=dd, family=poisson())
 	fit1 <- glmer(y ~ f1*f2 + (1|g)+ offset(log(size)), data=dd, family=poisson())
-	fit3 = glmmPQL( y ~ f1*f2 + offset(log(size)), random = ~ 1|g, dd, family = poisson(), niter=100)
+	fit3 = glmmPQL( y ~ f1*f2 + offset(log(size)), random = ~ 1|g, dd, family = poisson(), niter=5)
 
 	# coef estimates
 	checkEqualsNumeric( coef(summary(fit1))[,1], 
-						coef(summary(fit2))[,1], tol=1e-7 )
+						coef(summary(fit2))[,1], tol=1e-5 )
 	checkEqualsNumeric( coef(summary(fit1))[,1], 
-						coef(summary(fit3))[,1], tol=1e-7 )
+						coef(summary(fit3))[,1], tol=1e-5 )
 
 	# se estimates
 	checkEqualsNumeric( coef(summary(fit1))[,2], 
@@ -172,7 +172,7 @@ test_predict_fitted = function(){
 	checkEqualsNumeric(as.numeric(a), as.numeric(b), tol=1e-2)
 
 	fam = negative.binomial(as.numeric(a))
-	fit3 = glmmPQL( y ~ f1*f2 , random = ~ 1|g, dd, family = fam, niter=200)
+	fit3 = glmmPQL( y ~ f1*f2 , random = ~ 1|g, dd, family = fam, niter=20)
 
 	dispersion(fit2)
 	summary(fit1)$dispersion

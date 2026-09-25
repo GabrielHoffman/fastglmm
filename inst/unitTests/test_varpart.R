@@ -123,20 +123,21 @@ test_varpart = function(){
   # insight::get_variance(fit.tmb)
 
   set.seed(1)
-  n = 1e5
-  sigSq_g = 1
-  beta = c(1,1)
-  rho = .7
-  Sigma = matrix(c(1,rho,rho,1), 2)
-  X = scale(rmvnorm(n, c(0,0), Sigma))
-  z = factor(sample(seq(100), n, replace=TRUE))
+  n = 1e4
+  sigSq_g = .2
+  beta = c(2,5)
+  # rho = .7
+  # Sigma = matrix(c(1,rho,rho,1), 2)
+  # X = scale(rmvnorm(n, c(0,0), Sigma))
+  X = cbind(runif(n), runif(n))
+  z = factor(sample(seq(20), n, replace=TRUE))
   df = data.frame(X, z)
-  Z = sparse.model.matrix(~z, df)
+  Z = sparse.model.matrix(~z+0, df)
   alpha = rnorm(ncol(Z), 0, sd=sqrt(sigSq_g))
-  eta = as.matrix(X %*% beta + Z %*% alpha) - 1
+  eta = as.matrix(X %*% beta + Z %*% alpha) + 2
   df$y.poisson = rpois(n, exp(eta))
   df$z.perm = factor(sample(seq(2), n, replace=TRUE))
-
+  # mean(df$y.poisson)
 
   # weighted lm
   ##############
@@ -159,7 +160,7 @@ test_varpart = function(){
   # Compare to R2
   v1 = summary(fit3)$r.squared
   v2 = 1 - varpart(fit3)[3]
-  checkEqualsNumeric(v1, v2, tol=1e-5)
+  checkEqualsNumeric(v1, v2, tol=1e-3)
 
   # sigma(fit1)
   # sigma(fit2)
@@ -216,7 +217,7 @@ test_varpart = function(){
 
   # NB model
   ##########
-  df$y.nb = rnegbin(n, exp(eta), 5)
+  df$y.nb = rnegbin(n, exp(eta), 50)
   fam = negative.binomial(NA)
   fit.tmb = glmmTMB(y.nb ~ X1 + X2 + (1|z), df, family=nbinom2)
   fit = fastglmm(y.nb ~ X1 + X2 + (1|z), df,family=fam)

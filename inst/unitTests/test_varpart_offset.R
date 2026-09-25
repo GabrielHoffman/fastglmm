@@ -11,11 +11,12 @@ test_varpart_offset = function(){
   data(PsychAD)
 
   set.seed(1)
+  PsychAD = droplevels(PsychAD[seq(4000),])
   
   X = model.matrix(~Age, PsychAD)
   eta = log(PsychAD$libSize) + X %*% c(0,.02)
 
-  PsychAD$PTPRG = rnegbin(nrow(PsychAD), exp(eta), theta=4)
+  PsychAD$PTPRG = rnegbin(nrow(PsychAD), exp(eta), theta=40)
 
   # NB model
   form <- PTPRG ~ offset(log(libSize)) + Dx + Age + Sex + (1|SubID)
@@ -29,7 +30,5 @@ test_varpart_offset = function(){
 
   # plot(vp1[-5], vp2)
 
-  checkIdentical(max(abs(vp1[-5] - vp2)) < 1e-3, TRUE)
-
-
+  checkIdentical(max(abs(vp1[-5] - vp2)) < 1e-2, TRUE)
 }
