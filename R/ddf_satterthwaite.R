@@ -31,6 +31,31 @@ ddf <- function(fit, L = diag(1, length(coef(fit))) ){
   .ddf(fit$delta, fit$hessian.vc, fit$A.sat, fit$B.sat, vcov(fit), L )
 }
 
+
+#' Denominator Degrees of Freedom
+#'
+#' Denominator degrees of freedom using Satterthwaite method
+#'
+#' @param delta ratio of variance components
+#' @param hessian.vc hession 
+#' @param A.sat A matrix
+#' @param B.sat B matrix
+#' @param V variance-covariance matrix
+#' @param L matrix of coefficient contrasts, one per _row_
+#'
+#' @return array, denominator degrees of freedom for each contrast (i.e. _row_)
+#'
+#' @examples
+#' library(MASS)
+#' 
+#' # GLMM via PQL
+#' fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
+#'    family = binomial(), data = bacteria)
+#' 
+#' # denominator degrees of freedom 
+#' # used for hypothesis testing below
+#' ddf(fit)
+#
 #' @keywords internal
 #' @export
 .ddf <- function(delta, hessian.vc, A.sat, B.sat, V, L){

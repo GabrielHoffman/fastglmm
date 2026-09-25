@@ -306,7 +306,7 @@ static vector<T> subset( const vector<T> &v, const uvec &idx){
 
 /** Robust mean using only samples less than z-cuttoff
 */
-static double robust_mean( const vec &x, const double &z_cutoff){
+static inline double robust_mean( const vec &x, const double &z_cutoff){
 
   // keep only finite values
   vec x1 = x.elem(find_finite(x));
@@ -325,7 +325,6 @@ static double robust_mean( const vec &x, const double &z_cutoff){
 
   // mean of retained values
   return mean(x1.elem(idx));
-
 }
 
 /** Check that all values in x are integer values

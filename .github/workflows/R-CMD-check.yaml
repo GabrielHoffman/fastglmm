@@ -20,10 +20,10 @@ jobs:
       matrix:
         config:
           - {os: macos-latest,   r: 'release'}
-          # - {os: windows-latest, r: 'release'}
-          # - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          # - {os: ubuntu-latest,   r: 'release'}
-          # - {os: ubuntu-latest,   r: 'oldrel-1'}
+          - {os: windows-latest, r: 'release'}
+          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-latest,   r: 'release'}
+          - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -51,6 +51,7 @@ jobs:
             }
 
             # install from binary
+            # since it's _much_ faster
             install.packages(
               c("lme4", "numDeriv", "reformulas", "pbkrtest", "sandwich", "RcppEigen"),
               repos = "https://cloud.r-project.org",
@@ -59,6 +60,8 @@ jobs:
               lib = lib)
 
             # install from source
+            # since TMB binary was combined with OpenMP
+            # but testing machine doesn't have OpenMP
             install.packages(
               c("TMB", "glmmTMB"),
               type = "source",
