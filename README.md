@@ -84,5 +84,5 @@ summary(fit)
 - Interface between R and C++ is implemented in [Rcpp](https://www.rcpp.org) and also depends on [RcppArmadillo](https://cran.r-project.org/package=RcppArmadillo) and [RcppParallel](https://cran.r-project.org/package=RcppParallel)
 - Implemented in C++17
 
-### See header-only C++ library [documentation](doxygen/html/index.html)
+### See header-only C++ library [documentation](https://gabrielhoffman.github.io/fastglmm/doxygen/html/index.html)
 
