@@ -113,28 +113,15 @@
 <span class="r-in"><span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fl">5</span><span class="op">*</span><span class="op">(</span><span class="op">-</span><span class="fl">4</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dd</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">f1</span><span class="op">)</span> <span class="op">+</span> <span class="fl">4</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">f2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dd</span><span class="op">$</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/NegBinomial.html" class="external-link">rnbinom</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dd</span><span class="op">)</span>, mu <span class="op">=</span> <span class="va">mu</span>, size <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># NB GLMM via Laplace approximation</span></span></span>
 <span class="r-in"><span><span class="va">fit1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/glmer.nb.html" class="external-link">glmer.nb</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">f1</span><span class="op">*</span><span class="va">f2</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">g</span><span class="op">)</span>, data<span class="op">=</span><span class="va">dd</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> boundary (singular) fit: see help('isSingular')</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Estimate Std. Error   z value     Pr(&gt;|z|)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  1.6500844  0.1298536 12.707264 5.388716e-37</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f12          0.7671505  0.1815543  4.225460 2.384528e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f13          1.0114682  0.1811596  5.583300 2.359976e-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f2B          1.5124145  0.1805961  8.374570 5.542585e-17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f12:f2B     -0.6150597  0.2538182 -2.423229 1.538322e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f13:f2B     -0.6103981  0.2534190 -2.408652 1.601155e-02</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># NB GLMM via PQL</span></span></span>
 <span class="r-in"><span><span class="va">fit2</span> <span class="op">&lt;-</span> <span class="fu"><a href="fastglmm.nb.html">fastglmm.nb</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">f1</span><span class="op">*</span><span class="va">f2</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">g</span><span class="op">)</span>, data<span class="op">=</span><span class="va">dd</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Estimate Std. Error    df   t value     Pr(&gt;|t|)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  1.6500365  0.1298459 272.1 12.707655 2.322370e-29</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f12          0.7671854  0.1814985 802.6  4.226952 2.640988e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f13          1.0115619  0.1811065 802.6  5.585454 3.191837e-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f2B          1.5122439  0.1805473 802.6  8.375890 2.433819e-16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f12:f2B     -0.6149961  0.2537603 802.6 -2.423531 1.559056e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> f13:f2B     -0.6103809  0.2533639 802.6 -2.409108 1.621583e-02</span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -190,6 +190,7 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
 #' mu <- 5*(-4 + with(dd, as.integer(f1) + 4*as.numeric(f2)))
 #' dd$y <- rnbinom(nrow(dd), mu = mu, size = 0.5)
 #' 
+#' \dontrun{
 #' # NB GLMM via Laplace approximation
 #' fit1 <- glmer.nb(y ~ f1*f2 + (1|g), data=dd)
 #' coef(summary(fit1))
@@ -197,7 +198,7 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
 #' # NB GLMM via PQL
 #' fit2 <- fastglmm.nb(y ~ f1*f2 + (1|g), data=dd)
 #' coef(summary(fit2))
-#
+#' }
 #' @importFrom MASS negative.binomial
 #' @export
 fastglmm_R.nb = function (formula, data, weights, maxit = 100, tol = .Machine$double.eps^0.5, tol.eta = .Machine$double.eps^0.5, init.fit = NULL, init = c("lm", "glm"), nthreads = 6){

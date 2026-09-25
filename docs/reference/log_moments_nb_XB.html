@@ -104,6 +104,7 @@
 <span class="r-in"><span><span class="co"># regression formula</span></span></span>
 <span class="r-in"><span><span class="va">form</span> <span class="op">&lt;-</span> <span class="va">PTPRG</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/offset.html" class="external-link">offset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">libSize</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># NB GLM on PTPRG expression </span></span></span>
 <span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/glm.nb.html" class="external-link">glm.nb</a></span><span class="op">(</span><span class="va">form</span>, <span class="va">PsychAD</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -113,8 +114,7 @@
 <span class="r-in"><span>  <span class="va">fit</span><span class="op">$</span><span class="va">offset</span>, </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="getNBTheta.html">getNBTheta</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>  method<span class="op">=</span><span class="st">"exact"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   var.signal var.noise     alpha</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.01399011 0.4857437 0.4710863</span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

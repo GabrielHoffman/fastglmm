@@ -65,6 +65,7 @@ data(PsychAD)
 # regression formula
 form <- PTPRG ~ offset(log(libSize))
 
+if (FALSE) { # \dontrun{
 # NB GLM on PTPRG expression 
 fit <- glm.nb(form, PsychAD)
 
@@ -74,6 +75,5 @@ log_moments_nb_XB(
   fit$offset, 
   getNBTheta(fit), 
   method="exact")
-#>   var.signal var.noise     alpha
-#> 1 0.01399011 0.4857437 0.4710863
+} # }
 ```

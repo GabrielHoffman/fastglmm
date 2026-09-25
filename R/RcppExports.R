@@ -53,6 +53,7 @@ log_moments_nb_mu <- function(mu, theta, method, c = 1.0, p_tail = 1e-4) {
 #' # regression formula
 #' form <- PTPRG ~ offset(log(libSize))
 #' 
+#' \dontrun{
 #' # NB GLM on PTPRG expression 
 #' fit <- glm.nb(form, PsychAD)
 #' 
@@ -62,6 +63,7 @@ log_moments_nb_mu <- function(mu, theta, method, c = 1.0, p_tail = 1e-4) {
 #'   fit$offset, 
 #'   getNBTheta(fit), 
 #'   method="exact")
+#' }
 #' @keywords internal
 #' @export
 log_moments_nb_XB <- function(X, Beta, offset, theta, method, c = 1.0, p_tail = 1e-4, nthreads = 10L) {

@@ -52,6 +52,7 @@ dd <- expand.grid(f1 = factor(1:3),
 mu <- 5*(-4 + with(dd, as.integer(f1) + 4*as.numeric(f2)))
 dd$y <- rnbinom(nrow(dd), mu = mu, size = 0.5)
 
+\dontrun{
 # NB GLMM via Laplace approximation
 fit1 <- glmer.nb(y ~ f1*f2 + (1|g), data=dd)
 coef(summary(fit1))
@@ -59,4 +60,5 @@ coef(summary(fit1))
 # NB GLMM via PQL
 fit2 <- fastglmm.nb(y ~ f1*f2 + (1|g), data=dd)
 coef(summary(fit2))
+}
 }

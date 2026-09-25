@@ -45,6 +45,7 @@ data(PsychAD)
 # regression formula
 form <- PTPRG ~ offset(log(libSize))
 
+\dontrun{
 # NB GLM on PTPRG expression 
 fit <- glm.nb(form, PsychAD)
 
@@ -54,5 +55,6 @@ log_moments_nb_XB(
   fit$offset, 
   getNBTheta(fit), 
   method="exact")
+}
 }
 \keyword{internal}

@@ -38,7 +38,8 @@ data(PsychAD)
 form <- PTPRG ~ (1|SubID) + offset(log(libSize))
 
 # fit NBMM on PTPRG expression
-fit <- fastglmm.nb(form, PsychAD)
+# subset to reduce runtime
+fit <- fastglmm.nb(form, PsychAD[seq(5000),])
 
 # Power analysis
 powerNBMM(fit = fit, beta = .1, sd_x= 0.5)

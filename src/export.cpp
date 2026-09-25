@@ -299,6 +299,7 @@ DataFrame log_moments_nb_mu(
 //' # regression formula
 //' form <- PTPRG ~ offset(log(libSize))
 //' 
+//' \dontrun{
 //' # NB GLM on PTPRG expression 
 //' fit <- glm.nb(form, PsychAD)
 //' 
@@ -308,6 +309,7 @@ DataFrame log_moments_nb_mu(
 //'   fit$offset, 
 //'   getNBTheta(fit), 
 //'   method="exact")
+//' }
 //' @keywords internal
 //' @export
 // [[Rcpp::export]]

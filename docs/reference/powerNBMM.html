@@ -103,18 +103,19 @@
 <span class="r-in"><span><span class="va">form</span> <span class="op">&lt;-</span> <span class="va">PTPRG</span> <span class="op">~</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">SubID</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/offset.html" class="external-link">offset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">libSize</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># fit NBMM on PTPRG expression</span></span></span>
-<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="fastglmm.nb.html">fastglmm.nb</a></span><span class="op">(</span><span class="va">form</span>, <span class="va">PsychAD</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># subset to reduce runtime</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="fastglmm.nb.html">fastglmm.nb</a></span><span class="op">(</span><span class="va">form</span>, <span class="va">PsychAD</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">5000</span><span class="op">)</span>,<span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Power analysis</span></span></span>
 <span class="r-in"><span><span class="fu">powerNBMM</span><span class="op">(</span>fit <span class="op">=</span> <span class="va">fit</span>, beta <span class="op">=</span> <span class="fl">.1</span>, sd_x<span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           N        f   lambda power lambda.asymp.m lambda.asymp.mu</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SubID 60481 1.234716 186.6921     1       178.7057        185.7482</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       power.asymp.m power.asymp.mu   N.1        m       mu beta   sigSq.a</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SubID             1              1 60481 202.9564 1.203237  0.1 0.7856561</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        theta sd_x alpha   kappa.m  kappa.mu n_measurements   m.mean        rho</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SubID 0.2445  0.5  0.05 0.9572215 0.9949439            298 202.9564 0.09930312</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         m.eff    m.max  fraction</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SubID 9.63939 10.07018 0.9572215</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          N        f   lambda     power lambda.asymp.m lambda.asymp.mu</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SubID 5000 1.389492 17.36865 0.9863642        16.6556        17.28437</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       power.asymp.m power.asymp.mu  N.1   m     mu beta   sigSq.a  theta sd_x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SubID      0.983046       0.986007 5000 250 1.1454  0.1 0.6993319 0.2372  0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       alpha   kappa.m  kappa.mu n_measurements m.mean        rho    m.eff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SubID  0.05 0.9589465 0.9951476             20    250 0.08544984 11.22233</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          m.max  fraction</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SubID 11.70277 0.9589465</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

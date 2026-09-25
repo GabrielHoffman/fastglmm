@@ -19,18 +19,18 @@ to fit LMMs.
 
 ## Core functions
 
-- [`fastlmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.md):
+- [`fastlmm()`](https://gabrielhoffman.github.io/fastglmm/reference/fastlmm.html):
   linear mixed model
-- [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md):
+- [`fastglmm()`](https://gabrielhoffman.github.io/fastglmm/reference/fastglmm.html):
   generalized linear mixed model
-- [`fastglmm.nb()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.nb.md):
+- [`fastglmm.nb()`](https://gabrielhoffman.github.io/fastglmm/reference/fastglmm.nb.html):
   negative binomial mixed model
 
 ## See also
 
-- [Manuscript](http://gabrielhoffman.github.io/fastglmm/articles/jss.pdf)
+- [Manuscript](https://gabrielhoffman.github.io/fastglmm/articles/jss.pdf)
   describing package, estimating algorithm and hypothesis testing.
-- [Application](http://gabrielhoffman.github.io/fastglmm/articles/nbmm.md)
+- [Application](https://gabrielhoffman.github.io/fastglmm/articles/nbmm.html)
   of negative binomial mixed model to single cell gene expression data.
 
 ## Installation
