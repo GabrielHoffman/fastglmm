@@ -70,10 +70,12 @@ inline bool isSpMatrix( const sp_mat &t) { return true; }
 
 
 // Given matrix, set entries in rows idx to zero
+[[maybe_unused]] 
 static void rows_to_zero( mat &X, const uvec &idx ){
   X.rows(idx).zeros();
 }
 
+[[maybe_unused]] 
 static void rows_to_zero( sp_mat &X, const uvec &idx ){
 
   for(auto j: idx ){
@@ -86,6 +88,7 @@ static void rows_to_zero( sp_mat &X, const uvec &idx ){
 
 
 // Return indices (0-based) of rows that contain at least one NaN
+[[maybe_unused]] 
 static uvec rows_with_nan(const mat& M) {
   std::vector<uword> nan_rows;
 
@@ -111,6 +114,7 @@ static uvec rows_with_nan(const mat& M) {
 
 
 // Return indices (0-based) of rows in sp_mat containing NaN
+[[maybe_unused]] 
 static uvec rows_with_nan(const sp_mat& M) {
 
   std::vector<uword> nan_rows;
@@ -144,7 +148,7 @@ static uvec rows_with_nan(const sp_mat& M) {
 // const T& max(const T& a, const T& b) {
 //     return (a > b) ? a : b;
 // }
-
+[[maybe_unused]] 
 static vec pmax( const vec &v, const double &value){
 
   vec tmp(v);
@@ -155,6 +159,7 @@ static vec pmax( const vec &v, const double &value){
   return tmp;
 }
 
+[[maybe_unused]] 
 static vec pmin( const vec &v, const double &value){
 
   vec tmp(v);
@@ -267,6 +272,7 @@ static void match_NAN_zeros( const mat &Y, mat &W){
   }
 }
 
+[[maybe_unused]] 
 static int count_nan( const vec &v){
   int nan_count = 0;
   for (arma::uword i = 0; i < v.n_elem; ++i) {
@@ -277,7 +283,7 @@ static int count_nan( const vec &v){
   return nan_count;
 }
 
-
+[[maybe_unused]] 
 static uvec countResponseFilter( const mat &Y, int n0, int n1){
 
   // Rcpp::Rcout << "n0: " << n0 << " n1: " << n1 << std::endl;

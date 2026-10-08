@@ -17,13 +17,14 @@ using namespace boost::math;
 /* like R::qpois(p, lambda) but threadsafe
 */
 // [[Rcpp::export]]
-double qpois_boost(const double & p, const double &lambda, const bool &lowertail=true){
+[[maybe_unused]]
+static double qpois_boost(const double & p, const double &lambda, const bool &lowertail=true){
 
   // Initialize Poisson distribution
   boost::math::poisson_distribution<double> dist(lambda);
 
   // Calculate the quantile (inverse CDF)
-  double value;
+  double value = 0;
 
   if( lowertail ){
     value = quantile(dist, p);
@@ -37,13 +38,14 @@ double qpois_boost(const double & p, const double &lambda, const bool &lowertail
 /* like R::qnbinom(p, size, prob) but threadsafe
 */
 // [[Rcpp::export]]
-double qnbinom_boost(const double & p, const double &size, const double &prob, const bool &lowertail=true){
+[[maybe_unused]]
+static double qnbinom_boost(const double & p, const double &size, const double &prob, const bool &lowertail=true){
 
   // Initialize NB distribution
   boost::math::negative_binomial_distribution<double> dist(size, prob);
 
   // Calculate the quantile (inverse CDF)
-  double value;
+  double value = 0;
 
   if( lowertail ){
     value = quantile(dist, p);
@@ -58,25 +60,45 @@ double qnbinom_boost(const double & p, const double &size, const double &prob, c
 /* like R::dpois(x, lambda) but threadsafe
 */
 // [[Rcpp::export]]
-double dpois_boost(const double & x, const double &lambda){
+[[maybe_unused]]
+static double dpois_boost(const double & x, const double &lambda, const bool &useLog=false){
 
   // Initialize Poisson distribution
   boost::math::poisson_distribution<double> dist(lambda);
 
-  // Calculate the PDF
-  return pdf(dist, x);
+  double value = 0;
+
+  if(useLog){
+    // Calculate the log PDF
+    value = logpdf(dist, x);
+  }else{
+    // Calculate the PDF
+    value = pdf(dist, x);
+ }
+
+ return value;
 }
 
 /* like R::dnbinom(x, size, prob) but threadsafe
 */
 // [[Rcpp::export]]
-double dnbinom_boost(const double & x, const double &size, const double &prob){
+[[maybe_unused]]
+static double dnbinom_boost(const double & x, const double &size, const double &prob, const bool &useLog=false){
 
   // Initialize NB distribution
   boost::math::negative_binomial_distribution<double> dist(size, prob);
 
-  // Calculate the PDF
-  return pdf(dist, x);
+  double value = 0;
+
+  if(useLog){
+    // Calculate the log PDF
+    value = logpdf(dist, x);
+  }else{
+    // Calculate the PDF
+    value = pdf(dist, x);
+ }
+
+ return value;
 }
 
 
@@ -91,7 +113,8 @@ for(int k = 0; k<y.size(); ++k){
   p(k) = dnbinom_boost(y[k], theta, prob);
 }
 */
-arma::vec dnbinom_seq_mu_theta(double mu, double theta, int qmax) {
+[[maybe_unused]]
+static arma::vec dnbinom_seq_mu_theta(double mu, double theta, int qmax) {
   arma::vec out(qmax + 1);
 
   double p = mu / (mu + theta);

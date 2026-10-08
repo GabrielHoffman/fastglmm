@@ -107,9 +107,9 @@ class spectralDecomp {
     }
 
     /** Accessor, returns right singular values */
-    mat get_V() const {
+    T get_V() const {
 
-      mat V_ret;
+      T V_ret;
 
       switch( type ){
         case GENERAL:          
@@ -124,7 +124,7 @@ class spectralDecomp {
         V_ret = V_ret.cols(idx);
       }
 
-      return V_ret;
+      return T(V_ret);
     }
 
     ZTYPE get_type() const {

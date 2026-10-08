@@ -18,11 +18,16 @@
 #endif
 
 #include "fastglmm_fit.h"
+#include "GLMMLaplace.h"
 #include "ModelFit.h"
 #include "lmmFitResponses.h"
 #include "lmmFitFeatures.h"
 #include "glmmFitResponses.h"
 #include "glmmFitFeatures.h"
+#include "nb_theta.h"
+#include "glmmFitFeatures.h"
+#include "glmmFitResponses.h"
+#include "log_moments_nb.h"
 
 
 #endif

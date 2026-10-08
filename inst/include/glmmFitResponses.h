@@ -40,7 +40,8 @@ class glmmFitResponses {
     const int &maxit = 100,
     const double &lambda = 0,
     const int &nthreads = 1,
-    const ModelDetail md = LOW);
+    const ModelDetail md = LOW,
+    const GLMM_Method &method = PQL);
 
   ModelFitGLMMList eval(
     const T1 &Y,
@@ -56,6 +57,7 @@ class glmmFitResponses {
   double lambda;
   int nthreads;
   ModelDetail md;
+  GLMM_Method method;
 
   uvec idx_drop;
   T2 X_clean;
@@ -77,7 +79,8 @@ glmmFitResponses<T1, T2, T3>::glmmFitResponses(
       const int &maxit,
       const double &lambda,
       const int &nthreads,
-      const ModelDetail md):
+      const ModelDetail md,
+      const GLMM_Method &method):
   X(X), 
   dcmp(dcmp),
   weights(weights),
@@ -89,7 +92,8 @@ glmmFitResponses<T1, T2, T3>::glmmFitResponses(
   maxit(maxit),
   lambda(lambda),
   nthreads(nthreads),
-  md(md) {
+  md(md),
+  method(method) {
 
   // find rows in X with NAN values
   idx_drop = rows_with_nan(X);  
@@ -136,7 +140,7 @@ ModelFitGLMMList
       y.elem(idx).zeros();
       w.elem(idx).zeros();
 
-      fastglmm fit = fastglmm<vec, T2, T3>(y, X_clean, dcmp_lcl, w, offset, family[j], md, tol, tol_eta, maxit, lambda);
+      fastglmm fit = fastglmm<vec, T2, T3>(y, X_clean, dcmp_lcl, w, offset, family[j], md, method, tol, tol_eta, maxit, lambda);
 
       tbb::mutex::scoped_lock myLock(myMutex); 
       result.at(j) = fit.get_result();

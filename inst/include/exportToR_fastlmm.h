@@ -92,12 +92,12 @@ const List toList(ModelFitGLMM &res){
                 Named("B.sat")        = res.B_sat);
 
   // Set U as either full or sparse matrix
-  if( res.isSet_U ) lst["U"] = res.U;
-  if( res.isSet_Usp ) lst["U"] = res.Usp;
+  if( res.isSet_U ) lst.push_back(res.U, "U");
+  if( res.isSet_Usp ) lst.push_back(res.Usp, "U");
 
   // Set V as either full or sparse matrix
-  if( res.isSet_V ) lst["V"] = res.V;
-  if( res.isSet_Vsp ) lst["V"] = res.Vsp;
+  if( res.isSet_V ) lst.push_back(res.V, "V");
+  if( res.isSet_Vsp ) lst.push_back(res.Vsp, "V");
 
   return lst;
 }

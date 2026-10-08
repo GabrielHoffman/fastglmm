@@ -23,7 +23,8 @@ using namespace std;
 #define COUNT_CEILING 1e8
 
 // Evaluate poisson pdf across many values of y using Panjer recursion
-std::pair<double, double> _log_moments_poisson_exact_fast(
+[[maybe_unused]]
+static std::pair<double, double> _log_moments_poisson_exact_fast(
       const double& m,
       const double &c = 1.0,
       const double &p_tail = 1e-4){
@@ -91,7 +92,8 @@ std::pair<double, double> _log_moments_poisson_exact_fast(
   return {ez, vz};
 }
 
-std::pair<vec, vec> _log_moments_poisson_exact_fast(
+[[maybe_unused]]
+static std::pair<vec, vec> _log_moments_poisson_exact_fast(
       const arma::vec& mu,
       const double &c = 1.0,
       const double &p_tail = 1e-4) {
@@ -115,7 +117,8 @@ std::pair<vec, vec> _log_moments_poisson_exact_fast(
 
 
 // Evaluate NB PDF for y = 0:qmax using recursion Panjer recursion
-std::pair<double, double> _log_moments_nb_exact_fast(
+[[maybe_unused]]
+static std::pair<double, double> _log_moments_nb_exact_fast(
       const double& m,
       const double &theta,
       const double &c = 1.0,
@@ -198,7 +201,8 @@ std::pair<double, double> _log_moments_nb_exact_fast(
 }
 
 
-std::tuple<vec, vec, double> _log_moments_nb_exact_fast(
+[[maybe_unused]]
+static std::tuple<vec, vec, double> _log_moments_nb_exact_fast(
       const arma::vec& mu,
       const double &theta,
       const double &c = 1.0,
@@ -230,7 +234,8 @@ std::tuple<vec, vec, double> _log_moments_nb_exact_fast(
   return {mean_out, var_out, alpha};
 }
 
-std::tuple<double, double, double> _log_moments_nb_mu(
+[[maybe_unused]]
+static std::tuple<double, double, double> _log_moments_nb_mu(
                     const vec & mu,
                     const double &theta, // overdispersion
                     const string &method,
@@ -285,7 +290,8 @@ std::tuple<double, double, double> _log_moments_nb_mu(
 
 
 /* Log Moments of NB given X, Beta, and offset */
-tuple<vec, vec, vec> _log_moments_nb_XB(
+[[maybe_unused]]
+static tuple<vec, vec, vec> _log_moments_nb_XB(
   const mat & X,
   const mat & Beta,
   const vec & offset,
@@ -330,7 +336,8 @@ tuple<vec, vec, vec> _log_moments_nb_XB(
 
 /* Log Moments of NB given BLUP, X, Beta, Z, offset */
 template <typename T> 
-tuple<vec, vec, vec> _log_moments_nb_BlupXBZ(
+[[maybe_unused]]
+static tuple<vec, vec, vec> _log_moments_nb_BlupXBZ(
   const mat & BLUP,
   const mat & X,
   const mat & Beta,
@@ -351,7 +358,7 @@ tuple<vec, vec, vec> _log_moments_nb_BlupXBZ(
   vec alpha(n_responses);
 
   uvec idx_drop = find(weights == 0.0);
-  double n_active = weights.n_elem - idx_drop.n_elem;
+  // double n_active = weights.n_elem - idx_drop.n_elem;
 
   ZTYPE type = dcmpMethod == "categorical" ? 
                 CATEGORICAL : GENERAL;
