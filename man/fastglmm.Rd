@@ -15,6 +15,7 @@ fastglmm(
   tol = 0.001,
   tol.eta = 0.001,
   doCoxReid = nrow(data) < 1000,
+  method = c("PQL", "Laplace"),
   lambda = 0,
   nthreads = 6
 )
@@ -39,6 +40,8 @@ fastglmm(
 \item{tol.eta}{convergence criterion \code{eta} in the PQL iteration}
 
 \item{doCoxReid}{use Cox-Reid correction for estimating theta in negative binomial model}
+
+\item{method}{fit estimates with penalized quasi-likelihood (\code{"PQL"}) or a Laplace approximation (\code{"Laplace"})}
 
 \item{lambda}{ridge shrinkage parameter}
 

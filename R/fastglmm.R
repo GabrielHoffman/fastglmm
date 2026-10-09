@@ -60,6 +60,7 @@ process_formula = function(formula, data){
 #' @param tol convergence criterion for the 1D search of the delta space
 #' @param tol.eta convergence criterion \code{eta} in the PQL iteration
 #' @param doCoxReid use Cox-Reid correction for estimating theta in negative binomial model
+#' @param method fit estimates with penalized quasi-likelihood (\code{"PQL"}) or a Laplace approximation (\code{"Laplace"}) 
 #' @param lambda ridge shrinkage parameter
 #' @param nthreads number of threads
 #'
@@ -88,9 +89,10 @@ process_formula = function(formula, data){
 #' @importFrom reformulas nobars
 #' @importFrom methods is
 #' @export
-fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-3, tol.eta = 1e-3, doCoxReid=nrow(data) < 1000, lambda = 0, nthreads = 6){
+fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-3, tol.eta = 1e-3, doCoxReid = nrow(data) < 1000, method = c("PQL", "Laplace"), lambda = 0, nthreads = 6){
 
 	mc <- match.call()
+	method <- match.arg(method)
 
 	# simplest way to extract data
 	formula <- as.formula(formula, env = , parent.frame(1L))
@@ -121,7 +123,6 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 		family <- get(family, mode = "function", envir = parent.frame())
   if(is.function(family)) family <- family()
   if(is.null(family$family)) {
-		print(family)
 		stop("'family' not recognized")
   }
   if( maxit < 1 ){
@@ -202,13 +203,14 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 						maxit = maxit,
 						lambda = lambda,
 						nthreads = nthreads,
-						doCoxReid = doCoxReid)
+						doCoxReid = doCoxReid,
+						method = method)
 
 	fit$s <- c(fit$s)
 	fit$Z <- Z
 
 	# format output
-	fit <- as.fastlmm(fit, design = design, offset = offset, method = "PQL")
+	fit <- as.fastlmm(fit, design = design, offset = offset, method = method)
 
   fit$response <- y
   fit$doCoxReid <- doCoxReid

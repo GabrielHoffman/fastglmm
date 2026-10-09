@@ -509,7 +509,8 @@ void fastglmm<T1, T2, T3>::_fastglmm_laplace(vec &betaInit, const bool &estimate
 	// Hessian includes sigSq_g and theta
 	// subset to just get hessian of coefficients
 	span sp(0, betaInit.n_elem-1);
-	mat vcov = inv(opt.hessian()(sp, sp));
+	// mat vcov = inv(opt.hessian()(sp, sp)); // subset first
+	mat vcov = mat(inv(opt.hessian()))(sp, sp); // inverse first
   vec se = sqrt(vcov.diag());
 
   this->mu = work->mu;
@@ -528,6 +529,11 @@ void fastglmm<T1, T2, T3>::_fastglmm_laplace(vec &betaInit, const bool &estimate
   vec r = work->z - X * beta - offset - Z * BLUP;
   double sigSq_e = dot(r,r) / r.n_elem;
   delta = sigSq_e/sigSq_g;
+
+  // BLUP.brief_print("BLUP");
+  // r.brief_print("r");
+  // Rcpp::Rcout << "sigSq_e: " << sigSq_e <<endl;
+  // Rcpp::Rcout << "var(r): " << var(r) <<endl;
 
   double rdf = y.n_elem - X.n_cols;
   fam->setOverdispersion( theta );
@@ -550,31 +556,10 @@ void fastglmm<T1, T2, T3>::_fastglmm_laplace(vec &betaInit, const bool &estimate
     };
   }
 
-  // // linearized response
-  // work->eta = X * beta + offset;
-  // work->mu = exp(work->eta);
-  // work->z = work->eta + (y - work->mu) / work->mu;
-
-	// mat Yu = dcmp.get_U().t() * work->z;
   mat Xu = dcmp.get_U().t() * X;
   mat Gamma_XX = X.t() * X - Xu.t() * Xu;
   vec inv_s_delta = 1 / (dcmp.get_s()+delta);
   mat inv_s_delta_Xu = scaleEachCol(Xu, inv_s_delta);
-
-  // mf_laplace->ru = Yu - Xu * beta - dcmp.get_U().t() * offset;
-
-  // mf_laplace->ru.brief_print("ru:");
-
-  // with PQL, BLUP is 
-  // (sqrt(s) % ru) / (s + delta_hat)
-  // we computed BLUP independently
-  // BLUP = (sqrt(s) % ru) / (s + delta_hat)
-  // so delta = ((sqrt(s) * ru) - BLUP*s ) / BLUP;
-  // vec delta_hat = ((sqrt(dcmp.get_s()) % mf_laplace->ru) - BLUP % dcmp.get_s()) / BLUP;
-
-  // delta_hat.brief_print("delta_hat:");
-
-	// Rcpp::Rcout << "delta_hat: " << mean(delta_hat) <<endl;
 
   // Precompute values for Satterthwaite DDF to be
   // used later with V and L specified

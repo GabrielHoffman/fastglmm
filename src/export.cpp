@@ -11,10 +11,6 @@
 
 #include "fastglmm.h"
 #include "exportToR_fastlmm.h"
-#include "nb_theta.h"
-#include "glmmFitFeatures.h"
-#include "glmmFitResponses.h"
-#include "log_moments_nb.h"
 
 using namespace Rcpp; 
 using namespace arma;
@@ -190,6 +186,7 @@ List fastglmm_mm(
   const arma::vec &offset,
   const std::string &family,
   const std::string &dcmpMethod,
+  const std::string &method,
   const double &delta,
   const double &left,
   const double &right,
@@ -206,8 +203,11 @@ List fastglmm_mm(
                 CATEGORICAL : GENERAL;
   spectralDecomp dcmp(U, s, type);
 
+  GLMM_Method mth = method == "PQL" ?
+                PQL : LAPLACE;
+
   // initialize
-  fastglmm fit = fastglmm<vec,mat,mat>(y, X, dcmp, weights, offset, family, md, tol, tol_eta, maxit, lambda, delta, left, right, true, doCoxReid);
+  fastglmm fit = fastglmm<vec,mat,mat>(y, X, dcmp, weights, offset, family, md, mth, tol, tol_eta, maxit, lambda, delta, left, right, true, doCoxReid);
 
   return toList(fit);
 }
@@ -226,6 +226,7 @@ List fastglmm_ms(
   const arma::vec &offset,
   const std::string &family,
   const std::string &dcmpMethod,
+  const std::string &method,
   const double &delta,
   const double &left,
   const double &right,
@@ -242,8 +243,11 @@ List fastglmm_ms(
                 CATEGORICAL : GENERAL;
   spectralDecomp dcmp(U, s, type);
 
+  GLMM_Method mth = method == "PQL" ?
+                PQL : LAPLACE;
+
   // initialize
-  fastglmm fit = fastglmm<vec,mat,sp_mat>(y, X, dcmp, weights, offset, family, md, tol, tol_eta, maxit, lambda, delta, left, right, true, doCoxReid);
+  fastglmm fit = fastglmm<vec,mat,sp_mat>(y, X, dcmp, weights, offset, family, md, mth, tol, tol_eta, maxit, lambda, delta, left, right, true, doCoxReid);
 
   return toList(fit);
 }
@@ -299,7 +303,7 @@ DataFrame log_moments_nb_mu(
 //' # regression formula
 //' form <- PTPRG ~ offset(log(libSize))
 //' 
-//' \dontrun{
+//' \donttest{
 //' # NB GLM on PTPRG expression 
 //' fit <- glm.nb(form, PsychAD)
 //' 

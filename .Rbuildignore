@@ -10,3 +10,8 @@ pkgdown
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
 Rprof.out
+inst/mediation_simulation.*
+^inst/[^/]+\.R$
+^inst/[^/]+\.Rmd$
+^inst/[^/]+\.cpp$
+^inst/[^/]+\.html$

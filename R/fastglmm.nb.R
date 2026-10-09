@@ -16,6 +16,7 @@
 #' @param tol convergence criterion for the 1D search of the delta space
 #' @param tol.eta convergence criterion \code{eta} in the PQL iteration
 #' @param doCoxReid use Cox-Reid correction for estimating theta in negative binomial model
+#' @param method fit estimates with penalized quasi-likelihood (\code{"PQL"}) or a Laplace approximation (\code{"Laplace"}) 
 #' @param lambda ridge shrinkage parameter
 #' @param nthreads number of threads
 #'
@@ -38,7 +39,9 @@
 #
 #' @importFrom MASS negative.binomial
 #' @export
-fastglmm.nb = function (formula, data, weights = NULL, maxit = 100, tol = 1e-3, tol.eta = 1e-3, doCoxReid = nrow(data) < 1000, lambda = 0, nthreads = 6){
+fastglmm.nb = function (formula, data, weights = NULL, maxit = 100, tol = 1e-3, tol.eta = 1e-3, doCoxReid = nrow(data) < 1000, method = c("PQL", "Laplace"), lambda = 0, nthreads = 6){
+
+	method <- match.arg(method)
 
 	fastglmm(formula, 
 				data = data, 
@@ -48,6 +51,7 @@ fastglmm.nb = function (formula, data, weights = NULL, maxit = 100, tol = 1e-3, 
 				tol = tol,
 				tol.eta = tol.eta,
 				doCoxReid = doCoxReid,
+				method = method, 
 				lambda = lambda,
 				nthreads = nthreads)
 }

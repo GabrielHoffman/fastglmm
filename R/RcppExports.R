@@ -21,12 +21,12 @@
     .Call('_fastglmm_nb_theta', PACKAGE = 'fastglmm', y, mu, n, weights, left, right, tol)
 }
 
-.fastglmm_mm <- function(y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid = TRUE) {
-    .Call('_fastglmm_fastglmm_mm', PACKAGE = 'fastglmm', y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid)
+.fastglmm_mm <- function(y, X, U, s, weights, offset, family, dcmpMethod, method, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid = TRUE) {
+    .Call('_fastglmm_fastglmm_mm', PACKAGE = 'fastglmm', y, X, U, s, weights, offset, family, dcmpMethod, method, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid)
 }
 
-.fastglmm_ms <- function(y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid = TRUE) {
-    .Call('_fastglmm_fastglmm_ms', PACKAGE = 'fastglmm', y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid)
+.fastglmm_ms <- function(y, X, U, s, weights, offset, family, dcmpMethod, method, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid = TRUE) {
+    .Call('_fastglmm_fastglmm_ms', PACKAGE = 'fastglmm', y, X, U, s, weights, offset, family, dcmpMethod, method, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid)
 }
 
 log_moments_nb_mu <- function(mu, theta, method, c = 1.0, p_tail = 1e-4) {
@@ -53,7 +53,7 @@ log_moments_nb_mu <- function(mu, theta, method, c = 1.0, p_tail = 1e-4) {
 #' # regression formula
 #' form <- PTPRG ~ offset(log(libSize))
 #' 
-#' \dontrun{
+#' \donttest{
 #' # NB GLM on PTPRG expression 
 #' fit <- glm.nb(form, PsychAD)
 #' 

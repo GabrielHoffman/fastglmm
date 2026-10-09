@@ -45,7 +45,7 @@ data(PsychAD)
 # regression formula
 form <- PTPRG ~ offset(log(libSize))
 
-\dontrun{
+\donttest{
 # NB GLM on PTPRG expression 
 fit <- glm.nb(form, PsychAD)
 

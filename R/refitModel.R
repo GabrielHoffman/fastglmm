@@ -72,7 +72,8 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
               maxit = 100,
               lambda = fit$lambda,
               doCoxReid = fit$doCoxReid,
-              nthreads = 1)
+              nthreads = 1,
+              method = fit$method)
 
     res$s <- c(res$s)
     res$Z <- fit$Z

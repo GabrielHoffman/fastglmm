@@ -1,4 +1,9 @@
 
+# fastglmm 0.4.22
+ - Oct 7, 2026
+ - changes for CRAN compatibility
+ - add Laplace approximation
+
 # fastglmm 0.4.16
  - Sept 22, 2026
  - update docs to pass CRAN check

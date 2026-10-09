@@ -122,8 +122,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // fastglmm_mm
-List fastglmm_mm(const arma::vec& y, const arma::mat& X, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const arma::vec& offset, const std::string& family, const std::string& dcmpMethod, const double& delta, const double& left, const double& right, const double& tol, const double& tol_eta, const int& maxit, const double& lambda, const int& nthreads, const bool& doCoxReid);
-RcppExport SEXP _fastglmm_fastglmm_mm(SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP dcmpMethodSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP tol_etaSEXP, SEXP maxitSEXP, SEXP lambdaSEXP, SEXP nthreadsSEXP, SEXP doCoxReidSEXP) {
+List fastglmm_mm(const arma::vec& y, const arma::mat& X, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const arma::vec& offset, const std::string& family, const std::string& dcmpMethod, const std::string& method, const double& delta, const double& left, const double& right, const double& tol, const double& tol_eta, const int& maxit, const double& lambda, const int& nthreads, const bool& doCoxReid);
+RcppExport SEXP _fastglmm_fastglmm_mm(SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP dcmpMethodSEXP, SEXP methodSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP tol_etaSEXP, SEXP maxitSEXP, SEXP lambdaSEXP, SEXP nthreadsSEXP, SEXP doCoxReidSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -135,6 +135,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type offset(offsetSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type family(familySEXP);
     Rcpp::traits::input_parameter< const std::string& >::type dcmpMethod(dcmpMethodSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type method(methodSEXP);
     Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
     Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
     Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
@@ -144,13 +145,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const double& >::type lambda(lambdaSEXP);
     Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
     Rcpp::traits::input_parameter< const bool& >::type doCoxReid(doCoxReidSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastglmm_mm(y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid));
+    rcpp_result_gen = Rcpp::wrap(fastglmm_mm(y, X, U, s, weights, offset, family, dcmpMethod, method, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid));
     return rcpp_result_gen;
 END_RCPP
 }
 // fastglmm_ms
-List fastglmm_ms(const arma::vec& y, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights, const arma::vec& offset, const std::string& family, const std::string& dcmpMethod, const double& delta, const double& left, const double& right, const double& tol, const double& tol_eta, const int& maxit, const double& lambda, const int& nthreads, const bool& doCoxReid);
-RcppExport SEXP _fastglmm_fastglmm_ms(SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP dcmpMethodSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP tol_etaSEXP, SEXP maxitSEXP, SEXP lambdaSEXP, SEXP nthreadsSEXP, SEXP doCoxReidSEXP) {
+List fastglmm_ms(const arma::vec& y, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights, const arma::vec& offset, const std::string& family, const std::string& dcmpMethod, const std::string& method, const double& delta, const double& left, const double& right, const double& tol, const double& tol_eta, const int& maxit, const double& lambda, const int& nthreads, const bool& doCoxReid);
+RcppExport SEXP _fastglmm_fastglmm_ms(SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP dcmpMethodSEXP, SEXP methodSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP tol_etaSEXP, SEXP maxitSEXP, SEXP lambdaSEXP, SEXP nthreadsSEXP, SEXP doCoxReidSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -162,6 +163,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type offset(offsetSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type family(familySEXP);
     Rcpp::traits::input_parameter< const std::string& >::type dcmpMethod(dcmpMethodSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type method(methodSEXP);
     Rcpp::traits::input_parameter< const double& >::type delta(deltaSEXP);
     Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
     Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
@@ -171,7 +173,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const double& >::type lambda(lambdaSEXP);
     Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
     Rcpp::traits::input_parameter< const bool& >::type doCoxReid(doCoxReidSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastglmm_ms(y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid));
+    rcpp_result_gen = Rcpp::wrap(fastglmm_ms(y, X, U, s, weights, offset, family, dcmpMethod, method, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -261,8 +263,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_fastglmm_fastlmm_sm", (DL_FUNC) &_fastglmm_fastlmm_sm, 13},
     {"_fastglmm_fastlmm_ss", (DL_FUNC) &_fastglmm_fastlmm_ss, 13},
     {"_fastglmm_nb_theta", (DL_FUNC) &_fastglmm_nb_theta, 7},
-    {"_fastglmm_fastglmm_mm", (DL_FUNC) &_fastglmm_fastglmm_mm, 17},
-    {"_fastglmm_fastglmm_ms", (DL_FUNC) &_fastglmm_fastglmm_ms, 17},
+    {"_fastglmm_fastglmm_mm", (DL_FUNC) &_fastglmm_fastglmm_mm, 18},
+    {"_fastglmm_fastglmm_ms", (DL_FUNC) &_fastglmm_fastglmm_ms, 18},
     {"_fastglmm_log_moments_nb_mu", (DL_FUNC) &_fastglmm_log_moments_nb_mu, 5},
     {"_fastglmm_log_moments_nb_XB", (DL_FUNC) &_fastglmm_log_moments_nb_XB, 8},
     {"_fastglmm_log_moments_nb_BlupXBZ", (DL_FUNC) &_fastglmm_log_moments_nb_BlupXBZ, 13},
