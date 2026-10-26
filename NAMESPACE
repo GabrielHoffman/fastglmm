@@ -46,7 +46,6 @@ export(fastglmm_R)
 export(fastglmm_R.nb)
 export(fastlmm)
 export(fastlmm.fit)
-export(fastlmm_R)
 export(getDistrVar)
 export(getFamilyString)
 export(getLambdaParam)
@@ -147,8 +146,6 @@ importFrom(stats,
   model.offset,
   model.response,
   nobs,
-  optimize,
-  pbeta,
   pchisq,
   pnorm,
   printCoefmat,
@@ -161,7 +158,6 @@ importFrom(stats,
   rnorm,
   rpois,
   runif,
-  sd,
   sigma,
   terms,
   update
