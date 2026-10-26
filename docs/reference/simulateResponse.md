@@ -49,6 +49,6 @@ Y <- simulateResponse(fitted(fit), 10, "nb", sigma(fit), getNBTheta(fit))
 
 Y[1:2, 1:3]
 #>      [,1] [,2] [,3]
-#> [1,]    2    4    0
+#> [1,]    3    0    0
 #> [2,]    0    0    0
 ```

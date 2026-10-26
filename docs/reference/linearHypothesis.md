@@ -73,6 +73,6 @@ linearHypothesis(fit, "trtdrug")
 #> Model 2: y ~ trt + I(week > 2) + (1 | ID)
 #> 
 #>   Res.Df Df      F Pr(>F)
-#> 1 124.83                 
-#> 2 123.83  1 2.3486 0.1279
+#> 1 106.31                 
+#> 2 105.31  1 2.1589 0.1447
 ```

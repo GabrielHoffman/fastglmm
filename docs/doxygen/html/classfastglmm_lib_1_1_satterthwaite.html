@@ -139,15 +139,15 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5b5a515c0fa97ec7c85d86c2ebfdc40d" id="r_a5b5a515c0fa97ec7c85d86c2ebfdc40d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5b5a515c0fa97ec7c85d86c2ebfdc40d">Satterthwaite</a> (const int &amp;n, const double &amp;sigSq_g, const double &amp;sigSq_e, const vec &amp;s, const T &amp;Xu, const mat &amp;Gamma_XX, const vec &amp;inv_s_delta, const mat &amp;inv_s_delta_Xu)</td></tr>
+<tr class="memitem:ab54f1de64a038cc3fdcd95d4fb504831" id="r_ab54f1de64a038cc3fdcd95d4fb504831"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab54f1de64a038cc3fdcd95d4fb504831">Satterthwaite</a> (const int &amp;n, const double &amp;sigSq_g, const double &amp;sigSq_e, const vec &amp;s, const T &amp;Xu, const mat &amp;Gamma_XX, const vec &amp;inv_s_delta, const mat &amp;inv_s_delta_Xu, const mat &amp;QXX, const bool &amp;REML)</td></tr>
 <tr class="memitem:ae12fbd95f38999afa2d888917f32e904" id="r_ae12fbd95f38999afa2d888917f32e904"><td class="memItemLeft">vec&#160;</td><td class="memItemRight"><a class="el" href="#ae12fbd95f38999afa2d888917f32e904">get_ddf</a> (const mat &amp;V, const mat &amp;L) const</td></tr>
 <tr class="memitem:a682700f140aa851e12d132ca97e91bbe" id="r_a682700f140aa851e12d132ca97e91bbe"><td class="memItemLeft">const mat&#160;</td><td class="memItemRight"><a class="el" href="#a682700f140aa851e12d132ca97e91bbe">get_hessian</a> () const</td></tr>
 <tr class="memitem:a70655acb0bc307fb27f86df2e3a5218a" id="r_a70655acb0bc307fb27f86df2e3a5218a"><td class="memItemLeft">const mat&#160;</td><td class="memItemRight"><a class="el" href="#a70655acb0bc307fb27f86df2e3a5218a">get_A</a> () const</td></tr>
 <tr class="memitem:a76d4e60b13529a954b85d37dd093c6c2" id="r_a76d4e60b13529a954b85d37dd093c6c2"><td class="memItemLeft">const mat&#160;</td><td class="memItemRight"><a class="el" href="#a76d4e60b13529a954b85d37dd093c6c2">get_B</a> () const</td></tr>
 </table>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5b5a515c0fa97ec7c85d86c2ebfdc40d" name="a5b5a515c0fa97ec7c85d86c2ebfdc40d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b5a515c0fa97ec7c85d86c2ebfdc40d">&#9670;&#160;</a></span>Satterthwaite()</h2>
+<a id="ab54f1de64a038cc3fdcd95d4fb504831" name="ab54f1de64a038cc3fdcd95d4fb504831"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab54f1de64a038cc3fdcd95d4fb504831">&#9670;&#160;</a></span>Satterthwaite()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,7 +192,17 @@ template&lt;typename T&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>inv_s_delta_Xu</em></span>&#160;)</td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>inv_s_delta_Xu</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const mat &amp;</td>          <td class="paramname"><span class="paramname"><em>QXX</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>REML</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

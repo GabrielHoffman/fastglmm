@@ -1,5 +1,26 @@
 # Changelog
 
+## fastglmm 0.4.23
+
+- Oct 26, 2026
+- pass CRAN checks
+- `REML = TRUE` default for
+  [`fastlmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.md)
+  and
+  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
+- `doCoxReid = TRUE` default for
+  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
+  and
+  [`fastglmm.nb()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.nb.md)
+
+## fastglmm 0.4.22
+
+- Oct 16, 2026
+- Add REML to
+  [`fastlmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.md)
+  and
+  [`fastglmm()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm.md)
+
 ## fastglmm 0.4.16
 
 - Sept 22, 2026

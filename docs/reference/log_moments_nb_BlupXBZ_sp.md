@@ -107,5 +107,5 @@ log_moments_nb_BlupXBZ_sp(
   dcmpMethod = "categorical"
   )
 #>   var.signal var.noise     alpha
-#> 1 0.05916934 0.4083839 0.4384918
+#> 1 0.05857858 0.4090961 0.4377018
 ```

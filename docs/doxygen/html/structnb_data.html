@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="Doxygen Awesome" />
 <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
 <!-- END twitter metadata -->
-<title>fastglmm: nbData Struct Reference</title>
+<title>fastglmm: nbData&lt; T &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structnb_data-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">nbData Struct Reference</div></div>
+  <div class="headertitle"><div class="title">nbData&lt; T &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -136,31 +136,35 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abc1985719b35b256291e8716eaf7edef" id="r_abc1985719b35b256291e8716eaf7edef"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abc1985719b35b256291e8716eaf7edef">nbData</a> ()</td></tr>
-<tr class="memitem:ae76d4245e368ddf8076103e4248fc84b" id="r_ae76d4245e368ddf8076103e4248fc84b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae76d4245e368ddf8076103e4248fc84b">nbData</a> (const vec &amp;y, const vec &amp;mu, const double &amp;n, const vec &amp;weights, const mat &amp;X, const bool &amp;doCoxReid, const <a class="el" href="nb__theta_8h.html#a9cdc304469f800a940be5189b1301b3b">CountTable</a> &amp;ct={})</td></tr>
+<tr class="memitem:a810af03dae22c019d2ec158843462550" id="r_a810af03dae22c019d2ec158843462550"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a810af03dae22c019d2ec158843462550">nbData</a> ()</td></tr>
+<tr class="memitem:af8909d7ae11272f9ae0310f8db270850" id="r_af8909d7ae11272f9ae0310f8db270850"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af8909d7ae11272f9ae0310f8db270850">nbData</a> (const vec &amp;y, const vec &amp;mu, const double &amp;n, const vec &amp;weights, const mat &amp;X, <a class="el" href="classfastglmm_lib_1_1spectral_decomp.html">spectralDecomp</a>&lt; T &gt; &amp;dcmp={}, const double &amp;sigSq_g=0.0, const bool &amp;doCoxReid=true, const <a class="el" href="nb__theta_8h.html#a9cdc304469f800a940be5189b1301b3b">CountTable</a> &amp;ct={})</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a02738edf2fbccb499e40192ab039f2db" id="r_a02738edf2fbccb499e40192ab039f2db"><td class="memItemLeft">vec&#160;</td><td class="memItemRight"><a class="el" href="#a02738edf2fbccb499e40192ab039f2db">y</a></td></tr>
-<tr class="memitem:a1e9990688a22c8c856decd23ac2befee" id="r_a1e9990688a22c8c856decd23ac2befee"><td class="memItemLeft">vec&#160;</td><td class="memItemRight"><a class="el" href="#a1e9990688a22c8c856decd23ac2befee">mu</a></td></tr>
-<tr class="memitem:a550cb9067e366207c2d34f000543186d" id="r_a550cb9067e366207c2d34f000543186d"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a550cb9067e366207c2d34f000543186d">n</a></td></tr>
-<tr class="memitem:a6bce5c498b3959a767ecfef9fcde716a" id="r_a6bce5c498b3959a767ecfef9fcde716a"><td class="memItemLeft">vec&#160;</td><td class="memItemRight"><a class="el" href="#a6bce5c498b3959a767ecfef9fcde716a">weights</a></td></tr>
-<tr class="memitem:a57e92ce968bcb38bd7dd1f96028b80e1" id="r_a57e92ce968bcb38bd7dd1f96028b80e1"><td class="memItemLeft">mat&#160;</td><td class="memItemRight"><a class="el" href="#a57e92ce968bcb38bd7dd1f96028b80e1">X</a></td></tr>
-<tr class="memitem:aba34cf86257a6a45ea41cb01953e19fe" id="r_aba34cf86257a6a45ea41cb01953e19fe"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aba34cf86257a6a45ea41cb01953e19fe">doCoxReid</a></td></tr>
-<tr class="memitem:ad06a44c8093a3ac72d9565185dea1513" id="r_ad06a44c8093a3ac72d9565185dea1513"><td class="memItemLeft"><a class="el" href="nb__theta_8h.html#a9cdc304469f800a940be5189b1301b3b">CountTable</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad06a44c8093a3ac72d9565185dea1513">ct</a></td></tr>
+<tr class="memitem:a29234851efa7f72653091dccf3cbec3b" id="r_a29234851efa7f72653091dccf3cbec3b"><td class="memItemLeft">vec&#160;</td><td class="memItemRight"><a class="el" href="#a29234851efa7f72653091dccf3cbec3b">y</a></td></tr>
+<tr class="memitem:abb67513a5005b6ed4479fe8a0d001767" id="r_abb67513a5005b6ed4479fe8a0d001767"><td class="memItemLeft">vec&#160;</td><td class="memItemRight"><a class="el" href="#abb67513a5005b6ed4479fe8a0d001767">mu</a></td></tr>
+<tr class="memitem:ae4abaf696b23be6e33068dcf348ff810" id="r_ae4abaf696b23be6e33068dcf348ff810"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#ae4abaf696b23be6e33068dcf348ff810">n</a></td></tr>
+<tr class="memitem:a6b0f4e53d96d69e17e67e6e2bd676ae4" id="r_a6b0f4e53d96d69e17e67e6e2bd676ae4"><td class="memItemLeft">vec&#160;</td><td class="memItemRight"><a class="el" href="#a6b0f4e53d96d69e17e67e6e2bd676ae4">weights</a></td></tr>
+<tr class="memitem:a95e64bb0b51ce6f2946181f96bdf957a" id="r_a95e64bb0b51ce6f2946181f96bdf957a"><td class="memItemLeft">mat&#160;</td><td class="memItemRight"><a class="el" href="#a95e64bb0b51ce6f2946181f96bdf957a">X</a></td></tr>
+<tr class="memitem:afc9673d3fa1f6184fb8864f610715515" id="r_afc9673d3fa1f6184fb8864f610715515"><td class="memItemLeft"><a class="el" href="classfastglmm_lib_1_1spectral_decomp.html">spectralDecomp</a>&lt; T &gt;&#160;</td><td class="memItemRight"><a class="el" href="#afc9673d3fa1f6184fb8864f610715515">dcmp</a></td></tr>
+<tr class="memitem:abf396f7f8c1fc7f68375faf07d877707" id="r_abf396f7f8c1fc7f68375faf07d877707"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#abf396f7f8c1fc7f68375faf07d877707">sigSq_g</a></td></tr>
+<tr class="memitem:aa67b26d04046ab60801986da76dfe4a4" id="r_aa67b26d04046ab60801986da76dfe4a4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa67b26d04046ab60801986da76dfe4a4">doCoxReid</a></td></tr>
+<tr class="memitem:a7c0f65ce9894bfa5983b102e6bebbaab" id="r_a7c0f65ce9894bfa5983b102e6bebbaab"><td class="memItemLeft"><a class="el" href="nb__theta_8h.html#a9cdc304469f800a940be5189b1301b3b">CountTable</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7c0f65ce9894bfa5983b102e6bebbaab">ct</a></td></tr>
 </table>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="abc1985719b35b256291e8716eaf7edef" name="abc1985719b35b256291e8716eaf7edef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc1985719b35b256291e8716eaf7edef">&#9670;&#160;</a></span>nbData() <span class="overload">[1/2]</span></h2>
+<a id="a810af03dae22c019d2ec158843462550" name="a810af03dae22c019d2ec158843462550"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a810af03dae22c019d2ec158843462550">&#9670;&#160;</a></span>nbData() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">nbData::nbData </td>
+          <td class="memname"><a class="el" href="structnb_data.html">nbData</a>&lt; T &gt;::nbData </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -175,17 +179,19 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae76d4245e368ddf8076103e4248fc84b" name="ae76d4245e368ddf8076103e4248fc84b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae76d4245e368ddf8076103e4248fc84b">&#9670;&#160;</a></span>nbData() <span class="overload">[2/2]</span></h2>
+<a id="af8909d7ae11272f9ae0310f8db270850" name="af8909d7ae11272f9ae0310f8db270850"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8909d7ae11272f9ae0310f8db270850">&#9670;&#160;</a></span>nbData() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">nbData::nbData </td>
+          <td class="memname"><a class="el" href="structnb_data.html">nbData</a>&lt; T &gt;::nbData </td>
           <td>(</td>
           <td class="paramtype">const vec &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
         </tr>
@@ -212,7 +218,17 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>doCoxReid</em></span>, </td>
+          <td class="paramtype"><a class="el" href="classfastglmm_lib_1_1spectral_decomp.html">spectralDecomp</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>dcmp</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;</td>          <td class="paramname"><span class="paramname"><em>sigSq_g</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>doCoxReid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -230,98 +246,144 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="ad06a44c8093a3ac72d9565185dea1513" name="ad06a44c8093a3ac72d9565185dea1513"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad06a44c8093a3ac72d9565185dea1513">&#9670;&#160;</a></span>ct</h2>
+<a id="a7c0f65ce9894bfa5983b102e6bebbaab" name="a7c0f65ce9894bfa5983b102e6bebbaab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c0f65ce9894bfa5983b102e6bebbaab">&#9670;&#160;</a></span>ct</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="nb__theta_8h.html#a9cdc304469f800a940be5189b1301b3b">CountTable</a> nbData::ct</td>
+          <td class="memname"><a class="el" href="nb__theta_8h.html#a9cdc304469f800a940be5189b1301b3b">CountTable</a> <a class="el" href="structnb_data.html">nbData</a>&lt; T &gt;::ct</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aba34cf86257a6a45ea41cb01953e19fe" name="aba34cf86257a6a45ea41cb01953e19fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba34cf86257a6a45ea41cb01953e19fe">&#9670;&#160;</a></span>doCoxReid</h2>
+<a id="afc9673d3fa1f6184fb8864f610715515" name="afc9673d3fa1f6184fb8864f610715515"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc9673d3fa1f6184fb8864f610715515">&#9670;&#160;</a></span>dcmp</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool nbData::doCoxReid</td>
+          <td class="memname"><a class="el" href="classfastglmm_lib_1_1spectral_decomp.html">spectralDecomp</a>&lt;T&gt; <a class="el" href="structnb_data.html">nbData</a>&lt; T &gt;::dcmp</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a1e9990688a22c8c856decd23ac2befee" name="a1e9990688a22c8c856decd23ac2befee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e9990688a22c8c856decd23ac2befee">&#9670;&#160;</a></span>mu</h2>
+<a id="aa67b26d04046ab60801986da76dfe4a4" name="aa67b26d04046ab60801986da76dfe4a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa67b26d04046ab60801986da76dfe4a4">&#9670;&#160;</a></span>doCoxReid</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">vec nbData::mu</td>
+          <td class="memname">bool <a class="el" href="structnb_data.html">nbData</a>&lt; T &gt;::doCoxReid</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a550cb9067e366207c2d34f000543186d" name="a550cb9067e366207c2d34f000543186d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a550cb9067e366207c2d34f000543186d">&#9670;&#160;</a></span>n</h2>
+<a id="abb67513a5005b6ed4479fe8a0d001767" name="abb67513a5005b6ed4479fe8a0d001767"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb67513a5005b6ed4479fe8a0d001767">&#9670;&#160;</a></span>mu</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">double nbData::n</td>
+          <td class="memname">vec <a class="el" href="structnb_data.html">nbData</a>&lt; T &gt;::mu</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a6bce5c498b3959a767ecfef9fcde716a" name="a6bce5c498b3959a767ecfef9fcde716a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bce5c498b3959a767ecfef9fcde716a">&#9670;&#160;</a></span>weights</h2>
+<a id="ae4abaf696b23be6e33068dcf348ff810" name="ae4abaf696b23be6e33068dcf348ff810"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4abaf696b23be6e33068dcf348ff810">&#9670;&#160;</a></span>n</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">vec nbData::weights</td>
+          <td class="memname">double <a class="el" href="structnb_data.html">nbData</a>&lt; T &gt;::n</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a57e92ce968bcb38bd7dd1f96028b80e1" name="a57e92ce968bcb38bd7dd1f96028b80e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57e92ce968bcb38bd7dd1f96028b80e1">&#9670;&#160;</a></span>X</h2>
+<a id="abf396f7f8c1fc7f68375faf07d877707" name="abf396f7f8c1fc7f68375faf07d877707"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf396f7f8c1fc7f68375faf07d877707">&#9670;&#160;</a></span>sigSq_g</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">mat nbData::X</td>
+          <td class="memname">double <a class="el" href="structnb_data.html">nbData</a>&lt; T &gt;::sigSq_g</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a02738edf2fbccb499e40192ab039f2db" name="a02738edf2fbccb499e40192ab039f2db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02738edf2fbccb499e40192ab039f2db">&#9670;&#160;</a></span>y</h2>
+<a id="a6b0f4e53d96d69e17e67e6e2bd676ae4" name="a6b0f4e53d96d69e17e67e6e2bd676ae4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b0f4e53d96d69e17e67e6e2bd676ae4">&#9670;&#160;</a></span>weights</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">vec nbData::y</td>
+          <td class="memname">vec <a class="el" href="structnb_data.html">nbData</a>&lt; T &gt;::weights</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a95e64bb0b51ce6f2946181f96bdf957a" name="a95e64bb0b51ce6f2946181f96bdf957a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95e64bb0b51ce6f2946181f96bdf957a">&#9670;&#160;</a></span>X</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">mat <a class="el" href="structnb_data.html">nbData</a>&lt; T &gt;::X</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a29234851efa7f72653091dccf3cbec3b" name="a29234851efa7f72653091dccf3cbec3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29234851efa7f72653091dccf3cbec3b">&#9670;&#160;</a></span>y</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">vec <a class="el" href="structnb_data.html">nbData</a>&lt; T &gt;::y</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -11,6 +11,10 @@ nb_theta(
   mu,
   n,
   weights,
+  X = NULL,
+  Z = NULL,
+  sigSq_g = 0,
+  doCoxReid = TRUE,
   left = -10,
   right = 20,
   tol = .Machine$double.eps^0.25
@@ -34,6 +38,22 @@ nb_theta(
 - weights:
 
   sample weights. If missing, set to 1
+
+- X:
+
+  fixed effects design matrix
+
+- Z:
+
+  random effects design matrix
+
+- sigSq_g:
+
+  variance component estimate
+
+- doCoxReid:
+
+  use Cox-Reid correction
 
 - left:
 

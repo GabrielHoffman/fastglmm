@@ -33,5 +33,5 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
    family = binomial(), data = bacteria)
 
 df.residual(fit)
-#> [1] 189.1797
+#> [1] 188.1941
 ```

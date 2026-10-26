@@ -127,7 +127,7 @@ link function.
 The variance implied by the link function is the variance of the
 corresponding distribution (Nakagawa, et al. 2013, 2017)
 
-logit -\> logistic distribution -\> variance is \\\pi^\frac{2}{3}\\
+logit -\> logistic distribution -\> variance is \\(\pi^\frac{2}{3}\\)
 
 probit -\> standard normal distribution -\> variance is 1
 
@@ -162,5 +162,5 @@ fit = fastglmm(y ~ trt + I(week > 2) + (1 | ID),
 
 varpart(fit)
 #>         trt I(week > 2)          ID   Residuals 
-#>  0.03695010  0.08324405  0.26113134  0.61867451 
+#>  0.03586209  0.08115095  0.28229486  0.60069210 
 ```

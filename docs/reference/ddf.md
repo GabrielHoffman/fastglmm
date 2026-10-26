@@ -37,7 +37,7 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
 # denominator degrees of freedom 
 # used for hypothesis testing below
 ddf(fit)
-#> [1] 267.0785 123.8255 131.7683 485.7446
+#> [1] 223.7220 105.3093 111.5378 490.2091
 
 # summarize fit
 summary(fit)
@@ -47,17 +47,17 @@ summary(fit)
 #> 
 #> Coefficients:
 #>                 Estimate Std. Error    df t value Pr(>|t|)    
-#> (Intercept)       3.4127     0.6553 267.1   5.208 3.82e-07 ***
-#> trtdrug          -1.2476     0.8141 123.8  -1.533 0.127950    
-#> trtdrug+         -0.7545     0.8157 131.8  -0.925 0.356663    
-#> I(week > 2)TRUE  -1.6076     0.4527 485.7  -3.551 0.000421 ***
+#> (Intercept)       3.4756     0.6844 223.7  5.0785 8.01e-07 ***
+#> trtdrug          -1.2652     0.8610 105.3 -1.4693 0.144726    
+#> trtdrug+         -0.7730     0.8612 111.5 -0.8976 0.371328    
+#> I(week > 2)TRUE  -1.6363     0.4600 490.2 -3.5574 0.000411 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
-#> Residual df: 189.2 
+#> Residual df: 188.2 
 #> 
 #> Variance components:
-#>   sigSq_g: 1.993
-#>   sigSq_e: 5.117
-#>   delta:   2.568
+#>   sigSq_g: 2.29
+#>   sigSq_e: 5.22
+#>   delta:   2.28
 ```

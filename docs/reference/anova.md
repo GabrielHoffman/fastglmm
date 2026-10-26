@@ -40,10 +40,10 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
 
 anova(fit)
 #> Analysis of Variance Table
-#>             df1    df2       F    Pr(>F)    
-#> (Intercept)   1 267.08 27.1231 3.817e-07 ***
-#> trt           2 127.67  1.2049 0.3031001    
-#> I(week > 2)   1 485.74 12.6088 0.0004213 ***
+#>             df1    df2      F   Pr(>F)    
+#> (Intercept)   1 223.72 25.791 8.01e-07 ***
+#> trt           2 108.33  1.111 0.332967    
+#> I(week > 2)   1 490.21 12.655 0.000411 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ```

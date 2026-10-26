@@ -33,5 +33,5 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
    family = binomial(), data = bacteria)
 
 cooks.distance(fit)[1:3]
-#> [1] 3.584243e-05 3.584243e-05 9.727595e-04
+#> [1] 0.0000317984 0.0000317984 0.0009411951
 ```

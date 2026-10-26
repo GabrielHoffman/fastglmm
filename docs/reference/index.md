@@ -109,12 +109,3 @@
   : Array of variance component estimates
 - [`negative.binomial()`](http://gabrielhoffman.github.io/fastglmm/reference/negative.binomial.md)
   : Family function for Negative Binomial GLMs
-
-## Pure R Implementations (for intuition only)
-
-- [`fastlmm_R()`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm_R.md)
-  : Fit linear mixed model using SVD of covariance
-- [`fastglmm_R()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm_R.md)
-  : Fit generalized linear mixed model via PQL
-- [`fastglmm_R.nb()`](http://gabrielhoffman.github.io/fastglmm/reference/fastglmm_R.nb.md)
-  : Fit negative binomial mixed model via PQL

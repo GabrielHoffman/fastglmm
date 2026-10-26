@@ -73,11 +73,11 @@ fit <- fastglmm.nb(form, PsychAD[seq(5000),])
 # Power analysis
 powerNBMM(fit = fit, beta = .1, sd_x= 0.5)
 #>          N        f   lambda     power lambda.asymp.m lambda.asymp.mu
-#> SubID 5000 1.389492 17.36865 0.9863642        16.6556        17.28437
+#> SubID 5000 1.311111 16.38888 0.9816171       15.72098        16.31384
 #>       power.asymp.m power.asymp.mu  N.1   m     mu beta   sigSq.a  theta sd_x
-#> SubID      0.983046       0.986007 5000 250 1.1454  0.1 0.6993319 0.2372  0.5
+#> SubID     0.9775187      0.9811948 5000 250 1.1454  0.1 0.7421914 0.2349  0.5
 #>       alpha   kappa.m  kappa.mu n_measurements m.mean        rho    m.eff
-#> SubID  0.05 0.9589465 0.9951476             20    250 0.08544984 11.22233
+#> SubID  0.05 0.9592463 0.9954213             20    250 0.08604907 11.14767
 #>          m.max  fraction
-#> SubID 11.70277 0.9589465
+#> SubID 11.62128 0.9592463
 ```

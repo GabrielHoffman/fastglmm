@@ -10,12 +10,13 @@ fastglmm.nb(
   formula,
   data,
   weights = NULL,
-  maxit = 100,
+  maxit = 1000,
   tol = 0.001,
   tol.eta = 0.001,
-  doCoxReid = nrow(data) < 1000,
+  doCoxReid = TRUE,
   lambda = 0,
-  nthreads = 6
+  nthreads = 6,
+  REML = TRUE
 )
 ```
 
@@ -62,6 +63,10 @@ fastglmm.nb(
 
   number of threads
 
+- REML:
+
+  use REML or ML estimates (default to `FALSE`)
+
 ## Value
 
 model fit of class fastglmm
@@ -78,8 +83,8 @@ form <- PTPRG ~ (1|SubID) + offset(log(libSize))
 # NB GLMM on PTPRG expression via PQL
 fit1 <- fastglmm.nb(form, PsychAD)
 coef(summary(fit1))
-#>              Estimate Std. Error    df   t value      Pr(>|t|)
-#> (Intercept) -8.638731 0.04585474 148.2 -188.3934 2.647753e-178
+#>              Estimate Std. Error     df   t value    Pr(>|t|)
+#> (Intercept) -8.638961 0.04615011 150.31 -187.1927 5.4754e-180
 
 # NB GLMM via Laplace approximation
 # fit2 <- lme4::glmer.nb(form, PsychAD)

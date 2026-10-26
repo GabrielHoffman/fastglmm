@@ -54,6 +54,7 @@ the same as using `lme4::lmer(..., REML=FALSE)`.
 \
 `fit`` ``<-`` `[`fastlmm`](http://gabrielhoffman.github.io/fastglmm/reference/fastlmm.md)`(``Reaction`` ``~`` ``Days`` ``+`` ``(``1`` ``|`` ``Subject``)``, ``sleepstudy``)`\
 \
+[`summary`](https://rdrr.io/r/base/summary.html)`(``fit``)`\
 `fit`\
 `#> `\
 `#> Call:`\
@@ -64,22 +65,22 @@ the same as using `lme4::lmer(..., REML=FALSE)`.
 `#>      251.41        10.47`\
 \
 [`summary`](https://rdrr.io/r/base/summary.html)`(``fit``)`\
-`#> Linear mixed model fit by ML ['fastlmm']`\
+`#> Linear mixed model fit by REML ['fastlmm']`\
 `#>  Formula: Reaction ~ Days + (1 | Subject)`\
 `#> `\
 `#> Coefficients:`\
-`#>             Estimate Std. Error   ddf t value Pr(>|t|)    `\
-`#> (Intercept) 251.4051     9.5062  24.5   26.45   <2e-16 ***`\
-`#> Days         10.4673     0.8017 162.0   13.06   <2e-16 ***`\
+`#>             Estimate Std. Error     df t value Pr(>|t|)    `\
+`#> (Intercept) 251.4051     9.7467  22.62   25.79   <2e-16 ***`\
+`#> Days         10.4673     0.8042 161.00   13.02   <2e-16 ***`\
 `#> ---`\
 `#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1`\
 `#> `\
-`#> Residual df: 162.2 `\
+`#> Residual df: 162.1 `\
 `#> `\
 `#> Variance components:`\
-`#>   sigSq_g: 1297`\
-`#>   sigSq_e: 954.5`\
-`#>   delta:   0.736`
+`#>   sigSq_g: 1378`\
+`#>   sigSq_e: 960.5`\
+`#>   delta:   0.6969`
 
 ## Implementation details
 
@@ -97,4 +98,4 @@ the same as using `lme4::lmer(..., REML=FALSE)`.
   [RcppParallel](https://cran.r-project.org/package=RcppParallel)
 - Implemented in C++17
 
-### See header-only C++ library [documentation](http://gabrielhoffman.github.io/fastglmm/doxygen/html/index.md)
+### See header-only C++ library [documentation](https://gabrielhoffman.github.io/fastglmm/doxygen/html/index.html)

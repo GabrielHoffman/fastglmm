@@ -35,12 +35,12 @@ meff(fit)
 In a repeated measures model with multiple correlated measurements per
 subject, Lui and Liang (1997) define a formula for the effect number of
 \_independent\_ measurements per subject (m.eff): \$\$ m\_\text{eff} = m
-/ (1+(m-1)\rho) \$\$ where \\m\\ is the mean number of measurements per
-subject, and \\\rho\\ is the intra-class correlation indicating the
-correlation between measurements within the same subject.
+/ (1+(m-1)\rho) \$\$ where \\(m\\) is the mean number of measurements
+per subject, and \\(\rho\\) is the intra-class correlation indicating
+the correlation between measurements within the same subject.
 
-Increasing \\m\\ has diminishing returns and as \\m\\ increases,
-\\m\_\text{eff}\\ converges to \\1/\rho\\.
+Increasing \\(m\\) has diminishing returns and as \\(m\\) increases,
+\\(m\_\text{eff}\\) converges to \\(1/\rho\\).
 
 ## References
 
@@ -64,6 +64,6 @@ fit <- fastglmm.nb(form, PsychAD)
 
 # effective number of independent measurements per subject
 meff(fit)
-#>     m.mean        rho   m.eff    m.max  fraction
-#> 1 202.9564 0.09930312 9.63939 10.07018 0.9572215
+#>     m.mean        rho    m.eff    m.max  fraction
+#> 1 202.9564 0.09833771 9.729486 10.16904 0.9567754
 ```

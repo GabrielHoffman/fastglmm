@@ -36,5 +36,5 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
    family = binomial(), data = bacteria)
 
 sigma(fit)
-#> [1] 2.262139
+#> [1] 2.284632
 ```

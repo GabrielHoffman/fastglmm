@@ -30,5 +30,5 @@ form <- PTPRG ~ (1|SubID) + offset(log(libSize))
 fit <- fastglmm.nb(form, PsychAD)
 
 getNBTheta(fit)
-#> [1] 0.2445
+#> [1] 0.2413
 ```

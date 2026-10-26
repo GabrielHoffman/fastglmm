@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fastglmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.20</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.23</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,12 +50,13 @@
 <span>  weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  delta <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  delta.range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span>,</span>
-<span>  maxit <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  maxit <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>  tol <span class="op">=</span> <span class="fl">0.001</span>,</span>
 <span>  tol.eta <span class="op">=</span> <span class="fl">0.001</span>,</span>
-<span>  doCoxReid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">1000</span>,</span>
+<span>  doCoxReid <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  lambda <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  nthreads <span class="op">=</span> <span class="fl">6</span></span>
+<span>  nthreads <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>  REML <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -110,10 +111,23 @@
 <dt id="arg-nthreads">nthreads<a class="anchor" aria-label="anchor" href="#arg-nthreads"></a></dt>
 <dd><p>number of threads</p></dd>
 
+
+<dt id="arg-reml">REML<a class="anchor" aria-label="anchor" href="#arg-reml"></a></dt>
+<dd><p>use REML or ML estimates (default to <code>FALSE</code>)</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>model fit object of class fastglmm</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Parameters are estimated using penalized quasi-likelihood (PQL) (Breslow and Clayton, 1993).  See Maestrini, et al (2026) for an examination of REML in the context of generalized linear mixed models</p>
+    </div>
+    <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+    <p>Breslow, N.E. and Clayton, D.G. (1993). Approximate inference in generalized linear mixed models. Journal of the American statistical Association, 88(421), pp.9-25. <a href="https://doi.org/10.1080/01621459.1993.10594284" class="external-link">doi:10.1080/01621459.1993.10594284</a></p>
+<p>Maestrini, L., Hui, F.K. and Welsh, A.H., (2026). Restricted maximum likelihood estimation in generalized linear mixed models. Statistical Science, 41(3) 615-636 <a href="https://doi.org/10.1214/25-STS995" class="external-link">doi:10.1214/25-STS995</a></p>
     </div>
 
     <div class="section level2">
@@ -145,11 +159,11 @@
 <span class="r-in"><span><span class="va">fit</span> <span class="op">=</span> <span class="fu">fastglmm</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">trt</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">week</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">ID</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">binomial</a></span><span class="op">(</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">bacteria</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   Estimate Std. Error    df    t value     Pr(&gt;|t|)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      3.4127450  0.6552910 267.1  5.2079839 3.817213e-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> trtdrug         -1.2475583  0.8140663 123.8 -1.5325020 1.279496e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> trtdrug+        -0.7545406  0.8157308 131.8 -0.9249872 3.566634e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> I(week &gt; 2)TRUE -1.6075955  0.4527311 485.7 -3.5508840 4.213332e-04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  Estimate Std. Error     df    t value     Pr(&gt;|t|)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)      3.475641  0.6843895 223.72  5.0784541 8.010499e-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> trtdrug         -1.265157  0.8610477 105.31 -1.4693228 1.447264e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> trtdrug+        -0.773049  0.8612327 111.54 -0.8976075 3.713283e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> I(week &gt; 2)TRUE -1.636336  0.4599847 490.21 -3.5573703 4.109830e-04</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

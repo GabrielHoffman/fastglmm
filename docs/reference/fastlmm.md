@@ -1,7 +1,7 @@
 # Fast Linear Mixed Model with 1 Random Effect
 
-Fit a linear mixed-effects model with 1 random effect with REML or
-maximum likelihood using the very fast algorithm and implementation
+Fit a linear mixed-effects model with 1 random effect with maximum
+likelihood or REML using the very fast algorithm and implementation
 
 ## Usage
 
@@ -9,13 +9,13 @@ maximum likelihood using the very fast algorithm and implementation
 fastlmm(
   formula,
   data,
-  REML = FALSE,
   delta = NULL,
   weights = NULL,
   delta.range = c(-10, 10),
   tol = 1e-06,
   nthreads = 6,
-  lambda = 0
+  lambda = 0,
+  REML = TRUE
 )
 ```
 
@@ -32,11 +32,6 @@ fastlmm(
 - data:
 
   an optional data frame containing the variables named in
-
-- REML:
-
-  logical scalar - Should the estimates be chosen to optimize the REML
-  criterion vs ML?
 
 - delta:
 
@@ -65,6 +60,10 @@ fastlmm(
 - lambda:
 
   ridge shrinkage parameter
+
+- REML:
+
+  use REML or ML estimates (default to `TRUE`)
 
 ## Value
 
@@ -109,27 +108,27 @@ fit
 #> 
 
 summary(fit)
-#> Linear mixed model fit by ML ['fastlmm']
+#> Linear mixed model fit by REML ['fastlmm']
 #>  Formula: Reaction ~ Days + (1 | Subject)
 #> 
 #> Coefficients:
-#>             Estimate Std. Error    df t value Pr(>|t|)    
-#> (Intercept) 251.4051     9.5062  24.5   26.45   <2e-16 ***
-#> Days         10.4673     0.8017 162.0   13.06   <2e-16 ***
+#>             Estimate Std. Error     df t value Pr(>|t|)    
+#> (Intercept) 251.4051     9.7467  22.62   25.79   <2e-16 ***
+#> Days         10.4673     0.8042 161.00   13.02   <2e-16 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
-#> Residual df: 162.2 
+#> Residual df: 162.1 
 #> 
 #> Variance components:
-#>   sigSq_g: 1297
-#>   sigSq_e: 954.5
-#>   delta:   0.736
+#>   sigSq_g: 1378
+#>   sigSq_e: 960.5
+#>   delta:   0.6969
 
-# results are identical for lmer(...,REML=FALSE)
-fit2 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML = FALSE)
+# results are identical for lmer()
+fit2 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy)
 coef(summary(fit2))
 #>              Estimate Std. Error  t value
-#> (Intercept) 251.40510  9.5061852 26.44648
-#> Days         10.46729  0.8017354 13.05579
+#> (Intercept) 251.40510  9.7467163 25.79383
+#> Days         10.46729  0.8042214 13.01543
 ```

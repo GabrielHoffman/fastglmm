@@ -33,5 +33,5 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
    family = binomial(), data = bacteria)
 
 edf(fit)
-#> [1] 30.82029
+#> [1] 31.8059
 ```

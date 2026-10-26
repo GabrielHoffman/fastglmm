@@ -33,5 +33,5 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
    family = binomial(), data = bacteria)
 
 rstudent(fit)[1:3]
-#> [1] 0.08303838 0.08303838 0.18942957
+#> [1] 0.07810746 0.07810746 0.18136513
 ```

@@ -10,14 +10,14 @@ fastlmm.fit(
   X,
   Z,
   offset = NULL,
-  REML = FALSE,
   delta = NULL,
   rank = ncol(Z),
   weights = NULL,
   delta.range = c(-10, 10),
   tol = 1e-06,
   lambda = 0,
-  nthreads = 6
+  nthreads = 6,
+  REML = TRUE
 )
 ```
 
@@ -38,11 +38,6 @@ fastlmm.fit(
 - offset:
 
   offset
-
-- REML:
-
-  logical scalar - Should the estimates be chosen to optimize the REML
-  criterion vs ML?
 
 - delta:
 
@@ -77,6 +72,10 @@ fastlmm.fit(
 - nthreads:
 
   number of threads
+
+- REML:
+
+  use REML or ML estimates (default to `TRUE`)
 
 ## Value
 

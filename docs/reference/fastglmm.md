@@ -13,12 +13,13 @@ fastglmm(
   weights = NULL,
   delta = NULL,
   delta.range = c(-10, 10),
-  maxit = 100,
+  maxit = 1000,
   tol = 0.001,
   tol.eta = 0.001,
-  doCoxReid = nrow(data) < 1000,
+  doCoxReid = TRUE,
   lambda = 0,
-  nthreads = 6
+  nthreads = 6,
+  REML = TRUE
 )
 ```
 
@@ -79,9 +80,31 @@ fastglmm(
 
   number of threads
 
+- REML:
+
+  use REML or ML estimates (default to `FALSE`)
+
 ## Value
 
 model fit object of class fastglmm
+
+## Details
+
+Parameters are estimated using penalized quasi-likelihood (PQL) (Breslow
+and Clayton, 1993). See Maestrini, et al (2026) for an examination of
+REML in the context of generalized linear mixed models
+
+## References
+
+Breslow, N.E. and Clayton, D.G. (1993). Approximate inference in
+generalized linear mixed models. Journal of the American statistical
+Association, 88(421), pp.9-25.
+[doi:10.1080/01621459.1993.10594284](https://doi.org/10.1080/01621459.1993.10594284)
+
+Maestrini, L., Hui, F.K. and Welsh, A.H., (2026). Restricted maximum
+likelihood estimation in generalized linear mixed models. Statistical
+Science, 41(3) 615-636
+[doi:10.1214/25-STS995](https://doi.org/10.1214/25-STS995)
 
 ## Examples
 
@@ -113,9 +136,9 @@ coef(summary(fit))
 fit = fastglmm(y ~ trt + I(week > 2) + (1 | ID),
   family = binomial(), data = bacteria)
 coef(summary(fit))
-#>                   Estimate Std. Error    df    t value     Pr(>|t|)
-#> (Intercept)      3.4127450  0.6552910 267.1  5.2079839 3.817213e-07
-#> trtdrug         -1.2475583  0.8140663 123.8 -1.5325020 1.279496e-01
-#> trtdrug+        -0.7545406  0.8157308 131.8 -0.9249872 3.566634e-01
-#> I(week > 2)TRUE -1.6075955  0.4527311 485.7 -3.5508840 4.213332e-04
+#>                  Estimate Std. Error     df    t value     Pr(>|t|)
+#> (Intercept)      3.475641  0.6843895 223.72  5.0784541 8.010499e-07
+#> trtdrug         -1.265157  0.8610477 105.31 -1.4693228 1.447264e-01
+#> trtdrug+        -0.773049  0.8612327 111.54 -0.8976075 3.713283e-01
+#> I(week > 2)TRUE -1.636336  0.4599847 490.21 -3.5573703 4.109830e-04
 ```

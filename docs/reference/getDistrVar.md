@@ -80,5 +80,5 @@ form <- PTPRG ~ (1|SubID) + offset(log(libSize))
 fit <- fastglmm.nb(form, PsychAD)
 
 getDistrVar(fit)
-#> [1] 25.15688
+#> [1] 25.68297
 ```

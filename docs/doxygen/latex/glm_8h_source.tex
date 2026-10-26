@@ -83,7 +83,7 @@
 \DoxyCodeLine{00083\ \};}
 \DoxyCodeLine{00084\ }
 \DoxyCodeLine{00085\ \ \ }
-\DoxyCodeLine{00102\ \textcolor{keyword}{static}\ ModelFitGLM\ GLM(}
+\DoxyCodeLine{00102\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m}{ModelFitGLM}}\ GLM(}
 \DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\&\ X,\ }
 \DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ colvec\&\ y,\ }
 \DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&family,\ }
@@ -127,16 +127,16 @@
 \DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ i\ ==\ 0\ \&\&\ betaInit.is\_empty()\ )\{\ \ \ \ \ \ \ \ \ \ \ \ }
 \DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initialize\ mu,\ essential\ for\ Poisson}}
 \DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ faster\ convergence\ than\ initializing\ beta\ to\ zero}}
-\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ work-\/>mu\ \ \ \ =\ fam-\/>initialize(y,\ weights\_);}
-\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ work-\/>eta\ =\ fam-\/>link(work-\/>mu)\ ;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}}\ \ \ \ =\ fam-\/>initialize(y,\ weights\_);}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ =\ fam-\/>link(work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}})\ ;}
 \DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
 \DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linear\ predictor}}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ work-\/>eta\ =\ X\ *\ fit.coef\ +\ offset\_;}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ work-\/>mu\ \ \ \ =\ fam-\/>linkinv(\ work-\/>eta\ );}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ =\ X\ *\ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}}\ +\ offset\_;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}}\ \ \ \ =\ fam-\/>linkinv(\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ );}
 \DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00153\ }
-\DoxyCodeLine{00154\ \ \ \ \ work-\/>gprime=\ fam-\/>mu\_eta(\ work-\/>eta\ );}
-\DoxyCodeLine{00155\ \ \ \ \ work-\/>z\ \ \ \ \ \ \ \ \ =\ (work-\/>eta\ -\/\ offset\_)\ +\ (y\ -\/\ work-\/>mu)\ /\ work-\/>gprime;}
+\DoxyCodeLine{00154\ \ \ \ \ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_aca19672bd88aaabfe3de21da752a0b15}{gprime}}=\ fam-\/>mu\_eta(\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ );}
+\DoxyCodeLine{00155\ \ \ \ \ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ad2cd7f50570a2734edae6e0986db3b07}{z}}\ \ \ \ \ \ \ \ \ =\ (work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ -\/\ offset\_)\ +\ (y\ -\/\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}})\ /\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_aca19672bd88aaabfe3de21da752a0b15}{gprime}};}
 \DoxyCodeLine{00156\ }
 \DoxyCodeLine{00157\ \ \ \ \ \textcolor{comment}{//\ if(\ fam-\/>family()\ ==\ "{}NB"{})\{}}
 \DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ //\ Numerically\ stable\ evaluation\ for\ NB\ \ \ \ \ }}
@@ -144,61 +144,61 @@
 \DoxyCodeLine{00160\ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ vec\ x\ =\ work-\/>eta\ -\/\ log(theta);}}
 \DoxyCodeLine{00161\ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ work-\/>wsqrt\ =\ sqrt(weights\_\ \%(theta\ *\ (0.5\ *\ (1.0\ +\ tanh(0.5\ *\ x)))));}}
 \DoxyCodeLine{00162\ \ \ \ \ \textcolor{comment}{//\ \}else\{}}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ work-\/>wsqrt\ =\ work-\/>gprime\ \%\ sqrt(weights\_\ /\ fam-\/>variance(\ work-\/>mu\ ));}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ac1bfff9b04722abcea592b81b460e30c}{wsqrt}}\ =\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_aca19672bd88aaabfe3de21da752a0b15}{gprime}}\ \%\ sqrt(weights\_\ /\ fam-\/>variance(\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}}\ ));}
 \DoxyCodeLine{00164\ \ \ \ \ \ \ \textcolor{comment}{//\ \}}}
 \DoxyCodeLine{00165\ }
 \DoxyCodeLine{00166\ \ \ \ \ \textcolor{comment}{//\ if\ weights\ are\ zero,\ set\ them\ to\ very\ small\ value}}
 \DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ uvec\ idx\ =\ find(work-\/>wsqrt\ ==\ 0\ \&\&\ weights\_\ !=\ 0);}}
 \DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ work-\/>wsqrt.elem(idx).fill(1e-\/8);}}
 \DoxyCodeLine{00169\ }
-\DoxyCodeLine{00170\ \ \ \ \ vec\ beta\_prev(fit.coef);}
+\DoxyCodeLine{00170\ \ \ \ \ vec\ beta\_prev(fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}});}
 \DoxyCodeLine{00171\ }
 \DoxyCodeLine{00172\ \ \ \ \ \textcolor{comment}{//\ Solve\ least\ squares\ system\ to\ get\ beta}}
-\DoxyCodeLine{00173\ \ \ \ \ fit\ =\ lm(\doxymbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(X,\ work-\/>wsqrt),\ work-\/>z\ \%\ work-\/>wsqrt,\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ lambda,\ 0,\ work\ );}
+\DoxyCodeLine{00173\ \ \ \ \ fit\ =\ lm(\doxymbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(X,\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ac1bfff9b04722abcea592b81b460e30c}{wsqrt}}),\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ad2cd7f50570a2734edae6e0986db3b07}{z}}\ \%\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ac1bfff9b04722abcea592b81b460e30c}{wsqrt}},\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ lambda,\ 0,\ work\ );}
 \DoxyCodeLine{00174\ }
 \DoxyCodeLine{00175\ \ \ \ \ \textcolor{comment}{//\ if\ model\ is\ singular}}
-\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ fit.success\ )\{}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}}\ )\{}
 \DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00178\ \ \ \ \ \}}
 \DoxyCodeLine{00179\ }
 \DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ stopping\ criterion}}
-\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ i\ >\ 0\ \&\&\ norm(fit.coef\ -\/\ beta\_prev)\ <\ epsilon\ )\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ i\ >\ 0\ \&\&\ norm(fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}}\ -\/\ beta\_prev)\ <\ epsilon\ )\ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00182\ \ \ \ \ \}}
 \DoxyCodeLine{00183\ }
 \DoxyCodeLine{00184\ \ \ \ \ \textcolor{comment}{//\ for\ last\ beta\ value}}
 \DoxyCodeLine{00185\ \ \ \textcolor{comment}{//\ linear\ predictor}}
-\DoxyCodeLine{00186\ \ \ \ \ work-\/>eta\ =\ X\ *\ fit.coef\ +\ offset\_;}
-\DoxyCodeLine{00187\ \ \ \ \ work-\/>mu\ =\ fam-\/>linkinv(\ work-\/>eta\ );}
+\DoxyCodeLine{00186\ \ \ \ \ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ =\ X\ *\ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}}\ +\ offset\_;}
+\DoxyCodeLine{00187\ \ \ \ \ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}}\ =\ fam-\/>linkinv(\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}}\ );}
 \DoxyCodeLine{00188\ }
 \DoxyCodeLine{00189\ \ \ \textcolor{comment}{//\ Solve\ least\ squares\ system,\ }}
 \DoxyCodeLine{00190\ \ \ \textcolor{comment}{//\ estimate\ other\ parameters\ based\ on\ ModelDetail}}
 \DoxyCodeLine{00191\ \ \ \textcolor{comment}{//\ Estimate\ dispersion\ if\ needed}}
 \DoxyCodeLine{00192\ \ \ \textcolor{comment}{//\ Reduce\ residual\ degrees\ of\ freedom\ by\ the\ number\ of\ }}
 \DoxyCodeLine{00193\ \ \ \textcolor{comment}{//\ \ \ \ entries\ with\ zero\ weights}}
-\DoxyCodeLine{00194\ \ \ \textcolor{keywordtype}{double}\ rdf\_offset\ =\ sum(work-\/>wsqrt\ ==\ 0);}
-\DoxyCodeLine{00195\ \ \ fit\ =\ lm(\doxymbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(X,\ work-\/>wsqrt),\ work-\/>z\ \%\ work-\/>wsqrt,\ md,\ lambda,\ rdf\_offset,\ work,\ fam-\/>estimateDispersion(),\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00194\ \ \ \textcolor{keywordtype}{double}\ rdf\_offset\ =\ sum(work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ac1bfff9b04722abcea592b81b460e30c}{wsqrt}}\ ==\ 0);}
+\DoxyCodeLine{00195\ \ \ fit\ =\ lm(\doxymbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(X,\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ac1bfff9b04722abcea592b81b460e30c}{wsqrt}}),\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ad2cd7f50570a2734edae6e0986db3b07}{z}}\ \%\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ac1bfff9b04722abcea592b81b460e30c}{wsqrt}},\ md,\ lambda,\ rdf\_offset,\ work,\ fam-\/>estimateDispersion(),\ \textcolor{keyword}{true});}
 \DoxyCodeLine{00196\ }
 \DoxyCodeLine{00197\ \ \ \textcolor{keywordflow}{if}(\ md\ ==\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ab9cd19e431dfc975f4ae5904e3ffb375}{MAX}})\{}
 \DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ raw\ deviance\ residuals}}
-\DoxyCodeLine{00199\ \ \ \ \ vec\ dr\ =\ fam-\/>dev\_resids(y,\ work-\/>mu,\ weights\_);}
+\DoxyCodeLine{00199\ \ \ \ \ vec\ dr\ =\ fam-\/>dev\_resids(y,\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}},\ weights\_);}
 \DoxyCodeLine{00200\ }
 \DoxyCodeLine{00201\ \ \ \ \ \textcolor{comment}{//\ transform\ and\ store\ residuals}}
-\DoxyCodeLine{00202\ \ \ \ \ fit.setDevResids(\ dr,\ y,\ work-\/>mu,\ weights\_);}
+\DoxyCodeLine{00202\ \ \ \ \ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2c32c0309653f0b97df2d3826a19fe0f}{setDevResids}}(\ dr,\ y,\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}},\ weights\_);}
 \DoxyCodeLine{00203\ \ \ \}}
 \DoxyCodeLine{00204\ }
 \DoxyCodeLine{00205\ \ \ \textcolor{keywordflow}{if}(\ md\ >=\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a230e5187507a3507ad7bde480080c191}{MOST}}\ )\{}
-\DoxyCodeLine{00206\ \ \ \ \ fit.setFittedValues(\ work-\/>mu,\ weights\_\ );}
+\DoxyCodeLine{00206\ \ \ \ \ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_ab6f4ddcc7e1ffde1f7257680dc93065a}{setFittedValues}}(\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}},\ weights\_\ );}
 \DoxyCodeLine{00207\ \ \ \}}
 \DoxyCodeLine{00208\ }
 \DoxyCodeLine{00209\ \ \ \textcolor{keywordflow}{if}(\ md\ >=\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2aa987f00d03050fb355d8d246a2c4d4e1}{HIGH}}\ )\{}
 \DoxyCodeLine{00210\ \ \ \ \ \ \ \textcolor{comment}{//\ if\ weight\ is\ zero,\ set\ residuals\ to\ NAN}}
-\DoxyCodeLine{00211\ \ \ \ \ fit.residuals.elem(find(work-\/>wsqrt\ ==\ 0)).fill(datum::nan);}
+\DoxyCodeLine{00211\ \ \ \ \ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a2d6e59e0f7fab81d35e413ff3f7c863d}{residuals}}.elem(find(work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ac1bfff9b04722abcea592b81b460e30c}{wsqrt}}\ ==\ 0)).fill(datum::nan);}
 \DoxyCodeLine{00212\ \ \ \}}
 \DoxyCodeLine{00213\ }
 \DoxyCodeLine{00214\ \ \ \textcolor{keywordflow}{if}(\ md\ >=\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}}\ )\{}
 \DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ variance\ of\ fitted\ eta:}}
 \DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ prediction\ on\ latent\ scale}}
-\DoxyCodeLine{00217\ \ \ \ \ \ \ fit.varFitted\ =\ wvar(\ work-\/>eta,\ weights\_);}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_ab25d3f4abfc37b65d541ec58f886745d}{varFitted}}\ =\ wvar(\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ae6f190589dd2057e57ef167d53b81604}{eta}},\ weights\_);}
 \DoxyCodeLine{00218\ \ \ \}}
 \DoxyCodeLine{00219\ }
 \DoxyCodeLine{00220\ \ \ \ \ \textcolor{comment}{//\ free\ work\ if\ allocated\ in\ this\ function}}
@@ -237,275 +237,276 @@
 \DoxyCodeLine{00271\ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m}{ModelFitGLM}}\ fit;}
 \DoxyCodeLine{00272\ \ \ \ \ \textcolor{keywordtype}{string}\ family;\ }
 \DoxyCodeLine{00273\ \ \ \ \ \textcolor{keywordtype}{double}\ theta;}
-\DoxyCodeLine{00274\ }
-\DoxyCodeLine{00275\ \ \ \ \ \textcolor{comment}{//\ Fit\ Poisson\ regression\ to\ estimate\ coefficients}}
-\DoxyCodeLine{00276\ \ \ \ \ fit\ =\ GLM(X,\ y,\ \textcolor{stringliteral}{"{}poisson/log"{}},\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ weights,\ offset,\ work,\ betaInit,\ epsilon,\ maxit,\ lambda);}
-\DoxyCodeLine{00277\ \ \ \ \ vec\ beta\_prev(fit.coef);}
-\DoxyCodeLine{00278\ }
-\DoxyCodeLine{00279\ \ \ \ \ \textcolor{comment}{//\ Lookup\ table\ to\ speed\ up\ estimation\ of\ theta}}
-\DoxyCodeLine{00280\ \ \ \ \ \doxymbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}}\ ct\ =\ CreateLUT(y,\ weights);}
-\DoxyCodeLine{00281\ }
-\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<maxit\_nb;\ i++)\{}
-\DoxyCodeLine{00283\ }
-\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ theta\ =\ nb\_theta\_ml(y,\ work-\/>mu,\ y.n\_elem,\ weights,\ X,\ doCoxReid,\ ct);}
-\DoxyCodeLine{00285\ }
-\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fit\ NB\ regression\ to\ estimate\ coefficients}}
-\DoxyCodeLine{00287\ \ \ \ \ beta\_prev\ =\ fit.coef;}
-\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ family\ =\ \textcolor{stringliteral}{"{}nb:"{}}\ +\ to\_string(theta);}
-\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ fit\ =\ GLM(X,\ y,\ family,\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ weights,\ offset,\ work,\ fit.coef,\ epsilon,\ maxit,\ lambda);}
-\DoxyCodeLine{00290\ }
-\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ model\ is\ singular}}
-\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !fit.success\ )\ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00293\ }
-\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ stopping\ criterion}}
-\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ norm(fit.coef\ -\/\ beta\_prev)\ <\ epsilon\_nb\ )\ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00296\ \ \ \ \ \}}
-\DoxyCodeLine{00297\ }
-\DoxyCodeLine{00298\ \ \ \ \ \textcolor{comment}{//\ Estimate\ parameters\ based\ on\ ModelDetail}}
-\DoxyCodeLine{00299\ \ \ \ \ fit\ =\ GLM(X,\ y,\ family,\ md,\ weights,\ offset,\ work,\ fit.coef,\ epsilon,\ maxit,\ lambda);}
-\DoxyCodeLine{00300\ \ \ \ \ fit.theta\ =\ theta;}
-\DoxyCodeLine{00301\ }
-\DoxyCodeLine{00302\ \ \ \ \ \textcolor{comment}{//\ Since\ theta\ is\ estimated\ from\ the\ data}}
-\DoxyCodeLine{00303\ \ \ \ \ \textcolor{comment}{//\ set\ the\ dispersion\ to\ be\ 1}}
-\DoxyCodeLine{00304\ \ \ \ \ \textcolor{comment}{//\ So\ undo\ scaling\ by\ dispersion}}
-\DoxyCodeLine{00305\ \ \ \ \ \textcolor{keywordflow}{if}(\ md\ >=\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a41a28e506b339e530c5d8646e971e116}{MEDIUM}}\ )\{}
-\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ fit.vcov\ =\ fit.vcov\ /\ fit.dispersion;}
-\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ fit.se\ =\ sqrt(diagvec(fit.vcov));}
-\DoxyCodeLine{00308\ \ \ \ \ \}}
-\DoxyCodeLine{00309\ \ \ \ \ fit.dispersion\ =\ 1.0;}
-\DoxyCodeLine{00310\ }
-\DoxyCodeLine{00311\ \ \ \ \ \textcolor{comment}{//\ free\ work\ if\ allocated\ in\ this\ function}}
-\DoxyCodeLine{00312\ \ \ \textcolor{keywordflow}{if}(\ alloc\_local)\ \textcolor{keyword}{delete}\ work;}
-\DoxyCodeLine{00313\ }
-\DoxyCodeLine{00314\ \ \ \ \ \textcolor{keywordflow}{return}\ fit;}
-\DoxyCodeLine{00315\ \}}
-\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00274\ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectralDecomp<mat>}}\ dcmp;}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{comment}{//\ Fit\ Poisson\ regression\ to\ estimate\ coefficients}}
+\DoxyCodeLine{00277\ \ \ \ \ fit\ =\ GLM(X,\ y,\ \textcolor{stringliteral}{"{}poisson/log"{}},\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ weights,\ offset,\ work,\ betaInit,\ epsilon,\ maxit,\ lambda);}
+\DoxyCodeLine{00278\ \ \ \ \ vec\ beta\_prev(fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}});}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{comment}{//\ Lookup\ table\ to\ speed\ up\ estimation\ of\ theta}}
+\DoxyCodeLine{00281\ \ \ \ \ \doxymbox{\hyperlink{nb__theta_8h_a9cdc304469f800a940be5189b1301b3b}{CountTable}}\ ct\ =\ CreateLUT(y,\ weights);}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<maxit\_nb;\ i++)\{}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ theta\ =\ nb\_theta\_ml<mat>(y,\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_af2b7c761786c5fd0db62f11c99f5db9e}{mu}},\ y.n\_elem,\ weights,\ X,\ dcmp,\ 0.0,\ doCoxReid,\ ct);}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fit\ NB\ regression\ to\ estimate\ coefficients}}
+\DoxyCodeLine{00288\ \ \ \ \ beta\_prev\ =\ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}};}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ family\ =\ \textcolor{stringliteral}{"{}nb:"{}}\ +\ to\_string(theta);}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ fit\ =\ GLM(X,\ y,\ family,\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ weights,\ offset,\ work,\ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ epsilon,\ maxit,\ lambda);}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ model\ is\ singular}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a48fe22cee7b61700696febcc638a6339}{success}}\ )\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ stopping\ criterion}}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ norm(fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}}\ -\/\ beta\_prev)\ <\ epsilon\_nb\ )\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00297\ \ \ \ \ \}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{comment}{//\ Estimate\ parameters\ based\ on\ ModelDetail}}
+\DoxyCodeLine{00300\ \ \ \ \ fit\ =\ GLM(X,\ y,\ family,\ md,\ weights,\ offset,\ work,\ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}},\ epsilon,\ maxit,\ lambda);}
+\DoxyCodeLine{00301\ \ \ \ \ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_aca8fdf7d8051629b86c9270e80c92022}{theta}}\ =\ theta;}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{comment}{//\ Since\ theta\ is\ estimated\ from\ the\ data}}
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{comment}{//\ set\ the\ dispersion\ to\ be\ 1}}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{comment}{//\ So\ undo\ scaling\ by\ dispersion}}
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keywordflow}{if}(\ md\ >=\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a41a28e506b339e530c5d8646e971e116}{MEDIUM}}\ )\{}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}\ =\ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}\ /\ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_ad98009175c5351f81b7f5ad49b572b3f}{dispersion}};}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a7ddb48d6044cc0ce1eece44f2ac871c3}{se}}\ =\ sqrt(diagvec(fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a6c3ed52bee7cd14f7736f8a6f9717e65}{vcov}}));}
+\DoxyCodeLine{00309\ \ \ \ \ \}}
+\DoxyCodeLine{00310\ \ \ \ \ fit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_ad98009175c5351f81b7f5ad49b572b3f}{dispersion}}\ =\ 1.0;}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{comment}{//\ free\ work\ if\ allocated\ in\ this\ function}}
+\DoxyCodeLine{00313\ \ \ \textcolor{keywordflow}{if}(\ alloc\_local)\ \textcolor{keyword}{delete}\ work;}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keywordflow}{return}\ fit;}
+\DoxyCodeLine{00316\ \}}
 \DoxyCodeLine{00317\ }
 \DoxyCodeLine{00318\ }
 \DoxyCodeLine{00319\ }
 \DoxyCodeLine{00320\ }
 \DoxyCodeLine{00321\ }
 \DoxyCodeLine{00322\ }
-\DoxyCodeLine{00343\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacefastglmm_lib_ab5362fc8877a16829bbb048bd132ae96}{ModelFitGLMList}}\ glmFitFeatures(\ \ }
-\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keyword}{const}\ arma::vec\ \&y,\ }
-\DoxyCodeLine{00345\ \ \ \ \ \textcolor{keyword}{const}\ arma::mat\ \&X\_design,\ }
-\DoxyCodeLine{00346\ \ \ \ \ \textcolor{keyword}{const}\ arma::mat\ \&X\_features,\ }
-\DoxyCodeLine{00347\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&ids,\ \ }
-\DoxyCodeLine{00348\ \ \ \ \ \textcolor{keywordtype}{string}\ family,\ }
-\DoxyCodeLine{00349\ \ \ \ \ arma::vec\ weights\ =\ \{\},\ }
-\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&offset\ =\ \{\},\ }
-\DoxyCodeLine{00351\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md\ =\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}},\ }
-\DoxyCodeLine{00352\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&doCoxReid\ =\ \textcolor{keyword}{true},\ }
-\DoxyCodeLine{00353\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&shareTheta\ =\ \textcolor{keyword}{false},\ }
-\DoxyCodeLine{00354\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&fastApprox\ =\ \textcolor{keyword}{false},}
-\DoxyCodeLine{00355\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1,\ }
-\DoxyCodeLine{00356\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&epsilon\ =\ 1e-\/8,\ }
-\DoxyCodeLine{00357\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&maxit\ =\ 25,\ }
-\DoxyCodeLine{00358\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&epsilon\_nb\ =\ 1e-\/4,}
-\DoxyCodeLine{00359\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&maxit\_nb\ =\ 5,}
-\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&lambda\ =\ 0)\{}
-\DoxyCodeLine{00361\ }
-\DoxyCodeLine{00362\ \ \ \textcolor{comment}{//\ standardize\ weights}}
-\DoxyCodeLine{00363\ \ \ \textcolor{keywordflow}{if}(\ !\ weights.is\_empty()\ )\{}
-\DoxyCodeLine{00364\ \ \ \ \ weights\ =\ weights\ /\ mean(weights);}
-\DoxyCodeLine{00365\ \ \ \}}
-\DoxyCodeLine{00366\ }
-\DoxyCodeLine{00367\ \ \ \ \ \textcolor{keywordtype}{int}\ n\_covs\ =\ X\_design.n\_cols;}
-\DoxyCodeLine{00368\ }
-\DoxyCodeLine{00369\ \ \ \ \ \textcolor{comment}{//\ Estimate\ coef\ using\ only\ design\ matrix}}
-\DoxyCodeLine{00370\ \ \ \ \ \textcolor{comment}{//\ use\ to\ initialize\ coefficients\ for\ each\ feature}}
-\DoxyCodeLine{00371\ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m}{ModelFitGLM}}\ fitInit;}
-\DoxyCodeLine{00372\ \ \ \ \ \doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work}{GLMWork}}\ *work\ =\ \textcolor{keyword}{new}\ \doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_aba57ce783999d90804c6066405292da0}{GLMWork}}();}
-\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}nb"{}}\ )\{}
-\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ fitInit\ =\ GLM\_NB(X\_design,\ y,\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ weights,\ offset,\ doCoxReid,\ work,\ \{\},\ epsilon,\ maxit,\ epsilon\_nb,\ maxit\_nb,\ lambda);}
-\DoxyCodeLine{00375\ }
-\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ shareTheta,\ use\ same\ theta\ value\ across\ all\ features}}
-\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ shareTheta\ )\{}
-\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ family\ =\ \textcolor{stringliteral}{"{}nb:"{}}\ +\ to\_string(fitInit.theta);}
-\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00380\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00381\ \ \ \ \ fitInit\ =\ GLM(X\_design,\ y,\ family,\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ weights,\ offset,\ work,\ \{\},\ epsilon,\ maxit,\ lambda);}
-\DoxyCodeLine{00382\ \ \ \}}
-\DoxyCodeLine{00383\ }
-\DoxyCodeLine{00384\ \ \ \textcolor{comment}{//\ get\ working\ response}}
-\DoxyCodeLine{00385\ \ \ vec\ workingResponse(work-\/>z);}
-\DoxyCodeLine{00386\ \ \ vec\ workingWeights(square(work-\/>wsqrt));}
-\DoxyCodeLine{00387\ \ \ workingWeights\ =\ workingWeights\ /\ mean(workingWeights);}
-\DoxyCodeLine{00388\ \ \ \textcolor{keyword}{delete}\ work;}
-\DoxyCodeLine{00389\ }
-\DoxyCodeLine{00390\ \ \ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_ab5362fc8877a16829bbb048bd132ae96}{ModelFitGLMList}}\ fitList(X\_features.n\_cols,\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m}{ModelFitGLM}}());}
-\DoxyCodeLine{00391\ }
-\DoxyCodeLine{00392\ \ \ \textcolor{keywordflow}{if}(\ fastApprox\ )\{}
-\DoxyCodeLine{00393\ }
-\DoxyCodeLine{00394\ \ \ \ \ \textcolor{comment}{//\ Pre-\/projection\ on\ working\ response}}
-\DoxyCodeLine{00395\ \ \ \ \ \textcolor{comment}{//\ when\ test\ of\ X\_features\ is\ truely\ under\ the\ null,}}
-\DoxyCodeLine{00396\ \ \ \ \ \textcolor{comment}{//\ approximation\ is\ very\ good}}
-\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_abe7eeaa6ccb8f0b33c2d18c1ee39701d}{ModelFitList}}\ mfl\ =\ lmFitFeatures\_preproj(workingResponse,\ X\_design,\ X\_features,\ ids,\ workingWeights,\ md,\ nthreads);}
-\DoxyCodeLine{00398\ }
-\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<mfl.size();\ i++)\{}
-\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ fitList.at(i)\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7bab615b7fd566efcf685a54e6ff2182}{ModelFitGLM}}(mfl[i],\ family,\ 1);}
-\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00402\ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{00403\ \ \ \ \ }
-\DoxyCodeLine{00404\ \ \ \ \ \textcolor{comment}{//\ Full\ fit\ of\ each\ model}}
-\DoxyCodeLine{00405\ }
-\DoxyCodeLine{00406\ \ \ \ \ \textcolor{comment}{//\ set\ betaInit\ to\ [fitInit.coef,0]}}
-\DoxyCodeLine{00407\ \ \ \ \ vec\ betaInit(fitInit.coef);}
-\DoxyCodeLine{00408\ \ \ \ \ betaInit.resize(betaInit.n\_elem\ +\ 1);}
-\DoxyCodeLine{00409\ \ \ \ \ betaInit[betaInit.n\_elem]\ =\ 0;}
-\DoxyCodeLine{00410\ \ \ \ \ }
-\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Parallel\ part\ using\ Thread\ Building\ Blocks}}
-\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ tbb::task\_arena\ limited\_arena(nthreads);}
-\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ limited\_arena.execute([\&]\ \{}
-\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ tbb::parallel\_for(}
-\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ tbb::blocked\_range<int>(0,\ X\_features.n\_cols,\ 100),\ }
-\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
-\DoxyCodeLine{00417\ }
-\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ disable\_parallel\_blas();}
-\DoxyCodeLine{00419\ }
-\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ design\ matrix\ with\ jth\ feature\ in\ the\ last\ column}}
-\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ X\ =\ cbind(X\_design,\ X\_features[,0])}}
-\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ arma::mat\ X(X\_design);}
-\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ X.insert\_cols(n\_covs,\ X\_features.col(0));}
-\DoxyCodeLine{00424\ }
-\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ GLMWork\ *work\ =\ new\ GLMWork();}
-\DoxyCodeLine{00426\ }
-\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ iterate\ through\ features\ }}
-\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ for\ (int\ j\ =\ r.begin();\ j\ !=\ r.end();\ ++j)\ \{\ \ }
-\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ design\ matrix\ with\ intercept\ as\ first\ column}}
-\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ X.col(n\_covs)\ =\ X\_features.col(j);}
-\DoxyCodeLine{00431\ }
-\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GLM\ regression\ \ \ \ \ \ \ }}
-\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ModelFitGLM\ fit;}
-\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ if(\ family\ ==\ \textcolor{stringliteral}{"{}nb"{}}\ )\{}
-\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ GLM\_NB(X,\ y,\ md,\ weights,\ offset,\ doCoxReid,\ work,\ betaInit,\ epsilon,\ maxit,\ epsilon\_nb,\ maxit\_nb,\ lambda);}
-\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \}else\{}
-\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ GLM(X,\ y,\ family,\ md,\ weights,\ offset,\ work,\ betaInit,\ epsilon,\ maxit,\ lambda);}
-\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00439\ }
-\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Save\ feature\ ID}}
-\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit.ID\ =\ ids[j];}
-\DoxyCodeLine{00442\ }
-\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ result\ to\ list}}
-\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fitList.at(j)\ =\ \ fit;}
-\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ }
-\DoxyCodeLine{00446\ }
-\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ work;}
-\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \});\ \});\ }
-\DoxyCodeLine{00449\ \ \ \ \ \}}
-\DoxyCodeLine{00450\ }
-\DoxyCodeLine{00451\ \ \ \ \ \textcolor{keywordflow}{return}\ fitList;}
-\DoxyCodeLine{00452\ \}}
-\DoxyCodeLine{00453\ }
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00344\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacefastglmm_lib_ab5362fc8877a16829bbb048bd132ae96}{ModelFitGLMList}}\ glmFitFeatures(\ \ }
+\DoxyCodeLine{00345\ \ \ \ \ \textcolor{keyword}{const}\ arma::vec\ \&y,\ }
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{keyword}{const}\ arma::mat\ \&X\_design,\ }
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{keyword}{const}\ arma::mat\ \&X\_features,\ }
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&ids,\ \ }
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keywordtype}{string}\ family,\ }
+\DoxyCodeLine{00350\ \ \ \ \ arma::vec\ weights\ =\ \{\},\ }
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&offset\ =\ \{\},\ }
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md\ =\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}},\ }
+\DoxyCodeLine{00353\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&doCoxReid\ =\ \textcolor{keyword}{true},\ }
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&shareTheta\ =\ \textcolor{keyword}{false},\ }
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&fastApprox\ =\ \textcolor{keyword}{false},}
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1,\ }
+\DoxyCodeLine{00357\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&epsilon\ =\ 1e-\/8,\ }
+\DoxyCodeLine{00358\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&maxit\ =\ 25,\ }
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&epsilon\_nb\ =\ 1e-\/4,}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&maxit\_nb\ =\ 5,}
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&lambda\ =\ 0)\{}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \ \ \textcolor{comment}{//\ standardize\ weights}}
+\DoxyCodeLine{00364\ \ \ \textcolor{keywordflow}{if}(\ !\ weights.is\_empty()\ )\{}
+\DoxyCodeLine{00365\ \ \ \ \ weights\ =\ weights\ /\ mean(weights);}
+\DoxyCodeLine{00366\ \ \ \}}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keywordtype}{int}\ n\_covs\ =\ X\_design.n\_cols;}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{comment}{//\ Estimate\ coef\ using\ only\ design\ matrix}}
+\DoxyCodeLine{00371\ \ \ \ \ \textcolor{comment}{//\ use\ to\ initialize\ coefficients\ for\ each\ feature}}
+\DoxyCodeLine{00372\ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m}{ModelFitGLM}}\ fitInit;}
+\DoxyCodeLine{00373\ \ \ \ \ \doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work}{GLMWork}}\ *work\ =\ \textcolor{keyword}{new}\ \doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_aba57ce783999d90804c6066405292da0}{GLMWork}}();}
+\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keywordflow}{if}(\ family\ ==\ \textcolor{stringliteral}{"{}nb"{}}\ )\{}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ fitInit\ =\ GLM\_NB(X\_design,\ y,\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ weights,\ offset,\ doCoxReid,\ work,\ \{\},\ epsilon,\ maxit,\ epsilon\_nb,\ maxit\_nb,\ lambda);}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ shareTheta,\ use\ same\ theta\ value\ across\ all\ features}}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ shareTheta\ )\{}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ family\ =\ \textcolor{stringliteral}{"{}nb:"{}}\ +\ to\_string(fitInit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_aca8fdf7d8051629b86c9270e80c92022}{theta}});}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00381\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00382\ \ \ \ \ fitInit\ =\ GLM(X\_design,\ y,\ family,\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2a6ca21e37e4044b070281fb8ee8a1e4ba}{LEAST}},\ weights,\ offset,\ work,\ \{\},\ epsilon,\ maxit,\ lambda);}
+\DoxyCodeLine{00383\ \ \ \}}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \ \ \textcolor{comment}{//\ get\ working\ response}}
+\DoxyCodeLine{00386\ \ \ vec\ workingResponse(work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ad2cd7f50570a2734edae6e0986db3b07}{z}});}
+\DoxyCodeLine{00387\ \ \ vec\ workingWeights(square(work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ac1bfff9b04722abcea592b81b460e30c}{wsqrt}}));}
+\DoxyCodeLine{00388\ \ \ workingWeights\ =\ workingWeights\ /\ mean(workingWeights);}
+\DoxyCodeLine{00389\ \ \ \textcolor{keyword}{delete}\ work;}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_ab5362fc8877a16829bbb048bd132ae96}{ModelFitGLMList}}\ fitList(X\_features.n\_cols,\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m}{ModelFitGLM}}());}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \textcolor{keywordflow}{if}(\ fastApprox\ )\{}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{comment}{//\ Pre-\/projection\ on\ working\ response}}
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{comment}{//\ when\ test\ of\ X\_features\ is\ truely\ under\ the\ null,}}
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{comment}{//\ approximation\ is\ very\ good}}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_abe7eeaa6ccb8f0b33c2d18c1ee39701d}{ModelFitList}}\ mfl\ =\ lmFitFeatures\_preproj(workingResponse,\ X\_design,\ X\_features,\ ids,\ workingWeights,\ md,\ nthreads);}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<mfl.size();\ i++)\{}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ fitList.at(i)\ =\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_a7bab615b7fd566efcf685a54e6ff2182}{ModelFitGLM}}(mfl[i],\ family,\ 1);}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00403\ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00404\ \ \ \ \ }
+\DoxyCodeLine{00405\ \ \ \ \ \textcolor{comment}{//\ Full\ fit\ of\ each\ model}}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \ \ \ \ \textcolor{comment}{//\ set\ betaInit\ to\ [fitInit.coef,0]}}
+\DoxyCodeLine{00408\ \ \ \ \ vec\ betaInit(fitInit.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_a16b2eba98289e6bcde50efaea15705cb}{coef}});}
+\DoxyCodeLine{00409\ \ \ \ \ betaInit.resize(betaInit.n\_elem\ +\ 1);}
+\DoxyCodeLine{00410\ \ \ \ \ betaInit[betaInit.n\_elem]\ =\ 0;}
+\DoxyCodeLine{00411\ \ \ \ \ }
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Parallel\ part\ using\ Thread\ Building\ Blocks}}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ tbb::task\_arena\ limited\_arena(nthreads);}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ limited\_arena.execute([\&]\ \{}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ tbb::parallel\_for(}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ tbb::blocked\_range<int>(0,\ X\_features.n\_cols,\ 100),\ }
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ disable\_parallel\_blas();}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create\ design\ matrix\ with\ jth\ feature\ in\ the\ last\ column}}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ X\ =\ cbind(X\_design,\ X\_features[,0])}}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ arma::mat\ X(X\_design);}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \ \ \ \ X.insert\_cols(n\_covs,\ X\_features.col(0));}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ GLMWork\ *work\ =\ new\ GLMWork();}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ iterate\ through\ features\ }}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ for\ (int\ j\ =\ r.begin();\ j\ !=\ r.end();\ ++j)\ \{\ \ }
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ design\ matrix\ with\ intercept\ as\ first\ column}}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ X.col(n\_covs)\ =\ X\_features.col(j);}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GLM\ regression\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ModelFitGLM\ fit;}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ if(\ family\ ==\ \textcolor{stringliteral}{"{}nb"{}}\ )\{}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ GLM\_NB(X,\ y,\ md,\ weights,\ offset,\ doCoxReid,\ work,\ betaInit,\ epsilon,\ maxit,\ epsilon\_nb,\ maxit\_nb,\ lambda);}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \}else\{}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ GLM(X,\ y,\ family,\ md,\ weights,\ offset,\ work,\ betaInit,\ epsilon,\ maxit,\ lambda);}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Save\ feature\ ID}}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit.ID\ =\ ids[j];}
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ result\ to\ list}}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fitList.at(j)\ =\ \ fit;}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ }
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ work;}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \});\ \});\ }
+\DoxyCodeLine{00450\ \ \ \ \ \}}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \ \ \ \ \textcolor{keywordflow}{return}\ fitList;}
+\DoxyCodeLine{00453\ \}}
 \DoxyCodeLine{00454\ }
 \DoxyCodeLine{00455\ }
 \DoxyCodeLine{00456\ }
 \DoxyCodeLine{00457\ }
-\DoxyCodeLine{00478\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacefastglmm_lib_ab5362fc8877a16829bbb048bd132ae96}{ModelFitGLMList}}\ glmFitResponses(}
-\DoxyCodeLine{00479\ \ \ \ \ \textcolor{keyword}{const}\ arma::mat\ \&Y,\ }
-\DoxyCodeLine{00480\ \ \ \ \ \textcolor{keyword}{const}\ arma::mat\ \&X,\ }
-\DoxyCodeLine{00481\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&ids,\ }
-\DoxyCodeLine{00482\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&family,\ }
-\DoxyCodeLine{00483\ \ \ \ \ \textcolor{keyword}{const}\ arma::vec\ weights\ =\ \{\},\ }
-\DoxyCodeLine{00484\ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&offset\ =\ \{\},\ }
-\DoxyCodeLine{00485\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md\ =\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}},\ }
-\DoxyCodeLine{00486\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&doCoxReid\ =\ \textcolor{keyword}{true},\ }
-\DoxyCodeLine{00487\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1,\ }
-\DoxyCodeLine{00488\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&epsilon\ =\ 1e-\/8,\ }
-\DoxyCodeLine{00489\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&maxit\ =\ 25,\ }
-\DoxyCodeLine{00490\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&epsilon\_nb\ =\ 1e-\/4,}
-\DoxyCodeLine{00491\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ maxit\_nb\ =\ 5,}
-\DoxyCodeLine{00492\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&lambda\ =\ 0)\{}
-\DoxyCodeLine{00493\ }
-\DoxyCodeLine{00494\ \ \ \ \ \textcolor{comment}{//\ standardize\ weights}}
-\DoxyCodeLine{00495\ \ \ \ \ vec\ w\_norm\ =\ weights;}
-\DoxyCodeLine{00496\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ w\_norm.is\_empty()\ )\{}
-\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ w\_norm\ =\ w\_norm\ /\ mean(w\_norm);}
-\DoxyCodeLine{00498\ \ \ \ \ \}}
-\DoxyCodeLine{00499\ }
-\DoxyCodeLine{00500\ \ \ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_ab5362fc8877a16829bbb048bd132ae96}{ModelFitGLMList}}\ fitList(Y.n\_cols,\ ModelFitGLM());}
-\DoxyCodeLine{00501\ }
-\DoxyCodeLine{00502\ \ \ \ \ \textcolor{comment}{//\ find\ rows\ in\ X\ with\ NAN\ values}}
-\DoxyCodeLine{00503\ \ \ \ \ uvec\ idx\_drop\ =\ rows\_with\_nan(X);\ \ }
-\DoxyCodeLine{00504\ \ \ \ \ mat\ X\_clean(X);}
-\DoxyCodeLine{00505\ \ \ \ \ X\_clean.rows(idx\_drop).zeros();}
-\DoxyCodeLine{00506\ }
-\DoxyCodeLine{00507\ \ \ \ \ \textcolor{comment}{//\ Parallel\ part\ using\ Thread\ Building\ Blocks}}
-\DoxyCodeLine{00508\ \ \ \ \ tbb::task\_arena\ limited\_arena(nthreads);}
-\DoxyCodeLine{00509\ \ \ \ \ limited\_arena.execute([\&]\ \{}
-\DoxyCodeLine{00510\ \ \ \ \ tbb::parallel\_for(}
-\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ tbb::blocked\_range<int>(0,\ Y.n\_cols,\ 10),\ }
-\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
-\DoxyCodeLine{00513\ }
-\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ disable\_parallel\_blas();}
-\DoxyCodeLine{00515\ }
-\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ local\ workspace\ }}
-\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ GLMWork\ *work\ =\ new\ GLMWork();}
-\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ vec\ y,\ w;}
-\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ uvec\ idx;}
-\DoxyCodeLine{00520\ }
-\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ iterate\ through\ responses\ }}
-\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ for\ (int\ j\ =\ r.begin();\ j\ !=\ r.end();\ ++j)\ \{\ \ }
-\DoxyCodeLine{00523\ }
-\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ identify\ samples\ with\ NAN\ entries}}
-\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ values\ and\ weights\ to\ zero}}
-\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ y\ =\ Y.col(j);\ \ \ }
-\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ w\ =\ w\_norm;}
-\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ idx\ =\ unique(join\_cols(find\_nan(y),\ idx\_drop));}
-\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ y.elem(idx).zeros();}
-\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ w.elem(idx).zeros();}
-\DoxyCodeLine{00531\ }
-\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GLM\ regression\ \ \ }}
-\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \ \ \ \ ModelFitGLM\ fit;}
-\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ \ \ if(\ family[j]\ ==\ \textcolor{stringliteral}{"{}nb"{}}\ )\{}
-\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ GLM\_NB(X\_clean,\ y,\ md,\ w,\ offset,\ doCoxReid,\ work,\ \{\},\ epsilon,\ maxit,\ epsilon\_nb,\ maxit\_nb,\ lambda);}
-\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ \ \ \}else\{}
-\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ GLM(X\_clean,\ y,\ family[j],\ md,\ w,\ offset,\ work,\ \{\},\ epsilon,\ maxit,\ lambda);}
-\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00539\ }
-\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Save\ feature\ ID}}
-\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \ \ \ \ fit.ID\ =\ ids[j];}
-\DoxyCodeLine{00542\ }
-\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ return\ mean\ of\ mu\ for\ jth\ response}}
-\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ fit.mu\_mean\ =\ mean(work-\/>mu);}
-\DoxyCodeLine{00545\ }
-\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ return\ mean\ of\ response}}
-\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \ \ \ \ fit.y\_mean\ =\ mean(y);}
-\DoxyCodeLine{00548\ }
-\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ result\ to\ list}}
-\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ fitList.at(j)\ =\ fit;}
-\DoxyCodeLine{00551\ \ \ \ \ \}\ \ }
-\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ work;}
-\DoxyCodeLine{00553\ \ \ \ \ \});\ \});}
-\DoxyCodeLine{00554\ }
-\DoxyCodeLine{00555\ \ \ \ \ \textcolor{keywordflow}{return}\ fitList;}
-\DoxyCodeLine{00556\ \ \ \ \ \}}
-\DoxyCodeLine{00557\ }
-\DoxyCodeLine{00578\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacefastglmm_lib_ab5362fc8877a16829bbb048bd132ae96}{ModelFitGLMList}}\ glmFitResponses(}
-\DoxyCodeLine{00579\ \ \ \ \ \textcolor{keyword}{const}\ arma::mat\ \&Y,\ }
-\DoxyCodeLine{00580\ \ \ \ \ \textcolor{keyword}{const}\ arma::mat\ \&X,\ }
-\DoxyCodeLine{00581\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&ids,\ }
-\DoxyCodeLine{00582\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&family,\ }
-\DoxyCodeLine{00583\ \ \ \ \ \textcolor{keyword}{const}\ arma::vec\ \&weights\ =\ \{\},\ }
-\DoxyCodeLine{00584\ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&offset\ =\ \{\},\ }
-\DoxyCodeLine{00585\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md\ =\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}},\ }
-\DoxyCodeLine{00586\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&doCoxReid\ =\ \textcolor{keyword}{true},\ }
-\DoxyCodeLine{00587\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1,\ }
-\DoxyCodeLine{00588\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&epsilon\ =\ 1e-\/8,\ }
-\DoxyCodeLine{00589\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&maxit\ =\ 25,\ }
-\DoxyCodeLine{00590\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&epsilon\_nb\ =\ 1e-\/4,\ }
-\DoxyCodeLine{00591\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ maxit\_nb\ =\ 5,}
-\DoxyCodeLine{00592\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&lambda\ =\ 0)\{}
-\DoxyCodeLine{00593\ }
-\DoxyCodeLine{00594\ \ \ \ \ \textcolor{comment}{//\ all\ responses\ analyzed\ with\ same\ family\ value}}
-\DoxyCodeLine{00595\ \ \ \ \ vector<string>\ famVec(Y.n\_cols,\ family);}
-\DoxyCodeLine{00596\ }
-\DoxyCodeLine{00597\ \ \ \ \ \textcolor{keywordflow}{return}\ glmFitResponses(\ Y,\ X,\ ids,\ famVec,\ weights,\ offset,\ md,\ doCoxReid,\ nthreads,\ epsilon,\ maxit,\ epsilon\_nb,\ maxit\_nb,\ lambda);}
-\DoxyCodeLine{00598\ \}}
-\DoxyCodeLine{00599\ }
+\DoxyCodeLine{00458\ }
+\DoxyCodeLine{00479\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacefastglmm_lib_ab5362fc8877a16829bbb048bd132ae96}{ModelFitGLMList}}\ glmFitResponses(}
+\DoxyCodeLine{00480\ \ \ \ \ \textcolor{keyword}{const}\ arma::mat\ \&Y,\ }
+\DoxyCodeLine{00481\ \ \ \ \ \textcolor{keyword}{const}\ arma::mat\ \&X,\ }
+\DoxyCodeLine{00482\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&ids,\ }
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&family,\ }
+\DoxyCodeLine{00484\ \ \ \ \ \textcolor{keyword}{const}\ arma::vec\ weights\ =\ \{\},\ }
+\DoxyCodeLine{00485\ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&offset\ =\ \{\},\ }
+\DoxyCodeLine{00486\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md\ =\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}},\ }
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&doCoxReid\ =\ \textcolor{keyword}{true},\ }
+\DoxyCodeLine{00488\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1,\ }
+\DoxyCodeLine{00489\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&epsilon\ =\ 1e-\/8,\ }
+\DoxyCodeLine{00490\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&maxit\ =\ 25,\ }
+\DoxyCodeLine{00491\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&epsilon\_nb\ =\ 1e-\/4,}
+\DoxyCodeLine{00492\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ maxit\_nb\ =\ 5,}
+\DoxyCodeLine{00493\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&lambda\ =\ 0)\{}
+\DoxyCodeLine{00494\ }
+\DoxyCodeLine{00495\ \ \ \ \ \textcolor{comment}{//\ standardize\ weights}}
+\DoxyCodeLine{00496\ \ \ \ \ vec\ w\_norm\ =\ weights;}
+\DoxyCodeLine{00497\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ w\_norm.is\_empty()\ )\{}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ w\_norm\ =\ w\_norm\ /\ mean(w\_norm);}
+\DoxyCodeLine{00499\ \ \ \ \ \}}
+\DoxyCodeLine{00500\ }
+\DoxyCodeLine{00501\ \ \ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_ab5362fc8877a16829bbb048bd132ae96}{ModelFitGLMList}}\ fitList(Y.n\_cols,\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m}{ModelFitGLM}}());}
+\DoxyCodeLine{00502\ }
+\DoxyCodeLine{00503\ \ \ \ \ \textcolor{comment}{//\ find\ rows\ in\ X\ with\ NAN\ values}}
+\DoxyCodeLine{00504\ \ \ \ \ uvec\ idx\_drop\ =\ rows\_with\_nan(X);\ \ }
+\DoxyCodeLine{00505\ \ \ \ \ mat\ X\_clean(X);}
+\DoxyCodeLine{00506\ \ \ \ \ X\_clean.rows(idx\_drop).zeros();}
+\DoxyCodeLine{00507\ }
+\DoxyCodeLine{00508\ \ \ \ \ \textcolor{comment}{//\ Parallel\ part\ using\ Thread\ Building\ Blocks}}
+\DoxyCodeLine{00509\ \ \ \ \ tbb::task\_arena\ limited\_arena(nthreads);}
+\DoxyCodeLine{00510\ \ \ \ \ limited\_arena.execute([\&]\ \{}
+\DoxyCodeLine{00511\ \ \ \ \ tbb::parallel\_for(}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ tbb::blocked\_range<int>(0,\ Y.n\_cols,\ 10),\ }
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
+\DoxyCodeLine{00514\ }
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ disable\_parallel\_blas();}
+\DoxyCodeLine{00516\ }
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ local\ workspace\ }}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ GLMWork\ *work\ =\ new\ GLMWork();}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ vec\ y,\ w;}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ uvec\ idx;}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ iterate\ through\ responses\ }}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ for\ (int\ j\ =\ r.begin();\ j\ !=\ r.end();\ ++j)\ \{\ \ }
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ identify\ samples\ with\ NAN\ entries}}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ values\ and\ weights\ to\ zero}}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ y\ =\ Y.col(j);\ \ \ }
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ w\ =\ w\_norm;}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ idx\ =\ unique(join\_cols(find\_nan(y),\ idx\_drop));}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ y.elem(idx).zeros();}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \ \ \ \ w.elem(idx).zeros();}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GLM\ regression\ \ \ }}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ \ \ ModelFitGLM\ fit;}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \ \ \ \ if(\ family[j]\ ==\ \textcolor{stringliteral}{"{}nb"{}}\ )\{}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ GLM\_NB(X\_clean,\ y,\ md,\ w,\ offset,\ doCoxReid,\ work,\ \{\},\ epsilon,\ maxit,\ epsilon\_nb,\ maxit\_nb,\ lambda);}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \ \ \ \ \}else\{}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fit\ =\ GLM(X\_clean,\ y,\ family[j],\ md,\ w,\ offset,\ work,\ \{\},\ epsilon,\ maxit,\ lambda);}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00540\ }
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Save\ feature\ ID}}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \ \ \ \ fit.ID\ =\ ids[j];}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ return\ mean\ of\ mu\ for\ jth\ response}}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \ \ \ \ fit.mu\_mean\ =\ mean(work-\/>mu);}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ return\ mean\ of\ response}}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \ \ \ \ fit.y\_mean\ =\ mean(y);}
+\DoxyCodeLine{00549\ }
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ result\ to\ list}}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \ \ fitList.at(j)\ =\ fit;}
+\DoxyCodeLine{00552\ \ \ \ \ \}\ \ }
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ work;}
+\DoxyCodeLine{00554\ \ \ \ \ \});\ \});}
+\DoxyCodeLine{00555\ }
+\DoxyCodeLine{00556\ \ \ \ \ \textcolor{keywordflow}{return}\ fitList;}
+\DoxyCodeLine{00557\ \ \ \ \ \}}
+\DoxyCodeLine{00558\ }
+\DoxyCodeLine{00579\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{namespacefastglmm_lib_ab5362fc8877a16829bbb048bd132ae96}{ModelFitGLMList}}\ glmFitResponses(}
+\DoxyCodeLine{00580\ \ \ \ \ \textcolor{keyword}{const}\ arma::mat\ \&Y,\ }
+\DoxyCodeLine{00581\ \ \ \ \ \textcolor{keyword}{const}\ arma::mat\ \&X,\ }
+\DoxyCodeLine{00582\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&ids,\ }
+\DoxyCodeLine{00583\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&family,\ }
+\DoxyCodeLine{00584\ \ \ \ \ \textcolor{keyword}{const}\ arma::vec\ \&weights\ =\ \{\},\ }
+\DoxyCodeLine{00585\ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&offset\ =\ \{\},\ }
+\DoxyCodeLine{00586\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md\ =\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}},\ }
+\DoxyCodeLine{00587\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&doCoxReid\ =\ \textcolor{keyword}{true},\ }
+\DoxyCodeLine{00588\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1,\ }
+\DoxyCodeLine{00589\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&epsilon\ =\ 1e-\/8,\ }
+\DoxyCodeLine{00590\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&maxit\ =\ 25,\ }
+\DoxyCodeLine{00591\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&epsilon\_nb\ =\ 1e-\/4,\ }
+\DoxyCodeLine{00592\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ maxit\_nb\ =\ 5,}
+\DoxyCodeLine{00593\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&lambda\ =\ 0)\{}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \ \ \ \ \textcolor{comment}{//\ all\ responses\ analyzed\ with\ same\ family\ value}}
+\DoxyCodeLine{00596\ \ \ \ \ vector<string>\ famVec(Y.n\_cols,\ family);}
+\DoxyCodeLine{00597\ }
+\DoxyCodeLine{00598\ \ \ \ \ \textcolor{keywordflow}{return}\ glmFitResponses(\ Y,\ X,\ ids,\ famVec,\ weights,\ offset,\ md,\ doCoxReid,\ nthreads,\ epsilon,\ maxit,\ epsilon\_nb,\ maxit\_nb,\ lambda);}
+\DoxyCodeLine{00599\ \}}
 \DoxyCodeLine{00600\ }
-\DoxyCodeLine{00601\ \};}
-\DoxyCodeLine{00602\ }
-\DoxyCodeLine{00603\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00601\ }
+\DoxyCodeLine{00602\ \};}
+\DoxyCodeLine{00603\ }
+\DoxyCodeLine{00604\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

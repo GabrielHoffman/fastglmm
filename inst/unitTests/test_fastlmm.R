@@ -1,6 +1,12 @@
 
 library(RUnit)
 
+file <- system.file("unitTests", "fastlmm_R.R", package = "fastglmm")
+source(file)
+
+file <- system.file("unitTests", "R_implementations.R", package = "fastglmm")
+source(file)
+
 test_REML = function(){
 
 	library(fastglmm)
@@ -558,13 +564,13 @@ test_fastlmm = function(){
 	}
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
-	REML = TRUE
+	REML = FALSE
 
 	# 1 response, matrix dcmp$vectors
 	U = as.matrix(dcmp$vectors)
 	s = dcmp$values
 	Y = as.numeric(info$y)
-	fit1 = fastlmm_R( Y, X, U = U, s = s, REML=REML)
+	fit1 = fastlmm_R( Y, X, U = U, s = s)
 	fit2 = fastlmm.fit(Y, X, Z=indicObj, REML=REML)
 	isSame(fit1, fit2)
 
@@ -572,7 +578,7 @@ test_fastlmm = function(){
 	U = dcmp$vectors
 	s = dcmp$values
 	Y = info$y
-	fit1 = fastlmm_R( Y, X, U = U, s = s, REML=REML)
+	fit1 = fastlmm_R( Y, X, U = U, s = s)
 	fit2 = fastlmm.fit(Y, X, Z=indicObj, REML=REML)
 	isSame(fit1, fit2)
 
@@ -580,7 +586,7 @@ test_fastlmm = function(){
 	Ym = cbind(Y, runif(length(Y)), runif(length(Y)), runif(length(Y)), runif(length(Y)))
 	U = as.matrix(dcmp$vectors)
 	s = dcmp$values
-	fit1 = fastlmm_R( Ym[,2], X, U = U, s = s, REML=REML)
+	fit1 = fastlmm_R( Ym[,2], X, U = U, s = s)
 	fit2 = fastlmm.fit(Ym[,2], X, Z=indicObj, REML=REML)
 	isSame(fit1, fit2)
 
@@ -588,7 +594,7 @@ test_fastlmm = function(){
 	Ym = cbind(Y, runif(length(Y)), runif(length(Y)), runif(length(Y)), runif(length(Y)), runif(length(Y)), runif(length(Y)), runif(length(Y)), runif(length(Y)))
 	U = dcmp$vectors
 	s = dcmp$values
-	fit1 = fastlmm_R( Ym[,2], X, U = U, s = s, REML=REML)
+	fit1 = fastlmm_R( Ym[,2], X, U = U, s = s)
 	fit2 = fastlmm.fit(Ym[,2], X, Z=indicObj, REML=REML)
 	isSame(fit1, fit2)
 
@@ -668,7 +674,7 @@ test_fastlmm = function(){
 	y = info$y
 	yw = info$y * sqrt(weights)
 	Xw = X * sqrt(weights)
-	fit2 = fastlmm_R(yw, Xw, U = U, s = s, weights=weights, REML=REML)
+	fit2 = fastlmm_R(yw, Xw, U = U, s = s, weights=weights)
 	fit3 = fastlmm.fit(y, X, Z=indicObj, weights=weights, REML=REML)
 
 	a = intersect(names(fit2), names(fit3))
@@ -746,7 +752,7 @@ test_fastlmm = function(){
 	s = dcmp$values 
 	yw = info$y * sqrt(weights)
 	Xw = X * sqrt(weights)
-	fit2 = fastlmm_R(yw, Xw, U = U, s = s, weights=weights, REML=REML)
+	fit2 = fastlmm_R(yw, Xw, U = U, s = s, weights=weights)
 
 	fit3 = fastlmm.fit(info$y, X, Z = indicatorObj, weights=weights, REML=REML)
 
@@ -820,13 +826,13 @@ test_profile = function(){
 	# delta 
 	# 1 / (1/hsq - 1)
 
-	REML = TRUE
+	REML = FALSE
 
 	# 1 response, matrix dcmp$vectors
 	U = as.matrix(dcmp$vectors)
 	s = dcmp$values
 	Y = as.numeric(info$y)
-	fit1 = fastlmm_R( Y, X, U = U, s = s, REML = REML)
+	fit1 = fastlmm_R( Y, X, U = U, s = s)
 	fit2 = fastlmm.fit(Y, X, Z=indicObj, REML = REML)
 	isSame(fit1, fit2)
 

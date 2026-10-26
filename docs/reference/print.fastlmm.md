@@ -43,7 +43,8 @@ fit
 #> Call:
 #> fastglmm(formula = formula, data = data, family = negative.binomial(NA), 
 #>     weights = weights, maxit = maxit, tol = tol, tol.eta = tol.eta, 
-#>     doCoxReid = doCoxReid, lambda = lambda, nthreads = nthreads)
+#>     doCoxReid = doCoxReid, lambda = lambda, nthreads = nthreads, 
+#>     REML = REML)
 #> 
 #> Coefficients:
 #> (Intercept)  

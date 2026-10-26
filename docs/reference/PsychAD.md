@@ -61,27 +61,27 @@ fit <- fastglmm(form, PsychAD, family=fam)
 
 summary(fit)
 #> Generalized linear mixed model fit by PQL ['fastglmm']
-#>  Family: Negative Binomial(0.2443)  ( log )
+#>  Family: Negative Binomial(0.2413)  ( log )
 #>  Formula: PTPRG ~ Dx + Age + Sex + offset(log(libSize)) + (1 | SubID)
 #> 
 #> Coefficients:
 #>               Estimate Std. Error    df t value Pr(>|t|)    
-#> (Intercept)  -8.577681   0.311172 149.9 -27.566   <2e-16 ***
-#> DxAD          1.102755   0.073541 145.6  14.995   <2e-16 ***
-#> Age          -0.007262   0.003775 148.2  -1.923   0.0563 .  
-#> SexMale      -0.103277   0.075756 145.7  -1.363   0.1749    
+#> (Intercept)  -8.579598   0.314805 149.9 -27.254   <2e-16 ***
+#> DxAD          1.103112   0.074407 145.6  14.825   <2e-16 ***
+#> Age          -0.007246   0.003820 148.2  -1.897   0.0598 .  
+#> SexMale      -0.102996   0.076649 145.7  -1.344   0.1811    
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
-#> Residual df: 60227.2 
+#> Residual df: 60226.7 
 #> 
 #> Variance components:
-#>   sigSq_g: 0.4803
-#>   sigSq_e: 8.17
-#>   delta:   17.01
+#>   sigSq_g: 0.4883
+#>   sigSq_e: 8.176
+#>   delta:   16.74
 
 # Variance partitioning analysis
 varpart(fit)
 #>           Dx          Age          Sex        SubID   CountNoise    Residuals 
-#> 0.0381796508 0.0006302765 0.0003328903 0.0603294404 0.3944562458 0.5060714962 
+#> 0.0375459290 0.0006167199 0.0003253761 0.0602769180 0.3940102045 0.5072248524 
 ```

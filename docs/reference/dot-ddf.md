@@ -50,5 +50,5 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
 # denominator degrees of freedom 
 # used for hypothesis testing below
 ddf(fit)
-#> [1] 267.0785 123.8255 131.7683 485.7446
+#> [1] 223.7220 105.3093 111.5378 490.2091
 ```

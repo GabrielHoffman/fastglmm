@@ -53,5 +53,5 @@ fit <- fastglmm.nb(form, PsychAD)
 
 varianceTerms(fit)
 #>     SubID 
-#> 0.7856561 
+#> 0.7887434 
 ```

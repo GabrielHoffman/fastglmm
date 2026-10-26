@@ -41,5 +41,5 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
    family = binomial(), data = bacteria)
 
 residuals(fit)[1:3]
-#> [1] 0.1859579 0.1859579 0.4085591
+#> [1] 0.1766501 0.1766501 0.3941379
 ```

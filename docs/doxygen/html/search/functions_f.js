@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['satterthwaite_0',['Satterthwaite',['../classfastglmm_lib_1_1_satterthwaite.html#a5b5a515c0fa97ec7c85d86c2ebfdc40d',1,'fastglmmLib::Satterthwaite']]],
+  ['satterthwaite_0',['Satterthwaite',['../classfastglmm_lib_1_1_satterthwaite.html#ab54f1de64a038cc3fdcd95d4fb504831',1,'fastglmmLib::Satterthwaite']]],
   ['scaleeachcol_1',['scaleEachCol',['../misc_8h.html#a0045cd455dd233e9e16362f826b46bfb',1,'scaleEachCol(const mat &amp;X, const vec &amp;w):&#160;misc.h'],['../misc_8h.html#a22e1b21e8ed9c35826aee032cf93ad89',1,'scaleEachCol(const sp_mat &amp;X, const vec &amp;w):&#160;misc.h']]],
   ['scaleeachrow_2',['scaleEachRow',['../misc_8h.html#a613b4d5d3153ad82d4e3beed8060d305',1,'scaleEachRow(const mat &amp;X, const vec &amp;w):&#160;misc.h'],['../misc_8h.html#a3d7decd57c293381f38da94eb00331aa',1,'scaleEachRow(const sp_mat &amp;X, const vec &amp;w):&#160;misc.h']]],
   ['scalerowscols_3',['scaleRowsCols',['../misc_8h.html#aff616cc0cfc16600b8f55bf7b77f455e',1,'misc.h']]],

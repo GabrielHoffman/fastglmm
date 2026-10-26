@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fastglmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.20</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.23</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,14 +48,14 @@
 <span>  <span class="va">X</span>,</span>
 <span>  <span class="va">Z</span>,</span>
 <span>  offset <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  REML <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  delta <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rank <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">Z</span><span class="op">)</span>,</span>
 <span>  weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  delta.range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span>,</span>
 <span>  tol <span class="op">=</span> <span class="fl">1e-06</span>,</span>
 <span>  lambda <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  nthreads <span class="op">=</span> <span class="fl">6</span></span>
+<span>  nthreads <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>  REML <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -77,10 +77,6 @@
 
 <dt id="arg-offset">offset<a class="anchor" aria-label="anchor" href="#arg-offset"></a></dt>
 <dd><p>offset</p></dd>
-
-
-<dt id="arg-reml">REML<a class="anchor" aria-label="anchor" href="#arg-reml"></a></dt>
-<dd><p>logical scalar - Should the estimates be chosen to optimize the REML criterion vs ML?</p></dd>
 
 
 <dt id="arg-delta">delta<a class="anchor" aria-label="anchor" href="#arg-delta"></a></dt>
@@ -109,6 +105,10 @@
 
 <dt id="arg-nthreads">nthreads<a class="anchor" aria-label="anchor" href="#arg-nthreads"></a></dt>
 <dd><p>number of threads</p></dd>
+
+
+<dt id="arg-reml">REML<a class="anchor" aria-label="anchor" href="#arg-reml"></a></dt>
+<dd><p>use REML or ML estimates (default to <code>TRUE</code>)</p></dd>
 
 </dl></div>
     <div class="section level2">

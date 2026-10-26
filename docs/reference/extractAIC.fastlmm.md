@@ -42,5 +42,5 @@ fit <- fastglmm(y ~ trt + I(week > 2) + (1 | ID),
    family = binomial(), data = bacteria)
 
 extractAIC(fit)
-#> [1]   30.82029 1163.48647
+#> [1]   31.8059 1161.3974
 ```

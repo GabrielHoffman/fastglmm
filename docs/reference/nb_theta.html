@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fastglmm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.20</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.23</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,10 @@
 <span>  <span class="va">mu</span>,</span>
 <span>  <span class="va">n</span>,</span>
 <span>  <span class="va">weights</span>,</span>
+<span>  X <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Z <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sigSq_g <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  doCoxReid <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  left <span class="op">=</span> <span class="op">-</span><span class="fl">10</span>,</span>
 <span>  right <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>  tol <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">^</span><span class="fl">0.25</span></span>
@@ -72,6 +76,22 @@
 
 <dt id="arg-weights">weights<a class="anchor" aria-label="anchor" href="#arg-weights"></a></dt>
 <dd><p>sample weights.  If missing, set to 1</p></dd>
+
+
+<dt id="arg-x">X<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
+<dd><p>fixed effects design matrix</p></dd>
+
+
+<dt id="arg-z">Z<a class="anchor" aria-label="anchor" href="#arg-z"></a></dt>
+<dd><p>random effects design matrix</p></dd>
+
+
+<dt id="arg-sigsq-g">sigSq_g<a class="anchor" aria-label="anchor" href="#arg-sigsq-g"></a></dt>
+<dd><p>variance component estimate</p></dd>
+
+
+<dt id="arg-docoxreid">doCoxReid<a class="anchor" aria-label="anchor" href="#arg-docoxreid"></a></dt>
+<dd><p>use Cox-Reid correction</p></dd>
 
 
 <dt id="arg-left">left<a class="anchor" aria-label="anchor" href="#arg-left"></a></dt>
