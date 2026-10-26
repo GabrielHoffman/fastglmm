@@ -8,6 +8,10 @@
 #' @param mu estimated mean vector from generalized linear model
 #' @param n number of data points (defaults to the sum of \code{weights})
 #' @param weights sample weights.  If missing, set to 1
+#' @param X fixed effects design matrix
+#' @param Z random effects design matrix
+#' @param sigSq_g variance component estimate
+#' @param doCoxReid use Cox-Reid correction 
 #' @param left left boundary for estimating theta on a log scale.  So -10 corresponds to a minimum theta value of exp(-10)
 #' @param right right boundary for estimating theta on a log scale
 #' @param tol tolerance of optimization
@@ -28,8 +32,9 @@
 #' nb_theta(quine$Days, fitted(quine.nb))
 #
 #' @seealso \code{MASS::theta.ml()}
+#' @importFrom Matrix Matrix
 #' @export
-nb_theta = function(y, mu, n, weights, left=-10, right=20, tol = .Machine$double.eps^0.25){
+nb_theta = function(y, mu, n, weights, X = NULL, Z = NULL, sigSq_g = 0, doCoxReid = TRUE, left=-10, right=20, tol = .Machine$double.eps^0.25){
 
 	if( missing(weights) ){
 		weights <- rep(1, length(y))
@@ -39,7 +44,16 @@ nb_theta = function(y, mu, n, weights, left=-10, right=20, tol = .Machine$double
 		n <- sum(weights)
 	}
 
-	.nb_theta(y, mu, n, weights, left, right, tol)
+	if( is.null(X) ){
+		X <- matrix(1)
+		doCoxReid <- FALSE
+	}
+
+	if( is.null(Z) ){
+		Z <- Matrix(matrix(1))
+	}
+
+	.nb_theta(y, mu, n, weights, X, Z, sigSq_g, doCoxReid, left, right, tol)
 }
 
 

@@ -62,9 +62,17 @@ process_formula = function(formula, data){
 #' @param doCoxReid use Cox-Reid correction for estimating theta in negative binomial model
 #' @param lambda ridge shrinkage parameter
 #' @param nthreads number of threads
+#' @param REML use REML or ML estimates (default to \code{FALSE})
 #'
 #' @return model fit object of class fastglmm
 #'
+#' @details Parameters are estimated using penalized quasi-likelihood (PQL) (Breslow and Clayton, 1993).  See Maestrini, et al (2026) for an examination of REML in the context of generalized linear mixed models 
+#' 
+#' @references
+#' Breslow, N.E. and Clayton, D.G. (1993). Approximate inference in generalized linear mixed models. Journal of the American statistical Association, 88(421), pp.9-25. \doi{10.1080/01621459.1993.10594284}
+#' 
+#' Maestrini, L., Hui, F.K. and Welsh, A.H., (2026). Restricted maximum likelihood estimation in generalized linear mixed models. Statistical Science, 41(3) 615-636 \doi{10.1214/25-STS995}
+#' 
 #' @examples
 #' library(MASS)
 #' library(lme4)
@@ -88,7 +96,7 @@ process_formula = function(formula, data){
 #' @importFrom reformulas nobars
 #' @importFrom methods is
 #' @export
-fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-3, tol.eta = 1e-3, doCoxReid=nrow(data) < 1000, lambda = 0, nthreads = 6){
+fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 1000, tol = 1e-3, tol.eta = 1e-3, doCoxReid=TRUE, lambda = 0, nthreads = 6, REML = TRUE){
 
 	mc <- match.call()
 
@@ -121,7 +129,6 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 		family <- get(family, mode = "function", envir = parent.frame())
   if(is.function(family)) family <- family()
   if(is.null(family$family)) {
-		print(family)
 		stop("'family' not recognized")
   }
   if( maxit < 1 ){
@@ -202,7 +209,8 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 						maxit = maxit,
 						lambda = lambda,
 						nthreads = nthreads,
-						doCoxReid = doCoxReid)
+						doCoxReid = doCoxReid,
+						REML = REML)
 
 	fit$s <- c(fit$s)
 	fit$Z <- Z
@@ -238,6 +246,7 @@ fastglmm = function (formula, data, family = gaussian(), weights = NULL, delta =
 	fit$formula <- formula	
   fit$data <- data
   fit$lambda <- lambda
+  fit$REML <- REML
 	class(fit) <- c("fastglmm", "fastlmm")
 
 	attr(fit, "call") <- mc

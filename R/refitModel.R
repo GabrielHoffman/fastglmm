@@ -69,10 +69,11 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
               right = 10,
               tol = 1e-3, 
               tol_eta = 1e-3,
-              maxit = 100,
+              maxit = 1000,
               lambda = fit$lambda,
               doCoxReid = fit$doCoxReid,
-              nthreads = 1)
+              nthreads = 1, 
+              REML = fit$REML)
 
     res$s <- c(res$s)
     res$Z <- fit$Z
@@ -113,8 +114,6 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
     fxn <- ifelse( is(fit$U, "sparseMatrix"),
               .fastlmm_ms, .fastlmm_mm )
 
-    REML <- FALSE
-
     res <- fxn(
         y = fit$y,
         X = design,
@@ -122,16 +121,16 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
         s = fit$s,
         weights = weights(fit),
         dcmpMethod = "categorical",
-        REML = REML,
         delta = ifelse(is.null(delta), -1, delta),
         left = -10, 
         right = 10, 
         tol = 1e-6,
         lambda = fit$lambda, 
-        nthreads = 1)
+        nthreads = 1, 
+        REML = fit$REML)
 
     os <- 1
-    res <- as.fastlmm(res, design = design, offset = os, method = ifelse(REML, "REML", "ML"))
+    res <- as.fastlmm(res, design = design, offset = os, method = ifelse(fit$REML, "REML", "ML"))
     res$Z <- fit$Z
     res$U <- fit$U
     res$s <- fit$s
@@ -142,6 +141,7 @@ refitModel <- function(fit, delta = NULL, interceptOnly=FALSE, fixedNBtheta = FA
 
   res$data <- fit$data
   res$lambda <- fit$lambda
+  res$REML <- fit$REML
 
   res
 }

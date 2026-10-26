@@ -18,6 +18,7 @@
 #' @param doCoxReid use Cox-Reid correction for estimating theta in negative binomial model
 #' @param lambda ridge shrinkage parameter
 #' @param nthreads number of threads
+#' @param REML use REML or ML estimates (default to \code{FALSE})
 #'
 #' @return model fit of class fastglmm
 #'
@@ -38,7 +39,7 @@
 #
 #' @importFrom MASS negative.binomial
 #' @export
-fastglmm.nb = function (formula, data, weights = NULL, maxit = 100, tol = 1e-3, tol.eta = 1e-3, doCoxReid = nrow(data) < 1000, lambda = 0, nthreads = 6){
+fastglmm.nb = function (formula, data, weights = NULL, maxit = 1000, tol = 1e-3, tol.eta = 1e-3, doCoxReid = TRUE, lambda = 0, nthreads = 6, REML = TRUE){
 
 	fastglmm(formula, 
 				data = data, 
@@ -49,7 +50,8 @@ fastglmm.nb = function (formula, data, weights = NULL, maxit = 100, tol = 1e-3, 
 				tol.eta = tol.eta,
 				doCoxReid = doCoxReid,
 				lambda = lambda,
-				nthreads = nthreads)
+				nthreads = nthreads,
+				REML = REML)
 }
 
 

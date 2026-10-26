@@ -11,12 +11,13 @@ fastglmm(
   weights = NULL,
   delta = NULL,
   delta.range = c(-10, 10),
-  maxit = 100,
+  maxit = 1000,
   tol = 0.001,
   tol.eta = 0.001,
-  doCoxReid = nrow(data) < 1000,
+  doCoxReid = TRUE,
   lambda = 0,
-  nthreads = 6
+  nthreads = 6,
+  REML = TRUE
 )
 }
 \arguments{
@@ -43,12 +44,17 @@ fastglmm(
 \item{lambda}{ridge shrinkage parameter}
 
 \item{nthreads}{number of threads}
+
+\item{REML}{use REML or ML estimates (default to \code{FALSE})}
 }
 \value{
 model fit object of class fastglmm
 }
 \description{
 Fit generalized linear mixed model (GLMM) with a single random effect using penalized quasi-likelihood (PQL)
+}
+\details{
+Parameters are estimated using penalized quasi-likelihood (PQL) (Breslow and Clayton, 1993).  See Maestrini, et al (2026) for an examination of REML in the context of generalized linear mixed models
 }
 \examples{
 library(MASS)
@@ -68,4 +74,9 @@ coef(summary(fit))
 fit = fastglmm(y ~ trt + I(week > 2) + (1 | ID),
 	family = binomial(), data = bacteria)
 coef(summary(fit))
+}
+\references{
+Breslow, N.E. and Clayton, D.G. (1993). Approximate inference in generalized linear mixed models. Journal of the American statistical Association, 88(421), pp.9-25. \doi{10.1080/01621459.1993.10594284}
+
+Maestrini, L., Hui, F.K. and Welsh, A.H., (2026). Restricted maximum likelihood estimation in generalized linear mixed models. Statistical Science, 41(3) 615-636 \doi{10.1214/25-STS995}
 }

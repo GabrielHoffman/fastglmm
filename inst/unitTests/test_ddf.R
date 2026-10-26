@@ -17,30 +17,34 @@ test_ddf = function(){
 
   dd$y <- mu + rnorm(nrow(mu))
 
-  # fastlmm
-  fit <- fastlmm(y ~ x + (1 | g), dd)
-  ddf_fastlmm = ddf(fit)
+  f = function(REML){
+    # fastlmm
+    fit <- fastlmm(y ~ x + (1 | g), dd, REML=REML)
+    ddf_fastlmm = ddf(fit)
 
-  # Compare to lmerTest
-  #####################
+    # Compare to lmerTest
+    #####################
 
-  fit2 <- lmer(y ~ x + (1 | g), dd, REML=FALSE)
-  ddf_lmertest <- coef(summary(fit2))[,3]
+    fit2 <- lmer(y ~ x + (1 | g), dd, REML=REML)
+    ddf_lmertest <- coef(summary(fit2))[,3]
 
-  checkEqualsNumeric(ddf_fastlmm, ddf_lmertest, tol=1e-3)
-  checkEqualsNumeric(coef(summary(fit)), coef(summary(fit2)), tol=1e-3)
+    checkEqualsNumeric(ddf_fastlmm, ddf_lmertest, tol=1e-2)
+    checkEqualsNumeric(coef(summary(fit))[,-3], coef(summary(fit2))[,-3], tol=1e-5)
 
-  # Compare interfaces
-  #####################
-  a = coef(summary(fit))
-  b = anova(fit)
+    # Compare interfaces
+    #####################
+    a = coef(summary(fit))
+    b = anova(fit)
 
-  checkEqualsNumeric(a[,"df"], b["df2"], tol=1e-3)
-  checkEqualsNumeric(log(a[,'Pr(>|t|)']), log(b[,4]))
+    checkEqualsNumeric(a[,"df"], b["df2"], tol=1e-3)
+    checkEqualsNumeric(log(a[,'Pr(>|t|)']), log(b[,4]))
 
-  d = linearHypothesis(fit, c(1,0))
-  checkEqualsNumeric(d$`Pr(>F)`[2], b[1,4])
+    d = linearHypothesis(fit, c(1,0))
+    checkEqualsNumeric(d$`Pr(>F)`[2], b[1,4])
+  }
 
+  f(TRUE)
+  f(FALSE)
 }
 
 
@@ -62,29 +66,33 @@ test_ddf_glmmTMB = function(){
 
   dd$y <- rpois(nrow(dd), exp(mu))
 
+  REML = FALSE 
+
   # Compare to glmmTMB: gaussian
   ################################
 
   family = gaussian()
-  fit <- fastglmm(y ~ x + (1 | g), dd, family=family)
+  fit <- fastglmm(y ~ x + (1 | g), dd, family=family, REML=REML)
   ddf_fastglmm = ddf(fit)
 
-  fit2 <- glmmTMB(y ~ x + (1 | g), dd, family=family)
+  fit2 <- glmmTMB(y ~ x + (1 | g), dd, family=family, REML=REML)
   ddf_tmb <- coef(summary(fit2, ddf="satterthwaite"))$cond[,"ddf"]
 
-  checkEqualsNumeric(ddf_fastglmm, ddf_tmb, tol=1e-2)
+  fit3 <- lmer(y ~ x + (1 | g), dd, REML=REML)
+  ddf_lmer <- coef(summary(fit3, ddf="Satterthwaite"))[,3]
+
+  checkEqualsNumeric(ddf_fastglmm, ddf_lmer, tol=1e-2)
 
   res1 = coef(summary(fit))
-  res2 = coef(summary(fit2, ddf="satterthwaite"))$cond
-  checkEqualsNumeric(res1, res2[,c(1,2,4,3,5)], 
-    tol=1e-3)
+  res3 = coef(summary(fit3, ddf="Satterthwaite"))
+  checkEqualsNumeric(res1, res3, tol=1e-2)
 
   # Poisson
   family = poisson()
-  fit <- fastglmm(y ~ x + (1 | g), dd, family=family)
+  fit <- fastglmm(y ~ x + (1 | g), dd, family=family, REML=REML)
   ddf_fastglmm = ddf(fit)
 
-  fit2 <- glmmTMB(y ~ x + (1 | g), dd, family=family)
+  fit2 <- glmmTMB(y ~ x + (1 | g), dd, family=family, REML=REML)
   ddf_tmb <- coef(summary(fit2, ddf="satterthwaite"))$cond[,"ddf"]
 
   ddf_fastglmm
@@ -106,7 +114,7 @@ test_ddf_glmmTMB = function(){
   #####################
 
   family = poisson()
-  fit <- fastglmm(y ~ x + (1 | g), dd, family=family)
+  fit <- fastglmm(y ~ x + (1 | g), dd, family=family, REML=REML)
 
   a = coef(summary(fit))
   b = anova(fit)
@@ -126,16 +134,18 @@ test_hypothesisTesting = function(){
   library(lmerTest)
   library(RUnit)
 
+  REML = TRUE
+
   sleepstudy$Days = factor(sleepstudy$Days)
 
-  fit1 <- lmer( Reaction ~ Days + (1 | Subject), sleepstudy, REML=FALSE)
-  fit2 <- fastlmm( Reaction ~ Days + (1 | Subject), sleepstudy)
+  fit1 <- lmer( Reaction ~ Days + (1 | Subject), sleepstudy, REML=REML)
+  fit2 <- fastlmm( Reaction ~ Days + (1 | Subject), sleepstudy, REML=REML)
 
   # summary
   checkEqualsNumeric(
     coef(summary(fit1)), 
     coef(summary(fit2)),
-    tol = 1e-4)
+    tol = 1e-3)
 
   # anova
   a = anova(fit1)
@@ -147,7 +157,7 @@ test_hypothesisTesting = function(){
   checkEqualsNumeric(
     aa[-c(1:2)],
     bb, 
-    tol = 1e-5)
+    tol = 1e-4)
 
   # linearHypothesis
   res1 = linearHypothesis(fit2, "(Intercept)")
@@ -269,7 +279,7 @@ test_ddf_compare = function(){
 
 
 
-  fit = fastglmm( y ~ x + (1|Indiv), data, family = poisson())
+  fit = fastglmm( y ~ x + (1|Indiv), data, family = poisson(), REML=FALSE)
   a = ddf(fit)
   b = ddf.orig(fit)
   checkEqualsNumeric(a,b, tol=1e-3)

@@ -59,7 +59,6 @@ getFamilyString = function( family ){
     family <- family()
   }
   if(is.null(family$family)) {
-    print(family)
     stop("'family' not recognized")
   }
   # get string as family/link

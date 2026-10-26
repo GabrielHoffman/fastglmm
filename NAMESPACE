@@ -91,6 +91,7 @@ importFrom(MASS,
 )
 importFrom(Matrix,
   Diagonal,
+  Matrix,
   colSums,
   crossprod,
   fac2sparse,
@@ -105,7 +106,7 @@ importFrom(car,
   makeHypothesis
 )
 importFrom(dplyr,
-  `%>%`,
+  "%>%",
   bind_rows,
   mutate,
   tibble

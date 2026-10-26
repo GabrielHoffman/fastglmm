@@ -75,12 +75,12 @@ as.fastlmm <- function(x, design, offset, method) {
 #' @param offset offset
 #' @param rank rank of random effect.  The maximum rank is the number of columns in \code{Z}.  A low rank approximation can be useful if the eigen-values decrease quickly.
 #' @param weights an optional vector of prior weights with a value for each sample.  When the response has multiple columns, a vector of weight can be reused for each respose, or a matrix the same dimension as the responses matrix can weight each response separately.
-#' @param REML logical scalar - Should the estimates be chosen to optimize the REML criterion vs ML?
 #' @param delta  if \code{NULL} estimate delta, if value is given used this fixed values
 #' @param delta.range min and max values (in log space), of the search space for delta to fit the random effect
 #' @param tol convergence criterion for the 1D search of the delta space
 #' @param lambda ridge shrinkage parameter
 #' @param nthreads number of threads
+#' @param REML use REML or ML estimates (default to \code{TRUE})
 #
 #' @details Fit a linear mixed model with a single variance component.
 #'
@@ -96,7 +96,7 @@ as.fastlmm <- function(x, design, offset, method) {
 ## other args: sig_a_fixed = FALSE
 #' @importFrom methods is
 #' @export
-fastlmm.fit <- function(y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank = ncol(Z), weights = NULL, delta.range = c(-10, 10), tol = 1e-6, lambda = 0, nthreads = 6) {
+fastlmm.fit <- function(y, X, Z, offset = NULL, delta = NULL, rank = ncol(Z), weights = NULL, delta.range = c(-10, 10), tol = 1e-6, lambda = 0, nthreads = 6, REML = TRUE) {
 
   if (delta.range[1] >= delta.range[2]) {
     stop("delta.range are not valid")
@@ -147,13 +147,13 @@ fastlmm.fit <- function(y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank
     s = dcmp$values,
     weights = weights,
     dcmpMethod = "categorical",
-    REML = REML,
     delta = delta,
     left = delta.range[1],
     right = delta.range[2],
     tol = tol,
     lambda = lambda,
-    nthreads = nthreads
+    nthreads = nthreads,
+    REML = REML
   )  
 
   res <- as.fastlmm(res, 
@@ -162,6 +162,8 @@ fastlmm.fit <- function(y, X, Z, offset = NULL, REML = FALSE, delta = NULL, rank
           method = ifelse(REML, "REML", "ML"))
 
   res$Z <- Z
+  res$lambda <- lambda
+  res$REML <- REML
 
   res
 }

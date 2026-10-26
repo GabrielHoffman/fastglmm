@@ -6,12 +6,15 @@
 #include <armadillo>
 #endif
 
+#include "spectralDecomp.h"
 #include "local_min.h"
+
 
 #ifndef NB_THETA_ML_H_
 #define NB_THETA_ML_H_
 
 using namespace arma;
+using namespace fastglmmLib;
 
 /** Store number of observations for each count
  */ 
@@ -52,12 +55,15 @@ static CountTable CreateLUT( const vec &y, const vec &weights = {}, const int &m
 }
 
 
+template <typename T> 
 struct nbData {
 	vec y;
 	vec mu;
 	double n;
 	vec weights;
-	mat X;
+	mat X;	
+  spectralDecomp<T> dcmp;
+	double sigSq_g;
 	bool doCoxReid;
 	CountTable ct;	
 
@@ -65,17 +71,38 @@ struct nbData {
 	nbData(){}
 
 	// Constructor
-	nbData(const vec &y, const vec &mu, const double &n, const vec &weights, const mat &X, const bool &doCoxReid, const CountTable &ct = {}	):
-		y(y), mu(mu), n(n), weights(weights), X(X), doCoxReid(doCoxReid), ct(ct) {}
+	nbData(
+		const vec &y, 
+		const vec &mu, 
+		const double &n, 
+		const vec &weights, 
+		const mat &X, 			
+   	spectralDecomp<T> &dcmp = {},
+		const double &sigSq_g = 0.0,
+		const bool &doCoxReid = true, 
+		const CountTable &ct = {}	):
+			y(y), 
+			mu(mu), 
+			n(n), 
+			weights(weights), 
+			X(X), 
+			dcmp(dcmp),
+			sigSq_g(sigSq_g),
+			doCoxReid(doCoxReid), 
+			ct(ct) {
+			}
 };
 
 // log-likelihood for NB GLM
-static  double nb_ll( 	
+template <typename T> 
+static double nb_ll( 	
 				const vec &y,
 				const vec &mu,
 				const double &n, 
 				const vec &weights, 
 				const mat &X,
+   			spectralDecomp<T> &dcmp,
+				const double &sigSq_g,
 				const bool &doCoxReid,
 				const CountTable &ct,	
 				const double &theta){
@@ -123,19 +150,41 @@ static  double nb_ll(
 
 	double cr = 0;
 	if( doCoxReid ){
+
 		// Compute logDet of information matrix
 		// use sample weights here
 		// use 1/theta here since notation is different
 		// than in glmGammaPoi
-		vec w;
-		if( weights.is_empty() ){
-			w = 1 / (1.0/mu + 1.0/theta);
-		}else{
-			w = weights / (1.0/mu + 1.0/theta);
+		vec w = theta*mu / (theta + mu);
+		if( ! weights.is_empty() ){
+			w *= weights;
 		}
+
 		double ld;
-		bool success = log_det_sympd(ld, X.t() * (X.each_col()%w));
-		cr = -0.5 * ld * 0.99; 
+		bool success;
+		if( sigSq_g == 0.0){
+			// fixed effect only
+			success = log_det_sympd(ld, X.t() * (X.each_col()%w));
+			cr = -0.5 * ld; 
+		}else{
+			// fixed + random effects
+			dcmp.reweight(w, true);
+			mat Xw = X.each_col() % sqrt(w);
+			mat Xu = dcmp.get_U().t() * Xw;
+
+			// sum(log(s^2 + 1/sigSq_g))
+			double a1 = sum(log(dcmp.get_s() + 1/sigSq_g));
+
+			// A2 <- crossprod(Xtil, 1/(1/sigSq_g + s^2) * Xtil) / sigSq_g + 
+      //   crossprod(Xw) - 
+      //   crossprod(Xtil) 
+			mat A2 = Xu.t() * scaleEachCol(Xu, 1 / (1/sigSq_g + dcmp.get_s())) +
+					Xw.t()*Xw - Xu.t()*Xu;
+			success = log_det_sympd(ld, A2);
+
+      // CR <- -0.5*A1 + -0.5*logDet(A2) 
+      cr = -0.5*a1 -0.5*ld; 
+		}
 		if( ! success ) cr = 0;
 	}
 
@@ -145,13 +194,14 @@ static  double nb_ll(
 }
 
 // define functions to be minimized
+template <typename T> 
 static inline double nb_ll( double theta_log, void *arg){
 
 	// cast void pointer to nbData
-  auto *data = (nbData *) arg;
+  auto *data = (nbData<T> *) arg;
 
   // value function to be minimized
-  return -1.0*nb_ll(data->y, data->mu, data->n, data->weights, data->X, data->doCoxReid, data->ct, exp(theta_log));
+  return -1.0*nb_ll(data->y, data->mu, data->n, data->weights, data->X, data->dcmp, data->sigSq_g, data->doCoxReid, data->ct, exp(theta_log));
 }
 
 
@@ -163,12 +213,15 @@ MASS::theta.ml() and glmGamPois() maximize the likelihood function using Fishers
 
 /** Estimate dispersion parameter for negative binomial distribution.  Based on \code{MASS::theta.ml()}, but directly maximizes log-likelihood of negative binomial with respect to theta using a line search.
  */ 
+template <typename T> 
 static double nb_theta_ml(	
 				const vec &y,
 				const vec &mu,
 				const double &n, 
 				const vec &weights = {},		
-				const mat &X = {},	
+				const mat &X = {},		
+				spectralDecomp<T> &dcmp = {},
+				const double &sigSq_g = 0.0,
 				const bool doCoxReid = true,
 				const CountTable &ct = {},	
 				const double &left = -5,				
@@ -182,14 +235,14 @@ static double nb_theta_ml(
 
 	// initialize function
 	funcStruct F; 
-	F.function = nb_ll;
+	F.function = nb_ll<T>;
 
-	nbData *d;
+	nbData<T> *d;
 
 	if( weights.is_empty() || all(weights == 1.0) ){
-		d = new nbData(y, mu, n, {}, X, doCoxReid, ct);
+		d = new nbData(y, mu, n, {}, X, dcmp, sigSq_g, doCoxReid, ct);
 	}else{		
-		d = new nbData(y, mu, n, weights, X, doCoxReid, ct);
+		d = new nbData(y, mu, n, weights, X, dcmp, sigSq_g, doCoxReid, ct);
 	}
 
 	F.params = d;

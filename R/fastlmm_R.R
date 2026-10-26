@@ -42,6 +42,7 @@ ll_R <- function(delta, Y, X, Yu, Xu, U, s) {
 #' @param delta ratio of variance components estimated using
 #' @param sig_a_fixed if \code{FALSE}, estimate \code{sigSq_a} from data
 #' @param rank number of of principal components used
+#' @param REML use REML or ML estimates (default to \code{FALSE})
 #'
 #' @details Fit a linear mixed model with a single variance component.
 #'
@@ -60,7 +61,7 @@ ll_R <- function(delta, Y, X, Yu, Xu, U, s) {
 #' fit2
 #' @importFrom stats optimize pnorm sd pbeta
 #' @export
-fastlmm_R <- function(Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NULL, delta = NULL, sig_a_fixed = FALSE, rank = ncol(U)) {
+fastlmm_R <- function(Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NULL, delta = NULL, sig_a_fixed = FALSE, rank = ncol(U), REML=FALSE) {
   rank <- min(rank, ncol(U))
 
   if (rank < ncol(U)) {
@@ -72,22 +73,27 @@ fastlmm_R <- function(Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NUL
   }
 
   if (is.null(Xu)) {
-    Xu <- crossprod(U, X)
+    Xu <- as.matrix(crossprod(U, X))
   }
   if (is.null(Yu)) {
-    Yu <- crossprod(U, Y)
+    Yu <- as.matrix(crossprod(U, Y))
   }
 
   log_interval <- c(10, -10)
 
   n <- nrow(Y)
+  d <- ncol(X)
 
   if (is.null(n)) {
     n <- length(Y)
   }
 
-  Gamma_XX <- crossprod(X) - crossprod(Xu)
-  Gamma_XY <- crossprod(X, Y) - crossprod(Xu, Yu)
+  Gamma_XX <- crossprod(X) - as.matrix(crossprod(Xu))
+  Gamma_XY <- crossprod(X, Y) - as.matrix(crossprod(Xu, Yu))
+
+  if( REML ){
+    logDetXX <- determinant(crossprod(X))$modulus[1]
+  }
 
   beta <- sigSq_g <- QXX <- ru <- r <- 1
 
@@ -115,10 +121,23 @@ fastlmm_R <- function(Y, X, U, s, weights = rep(1, nrow(X)), Xu = NULL, Yu = NUL
       sigSq_g <<- 1
     } else {
       Qrr <- crossprod(ru, inv_s_delta_ru) + (crossprod(r)[1] - crossprod(ru)[1]) / delta
-      sigSq_g <<- Qrr[1] / n
+      if( REML ){
+        sigSq_g <<- Qrr[1] / (n - d)
+      }else{
+        sigSq_g <<- Qrr[1] / n
+      }
     }
 
-    -n / 2 * log(2 * pi * sigSq_g) - 1 / 2 * (sum(log(s + delta)) + (n - rank) * log(delta)) - n / 2 + 1 / 2 * sum(log(weights))
+    value <- -n / 2 * log(2 * pi * sigSq_g) - 1 / 2 * (sum(log(s + delta)) + (n - rank) * log(delta)) - n / 2 + 1 / 2 * sum(log(weights))
+
+    if( REML ){
+
+      logDetQXX <- determinant(QXX)$modulus[1]
+  
+      value <- value + 1/2*(d*log(2*pi*sigSq_g) + logDetXX)- 1/2*logDetQXX
+    }
+
+    return( value )
   }
 
   if (is.null(delta)) {

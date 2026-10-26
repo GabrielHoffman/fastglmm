@@ -11,7 +11,7 @@ fastglmm_R(
   weights = NULL,
   delta = NULL,
   delta.range = c(-10, 10),
-  maxit = 100,
+  maxit = 1000,
   tol = 1e-05,
   tol.eta = 1e-07,
   init.fit = NULL,

@@ -41,7 +41,7 @@
 #' @importFrom reformulas nobars
 #' @importFrom methods is
 #' @export
-fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 100, tol = 1e-5, tol.eta = 1e-7, init.fit = NULL, init = c("lm", "glm"), nthreads = 6){
+fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta = NULL, delta.range = c(-10, 10), maxit = 1000, tol = 1e-5, tol.eta = 1e-7, init.fit = NULL, init = c("lm", "glm"), nthreads = 6){
 
   mc <- match.call()
   init <- match.arg(init)
@@ -51,7 +51,6 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
       family <- get(family, mode = "function", envir = parent.frame())
   if(is.function(family)) family <- family()
   if(is.null(family$family)) {
-    print(family)
     stop("'family' not recognized")
   }
   if( !is.null(init.fit) && ! is(init.fit, "fastglmm") ){
@@ -111,8 +110,6 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
   names(eta.init) = NULL
   offset = ifelse(is.null(offset), 0, offset)
   eta.init = eta.init - offset
-
-  # print(head(eta.init))
 
   if( is.null(weights) ){
     w <- weights
@@ -190,7 +187,7 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
 #' mu <- 5*(-4 + with(dd, as.integer(f1) + 4*as.numeric(f2)))
 #' dd$y <- rnbinom(nrow(dd), mu = mu, size = 0.5)
 #' 
-#' \dontrun{
+#' \donttest{
 #' # NB GLMM via Laplace approximation
 #' fit1 <- glmer.nb(y ~ f1*f2 + (1|g), data=dd)
 #' coef(summary(fit1))
@@ -201,7 +198,7 @@ fastglmm_R = function (formula, data, family = gaussian(), weights = NULL, delta
 #' }
 #' @importFrom MASS negative.binomial
 #' @export
-fastglmm_R.nb = function (formula, data, weights, maxit = 100, tol = .Machine$double.eps^0.5, tol.eta = .Machine$double.eps^0.5, init.fit = NULL, init = c("lm", "glm"), nthreads = 6){
+fastglmm_R.nb = function (formula, data, weights, maxit = 1000, tol = .Machine$double.eps^0.5, tol.eta = .Machine$double.eps^0.5, init.fit = NULL, init = c("lm", "glm"), nthreads = 6){
 
   if( missing(weights) ){
     weights = rep(1, nrow(data))

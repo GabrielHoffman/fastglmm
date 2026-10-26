@@ -8,12 +8,13 @@ fastglmm.nb(
   formula,
   data,
   weights = NULL,
-  maxit = 100,
+  maxit = 1000,
   tol = 0.001,
   tol.eta = 0.001,
-  doCoxReid = nrow(data) < 1000,
+  doCoxReid = TRUE,
   lambda = 0,
-  nthreads = 6
+  nthreads = 6,
+  REML = TRUE
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ fastglmm.nb(
 \item{lambda}{ridge shrinkage parameter}
 
 \item{nthreads}{number of threads}
+
+\item{REML}{use REML or ML estimates (default to \code{FALSE})}
 }
 \value{
 model fit of class fastglmm

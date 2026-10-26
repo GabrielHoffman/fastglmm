@@ -30,7 +30,7 @@ class glmmFitFeatures {
     const double &right = 10,
     const double &tol = 1e-5,
     const double &tol_eta = 1e-7,
-    const int &maxit = 100,
+    const int &maxit = 1000,
     const double &lambda = 0,
     const int &nthreads = 1,
     const ModelDetail md = LOW);

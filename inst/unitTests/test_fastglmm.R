@@ -20,9 +20,10 @@ test_predict_fitted = function(){
 
 	# fastlmm
 	##########
+	REML = TRUE
 
-	fit2 <- fastlmm(y ~ f1*f2 + (1|g), data=dd)
-	fit1 <- lmer(y ~ f1*f2 + (1|g), data=dd, REML=FALSE)
+	fit2 <- fastlmm(y ~ f1*f2 + (1|g), data=dd, REML=REML)
+	fit1 <- lmer(y ~ f1*f2 + (1|g), data=dd, REML=REML)
 
 	# coef estimates
 	checkEqualsNumeric( coef(summary(fit1))[,1], 
@@ -296,7 +297,7 @@ test_fastglmm = function(){
 
 	# Compare PQL methods
 	#---------------------
-	fit1 = fastglmm( y ~ (1|Indiv), data, family = poisson())
+	fit1 = fastglmm( y ~ (1|Indiv), data, family = poisson(), REML=FALSE, doCoxReid=FALSE)
 	fit2 = glmmPQL( y ~ 1, random = ~ 1|Indiv, data, family = poisson(), niter=100)
 	fit3 = glmer( y ~ (1|Indiv), data, family = poisson())
 
@@ -336,7 +337,7 @@ test_fastglmm = function(){
 	# Compare PQL methods: NB fixed
 	#------------------------
 	fam = negative.binomial(2.3)
-	fit1 = fastglmm( y ~ (1|Indiv), data, family = fam)
+	fit1 = fastglmm( y ~ (1|Indiv), data, family = fam, REML=FALSE, doCoxReid=FALSE)
 	fit2 = glmmPQL( y ~ 1, random = ~ 1|Indiv, data, family = fam, niter=100)
 	fit3 = glmer( y ~ (1|Indiv), data, family = fam)
 
@@ -374,7 +375,7 @@ test_theta_ml = function(){
 	# no weights
 	quine.nb <- glm.nb(Days ~ .^2, data = quine)
 	res1 = theta.ml(quine$Days, fitted(quine.nb), limit=200, eps=1e-6)
-	res2 = nb_theta(quine$Days, fitted(quine.nb), tol=1e-6)
+	res2 = nb_theta(quine$Days, fitted(quine.nb), tol=1e-6, doCoxReid=FALSE)
 	checkEqualsNumeric( res1, res2, tol=1e-6)
 	
 	# with weights
@@ -384,7 +385,7 @@ test_theta_ml = function(){
 	mu <- fitted(fit)
 	n = sum(yeast$fr)
 	res1 = theta.ml(yeast$numbers, mu, n, weights = yeast$fr, limit=2000, eps=1e-8)
-	res2 = fastglmm:::nb_theta(yeast$numbers, mu, n, yeast$fr, tol=1e-8)
+	res2 = nb_theta(yeast$numbers, mu, n, yeast$fr, tol=1e-8)
 	checkEqualsNumeric( res1, res2, tol=1e-6)
 }
 

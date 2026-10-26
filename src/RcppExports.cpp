@@ -13,7 +13,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // fastlmm_mm
-List fastlmm_mm(const arma::vec& y, const arma::mat& X, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const std::string& dcmpMethod, const double& delta, const double& left, const double& right, const double& tol, const double& lambda, const int& nthreads, const bool REML);
+List fastlmm_mm(const arma::vec& y, const arma::mat& X, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const std::string& dcmpMethod, const double& delta, const double& left, const double& right, const double& tol, const double& lambda, const int& nthreads, const bool& REML);
 RcppExport SEXP _fastglmm_fastlmm_mm(SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP dcmpMethodSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP lambdaSEXP, SEXP nthreadsSEXP, SEXP REMLSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -30,13 +30,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
     Rcpp::traits::input_parameter< const double& >::type lambda(lambdaSEXP);
     Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
-    Rcpp::traits::input_parameter< const bool >::type REML(REMLSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type REML(REMLSEXP);
     rcpp_result_gen = Rcpp::wrap(fastlmm_mm(y, X, U, s, weights, dcmpMethod, delta, left, right, tol, lambda, nthreads, REML));
     return rcpp_result_gen;
 END_RCPP
 }
 // fastlmm_ms
-List fastlmm_ms(const arma::vec& y, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights, const std::string& dcmpMethod, const double& delta, const double& left, const double& right, const double& tol, const double& lambda, const int& nthreads, const bool REML);
+List fastlmm_ms(const arma::vec& y, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights, const std::string& dcmpMethod, const double& delta, const double& left, const double& right, const double& tol, const double& lambda, const int& nthreads, const bool& REML);
 RcppExport SEXP _fastglmm_fastlmm_ms(SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP dcmpMethodSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP lambdaSEXP, SEXP nthreadsSEXP, SEXP REMLSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -53,13 +53,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
     Rcpp::traits::input_parameter< const double& >::type lambda(lambdaSEXP);
     Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
-    Rcpp::traits::input_parameter< const bool >::type REML(REMLSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type REML(REMLSEXP);
     rcpp_result_gen = Rcpp::wrap(fastlmm_ms(y, X, U, s, weights, dcmpMethod, delta, left, right, tol, lambda, nthreads, REML));
     return rcpp_result_gen;
 END_RCPP
 }
 // fastlmm_sm
-List fastlmm_sm(const arma::vec& y, const arma::sp_mat& X, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const std::string& dcmpMethod, const double& delta, const double& left, const double& right, const double& tol, const double& lambda, const int& nthreads, const bool REML);
+List fastlmm_sm(const arma::vec& y, const arma::sp_mat& X, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const std::string& dcmpMethod, const double& delta, const double& left, const double& right, const double& tol, const double& lambda, const int& nthreads, const bool& REML);
 RcppExport SEXP _fastglmm_fastlmm_sm(SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP dcmpMethodSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP lambdaSEXP, SEXP nthreadsSEXP, SEXP REMLSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -76,13 +76,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
     Rcpp::traits::input_parameter< const double& >::type lambda(lambdaSEXP);
     Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
-    Rcpp::traits::input_parameter< const bool >::type REML(REMLSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type REML(REMLSEXP);
     rcpp_result_gen = Rcpp::wrap(fastlmm_sm(y, X, U, s, weights, dcmpMethod, delta, left, right, tol, lambda, nthreads, REML));
     return rcpp_result_gen;
 END_RCPP
 }
 // fastlmm_ss
-List fastlmm_ss(const arma::vec& y, const arma::sp_mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights, const std::string& dcmpMethod, const double& delta, const double& left, const double& right, const double& tol, const double& lambda, const int& nthreads, const bool REML);
+List fastlmm_ss(const arma::vec& y, const arma::sp_mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights, const std::string& dcmpMethod, const double& delta, const double& left, const double& right, const double& tol, const double& lambda, const int& nthreads, const bool& REML);
 RcppExport SEXP _fastglmm_fastlmm_ss(SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP dcmpMethodSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP lambdaSEXP, SEXP nthreadsSEXP, SEXP REMLSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -99,31 +99,35 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
     Rcpp::traits::input_parameter< const double& >::type lambda(lambdaSEXP);
     Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
-    Rcpp::traits::input_parameter< const bool >::type REML(REMLSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type REML(REMLSEXP);
     rcpp_result_gen = Rcpp::wrap(fastlmm_ss(y, X, U, s, weights, dcmpMethod, delta, left, right, tol, lambda, nthreads, REML));
     return rcpp_result_gen;
 END_RCPP
 }
 // nb_theta
-double nb_theta(const NumericVector& y, const NumericVector& mu, const double& n, const NumericVector& weights, const double& left, const double& right, const double& tol);
-RcppExport SEXP _fastglmm_nb_theta(SEXP ySEXP, SEXP muSEXP, SEXP nSEXP, SEXP weightsSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP) {
+double nb_theta(const arma::vec& y, const arma::vec& mu, const double& n, const arma::vec& weights, const arma::mat& X, const arma::sp_mat& Z, const double& sigSq_g, const bool doCoxReid, const double& left, const double& right, const double& tol);
+RcppExport SEXP _fastglmm_nb_theta(SEXP ySEXP, SEXP muSEXP, SEXP nSEXP, SEXP weightsSEXP, SEXP XSEXP, SEXP ZSEXP, SEXP sigSq_gSEXP, SEXP doCoxReidSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericVector& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< const NumericVector& >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type mu(muSEXP);
     Rcpp::traits::input_parameter< const double& >::type n(nSEXP);
-    Rcpp::traits::input_parameter< const NumericVector& >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat& >::type Z(ZSEXP);
+    Rcpp::traits::input_parameter< const double& >::type sigSq_g(sigSq_gSEXP);
+    Rcpp::traits::input_parameter< const bool >::type doCoxReid(doCoxReidSEXP);
     Rcpp::traits::input_parameter< const double& >::type left(leftSEXP);
     Rcpp::traits::input_parameter< const double& >::type right(rightSEXP);
     Rcpp::traits::input_parameter< const double& >::type tol(tolSEXP);
-    rcpp_result_gen = Rcpp::wrap(nb_theta(y, mu, n, weights, left, right, tol));
+    rcpp_result_gen = Rcpp::wrap(nb_theta(y, mu, n, weights, X, Z, sigSq_g, doCoxReid, left, right, tol));
     return rcpp_result_gen;
 END_RCPP
 }
 // fastglmm_mm
-List fastglmm_mm(const arma::vec& y, const arma::mat& X, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const arma::vec& offset, const std::string& family, const std::string& dcmpMethod, const double& delta, const double& left, const double& right, const double& tol, const double& tol_eta, const int& maxit, const double& lambda, const int& nthreads, const bool& doCoxReid);
-RcppExport SEXP _fastglmm_fastglmm_mm(SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP dcmpMethodSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP tol_etaSEXP, SEXP maxitSEXP, SEXP lambdaSEXP, SEXP nthreadsSEXP, SEXP doCoxReidSEXP) {
+List fastglmm_mm(const arma::vec& y, const arma::mat& X, const arma::mat& U, const arma::vec& s, const arma::vec& weights, const arma::vec& offset, const std::string& family, const std::string& dcmpMethod, const double& delta, const double& left, const double& right, const double& tol, const double& tol_eta, const int& maxit, const double& lambda, const int& nthreads, const bool& doCoxReid, const bool& REML);
+RcppExport SEXP _fastglmm_fastglmm_mm(SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP dcmpMethodSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP tol_etaSEXP, SEXP maxitSEXP, SEXP lambdaSEXP, SEXP nthreadsSEXP, SEXP doCoxReidSEXP, SEXP REMLSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -144,13 +148,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const double& >::type lambda(lambdaSEXP);
     Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
     Rcpp::traits::input_parameter< const bool& >::type doCoxReid(doCoxReidSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastglmm_mm(y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid));
+    Rcpp::traits::input_parameter< const bool& >::type REML(REMLSEXP);
+    rcpp_result_gen = Rcpp::wrap(fastglmm_mm(y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid, REML));
     return rcpp_result_gen;
 END_RCPP
 }
 // fastglmm_ms
-List fastglmm_ms(const arma::vec& y, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights, const arma::vec& offset, const std::string& family, const std::string& dcmpMethod, const double& delta, const double& left, const double& right, const double& tol, const double& tol_eta, const int& maxit, const double& lambda, const int& nthreads, const bool& doCoxReid);
-RcppExport SEXP _fastglmm_fastglmm_ms(SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP dcmpMethodSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP tol_etaSEXP, SEXP maxitSEXP, SEXP lambdaSEXP, SEXP nthreadsSEXP, SEXP doCoxReidSEXP) {
+List fastglmm_ms(const arma::vec& y, const arma::mat& X, const arma::sp_mat& U, const arma::vec& s, const arma::vec& weights, const arma::vec& offset, const std::string& family, const std::string& dcmpMethod, const double& delta, const double& left, const double& right, const double& tol, const double& tol_eta, const int& maxit, const double& lambda, const int& nthreads, const bool& doCoxReid, const bool& REML);
+RcppExport SEXP _fastglmm_fastglmm_ms(SEXP ySEXP, SEXP XSEXP, SEXP USEXP, SEXP sSEXP, SEXP weightsSEXP, SEXP offsetSEXP, SEXP familySEXP, SEXP dcmpMethodSEXP, SEXP deltaSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP tolSEXP, SEXP tol_etaSEXP, SEXP maxitSEXP, SEXP lambdaSEXP, SEXP nthreadsSEXP, SEXP doCoxReidSEXP, SEXP REMLSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -171,7 +176,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const double& >::type lambda(lambdaSEXP);
     Rcpp::traits::input_parameter< const int& >::type nthreads(nthreadsSEXP);
     Rcpp::traits::input_parameter< const bool& >::type doCoxReid(doCoxReidSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastglmm_ms(y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid));
+    Rcpp::traits::input_parameter< const bool& >::type REML(REMLSEXP);
+    rcpp_result_gen = Rcpp::wrap(fastglmm_ms(y, X, U, s, weights, offset, family, dcmpMethod, delta, left, right, tol, tol_eta, maxit, lambda, nthreads, doCoxReid, REML));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -260,9 +266,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_fastglmm_fastlmm_ms", (DL_FUNC) &_fastglmm_fastlmm_ms, 13},
     {"_fastglmm_fastlmm_sm", (DL_FUNC) &_fastglmm_fastlmm_sm, 13},
     {"_fastglmm_fastlmm_ss", (DL_FUNC) &_fastglmm_fastlmm_ss, 13},
-    {"_fastglmm_nb_theta", (DL_FUNC) &_fastglmm_nb_theta, 7},
-    {"_fastglmm_fastglmm_mm", (DL_FUNC) &_fastglmm_fastglmm_mm, 17},
-    {"_fastglmm_fastglmm_ms", (DL_FUNC) &_fastglmm_fastglmm_ms, 17},
+    {"_fastglmm_nb_theta", (DL_FUNC) &_fastglmm_nb_theta, 11},
+    {"_fastglmm_fastglmm_mm", (DL_FUNC) &_fastglmm_fastglmm_mm, 18},
+    {"_fastglmm_fastglmm_ms", (DL_FUNC) &_fastglmm_fastglmm_ms, 18},
     {"_fastglmm_log_moments_nb_mu", (DL_FUNC) &_fastglmm_log_moments_nb_mu, 5},
     {"_fastglmm_log_moments_nb_XB", (DL_FUNC) &_fastglmm_log_moments_nb_XB, 8},
     {"_fastglmm_log_moments_nb_BlupXBZ", (DL_FUNC) &_fastglmm_log_moments_nb_BlupXBZ, 13},

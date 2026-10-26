@@ -9,14 +9,14 @@ fastlmm.fit(
   X,
   Z,
   offset = NULL,
-  REML = FALSE,
   delta = NULL,
   rank = ncol(Z),
   weights = NULL,
   delta.range = c(-10, 10),
   tol = 1e-06,
   lambda = 0,
-  nthreads = 6
+  nthreads = 6,
+  REML = TRUE
 )
 }
 \arguments{
@@ -27,8 +27,6 @@ fastlmm.fit(
 \item{Z}{sparse matrix of indicators for random effect}
 
 \item{offset}{offset}
-
-\item{REML}{logical scalar - Should the estimates be chosen to optimize the REML criterion vs ML?}
 
 \item{delta}{if \code{NULL} estimate delta, if value is given used this fixed values}
 
@@ -43,6 +41,8 @@ fastlmm.fit(
 \item{lambda}{ridge shrinkage parameter}
 
 \item{nthreads}{number of threads}
+
+\item{REML}{use REML or ML estimates (default to \code{TRUE})}
 }
 \value{
 \code{U} and \code{s} values are from the SVD of weighted Z

@@ -1,4 +1,15 @@
 
+
+# fastglmm 0.4.23
+ - Oct 26, 2026
+ - pass CRAN checks
+ - `REML = TRUE` default for `fastlmm()` and `fastglmm()`
+ - `doCoxReid = TRUE` default for `fastglmm()` and `fastglmm.nb()`
+
+# fastglmm 0.4.22
+ - Oct 16, 2026
+ - Add REML to `fastlmm()` and `fastglmm()`
+
 # fastglmm 0.4.16
  - Sept 22, 2026
  - update docs to pass CRAN check

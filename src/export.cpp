@@ -37,7 +37,7 @@ List fastlmm_mm(
   const double &tol,
   const double &lambda,
   const int &nthreads,
-  const bool REML = false){
+  const bool &REML = true){
 
   ModelDetail md = MAX;
 
@@ -71,7 +71,7 @@ List fastlmm_ms(
   const double &tol,
   const double &lambda,
   const int &nthreads,
-  const bool REML = false){
+  const bool &REML = true){
 
   ModelDetail md = MAX;
 
@@ -107,7 +107,7 @@ List fastlmm_sm(
   const double &tol,
   const double &lambda,
   const int &nthreads,
-  const bool REML = false){
+  const bool &REML = true){
 
   ModelDetail md = MAX;
 
@@ -141,7 +141,7 @@ List fastlmm_ss(
   const double &tol,
   const double &lambda,
   const int &nthreads,
-  const bool REML = false){
+  const bool &REML = true){
 
   ModelDetail md = MAX;
 
@@ -165,15 +165,21 @@ List fastlmm_ss(
 
 // [[Rcpp::export(".nb_theta")]]
 double nb_theta(
-  const NumericVector &y,
-  const NumericVector &mu,
+  const arma::vec &y,
+  const arma::vec &mu,
   const double &n, 
-  const NumericVector &weights,
+  const arma::vec &weights,
+  const arma::mat &X,
+  const arma::sp_mat &Z,
+  const double &sigSq_g = 0,
+  const bool doCoxReid = true,
   const double &left = -5,
   const double &right = 20,
   const double &tol = 1e-5){
 
-  return nb_theta_ml(y, mu, n, weights, {}, false, {}, left, right, tol);
+  spectralDecomp dcmp(Z, CATEGORICAL);
+
+  return nb_theta_ml<sp_mat>(y, mu, n, weights, X, dcmp, sigSq_g, doCoxReid, {}, left, right, tol);
 }
 
 
@@ -198,7 +204,8 @@ List fastglmm_mm(
   const int &maxit,
   const double &lambda,
   const int &nthreads, 
-  const bool &doCoxReid = true){
+  const bool &doCoxReid = true,
+  const bool &REML = true){
 
   ModelDetail md = MAX;
 
@@ -207,7 +214,7 @@ List fastglmm_mm(
   spectralDecomp dcmp(U, s, type);
 
   // initialize
-  fastglmm fit = fastglmm<vec,mat,mat>(y, X, dcmp, weights, offset, family, md, tol, tol_eta, maxit, lambda, delta, left, right, true, doCoxReid);
+  fastglmm fit = fastglmm<vec,mat,mat>(y, X, dcmp, weights, offset, family, md, tol, tol_eta, maxit, lambda, delta, left, right, true, doCoxReid, REML);
 
   return toList(fit);
 }
@@ -234,7 +241,8 @@ List fastglmm_ms(
   const int &maxit,
   const double &lambda,
   const int &nthreads, 
-  const bool &doCoxReid = true){
+  const bool &doCoxReid = true,
+  const bool &REML = true){
 
   ModelDetail md = MAX;
 
@@ -243,7 +251,7 @@ List fastglmm_ms(
   spectralDecomp dcmp(U, s, type);
 
   // initialize
-  fastglmm fit = fastglmm<vec,mat,sp_mat>(y, X, dcmp, weights, offset, family, md, tol, tol_eta, maxit, lambda, delta, left, right, true, doCoxReid);
+  fastglmm fit = fastglmm<vec,mat,sp_mat>(y, X, dcmp, weights, offset, family, md, tol, tol_eta, maxit, lambda, delta, left, right, true, doCoxReid, REML);
 
   return toList(fit);
 }
@@ -299,7 +307,7 @@ DataFrame log_moments_nb_mu(
 //' # regression formula
 //' form <- PTPRG ~ offset(log(libSize))
 //' 
-//' \dontrun{
+//' \donttest{
 //' # NB GLM on PTPRG expression 
 //' fit <- glm.nb(form, PsychAD)
 //' 

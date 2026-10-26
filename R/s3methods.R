@@ -1093,7 +1093,7 @@ summary.fastlmm <- function(object, ddf = c("satterthwaite", "asymptotic"), ...)
     ans$coefficients <- cbind(
       Estimate = est, 
       `Std. Error` = se,
-      df = round(ddf.values, 1),
+      df = round(ddf.values, 2),
       `t value` = tval, 
       `Pr(>|t|)` = 2 * pt(abs(tval), ddf.values, lower.tail = FALSE))
   }else{

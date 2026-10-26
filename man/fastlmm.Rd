@@ -7,21 +7,19 @@
 fastlmm(
   formula,
   data,
-  REML = FALSE,
   delta = NULL,
   weights = NULL,
   delta.range = c(-10, 10),
   tol = 1e-06,
   nthreads = 6,
-  lambda = 0
+  lambda = 0,
+  REML = TRUE
 )
 }
 \arguments{
 \item{formula}{a two-sided linear formula object describing both the fixed-effects and random-effects part of the model, with the response on the left of a \code{~} operator and the terms, separated by \code{+} operators, on the right.  Random-effects terms are distinguished by vertical bars (\code{|}) separating expressions for design matrices from grouping factors.}
 
 \item{data}{an optional data frame containing the variables named in}
-
-\item{REML}{logical scalar - Should the estimates be chosen to optimize the REML criterion vs ML?}
 
 \item{delta}{if \code{NULL} estimate delta, if value is given use this fixed value}
 
@@ -34,12 +32,14 @@ fastlmm(
 \item{nthreads}{number of threads}
 
 \item{lambda}{ridge shrinkage parameter}
+
+\item{REML}{use REML or ML estimates (default to \code{TRUE})}
 }
 \value{
 model fit of class fastlmm
 }
 \description{
-Fit a linear mixed-effects model with 1 random effect with REML or maximum likelihood using the very fast algorithm and implementation
+Fit a linear mixed-effects model with 1 random effect with maximum likelihood or REML using the very fast algorithm and implementation
 }
 \details{
 See Hoffman (2013) and Lippert, et al. (2011) for algorithm for low rank linear mixed model with one random effect
@@ -53,8 +53,8 @@ fit
 
 summary(fit)
 
-# results are identical for lmer(...,REML=FALSE)
-fit2 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML = FALSE)
+# results are identical for lmer()
+fit2 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy)
 coef(summary(fit2))
 
 }

@@ -9,6 +9,10 @@ nb_theta(
   mu,
   n,
   weights,
+  X = NULL,
+  Z = NULL,
+  sigSq_g = 0,
+  doCoxReid = TRUE,
   left = -10,
   right = 20,
   tol = .Machine$double.eps^0.25
@@ -22,6 +26,14 @@ nb_theta(
 \item{n}{number of data points (defaults to the sum of \code{weights})}
 
 \item{weights}{sample weights.  If missing, set to 1}
+
+\item{X}{fixed effects design matrix}
+
+\item{Z}{random effects design matrix}
+
+\item{sigSq_g}{variance component estimate}
+
+\item{doCoxReid}{use Cox-Reid correction}
 
 \item{left}{left boundary for estimating theta on a log scale.  So -10 corresponds to a minimum theta value of exp(-10)}
 

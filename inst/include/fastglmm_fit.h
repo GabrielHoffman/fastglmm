@@ -42,20 +42,21 @@ class fastglmm {
 
 	fastglmm(	const T1 &y, 
 						const T2 &X, 
-						const spectralDecomp<T3> &dcmp,
+						spectralDecomp<T3> &dcmp,
 						const vec &weights,
 						const vec &offset,
 						const string &family, 
 						const ModelDetail md = LOW, 
 						const double &tol = 1e-5,
 						const double &tol_eta = 1e-7,
-						const int &maxit = 100,
+						const int &maxit = 1000,
 						const double &lambda = 0,
 						const double &delta = -1,
 						const double &left = -10,
 						const double &right = 10,
 						const bool &returnUS = false,
-						const bool &doCoxReid = false);
+						const bool &doCoxReid = true,
+  					const bool &REML = true);
 
 	const vec residuals() const ; // Response
 	const vec residuals_pearson() const ; // Pearson
@@ -91,7 +92,7 @@ template <typename T1, typename T2, typename T3>
 fastglmm<T1, T2, T3>::fastglmm(
 	const T1 &y, 
 	const T2 &X, 
-	const spectralDecomp<T3> &dcmp,
+	spectralDecomp<T3> &dcmp,
 	const vec &weights,
 	const vec &offset,
 	const string &family, 
@@ -104,7 +105,8 @@ fastglmm<T1, T2, T3>::fastglmm(
 	const double &left,
 	const double &right,
 	const bool &returnUS,
-	const bool &doCoxReid):
+	const bool &doCoxReid,
+  const bool &REML):
 	y(y), 
 	X(X),
 	weights(weights), 
@@ -143,7 +145,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 		// set isValid to FALSE
 		work->w = vec(y.n_elem, fill::value(1));
 			this->dcmp.reweight(work->w);
-		fit = fastlmm(y, X, this->dcmp, work->w, LEAST, lambda);
+		fit = fastlmm(y, X, this->dcmp, work->w, LEAST, lambda, REML);
 		fit.eval_delta( 1 ); 
 		_maxit = 0;
 		isValid = false;
@@ -151,6 +153,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 
 	int iter_in = 0;
 	double theta;
+	double sigSq_g = 0;
 	uvec idx_drop = find(weights < 1e-12);
 	double n_active = weights.n_elem - idx_drop.n_elem;
 
@@ -165,7 +168,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 
 		// if Negative Binomial with unspecified theta
 		if( estimateTheta ){
-			theta = nb_theta_ml(y, work->mu, y.n_elem, weights, X, doCoxReid, ct, -5, 20);
+			theta = nb_theta_ml<T3>(y, work->mu, y.n_elem, weights, X, dcmp, sigSq_g, doCoxReid, ct, -5, 20);
 			fam->setOverdispersion( theta );
 		}
 
@@ -205,6 +208,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 		}
 
 		// wz <- wz / mean(wz)
+		work->w.clamp(1e-6, 1e8);
 		w_mean = sum(work->w) / n_active;
 		work->w = work->w / w_mean;
 
@@ -222,13 +226,14 @@ fastglmm<T1, T2, T3>::fastglmm(
 		this->dcmp.reweight(work->w);
 
 		// fit fastlmm
-		fit = fastlmm(work->z, X, this->dcmp, work->w, LEAST, lambda);
+		fit = fastlmm(work->z, X, this->dcmp, work->w, LEAST, lambda, REML);
 
 		if( delta > 0 ){
 			fit.eval_delta( delta ); 
 		}else{
 			fit.estimate_delta(left, right, tol);	
 		}
+		sigSq_g = fit.get_sigSq_g();
 
 		// check condition number of vcov matrix
 		if( fit.get_vcov_kappa() > 1e10 ){
@@ -246,7 +251,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 	if( isValid && (md > LEAST) ){		
 
 		// fit fastlmm
-		fit = fastlmm(work->z, X, this->dcmp, work->w, md, lambda);
+		fit = fastlmm(work->z, X, this->dcmp, work->w, md, lambda, REML);
 
 		if( delta > 0 ){
 			fit.eval_delta( delta ); 

@@ -1,16 +1,16 @@
 #' Fast Linear Mixed Model with 1 Random Effect
 #'
-#' Fit a linear mixed-effects model with 1 random effect with REML or maximum likelihood using the very fast algorithm and implementation
+#' Fit a linear mixed-effects model with 1 random effect with maximum likelihood or REML using the very fast algorithm and implementation
 #'
 #' @param formula a two-sided linear formula object describing both the fixed-effects and random-effects part of the model, with the response on the left of a \code{~} operator and the terms, separated by \code{+} operators, on the right.  Random-effects terms are distinguished by vertical bars (\code{|}) separating expressions for design matrices from grouping factors.
 #' @param data an optional data frame containing the variables named in
-#' @param REML logical scalar - Should the estimates be chosen to optimize the REML criterion vs ML?
 #' @param weights an optional vector of prior weights with a value for each sample.  When the response has multiple columns, a vector of weight can be reused for each respose, or a matrix the same dimension as the responses matrix can weight each response separately.
 #' @param delta  if \code{NULL} estimate delta, if value is given use this fixed value
 #' @param delta.range min and max values (in log space), of the search space for delta to fit the random effect
 #' @param tol convergence criterion for the 1D search of the delta space
 #' @param lambda ridge shrinkage parameter
 #' @param nthreads number of threads
+#' @param REML use REML or ML estimates (default to \code{TRUE})
 #'
 #' @return model fit of class fastlmm
 #'
@@ -23,8 +23,8 @@
 #'
 #' summary(fit)
 #'
-#' # results are identical for lmer(...,REML=FALSE)
-#' fit2 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML = FALSE)
+#' # results are identical for lmer()
+#' fit2 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy)
 #' coef(summary(fit2))
 #'
 #' @details See Hoffman (2013) and Lippert, et al. (2011) for algorithm for low rank linear mixed model with one random effect
@@ -40,7 +40,7 @@
 #' @importFrom stats as.formula model.frame model.response model.matrix update model.offset
 #' @seealso \code{lme4::lmer()}
 #' @export
-fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, delta.range = c(-10, 10), tol = 1e-6, nthreads = 6, lambda = 0) {
+fastlmm <- function(formula, data, delta = NULL, weights = NULL, delta.range = c(-10, 10), tol = 1e-6, nthreads = 6, lambda = 0, REML = TRUE) {
   mc <- match.call()
 
   # simplest way to extract data
@@ -118,10 +118,8 @@ fastlmm <- function(formula, data, REML = FALSE, delta = NULL, weights = NULL, d
     nthreads = nthreads
   )
 
-
   fit$formula <- formula
   fit$data <- data
-  fit$lambda <- lambda
   
   # return model fit
   attr(fit, "call") <- mc

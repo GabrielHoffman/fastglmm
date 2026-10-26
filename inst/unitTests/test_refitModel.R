@@ -97,8 +97,14 @@ test_refitModel = function(){
   fit = fastglmm(y.nb ~ X1 + X2 + (1|z), df, family=fam, doCoxReid=FALSE)
 
   # null model
-  fit_null = fastglmm(y.nb ~ (1|z), df, family=fam)
+  fit_null = fastglmm(y.nb ~ (1|z), df, family=fam, doCoxReid=FALSE)
   fit_null2 = refitModel(fit, interceptOnly=TRUE)
+
+  fit_null$doCoxReid
+  fit_null2$doCoxReid
+
+  getNBTheta(fit_null)
+  getNBTheta(fit_null2)
 
   family(fit_null)$dispersion
   family(fit_null2)$dispersion

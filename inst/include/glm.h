@@ -271,6 +271,7 @@ static ModelFitGLM GLM_NB(
 	ModelFitGLM fit;
 	string family; 
 	double theta;
+	spectralDecomp<mat> dcmp;
 
 	// Fit Poisson regression to estimate coefficients
 	fit = GLM(X, y, "poisson/log", LEAST, weights, offset, work, betaInit, epsilon, maxit, lambda);
@@ -281,7 +282,7 @@ static ModelFitGLM GLM_NB(
 
 	for(int i=0; i<maxit_nb; i++){
 
-		theta = nb_theta_ml(y, work->mu, y.n_elem, weights, X, doCoxReid, ct);
+		theta = nb_theta_ml<mat>(y, work->mu, y.n_elem, weights, X, dcmp, 0.0, doCoxReid, ct);
 
 		// Fit NB regression to estimate coefficients
     beta_prev = fit.coef;

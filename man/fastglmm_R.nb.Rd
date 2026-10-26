@@ -8,7 +8,7 @@ fastglmm_R.nb(
   formula,
   data,
   weights,
-  maxit = 100,
+  maxit = 1000,
   tol = .Machine$double.eps^0.5,
   tol.eta = .Machine$double.eps^0.5,
   init.fit = NULL,

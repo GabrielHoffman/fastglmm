@@ -35,7 +35,9 @@ class Satterthwaite {
       const T &Xu, 
       const mat &Gamma_XX, 
       const vec &inv_s_delta,
-      const mat &inv_s_delta_Xu);
+      const mat &inv_s_delta_Xu, 
+      const mat &QXX,
+      const bool &REML);
 
     /** Evalute denominator degrees of freedom
      */
@@ -52,7 +54,9 @@ class Satterthwaite {
   private:
     /* Hessian of sigma^2_g, sigma^2_e
     */
-    void set_hessian(
+    void compute_hessian(
+      const mat &QXX,
+      const mat &Gamma_XX, 
       const vec &s);
 
     /* Precompute value for gradient
@@ -72,6 +76,7 @@ class Satterthwaite {
     int n;
     double sigSq_g, sigSq_e, delta;
     mat A, B, H;
+    bool REML;
 };
 
 
@@ -85,13 +90,16 @@ Satterthwaite<T>::Satterthwaite(
   const T &Xu, 
   const mat &Gamma_XX, 
   const vec &inv_s_delta,
-  const mat &inv_s_delta_Xu):
+  const mat &inv_s_delta_Xu, 
+  const mat &QXX,
+  const bool &REML):
   n(n),
   sigSq_g(sigSq_g),
   sigSq_e(sigSq_e),
-  delta(sigSq_e/sigSq_g) {
+  delta(sigSq_e/sigSq_g),
+  REML(REML){
 
-  set_hessian(s);
+  compute_hessian(QXX, Gamma_XX, s);
   prep_gradient(s, Xu, inv_s_delta, inv_s_delta_Xu, Gamma_XX);
 }
 
@@ -145,7 +153,10 @@ vec Satterthwaite<T>::get_gradient(const mat &L) const {
 }
 
 template <typename T> 
-void Satterthwaite<T>::set_hessian(const vec &s){
+void Satterthwaite<T>::compute_hessian(
+  const mat &QXX,
+  const mat &Gamma_XX, 
+  const vec &s){
 
   // n <- length(fit$y)
   // r <- length(s)
@@ -157,10 +168,22 @@ void Satterthwaite<T>::set_hessian(const vec &s){
   // B <- sum(1/(s + delta)^2) + (n-r)/delta^2
   double b = accu(1/pow(s + delta,2)) + (n-r)/pow(delta, 2);
 
+  double fe = 0;
+  if( REML ){
+    // adjust a and b is REML is used
+    mat tmp = solve(QXX, Gamma_XX);
+    double t = trace(tmp);
+    double u = trace(tmp*tmp);
+
+    a = a - t/pow(delta, 2);
+    b = b - 2*t/pow(delta, 3) + u/pow(delta, 4);
+    fe = Gamma_XX.n_cols;
+  }
+
   H = mat(2,2, fill::zeros);
 
   // H[1,1] <- (n - 2*delta*a + delta^2*b) / (2*sigSq_g^2)
-  H(0,0) = (n - 2*delta*a + pow(delta,2)*b) / (2*pow(sigSq_g,2));
+  H(0,0) = (n - fe - 2*delta*a + pow(delta,2)*b) / (2*pow(sigSq_g,2));
 
   // H[1,2] <- H[2,1] <- (a - delta*b) / (2*sigSq_g^2)
   H(0,1) = (a - delta*b) / (2*pow(sigSq_g,2));

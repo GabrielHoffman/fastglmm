@@ -44,7 +44,7 @@ class fastlmm {
             const vec &weights_,
             const ModelDetail md = LOW,
             const double &lambda = 0,
-            const bool REML = false);
+            const bool &REML = true);
 
     // constructor, precompute Yu, Xu
     fastlmm(const T1 &Y_, 
@@ -55,7 +55,7 @@ class fastlmm {
             const mat &Xu_,
             const ModelDetail md = LOW,
             const double &lambda = 0,
-            const bool REML = false);
+            const bool &REML = true);
 
     // constructor, precompute Yu, Xu, Gamma_XX, Gamma_XY
     fastlmm(const T1 &Y_, 
@@ -68,14 +68,14 @@ class fastlmm {
             const mat &Gamma_XY_,
             const ModelDetail md = LOW,
             const double &lambda = 0,
-            const bool REML = false);
+            const bool &REML = true);
 
     // constructor without response
     fastlmm(const T2 &X_, 
             const spectralDecomp<T3> &dcmp,
             const ModelDetail md = LOW,
             const double &lambda = 0,
-            const bool REML = false);
+            const bool &REML = true);
 
     void update_response(const T1 &Y_, const vec &weights_);
     void update_response(const T1 &Y_,
@@ -172,8 +172,8 @@ class fastlmm {
     T2 X;
     T3 U, V;
     vec s, weights;
-    T1 Yu;
-    T2 Xu;
+    vec Yu;
+    mat Xu;
     mat Gamma_XX, Gamma_XY;
     vec inv_s_delta;
     mat inv_s_delta_Xu;
@@ -187,6 +187,7 @@ class fastlmm {
     int iter = 0;
     int n_active; // sample size with non-zero weight
     spectralDecomp<T3> dcmp;
+    double logDetXX, logDetQXX;
 };
 
 
@@ -199,7 +200,7 @@ fastlmm<T1, T2, T3>::fastlmm(
   const vec &weights_,
   const ModelDetail md,
   const double &lambda,
-  const bool REML):   
+  const bool &REML):   
   wsqrt(sqrt(weights_)),
   Y(Y_ % wsqrt),
   X(scaleEachCol(X_, wsqrt)),
@@ -217,9 +218,15 @@ fastlmm<T1, T2, T3>::fastlmm(
   n_active = accu(weights != 0.0);
   Yu = U.t() * Y;
   Xu = U.t() * X;
+  T2 XX = X.t() * X;
   Gamma_XX = X.t() * X - Xu.t() * Xu;
   Gamma_XY = X.t() * Y - Xu.t() * Yu; 
   inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
+
+  if( REML ){
+    bool success = log_det_sympd(logDetXX, mat(XX));
+    if( ! success ) logDetXX = datum::nan;
+  }
 } 
 
 
@@ -236,7 +243,7 @@ fastlmm<T1, T2, T3>::fastlmm(
   const mat &Xu_,
   const ModelDetail md,
   const double &lambda,
-  const bool REML):   
+  const bool &REML):   
   wsqrt(sqrt(weights_)),
   Y(Y_ % wsqrt),
   X(scaleEachCol(X_, wsqrt)),
@@ -254,9 +261,15 @@ fastlmm<T1, T2, T3>::fastlmm(
   n_active = accu(weights != 0.0);
   Yu = Yu_;
   Xu = Xu_;
-  Gamma_XX = X.t() * X - Xu.t() * Xu;
+  T2 XX = X.t() * X;
+  Gamma_XX = XX - Xu.t() * Xu;
   Gamma_XY = X.t() * Y - Xu.t() * Yu; 
   inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
+
+  if( REML ){
+    bool success = log_det_sympd(logDetXX, mat(XX));
+    if( ! success ) logDetXX = datum::nan;
+  }
 } 
 
 // constructor, precompute Yu, Xu, Gamma_XX, Gamma_XY
@@ -272,7 +285,7 @@ fastlmm<T1, T2, T3>::fastlmm(
   const mat &Gamma_XY_,
   const ModelDetail md,
   const double &lambda,
-  const bool REML):   
+  const bool &REML):   
   wsqrt(sqrt(weights_)),
   Y(Y_ % wsqrt),
   X(scaleEachCol(X_, wsqrt)),
@@ -290,9 +303,15 @@ fastlmm<T1, T2, T3>::fastlmm(
   n_active = accu(weights != 0.0);
   Yu = Yu_;
   Xu = Xu_;
+  T2 XX = X.t() * X;
   Gamma_XX = Gamma_XX_;
   Gamma_XY = Gamma_XY_;
   inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
+
+  if( REML ){
+    bool success = log_det_sympd(logDetXX, mat(XX));
+    if( ! success ) logDetXX = datum::nan;
+  }
 } 
 
 
@@ -302,7 +321,7 @@ template <typename T1, typename T2, typename T3>
   const spectralDecomp<T3> &dcmp,
   const ModelDetail md,
   const double &lambda,
-  const bool REML): 
+  const bool &REML): 
   X(X_),
   dcmp(dcmp),
   md(md), 
@@ -315,8 +334,14 @@ template <typename T1, typename T2, typename T3>
   V = this->dcmp.get_V();
 
   Xu = U.t() * X;
-  Gamma_XX = X.t() * X - Xu.t() * Xu;
+  T2 XX = X.t() * X;
+  Gamma_XX = XX - Xu.t() * Xu;
   inv_s_delta_Xu = mat( Xu.n_rows, Xu.n_cols);
+
+  if( REML ){
+    bool success = log_det_sympd(logDetXX, mat(XX));
+    if( ! success ) logDetXX = datum::nan;
+  }
 }
 
 
@@ -408,6 +433,7 @@ double fastlmm<T1, T2, T3>::ll(const double &delta ) {
   
   double n = n_active;
   double rank = Xu.n_rows;
+  double d = X.n_cols;
 
   inv_s_delta = 1 / (s+delta);
 
@@ -449,11 +475,24 @@ double fastlmm<T1, T2, T3>::ll(const double &delta ) {
   // Qrr <- crossprod(ru, inv_s_delta_ru) + (crossprod(r)[1] - crossprod(ru)[1])/ delta
   // sig_g <<- Qrr[1] / n
   double QRR = dot(ru, (inv_s_delta % ru)) + (dot(r,r) - dot(ru,ru)) / delta;
-  sigSq_g = QRR / n;
+
+  if( REML ){
+    sigSq_g = QRR / (n - d);
+  }else{
+    sigSq_g = QRR / n;
+  }
 
   // use 2.0 to ensure double precision
   double logLik = -n/2.0 * log(2.0*M_PI*sigSq_g) - 1.0/2.0 * (sum( log(s + delta ) ) + (n-rank) * log(delta)) - n/2.0; 
 
+  if( REML ){
+
+    // logDetQXX <- determinant(QXX)$modulus[1]
+    bool success = log_det_sympd(logDetQXX, mat(QXX));
+    if( ! success ) logDetQXX = datum::nan;
+
+    logLik += 1/2.0*(d*log(2*M_PI*sigSq_g) + logDetXX)- 1/2.0*logDetQXX;
+  }
   // this is fixed, so don't eval every time, 
   //     just after estimation
   // + sum(log(weights))/2.0;
@@ -589,7 +628,7 @@ ModelFitLMM fastlmm<T1, T2, T3>::get_result(
 
   // Precompute values for Satterthwaite DDF to be
   // used later with V and L specified
-  Satterthwaite ddf_sat(res.y.n_elem, res.sigSq_g, res.sigSq_e, s, Xu, Gamma_XX, inv_s_delta, inv_s_delta_Xu);
+  Satterthwaite ddf_sat(res.y.n_elem, res.sigSq_g, res.sigSq_e, s, Xu, Gamma_XX, inv_s_delta, inv_s_delta_Xu, QXX, REML);
 
   // save precomputed values
   res.hessian_vc = ddf_sat.get_hessian();

@@ -14,7 +14,8 @@ fastlmm_R(
   Yu = NULL,
   delta = NULL,
   sig_a_fixed = FALSE,
-  rank = ncol(U)
+  rank = ncol(U),
+  REML = FALSE
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ fastlmm_R(
 \item{sig_a_fixed}{if \code{FALSE}, estimate \code{sigSq_a} from data}
 
 \item{rank}{number of of principal components used}
+
+\item{REML}{use REML or ML estimates (default to \code{FALSE})}
 }
 \value{
 summary statistics for model fit, and hypothesis testing

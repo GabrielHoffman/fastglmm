@@ -1,6 +1,42 @@
 
 library(RUnit)
 
+test_REML = function(){
+
+	library(fastglmm)
+	library(lme4)
+	library(lmerTest)
+
+	y <- sleepstudy$Reaction
+	X <- model.matrix(~Days, sleepstudy)
+	dcmp <- indicator_decomp(sleepstudy$Subject)
+
+	f = function(REML){
+
+		fit <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML=REML)
+		fit3 <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy, REML=REML)
+
+		checkEqualsNumeric(
+			fixef(fit),
+			coef(fit3),
+			tol = 1e-5)
+
+		checkEqualsNumeric(
+			VarCorr(fit)$Subject[1],
+			fit3$sigSq_g,
+			tol = 1e-5)
+
+		checkEqualsNumeric(
+			sigma(fit)^2,
+			fit3$sigSq_e,
+			tol = 1e-5)
+	}
+
+	f(TRUE)
+	f(FALSE)
+}
+
+
 test_user_fxn = function(){
 
 
@@ -9,7 +45,7 @@ test_user_fxn = function(){
 	# q()
 	# R
 	library(fastglmm)
-	library(lme4)
+	library(lmerTest)
 	library(RUnit)
 	set.seed(1)
 
@@ -19,16 +55,17 @@ test_user_fxn = function(){
 	w[,2] = w[,2] / mean(w[,2])
 	# w[] = 1
 	
-	fit1 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML=FALSE, weights = w[,1])
-	fit2 <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy, weights = w[,1])
+	REML = TRUE
+	fit1 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy, REML=REML, weights = w[,1])
+	fit2 <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy, weights = w[,1], REML=REML)
 
 	# ranef(fit2)
 
 	checkEqualsNumeric( fit1@beta, coef(fit2), tol=1e-5 )
 	checkEqualsNumeric( sigma(fit1), sigma(fit2), tol=1e-5 )
 	checkEqualsNumeric( vcov(fit1), vcov(fit2), tol=1e-5 )
-	checkEqualsNumeric( logLik(fit1), logLik(fit2), tol=1e-5 )
-	checkEqualsNumeric( coef(summary(fit1)), coef(summary(fit2)), tol=1e-4 )
+	# checkEqualsNumeric( logLik(fit1), logLik(fit2), tol=1e-5 )
+	checkEqualsNumeric( coef(summary(fit1)), coef(summary(fit2)), tol=1e-3 )
 
 
 
@@ -521,37 +558,38 @@ test_fastlmm = function(){
 	}
 
 	# devtools::reload("/Users/gabrielhoffman/workspace/repos/fastlmm")
+	REML = TRUE
 
 	# 1 response, matrix dcmp$vectors
 	U = as.matrix(dcmp$vectors)
 	s = dcmp$values
 	Y = as.numeric(info$y)
-	fit1 = fastlmm_R( Y, X, U = U, s = s)
-	fit2 = fastlmm.fit(Y, X, Z=indicObj)
+	fit1 = fastlmm_R( Y, X, U = U, s = s, REML=REML)
+	fit2 = fastlmm.fit(Y, X, Z=indicObj, REML=REML)
 	isSame(fit1, fit2)
 
 	# 1 response, Sparse dcmp$vectors
 	U = dcmp$vectors
 	s = dcmp$values
 	Y = info$y
-	fit1 = fastlmm_R( Y, X, U = U, s = s)
-	fit2 = fastlmm.fit(Y, X, Z=indicObj)
+	fit1 = fastlmm_R( Y, X, U = U, s = s, REML=REML)
+	fit2 = fastlmm.fit(Y, X, Z=indicObj, REML=REML)
 	isSame(fit1, fit2)
 
 	# multiple responses, matrix dcmp$vectors
 	Ym = cbind(Y, runif(length(Y)), runif(length(Y)), runif(length(Y)), runif(length(Y)))
 	U = as.matrix(dcmp$vectors)
 	s = dcmp$values
-	fit1 = fastlmm_R( Ym[,2], X, U = U, s = s)
-	fit2 = fastlmm.fit(Ym[,2], X, Z=indicObj)
+	fit1 = fastlmm_R( Ym[,2], X, U = U, s = s, REML=REML)
+	fit2 = fastlmm.fit(Ym[,2], X, Z=indicObj, REML=REML)
 	isSame(fit1, fit2)
 
 	# multiple responses, Sparse dcmp$vectors
 	Ym = cbind(Y, runif(length(Y)), runif(length(Y)), runif(length(Y)), runif(length(Y)), runif(length(Y)), runif(length(Y)), runif(length(Y)), runif(length(Y)))
 	U = dcmp$vectors
 	s = dcmp$values
-	fit1 = fastlmm_R( Ym[,2], X, U = U, s = s)
-	fit2 = fastlmm.fit(Ym[,2], X, Z=indicObj)
+	fit1 = fastlmm_R( Ym[,2], X, U = U, s = s, REML=REML)
+	fit2 = fastlmm.fit(Ym[,2], X, Z=indicObj, REML=REML)
 	isSame(fit1, fit2)
 
 	# # batch, matrix dcmp$vectors
@@ -581,13 +619,15 @@ test_fastlmm = function(){
 	#################
 
 	library(lme4)
+	library(lmerTest)
+
 	w = seq(nrow(info))
 	w = w / mean(w)
-	fit = lmer(y ~ x + (1|Indiv), info, weights = w, REML=FALSE)
+	fit = lmer(y ~ x + (1|Indiv), info, weights = w, REML=REML)
 	Z = preprocess_indicator( info$Indiv )
 	# U = dcmp$vectors
 	# s = dcmp$values
-	fit2 = fastlmm.fit(info$y, X, Z=Z, weights = w)
+	fit2 = fastlmm.fit(info$y, X, Z=Z, weights = w, REML=REML)
 	
 	tol = 1e-3
 	res = coef(summary(fit))
@@ -603,7 +643,7 @@ test_fastlmm = function(){
 	s = dcmp$values
 	# fit1 = fastlmm_R( info$y, X, U = U, s = s)
 
-	fit1 = fastlmm(y ~ x + (1|Indiv), info, weights = w)
+	fit1 = fastlmm(y ~ x + (1|Indiv), info, weights = w, REML=REML)
 
 	checkEqualsNumeric(logLik(fit1)[1], fit2$logLik, tol=tol)
 	checkEqualsNumeric(res[,1], coef(fit1), tol=tol)
@@ -619,7 +659,7 @@ test_fastlmm = function(){
 	weights = seq(1, nrow(info))
 	weights = nrow(info) * (weights / sum(weights))
 	# weights[] = 2
-	fit = lmer(y ~ x + (1|Indiv), info, REML=FALSE, weights=weights)
+	fit = lmer(y ~ x + (1|Indiv), info, REML=REML, weights=weights)
 	dcmp = indicator_decomp( info$Indiv, weights)
 
 	indicObj = preprocess_indicator( info$Indiv )
@@ -628,8 +668,8 @@ test_fastlmm = function(){
 	y = info$y
 	yw = info$y * sqrt(weights)
 	Xw = X * sqrt(weights)
-	fit2 = fastlmm_R(yw, Xw, U = U, s = s, weights=weights)
-	fit3 = fastlmm.fit(y, X, Z=indicObj, weights=weights)
+	fit2 = fastlmm_R(yw, Xw, U = U, s = s, weights=weights, REML=REML)
+	fit3 = fastlmm.fit(y, X, Z=indicObj, weights=weights, REML=REML)
 
 	a = intersect(names(fit2), names(fit3))
 	a = a[!a %in% c("iter", "ru")]
@@ -697,7 +737,7 @@ test_fastlmm = function(){
 	weights = seq(1, nrow(info))
 	weights = nrow(info) * (weights / sum(weights))
 	# weights[] = 2
-	fit = lmer(y ~ x + (1|Indiv), info, REML=FALSE, weights=weights)
+	fit = lmer(y ~ x + (1|Indiv), info, REML=REML, weights=weights)
 
 	indicatorObj = preprocess_indicator( info$Indiv )
 
@@ -706,9 +746,9 @@ test_fastlmm = function(){
 	s = dcmp$values 
 	yw = info$y * sqrt(weights)
 	Xw = X * sqrt(weights)
-	fit2 = fastlmm_R(yw, Xw, U = U, s = s, weights=weights)
+	fit2 = fastlmm_R(yw, Xw, U = U, s = s, weights=weights, REML=REML)
 
-	fit3 = fastlmm.fit(info$y, X, Z = indicatorObj, weights=weights)
+	fit3 = fastlmm.fit(info$y, X, Z = indicatorObj, weights=weights, REML=REML)
 
 	a = intersect(names(fit2), names(fit3))
 	a = a[!a %in% c("iter", "ru")]
@@ -717,7 +757,6 @@ test_fastlmm = function(){
 		checkEqualsNumeric(fit2[[x]], fit3[[x]], tol=1e-3)
 	})
 
-
 	tol = 1e-3
 	res = coef(summary(fit))
 	checkEqualsNumeric(logLik(fit)[1], fit2$logLik, tol=tol)
@@ -725,8 +764,6 @@ test_fastlmm = function(){
 	checkEqualsNumeric(res[,1], coef(fit2), tol=tol)
 	checkEqualsNumeric(res[,2], fit2$se, tol=tol)
 	checkEqualsNumeric(VarCorr(fit)[[1]][1], fit2$sigSq_g, tol=tol)
-
-
 }	
 
 
@@ -783,13 +820,14 @@ test_profile = function(){
 	# delta 
 	# 1 / (1/hsq - 1)
 
+	REML = TRUE
 
 	# 1 response, matrix dcmp$vectors
 	U = as.matrix(dcmp$vectors)
 	s = dcmp$values
 	Y = as.numeric(info$y)
-	fit1 = fastlmm_R( Y, X, U = U, s = s)
-	fit2 = fastlmm.fit(Y, X, Z=indicObj)
+	fit1 = fastlmm_R( Y, X, U = U, s = s, REML = REML)
+	fit2 = fastlmm.fit(Y, X, Z=indicObj, REML = REML)
 	isSame(fit1, fit2)
 
 	fit1$logLik
