@@ -157,7 +157,7 @@ static double nb_ll(
 		// than in glmGammaPoi
 		vec w = theta*mu / (theta + mu);
 		if( ! weights.is_empty() ){
-			w *= weights;
+			w = w % weights;
 		}
 
 		double ld;

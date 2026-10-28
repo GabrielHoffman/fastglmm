@@ -41,11 +41,12 @@ function:
     ## Call:
     ## fastglmm(formula = formula, data = data, family = negative.binomial(NA), 
     ##     weights = weights, maxit = maxit, tol = tol, tol.eta = tol.eta, 
-    ##     doCoxReid = doCoxReid, lambda = lambda, nthreads = nthreads)
+    ##     doCoxReid = doCoxReid, lambda = lambda, nthreads = nthreads, 
+    ##     REML = REML)
     ## 
     ## Coefficients:
     ## (Intercept)         DxAD          Age      SexMale  
-    ##   -8.577681     1.102755    -0.007262    -0.103277
+    ##   -8.579598     1.103112    -0.007246    -0.102996
 
 ## Hypothesis testing
 
@@ -53,24 +54,24 @@ function:
 [`summary`](https://rdrr.io/r/base/summary.html)`(``fit``)`
 
     ## Generalized linear mixed model fit by PQL ['fastglmm']
-    ##  Family: Negative Binomial(0.2443)  ( log )
+    ##  Family: Negative Binomial(0.2413)  ( log )
     ##  Formula: PTPRG ~ offset(log(libSize)) + Dx + Age + Sex + (1 | SubID)
     ## 
     ## Coefficients:
     ##               Estimate Std. Error    df t value Pr(>|t|)    
-    ## (Intercept)  -8.577681   0.311172 149.9 -27.566   <2e-16 ***
-    ## DxAD          1.102755   0.073541 145.6  14.995   <2e-16 ***
-    ## Age          -0.007262   0.003775 148.2  -1.923   0.0563 .  
-    ## SexMale      -0.103277   0.075756 145.7  -1.363   0.1749    
+    ## (Intercept)  -8.579598   0.314805 149.9 -27.254   <2e-16 ***
+    ## DxAD          1.103112   0.074407 145.6  14.825   <2e-16 ***
+    ## Age          -0.007246   0.003820 148.2  -1.897   0.0598 .  
+    ## SexMale      -0.102996   0.076649 145.7  -1.344   0.1811    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual df: 60227.2 
+    ## Residual df: 60226.7 
     ## 
     ## Variance components:
-    ##   sigSq_g: 0.4803
-    ##   sigSq_e: 8.17
-    ##   delta:   17.01
+    ##   sigSq_g: 0.4883
+    ##   sigSq_e: 8.176
+    ##   delta:   16.74
 
 The PTPRG gene has increased expression in subjects with Alzheimer’s
 disease compared with controls with log fold change \$1.103 and a
@@ -94,7 +95,7 @@ work on single cell transcriptomics ([Jiang, et al.,
 [`varpart`](http://gabrielhoffman.github.io/fastglmm/reference/varpart.md)`(``fit``)`
 
     ##           Dx          Age          Sex        SubID   CountNoise    Residuals 
-    ## 0.0381796508 0.0006302765 0.0003328903 0.0603294404 0.3944562458 0.5060714962
+    ## 0.0375459290 0.0006167199 0.0003253761 0.0602769180 0.3940102045 0.5072248524
 
 Variance partitioning analysis quantifies the contribution of each
 variable to the observed variance in PTPRG expression. Alzheimer’s
@@ -126,7 +127,7 @@ remaining 50.7% of the variance is explained by the residuals.
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] fastglmm_0.4.15 nlme_3.1-171   
+    ## [1] fastglmm_0.4.23 nlme_3.1-171   
     ## 
     ## loaded via a namespace (and not attached):
     ##  [1] sass_0.4.10        generics_0.1.4     lattice_0.23-1     lme4_2.1-0        
@@ -142,6 +143,6 @@ remaining 50.7% of the variance is explained by the residuals.
     ## [41] MASS_7.3-66        ragg_1.5.2         pkgconfig_2.0.3    desc_1.4.3        
     ## [45] pkgdown_2.2.1      RcppParallel_6.2.1 pillar_1.11.1      bslib_0.12.0      
     ## [49] gtable_0.3.6       glue_1.8.1         Rcpp_1.1.2         systemfonts_1.3.2 
-    ## [53] xfun_0.61          tibble_3.3.1       tidyselect_1.2.1   knitr_1.52        
+    ## [53] xfun_0.62          tibble_3.3.1       tidyselect_1.2.1   knitr_1.52        
     ## [57] dichromat_2.0-1    farver_2.1.2       htmltools_0.5.9    rmarkdown_2.32    
     ## [61] carData_3.0-6      compiler_4.5.1     S7_0.2.2

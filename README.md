@@ -26,7 +26,7 @@ The **fastglmm** package is designed to be intuitive for users of other mixed mo
 - [`fastglmm.nb()`](https://gabrielhoffman.github.io/fastglmm/reference/fastglmm.nb.html): negative binomial mixed model
 
 ## See also
-- [Manuscript](https://gabrielhoffman.github.io/fastglmm/articles/jss.pdf) describing package, estimating algorithm and hypothesis testing.
+- [Manuscript](https://gabrielhoffman.github.io/fastglmm/articles/fastglmm_article.pdf) describing package, estimating algorithm and hypothesis testing.
 - [Application](https://gabrielhoffman.github.io/fastglmm/articles/nbmm.html) of negative binomial mixed model to single cell gene expression data.
 
 

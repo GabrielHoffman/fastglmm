@@ -67,8 +67,8 @@
                         <h4 data-toc-skip class="author">Developed by <a href="http://gabrielhoffman.github.io/" class="external-link">Gabriel Hoffman</a>
 </h4>
             
-            <h4 data-toc-skip class="date">Run on 2026-10-26
-16:57:23</h4>
+            <h4 data-toc-skip class="date">Run on 2026-10-28
+16:26:01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/GabrielHoffman/fastglmm/blob/HEAD/vignettes/nbmm.Rmd" class="external-link"><code>vignettes/nbmm.Rmd</code></a></small>
       <div class="d-none name"><code>nbmm.Rmd</code></div>
@@ -128,11 +128,12 @@ measures design. We use the familiar formula syntax, set
 <span><span class="co">## Call:</span></span>
 <span><span class="co">## fastglmm(formula = formula, data = data, family = negative.binomial(NA), </span></span>
 <span><span class="co">##     weights = weights, maxit = maxit, tol = tol, tol.eta = tol.eta, </span></span>
-<span><span class="co">##     doCoxReid = doCoxReid, lambda = lambda, nthreads = nthreads)</span></span>
+<span><span class="co">##     doCoxReid = doCoxReid, lambda = lambda, nthreads = nthreads, </span></span>
+<span><span class="co">##     REML = REML)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Coefficients:</span></span>
 <span><span class="co">## (Intercept)         DxAD          Age      SexMale  </span></span>
-<span><span class="co">##   -8.577681     1.102755    -0.007262    -0.103277</span></span></code></pre>
+<span><span class="co">##   -8.579598     1.103112    -0.007246    -0.102996</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="hypothesis-testing">Hypothesis testing<a class="anchor" aria-label="anchor" href="#hypothesis-testing"></a>
@@ -140,24 +141,24 @@ measures design. We use the familiar formula syntax, set
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Generalized linear mixed model fit by PQL ['fastglmm']</span></span>
-<span><span class="co">##  Family: Negative Binomial(0.2443)  ( log )</span></span>
+<span><span class="co">##  Family: Negative Binomial(0.2413)  ( log )</span></span>
 <span><span class="co">##  Formula: PTPRG ~ offset(log(libSize)) + Dx + Age + Sex + (1 | SubID)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Coefficients:</span></span>
 <span><span class="co">##               Estimate Std. Error    df t value Pr(&gt;|t|)    </span></span>
-<span><span class="co">## (Intercept)  -8.577681   0.311172 149.9 -27.566   &lt;2e-16 ***</span></span>
-<span><span class="co">## DxAD          1.102755   0.073541 145.6  14.995   &lt;2e-16 ***</span></span>
-<span><span class="co">## Age          -0.007262   0.003775 148.2  -1.923   0.0563 .  </span></span>
-<span><span class="co">## SexMale      -0.103277   0.075756 145.7  -1.363   0.1749    </span></span>
+<span><span class="co">## (Intercept)  -8.579598   0.314805 149.9 -27.254   &lt;2e-16 ***</span></span>
+<span><span class="co">## DxAD          1.103112   0.074407 145.6  14.825   &lt;2e-16 ***</span></span>
+<span><span class="co">## Age          -0.007246   0.003820 148.2  -1.897   0.0598 .  </span></span>
+<span><span class="co">## SexMale      -0.102996   0.076649 145.7  -1.344   0.1811    </span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Residual df: 60227.2 </span></span>
+<span><span class="co">## Residual df: 60226.7 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Variance components:</span></span>
-<span><span class="co">##   sigSq_g: 0.4803</span></span>
-<span><span class="co">##   sigSq_e: 8.17</span></span>
-<span><span class="co">##   delta:   17.01</span></span></code></pre>
+<span><span class="co">##   sigSq_g: 0.4883</span></span>
+<span><span class="co">##   sigSq_e: 8.176</span></span>
+<span><span class="co">##   delta:   16.74</span></span></code></pre>
 <p>The PTPRG gene has increased expression in subjects with Alzheimer’s
 disease compared with controls with log fold change $1.103 and a p-value
 <span class="math inline">&lt; 2\times 10^{-16}</span>. The count data
@@ -180,7 +181,7 @@ and Stephens, 2021</a>, <a href="https://doi.org/10.1038/s41587-019-0379-5" clas
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/varpart.html">varpart</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##           Dx          Age          Sex        SubID   CountNoise    Residuals </span></span>
-<span><span class="co">## 0.0381796508 0.0006302765 0.0003328903 0.0603294404 0.3944562458 0.5060714962</span></span></code></pre>
+<span><span class="co">## 0.0375459290 0.0006167199 0.0003253761 0.0602769180 0.3940102045 0.5072248524</span></span></code></pre>
 <p>Variance partitioning analysis quantifies the contribution of each
 variable to the observed variance in PTPRG expression. Alzheimer’s
 disease status explains 3.75% of observed expression variation,
@@ -211,7 +212,7 @@ residuals.</p>
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] fastglmm_0.4.15 nlme_3.1-171   </span></span>
+<span><span class="co">## [1] fastglmm_0.4.23 nlme_3.1-171   </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##  [1] sass_0.4.10        generics_0.1.4     lattice_0.23-1     lme4_2.1-0        </span></span>
@@ -227,7 +228,7 @@ residuals.</p>
 <span><span class="co">## [41] MASS_7.3-66        ragg_1.5.2         pkgconfig_2.0.3    desc_1.4.3        </span></span>
 <span><span class="co">## [45] pkgdown_2.2.1      RcppParallel_6.2.1 pillar_1.11.1      bslib_0.12.0      </span></span>
 <span><span class="co">## [49] gtable_0.3.6       glue_1.8.1         Rcpp_1.1.2         systemfonts_1.3.2 </span></span>
-<span><span class="co">## [53] xfun_0.61          tibble_3.3.1       tidyselect_1.2.1   knitr_1.52        </span></span>
+<span><span class="co">## [53] xfun_0.62          tibble_3.3.1       tidyselect_1.2.1   knitr_1.52        </span></span>
 <span><span class="co">## [57] dichromat_2.0-1    farver_2.1.2       htmltools_0.5.9    rmarkdown_2.32    </span></span>
 <span><span class="co">## [61] carData_3.0-6      compiler_4.5.1     S7_0.2.2</span></span></code></pre>
 </details>

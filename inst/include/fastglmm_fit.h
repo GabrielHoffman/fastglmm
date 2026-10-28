@@ -198,17 +198,23 @@ fastglmm<T1, T2, T3>::fastglmm(
 		work->z = (work->eta - offset) + (y - work->mu) / work->gprime;
 
  		// wz <- w * mu.eta.val^2/family$variance(mu)
-		if( fam->family() == "NB"){
+		if( fam->family() == "NB" ){
 			// Numerically stable evaluation for NB		
 			theta = fam->getOverdispersion();		
-	    vec x = work->eta - log(theta);
-	    work->w = weights % (theta * (0.5 * (1.0 + tanh(0.5 * x))));	    
+	    // vec x = work->eta - log(theta);
+	    // work->w = weights % (theta * (0.5 * (1.0 + tanh(0.5 * x))));
+
+	    work->w = weights % (theta * work->mu / (theta + work->mu));
+
+		}else if( fam->family() == "PoissonLog" ){
+
+			work->w = weights % work->mu;
 		}else{
 			work->w = square(work->gprime) % (weights / fam->variance( work->mu ));
 		}
 
 		// wz <- wz / mean(wz)
-		work->w.clamp(1e-6, 1e8);
+		// work->w.clamp(0, 1e8);
 		w_mean = sum(work->w) / n_active;
 		work->w = work->w / w_mean;
 
@@ -244,8 +250,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 
 		// increment interation count
 		iter_in += fit.get_iter();
-	}
-	
+	}	
 
 	// Final fit with ModelDetail md
 	if( isValid && (md > LEAST) ){		
