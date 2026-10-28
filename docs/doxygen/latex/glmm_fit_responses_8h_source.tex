@@ -29,10 +29,10 @@
 \DoxyCodeLine{00025\ \textcolor{comment}{//\ T2\ X}}
 \DoxyCodeLine{00026\ \textcolor{comment}{//\ T3\ Z}}
 \DoxyCodeLine{00027\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
-\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classfastglmm_lib_1_1glmm_fit_responses_a03c952471dc3f3291b3dfac6a810c932}{glmmFitResponses}}\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classfastglmm_lib_1_1glmm_fit_responses_a808f8cff61eed7885b9a831913aaf844}{glmmFitResponses}}\ \{}
 \DoxyCodeLine{00029\ }
 \DoxyCodeLine{00030\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00031\ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1glmm_fit_responses_a03c952471dc3f3291b3dfac6a810c932}{glmmFitResponses}}(}
+\DoxyCodeLine{00031\ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1glmm_fit_responses_a808f8cff61eed7885b9a831913aaf844}{glmmFitResponses}}(}
 \DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{const}\ T2\ \&X,\ }
 \DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectralDecomp<T3>}}\ \&dcmp,}
 \DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&weights\ =\ \{\},\ }
@@ -44,117 +44,125 @@
 \DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&maxit\ =\ 100,}
 \DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&lambda\ =\ 0,}
 \DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads\ =\ 1,}
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md\ =\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}});}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_aa845d99c94d3583204551aea51dad721}{ModelFitGLMMList}}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1glmm_fit_responses_a45c5d5701292ceb48c86cbee364c4ea5}{eval}}(}
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{const}\ T1\ \&Y,}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&ids,}
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&family);}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00051\ \ \ T2\ X;\ \ }
-\DoxyCodeLine{00052\ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectralDecomp<T3>}}\ dcmp;}
-\DoxyCodeLine{00053\ \ \ vec\ weights,\ offset;}
-\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{double}\ left,\ right,\ tol,\ tol\_eta;}
-\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{int}\ maxit;}
-\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{double}\ lambda;}
-\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{int}\ nthreads;}
-\DoxyCodeLine{00058\ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md;}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \ \ uvec\ idx\_drop;}
-\DoxyCodeLine{00061\ \ \ T2\ X\_clean;}
-\DoxyCodeLine{00062\ \};}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \textcolor{comment}{//\ constructor}}
-\DoxyCodeLine{00067\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
-\DoxyCodeLine{00068\ \doxymbox{\hyperlink{classfastglmm_lib_1_1glmm_fit_responses_a03c952471dc3f3291b3dfac6a810c932}{glmmFitResponses<T1,\ T2,\ T3>::glmmFitResponses}}(}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \textcolor{keyword}{const}\ T2\ \&X,\ }
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectralDecomp<T3>}}\ \&dcmp,}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&weights,\ }
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&offset,\ }
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&left,}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&right,}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&tol,}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&tol\_eta,}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&maxit,}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&lambda,}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads,}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md):}
-\DoxyCodeLine{00081\ \ \ X(X),\ }
-\DoxyCodeLine{00082\ \ \ dcmp(dcmp),}
-\DoxyCodeLine{00083\ \ \ weights(weights),}
-\DoxyCodeLine{00084\ \ \ offset(offset),}
-\DoxyCodeLine{00085\ \ \ left(left),}
-\DoxyCodeLine{00086\ \ \ right(right),}
-\DoxyCodeLine{00087\ \ \ tol(tol),}
-\DoxyCodeLine{00088\ \ \ tol\_eta(tol\_eta),}
-\DoxyCodeLine{00089\ \ \ maxit(maxit),}
-\DoxyCodeLine{00090\ \ \ lambda(lambda),}
-\DoxyCodeLine{00091\ \ \ nthreads(nthreads),}
-\DoxyCodeLine{00092\ \ \ md(md)\ \{}
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \ \ \textcolor{comment}{//\ find\ rows\ in\ X\ with\ NAN\ values}}
-\DoxyCodeLine{00095\ \ \ idx\_drop\ =\ rows\_with\_nan(X);\ \ }
-\DoxyCodeLine{00096\ \ \ X\_clean\ =\ X;}
-\DoxyCodeLine{00097\ \ \ rows\_to\_zero(X\_clean,\ idx\_drop);}
-\DoxyCodeLine{00098\ \}}
-\DoxyCodeLine{00099\ }
-\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md\ =\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0}{LOW}},\ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&REML\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&doCoxReid\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_aa845d99c94d3583204551aea51dad721}{ModelFitGLMMList}}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1glmm_fit_responses_a45c5d5701292ceb48c86cbee364c4ea5}{eval}}(}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{const}\ T1\ \&Y,}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&ids,}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&family);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ \ \ T2\ X;\ \ }
+\DoxyCodeLine{00054\ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectralDecomp<T3>}}\ dcmp;}
+\DoxyCodeLine{00055\ \ \ vec\ weights,\ offset;}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{double}\ left,\ right,\ tol,\ tol\_eta;}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{int}\ maxit;}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{double}\ lambda;}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{int}\ nthreads;}
+\DoxyCodeLine{00060\ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md;}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{bool}\ REML,\ doCoxReid;}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ uvec\ idx\_drop;}
+\DoxyCodeLine{00064\ \ \ T2\ X\_clean;}
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ constructor}}
+\DoxyCodeLine{00070\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
+\DoxyCodeLine{00071\ \doxymbox{\hyperlink{classfastglmm_lib_1_1glmm_fit_responses_a808f8cff61eed7885b9a831913aaf844}{glmmFitResponses<T1,\ T2,\ T3>::glmmFitResponses}}(}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \textcolor{keyword}{const}\ T2\ \&X,\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1spectral_decomp}{spectralDecomp<T3>}}\ \&dcmp,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&weights,\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&offset,\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&left,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&right,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&tol,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&tol\_eta,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&maxit,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&lambda,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&nthreads,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{namespacefastglmm_lib_a7cbb450b70991b1d13a57f8200c131f2}{ModelDetail}}\ md,\ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&REML,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&doCoxReid):}
+\DoxyCodeLine{00086\ \ \ X(X),\ }
+\DoxyCodeLine{00087\ \ \ dcmp(dcmp),}
+\DoxyCodeLine{00088\ \ \ weights(weights),}
+\DoxyCodeLine{00089\ \ \ offset(offset),}
+\DoxyCodeLine{00090\ \ \ left(left),}
+\DoxyCodeLine{00091\ \ \ right(right),}
+\DoxyCodeLine{00092\ \ \ tol(tol),}
+\DoxyCodeLine{00093\ \ \ tol\_eta(tol\_eta),}
+\DoxyCodeLine{00094\ \ \ maxit(maxit),}
+\DoxyCodeLine{00095\ \ \ lambda(lambda),}
+\DoxyCodeLine{00096\ \ \ nthreads(nthreads),}
+\DoxyCodeLine{00097\ \ \ md(md),}
+\DoxyCodeLine{00098\ \ \ REML(REML),}
+\DoxyCodeLine{00099\ \ \ doCoxReid(doCoxReid)}
+\DoxyCodeLine{00100\ \ \ \{}
 \DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
-\DoxyCodeLine{00103\ \doxymbox{\hyperlink{namespacefastglmm_lib_aa845d99c94d3583204551aea51dad721}{ModelFitGLMMList}}\ }
-\DoxyCodeLine{00104\ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1glmm_fit_responses_a45c5d5701292ceb48c86cbee364c4ea5}{glmmFitResponses<T1,\ T2,\ T3>::eval}}(}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \textcolor{keyword}{const}\ T1\ \&Y,}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&ids,}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&family)\{}
+\DoxyCodeLine{00102\ \ \ \textcolor{comment}{//\ find\ rows\ in\ X\ with\ NAN\ values}}
+\DoxyCodeLine{00103\ \ \ idx\_drop\ =\ rows\_with\_nan(X);\ \ }
+\DoxyCodeLine{00104\ \ \ X\_clean\ =\ X;}
+\DoxyCodeLine{00105\ \ \ rows\_to\_zero(X\_clean,\ idx\_drop);}
+\DoxyCodeLine{00106\ \}}
+\DoxyCodeLine{00107\ }
 \DoxyCodeLine{00108\ }
-\DoxyCodeLine{00109\ \ \ \textcolor{comment}{//\ store\ results}}
-\DoxyCodeLine{00110\ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_aa845d99c94d3583204551aea51dad721}{ModelFitGLMMList}}\ result(Y.n\_cols,\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m}{ModelFitGLMM}}());}
-\DoxyCodeLine{00111\ }
-\DoxyCodeLine{00112\ \ \ tbb::mutex\ myMutex;\ \textcolor{comment}{//\ avoid\ issue\ with\ rdf\ and\ hatvalues}}
-\DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ \ \ \textcolor{comment}{//\ Parallel\ part\ using\ Thread\ Building\ Blocks}}
-\DoxyCodeLine{00115\ \ \ tbb::task\_arena\ limited\_arena(nthreads);}
-\DoxyCodeLine{00116\ \ \ limited\_arena.execute([\&]\ \{}
-\DoxyCodeLine{00117\ \ \ tbb::parallel\_for(}
-\DoxyCodeLine{00118\ \ \ \ \ tbb::blocked\_range<int>(0,\ Y.n\_cols,\ 10),\ }
-\DoxyCodeLine{00119\ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
-\DoxyCodeLine{00120\ }
-\DoxyCodeLine{00121\ \ \ \ \ disable\_parallel\_blas();}
-\DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ \ \ T1\ y;}
-\DoxyCodeLine{00124\ \ \ \ \ vec\ w;}
-\DoxyCodeLine{00125\ \ \ \ \ uvec\ idx;}
-\DoxyCodeLine{00126\ \ \ \ \ \textcolor{comment}{//\ need\ local\ version\ due\ to\ reweighting}}
-\DoxyCodeLine{00127\ \ \ \ \ spectralDecomp\ dcmp\_lcl(dcmp);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
+\DoxyCodeLine{00111\ \doxymbox{\hyperlink{namespacefastglmm_lib_aa845d99c94d3583204551aea51dad721}{ModelFitGLMMList}}\ }
+\DoxyCodeLine{00112\ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1glmm_fit_responses_a45c5d5701292ceb48c86cbee364c4ea5}{glmmFitResponses<T1,\ T2,\ T3>::eval}}(}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \textcolor{keyword}{const}\ T1\ \&Y,}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&ids,}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vector<string>\ \&family)\{}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \textcolor{comment}{//\ store\ results}}
+\DoxyCodeLine{00118\ \ \ \doxymbox{\hyperlink{namespacefastglmm_lib_aa845d99c94d3583204551aea51dad721}{ModelFitGLMMList}}\ result(Y.n\_cols,\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m}{ModelFitGLMM}}());}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ tbb::mutex\ myMutex;\ \textcolor{comment}{//\ avoid\ issue\ with\ rdf\ and\ hatvalues}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \textcolor{comment}{//\ Parallel\ part\ using\ Thread\ Building\ Blocks}}
+\DoxyCodeLine{00123\ \ \ tbb::task\_arena\ limited\_arena(nthreads);}
+\DoxyCodeLine{00124\ \ \ limited\_arena.execute([\&]\ \{}
+\DoxyCodeLine{00125\ \ \ tbb::parallel\_for(}
+\DoxyCodeLine{00126\ \ \ \ \ tbb::blocked\_range<int>(0,\ Y.n\_cols,\ 10),\ }
+\DoxyCodeLine{00127\ \ \ \ \ [\&](\textcolor{keyword}{const}\ tbb::blocked\_range<int>\&\ r)\{\ }
 \DoxyCodeLine{00128\ }
-\DoxyCodeLine{00129\ \ \ \ \ \textcolor{comment}{//\ iterate\ through\ responses\ }}
-\DoxyCodeLine{00130\ \ \ \ \ for\ (int\ j\ =\ r.begin();\ j\ !=\ r.end();\ ++j)\ \{\ }
-\DoxyCodeLine{00131\ }
-\DoxyCodeLine{00132\ \ \ \ \ \ \ y\ =\ Y.col(j);}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ w\ =\ weights;}
-\DoxyCodeLine{00134\ }
-\DoxyCodeLine{00135\ \ \ \ \ \ \ idx\ =\ unique(join\_cols(find\_nan(y),\ idx\_drop));}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ y.elem(idx).zeros();}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ w.elem(idx).zeros();}
-\DoxyCodeLine{00138\ }
-\DoxyCodeLine{00139\ \ \ \ \ \ \ fastglmm\ fit\ =\ fastglmm<vec,\ T2,\ T3>(y,\ X\_clean,\ dcmp\_lcl,\ w,\ offset,\ family[j],\ md,\ tol,\ tol\_eta,\ maxit,\ lambda);}
-\DoxyCodeLine{00140\ }
-\DoxyCodeLine{00141\ \ \ \ \ \ \ tbb::mutex::scoped\_lock\ myLock(myMutex);\ }
-\DoxyCodeLine{00142\ \ \ \ \ \ \ result.at(j)\ =\ fit.get\_result();}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ result.at(j).ID\ =\ ids[j];}
-\DoxyCodeLine{00144\ \ \ \ \ \}}
-\DoxyCodeLine{00145\ \ \ \});\ \});}
-\DoxyCodeLine{00146\ \ \ }
-\DoxyCodeLine{00147\ \ \ \textcolor{keywordflow}{return}\ result;}
-\DoxyCodeLine{00148\ \}}
-\DoxyCodeLine{00149\ }
-\DoxyCodeLine{00150\ }
-\DoxyCodeLine{00151\ \}\ \textcolor{comment}{//\ end\ namespace}}
-\DoxyCodeLine{00152\ }
-\DoxyCodeLine{00153\ }
-\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00129\ \ \ \ \ disable\_parallel\_blas();}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ T1\ y;}
+\DoxyCodeLine{00132\ \ \ \ \ vec\ w;}
+\DoxyCodeLine{00133\ \ \ \ \ uvec\ idx;}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{comment}{//\ need\ local\ version\ due\ to\ reweighting}}
+\DoxyCodeLine{00135\ \ \ \ \ spectralDecomp\ dcmp\_lcl(dcmp);}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{comment}{//\ iterate\ through\ responses\ }}
+\DoxyCodeLine{00138\ \ \ \ \ for\ (int\ j\ =\ r.begin();\ j\ !=\ r.end();\ ++j)\ \{\ }
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ y\ =\ Y.col(j);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ w\ =\ weights;}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ idx\ =\ unique(join\_cols(find\_nan(y),\ idx\_drop));}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ y.elem(idx).zeros();}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ w.elem(idx).zeros();}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ fastglmm\ fit\ =\ fastglmm<vec,\ T2,\ T3>(y,\ X\_clean,\ dcmp\_lcl,\ w,\ offset,\ family[j],\ md,\ tol,\ tol\_eta,\ maxit,\ lambda,\ -\/1,\ left,\ right,\ false,\ doCoxReid,\ REML);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ tbb::mutex::scoped\_lock\ myLock(myMutex);\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ result.at(j)\ =\ fit.get\_result();}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ result.at(j).ID\ =\ ids[j];}
+\DoxyCodeLine{00152\ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \});\ \});}
+\DoxyCodeLine{00154\ \ \ }
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00156\ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \}\ \textcolor{comment}{//\ end\ namespace}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}
