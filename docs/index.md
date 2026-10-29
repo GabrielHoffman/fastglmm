@@ -28,7 +28,7 @@ to fit LMMs.
 
 ## See also
 
-- [Manuscript](https://gabrielhoffman.github.io/fastglmm/articles/jss.pdf)
+- [Manuscript](https://gabrielhoffman.github.io/fastglmm/articles/fastglmm_article.pdf)
   describing package, estimating algorithm and hypothesis testing.
 - [Application](https://gabrielhoffman.github.io/fastglmm/articles/nbmm.html)
   of negative binomial mixed model to single cell gene expression data.
