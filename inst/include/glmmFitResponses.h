@@ -147,7 +147,7 @@ ModelFitGLMMList
       fastglmm fit = fastglmm<vec, T2, T3>(y, X_clean, dcmp_lcl, w, offset, family[j], md, tol, tol_eta, maxit, lambda, -1, left, right, false, doCoxReid, REML);
 
       tbb::mutex::scoped_lock myLock(myMutex); 
-      result.at(j) = fit.get_result(true);
+      result.at(j) = fit.get_result();
       result.at(j).ID = ids[j];
     }
   }); });

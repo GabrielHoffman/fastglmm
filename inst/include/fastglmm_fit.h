@@ -342,7 +342,7 @@ const vec fastglmm<T1, T2, T3>::devianceResiduals() const {
 template <typename T1, typename T2, typename T3> 
 ModelFitGLMM fastglmm<T1, T2, T3>::get_result(){
 
-	ModelFitLMM res1 = fit.get_result(true, returnUS);
+	ModelFitLMM res1 = fit.get_result();
 	res1.set_w_mean( w_mean );
 
 	// if model is not valid, it failed before final calculations
