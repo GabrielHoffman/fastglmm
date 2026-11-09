@@ -12,13 +12,13 @@ Source:
 [`DESCRIPTION`](https://github.com/GabrielHoffman/fastglmm/blob/HEAD/DESCRIPTION)
 
 Hoffman G (2026). *fastglmm: Efficient GLMMs with a Single Random Effect
-on Massive Datasets*. R package version 0.4.23,
+on Massive Datasets*. R package version 0.4.24,
 <https://gabrielhoffman.github.io/fastglmm/>.
 
 @Manual{,\
   title = {fastglmm: Efficient GLMMs with a Single Random Effect on Massive Datasets},\
   author = {Gabriel Hoffman},\
   year = {2026},\
-  note = {R package version 0.4.23},\
+  note = {R package version 0.4.24},\
   url = {https://gabrielhoffman.github.io/fastglmm/},\
 }

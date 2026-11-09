@@ -117,10 +117,10 @@ fit = glmer(y ~ trt + I(week > 2) + (1 | ID),
   family = binomial(), data = bacteria)
 coef(summary(fit))
 #>                   Estimate Std. Error   z value     Pr(>|z|)
-#> (Intercept)      3.5479411  0.6957868  5.099178 3.411311e-07
-#> trtdrug         -1.3666520  0.6769898 -2.018719 4.351647e-02
-#> trtdrug+        -0.7826412  0.6831225 -1.145682 2.519267e-01
-#> I(week > 2)TRUE -1.5984897  0.4759391 -3.358601 7.833796e-04
+#> (Intercept)      3.5481188  0.6961816  5.096542 3.459142e-07
+#> trtdrug         -1.3667366  0.6771439 -2.018384 4.355124e-02
+#> trtdrug+        -0.7827349  0.6832623 -1.145585 2.519670e-01
+#> I(week > 2)TRUE -1.5985562  0.4760140 -3.358213 7.844825e-04
 
 # GLMM via PQL
 fit = glmmPQL(y ~ trt + I(week > 2), random = ~ 1 | ID,

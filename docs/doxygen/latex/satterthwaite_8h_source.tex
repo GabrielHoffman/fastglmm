@@ -166,7 +166,7 @@
 \DoxyCodeLine{00168\ \ \ \textcolor{comment}{//\ B\ <-\/\ sum(1/(s\ +\ delta)\string^2)\ +\ (n-\/r)/delta\string^2}}
 \DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{double}\ b\ =\ accu(1/pow(s\ +\ delta,2))\ +\ (n-\/r)/pow(delta,\ 2);}
 \DoxyCodeLine{00170\ }
-\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{double}\ fe\ =\ 0;}
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{double}\ fe\ =\ 0.0;}
 \DoxyCodeLine{00172\ \ \ \textcolor{keywordflow}{if}(\ REML\ )\{}
 \DoxyCodeLine{00173\ \ \ \ \ \textcolor{comment}{//\ adjust\ a\ and\ b\ is\ REML\ is\ used}}
 \DoxyCodeLine{00174\ \ \ \ \ mat\ tmp\ =\ solve(QXX,\ Gamma\_XX);}
@@ -183,47 +183,53 @@
 \DoxyCodeLine{00185\ \ \ \textcolor{comment}{//\ H[1,1]\ <-\/\ (n\ -\/\ 2*delta*a\ +\ delta\string^2*b)\ /\ (2*sigSq\_g\string^2)}}
 \DoxyCodeLine{00186\ \ \ H(0,0)\ =\ (n\ -\/\ fe\ -\/\ 2*delta*a\ +\ pow(delta,2)*b)\ /\ (2*pow(sigSq\_g,2));}
 \DoxyCodeLine{00187\ }
-\DoxyCodeLine{00188\ \ \ \textcolor{comment}{//\ H[1,2]\ <-\/\ H[2,1]\ <-\/\ (a\ -\/\ delta*b)\ /\ (2*sigSq\_g\string^2)}}
-\DoxyCodeLine{00189\ \ \ H(0,1)\ =\ (a\ -\/\ delta*b)\ /\ (2*pow(sigSq\_g,2));}
-\DoxyCodeLine{00190\ \ \ H(1,0)\ =\ H(0,1);}
-\DoxyCodeLine{00191\ }
-\DoxyCodeLine{00192\ \ \ \textcolor{comment}{//\ H[2,2]\ <-\/\ b\ /\ (2*sigSq\_g\string^2)}}
-\DoxyCodeLine{00193\ \ \ H(1,1)\ =\ b\ /\ (2*pow(sigSq\_g,2));}
-\DoxyCodeLine{00194\ \}}
-\DoxyCodeLine{00195\ }
-\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00188\ \ \ \textcolor{comment}{//\ in\ the\ rare\ case\ that\ H(0,0)\ is\ negative,\ drop\ fe}}
+\DoxyCodeLine{00189\ \ \ \textcolor{comment}{//\ avoids\ issue\ with\ negative\ ddf}}
+\DoxyCodeLine{00190\ \ \ \textcolor{keywordflow}{if}(\ H(0,0)\ <\ 0\ )\{}
+\DoxyCodeLine{00191\ \ \ \ \ H(0,0)\ =\ (n\ -\/\ 2*delta*a\ +\ pow(delta,2)*b)\ /\ (2*pow(sigSq\_g,2));}
+\DoxyCodeLine{00192\ \ \ \}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \textcolor{comment}{//\ H[1,2]\ <-\/\ H[2,1]\ <-\/\ (a\ -\/\ delta*b)\ /\ (2*sigSq\_g\string^2)}}
+\DoxyCodeLine{00195\ \ \ H(0,1)\ =\ (a\ -\/\ delta*b)\ /\ (2*pow(sigSq\_g,2));}
+\DoxyCodeLine{00196\ \ \ H(1,0)\ =\ H(0,1);}
 \DoxyCodeLine{00197\ }
-\DoxyCodeLine{00198\ \textcolor{comment}{//\ gradient\ of\ variance\ for\ Satterthwaite\ method}}
-\DoxyCodeLine{00199\ }
-\DoxyCodeLine{00200\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00201\ \textcolor{keywordtype}{void}\ Satterthwaite<T>::prep\_gradient(}
-\DoxyCodeLine{00202\ \ \ \textcolor{keyword}{const}\ vec\ \&s,\ }
-\DoxyCodeLine{00203\ \ \ \textcolor{keyword}{const}\ T\ \&Xu,\ }
-\DoxyCodeLine{00204\ \ \ \textcolor{keyword}{const}\ vec\ \&inv\_s\_delta,}
-\DoxyCodeLine{00205\ \ \ \textcolor{keyword}{const}\ mat\ \&inv\_s\_delta\_Xu,}
-\DoxyCodeLine{00206\ \ \ \textcolor{keyword}{const}\ mat\ \&Gamma\_XX)\ \{}
-\DoxyCodeLine{00207\ }
-\DoxyCodeLine{00208\ \ \ \textcolor{comment}{//\ Xu\ <-\/\ crossprod(fit\$U,\ fit\$design)}}
-\DoxyCodeLine{00209\ \ \ \textcolor{comment}{//\ Gamma\_XX\ <-\/\ crossprod(X)\ -\/\ crossprod(Xu)}}
-\DoxyCodeLine{00210\ \ \ \textcolor{comment}{//\ inv\_s\_delta\ <-\/\ 1\ /\ (fit\$s\ +\ fit\$delta)}}
-\DoxyCodeLine{00211\ \ \ \textcolor{comment}{//\ inv\_s\_delta\_Xu\ <-\/\ inv\_s\_delta\ *\ Xu}}
-\DoxyCodeLine{00212\ }
-\DoxyCodeLine{00213\ \ \ \textcolor{comment}{//\ A\ <-\/\ crossprod(Xu,\ inv\_s\_delta\_Xu)\ +\ Gamma\_XX\ /\ fit\$delta}}
-\DoxyCodeLine{00214\ \ \ \textcolor{comment}{//\ inv\_s\_delta\_Xu\ =\ scaleEachCol(Xu,\ inv\_s\_delta);}}
-\DoxyCodeLine{00215\ \ \ A\ =\ Xu.t()\ *\ inv\_s\_delta\_Xu\ +\ Gamma\_XX\ /\ delta;}
-\DoxyCodeLine{00216\ }
-\DoxyCodeLine{00217\ \ \ \textcolor{comment}{//\ inv\_s\_delta\_Xu\ <-\/\ inv\_s\_delta\string^2\ *\ Xu}}
-\DoxyCodeLine{00218\ \ \ \textcolor{comment}{//\ B\ <-\/\ crossprod(Xu,\ inv\_s\_delta\_Xu)\ +\ Gamma\_XX\ /\ fit\$delta\string^2}}
-\DoxyCodeLine{00219\ \ \ B\ =\ Xu.t()\ *\ \doxymbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(Xu,\ pow(inv\_s\_delta,2))\ +\ Gamma\_XX\ /\ pow(delta,\ 2);}
-\DoxyCodeLine{00220\ \}}
-\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00198\ \ \ \textcolor{comment}{//\ H[2,2]\ <-\/\ b\ /\ (2*sigSq\_g\string^2)}}
+\DoxyCodeLine{00199\ \ \ H(1,1)\ =\ b\ /\ (2*pow(sigSq\_g,2));}
+\DoxyCodeLine{00200\ \}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \textcolor{comment}{//\ gradient\ of\ variance\ for\ Satterthwaite\ method}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00207\ \textcolor{keywordtype}{void}\ Satterthwaite<T>::prep\_gradient(}
+\DoxyCodeLine{00208\ \ \ \textcolor{keyword}{const}\ vec\ \&s,\ }
+\DoxyCodeLine{00209\ \ \ \textcolor{keyword}{const}\ T\ \&Xu,\ }
+\DoxyCodeLine{00210\ \ \ \textcolor{keyword}{const}\ vec\ \&inv\_s\_delta,}
+\DoxyCodeLine{00211\ \ \ \textcolor{keyword}{const}\ mat\ \&inv\_s\_delta\_Xu,}
+\DoxyCodeLine{00212\ \ \ \textcolor{keyword}{const}\ mat\ \&Gamma\_XX)\ \{}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \textcolor{comment}{//\ Xu\ <-\/\ crossprod(fit\$U,\ fit\$design)}}
+\DoxyCodeLine{00215\ \ \ \textcolor{comment}{//\ Gamma\_XX\ <-\/\ crossprod(X)\ -\/\ crossprod(Xu)}}
+\DoxyCodeLine{00216\ \ \ \textcolor{comment}{//\ inv\_s\_delta\ <-\/\ 1\ /\ (fit\$s\ +\ fit\$delta)}}
+\DoxyCodeLine{00217\ \ \ \textcolor{comment}{//\ inv\_s\_delta\_Xu\ <-\/\ inv\_s\_delta\ *\ Xu}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \textcolor{comment}{//\ A\ <-\/\ crossprod(Xu,\ inv\_s\_delta\_Xu)\ +\ Gamma\_XX\ /\ fit\$delta}}
+\DoxyCodeLine{00220\ \ \ \textcolor{comment}{//\ inv\_s\_delta\_Xu\ =\ scaleEachCol(Xu,\ inv\_s\_delta);}}
+\DoxyCodeLine{00221\ \ \ A\ =\ Xu.t()\ *\ inv\_s\_delta\_Xu\ +\ Gamma\_XX\ /\ delta;}
 \DoxyCodeLine{00222\ }
-\DoxyCodeLine{00223\ }
-\DoxyCodeLine{00224\ }
-\DoxyCodeLine{00225\ }
-\DoxyCodeLine{00226\ \}\ \textcolor{comment}{//\ end\ namespace}}
+\DoxyCodeLine{00223\ \ \ \textcolor{comment}{//\ inv\_s\_delta\_Xu\ <-\/\ inv\_s\_delta\string^2\ *\ Xu}}
+\DoxyCodeLine{00224\ \ \ \textcolor{comment}{//\ B\ <-\/\ crossprod(Xu,\ inv\_s\_delta\_Xu)\ +\ Gamma\_XX\ /\ fit\$delta\string^2}}
+\DoxyCodeLine{00225\ \ \ B\ =\ Xu.t()\ *\ \doxymbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(Xu,\ pow(inv\_s\_delta,2))\ +\ Gamma\_XX\ /\ pow(delta,\ 2);}
+\DoxyCodeLine{00226\ \}}
 \DoxyCodeLine{00227\ }
 \DoxyCodeLine{00228\ }
-\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \}\ \textcolor{comment}{//\ end\ namespace}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

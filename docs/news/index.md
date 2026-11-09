@@ -1,5 +1,10 @@
 # Changelog
 
+## fastglmm 0.4.24
+
+- Nov 9, 2026
+- fix issue with Satterthwait ddf with REML
+
 ## fastglmm 0.4.23
 
 - Oct 26, 2026

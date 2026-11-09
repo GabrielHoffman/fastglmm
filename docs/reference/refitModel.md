@@ -66,8 +66,8 @@ summary(refitModel(fit, delta=1000))
 #> 
 #> Coefficients:
 #>             Estimate Std. Error    df t value Pr(>|t|)    
-#> (Intercept)  251.405      6.599 179.8   38.10  < 2e-16 ***
-#> Days          10.467      1.234 178.7    8.48 8.29e-15 ***
+#> (Intercept)  251.405      6.599 179.6   38.10  < 2e-16 ***
+#> Days          10.467      1.234 178.6    8.48  8.3e-15 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
