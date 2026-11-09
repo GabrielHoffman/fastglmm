@@ -51,7 +51,7 @@ const List toList(ModelFitLMM &res){
 template <typename T1, typename T2, typename T3>
 const List toList(fastlmm<T1, T2, T3> & fit){
 
-  ModelFitLMM res = fit.get_result( true );
+  ModelFitLMM res = fit.get_result( false, true );
 
   return toList( res );
 }

@@ -83,7 +83,9 @@ class fastlmm {
                          const mat &Yu_);
 
     // extract results  
-    ModelFitLMM get_result(const bool &returnUS = false);
+    ModelFitLMM get_result(
+      const bool &isGLMM = false,
+      const bool &returnUS = false);
 
     // Accessors
     const double get_logLik() const { return this->logLik; }
@@ -593,6 +595,7 @@ void fastlmm<T1, T2, T3>::update_response(const T1 &Y_,
  
 template <typename T1, typename T2, typename T3> 
 ModelFitLMM fastlmm<T1, T2, T3>::get_result(
+          const bool &isGLMM,
           const bool &returnUS){
 
   // initialize with standard entries
@@ -628,7 +631,7 @@ ModelFitLMM fastlmm<T1, T2, T3>::get_result(
 
   // Precompute values for Satterthwaite DDF to be
   // used later with V and L specified
-  Satterthwaite ddf_sat(res.y.n_elem, res.sigSq_g, res.sigSq_e, s, Xu, Gamma_XX, inv_s_delta, inv_s_delta_Xu, QXX, REML);
+  Satterthwaite ddf_sat(res.y.n_elem, res.sigSq_g, res.sigSq_e, s, Xu, Gamma_XX, inv_s_delta, inv_s_delta_Xu, QXX, REML, isGLMM);
 
   // save precomputed values
   res.hessian_vc = ddf_sat.get_hessian();

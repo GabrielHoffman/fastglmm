@@ -37,7 +37,8 @@ class Satterthwaite {
       const vec &inv_s_delta,
       const mat &inv_s_delta_Xu, 
       const mat &QXX,
-      const bool &REML);
+      const bool &REML,
+      const bool &isGLMM);
 
     /** Evalute denominator degrees of freedom
      */
@@ -76,7 +77,7 @@ class Satterthwaite {
     int n;
     double sigSq_g, sigSq_e, delta;
     mat A, B, H;
-    bool REML;
+    bool REML, isGLMM;
 };
 
 
@@ -92,12 +93,14 @@ Satterthwaite<T>::Satterthwaite(
   const vec &inv_s_delta,
   const mat &inv_s_delta_Xu, 
   const mat &QXX,
-  const bool &REML):
+  const bool &REML,
+  const bool &isGLMM):
   n(n),
   sigSq_g(sigSq_g),
   sigSq_e(sigSq_e),
   delta(sigSq_e/sigSq_g),
-  REML(REML){
+  REML(REML),
+  isGLMM(isGLMM){
 
   compute_hessian(QXX, Gamma_XX, s);
   prep_gradient(s, Xu, inv_s_delta, inv_s_delta_Xu, Gamma_XX);
@@ -168,6 +171,11 @@ void Satterthwaite<T>::compute_hessian(
   // B <- sum(1/(s + delta)^2) + (n-r)/delta^2
   double b = accu(1/pow(s + delta,2)) + (n-r)/pow(delta, 2);
 
+  // Rcpp::Rcout << "a: " << a << endl;
+  // Rcpp::Rcout << "b: " << b << endl;
+  // Rcpp::Rcout << "delta: " << delta << endl;
+  // Rcpp::Rcout << "n: " << n << endl;
+
   double fe = 0.0;
   if( REML ){
     // adjust a and b is REML is used
@@ -177,8 +185,14 @@ void Satterthwaite<T>::compute_hessian(
 
     a = a - t/pow(delta, 2);
     b = b - 2*t/pow(delta, 3) + u/pow(delta, 4);
-    fe = Gamma_XX.n_cols;
+
+    if( ! isGLMM ){
+      fe = Gamma_XX.n_cols;
+    }
   }
+
+  // Rcpp::Rcout << "a*: " << a << endl;
+  // Rcpp::Rcout << "b*: " << b << endl;
 
   H = mat(2,2, fill::zeros);
 

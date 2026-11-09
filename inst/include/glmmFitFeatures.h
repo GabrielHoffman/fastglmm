@@ -119,7 +119,7 @@ glmmFitFeatures<T1, T2, T3>::eval( const T2 &X_add_,
       // for speed, need to save Y, X, scaled by U and s
       fastglmm fit = fastglmm(y, X_combined, dcmp, weights, offset, family, md, tol, tol_eta, maxit, lambda);
 
-      result.at(j) = fit.get_result();
+      result.at(j) = fit.get_result(true);
       result.at(j).ID = ids[j];
     }
   }); });
