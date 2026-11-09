@@ -168,7 +168,7 @@ void Satterthwaite<T>::compute_hessian(
   // B <- sum(1/(s + delta)^2) + (n-r)/delta^2
   double b = accu(1/pow(s + delta,2)) + (n-r)/pow(delta, 2);
 
-  double fe = 0;
+  double fe = 0.0;
   if( REML ){
     // adjust a and b is REML is used
     mat tmp = solve(QXX, Gamma_XX);
@@ -184,6 +184,12 @@ void Satterthwaite<T>::compute_hessian(
 
   // H[1,1] <- (n - 2*delta*a + delta^2*b) / (2*sigSq_g^2)
   H(0,0) = (n - fe - 2*delta*a + pow(delta,2)*b) / (2*pow(sigSq_g,2));
+
+  // in the rare case that H(0,0) is negative, drop fe
+  // avoids issue with negative ddf
+  if( H(0,0) < 0 ){
+    H(0,0) = (n - 2*delta*a + pow(delta,2)*b) / (2*pow(sigSq_g,2));
+  }
 
   // H[1,2] <- H[2,1] <- (a - delta*b) / (2*sigSq_g^2)
   H(0,1) = (a - delta*b) / (2*pow(sigSq_g,2));
