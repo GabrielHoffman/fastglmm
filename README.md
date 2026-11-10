@@ -48,7 +48,6 @@ data(sleepstudy, package="lme4")
 
 fit <- fastlmm(Reaction ~ Days + (1 | Subject), sleepstudy)
 
-summary(fit)
 fit
 #> 
 #> Call:
