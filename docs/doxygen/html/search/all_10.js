@@ -1,7 +1,7 @@
 var searchData=
 [
   ['s_0',['s',['../classfastglmm_lib_1_1_model_fit_l_m_m.html#a4223e26b226fe20ac4c42b744ecbb2fe',1,'fastglmmLib::ModelFitLMM::s'],['../classfastglmm_lib_1_1spectral_decomp.html#ab73460eee8c4932254dc82c56e674dcf',1,'fastglmmLib::spectralDecomp::s']]],
-  ['satterthwaite_1',['Satterthwaite',['../classfastglmm_lib_1_1_satterthwaite.html',1,'fastglmmLib::Satterthwaite&lt; T &gt;'],['../classfastglmm_lib_1_1_satterthwaite.html#ab54f1de64a038cc3fdcd95d4fb504831',1,'fastglmmLib::Satterthwaite::Satterthwaite()']]],
+  ['satterthwaite_1',['Satterthwaite',['../classfastglmm_lib_1_1_satterthwaite.html',1,'fastglmmLib::Satterthwaite&lt; T &gt;'],['../classfastglmm_lib_1_1_satterthwaite.html#a16564e9ee0db55a661fea4d151090499',1,'fastglmmLib::Satterthwaite::Satterthwaite()']]],
   ['satterthwaite_2eh_2',['satterthwaite.h',['../satterthwaite_8h.html',1,'']]],
   ['scaleeachcol_3',['scaleEachCol',['../misc_8h.html#a0045cd455dd233e9e16362f826b46bfb',1,'scaleEachCol(const mat &amp;X, const vec &amp;w):&#160;misc.h'],['../misc_8h.html#a22e1b21e8ed9c35826aee032cf93ad89',1,'scaleEachCol(const sp_mat &amp;X, const vec &amp;w):&#160;misc.h']]],
   ['scaleeachrow_4',['scaleEachRow',['../misc_8h.html#a613b4d5d3153ad82d4e3beed8060d305',1,'scaleEachRow(const mat &amp;X, const vec &amp;w):&#160;misc.h'],['../misc_8h.html#a3d7decd57c293381f38da94eb00331aa',1,'scaleEachRow(const sp_mat &amp;X, const vec &amp;w):&#160;misc.h']]],

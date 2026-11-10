@@ -222,7 +222,7 @@ fastglmm<T1, T2, T3>::fastglmm(
 		// it can't be fit
 		// so set beta values to nan 
 		// and set isValid to false
-		if( work->z.has_nan() || work->w.has_nan() ){
+		if( work->z.has_nan() || work->w.has_nan() || niter_pql== _maxit - 1 ){
 			fit.set_model_failure();
 			isValid = false;
 			break;

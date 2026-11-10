@@ -13,7 +13,7 @@ var searchData=
   ['get_5floglik_10',['get_logLik',['../classfastglmm_lib_1_1fastlmm.html#a3b9d92689eba8306d5e97128e1906929',1,'fastglmmLib::fastlmm']]],
   ['get_5fr_11',['get_r',['../classfastglmm_lib_1_1fastlmm.html#a2f08b099171035fb2eb465a11304a6d3',1,'fastglmmLib::fastlmm']]],
   ['get_5frdf_12',['get_rdf',['../classfastglmm_lib_1_1fastlmm.html#ab22d95e858180e69c5a9edc55f803429',1,'fastglmmLib::fastlmm']]],
-  ['get_5fresult_13',['get_result',['../classfastglmm_lib_1_1fastglmm.html#a3cfc852df4bdf93a5805e0b0c7466209',1,'fastglmmLib::fastglmm::get_result()'],['../classfastglmm_lib_1_1fastlmm.html#aa88244198dd312f89eba93aed5ad95aa',1,'fastglmmLib::fastlmm::get_result(const bool &amp;returnUS=false)']]],
+  ['get_5fresult_13',['get_result',['../classfastglmm_lib_1_1fastglmm.html#a3cfc852df4bdf93a5805e0b0c7466209',1,'fastglmmLib::fastglmm::get_result()'],['../classfastglmm_lib_1_1fastlmm.html#abbc0b9cd2742e8aab185e469c8dff81e',1,'fastglmmLib::fastlmm::get_result(const bool &amp;isGLMM=false, const bool &amp;returnUS=false)']]],
   ['get_5fru_14',['get_ru',['../classfastglmm_lib_1_1fastlmm.html#ab26c9aa794c307fdfb5368871a9a3f86',1,'fastglmmLib::fastlmm']]],
   ['get_5fs_15',['get_s',['../classfastglmm_lib_1_1spectral_decomp.html#aa711e4e643496c31fb3678303c5817b0',1,'fastglmmLib::spectralDecomp']]],
   ['get_5fsigsq_5fe_16',['get_sigSq_e',['../classfastglmm_lib_1_1fastlmm.html#aa04b4ed744c1c4a8883b67f102199115',1,'fastglmmLib::fastlmm']]],

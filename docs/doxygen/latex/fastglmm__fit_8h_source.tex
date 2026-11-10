@@ -226,7 +226,7 @@
 \DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ it\ can't\ be\ fit}}
 \DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ so\ set\ beta\ values\ to\ nan\ }}
 \DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ and\ set\ isValid\ to\ false}}
-\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ad2cd7f50570a2734edae6e0986db3b07}{z}}.has\_nan()\ ||\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}}.has\_nan()\ )\{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_ad2cd7f50570a2734edae6e0986db3b07}{z}}.has\_nan()\ ||\ work-\/>\doxymbox{\hyperlink{structfastglmm_lib_1_1_g_l_m_work_a66a863917e6a06b7162fd7da37e5049f}{w}}.has\_nan()\ ||\ niter\_pql==\ \_maxit\ -\/\ 1\ )\{}
 \DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ fit.set\_model\_failure();}
 \DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ isValid\ =\ \textcolor{keyword}{false};}
 \DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
@@ -346,7 +346,7 @@
 \DoxyCodeLine{00342\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1,\ \textcolor{keyword}{typename}\ T2,\ \textcolor{keyword}{typename}\ T3>\ }
 \DoxyCodeLine{00343\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_g_l_m_m}{ModelFitGLMM}}\ \doxymbox{\hyperlink{classfastglmm_lib_1_1fastglmm_a3cfc852df4bdf93a5805e0b0c7466209}{fastglmm<T1,\ T2,\ T3>::get\_result}}()\{}
 \DoxyCodeLine{00344\ }
-\DoxyCodeLine{00345\ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m}{ModelFitLMM}}\ res1\ =\ fit.get\_result(returnUS);}
+\DoxyCodeLine{00345\ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m}{ModelFitLMM}}\ res1\ =\ fit.get\_result(\textcolor{keyword}{true},\ \textcolor{keyword}{true});}
 \DoxyCodeLine{00346\ \ \ \ \ res1.\doxymbox{\hyperlink{classfastglmm_lib_1_1_model_fit_l_m_m_a11b4c0d37ab16509143ff2cd5cd053e8}{set\_w\_mean}}(\ w\_mean\ );}
 \DoxyCodeLine{00347\ }
 \DoxyCodeLine{00348\ \ \ \ \ \textcolor{comment}{//\ if\ model\ is\ not\ valid,\ it\ failed\ before\ final\ calculations}}

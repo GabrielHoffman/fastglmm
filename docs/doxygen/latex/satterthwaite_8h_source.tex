@@ -28,10 +28,10 @@
 \DoxyCodeLine{00024\ \textcolor{comment}{//\ denominator\ degrees\ of\ freedom\ using\ Satterthwaite\ method}}
 \DoxyCodeLine{00025\ \textcolor{comment}{//\ For\ math,\ see\ https://chatgpt.com/share/698f66b1-\/88b0-\/800b-\/9001-\/e28f444f6015\ \ }}
 \DoxyCodeLine{00026\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_ab54f1de64a038cc3fdcd95d4fb504831}{Satterthwaite}}\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_a16564e9ee0db55a661fea4d151090499}{Satterthwaite}}\ \{}
 \DoxyCodeLine{00028\ \ \ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//\ constructor}}
-\DoxyCodeLine{00030\ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_ab54f1de64a038cc3fdcd95d4fb504831}{Satterthwaite}}(\ }
+\DoxyCodeLine{00030\ \ \ \ \ \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_a16564e9ee0db55a661fea4d151090499}{Satterthwaite}}(\ }
 \DoxyCodeLine{00031\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&n,\ }
 \DoxyCodeLine{00032\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&sigSq\_g,}
 \DoxyCodeLine{00033\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&sigSq\_e,}
@@ -41,195 +41,209 @@
 \DoxyCodeLine{00037\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&inv\_s\_delta,}
 \DoxyCodeLine{00038\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&inv\_s\_delta\_Xu,\ }
 \DoxyCodeLine{00039\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&QXX,}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&REML);}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00044\ \ \ \ \ vec\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_ae12fbd95f38999afa2d888917f32e904}{get\_ddf}}(\ \ \ \ \ \ }
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&V,}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&L)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00047\ \ }
-\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{const}\ mat\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_a682700f140aa851e12d132ca97e91bbe}{get\_hessian}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ H;\}}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{const}\ mat\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_a70655acb0bc307fb27f86df2e3a5218a}{get\_A}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ A;\}}
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{const}\ mat\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_a76d4e60b13529a954b85d37dd093c6c2}{get\_B}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ B;\}}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{/*\ Hessian\ of\ sigma\string^2\_g,\ sigma\string^2\_e}}
-\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ \ */}}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ compute\_hessian(}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&QXX,}
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&Gamma\_XX,\ }
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&s);}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{/*\ Precompute\ value\ for\ gradient}}
-\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ \ */}}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ prep\_gradient(}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&s,\ }
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \textcolor{keyword}{const}\ T\ \&Xu,\ }
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&inv\_s\_delta,}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&inv\_s\_delta\_Xu,}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&Gamma\_XX);}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00073\ \ \ \ \ vec\ get\_gradient(\ }
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&L)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{int}\ n;}
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{double}\ sigSq\_g,\ sigSq\_e,\ delta;}
-\DoxyCodeLine{00078\ \ \ \ \ mat\ A,\ B,\ H;}
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{bool}\ REML;}
-\DoxyCodeLine{00080\ \};}
-\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&REML,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&isGLMM);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00045\ \ \ \ \ vec\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_ae12fbd95f38999afa2d888917f32e904}{get\_ddf}}(\ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&V,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&L)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00048\ \ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{const}\ mat\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_a682700f140aa851e12d132ca97e91bbe}{get\_hessian}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ H;\}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{const}\ mat\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_a70655acb0bc307fb27f86df2e3a5218a}{get\_A}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ A;\}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{const}\ mat\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_a76d4e60b13529a954b85d37dd093c6c2}{get\_B}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ B;\}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{/*\ Hessian\ of\ sigma\string^2\_g,\ sigma\string^2\_e}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ compute\_hessian(}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&QXX,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&Gamma\_XX,\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&s);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{/*\ Precompute\ value\ for\ gradient}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ prep\_gradient(}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&s,\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \textcolor{keyword}{const}\ T\ \&Xu,\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \textcolor{keyword}{const}\ vec\ \&inv\_s\_delta,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&inv\_s\_delta\_Xu,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&Gamma\_XX);}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00074\ \ \ \ \ vec\ get\_gradient(\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \textcolor{keyword}{const}\ mat\ \&L)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{int}\ n;}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{double}\ sigSq\_g,\ sigSq\_e,\ delta;}
+\DoxyCodeLine{00079\ \ \ \ \ mat\ A,\ B,\ H;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{bool}\ REML,\ isGLMM;}
+\DoxyCodeLine{00081\ \};}
 \DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \textcolor{comment}{//\ constructor}}
-\DoxyCodeLine{00084\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00085\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_ab54f1de64a038cc3fdcd95d4fb504831}{Satterthwaite<T>::Satterthwaite}}(\ }
-\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&n,\ }
-\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&sigSq\_g,}
-\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&sigSq\_e,\ \ \ \ }
-\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{const}\ vec\ \&s,\ }
-\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{const}\ T\ \&Xu,\ }
-\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{const}\ mat\ \&Gamma\_XX,\ }
-\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{const}\ vec\ \&inv\_s\_delta,}
-\DoxyCodeLine{00093\ \ \ \textcolor{keyword}{const}\ mat\ \&inv\_s\_delta\_Xu,\ }
-\DoxyCodeLine{00094\ \ \ \textcolor{keyword}{const}\ mat\ \&QXX,}
-\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&REML):}
-\DoxyCodeLine{00096\ \ \ n(n),}
-\DoxyCodeLine{00097\ \ \ sigSq\_g(sigSq\_g),}
-\DoxyCodeLine{00098\ \ \ sigSq\_e(sigSq\_e),}
-\DoxyCodeLine{00099\ \ \ delta(sigSq\_e/sigSq\_g),}
-\DoxyCodeLine{00100\ \ \ REML(REML)\{}
-\DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \ \ compute\_hessian(QXX,\ Gamma\_XX,\ s);}
-\DoxyCodeLine{00103\ \ \ prep\_gradient(s,\ Xu,\ inv\_s\_delta,\ inv\_s\_delta\_Xu,\ Gamma\_XX);}
-\DoxyCodeLine{00104\ \}}
-\DoxyCodeLine{00105\ }
-\DoxyCodeLine{00106\ }
-\DoxyCodeLine{00107\ \textcolor{comment}{//\ denominator\ degrees\ of\ freedom\ using\ Satterthwaite\ method\ }}
-\DoxyCodeLine{00108\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00109\ vec\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_ae12fbd95f38999afa2d888917f32e904}{Satterthwaite<T>::get\_ddf}}(\ \textcolor{keyword}{const}\ mat\ \&V,\ \textcolor{keyword}{const}\ mat\ \&L)\textcolor{keyword}{\ const}\{}
-\DoxyCodeLine{00110\ }
-\DoxyCodeLine{00111\ \ \ mat\ H\_inv\ =\ inv(H);}
-\DoxyCodeLine{00112\ \ \ mat\ g\ =\ get\_gradient(L);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ constructor}}
+\DoxyCodeLine{00085\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00086\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_a16564e9ee0db55a661fea4d151090499}{Satterthwaite<T>::Satterthwaite}}(\ }
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&n,\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&sigSq\_g,}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&sigSq\_e,\ \ \ \ }
+\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{const}\ vec\ \&s,\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{const}\ T\ \&Xu,\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{const}\ mat\ \&Gamma\_XX,\ }
+\DoxyCodeLine{00093\ \ \ \textcolor{keyword}{const}\ vec\ \&inv\_s\_delta,}
+\DoxyCodeLine{00094\ \ \ \textcolor{keyword}{const}\ mat\ \&inv\_s\_delta\_Xu,\ }
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{const}\ mat\ \&QXX,}
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&REML,}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&isGLMM):}
+\DoxyCodeLine{00098\ \ \ n(n),}
+\DoxyCodeLine{00099\ \ \ sigSq\_g(sigSq\_g),}
+\DoxyCodeLine{00100\ \ \ sigSq\_e(sigSq\_e),}
+\DoxyCodeLine{00101\ \ \ delta(sigSq\_e/sigSq\_g),}
+\DoxyCodeLine{00102\ \ \ REML(REML),}
+\DoxyCodeLine{00103\ \ \ isGLMM(isGLMM)\{}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ compute\_hessian(QXX,\ Gamma\_XX,\ s);}
+\DoxyCodeLine{00106\ \ \ prep\_gradient(s,\ Xu,\ inv\_s\_delta,\ inv\_s\_delta\_Xu,\ Gamma\_XX);}
+\DoxyCodeLine{00107\ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{comment}{//\ denominator\ degrees\ of\ freedom\ using\ Satterthwaite\ method\ }}
+\DoxyCodeLine{00111\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00112\ vec\ \doxymbox{\hyperlink{classfastglmm_lib_1_1_satterthwaite_ae12fbd95f38999afa2d888917f32e904}{Satterthwaite<T>::get\_ddf}}(\ \textcolor{keyword}{const}\ mat\ \&V,\ \textcolor{keyword}{const}\ mat\ \&L)\textcolor{keyword}{\ const}\{}
 \DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ \ \ vec\ df(L.n\_rows);}
-\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{double}\ var\_Lbeta,\ v\_numerator,\ v\_denom;}
+\DoxyCodeLine{00114\ \ \ mat\ H\_inv\ =\ inv(H);}
+\DoxyCodeLine{00115\ \ \ mat\ g\ =\ get\_gradient(L);}
 \DoxyCodeLine{00116\ }
-\DoxyCodeLine{00117\ \ \ \textcolor{comment}{//\ for\ each\ contrast\ (i.e.\ row)}}
-\DoxyCodeLine{00118\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<L.n\_rows;\ i++)\{}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{comment}{//\ var\_Lbeta\ <-\/\ crossprod(L[i,],\ vcov(fit))\ \%*\%\ L[i,]}}
-\DoxyCodeLine{00120\ \ \ \ \ var\_Lbeta\ =\ as\_scalar(L.row(i).t()\ *\ V\ *\ L.row(i));}
-\DoxyCodeLine{00121\ \ \ \ \ v\_numerator\ =\ 2\ *\ pow(var\_Lbeta,\ 2);}
-\DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ \ \ \textcolor{comment}{//\ v\_denom\ <-\/\ crossprod(g[[i]],\ A)\ \%*\%\ g[[i]]}}
-\DoxyCodeLine{00124\ \ \ \ \ v\_denom\ =\ as\_scalar(g.row(i).t()\ *\ H\_inv\ *\ g.row(i));}
+\DoxyCodeLine{00117\ \ \ vec\ df(L.n\_rows);}
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordtype}{double}\ var\_Lbeta,\ v\_numerator,\ v\_denom;}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \textcolor{comment}{//\ for\ each\ contrast\ (i.e.\ row)}}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<L.n\_rows;\ i++)\{}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{comment}{//\ var\_Lbeta\ <-\/\ crossprod(L[i,],\ vcov(fit))\ \%*\%\ L[i,]}}
+\DoxyCodeLine{00123\ \ \ \ \ var\_Lbeta\ =\ as\_scalar(L.row(i).t()\ *\ V\ *\ L.row(i));}
+\DoxyCodeLine{00124\ \ \ \ \ v\_numerator\ =\ 2\ *\ pow(var\_Lbeta,\ 2);}
 \DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ \ \ \ \ df(i)\ =\ v\_numerator\ /\ v\_denom;}
-\DoxyCodeLine{00127\ \ \ \}}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{comment}{//\ v\_denom\ <-\/\ crossprod(g[[i]],\ A)\ \%*\%\ g[[i]]}}
+\DoxyCodeLine{00127\ \ \ \ \ v\_denom\ =\ as\_scalar(g.row(i).t()\ *\ H\_inv\ *\ g.row(i));}
 \DoxyCodeLine{00128\ }
-\DoxyCodeLine{00129\ \ \ \textcolor{keywordflow}{return}\ df;}
-\DoxyCodeLine{00130\ \}}
+\DoxyCodeLine{00129\ \ \ \ \ df(i)\ =\ v\_numerator\ /\ v\_denom;}
+\DoxyCodeLine{00130\ \ \ \}}
 \DoxyCodeLine{00131\ }
-\DoxyCodeLine{00132\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00133\ vec\ Satterthwaite<T>::get\_gradient(\textcolor{keyword}{const}\ mat\ \&L)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordflow}{return}\ df;}
+\DoxyCodeLine{00133\ \}}
 \DoxyCodeLine{00134\ }
-\DoxyCodeLine{00135\ \ \ vec\ g(L.n\_rows,\ 2,\ fill::zeros);}
-\DoxyCodeLine{00136\ \ \ mat\ invAL;}
-\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{double}\ c;}
-\DoxyCodeLine{00138\ }
-\DoxyCodeLine{00139\ \ \ \textcolor{comment}{//\ for\ each\ contrast\ (i.e.\ row)}}
-\DoxyCodeLine{00140\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<L.n\_rows;\ i++)\{}
-\DoxyCodeLine{00141\ \ \ \ \ \textcolor{comment}{//\ invAL\ <-\/\ solve(A,\ L[i,])}}
-\DoxyCodeLine{00142\ \ \ \ \ invAL\ =\ solve(A,\ L.row(i));}
-\DoxyCodeLine{00143\ }
-\DoxyCodeLine{00144\ \ \ \ \ \textcolor{comment}{//\ C\ <-\/\ invAL\ \%*\%\ B\ \%*\%\ invAL}}
-\DoxyCodeLine{00145\ \ \ \ \ c\ =\ as\_scalar(invAL\ *\ B\ *\ invAL);}
+\DoxyCodeLine{00135\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00136\ vec\ Satterthwaite<T>::get\_gradient(\textcolor{keyword}{const}\ mat\ \&L)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ vec\ g(L.n\_rows,\ 2,\ fill::zeros);}
+\DoxyCodeLine{00139\ \ \ mat\ invAL;}
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordtype}{double}\ c;}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \textcolor{comment}{//\ for\ each\ contrast\ (i.e.\ row)}}
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<L.n\_rows;\ i++)\{}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{comment}{//\ invAL\ <-\/\ solve(A,\ L[i,])}}
+\DoxyCodeLine{00145\ \ \ \ \ invAL\ =\ solve(A,\ L.row(i));}
 \DoxyCodeLine{00146\ }
-\DoxyCodeLine{00147\ \ \ \ \ \textcolor{comment}{//\ crossprod(L[i,],\ invAL)\ -\/\ fit\$delta*C}}
-\DoxyCodeLine{00148\ \ \ \ \ g(i,0)\ =\ as\_scalar(L.row(i).t()\ *\ invAL\ -\/\ delta*c);}
-\DoxyCodeLine{00149\ \ \ \ \ g(i,1)\ =\ c;}
-\DoxyCodeLine{00150\ \ \ \}}
-\DoxyCodeLine{00151\ }
-\DoxyCodeLine{00152\ \ \ \textcolor{keywordflow}{return}\ g;}
-\DoxyCodeLine{00153\ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{comment}{//\ C\ <-\/\ invAL\ \%*\%\ B\ \%*\%\ invAL}}
+\DoxyCodeLine{00148\ \ \ \ \ c\ =\ as\_scalar(invAL\ *\ B\ *\ invAL);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{comment}{//\ crossprod(L[i,],\ invAL)\ -\/\ fit\$delta*C}}
+\DoxyCodeLine{00151\ \ \ \ \ g(i,0)\ =\ as\_scalar(L.row(i).t()\ *\ invAL\ -\/\ delta*c);}
+\DoxyCodeLine{00152\ \ \ \ \ g(i,1)\ =\ c;}
+\DoxyCodeLine{00153\ \ \ \}}
 \DoxyCodeLine{00154\ }
-\DoxyCodeLine{00155\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00156\ \textcolor{keywordtype}{void}\ Satterthwaite<T>::compute\_hessian(}
-\DoxyCodeLine{00157\ \ \ \textcolor{keyword}{const}\ mat\ \&QXX,}
-\DoxyCodeLine{00158\ \ \ \textcolor{keyword}{const}\ mat\ \&Gamma\_XX,\ }
-\DoxyCodeLine{00159\ \ \ \textcolor{keyword}{const}\ vec\ \&s)\{}
-\DoxyCodeLine{00160\ }
-\DoxyCodeLine{00161\ \ \ \textcolor{comment}{//\ n\ <-\/\ length(fit\$y)}}
-\DoxyCodeLine{00162\ \ \ \textcolor{comment}{//\ r\ <-\/\ length(s)}}
-\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{double}\ r\ =\ s.n\_elem;}
-\DoxyCodeLine{00164\ }
-\DoxyCodeLine{00165\ \ \ \textcolor{comment}{//\ A\ <-\/\ sum(1/(s\ +\ delta))\ +\ (n-\/r)/delta}}
-\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{double}\ a\ =\ accu(1/(s\ +\ delta))\ +\ (n-\/r)/delta;}
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordflow}{return}\ g;}
+\DoxyCodeLine{00156\ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00159\ \textcolor{keywordtype}{void}\ Satterthwaite<T>::compute\_hessian(}
+\DoxyCodeLine{00160\ \ \ \textcolor{keyword}{const}\ mat\ \&QXX,}
+\DoxyCodeLine{00161\ \ \ \textcolor{keyword}{const}\ mat\ \&Gamma\_XX,\ }
+\DoxyCodeLine{00162\ \ \ \textcolor{keyword}{const}\ vec\ \&s)\{}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \textcolor{comment}{//\ n\ <-\/\ length(fit\$y)}}
+\DoxyCodeLine{00165\ \ \ \textcolor{comment}{//\ r\ <-\/\ length(s)}}
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{double}\ r\ =\ s.n\_elem;}
 \DoxyCodeLine{00167\ }
-\DoxyCodeLine{00168\ \ \ \textcolor{comment}{//\ B\ <-\/\ sum(1/(s\ +\ delta)\string^2)\ +\ (n-\/r)/delta\string^2}}
-\DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{double}\ b\ =\ accu(1/pow(s\ +\ delta,2))\ +\ (n-\/r)/pow(delta,\ 2);}
+\DoxyCodeLine{00168\ \ \ \textcolor{comment}{//\ A\ <-\/\ sum(1/(s\ +\ delta))\ +\ (n-\/r)/delta}}
+\DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{double}\ a\ =\ accu(1/(s\ +\ delta))\ +\ (n-\/r)/delta;}
 \DoxyCodeLine{00170\ }
-\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{double}\ fe\ =\ 0.0;}
-\DoxyCodeLine{00172\ \ \ \textcolor{keywordflow}{if}(\ REML\ )\{}
-\DoxyCodeLine{00173\ \ \ \ \ \textcolor{comment}{//\ adjust\ a\ and\ b\ is\ REML\ is\ used}}
-\DoxyCodeLine{00174\ \ \ \ \ mat\ tmp\ =\ solve(QXX,\ Gamma\_XX);}
-\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{double}\ t\ =\ trace(tmp);}
-\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{double}\ u\ =\ trace(tmp*tmp);}
-\DoxyCodeLine{00177\ }
-\DoxyCodeLine{00178\ \ \ \ \ a\ =\ a\ -\/\ t/pow(delta,\ 2);}
-\DoxyCodeLine{00179\ \ \ \ \ b\ =\ b\ -\/\ 2*t/pow(delta,\ 3)\ +\ u/pow(delta,\ 4);}
-\DoxyCodeLine{00180\ \ \ \ \ fe\ =\ Gamma\_XX.n\_cols;}
-\DoxyCodeLine{00181\ \ \ \}}
-\DoxyCodeLine{00182\ }
-\DoxyCodeLine{00183\ \ \ H\ =\ mat(2,2,\ fill::zeros);}
-\DoxyCodeLine{00184\ }
-\DoxyCodeLine{00185\ \ \ \textcolor{comment}{//\ H[1,1]\ <-\/\ (n\ -\/\ 2*delta*a\ +\ delta\string^2*b)\ /\ (2*sigSq\_g\string^2)}}
-\DoxyCodeLine{00186\ \ \ H(0,0)\ =\ (n\ -\/\ fe\ -\/\ 2*delta*a\ +\ pow(delta,2)*b)\ /\ (2*pow(sigSq\_g,2));}
-\DoxyCodeLine{00187\ }
-\DoxyCodeLine{00188\ \ \ \textcolor{comment}{//\ in\ the\ rare\ case\ that\ H(0,0)\ is\ negative,\ drop\ fe}}
-\DoxyCodeLine{00189\ \ \ \textcolor{comment}{//\ avoids\ issue\ with\ negative\ ddf}}
-\DoxyCodeLine{00190\ \ \ \textcolor{keywordflow}{if}(\ H(0,0)\ <\ 0\ )\{}
-\DoxyCodeLine{00191\ \ \ \ \ H(0,0)\ =\ (n\ -\/\ 2*delta*a\ +\ pow(delta,2)*b)\ /\ (2*pow(sigSq\_g,2));}
+\DoxyCodeLine{00171\ \ \ \textcolor{comment}{//\ B\ <-\/\ sum(1/(s\ +\ delta)\string^2)\ +\ (n-\/r)/delta\string^2}}
+\DoxyCodeLine{00172\ \ \ \textcolor{keywordtype}{double}\ b\ =\ accu(1/pow(s\ +\ delta,2))\ +\ (n-\/r)/pow(delta,\ 2);}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \textcolor{comment}{//\ Rcpp::Rcout\ <<\ "{}a:\ "{}\ <<\ a\ <<\ endl;}}
+\DoxyCodeLine{00175\ \ \ \textcolor{comment}{//\ Rcpp::Rcout\ <<\ "{}b:\ "{}\ <<\ b\ <<\ endl;}}
+\DoxyCodeLine{00176\ \ \ \textcolor{comment}{//\ Rcpp::Rcout\ <<\ "{}delta:\ "{}\ <<\ delta\ <<\ endl;}}
+\DoxyCodeLine{00177\ \ \ \textcolor{comment}{//\ Rcpp::Rcout\ <<\ "{}n:\ "{}\ <<\ n\ <<\ endl;}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordtype}{double}\ fe\ =\ 0.0;}
+\DoxyCodeLine{00180\ \ \ \textcolor{keywordflow}{if}(\ REML\ )\{}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{comment}{//\ adjust\ a\ and\ b\ is\ REML\ is\ used}}
+\DoxyCodeLine{00182\ \ \ \ \ mat\ tmp\ =\ solve(QXX,\ Gamma\_XX);}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordtype}{double}\ t\ =\ trace(tmp);}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordtype}{double}\ u\ =\ trace(tmp*tmp);}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ a\ =\ a\ -\/\ t/pow(delta,\ 2);}
+\DoxyCodeLine{00187\ \ \ \ \ b\ =\ b\ -\/\ 2*t/pow(delta,\ 3)\ +\ u/pow(delta,\ 4);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{if}(\ !\ isGLMM\ )\{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ fe\ =\ Gamma\_XX.n\_cols;}
+\DoxyCodeLine{00191\ \ \ \ \ \}}
 \DoxyCodeLine{00192\ \ \ \}}
 \DoxyCodeLine{00193\ }
-\DoxyCodeLine{00194\ \ \ \textcolor{comment}{//\ H[1,2]\ <-\/\ H[2,1]\ <-\/\ (a\ -\/\ delta*b)\ /\ (2*sigSq\_g\string^2)}}
-\DoxyCodeLine{00195\ \ \ H(0,1)\ =\ (a\ -\/\ delta*b)\ /\ (2*pow(sigSq\_g,2));}
-\DoxyCodeLine{00196\ \ \ H(1,0)\ =\ H(0,1);}
-\DoxyCodeLine{00197\ }
-\DoxyCodeLine{00198\ \ \ \textcolor{comment}{//\ H[2,2]\ <-\/\ b\ /\ (2*sigSq\_g\string^2)}}
-\DoxyCodeLine{00199\ \ \ H(1,1)\ =\ b\ /\ (2*pow(sigSq\_g,2));}
-\DoxyCodeLine{00200\ \}}
+\DoxyCodeLine{00194\ \ \ \textcolor{comment}{//\ Rcpp::Rcout\ <<\ "{}a*:\ "{}\ <<\ a\ <<\ endl;}}
+\DoxyCodeLine{00195\ \ \ \textcolor{comment}{//\ Rcpp::Rcout\ <<\ "{}b*:\ "{}\ <<\ b\ <<\ endl;}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ H\ =\ mat(2,2,\ fill::zeros);}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \textcolor{comment}{//\ H[1,1]\ <-\/\ (n\ -\/\ 2*delta*a\ +\ delta\string^2*b)\ /\ (2*sigSq\_g\string^2)}}
+\DoxyCodeLine{00200\ \ \ H(0,0)\ =\ (n\ -\/\ fe\ -\/\ 2*delta*a\ +\ pow(delta,2)*b)\ /\ (2*pow(sigSq\_g,2));}
 \DoxyCodeLine{00201\ }
-\DoxyCodeLine{00202\ }
-\DoxyCodeLine{00203\ }
-\DoxyCodeLine{00204\ \textcolor{comment}{//\ gradient\ of\ variance\ for\ Satterthwaite\ method}}
-\DoxyCodeLine{00205\ }
-\DoxyCodeLine{00206\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
-\DoxyCodeLine{00207\ \textcolor{keywordtype}{void}\ Satterthwaite<T>::prep\_gradient(}
-\DoxyCodeLine{00208\ \ \ \textcolor{keyword}{const}\ vec\ \&s,\ }
-\DoxyCodeLine{00209\ \ \ \textcolor{keyword}{const}\ T\ \&Xu,\ }
-\DoxyCodeLine{00210\ \ \ \textcolor{keyword}{const}\ vec\ \&inv\_s\_delta,}
-\DoxyCodeLine{00211\ \ \ \textcolor{keyword}{const}\ mat\ \&inv\_s\_delta\_Xu,}
-\DoxyCodeLine{00212\ \ \ \textcolor{keyword}{const}\ mat\ \&Gamma\_XX)\ \{}
-\DoxyCodeLine{00213\ }
-\DoxyCodeLine{00214\ \ \ \textcolor{comment}{//\ Xu\ <-\/\ crossprod(fit\$U,\ fit\$design)}}
-\DoxyCodeLine{00215\ \ \ \textcolor{comment}{//\ Gamma\_XX\ <-\/\ crossprod(X)\ -\/\ crossprod(Xu)}}
-\DoxyCodeLine{00216\ \ \ \textcolor{comment}{//\ inv\_s\_delta\ <-\/\ 1\ /\ (fit\$s\ +\ fit\$delta)}}
-\DoxyCodeLine{00217\ \ \ \textcolor{comment}{//\ inv\_s\_delta\_Xu\ <-\/\ inv\_s\_delta\ *\ Xu}}
-\DoxyCodeLine{00218\ }
-\DoxyCodeLine{00219\ \ \ \textcolor{comment}{//\ A\ <-\/\ crossprod(Xu,\ inv\_s\_delta\_Xu)\ +\ Gamma\_XX\ /\ fit\$delta}}
-\DoxyCodeLine{00220\ \ \ \textcolor{comment}{//\ inv\_s\_delta\_Xu\ =\ scaleEachCol(Xu,\ inv\_s\_delta);}}
-\DoxyCodeLine{00221\ \ \ A\ =\ Xu.t()\ *\ inv\_s\_delta\_Xu\ +\ Gamma\_XX\ /\ delta;}
-\DoxyCodeLine{00222\ }
-\DoxyCodeLine{00223\ \ \ \textcolor{comment}{//\ inv\_s\_delta\_Xu\ <-\/\ inv\_s\_delta\string^2\ *\ Xu}}
-\DoxyCodeLine{00224\ \ \ \textcolor{comment}{//\ B\ <-\/\ crossprod(Xu,\ inv\_s\_delta\_Xu)\ +\ Gamma\_XX\ /\ fit\$delta\string^2}}
-\DoxyCodeLine{00225\ \ \ B\ =\ Xu.t()\ *\ \doxymbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(Xu,\ pow(inv\_s\_delta,2))\ +\ Gamma\_XX\ /\ pow(delta,\ 2);}
-\DoxyCodeLine{00226\ \}}
+\DoxyCodeLine{00202\ \ \ \textcolor{comment}{//\ in\ the\ rare\ case\ that\ H(0,0)\ is\ negative,\ drop\ fe}}
+\DoxyCodeLine{00203\ \ \ \textcolor{comment}{//\ avoids\ issue\ with\ negative\ ddf}}
+\DoxyCodeLine{00204\ \ \ \textcolor{keywordflow}{if}(\ H(0,0)\ <\ 0\ )\{}
+\DoxyCodeLine{00205\ \ \ \ \ H(0,0)\ =\ (n\ -\/\ 2*delta*a\ +\ pow(delta,2)*b)\ /\ (2*pow(sigSq\_g,2));}
+\DoxyCodeLine{00206\ \ \ \}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \textcolor{comment}{//\ H[1,2]\ <-\/\ H[2,1]\ <-\/\ (a\ -\/\ delta*b)\ /\ (2*sigSq\_g\string^2)}}
+\DoxyCodeLine{00209\ \ \ H(0,1)\ =\ (a\ -\/\ delta*b)\ /\ (2*pow(sigSq\_g,2));}
+\DoxyCodeLine{00210\ \ \ H(1,0)\ =\ H(0,1);}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \textcolor{comment}{//\ H[2,2]\ <-\/\ b\ /\ (2*sigSq\_g\string^2)}}
+\DoxyCodeLine{00213\ \ \ H(1,1)\ =\ b\ /\ (2*pow(sigSq\_g,2));}
+\DoxyCodeLine{00214\ \}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{comment}{//\ gradient\ of\ variance\ for\ Satterthwaite\ method}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00221\ \textcolor{keywordtype}{void}\ Satterthwaite<T>::prep\_gradient(}
+\DoxyCodeLine{00222\ \ \ \textcolor{keyword}{const}\ vec\ \&s,\ }
+\DoxyCodeLine{00223\ \ \ \textcolor{keyword}{const}\ T\ \&Xu,\ }
+\DoxyCodeLine{00224\ \ \ \textcolor{keyword}{const}\ vec\ \&inv\_s\_delta,}
+\DoxyCodeLine{00225\ \ \ \textcolor{keyword}{const}\ mat\ \&inv\_s\_delta\_Xu,}
+\DoxyCodeLine{00226\ \ \ \textcolor{keyword}{const}\ mat\ \&Gamma\_XX)\ \{}
 \DoxyCodeLine{00227\ }
-\DoxyCodeLine{00228\ }
-\DoxyCodeLine{00229\ }
-\DoxyCodeLine{00230\ }
-\DoxyCodeLine{00231\ }
-\DoxyCodeLine{00232\ \}\ \textcolor{comment}{//\ end\ namespace}}
-\DoxyCodeLine{00233\ }
-\DoxyCodeLine{00234\ }
-\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00228\ \ \ \textcolor{comment}{//\ Xu\ <-\/\ crossprod(fit\$U,\ fit\$design)}}
+\DoxyCodeLine{00229\ \ \ \textcolor{comment}{//\ Gamma\_XX\ <-\/\ crossprod(X)\ -\/\ crossprod(Xu)}}
+\DoxyCodeLine{00230\ \ \ \textcolor{comment}{//\ inv\_s\_delta\ <-\/\ 1\ /\ (fit\$s\ +\ fit\$delta)}}
+\DoxyCodeLine{00231\ \ \ \textcolor{comment}{//\ inv\_s\_delta\_Xu\ <-\/\ inv\_s\_delta\ *\ Xu}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \textcolor{comment}{//\ A\ <-\/\ crossprod(Xu,\ inv\_s\_delta\_Xu)\ +\ Gamma\_XX\ /\ fit\$delta}}
+\DoxyCodeLine{00234\ \ \ \textcolor{comment}{//\ inv\_s\_delta\_Xu\ =\ scaleEachCol(Xu,\ inv\_s\_delta);}}
+\DoxyCodeLine{00235\ \ \ A\ =\ Xu.t()\ *\ inv\_s\_delta\_Xu\ +\ Gamma\_XX\ /\ delta;}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \textcolor{comment}{//\ inv\_s\_delta\_Xu\ <-\/\ inv\_s\_delta\string^2\ *\ Xu}}
+\DoxyCodeLine{00238\ \ \ \textcolor{comment}{//\ B\ <-\/\ crossprod(Xu,\ inv\_s\_delta\_Xu)\ +\ Gamma\_XX\ /\ fit\$delta\string^2}}
+\DoxyCodeLine{00239\ \ \ B\ =\ Xu.t()\ *\ \doxymbox{\hyperlink{misc_8h_a0045cd455dd233e9e16362f826b46bfb}{scaleEachCol}}(Xu,\ pow(inv\_s\_delta,2))\ +\ Gamma\_XX\ /\ pow(delta,\ 2);}
+\DoxyCodeLine{00240\ \}}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \}\ \textcolor{comment}{//\ end\ namespace}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

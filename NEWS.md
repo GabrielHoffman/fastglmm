@@ -2,7 +2,8 @@
 
 # fastglmm 0.4.24
  - Nov 9, 2026
- - fix issue with Satterthwait ddf with REML
+ - fix issue with Satterthwaite ddf with REML
+ - is model doesn't converge, set values to NaN
 
 # fastglmm 0.4.23
  - Oct 26, 2026

@@ -70,9 +70,9 @@ ddf <- function(fit, L = diag(1, length(coef(fit))) ){
     v_numerator <- 2 * var_Lbeta^2
     v_denom <- solve(hessian.vc, g) %*% g
 
-    ratio <- v_numerator / v_denom
+    ratio <- as.numeric(v_numerator / v_denom)
 
-    if( ratio < 0 ){
+    if( !is.nan(ratio) & ratio < 0 ){
       warning("ddf ratio is negative, setting to 2")
     }
     max(ratio, 2)

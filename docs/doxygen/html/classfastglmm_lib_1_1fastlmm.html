@@ -146,7 +146,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acdb213cfcedb6c81085272fe017b38c1" id="r_acdb213cfcedb6c81085272fe017b38c1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#acdb213cfcedb6c81085272fe017b38c1">fastlmm</a> (const T2 &amp;X_, const <a class="el" href="classfastglmm_lib_1_1spectral_decomp.html">spectralDecomp</a>&lt; T3 &gt; &amp;dcmp, const <a class="el" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2">ModelDetail</a> md=<a class="el" href="namespacefastglmm_lib.html#a7cbb450b70991b1d13a57f8200c131f2ae6d19239f572f83af943279205aea7a0">LOW</a>, const double &amp;lambda=0, const bool &amp;REML=true)</td></tr>
 <tr class="memitem:ada1f677dd0fcac48e0abf54450ac4178" id="r_ada1f677dd0fcac48e0abf54450ac4178"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ada1f677dd0fcac48e0abf54450ac4178">update_response</a> (const T1 &amp;Y_, const vec &amp;weights_)</td></tr>
 <tr class="memitem:aa37016ccbfeefecd0eae004ca693da99" id="r_aa37016ccbfeefecd0eae004ca693da99"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa37016ccbfeefecd0eae004ca693da99">update_response</a> (const T1 &amp;Y_, const vec &amp;weights_, const mat &amp;Yu_)</td></tr>
-<tr class="memitem:aa88244198dd312f89eba93aed5ad95aa" id="r_aa88244198dd312f89eba93aed5ad95aa"><td class="memItemLeft"><a class="el" href="classfastglmm_lib_1_1_model_fit_l_m_m.html">ModelFitLMM</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa88244198dd312f89eba93aed5ad95aa">get_result</a> (const bool &amp;returnUS=false)</td></tr>
+<tr class="memitem:abbc0b9cd2742e8aab185e469c8dff81e" id="r_abbc0b9cd2742e8aab185e469c8dff81e"><td class="memItemLeft"><a class="el" href="classfastglmm_lib_1_1_model_fit_l_m_m.html">ModelFitLMM</a>&#160;</td><td class="memItemRight"><a class="el" href="#abbc0b9cd2742e8aab185e469c8dff81e">get_result</a> (const bool &amp;isGLMM=false, const bool &amp;returnUS=false)</td></tr>
 <tr class="memitem:a3b9d92689eba8306d5e97128e1906929" id="r_a3b9d92689eba8306d5e97128e1906929"><td class="memItemLeft">const double&#160;</td><td class="memItemRight"><a class="el" href="#a3b9d92689eba8306d5e97128e1906929">get_logLik</a> () const</td></tr>
 <tr class="memitem:ac3561fe413ec9677a593dc94480f2a8a" id="r_ac3561fe413ec9677a593dc94480f2a8a"><td class="memItemLeft">const vec&#160;</td><td class="memItemRight"><a class="el" href="#ac3561fe413ec9677a593dc94480f2a8a">get_beta</a> () const</td></tr>
 <tr class="memitem:ad6af6eb7dba8df5125d6ffe91fe3bfe4" id="r_ad6af6eb7dba8df5125d6ffe91fe3bfe4"><td class="memItemLeft">const double&#160;</td><td class="memItemRight"><a class="el" href="#ad6af6eb7dba8df5125d6ffe91fe3bfe4">get_sigSq_g</a> () const</td></tr>
@@ -689,8 +689,8 @@ template&lt;typename T1, typename T2, typename T3&gt; </div>
 
 </div>
 </div>
-<a id="aa88244198dd312f89eba93aed5ad95aa" name="aa88244198dd312f89eba93aed5ad95aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa88244198dd312f89eba93aed5ad95aa">&#9670;&#160;</a></span>get_result()</h2>
+<a id="abbc0b9cd2742e8aab185e469c8dff81e" name="abbc0b9cd2742e8aab185e469c8dff81e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbc0b9cd2742e8aab185e469c8dff81e">&#9670;&#160;</a></span>get_result()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -700,8 +700,12 @@ template&lt;typename T1, typename T2, typename T3&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="classfastglmm_lib_1_1_model_fit_l_m_m.html">ModelFitLMM</a> <a class="el" href="classfastglmm_lib_1_1fastlmm.html">fastglmmLib::fastlmm</a>&lt; T1, T2, T3 &gt;::get_result </td>
           <td>(</td>
-          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>returnUS</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span></td><td>)</td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>isGLMM</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const bool &amp;</td>          <td class="paramname"><span class="paramname"><em>returnUS</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

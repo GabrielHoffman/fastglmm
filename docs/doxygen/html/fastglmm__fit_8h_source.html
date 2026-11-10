@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        <span class="comment">// it can&#39;t be fit</span></div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        <span class="comment">// so set beta values to nan </span></div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        <span class="comment">// and set isValid to false</span></div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <span class="keywordflow">if</span>( work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ad2cd7f50570a2734edae6e0986db3b07">z</a>.has_nan() || work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a>.has_nan() ){</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <span class="keywordflow">if</span>( work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#ad2cd7f50570a2734edae6e0986db3b07">z</a>.has_nan() || work-&gt;<a class="code hl_variable" href="structfastglmm_lib_1_1_g_l_m_work.html#a66a863917e6a06b7162fd7da37e5049f">w</a>.has_nan() || niter_pql== _maxit - 1 ){</div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>            fit.set_model_failure();</div>
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            isValid = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>            <span class="keywordflow">break</span>;</div>
@@ -488,7 +488,7 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div class="foldopen" id="foldopen00343" data-start="{" data-end="}">
 <div class="line"><a id="l00343" name="l00343"></a><span class="lineno"><a class="line" href="classfastglmm_lib_1_1fastglmm.html#a3cfc852df4bdf93a5805e0b0c7466209">  343</a></span><a class="code hl_class" href="classfastglmm_lib_1_1_model_fit_g_l_m_m.html">ModelFitGLMM</a> <a class="code hl_function" href="classfastglmm_lib_1_1fastglmm.html#a3cfc852df4bdf93a5805e0b0c7466209">fastglmm&lt;T1, T2, T3&gt;::get_result</a>(){</div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    <a class="code hl_class" href="classfastglmm_lib_1_1_model_fit_l_m_m.html">ModelFitLMM</a> res1 = fit.get_result(returnUS);</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    <a class="code hl_class" href="classfastglmm_lib_1_1_model_fit_l_m_m.html">ModelFitLMM</a> res1 = fit.get_result(<span class="keyword">true</span>, <span class="keyword">true</span>);</div>
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    res1.<a class="code hl_function" href="classfastglmm_lib_1_1_model_fit_l_m_m.html#a11b4c0d37ab16509143ff2cd5cd053e8">set_w_mean</a>( w_mean );</div>
 <div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span> </div>
 <div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    <span class="comment">// if model is not valid, it failed before final calculations</span></div>
