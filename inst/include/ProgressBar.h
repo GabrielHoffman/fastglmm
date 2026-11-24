@@ -13,7 +13,7 @@
 
 class ProgressBar {
   public:
-  ProgressBar(int total, std::ostream& os = std::cout, int width = 60)
+  ProgressBar(int total, std::ostream& os = std::cout, int width = 50)
       : total_(total), width_(width), os_(os),
         start_(std::chrono::steady_clock::now()) {}
 
