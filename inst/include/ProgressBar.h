@@ -53,18 +53,18 @@ class ProgressBar {
   std::chrono::steady_clock::time_point start_;
 
   static std::string fmt_time(double s) {
-      std::ostringstream ss;
-      int h   = (int)s / 3600;
-      int m   = ((int)s % 3600) / 60;
-      int sec = (int)s % 60;
-      if (h > 0)
-          ss << h << 'h' << std::setfill('0') << std::setw(2) << m
-             << 'm' << std::setw(2) << sec << 's';
-      else if (m > 0)
-          ss << m << 'm' << std::setfill('0') << std::setw(2) << sec << 's';
-      else
-          ss << std::fixed << std::setprecision(1) << s << 's';
-      return ss.str();
+    std::ostringstream ss;
+    int h   = (int)s / 3600;
+    int m   = ((int)s % 3600) / 60;
+    int sec = (int)s % 60;
+    if (h > 0)
+      ss << h << 'h' << std::setfill('0') << std::setw(2) << m
+         << 'm' << std::setw(2) << sec << 's';
+    else if (m > 0)
+      ss << m << 'm' << std::setfill('0') << std::setw(2) << sec << 's';
+    else
+      ss << (int) s << 's';
+    return ss.str();
   }
 };
 
